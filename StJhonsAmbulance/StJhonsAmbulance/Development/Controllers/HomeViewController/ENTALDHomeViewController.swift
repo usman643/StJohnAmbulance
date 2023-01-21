@@ -9,8 +9,6 @@ import UIKit
 
 class ENTALDHomeViewController: ENTALDBaseViewController {
 
-    var viewModel : ENTALDHomeViewModel!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 

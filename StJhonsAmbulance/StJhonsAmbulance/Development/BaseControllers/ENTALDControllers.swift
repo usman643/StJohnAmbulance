@@ -26,40 +26,37 @@ class ENTALDControllers {
         
     }
     
-    func setupHomeViewController(from:UIViewController?, _ dataObj:Any? = nil, _ deeplinkModel:ENTALDDeeplinkModel? = nil, callBack:ControllerCallBackCompletion?){
-        self.startFlowFromSplash(from: from, dataObj, deeplinkModel, callBack: callBack)
+    func setupHomeViewController(from:UIViewController?, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?){
+        self.startFlowFromSplash(from: from, dataObj, callBack: callBack)
     }
     
-    func startFlowFromSplash(from:UIViewController?, _ dataObj:Any? = nil, _ deeplinkModel:ENTALDDeeplinkModel? = nil, callBack:ControllerCallBackCompletion?){
+    func startFlowFromSplash(from:UIViewController?, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?){
         
-        self.showOnBoardingSreen(type: .ENTALDPRESENT_WO_ANIM, from: UIApplication.getTopViewController(), isNavigationController: true, dataObj, deeplinkModel) { dataObj, controller in
+        self.showLoginScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
             
-            self.showTabbarViewController(type: .ENTALDPUSH_WO_ANIM, from: controller, isNavigationController: true, dataObj, deeplinkModel, callBack: callBack)
+            self.showTabbarViewController(type: .ENTALDPUSH, from: UIApplication.getTopViewController(), callBack: { dataObj, controller in
+                
+            })
+            
         }
     }
     
-    func showOnBoardingSreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, _ deeplinkModel:ENTALDDeeplinkModel? = nil, callBack:ControllerCallBackCompletion?){
+    func showLoginScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = LoginVC.loadFromNib()
         
-        let vc = ENTALDOnboardingVC.loadFromNib()
-        let viewModel = ENTALDOnBoardingViewModel()
-        viewModel.callbackToController = callBack
-        viewModel.deeplinkModel = deeplinkModel
-        viewModel.screenBaseModel = dataObj
+        let nav = ENTALDBaseNavigationController(rootViewController: vc)
         
-        vc.viewModel = viewModel
-        
-        self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from, isDisplayonTop: false, completion: nil)
+        if let window = sceneDelegate?.window{
+            window.rootViewController = nav
+            window.makeKeyAndVisible()
+            window.windowLevel = .normal
+        }
     }
     
-    
-    func showTabbarViewController(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, _ deeplinkModel:ENTALDDeeplinkModel? = nil, callBack:ControllerCallBackCompletion?){
+    func showTabbarViewController(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?){
         
         let tabbar = ENTALDTabbarViewController()
-        let viewModel = ENTALDTabbarViewModel()
-        viewModel.callbackToController = callBack
-        viewModel.deeplinkModel = deeplinkModel
-        
-        tabbar.viewModel = viewModel
+        tabbar.callbackToController = callBack
         
         let nav = ENTALDBaseNavigationController(rootViewController: tabbar)
         

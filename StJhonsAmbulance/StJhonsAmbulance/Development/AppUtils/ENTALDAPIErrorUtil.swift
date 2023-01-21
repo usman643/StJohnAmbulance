@@ -65,3 +65,46 @@ extension NSError {
         return false
     }
 }
+
+
+enum ApiError: Error {
+
+    case unauthorise            //Status Code 401
+    case forbidden              //Status code 403
+    case notFound               //Status code 404
+    case conflict               //Status code 409
+    case internalServerError    //Status code 500
+    case unknownError           //Status code not known
+    case invalidJson            //if the response is not in json format
+    case requestFailed
+    var message: String {
+
+        switch self {
+        case .unauthorise: return "Your session has been expired."
+        case .internalServerError: return "Internal Server Error. Please try again later"
+        case .invalidJson: return "JSON Parsing Failure"
+        case .requestFailed: return "Request failed"
+        default: return "Sorry, something went wrong. Please try again later."
+
+        }
+    }
+
+}
+
+struct ErrorResponse {
+    
+    let error: String
+    let error_description: String
+    
+    init?(dictionary: [String:Any]) {
+        if let errorTitle = dictionary["error"] as? String,
+            let message = dictionary["error_description"] as? String{
+            self.error = errorTitle
+            self.error_description = message
+            
+        } else {
+            return nil
+        }
+        
+    }
+}

@@ -18,23 +18,17 @@ extension UIColor {
         return  lum < 0.50
     }
     
-    @nonobjc class var appThemeColor: UIColor {
-        return UIColor(named: "appTheme")!
+    @nonobjc class var themePrimary: UIColor {
+        return UIColor(named: "themePrimary")!
     }
-    @nonobjc class var appBlack: UIColor {
-        return UIColor(named: "appBlack")!
+    @nonobjc class var themeSecondry: UIColor {
+        return UIColor(named: "themeSecondry")!
     }
-    @nonobjc class var appWhite: UIColor {
-        return UIColor(named: "appWhite")!
+    @nonobjc class var themeternary: UIColor {
+        return UIColor(named: "themeternary")!
     }
-    @nonobjc class var borderGray: UIColor {
-        return UIColor(named: "borderGray")!
-    }
-    @nonobjc class var appDarkGray102: UIColor {
-        return UIColor(named: "appDarkGray102")!
-    }
-    @nonobjc class var appLightGray237: UIColor {
-        return UIColor(named: "appLightGray237")!
+    @nonobjc class var themeLight: UIColor {
+        return UIColor(named: "themeLight")!
     }
     
     class func hexString(hex:String) -> UIColor {

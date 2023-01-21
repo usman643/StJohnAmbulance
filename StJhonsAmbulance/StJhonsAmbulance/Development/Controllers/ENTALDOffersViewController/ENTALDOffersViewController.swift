@@ -9,8 +9,6 @@ import UIKit
 
 class ENTALDOffersViewController: ENTALDBaseViewController {
     
-    var viewModel : ENTALDOffersViewModel!
-
     override func viewDidLoad() {
         super.viewDidLoad()
 

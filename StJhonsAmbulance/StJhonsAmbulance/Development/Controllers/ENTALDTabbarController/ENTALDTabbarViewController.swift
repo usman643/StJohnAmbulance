@@ -7,22 +7,19 @@
 
 import UIKit
 
-final class ENTALDTabbarViewModel : ENTALDBaseViewModel {
-    
-}
-
 class ENTALDTabbarViewController: UITabBarController {
-    
-    var viewModel : ENTALDTabbarViewModel!
     
     fileprivate lazy var defaultTabBarHeight = { tabBar.frame.size.height }()
 
+    var callbackToController : ControllerCallBackCompletion?
+    var screenBaseModel: Any?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .appWhite
-        self.tabBar.tintColor = .appThemeColor
-        self.tabBar.barTintColor = .appWhite
-        UITabBar.appearance().barTintColor = .appWhite
+        view.backgroundColor = .white
+        self.tabBar.tintColor = .themePrimary
+        self.tabBar.barTintColor = .white
+        UITabBar.appearance().barTintColor = .white
         UITabBar.appearance().selectionIndicatorImage = Bundle.loadImageFromResourceAFBundlePNG(imageName: "tab_bg")
 
         self.setupTabbarshadow()
@@ -79,13 +76,11 @@ class ENTALDTabbarViewController: UITabBarController {
     private func loadTabbarControllers(){
         
         let homeVC = ENTALDHomeViewController.loadFromNib()
-        let homeVM = ENTALDHomeViewModel()
-        homeVC.viewModel = homeVM
+        
         let homeImg = "hometab".templatedImage
         
         let offersVC = ENTALDOffersViewController.loadFromNib()
-        let offersVM = ENTALDOffersViewModel()
-        offersVC.viewModel = offersVM
+        
         let offersImg = "offerstab".templatedImage
         
         viewControllers = [
