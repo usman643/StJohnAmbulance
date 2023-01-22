@@ -17,7 +17,7 @@ let IS_Branch_Event_ENABLE = false
 //callback Types
 typealias ControllerCallBackCompletion = ((_ params:Any?, _ controller:UIViewController?) -> Void)
 typealias ControllerPresentCompletion = (() -> Void)
-typealias ENTALDConfigAPICompletion = ((_ model:ENTALDAPICommonModel?, _ error:ENTALDAPIError?) -> Void)
+
 typealias ENTALDShowErrorAlertCallback = ((_ title:String?, _ message:String?, _ args:Any?) -> Void)
 typealias ENTALDVoidCompletion = (() -> Void)
 

@@ -11,9 +11,5 @@ class ENTALDDummyDataUtils {
     
     static let shared : ENTALDDummyDataUtils = ENTALDDummyDataUtils()
     
-    func getOnBoardingModel()->ENTALDAPICommonModel?{
-        return ENTALDHelperUtils.loadJsonFile(fileName: "onBoardingJson")
-    }
-    
     
 }

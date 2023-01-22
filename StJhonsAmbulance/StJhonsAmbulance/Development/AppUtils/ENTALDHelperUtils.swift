@@ -23,21 +23,6 @@ class ENTALDHelperUtils {
         return nil
     }
     
-    class func loadJsonFile(fileName : String) -> ENTALDAPICommonModel? {
-        if let filePath = Bundle.main.path(forResource: fileName, ofType: "json"){
-            do {
-                let decoder = JSONDecoder()
-                let data = try Data(contentsOf: URL(fileURLWithPath: filePath))
-                let model = try decoder.decode(ENTALDAPICommonModel.self, from: data)
-                return model
-            }catch(let error){
-                print("Json File \(fileName) not loaded beacuse of \(error.localizedDescription)")
-            }
-            
-        }
-        
-        return nil
-    }
     
     struct ScreenSize {
         static let width = UIScreen.main.bounds.size.width

@@ -9,19 +9,22 @@ import Foundation
 
 enum LoginRouter: Router {
     
-    case getPostList
+    case portalAuthentication(params:PortalAuthRequest)
     case simulate401
     
     var procedure: String { //endpoints
         switch self {
-        case .getPostList: return "posts"
+        case .portalAuthentication: return "token?p=b2c_1_ropc_auth"
         case .simulate401: return "simulate-401"
         }
     }
     
     var params: [String : Any] {
         switch self {
-        case .getPostList:
+        case .portalAuthentication(let params):
+            if let model = params.encodeModel() {
+                return model
+            }
             return [:]
         default: return [:]
         }
@@ -36,11 +39,11 @@ enum LoginRouter: Router {
     }
     
     var urlType: ENTALDBASEURLTYPE {
-        return .ENTALDBASEURLTYPE_BASEURL
+        return .PORTALAUTHENTICATE_BASEURL
     }
     
     var encoding: ENTALDEncodingType {
-        return .ENTJSONEncoding
+        return .ENTDefaultEncoding
     }
     
     

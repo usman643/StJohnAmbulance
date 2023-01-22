@@ -12,8 +12,6 @@ class ENTALDAppConfig {
 
     static let shared : ENTALDAppConfig = ENTALDAppConfig()
     
-    var configs : ENTALDConfigModel?
-    
     private init(){
         
     }

@@ -16,8 +16,7 @@ class ENTALDAPIConfig {
     
     static let shared : ENTALDAPIConfig = ENTALDAPIConfig()
     
-    var baseUrl : String?
-    var onlineOffer_Python_URL : String?
+    var portalAuthenticateBaseUrl : String?
     
     private init(){
         
@@ -39,13 +38,13 @@ class ENTALDAPIConfig {
 
 extension ENTALDAPIConfig {
     private func setDevAPIConstants(){
-        ENTALDAPIConfig.shared.baseUrl = "https://apidvb2baldpy.etenvbiz.com/api_adr/v2/"
+        ENTALDAPIConfig.shared.portalAuthenticateBaseUrl = "https://sjasandbox.b2clogin.com/sjasandbox.onmicrosoft.com/oauth2/v2.0/"
         
     }
     
     
     private func setLiveAPIConstants(){
-        ENTALDAPIConfig.shared.baseUrl = "https://apidvb2baldpy.etenvbiz.com/api_adr/v2/"
+        ENTALDAPIConfig.shared.portalAuthenticateBaseUrl = "https://sjasandbox.b2clogin.com/sjasandbox.onmicrosoft.com/oauth2/v2.0/"
         
     }
     

@@ -15,6 +15,9 @@ class ENTALDLibraryAPI {
         
     }
     
-    
+    func requestPortalAuth(params:PortalAuthRequest, _ completion:@escaping((ApiResult<PortalAuthModel, ApiError>) -> Void)){
+        let router = LoginRouter.portalAuthentication(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
     
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 enum ENTALDBASEURLTYPE {
-    case ENTALDBASEURLTYPE_BASEURL
+    case PORTALAUTHENTICATE_BASEURL
 }
 
 class ENTALDAPIUtils {
@@ -21,14 +21,14 @@ class ENTALDAPIUtils {
     
     func getBaseUrlByType(baseType:ENTALDBASEURLTYPE)->URL?{
         switch baseType {
-        case .ENTALDBASEURLTYPE_BASEURL:
-            return self.getBaseURL()
+        case .PORTALAUTHENTICATE_BASEURL:
+            return self.getPortalAuthBaseURL()
             
         }
     }
     
-    private func getBaseURL()->URL?{
-        if let urlStr = ENTALDAPIConfig.shared.baseUrl, urlStr != "", let baseURL = URL(string: urlStr){
+    private func getPortalAuthBaseURL()->URL?{
+        if let urlStr = ENTALDAPIConfig.shared.portalAuthenticateBaseUrl, urlStr != "", let baseURL = URL(string: urlStr){
             return baseURL
         }
         return nil
@@ -45,6 +45,19 @@ class ENTALDAPIUtils {
             return true
         }
         return false
+    }
+    
+    func getJWTToken(accessToken:String)->String?{
+        do {
+            let jwt = try Jwt.decode(withToken: accessToken, andKey: nil, andVerify: false)
+            print("JWT dictionary \(jwt)")
+            if let sub = jwt["sub"] as? String {
+                return sub
+            }
+        }catch(let err){
+            print("jwt error \(err.localizedDescription)")
+        }
+        return nil
     }
     
 }

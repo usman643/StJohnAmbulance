@@ -55,7 +55,13 @@ class ENTALDHttpClient {
                     }
                     break
                 case .failure(let error):
-                    completion(.error(error: self.getApiError(from: error), errorResponse: nil))
+                    if let data = response.data {
+                        self.handleSuccessResponse(data: data) { handler in
+                            completion(handler)
+                        }
+                    }else{
+                        completion(.error(error: self.getApiError(from: error), errorResponse: nil))
+                    }
                 }
             })
         }

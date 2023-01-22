@@ -30,7 +30,8 @@ class LoginVC: ENTALDBaseViewController {
     // Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.txtUserName.text = "dougsalomon@outlook.com"
+        self.txtPassword.text = "qAz!2#sss"
         decorateUI()
     }
 
@@ -39,7 +40,7 @@ class LoginVC: ENTALDBaseViewController {
         self.navigationController?.navigationBar.isHidden = true
         headerLogoView.layer.cornerRadius =  headerLogoView.frame.size.height/2
         headerLogoView.backgroundColor = UIColor.themePrimary
-        txtUserName.addDoneOnKeyboardWithTarget(self, action: #selector(nextButtonClicked), titleText: "Username")
+        txtUserName.addDoneOnKeyboardWithTarget(self, action: #selector(nextButtonClicked), titleText: "Email")
         txtPassword.addDoneOnKeyboardWithTarget(self, action: #selector(doneButtonClicked), titleText: "Password")
 
         MainVw.backgroundColor = UIColor.white
@@ -70,18 +71,33 @@ class LoginVC: ENTALDBaseViewController {
     
     @IBAction func loginTapped(_ sender: Any) {
         
-        if ((self.txtUserName.text == "")){
+        guard let email = self.txtUserName.text else {
+            self.txtUserName.showErrorWithText(errorText: "Please enter email")
+            return
+        }
+        if email == "" {
             self.txtUserName.showErrorWithText(errorText: "Please enter email")
             return
         }
         
-        if ((self.txtPassword.text == "")){
+        if !email.isEmail {
+            self.txtUserName.showErrorWithText(errorText: "Please enter valid email")
+            return
+        }
+        
+        guard let password = self.txtPassword.text else {
             self.txtPassword.showErrorWithText(errorText: "Please Enter Password")
             return
         }
-//        let regVC = LandingVC(nibName: "LandingVC", bundle: nil)
-//        self.navigationController?.pushViewController(regVC, animated: true)
         
+        if (password == ""){
+            self.txtPassword.showErrorWithText(errorText: "Please Enter Password")
+            return
+        }
+        
+        let params : PortalAuthRequest = PortalAuthRequest(username: email, password: password, grant_type: "password", scope: "openid 86d0acb3-3740-41ef-b0e2-cf2e9f77fdb7 offline_access", client_id: "86d0acb3-3740-41ef-b0e2-cf2e9f77fdb7", response_type: "token id_token")
+        
+        self.portalAuthentication(params: params)
     }
     
     @IBAction func staySignin(_ sender: Any) {
@@ -91,6 +107,10 @@ class LoginVC: ENTALDBaseViewController {
     }
     
     @IBAction func fbLoginTapped(_ sender: Any) {
+    }
+    
+    @IBAction func showSecureFieldAction(_ sender: UIButton) {
+        txtPassword.isSecureTextEntry = !txtPassword.isSecureTextEntry
     }
     
 
@@ -118,4 +138,30 @@ class LoginVC: ENTALDBaseViewController {
         view.layer.shadowOffset = .zero
         view.clipsToBounds = false
     }
+}
+
+
+extension LoginVC {
+    
+    func portalAuthentication(params:PortalAuthRequest){
+        LoadingView.show()
+        ENTALDLibraryAPI.shared.requestPortalAuth(params: params) { result in
+            LoadingView.hide()
+            switch result {
+            case .success(let response):
+                if let sessionToken = response.access_token {
+                    print("Got Access Token \(ENTALDAPIUtils.shared.getJWTToken(accessToken: sessionToken))")
+                }
+                break
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+            }
+        }
+        
+    }
+    
 }

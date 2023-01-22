@@ -18,9 +18,7 @@
 		353C614D28140B6B00CC8B7F /* ENTALDHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C614B28140B6B00CC8B7F /* ENTALDHomeViewController.swift */; };
 		353C614E28140B6B00CC8B7F /* ENTALDHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 353C614C28140B6B00CC8B7F /* ENTALDHomeViewController.xib */; };
 		353C615A28140D5800CC8B7F /* ENTALDBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C615928140D5800CC8B7F /* ENTALDBaseViewController.swift */; };
-		353C615C28140E2E00CC8B7F /* ENTALDAPICommonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C615B28140E2E00CC8B7F /* ENTALDAPICommonModel.swift */; };
 		353C615F2814685900CC8B7F /* ENTALDControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C615E2814685900CC8B7F /* ENTALDControllers.swift */; };
-		353C6162281469B800CC8B7F /* ENTALDDeeplinkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C6161281469B800CC8B7F /* ENTALDDeeplinkModel.swift */; };
 		353C61642814810700CC8B7F /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C61632814810700CC8B7F /* UIApplication+Extension.swift */; };
 		353C61662814815C00CC8B7F /* ENTALDBaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C61652814815C00CC8B7F /* ENTALDBaseNavigationController.swift */; };
 		353C617D2814CFEF00CC8B7F /* NSBundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C617C2814CFEF00CC8B7F /* NSBundle+Extension.swift */; };
@@ -34,17 +32,14 @@
 		353C618E2816B07900CC8B7F /* ENTALDNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C618D2816B07900CC8B7F /* ENTALDNetworkRequest.swift */; };
 		353C619A2817D56500CC8B7F /* ENTALDDictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C61992817D56500CC8B7F /* ENTALDDictionary+Extension.swift */; };
 		353C61A32817D7B600CC8B7F /* ENTALDHelperUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C61A22817D7B600CC8B7F /* ENTALDHelperUtils.swift */; };
-		353C61BB2817FBF800CC8B7F /* ENTALDConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C61BA2817FBF800CC8B7F /* ENTALDConfigModel.swift */; };
 		359E9C16282B7077001E3D73 /* ENTALDLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 359E9C18282B7077001E3D73 /* ENTALDLocalizable.strings */; };
 		359E9C1A282B71AC001E3D73 /* ENTALDString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359E9C19282B71AC001E3D73 /* ENTALDString+Extension.swift */; };
 		359E9C1C282B7598001E3D73 /* ENTALDUIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359E9C1B282B7598001E3D73 /* ENTALDUIFont+Extension.swift */; };
 		359E9C20282B812D001E3D73 /* ENTALDAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359E9C1F282B812D001E3D73 /* ENTALDAlertView.swift */; };
 		359E9C22282B8148001E3D73 /* ENTALDAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 359E9C21282B8148001E3D73 /* ENTALDAlertView.xib */; };
 		359E9C24282B96F2001E3D73 /* CommonEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359E9C23282B96F2001E3D73 /* CommonEnums.swift */; };
-		359E9C30282D2689001E3D73 /* ENTALDCountriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359E9C2F282D2689001E3D73 /* ENTALDCountriesModel.swift */; };
 		359E9C33282D46D9001E3D73 /* ENTALDDummyDataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359E9C32282D46D9001E3D73 /* ENTALDDummyDataUtils.swift */; };
 		359E9C35282D47C2001E3D73 /* onBoardingJson.json in Resources */ = {isa = PBXBuildFile; fileRef = 359E9C34282D47C2001E3D73 /* onBoardingJson.json */; };
-		359E9C37282D4834001E3D73 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359E9C36282D4834001E3D73 /* File.swift */; };
 		359E9C5C282E455F001E3D73 /* CoreTableHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359E9C4C282E455F001E3D73 /* CoreTableHeaderFooterView.swift */; };
 		359E9C5D282E455F001E3D73 /* CoreTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359E9C4D282E455F001E3D73 /* CoreTableView.swift */; };
 		359E9C5E282E455F001E3D73 /* CoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359E9C4E282E455F001E3D73 /* CoreTableViewCell.swift */; };
@@ -64,6 +59,11 @@
 		6B03168A67F3B7478E7C740F /* Pods_StJhonsAmbulance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65CB4DE9AB000AE91BFB9399 /* Pods_StJhonsAmbulance.framework */; };
 		74DC25C35F0027C45A146D37 /* Pods_StJhonsAmbulanceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A3366737A0F46F41C9C050F /* Pods_StJhonsAmbulanceTests.framework */; };
 		CBBF866E9500D4C5310D30E4 /* Pods_StJhonsAmbulance_StJhonsAmbulanceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384D5212F5153F6EBC44A59B /* Pods_StJhonsAmbulance_StJhonsAmbulanceUITests.framework */; };
+		E48359A8297D6527008CBFFF /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48359A7297D6527008CBFFF /* LoadingView.swift */; };
+		E48359AB297D66E3008CBFFF /* AuthRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48359AA297D66E3008CBFFF /* AuthRequestModel.swift */; };
+		E48359AE297D6B44008CBFFF /* AuthResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48359AD297D6B44008CBFFF /* AuthResponseModel.swift */; };
+		E48359B6297D7887008CBFFF /* Jwt.m in Sources */ = {isa = PBXBuildFile; fileRef = E48359B4297D7886008CBFFF /* Jwt.m */; };
+		E48359B7297D7887008CBFFF /* Algorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = E48359B5297D7887008CBFFF /* Algorithm.m */; };
 		E4B2EF04297C4D9C00D05014 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B2EF03297C4D9C00D05014 /* Router.swift */; };
 		E4B2EF06297C50AC00D05014 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B2EF05297C50AC00D05014 /* LoginRouter.swift */; };
 		E4B2EF0C297C57EB00D05014 /* Quicksand-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4B2EF07297C57EA00D05014 /* Quicksand-Bold.ttf */; };
@@ -110,9 +110,7 @@
 		353C614B28140B6B00CC8B7F /* ENTALDHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENTALDHomeViewController.swift; sourceTree = "<group>"; };
 		353C614C28140B6B00CC8B7F /* ENTALDHomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ENTALDHomeViewController.xib; sourceTree = "<group>"; };
 		353C615928140D5800CC8B7F /* ENTALDBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENTALDBaseViewController.swift; sourceTree = "<group>"; };
-		353C615B28140E2E00CC8B7F /* ENTALDAPICommonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENTALDAPICommonModel.swift; sourceTree = "<group>"; };
 		353C615E2814685900CC8B7F /* ENTALDControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENTALDControllers.swift; sourceTree = "<group>"; };
-		353C6161281469B800CC8B7F /* ENTALDDeeplinkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENTALDDeeplinkModel.swift; sourceTree = "<group>"; };
 		353C61632814810700CC8B7F /* UIApplication+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
 		353C61652814815C00CC8B7F /* ENTALDBaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENTALDBaseNavigationController.swift; sourceTree = "<group>"; };
 		353C617C2814CFEF00CC8B7F /* NSBundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSBundle+Extension.swift"; sourceTree = "<group>"; };
@@ -126,17 +124,14 @@
 		353C618D2816B07900CC8B7F /* ENTALDNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENTALDNetworkRequest.swift; sourceTree = "<group>"; };
 		353C61992817D56500CC8B7F /* ENTALDDictionary+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENTALDDictionary+Extension.swift"; sourceTree = "<group>"; };
 		353C61A22817D7B600CC8B7F /* ENTALDHelperUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENTALDHelperUtils.swift; sourceTree = "<group>"; };
-		353C61BA2817FBF800CC8B7F /* ENTALDConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENTALDConfigModel.swift; sourceTree = "<group>"; };
 		359E9C17282B7077001E3D73 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ENTALDLocalizable.strings; sourceTree = "<group>"; };
 		359E9C19282B71AC001E3D73 /* ENTALDString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENTALDString+Extension.swift"; sourceTree = "<group>"; };
 		359E9C1B282B7598001E3D73 /* ENTALDUIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENTALDUIFont+Extension.swift"; sourceTree = "<group>"; };
 		359E9C1F282B812D001E3D73 /* ENTALDAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENTALDAlertView.swift; sourceTree = "<group>"; };
 		359E9C21282B8148001E3D73 /* ENTALDAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ENTALDAlertView.xib; sourceTree = "<group>"; };
 		359E9C23282B96F2001E3D73 /* CommonEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonEnums.swift; sourceTree = "<group>"; };
-		359E9C2F282D2689001E3D73 /* ENTALDCountriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENTALDCountriesModel.swift; sourceTree = "<group>"; };
 		359E9C32282D46D9001E3D73 /* ENTALDDummyDataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENTALDDummyDataUtils.swift; sourceTree = "<group>"; };
 		359E9C34282D47C2001E3D73 /* onBoardingJson.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = onBoardingJson.json; sourceTree = "<group>"; };
-		359E9C36282D4834001E3D73 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		359E9C4C282E455F001E3D73 /* CoreTableHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreTableHeaderFooterView.swift; sourceTree = "<group>"; };
 		359E9C4D282E455F001E3D73 /* CoreTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreTableView.swift; sourceTree = "<group>"; };
 		359E9C4E282E455F001E3D73 /* CoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreTableViewCell.swift; sourceTree = "<group>"; };
@@ -160,6 +155,14 @@
 		75C42544C2CA5A5AE834CABC /* Pods-StJhonsAmbulance-StJhonsAmbulanceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StJhonsAmbulance-StJhonsAmbulanceUITests.release.xcconfig"; path = "Target Support Files/Pods-StJhonsAmbulance-StJhonsAmbulanceUITests/Pods-StJhonsAmbulance-StJhonsAmbulanceUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C1369C353180B1370CB1D661 /* Pods-StJhonsAmbulanceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StJhonsAmbulanceTests.debug.xcconfig"; path = "Target Support Files/Pods-StJhonsAmbulanceTests/Pods-StJhonsAmbulanceTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E2A3F7E87047CECA4F259EFD /* Pods-StJhonsAmbulance.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StJhonsAmbulance.release.xcconfig"; path = "Target Support Files/Pods-StJhonsAmbulance/Pods-StJhonsAmbulance.release.xcconfig"; sourceTree = "<group>"; };
+		E48359A7297D6527008CBFFF /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		E48359AA297D66E3008CBFFF /* AuthRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequestModel.swift; sourceTree = "<group>"; };
+		E48359AD297D6B44008CBFFF /* AuthResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponseModel.swift; sourceTree = "<group>"; };
+		E48359B2297D7886008CBFFF /* Algorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Algorithm.h; sourceTree = "<group>"; };
+		E48359B3297D7886008CBFFF /* Jwt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Jwt.h; sourceTree = "<group>"; };
+		E48359B4297D7886008CBFFF /* Jwt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Jwt.m; sourceTree = "<group>"; };
+		E48359B5297D7887008CBFFF /* Algorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Algorithm.m; sourceTree = "<group>"; };
+		E48359B8297D792F008CBFFF /* StJhonsAmbulance-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StJhonsAmbulance-Bridging-Header.h"; sourceTree = "<group>"; };
 		E4B2EF03297C4D9C00D05014 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		E4B2EF05297C50AC00D05014 /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
 		E4B2EF07297C57EA00D05014 /* Quicksand-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Bold.ttf"; sourceTree = "<group>"; };
@@ -223,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				353C6114281213A600CC8B7F /* StJhons_info.plist */,
+				E48359B8297D792F008CBFFF /* StJhonsAmbulance-Bridging-Header.h */,
 				353C61362813ECB000CC8B7F /* Development */,
 			);
 			path = StJhonsAmbulance;
@@ -286,6 +290,7 @@
 		353C613A2813ECFE00CC8B7F /* CustomLibs */ = {
 			isa = PBXGroup;
 			children = (
+				E48359B1297D7873008CBFFF /* JWTLib */,
 			);
 			path = CustomLibs;
 			sourceTree = "<group>";
@@ -328,9 +333,8 @@
 		353C613E2813ED3700CC8B7F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				353C61B92817FBDC00CC8B7F /* ENTALDConfigModel */,
-				353C61602814699B00CC8B7F /* DeeplinkModel */,
-				353C615D2814149C00CC8B7F /* CommonModel */,
+				E48359AC297D6B28008CBFFF /* ReponseModels */,
+				E48359A9297D66CF008CBFFF /* RequestModels */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -338,6 +342,7 @@
 		353C613F2813ED4800CC8B7F /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				E48359A6297D6516008CBFFF /* LoadingView */,
 				359E9C1E282B8116001E3D73 /* ENTALDAlertView */,
 			);
 			path = CustomViews;
@@ -395,38 +400,12 @@
 			path = HomeViewController;
 			sourceTree = "<group>";
 		};
-		353C615D2814149C00CC8B7F /* CommonModel */ = {
-			isa = PBXGroup;
-			children = (
-				353C615B28140E2E00CC8B7F /* ENTALDAPICommonModel.swift */,
-			);
-			path = CommonModel;
-			sourceTree = "<group>";
-		};
-		353C61602814699B00CC8B7F /* DeeplinkModel */ = {
-			isa = PBXGroup;
-			children = (
-				353C6161281469B800CC8B7F /* ENTALDDeeplinkModel.swift */,
-			);
-			path = DeeplinkModel;
-			sourceTree = "<group>";
-		};
 		353C617E281678E900CC8B7F /* GifAssets */ = {
 			isa = PBXGroup;
 			children = (
 				353C617F281678F900CC8B7F /* splash_loading2.gif */,
 			);
 			path = GifAssets;
-			sourceTree = "<group>";
-		};
-		353C61B92817FBDC00CC8B7F /* ENTALDConfigModel */ = {
-			isa = PBXGroup;
-			children = (
-				353C61BA2817FBF800CC8B7F /* ENTALDConfigModel.swift */,
-				359E9C2F282D2689001E3D73 /* ENTALDCountriesModel.swift */,
-				359E9C36282D4834001E3D73 /* File.swift */,
-			);
-			path = ENTALDConfigModel;
 			sourceTree = "<group>";
 		};
 		359E9C13282B6F6F001E3D73 /* LocalizedFiles */ = {
@@ -533,6 +512,41 @@
 				3A3366737A0F46F41C9C050F /* Pods_StJhonsAmbulanceTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E48359A6297D6516008CBFFF /* LoadingView */ = {
+			isa = PBXGroup;
+			children = (
+				E48359A7297D6527008CBFFF /* LoadingView.swift */,
+			);
+			path = LoadingView;
+			sourceTree = "<group>";
+		};
+		E48359A9297D66CF008CBFFF /* RequestModels */ = {
+			isa = PBXGroup;
+			children = (
+				E48359AA297D66E3008CBFFF /* AuthRequestModel.swift */,
+			);
+			path = RequestModels;
+			sourceTree = "<group>";
+		};
+		E48359AC297D6B28008CBFFF /* ReponseModels */ = {
+			isa = PBXGroup;
+			children = (
+				E48359AD297D6B44008CBFFF /* AuthResponseModel.swift */,
+			);
+			path = ReponseModels;
+			sourceTree = "<group>";
+		};
+		E48359B1297D7873008CBFFF /* JWTLib */ = {
+			isa = PBXGroup;
+			children = (
+				E48359B2297D7886008CBFFF /* Algorithm.h */,
+				E48359B5297D7887008CBFFF /* Algorithm.m */,
+				E48359B3297D7886008CBFFF /* Jwt.h */,
+				E48359B4297D7886008CBFFF /* Jwt.m */,
+			);
+			path = JWTLib;
 			sourceTree = "<group>";
 		};
 		E4B2EF02297C4D8C00D05014 /* Routers */ = {
@@ -807,24 +821,25 @@
 				359E9C5D282E455F001E3D73 /* CoreTableView.swift in Sources */,
 				353C617D2814CFEF00CC8B7F /* NSBundle+Extension.swift in Sources */,
 				353C61452813EF9600CC8B7F /* ENTALDAppConfig.swift in Sources */,
-				353C61BB2817FBF800CC8B7F /* ENTALDConfigModel.swift in Sources */,
 				353C618C2816AC1C00CC8B7F /* ENTALDAPIUtils.swift in Sources */,
 				359E9C5C282E455F001E3D73 /* CoreTableHeaderFooterView.swift in Sources */,
 				353C61A32817D7B600CC8B7F /* ENTALDHelperUtils.swift in Sources */,
-				353C615C28140E2E00CC8B7F /* ENTALDAPICommonModel.swift in Sources */,
 				359E9C67282E455F001E3D73 /* CoreButton.swift in Sources */,
 				E4B2EF04297C4D9C00D05014 /* Router.swift in Sources */,
 				359E9C5F282E455F001E3D73 /* CoreCollectionView.swift in Sources */,
 				359E9C60282E455F001E3D73 /* CoreCollectionViewCell.swift in Sources */,
+				E48359A8297D6527008CBFFF /* LoadingView.swift in Sources */,
 				359E9C62282E455F001E3D73 /* CoreRefreshControl.swift in Sources */,
 				359E9C5E282E455F001E3D73 /* CoreTableViewCell.swift in Sources */,
-				359E9C37282D4834001E3D73 /* File.swift in Sources */,
+				E48359B7297D7887008CBFFF /* Algorithm.m in Sources */,
 				353C6107281213A500CC8B7F /* AppDelegate.swift in Sources */,
-				353C6162281469B800CC8B7F /* ENTALDDeeplinkModel.swift in Sources */,
+				E48359AE297D6B44008CBFFF /* AuthResponseModel.swift in Sources */,
 				359E9C76282EA58E001E3D73 /* ENTALDOffersViewController.swift in Sources */,
+				E48359AB297D66E3008CBFFF /* AuthRequestModel.swift in Sources */,
 				359E9C33282D46D9001E3D73 /* ENTALDDummyDataUtils.swift in Sources */,
 				353C61662814815C00CC8B7F /* ENTALDBaseNavigationController.swift in Sources */,
 				353C615F2814685900CC8B7F /* ENTALDControllers.swift in Sources */,
+				E48359B6297D7887008CBFFF /* Jwt.m in Sources */,
 				359E9C1A282B71AC001E3D73 /* ENTALDString+Extension.swift in Sources */,
 				353C615A28140D5800CC8B7F /* ENTALDBaseViewController.swift in Sources */,
 				353C619A2817D56500CC8B7F /* ENTALDDictionary+Extension.swift in Sources */,
@@ -844,7 +859,6 @@
 				353C61842816948500CC8B7F /* ENTALDAPIConst.swift in Sources */,
 				353C614D28140B6B00CC8B7F /* ENTALDHomeViewController.swift in Sources */,
 				359E9C66282E455F001E3D73 /* CoreTextField.swift in Sources */,
-				359E9C30282D2689001E3D73 /* ENTALDCountriesModel.swift in Sources */,
 				359E9C64282E455F001E3D73 /* CoreControls.swift in Sources */,
 				353C61642814810700CC8B7F /* UIApplication+Extension.swift in Sources */,
 				359E9C69282E4B34001E3D73 /* ENNTALDUIView+Extension.swift in Sources */,
@@ -1053,6 +1067,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.theetertainer.adro.ENTADRO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "StJhonsAmbulance/StJhonsAmbulance-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1083,6 +1098,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.theetertainer.adro.ENTADRO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "StJhonsAmbulance/StJhonsAmbulance-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
