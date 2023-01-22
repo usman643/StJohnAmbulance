@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -17,10 +17,17 @@
                 <outlet property="btnLogin" destination="dSe-0n-NjK" id="3JS-kM-YLy"/>
                 <outlet property="btnRegister" destination="oTL-yH-maF" id="3ow-bC-r5T"/>
                 <outlet property="btnShowPass" destination="RFU-Xm-hos" id="Ki6-gg-D3B"/>
+                <outlet property="btnStaySignIn" destination="y9h-lQ-tL5" id="RFX-B6-r6F"/>
                 <outlet property="fbView" destination="5pm-hR-zvp" id="DaX-Wj-ktq"/>
                 <outlet property="gmailView" destination="UpU-1g-jVs" id="CIC-xm-u7U"/>
                 <outlet property="headerLogoImgView" destination="hYh-78-sF3" id="A2H-Nm-PC7"/>
                 <outlet property="headerLogoView" destination="v4n-7R-YAv" id="Bft-uk-xIa"/>
+                <outlet property="lblAccountRegister" destination="TVL-kl-4uu" id="ns4-Ql-fmT"/>
+                <outlet property="lblEmail" destination="Tv1-da-VbV" id="YAf-z1-j4z"/>
+                <outlet property="lblLoginWith" destination="Zpw-WL-g03" id="QLp-9S-iaO"/>
+                <outlet property="lblPassword" destination="Y1s-Qm-mvx" id="gYy-nE-ge6"/>
+                <outlet property="lblStaySigin" destination="qTG-ui-XCI" id="241-i1-AuE"/>
+                <outlet property="lblTitle" destination="RDh-CC-9Vr" id="LRQ-gE-6ea"/>
                 <outlet property="txtPassword" destination="4Mf-qv-ubX" id="VOW-Iy-jiC"/>
                 <outlet property="txtUserName" destination="IDu-1W-A8p" id="cMo-eh-Npu"/>
                 <outlet property="view" destination="Q5Q-Vn-KB9" id="ynT-iO-NEq"/>
@@ -134,11 +141,11 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oTL-yH-maF">
-                                            <rect key="frame" x="212" y="-1" width="30" height="27"/>
+                                            <rect key="frame" x="217" y="-1" width="30" height="27"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" title="here">
-                                                <color key="titleColor" red="0.29803921570000003" green="0.43137254899999999" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleColor" name="themePrimary"/>
                                             </state>
                                             <connections>
                                                 <action selector="registerTapped:" destination="-1" eventType="touchUpInside" id="oi8-9U-huz"/>
@@ -152,7 +159,7 @@
                                         <constraint firstItem="oTL-yH-maF" firstAttribute="centerY" secondItem="BAi-eG-0Ba" secondAttribute="centerY" id="aYp-Mo-KTc"/>
                                         <constraint firstAttribute="width" constant="250" id="dv3-km-6wh"/>
                                         <constraint firstAttribute="height" constant="25" id="gFs-KZ-p7T"/>
-                                        <constraint firstItem="oTL-yH-maF" firstAttribute="leading" secondItem="TVL-kl-4uu" secondAttribute="trailing" id="rH6-Yk-bUD"/>
+                                        <constraint firstItem="oTL-yH-maF" firstAttribute="leading" secondItem="TVL-kl-4uu" secondAttribute="trailing" constant="5" id="rH6-Yk-bUD"/>
                                     </constraints>
                                 </view>
                                 <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RFU-Xm-hos">

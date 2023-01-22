@@ -18,6 +18,38 @@ extension UIColor {
         return  lum < 0.50
     }
     
+    class var themeColor:UIColor{
+        return hexString(hex:"006633")
+    }
+    
+    class var themeDarkColor:UIColor{
+        return hexString(hex:"024F29")
+    }
+    
+    class var textGrayColor:UIColor{
+        return hexString(hex:"707070")
+    }
+    
+    class var textLightGrayColor:UIColor{
+        return hexString(hex:"ADADAD")
+    }
+    
+    class var textWhiteColor:UIColor{
+        return hexString(hex:"FFFFFF")
+    }
+    
+    class var textBlackColor:UIColor{
+        return hexString(hex:"000000")
+    }
+    
+    class var viewLightColor:UIColor{
+        return hexString(hex:"FDFDFD")
+    }
+    
+    class var viewLightGrayColor:UIColor{
+        return hexString(hex:"E5E5E5")
+    }
+    
     @nonobjc class var themePrimary: UIColor {
         return UIColor(named: "themePrimary")!
     }

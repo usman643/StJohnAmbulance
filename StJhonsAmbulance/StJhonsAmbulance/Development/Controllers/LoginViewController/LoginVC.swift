@@ -11,21 +11,28 @@ import ACFloatingTextfield_Swift
 class LoginVC: ENTALDBaseViewController {
 
 
+    
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblEmail: UILabel!
+    @IBOutlet weak var lblPassword: UILabel!
     @IBOutlet weak var headerLogoView: UIView!
     @IBOutlet weak var headerLogoImgView: UIImageView!
     @IBOutlet weak var txtUserName: ACFloatingTextfield!
     @IBOutlet weak var txtPassword: ACFloatingTextfield!
+    @IBOutlet weak var lblStaySigin: UILabel!
     
-    
+    @IBOutlet weak var lblAccountRegister: UILabel!
+    @IBOutlet weak var lblLoginWith: UILabel!
     @IBOutlet weak var MainVw: UIView!
     @IBOutlet weak var btnLogin: UIButton!
     @IBOutlet weak var btnForgotPass: UIButton!
     @IBOutlet weak var btnRegister: UIButton!
     @IBOutlet weak var btnShowPass: UIButton!
-    
+    @IBOutlet weak var btnResgiterHere: UIButton!
     @IBOutlet weak var gmailView: UIView!
     @IBOutlet weak var fbView: UIView!
     
+    @IBOutlet weak var btnStaySignIn: UIButton!
     
     // Life cycle
     override func viewDidLoad() {
@@ -35,37 +42,68 @@ class LoginVC: ENTALDBaseViewController {
         decorateUI()
     }
 
-    
     func decorateUI(){
         self.navigationController?.navigationBar.isHidden = true
         headerLogoView.layer.cornerRadius =  headerLogoView.frame.size.height/2
         headerLogoView.backgroundColor = UIColor.themePrimary
         txtUserName.addDoneOnKeyboardWithTarget(self, action: #selector(nextButtonClicked), titleText: "Email")
         txtPassword.addDoneOnKeyboardWithTarget(self, action: #selector(doneButtonClicked), titleText: "Password")
-
+        
+        btnLogin.themeColorButton()
         MainVw.backgroundColor = UIColor.white
         MainVw.layer.cornerRadius = 30
         MainVw.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         btnLogin.backgroundColor = UIColor.themeSecondry
         btnRegister.titleLabel?.textColor = UIColor.themePrimary
         txtPassword.isSecureTextEntry = true
-        txtPassword.textColor = UIColor.black
-        txtUserName.textColor = UIColor.black
+        txtPassword.textColor = UIColor.textBlackColor
+        txtUserName.textColor = UIColor.textBlackColor
+        
         
         gmailView.layer.cornerRadius = gmailView.frame.size.height/2
        addShadow(to: gmailView)
        addShadow(to: fbView)
         fbView.layer.cornerRadius = fbView.frame.size.height/2
+        btnStaySignIn.layer.cornerRadius = 2
+        lblTitle.font = UIFont.BoldFont(42)
+        lblEmail.font = UIFont.BoldFont(20)
+        lblPassword.font = UIFont.BoldFont(20)
+        txtUserName.font = UIFont.RegularFont(16)
+        txtPassword.font = UIFont.RegularFont(16)
+        lblStaySigin.font = UIFont.RegularFont(14)
+        btnForgotPass.titleLabel?.font = UIFont.RegularFont(14)
+        lblAccountRegister.font = UIFont.RegularFont(14)
+        btnRegister.titleLabel?.font = UIFont.RegularFont(14)
+        lblLoginWith.font = UIFont.RegularFont(14)
+        btnLogin.titleLabel?.font = UIFont.BoldFont(20)
+        
+        lblTitle.textColor = UIColor.themeLight
+        lblEmail.textColor = UIColor.textBlackColor
+        lblPassword.textColor = UIColor.textBlackColor
+        txtUserName.textColor = UIColor.textGrayColor
+        txtPassword.textColor = UIColor.textGrayColor
+        lblStaySigin.textColor = UIColor.textGrayColor
+        btnForgotPass.titleLabel?.textColor = UIColor.textGrayColor
+        lblAccountRegister.textColor = UIColor.textBlackColor
+        btnRegister.titleLabel?.textColor = UIColor.textGrayColor
+        lblLoginWith.textColor = UIColor.textGrayColor
+        txtUserName.placeHolderColor = UIColor.textLightGrayColor
+        txtPassword.placeHolderColor = UIColor.textLightGrayColor
+        btnLogin.setTitleColor(UIColor.textWhiteColor, for: .normal)
+        btnRegister.titleLabel?.textColor = UIColor.themePrimary
         
     }
     
     @IBAction func registerTapped(_ sender: Any) {
-       
+        
+        //        let regVC = LandingVC(nibName: "LandingVC", bundle: nil)
+        //        self.navigationController?.pushViewController(regVC, animated: true)
         
     }
+    
     @IBAction func forgotTapped(_ sender: Any) {
-//        let regVC = ForgetVC(nibName: "ForgetVC", bundle: nil)
-//        self.navigationController?.pushViewController(regVC, animated: true)
+        let regVC = ForgetVC(nibName: "ForgetVC", bundle: nil)
+        self.navigationController?.pushViewController(regVC, animated: true)
         
     }
     

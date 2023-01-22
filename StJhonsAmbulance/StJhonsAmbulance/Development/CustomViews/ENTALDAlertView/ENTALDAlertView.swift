@@ -45,8 +45,8 @@ class ENTALDAlertView: UIView {
     func showAPIAlertWithTitle(title:String?, message:String?, actionTitle:ActionTitle, completion: @escaping(_ status:Bool)->Void){
         let appearence = SCLAlertView.SCLAppearance(
             kWindowWidth : SCREEN_WIDTH * 0.80,
-            kTitleFont: UIFont.ENTALDMediumFont(20.0),
-            kTextFont: UIFont.ENTALDRegularFont(16.0),
+            kTitleFont: UIFont.MediumFont(20.0),
+            kTextFont: UIFont.RegularFont(16.0),
             showCloseButton: false,
             showCircularIcon : false
         )

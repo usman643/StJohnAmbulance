@@ -1,0 +1,23 @@
+//
+//  UIButton.swift
+//  WIT Edu
+//
+//  Created by Umair Yousaf on 14/08/2022.
+//
+
+import Foundation
+import UIKit
+
+extension  UIButton{
+    
+    
+    func themeColorButton() {
+        
+        self.layer.cornerRadius = 6
+        self.clipsToBounds = true
+        self.backgroundColor = UIColor.themeColor
+        self.titleLabel?.textColor = UIColor.white
+        self.setTitleColor(UIColor.white, for: .normal)
+    }
+    
+}

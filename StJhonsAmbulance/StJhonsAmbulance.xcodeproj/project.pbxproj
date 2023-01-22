@@ -59,6 +59,8 @@
 		6B03168A67F3B7478E7C740F /* Pods_StJhonsAmbulance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65CB4DE9AB000AE91BFB9399 /* Pods_StJhonsAmbulance.framework */; };
 		74DC25C35F0027C45A146D37 /* Pods_StJhonsAmbulanceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A3366737A0F46F41C9C050F /* Pods_StJhonsAmbulanceTests.framework */; };
 		CBBF866E9500D4C5310D30E4 /* Pods_StJhonsAmbulance_StJhonsAmbulanceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384D5212F5153F6EBC44A59B /* Pods_StJhonsAmbulance_StJhonsAmbulanceUITests.framework */; };
+		E47F99BC297DC8F900BF793B /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47F99BA297DC8F900BF793B /* DashboardVC.swift */; };
+		E47F99BD297DC8F900BF793B /* DashboardVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E47F99BB297DC8F900BF793B /* DashboardVC.xib */; };
 		E48359A8297D6527008CBFFF /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48359A7297D6527008CBFFF /* LoadingView.swift */; };
 		E48359AB297D66E3008CBFFF /* AuthRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48359AA297D66E3008CBFFF /* AuthRequestModel.swift */; };
 		E48359AE297D6B44008CBFFF /* AuthResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48359AD297D6B44008CBFFF /* AuthResponseModel.swift */; };
@@ -73,6 +75,15 @@
 		E4B2EF10297C57EB00D05014 /* Quicksand-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4B2EF0B297C57EB00D05014 /* Quicksand-Light.ttf */; };
 		E4B2EF16297C633C00D05014 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B2EF14297C633C00D05014 /* LoginVC.swift */; };
 		E4B2EF19297C6B9200D05014 /* LoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4B2EF15297C633C00D05014 /* LoginVC.xib */; };
+		E4C37E58297D91ED00DB799F /* LandingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4C37E53297D91ED00DB799F /* LandingVC.xib */; };
+		E4C37E59297D91ED00DB799F /* LandingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C37E54297D91ED00DB799F /* LandingVC.swift */; };
+		E4C37E5A297D91ED00DB799F /* ForgetVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4C37E56297D91ED00DB799F /* ForgetVC.xib */; };
+		E4C37E5B297D91ED00DB799F /* ForgetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C37E57297D91ED00DB799F /* ForgetVC.swift */; };
+		E4C37E62297D924E00DB799F /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C37E5C297D924D00DB799F /* UIButton.swift */; };
+		E4C37E63297D924E00DB799F /* ACFloatingTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C37E5D297D924D00DB799F /* ACFloatingTextfield.swift */; };
+		E4C37E65297D924E00DB799F /* NSString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C37E5F297D924E00DB799F /* NSString.swift */; };
+		E4C37E66297D924E00DB799F /* NSURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C37E60297D924E00DB799F /* NSURL.swift */; };
+		E4C37E67297D924E00DB799F /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C37E61297D924E00DB799F /* Validate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,6 +166,8 @@
 		75C42544C2CA5A5AE834CABC /* Pods-StJhonsAmbulance-StJhonsAmbulanceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StJhonsAmbulance-StJhonsAmbulanceUITests.release.xcconfig"; path = "Target Support Files/Pods-StJhonsAmbulance-StJhonsAmbulanceUITests/Pods-StJhonsAmbulance-StJhonsAmbulanceUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C1369C353180B1370CB1D661 /* Pods-StJhonsAmbulanceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StJhonsAmbulanceTests.debug.xcconfig"; path = "Target Support Files/Pods-StJhonsAmbulanceTests/Pods-StJhonsAmbulanceTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E2A3F7E87047CECA4F259EFD /* Pods-StJhonsAmbulance.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StJhonsAmbulance.release.xcconfig"; path = "Target Support Files/Pods-StJhonsAmbulance/Pods-StJhonsAmbulance.release.xcconfig"; sourceTree = "<group>"; };
+		E47F99BA297DC8F900BF793B /* DashboardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
+		E47F99BB297DC8F900BF793B /* DashboardVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardVC.xib; sourceTree = "<group>"; };
 		E48359A7297D6527008CBFFF /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		E48359AA297D66E3008CBFFF /* AuthRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequestModel.swift; sourceTree = "<group>"; };
 		E48359AD297D6B44008CBFFF /* AuthResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponseModel.swift; sourceTree = "<group>"; };
@@ -172,6 +185,15 @@
 		E4B2EF0B297C57EB00D05014 /* Quicksand-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Light.ttf"; sourceTree = "<group>"; };
 		E4B2EF14297C633C00D05014 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		E4B2EF15297C633C00D05014 /* LoginVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginVC.xib; sourceTree = "<group>"; };
+		E4C37E53297D91ED00DB799F /* LandingVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LandingVC.xib; sourceTree = "<group>"; };
+		E4C37E54297D91ED00DB799F /* LandingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingVC.swift; sourceTree = "<group>"; };
+		E4C37E56297D91ED00DB799F /* ForgetVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgetVC.xib; sourceTree = "<group>"; };
+		E4C37E57297D91ED00DB799F /* ForgetVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgetVC.swift; sourceTree = "<group>"; };
+		E4C37E5C297D924D00DB799F /* UIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIButton.swift; path = ../../../../../../../Downloads/SJA/SJA/Extensions/UIButton.swift; sourceTree = "<group>"; };
+		E4C37E5D297D924D00DB799F /* ACFloatingTextfield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ACFloatingTextfield.swift; path = ../../../../../../../Downloads/SJA/SJA/Extensions/ACFloatingTextfield.swift; sourceTree = "<group>"; };
+		E4C37E5F297D924E00DB799F /* NSString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSString.swift; path = ../../../../../../../Downloads/SJA/SJA/Extensions/NSString.swift; sourceTree = "<group>"; };
+		E4C37E60297D924E00DB799F /* NSURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSURL.swift; path = ../../../../../../../Downloads/SJA/SJA/Extensions/NSURL.swift; sourceTree = "<group>"; };
+		E4C37E61297D924E00DB799F /* Validate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Validate.swift; path = ../../../../../../../Downloads/SJA/SJA/Extensions/Validate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,6 +301,9 @@
 		353C61392813ECF400CC8B7F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E47F99B9297DC8D600BF793B /* DashboardVC */,
+				E4C37E55297D91ED00DB799F /* ForgetVC */,
+				E4C37E52297D91ED00DB799F /* LandingVC */,
 				E4B2EF11297C630200D05014 /* LoginViewController */,
 				359E9C73282EA54F001E3D73 /* ENTALDOffersViewController */,
 				359E9C6E282EA2C3001E3D73 /* ENTALDTabbarController */,
@@ -351,6 +376,11 @@
 		353C61402813ED5300CC8B7F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E4C37E5D297D924D00DB799F /* ACFloatingTextfield.swift */,
+				E4C37E5F297D924E00DB799F /* NSString.swift */,
+				E4C37E60297D924E00DB799F /* NSURL.swift */,
+				E4C37E5C297D924D00DB799F /* UIButton.swift */,
+				E4C37E61297D924E00DB799F /* Validate.swift */,
 				353C61632814810700CC8B7F /* UIApplication+Extension.swift */,
 				353C617C2814CFEF00CC8B7F /* NSBundle+Extension.swift */,
 				353C61992817D56500CC8B7F /* ENTALDDictionary+Extension.swift */,
@@ -514,6 +544,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E47F99B9297DC8D600BF793B /* DashboardVC */ = {
+			isa = PBXGroup;
+			children = (
+				E47F99BA297DC8F900BF793B /* DashboardVC.swift */,
+				E47F99BB297DC8F900BF793B /* DashboardVC.xib */,
+			);
+			path = DashboardVC;
+			sourceTree = "<group>";
+		};
 		E48359A6297D6516008CBFFF /* LoadingView */ = {
 			isa = PBXGroup;
 			children = (
@@ -565,6 +604,26 @@
 				E4B2EF15297C633C00D05014 /* LoginVC.xib */,
 			);
 			path = LoginViewController;
+			sourceTree = "<group>";
+		};
+		E4C37E52297D91ED00DB799F /* LandingVC */ = {
+			isa = PBXGroup;
+			children = (
+				E4C37E53297D91ED00DB799F /* LandingVC.xib */,
+				E4C37E54297D91ED00DB799F /* LandingVC.swift */,
+			);
+			name = LandingVC;
+			path = ../../../../../../../Downloads/SJA/SJA/LandingVC;
+			sourceTree = "<group>";
+		};
+		E4C37E55297D91ED00DB799F /* ForgetVC */ = {
+			isa = PBXGroup;
+			children = (
+				E4C37E56297D91ED00DB799F /* ForgetVC.xib */,
+				E4C37E57297D91ED00DB799F /* ForgetVC.swift */,
+			);
+			name = ForgetVC;
+			path = ../../../../../../../Downloads/SJA/SJA/ForgetVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -677,9 +736,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4B2EF19297C6B9200D05014 /* LoginVC.xib in Resources */,
+				E4C37E5A297D91ED00DB799F /* ForgetVC.xib in Resources */,
 				359E9C22282B8148001E3D73 /* ENTALDAlertView.xib in Resources */,
 				E4B2EF0F297C57EB00D05014 /* Quicksand-Medium.ttf in Resources */,
 				353C6113281213A600CC8B7F /* LaunchScreen.storyboard in Resources */,
+				E4C37E58297D91ED00DB799F /* LandingVC.xib in Resources */,
 				353C6110281213A600CC8B7F /* Assets.xcassets in Resources */,
 				353C610E281213A500CC8B7F /* Main.storyboard in Resources */,
 				353C614E28140B6B00CC8B7F /* ENTALDHomeViewController.xib in Resources */,
@@ -687,6 +748,7 @@
 				359E9C16282B7077001E3D73 /* ENTALDLocalizable.strings in Resources */,
 				E4B2EF0C297C57EB00D05014 /* Quicksand-Bold.ttf in Resources */,
 				E4B2EF10297C57EB00D05014 /* Quicksand-Light.ttf in Resources */,
+				E47F99BD297DC8F900BF793B /* DashboardVC.xib in Resources */,
 				359E9C35282D47C2001E3D73 /* onBoardingJson.json in Resources */,
 				E4B2EF0D297C57EB00D05014 /* Quicksand-SemiBold.ttf in Resources */,
 				353C6180281678F900CC8B7F /* splash_loading2.gif in Resources */,
@@ -831,10 +893,12 @@
 				E48359A8297D6527008CBFFF /* LoadingView.swift in Sources */,
 				359E9C62282E455F001E3D73 /* CoreRefreshControl.swift in Sources */,
 				359E9C5E282E455F001E3D73 /* CoreTableViewCell.swift in Sources */,
+				E4C37E65297D924E00DB799F /* NSString.swift in Sources */,
 				E48359B7297D7887008CBFFF /* Algorithm.m in Sources */,
 				353C6107281213A500CC8B7F /* AppDelegate.swift in Sources */,
 				E48359AE297D6B44008CBFFF /* AuthResponseModel.swift in Sources */,
 				359E9C76282EA58E001E3D73 /* ENTALDOffersViewController.swift in Sources */,
+				E4C37E62297D924E00DB799F /* UIButton.swift in Sources */,
 				E48359AB297D66E3008CBFFF /* AuthRequestModel.swift in Sources */,
 				359E9C33282D46D9001E3D73 /* ENTALDDummyDataUtils.swift in Sources */,
 				353C61662814815C00CC8B7F /* ENTALDBaseNavigationController.swift in Sources */,
@@ -849,7 +913,11 @@
 				353C61492813F16900CC8B7F /* ENTALDConst.swift in Sources */,
 				353C618E2816B07900CC8B7F /* ENTALDNetworkRequest.swift in Sources */,
 				353C61882816A2EF00CC8B7F /* ENTALDAPIErrorUtil.swift in Sources */,
+				E4C37E59297D91ED00DB799F /* LandingVC.swift in Sources */,
+				E4C37E63297D924E00DB799F /* ACFloatingTextfield.swift in Sources */,
 				359E9C70282EA32F001E3D73 /* ENTALDTabbarViewController.swift in Sources */,
+				E4C37E5B297D91ED00DB799F /* ForgetVC.swift in Sources */,
+				E47F99BC297DC8F900BF793B /* DashboardVC.swift in Sources */,
 				359E9C6B282E6DE4001E3D73 /* ENTALDUIColor+Extension.swift in Sources */,
 				353C618A2816A7F500CC8B7F /* ENTALDHttpClient.swift in Sources */,
 				359E9C20282B812D001E3D73 /* ENTALDAlertView.swift in Sources */,
@@ -857,11 +925,13 @@
 				353C61822816931000CC8B7F /* ENTALDLibraryAPI.swift in Sources */,
 				E4B2EF16297C633C00D05014 /* LoginVC.swift in Sources */,
 				353C61842816948500CC8B7F /* ENTALDAPIConst.swift in Sources */,
+				E4C37E66297D924E00DB799F /* NSURL.swift in Sources */,
 				353C614D28140B6B00CC8B7F /* ENTALDHomeViewController.swift in Sources */,
 				359E9C66282E455F001E3D73 /* CoreTextField.swift in Sources */,
 				359E9C64282E455F001E3D73 /* CoreControls.swift in Sources */,
 				353C61642814810700CC8B7F /* UIApplication+Extension.swift in Sources */,
 				359E9C69282E4B34001E3D73 /* ENNTALDUIView+Extension.swift in Sources */,
+				E4C37E67297D924E00DB799F /* Validate.swift in Sources */,
 				353C6186281695DD00CC8B7F /* ENTALDDevicesUtil.swift in Sources */,
 				359E9C24282B96F2001E3D73 /* CommonEnums.swift in Sources */,
 				E4B2EF06297C50AC00D05014 /* LoginRouter.swift in Sources */,

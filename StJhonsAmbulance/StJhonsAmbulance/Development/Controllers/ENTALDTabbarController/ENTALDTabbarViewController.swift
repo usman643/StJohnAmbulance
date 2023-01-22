@@ -95,7 +95,7 @@ class ENTALDTabbarViewController: UITabBarController {
             guard let selectedViewController = viewControllers?[selectedIndex] else {
                 return
             }
-            selectedViewController.tabBarItem.setTitleTextAttributes([.font: UIFont.ENTALDBoldFont(12)], for: .normal)
+            selectedViewController.tabBarItem.setTitleTextAttributes([.font: UIFont.BoldFont(12)], for: .normal)
         }
     }
     
@@ -108,9 +108,9 @@ class ENTALDTabbarViewController: UITabBarController {
             
             for viewController in viewControllers {
                 if viewController == selectedViewController {
-                    viewController.tabBarItem.setTitleTextAttributes([.font: UIFont.ENTALDBoldFont(12)], for: .normal)
+                    viewController.tabBarItem.setTitleTextAttributes([.font: UIFont.BoldFont(12)], for: .normal)
                 } else {
-                    viewController.tabBarItem.setTitleTextAttributes([.font: UIFont.ENTALDRegularFont(12)], for: .normal)
+                    viewController.tabBarItem.setTitleTextAttributes([.font: UIFont.RegularFont(12)], for: .normal)
                 }
             }
         }
