@@ -39,6 +39,7 @@ class LoginVC: ENTALDBaseViewController {
         super.viewDidLoad()
         self.txtUserName.text = "dougsalomon@outlook.com"
         self.txtPassword.text = "qAz!2#sss"
+        UserDefaults.standard.authToken = nil
         decorateUI()
     }
 
@@ -95,15 +96,20 @@ class LoginVC: ENTALDBaseViewController {
     }
     
     @IBAction func registerTapped(_ sender: Any) {
-        
-        //        let regVC = LandingVC(nibName: "LandingVC", bundle: nil)
-        //        self.navigationController?.pushViewController(regVC, animated: true)
-        
+       
     }
     
     @IBAction func forgotTapped(_ sender: Any) {
         let regVC = ForgetVC(nibName: "ForgetVC", bundle: nil)
         self.navigationController?.pushViewController(regVC, animated: true)
+        
+    }
+    
+    func showLandingScreen(){
+        DispatchQueue.main.async {
+            let regVC = LandingVC(nibName: "LandingVC", bundle: nil)
+            self.navigationController?.pushViewController(regVC, animated: true)
+        }
         
     }
     
@@ -182,13 +188,19 @@ class LoginVC: ENTALDBaseViewController {
 extension LoginVC {
     
     func portalAuthentication(params:PortalAuthRequest){
-        LoadingView.show()
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
         ENTALDLibraryAPI.shared.requestPortalAuth(params: params) { result in
-            LoadingView.hide()
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
             switch result {
             case .success(let response):
                 if let sessionToken = response.access_token {
-                    print("Got Access Token \(ENTALDAPIUtils.shared.getJWTToken(accessToken: sessionToken))")
+                    if let subId = ENTALDAPIUtils.shared.getJWTToken(accessToken: sessionToken){
+                        self.dynamicAuthentication(subId: subId)
+                    }
                 }
                 break
             case .error(let error, let errorResponse):
@@ -199,7 +211,86 @@ extension LoginVC {
                 ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
             }
         }
-        
     }
+    
+    func dynamicAuthentication(subId:String){
+        
+        let params : DynamicAuthRequest = DynamicAuthRequest(grant_type: "client_credentials", client_id: "e0508903-f48f-418c-ad61-7a2f38ff50a4", resource: "https://sja-sandbox.crm3.dynamics.com/", client_secret: "82a8Q~inojTl~emDlThirKD6TEV64PG0EH_rccGW")
+        
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        ENTALDLibraryAPI.shared.requestDynamicAuth(params: params) { result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result {
+            case .success(let response):
+                if let token = response.access_token {
+                    UserDefaults.standard.authToken = token
+                    self.externalAuthentication(subId: subId)
+                }
+                break
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+            }
+        }
+    }
+    
+    
+    func externalAuthentication(subId:String){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        ENTALDLibraryAPI.shared.requestExternalAuth(subId: subId) { result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result {
+            case .success(let response):
+                if let contactId = response.value?.first?._adx_contactid_value {
+                    UserDefaults.standard.contactIdToken = contactId
+                    self.getUserIdentity(conId: contactId)
+                }
+                break
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+            }
+        }
+    }
+    
+    func getUserIdentity(conId:String){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestUserIdentity(conId: conId) { result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result {
+            case .success(let response):
+                UserDefaults.standard.userInfo = response
+                self.showLandingScreen()
+                break
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+            }
+        }
+    }
+    
+    
     
 }

@@ -32,17 +32,31 @@ class ENTALDControllers {
     
     func startFlowFromSplash(from:UIViewController?, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?){
         
-        self.showLoginScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
-            
-            self.showTabbarViewController(type: .ENTALDPUSH, from: UIApplication.getTopViewController(), callBack: { dataObj, controller in
+        if ENTALDHelperUtils.isUserLoggedIn() {
+            self.showLandingScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
                 
-            })
-            
+            }
+        }else{
+            self.showLoginScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
+                
+            }
         }
     }
     
     func showLoginScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
         let vc = LoginVC.loadFromNib()
+        
+        let nav = ENTALDBaseNavigationController(rootViewController: vc)
+        
+        if let window = sceneDelegate?.window{
+            window.rootViewController = nav
+            window.makeKeyAndVisible()
+            window.windowLevel = .normal
+        }
+    }
+    
+    func showLandingScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = LandingVC.loadFromNib()
         
         let nav = ENTALDBaseNavigationController(rootViewController: vc)
         

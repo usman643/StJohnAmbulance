@@ -23,6 +23,10 @@ class ENTALDHelperUtils {
         return nil
     }
     
+    class func isUserLoggedIn()->Bool {
+        return UserDefaults.standard.authToken != nil && UserDefaults.standard.userInfo != nil
+    }
+    
     
     struct ScreenSize {
         static let width = UIScreen.main.bounds.size.width

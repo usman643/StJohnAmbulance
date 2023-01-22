@@ -9,6 +9,8 @@ import Foundation
 
 enum ENTALDBASEURLTYPE {
     case PORTALAUTHENTICATE_BASEURL
+    case DYNAMICAUTHENTICATE_BASEURL
+    case SAINJOHN_BASEURL
 }
 
 class ENTALDAPIUtils {
@@ -23,12 +25,30 @@ class ENTALDAPIUtils {
         switch baseType {
         case .PORTALAUTHENTICATE_BASEURL:
             return self.getPortalAuthBaseURL()
+        case .DYNAMICAUTHENTICATE_BASEURL:
+            return self.getDynamicAuthBaseURL()
+        case .SAINJOHN_BASEURL:
+            return self.getBaseURL()
             
         }
     }
     
+    private func getBaseURL()->URL?{
+        if let urlStr = ENTALDAPIConfig.shared.baseURL, urlStr != "", let baseURL = URL(string: urlStr){
+            return baseURL
+        }
+        return nil
+    }
+    
     private func getPortalAuthBaseURL()->URL?{
         if let urlStr = ENTALDAPIConfig.shared.portalAuthenticateBaseUrl, urlStr != "", let baseURL = URL(string: urlStr){
+            return baseURL
+        }
+        return nil
+    }
+    
+    private func getDynamicAuthBaseURL()->URL?{
+        if let urlStr = ENTALDAPIConfig.shared.dynamicAuthenticateBaseUrl, urlStr != "", let baseURL = URL(string: urlStr){
             return baseURL
         }
         return nil

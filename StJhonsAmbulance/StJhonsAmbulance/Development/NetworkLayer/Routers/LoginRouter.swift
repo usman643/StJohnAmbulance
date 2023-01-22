@@ -10,11 +10,18 @@ import Foundation
 enum LoginRouter: Router {
     
     case portalAuthentication(params:PortalAuthRequest)
+    case dynamicAuthentication(params:DynamicAuthRequest)
+    case getExternalIdentity(subId:String)
+    case getUserIdentity(conId:String)
     case simulate401
     
     var procedure: String { //endpoints
         switch self {
         case .portalAuthentication: return "token?p=b2c_1_ropc_auth"
+        case .dynamicAuthentication: return "token"
+        case .getExternalIdentity: return "adx_externalidentities"
+        case .getUserIdentity(let conId):
+            return "contacts(\(conId))"
         case .simulate401: return "simulate-401"
         }
     }
@@ -26,6 +33,13 @@ enum LoginRouter: Router {
                 return model
             }
             return [:]
+        case .dynamicAuthentication(let params):
+            if let model = params.encodeModel() {
+                return model
+            }
+            return [:]
+        case .getExternalIdentity(let subId):
+            return [ParameterKeys.filter:"adx_username eq \(subId)"]
         default: return [:]
         }
     }
@@ -35,11 +49,27 @@ enum LoginRouter: Router {
     }
     
     var method: String {
+        switch self {
+        case .portalAuthentication(_):
+            return HTTPMethodType.post.rawValue
+        case .dynamicAuthentication(_):
+            return HTTPMethodType.post.rawValue
+        default:
+            break
+        }
         return HTTPMethodType.get.rawValue
     }
     
     var urlType: ENTALDBASEURLTYPE {
-        return .PORTALAUTHENTICATE_BASEURL
+        switch self {
+        case .portalAuthentication(_):
+            return .PORTALAUTHENTICATE_BASEURL
+        case .dynamicAuthentication(_):
+            return .DYNAMICAUTHENTICATE_BASEURL
+        default:
+            break
+        }
+        return .SAINJOHN_BASEURL
     }
     
     var encoding: ENTALDEncodingType {

@@ -8,6 +8,11 @@
 import Foundation
 import Alamofire
 
+enum HTTPMethodType : String {
+    case post = "POST"
+    case get = "GET"
+}
+
 enum ApiResult<T, Failure> where Failure: Error {
     case success(value: T)
     case error(error: Failure, errorResponse: ErrorResponse?)
@@ -24,26 +29,33 @@ class ENTALDHttpClient {
     }
     
     private func getHeaders()->HTTPHeaders{
-        let headers: HTTPHeaders = [
-            "Content-Type": Content_Type,
-            "Accept": Accept_Type,
-            "Accept-Encoding" : Accept_Encoding,
-        ]
+        var headers: HTTPHeaders = []
+        
+        if let token = UserDefaults.standard.authToken {
+            headers.add(HTTPHeader(name: "Authorization", value: "Bearer \(token)"))
+        }
+        
         return headers
     }
     
     func request<T: Codable>(_ router: Router, completion:@escaping (ApiResult<T, ApiError>) ->Void) {
         
-        let request = ENTALDNetworkRequest.shared.getRequestFor(baseType: router.urlType, path: router.procedure, params: router.params)
+        guard let request = ENTALDNetworkRequest.shared.getRequestFor(router) else{return}
         
-        if let client = request?.client, let requstUrl = request?.requestURL?.absoluteString {
+        if HTTPMethod(rawValue: router.method) == .get {
+            self.getRequest(request, completion: completion)
+            return
+        }
+        
+        
+        if let client = request.client, let requstUrl = request.requestURL?.absoluteString {
             print("request URL \(requstUrl)")
             
             client.request(requstUrl,
-                           method: .post,
-                           parameters:request?.parameters,
+                           method: HTTPMethod(rawValue: router.method),
+                           parameters:request.parameters,
                            encoding:router.encoding.getENcodingType(),
-                           headers:nil).validate().responseData(completionHandler: { response in
+                           headers:self.getHeaders()).validate().responseData(completionHandler: { response in
                 
                 switch response.result {
                     
@@ -65,6 +77,28 @@ class ENTALDHttpClient {
                 }
             })
         }
+    }
+    
+    private func getRequest<T: Codable>(_ netRequest:ENTALDNetworkRequest, completion:@escaping (ApiResult<T, ApiError>) ->Void) {
+        
+        
+        guard let requestUrl = netRequest.requestURL else {return}
+        
+        var request = URLRequest(url: requestUrl)
+        request.addValue("Bearer \(UserDefaults.standard.authToken ?? "")", forHTTPHeaderField: "Authorization")
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            if let error = error {
+                completion(.error(error: self.getApiError(from: error), errorResponse: nil))
+            }else if let data = data{
+                self.handleSuccessResponse(data: data) { handler in
+                    completion(handler)
+                }
+            }
+        }
+        task.resume()
+        
     }
     
 }

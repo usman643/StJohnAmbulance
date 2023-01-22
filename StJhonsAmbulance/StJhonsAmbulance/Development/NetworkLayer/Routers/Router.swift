@@ -4,13 +4,7 @@
 //
 //  Created by Muhammad Usman on 1/21/23.
 //
-
 import Foundation
-
-enum HTTPMethodType : String {
-    case post = "POST"
-    case get = "GET"
-}
 
 protocol Router {
     var urlType: ENTALDBASEURLTYPE { get }

@@ -32,6 +32,7 @@ struct ParameterKeys
 {
     static let email = "email"
     static let password = "password"
+    static let filter = "$filter"
 }
 
 

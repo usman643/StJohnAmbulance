@@ -66,6 +66,7 @@
 		E48359AE297D6B44008CBFFF /* AuthResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48359AD297D6B44008CBFFF /* AuthResponseModel.swift */; };
 		E48359B6297D7887008CBFFF /* Jwt.m in Sources */ = {isa = PBXBuildFile; fileRef = E48359B4297D7886008CBFFF /* Jwt.m */; };
 		E48359B7297D7887008CBFFF /* Algorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = E48359B5297D7887008CBFFF /* Algorithm.m */; };
+		E48359BE297DCDE5008CBFFF /* UserDefault+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48359BD297DCDE4008CBFFF /* UserDefault+Extension.swift */; };
 		E4B2EF04297C4D9C00D05014 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B2EF03297C4D9C00D05014 /* Router.swift */; };
 		E4B2EF06297C50AC00D05014 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B2EF05297C50AC00D05014 /* LoginRouter.swift */; };
 		E4B2EF0C297C57EB00D05014 /* Quicksand-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4B2EF07297C57EA00D05014 /* Quicksand-Bold.ttf */; };
@@ -176,6 +177,7 @@
 		E48359B4297D7886008CBFFF /* Jwt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Jwt.m; sourceTree = "<group>"; };
 		E48359B5297D7887008CBFFF /* Algorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Algorithm.m; sourceTree = "<group>"; };
 		E48359B8297D792F008CBFFF /* StJhonsAmbulance-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StJhonsAmbulance-Bridging-Header.h"; sourceTree = "<group>"; };
+		E48359BD297DCDE4008CBFFF /* UserDefault+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefault+Extension.swift"; sourceTree = "<group>"; };
 		E4B2EF03297C4D9C00D05014 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		E4B2EF05297C50AC00D05014 /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
 		E4B2EF07297C57EA00D05014 /* Quicksand-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Bold.ttf"; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 				E4C37E61297D924E00DB799F /* Validate.swift */,
 				353C61632814810700CC8B7F /* UIApplication+Extension.swift */,
 				353C617C2814CFEF00CC8B7F /* NSBundle+Extension.swift */,
+				E48359BD297DCDE4008CBFFF /* UserDefault+Extension.swift */,
 				353C61992817D56500CC8B7F /* ENTALDDictionary+Extension.swift */,
 				359E9C19282B71AC001E3D73 /* ENTALDString+Extension.swift */,
 				359E9C1B282B7598001E3D73 /* ENTALDUIFont+Extension.swift */,
@@ -909,6 +912,7 @@
 				353C619A2817D56500CC8B7F /* ENTALDDictionary+Extension.swift in Sources */,
 				353C61472813F0CE00CC8B7F /* ENTALDAPIConfig.swift in Sources */,
 				359E9C6D282E7914001E3D73 /* ENTALDUIImageView+Extension.swift in Sources */,
+				E48359BE297DCDE5008CBFFF /* UserDefault+Extension.swift in Sources */,
 				353C6109281213A500CC8B7F /* SceneDelegate.swift in Sources */,
 				353C61492813F16900CC8B7F /* ENTALDConst.swift in Sources */,
 				353C618E2816B07900CC8B7F /* ENTALDNetworkRequest.swift in Sources */,
