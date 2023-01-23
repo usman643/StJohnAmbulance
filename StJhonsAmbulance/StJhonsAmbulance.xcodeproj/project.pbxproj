@@ -85,6 +85,10 @@
 		E4C37E65297D924E00DB799F /* NSString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C37E5F297D924E00DB799F /* NSString.swift */; };
 		E4C37E66297D924E00DB799F /* NSURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C37E60297D924E00DB799F /* NSURL.swift */; };
 		E4C37E67297D924E00DB799F /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C37E61297D924E00DB799F /* Validate.swift */; };
+		E4F7CB0F297E121000428A4E /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F7CB0A297E121000428A4E /* SideMenuVC.swift */; };
+		E4F7CB10297E121000428A4E /* SideMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4F7CB0B297E121000428A4E /* SideMenuVC.xib */; };
+		E4F7CB11297E121000428A4E /* SideMenuTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4F7CB0D297E121000428A4E /* SideMenuTVC.xib */; };
+		E4F7CB12297E121000428A4E /* SideMenuTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F7CB0E297E121000428A4E /* SideMenuTVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -196,6 +200,10 @@
 		E4C37E5F297D924E00DB799F /* NSString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSString.swift; path = ../../../../../../../Downloads/SJA/SJA/Extensions/NSString.swift; sourceTree = "<group>"; };
 		E4C37E60297D924E00DB799F /* NSURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSURL.swift; path = ../../../../../../../Downloads/SJA/SJA/Extensions/NSURL.swift; sourceTree = "<group>"; };
 		E4C37E61297D924E00DB799F /* Validate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Validate.swift; path = ../../../../../../../Downloads/SJA/SJA/Extensions/Validate.swift; sourceTree = "<group>"; };
+		E4F7CB0A297E121000428A4E /* SideMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
+		E4F7CB0B297E121000428A4E /* SideMenuVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SideMenuVC.xib; sourceTree = "<group>"; };
+		E4F7CB0D297E121000428A4E /* SideMenuTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SideMenuTVC.xib; sourceTree = "<group>"; };
+		E4F7CB0E297E121000428A4E /* SideMenuTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +311,7 @@
 		353C61392813ECF400CC8B7F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E4F7CB09297E121000428A4E /* SideMenuVC */,
 				E47F99B9297DC8D600BF793B /* DashboardVC */,
 				E4C37E55297D91ED00DB799F /* ForgetVC */,
 				E4C37E52297D91ED00DB799F /* LandingVC */,
@@ -629,6 +638,25 @@
 			path = ../../../../../../../Downloads/SJA/SJA/ForgetVC;
 			sourceTree = "<group>";
 		};
+		E4F7CB09297E121000428A4E /* SideMenuVC */ = {
+			isa = PBXGroup;
+			children = (
+				E4F7CB0A297E121000428A4E /* SideMenuVC.swift */,
+				E4F7CB0B297E121000428A4E /* SideMenuVC.xib */,
+				E4F7CB0C297E121000428A4E /* SideMenuCell */,
+			);
+			path = SideMenuVC;
+			sourceTree = "<group>";
+		};
+		E4F7CB0C297E121000428A4E /* SideMenuCell */ = {
+			isa = PBXGroup;
+			children = (
+				E4F7CB0D297E121000428A4E /* SideMenuTVC.xib */,
+				E4F7CB0E297E121000428A4E /* SideMenuTVC.swift */,
+			);
+			path = SideMenuCell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -741,7 +769,9 @@
 				E4B2EF19297C6B9200D05014 /* LoginVC.xib in Resources */,
 				E4C37E5A297D91ED00DB799F /* ForgetVC.xib in Resources */,
 				359E9C22282B8148001E3D73 /* ENTALDAlertView.xib in Resources */,
+				E4F7CB11297E121000428A4E /* SideMenuTVC.xib in Resources */,
 				E4B2EF0F297C57EB00D05014 /* Quicksand-Medium.ttf in Resources */,
+				E4F7CB10297E121000428A4E /* SideMenuVC.xib in Resources */,
 				353C6113281213A600CC8B7F /* LaunchScreen.storyboard in Resources */,
 				E4C37E58297D91ED00DB799F /* LandingVC.xib in Resources */,
 				353C6110281213A600CC8B7F /* Assets.xcassets in Resources */,
@@ -899,6 +929,7 @@
 				E4C37E65297D924E00DB799F /* NSString.swift in Sources */,
 				E48359B7297D7887008CBFFF /* Algorithm.m in Sources */,
 				353C6107281213A500CC8B7F /* AppDelegate.swift in Sources */,
+				E4F7CB12297E121000428A4E /* SideMenuTVC.swift in Sources */,
 				E48359AE297D6B44008CBFFF /* AuthResponseModel.swift in Sources */,
 				359E9C76282EA58E001E3D73 /* ENTALDOffersViewController.swift in Sources */,
 				E4C37E62297D924E00DB799F /* UIButton.swift in Sources */,
@@ -933,6 +964,7 @@
 				353C614D28140B6B00CC8B7F /* ENTALDHomeViewController.swift in Sources */,
 				359E9C66282E455F001E3D73 /* CoreTextField.swift in Sources */,
 				359E9C64282E455F001E3D73 /* CoreControls.swift in Sources */,
+				E4F7CB0F297E121000428A4E /* SideMenuVC.swift in Sources */,
 				353C61642814810700CC8B7F /* UIApplication+Extension.swift in Sources */,
 				359E9C69282E4B34001E3D73 /* ENNTALDUIView+Extension.swift in Sources */,
 				E4C37E67297D924E00DB799F /* Validate.swift in Sources */,
