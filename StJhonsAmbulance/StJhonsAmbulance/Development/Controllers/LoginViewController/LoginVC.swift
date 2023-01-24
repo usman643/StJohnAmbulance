@@ -28,7 +28,6 @@ class LoginVC: ENTALDBaseViewController {
     @IBOutlet weak var btnForgotPass: UIButton!
     @IBOutlet weak var btnRegister: UIButton!
     @IBOutlet weak var btnShowPass: UIButton!
-    @IBOutlet weak var btnResgiterHere: UIButton!
     @IBOutlet weak var gmailView: UIView!
     @IBOutlet weak var fbView: UIView!
     
