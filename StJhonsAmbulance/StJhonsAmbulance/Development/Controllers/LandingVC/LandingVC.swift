@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LandingVC: UIViewController {
+class LandingVC: ENTALDBaseViewController {
 
     
     @IBOutlet weak var headerLogoView: UIView!
@@ -25,11 +25,10 @@ class LandingVC: UIViewController {
 
     func decorateUI(){
         self.navigationController?.navigationBar.isHidden = true
-        self.view.backgroundColor = UIColor.themeColor
+        self.view.backgroundColor = UIColor.themeSecondry
         headerLogoView.layer.cornerRadius =  headerLogoView.frame.size.height/2
-        headerLogoView.backgroundColor = UIColor.themeDarkColor
-      
-        MainVw.backgroundColor = UIColor.viewLightColor
+        headerLogoView.backgroundColor = UIColor.themePrimary
+        MainVw.backgroundColor = UIColor.themeLight
         MainVw.layer.cornerRadius = 40
         MainVw.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         btn1.themeColorButton()

@@ -65,6 +65,9 @@ class LoginVC: ENTALDBaseViewController {
        addShadow(to: gmailView)
        addShadow(to: fbView)
         fbView.layer.cornerRadius = fbView.frame.size.height/2
+        fbView.backgroundColor = UIColor.textWhiteColor
+        gmailView.backgroundColor = UIColor.textWhiteColor
+        
         btnStaySignIn.layer.cornerRadius = 2
         lblTitle.font = UIFont.BoldFont(42)
         lblEmail.font = UIFont.BoldFont(20)
@@ -86,17 +89,18 @@ class LoginVC: ENTALDBaseViewController {
         lblStaySigin.textColor = UIColor.textGrayColor
         btnForgotPass.titleLabel?.textColor = UIColor.textGrayColor
         lblAccountRegister.textColor = UIColor.textBlackColor
-        btnRegister.titleLabel?.textColor = UIColor.textGrayColor
+        
         lblLoginWith.textColor = UIColor.textGrayColor
         txtUserName.placeHolderColor = UIColor.textLightGrayColor
         txtPassword.placeHolderColor = UIColor.textLightGrayColor
         btnLogin.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        btnRegister.titleLabel?.textColor = UIColor.themePrimary
+        btnRegister.titleLabel?.textColor = UIColor.themePrimaryColor
         
     }
     
     @IBAction func registerTapped(_ sender: Any) {
-       
+        let regVC = CSDashBoardVC(nibName: "CSDashBoardVC", bundle: nil)
+        self.navigationController?.pushViewController(regVC, animated: true)
     }
     
     @IBAction func forgotTapped(_ sender: Any) {

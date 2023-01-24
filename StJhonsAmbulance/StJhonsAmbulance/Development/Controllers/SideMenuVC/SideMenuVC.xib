@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -62,7 +62,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="Hc9-ES-vvH" secondAttribute="trailing" constant="12" id="1ao-qa-eC4"/>
                         <constraint firstItem="6lR-b1-gfM" firstAttribute="top" secondItem="a41-bI-2EQ" secondAttribute="bottom" constant="8" id="9m7-bI-t6t"/>
@@ -77,16 +77,11 @@
                     <rect key="frame" x="0.0" y="164" width="414" height="698"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9jy-tV-tL1">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="52"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="FYt-qa-RWz"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="aEE-sS-1B7" firstAttribute="top" secondItem="AiP-cG-eec" secondAttribute="top" constant="44" id="8JH-Y6-Ja0"/>
+                <constraint firstItem="aEE-sS-1B7" firstAttribute="top" secondItem="AiP-cG-eec" secondAttribute="top" constant="44" id="D3J-QJ-LYs"/>
                 <constraint firstItem="FYt-qa-RWz" firstAttribute="trailing" secondItem="aEE-sS-1B7" secondAttribute="trailing" id="GxN-5e-pcw"/>
                 <constraint firstItem="aEE-sS-1B7" firstAttribute="leading" secondItem="FYt-qa-RWz" secondAttribute="leading" id="JVO-sU-XEc"/>
                 <constraint firstItem="FYt-qa-RWz" firstAttribute="trailing" secondItem="lch-gB-LRx" secondAttribute="trailing" id="MEs-0A-1Pg"/>
@@ -94,6 +89,7 @@
                 <constraint firstItem="lch-gB-LRx" firstAttribute="leading" secondItem="FYt-qa-RWz" secondAttribute="leading" id="k7T-Le-5mX"/>
                 <constraint firstItem="FYt-qa-RWz" firstAttribute="bottom" secondItem="lch-gB-LRx" secondAttribute="bottom" id="ukZ-bQ-vwA"/>
             </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="37.681159420289859" y="10.714285714285714"/>
         </view>
     </objects>

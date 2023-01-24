@@ -28,17 +28,17 @@ class ForgetVC: UIViewController {
 
     func decorateUI(){
         self.navigationController?.navigationBar.isHidden = true
-        self.view.backgroundColor = UIColor.themeColor
+        self.view.backgroundColor = UIColor.themeSecondry
         headerLogoView.layer.cornerRadius =  headerLogoView.frame.size.height/2
-        headerLogoView.backgroundColor = UIColor.themeDarkColor
+        headerLogoView.backgroundColor = UIColor.themePrimary
         txtUserName.addDoneOnKeyboardWithTarget(self, action: #selector(doneButtonClicked), titleText: "Email")
 
-        MainVw.backgroundColor = UIColor.viewLightColor
+        MainVw.backgroundColor = UIColor.themeLight
         MainVw.layer.cornerRadius = 40
         MainVw.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         btnSendEmail.themeColorButton()
-        btnlogin.titleLabel?.textColor = UIColor.themeColor
-        txtUserName.textColor = UIColor.textBlackColor
+        btnlogin.titleLabel?.textColor = UIColor.themePrimary
+        txtUserName.textColor = UIColor.darkText
 
     }
 

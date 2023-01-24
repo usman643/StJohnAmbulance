@@ -34,7 +34,7 @@ import UIKit
     }
     
      /// Change line color when Editing in textfield
-    @IBInspectable open var selectedLineColor : UIColor = UIColor.themeColor {
+    @IBInspectable open var selectedLineColor : UIColor = UIColor.themePrimaryColor {
         didSet{
             self.floatTheLabel()
         }
@@ -48,7 +48,7 @@ import UIKit
     }
     
      /// Change placeholder color while editing.
-    @IBInspectable open var selectedPlaceHolderColor : UIColor = UIColor.themeColor{
+    @IBInspectable open var selectedPlaceHolderColor : UIColor = UIColor.themePrimaryColor{
         didSet{
             self.floatTheLabel()
         }
