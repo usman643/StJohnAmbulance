@@ -18,6 +18,7 @@
                 <outlet property="headerLogoView" destination="j9y-dh-Tvs" id="ryv-ir-LD1"/>
                 <outlet property="lblDesc" destination="wgl-zi-P1s" id="gyP-4n-eeX"/>
                 <outlet property="lblTitle" destination="cJk-SZ-0UR" id="eiT-Gd-b0M"/>
+                <outlet property="nextBtn" destination="geB-g6-1hp" id="iWD-av-eNE"/>
                 <outlet property="view" destination="eXZ-8S-10z" id="hBe-p2-zFu"/>
             </connections>
         </placeholder>
@@ -45,9 +46,7 @@
                                         <constraint firstAttribute="height" constant="50" id="nEM-ff-EjV"/>
                                     </constraints>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="plain" title="Volunteer">
-                                        <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </buttonConfiguration>
+                                    <buttonConfiguration key="configuration" style="plain"/>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DcL-Bd-0qz">
                                     <rect key="frame" x="188.66666666666663" y="0.0" width="172.33333333333337" height="50"/>
@@ -55,17 +54,43 @@
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="PXP-c4-TOW"/>
                                     </constraints>
+                                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <connections>
+                                        <action selector="groupBtnAction:" destination="-1" eventType="touchUpInside" id="9Pw-On-lik"/>
+                                    </connections>
                                 </button>
                             </subviews>
                         </stackView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="geB-g6-1hp">
+                            <rect key="frame" x="30" y="542.33333333333337" width="333" height="45"/>
+                            <color key="backgroundColor" name="themePrimary"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="45" id="xvP-lI-tJS"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Next">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="6"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="btnNextAction:" destination="-1" eventType="touchUpInside" id="NJp-0m-5h8"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.99215686270000003" green="0.99215686270000003" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="wgl-zi-P1s" firstAttribute="top" secondItem="osK-6i-wnD" secondAttribute="top" constant="24" id="0eb-ad-Vfh"/>
                         <constraint firstItem="GEH-UN-cYK" firstAttribute="leading" secondItem="osK-6i-wnD" secondAttribute="leading" constant="16" id="35W-lw-zSF"/>
                         <constraint firstItem="wgl-zi-P1s" firstAttribute="leading" secondItem="osK-6i-wnD" secondAttribute="leading" constant="16" id="BLB-Da-uwN"/>
+                        <constraint firstAttribute="trailing" secondItem="geB-g6-1hp" secondAttribute="trailing" constant="30" id="CB3-1X-sqU"/>
+                        <constraint firstItem="geB-g6-1hp" firstAttribute="leading" secondItem="osK-6i-wnD" secondAttribute="leading" constant="30" id="DzK-qo-4np"/>
                         <constraint firstAttribute="trailing" secondItem="wgl-zi-P1s" secondAttribute="trailing" constant="16" id="LbG-Pf-hHg"/>
+                        <constraint firstAttribute="bottom" secondItem="geB-g6-1hp" secondAttribute="bottom" constant="20" id="cbu-x8-9ST"/>
                         <constraint firstItem="GEH-UN-cYK" firstAttribute="top" secondItem="wgl-zi-P1s" secondAttribute="bottom" constant="24" id="qw6-3p-CVi"/>
                         <constraint firstAttribute="trailing" secondItem="GEH-UN-cYK" secondAttribute="trailing" constant="16" id="xzQ-sF-bVa"/>
                     </constraints>

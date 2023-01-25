@@ -98,8 +98,9 @@ class LoginVC: ENTALDBaseViewController {
     }
     
     @IBAction func registerTapped(_ sender: Any) {
-        let regVC = CSDashBoardVC(nibName: "CSDashBoardVC", bundle: nil)
-        self.navigationController?.pushViewController(regVC, animated: true)
+        ENTALDControllers.shared.showTabbarViewController(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
+
+        }
     }
     
     @IBAction func forgotTapped(_ sender: Any) {
@@ -109,11 +110,7 @@ class LoginVC: ENTALDBaseViewController {
     }
     
     func showLandingScreen(){
-        DispatchQueue.main.async {
-            let regVC = LandingVC(nibName: "LandingVC", bundle: nil)
-            self.navigationController?.pushViewController(regVC, animated: true)
-        }
-        
+       
     }
     
     @IBAction func loginTapped(_ sender: Any) {
@@ -282,7 +279,7 @@ extension LoginVC {
             switch result {
             case .success(let response):
                 UserDefaults.standard.userInfo = response
-                self.showLandingScreen()
+                self.callbackToController?(nil, self)
                 break
             case .error(let error, let errorResponse):
                 var message = error.message

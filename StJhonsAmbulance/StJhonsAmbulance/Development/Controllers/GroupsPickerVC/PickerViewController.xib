@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Quicksand-SemiBold.ttf">
+            <string>Quicksand-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PickerViewController" customModule="StJhonsAmbulance" customModuleProvider="target">
+            <connections>
+                <outlet property="doneBtn" destination="UDX-tb-PIS" id="Ghu-ng-dZR"/>
+                <outlet property="pickerView" destination="y5K-DT-bbC" id="Au7-Hc-P61"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y5K-DT-bbC">
+                    <rect key="frame" x="0.0" y="602" width="393" height="250"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="250" id="83y-X0-6Dh"/>
+                    </constraints>
+                </pickerView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rsI-Vk-uF5">
+                    <rect key="frame" x="0.0" y="562" width="393" height="40"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UDX-tb-PIS">
+                            <rect key="frame" x="345" y="3" width="43" height="34"/>
+                            <fontDescription key="fontDescription" name="Quicksand-SemiBold" family="Quicksand" pointSize="17"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Done"/>
+                            <connections>
+                                <action selector="btnDoneAction:" destination="-1" eventType="touchUpInside" id="MIs-jm-elH"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="05t-Xj-1AM"/>
+                        <constraint firstItem="UDX-tb-PIS" firstAttribute="centerY" secondItem="rsI-Vk-uF5" secondAttribute="centerY" id="n50-4K-Ppn"/>
+                        <constraint firstAttribute="trailing" secondItem="UDX-tb-PIS" secondAttribute="trailing" constant="5" id="ntC-nU-QiK"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="rsI-Vk-uF5" secondAttribute="trailing" id="A00-85-3jR"/>
+                <constraint firstItem="rsI-Vk-uF5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="J23-wa-9Zq"/>
+                <constraint firstItem="y5K-DT-bbC" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="MIe-ga-CVQ"/>
+                <constraint firstItem="y5K-DT-bbC" firstAttribute="top" secondItem="rsI-Vk-uF5" secondAttribute="bottom" id="SQ4-M5-LOm"/>
+                <constraint firstItem="y5K-DT-bbC" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Xwj-2f-61k"/>
+                <constraint firstAttribute="bottom" secondItem="y5K-DT-bbC" secondAttribute="bottom" id="bcg-1e-LX2"/>
+            </constraints>
+            <point key="canvasLocation" x="-27" y="20"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -9,10 +9,8 @@ import UIKit
 import SideMenu
 
 
-class CSDashBoardVC: UIViewController,MenuControllerDelegate {
+class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
  
-    
-    
     var sideMenu: SideMenuVC?
     var menu: SideMenuNavigationController?
     var gridData : [DashBoardGridModel]?
@@ -29,6 +27,7 @@ class CSDashBoardVC: UIViewController,MenuControllerDelegate {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
+        self.navigationController?.navigationBar.isHidden = true
         collectionView.register(UINib(nibName: "CSDashBaordCVC", bundle: nil), forCellWithReuseIdentifier: "CSDashBaordCVC")
         decorateUI()
         setSideMenu()

@@ -14,7 +14,7 @@ enum RefreshDataObserverType{
 class ENTALDBaseViewController: UIViewController {
     
     var callbackToController : ControllerCallBackCompletion?
-    var screenBaseModel: Any?
+    var dataModel: Any?
     
     /// Appearance to be applied for navigation bar.
     private lazy var navBarAppearance: UINavigationBarAppearance = {

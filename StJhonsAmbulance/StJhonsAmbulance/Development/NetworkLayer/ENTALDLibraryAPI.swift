@@ -35,5 +35,10 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
+    func requestAssociatedGroups(params:[String:Any], _ completion:@escaping((ApiResult<LandingResponseModel, ApiError>) -> Void)){
+        let router = LandingRouter.getAssiciatedGroups(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
 }
 

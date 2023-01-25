@@ -34,23 +34,34 @@ class ENTALDControllers {
         
         if ENTALDHelperUtils.isUserLoggedIn() {
             
-//            self.showTabbarViewController(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
-//
-//            }
+            self.startFlowfromLandingScreen(from: from, callBack: callBack)
             
-            self.showLandingScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
-
-            }
         }else{
             self.showLoginScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
                 
+                if ENTALDHelperUtils.isUserLoggedIn() {
+                    self.startFlowfromLandingScreen(from: from, callBack: callBack)
+                }
             }
         }
     }
     
+    func startFlowfromLandingScreen(from:UIViewController?, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?){
+        DispatchQueue.main.async {
+            
+            self.showLandingScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
+                
+                self.showTabbarViewController(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
+
+                }
+            }
+        }
+        
+    }
+    
     func showLoginScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
         let vc = LoginVC.loadFromNib()
-        
+        vc.callbackToController = callBack
         let nav = ENTALDBaseNavigationController(rootViewController: vc)
         
         if let window = sceneDelegate?.window{
@@ -60,9 +71,16 @@ class ENTALDControllers {
         }
     }
     
+    func showSelectionPicker(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?){
+        let vc = PickerViewController.loadFromNib()
+        vc.dataModel = dataObj
+        vc.callbackToController = callBack
+        self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
+    }
+    
     func showLandingScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
         let vc = LandingVC.loadFromNib()
-        
+        vc.callbackToController = callBack
         let nav = ENTALDBaseNavigationController(rootViewController: vc)
         
         if let window = sceneDelegate?.window{

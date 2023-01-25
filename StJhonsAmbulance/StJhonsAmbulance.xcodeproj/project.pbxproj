@@ -82,6 +82,10 @@
 		E48359B7297D7887008CBFFF /* Algorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = E48359B5297D7887008CBFFF /* Algorithm.m */; };
 		E48359BE297DCDE5008CBFFF /* UserDefault+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48359BD297DCDE4008CBFFF /* UserDefault+Extension.swift */; };
 		E48359C0297E6C68008CBFFF /* LandingRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48359BF297E6C68008CBFFF /* LandingRouter.swift */; };
+		E48359D429811189008CBFFF /* LandingGroupsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48359D329811189008CBFFF /* LandingGroupsModel.swift */; };
+		E48359D829812AAF008CBFFF /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48359D629812AAF008CBFFF /* PickerViewController.swift */; };
+		E48359D929812AAF008CBFFF /* PickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E48359D729812AAF008CBFFF /* PickerViewController.xib */; };
+		E48359DB29813459008CBFFF /* ProcessUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48359DA29813459008CBFFF /* ProcessUtils.swift */; };
 		E4B2EF04297C4D9C00D05014 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B2EF03297C4D9C00D05014 /* Router.swift */; };
 		E4B2EF06297C50AC00D05014 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B2EF05297C50AC00D05014 /* LoginRouter.swift */; };
 		E4B2EF0C297C57EB00D05014 /* Quicksand-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4B2EF07297C57EA00D05014 /* Quicksand-Bold.ttf */; };
@@ -203,6 +207,10 @@
 		E48359B8297D792F008CBFFF /* StJhonsAmbulance-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StJhonsAmbulance-Bridging-Header.h"; sourceTree = "<group>"; };
 		E48359BD297DCDE4008CBFFF /* UserDefault+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefault+Extension.swift"; sourceTree = "<group>"; };
 		E48359BF297E6C68008CBFFF /* LandingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingRouter.swift; sourceTree = "<group>"; };
+		E48359D329811189008CBFFF /* LandingGroupsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingGroupsModel.swift; sourceTree = "<group>"; };
+		E48359D629812AAF008CBFFF /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
+		E48359D729812AAF008CBFFF /* PickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickerViewController.xib; sourceTree = "<group>"; };
+		E48359DA29813459008CBFFF /* ProcessUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessUtils.swift; sourceTree = "<group>"; };
 		E4B2EF03297C4D9C00D05014 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		E4B2EF05297C50AC00D05014 /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
 		E4B2EF07297C57EA00D05014 /* Quicksand-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Bold.ttf"; sourceTree = "<group>"; };
@@ -368,6 +376,7 @@
 		353C61392813ECF400CC8B7F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E48359D529812A17008CBFFF /* GroupsPickerVC */,
 				1D4DE851297FBC1B00246242 /* CSDashBoardVC */,
 				1D4DE83B297FB4C600246242 /* ForgetVC */,
 				1D4DE83E297FB4C600246242 /* LandingVC */,
@@ -395,6 +404,7 @@
 				359E9C46282E455F001E3D73 /* CoreClasses */,
 				353C6185281695DD00CC8B7F /* ENTALDDevicesUtil.swift */,
 				353C61872816A2EF00CC8B7F /* ENTALDAPIErrorUtil.swift */,
+				E48359DA29813459008CBFFF /* ProcessUtils.swift */,
 				353C618B2816AC1C00CC8B7F /* ENTALDAPIUtils.swift */,
 				353C61A22817D7B600CC8B7F /* ENTALDHelperUtils.swift */,
 				359E9C32282D46D9001E3D73 /* ENTALDDummyDataUtils.swift */,
@@ -644,6 +654,7 @@
 			isa = PBXGroup;
 			children = (
 				E48359AD297D6B44008CBFFF /* AuthResponseModel.swift */,
+				E48359D329811189008CBFFF /* LandingGroupsModel.swift */,
 			);
 			path = ReponseModels;
 			sourceTree = "<group>";
@@ -657,6 +668,15 @@
 				E48359B4297D7886008CBFFF /* Jwt.m */,
 			);
 			path = JWTLib;
+			sourceTree = "<group>";
+		};
+		E48359D529812A17008CBFFF /* GroupsPickerVC */ = {
+			isa = PBXGroup;
+			children = (
+				E48359D629812AAF008CBFFF /* PickerViewController.swift */,
+				E48359D729812AAF008CBFFF /* PickerViewController.xib */,
+			);
+			path = GroupsPickerVC;
 			sourceTree = "<group>";
 		};
 		E4B2EF02297C4D8C00D05014 /* Routers */ = {
@@ -808,6 +828,7 @@
 			files = (
 				E4B2EF19297C6B9200D05014 /* LoginVC.xib in Resources */,
 				359E9C22282B8148001E3D73 /* ENTALDAlertView.xib in Resources */,
+				E48359D929812AAF008CBFFF /* PickerViewController.xib in Resources */,
 				E4F7CB11297E121000428A4E /* SideMenuTVC.xib in Resources */,
 				E4B2EF0F297C57EB00D05014 /* Quicksand-Medium.ttf in Resources */,
 				1D4DE843297FB4C600246242 /* LandingVC.xib in Resources */,
@@ -988,11 +1009,13 @@
 				359E9C1A282B71AC001E3D73 /* ENTALDString+Extension.swift in Sources */,
 				353C615A28140D5800CC8B7F /* ENTALDBaseViewController.swift in Sources */,
 				353C619A2817D56500CC8B7F /* ENTALDDictionary+Extension.swift in Sources */,
+				E48359D429811189008CBFFF /* LandingGroupsModel.swift in Sources */,
 				353C61472813F0CE00CC8B7F /* ENTALDAPIConfig.swift in Sources */,
 				359E9C6D282E7914001E3D73 /* ENTALDUIImageView+Extension.swift in Sources */,
 				E48359BE297DCDE5008CBFFF /* UserDefault+Extension.swift in Sources */,
 				353C6109281213A500CC8B7F /* SceneDelegate.swift in Sources */,
 				353C61492813F16900CC8B7F /* ENTALDConst.swift in Sources */,
+				E48359DB29813459008CBFFF /* ProcessUtils.swift in Sources */,
 				353C618E2816B07900CC8B7F /* ENTALDNetworkRequest.swift in Sources */,
 				353C61882816A2EF00CC8B7F /* ENTALDAPIErrorUtil.swift in Sources */,
 				359E9C70282EA32F001E3D73 /* ENTALDTabbarViewController.swift in Sources */,
@@ -1009,6 +1032,7 @@
 				1D4DE84A297FB51C00246242 /* NSURL.swift in Sources */,
 				359E9C66282E455F001E3D73 /* CoreTextField.swift in Sources */,
 				1D4DE85D297FE33C00246242 /* CommonModel.swift in Sources */,
+				E48359D829812AAF008CBFFF /* PickerViewController.swift in Sources */,
 				359E9C64282E455F001E3D73 /* CoreControls.swift in Sources */,
 				E4F7CB0F297E121000428A4E /* SideMenuVC.swift in Sources */,
 				353C61642814810700CC8B7F /* UIApplication+Extension.swift in Sources */,

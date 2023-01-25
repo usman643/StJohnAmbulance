@@ -18,11 +18,16 @@ class LandingVC: ENTALDBaseViewController {
     @IBOutlet weak var btn2: UIButton!
     @IBOutlet weak var lblTitle: UILabel!
     
+    @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var lblDesc: UILabel!
+    
+    var selectedUserGroup : LandingGroupsModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         decorateUI()
+        
+        self.getGroups()
     }
 
     func decorateUI(){
@@ -39,10 +44,73 @@ class LandingVC: ENTALDBaseViewController {
         lblTitle.font = UIFont.BoldFont(24)
         lblDesc.font = UIFont.BoldFont(16)
         
+        nextBtn.backgroundColor = UIColor.themePrimaryColor
+        nextBtn.titleLabel?.font = UIFont.MediumFont(15.0)
+        
         lblTitle.textColor = UIColor.textWhiteColor
         lblDesc.textColor = UIColor.themePrimaryColor
         
+    }
+    
+    @IBAction func groupBtnAction(_ sender: Any) {
+        self.showGroupsPicker(list: ProcessUtils.shared.userGroupsList)
+    }
+    
+    @IBAction func btnNextAction(_ sender: Any) {
+        self.callbackToController?(nil, self)
+    }
+    
+    
+    func getGroups(){
+        guard let conId = UserDefaults.standard.contactIdToken else {return}
+        let params : [String:Any] = [
+            ParameterKeys.select : "_msnfp_groupid_value,msnfp_groupmembershipid",
+            ParameterKeys.expand : "msnfp_groupId($select=msnfp_groupname),msnfp_contactId($select=fullname),sjavms_RoleType($select=sjavms_rolecategory)",
+            ParameterKeys.filter : "(statecode eq 0 and _msnfp_contactid_value eq \(conId)) and (msnfp_groupId/statecode eq 0)",
+            ParameterKeys.orderby : "_msnfp_groupid_value asc"
+        ]
         
+        self.getAssociatedGroups(params: params)
+    }
+    
+    
+    fileprivate func getAssociatedGroups(params:[String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestAssociatedGroups(params: params) { result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result {
+            case .success(let response):
+                if let userGroups = response.value {
+                    ProcessUtils.shared.userGroupsList = userGroups
+                }
+                break
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+            }
+        }
+    }
+    
+    
+    func showGroupsPicker(list:[LandingGroupsModel] = []){
+        
+        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, dataObj: ProcessUtils.shared.userGroupsList) { params, controller in
+            
+            if let data = params as? LandingGroupsModel {
+                ProcessUtils.shared.selectedUserGroup = data
+                
+                self.btn2.setTitle("\(data.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
+                self.btn1.setTitle(data.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
+            }
+        }
     }
 
 }

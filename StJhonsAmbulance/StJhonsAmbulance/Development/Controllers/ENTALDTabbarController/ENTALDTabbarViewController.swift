@@ -21,7 +21,7 @@ class ENTALDTabbarViewController: UITabBarController {
         self.tabBar.barTintColor = .white
         UITabBar.appearance().barTintColor = .white
         UITabBar.appearance().selectionIndicatorImage = Bundle.loadImageFromResourceAFBundlePNG(imageName: "tab_bg")
-
+        self.navigationController?.navigationBar.isHidden = true
         self.setupTabbarshadow()
         
         self.loadTabbarControllers()
@@ -75,7 +75,7 @@ class ENTALDTabbarViewController: UITabBarController {
     
     private func loadTabbarControllers(){
         
-        let homeVC = DashboardVC.loadFromNib()
+        let homeVC = CSDashBoardVC.loadFromNib()
         
         let homeImg = "hometab".templatedImage
         

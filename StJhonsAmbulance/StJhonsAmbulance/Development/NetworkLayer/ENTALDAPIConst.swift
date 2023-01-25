@@ -33,6 +33,10 @@ struct ParameterKeys
     static let email = "email"
     static let password = "password"
     static let filter = "$filter"
+    static let select = "$select"
+    static let expand = "$expand"
+    static let orderby = "$orderby"
+    
 }
 
 
