@@ -33,8 +33,13 @@ class ENTALDControllers {
     func startFlowFromSplash(from:UIViewController?, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?){
         
         if ENTALDHelperUtils.isUserLoggedIn() {
+            
+//            self.showTabbarViewController(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
+//
+//            }
+            
             self.showLandingScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
-                
+
             }
         }else{
             self.showLoginScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in

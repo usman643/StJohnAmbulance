@@ -75,7 +75,7 @@ class ENTALDTabbarViewController: UITabBarController {
     
     private func loadTabbarControllers(){
         
-        let homeVC = ENTALDHomeViewController.loadFromNib()
+        let homeVC = DashboardVC.loadFromNib()
         
         let homeImg = "hometab".templatedImage
         
