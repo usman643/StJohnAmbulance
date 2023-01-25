@@ -15,7 +15,7 @@ extension  UIButton{
         
         self.layer.cornerRadius = 6
         self.clipsToBounds = true
-        self.backgroundColor = UIColor.themeColor
+        self.backgroundColor = UIColor.themePrimary
         self.titleLabel?.textColor = UIColor.white
         self.setTitleColor(UIColor.white, for: .normal)
     }

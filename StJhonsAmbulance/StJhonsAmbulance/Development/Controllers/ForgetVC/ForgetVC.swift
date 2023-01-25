@@ -14,6 +14,9 @@ class ForgetVC: UIViewController {
     @IBOutlet weak var headerLogoImgView: UIImageView!
     @IBOutlet weak var txtUserName: ACFloatingTextfield!
     
+    @IBOutlet weak var lblDesc: UILabel!
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblEmail: UILabel!
     @IBOutlet weak var MainVw: UIView!
     @IBOutlet weak var btnSendEmail: UIButton!
     @IBOutlet weak var btnlogin: UIButton!
@@ -28,17 +31,27 @@ class ForgetVC: UIViewController {
 
     func decorateUI(){
         self.navigationController?.navigationBar.isHidden = true
-        self.view.backgroundColor = UIColor.themeColor
+        self.view.backgroundColor = UIColor.themeSecondry
         headerLogoView.layer.cornerRadius =  headerLogoView.frame.size.height/2
-        headerLogoView.backgroundColor = UIColor.themeDarkColor
+        headerLogoView.backgroundColor = UIColor.themePrimary
         txtUserName.addDoneOnKeyboardWithTarget(self, action: #selector(doneButtonClicked), titleText: "Email")
 
-        MainVw.backgroundColor = UIColor.viewLightColor
+        self.view.backgroundColor = UIColor.themeSecondry
         MainVw.layer.cornerRadius = 40
         MainVw.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         btnSendEmail.themeColorButton()
-        btnlogin.titleLabel?.textColor = UIColor.themeColor
-        txtUserName.textColor = UIColor.textBlackColor
+        btnlogin.titleLabel?.textColor = UIColor.themePrimary
+        
+        lblTitle.font = UIFont.BoldFont(24)
+        lblDesc.font = UIFont.BoldFont(16)
+        lblEmail.font = UIFont.BoldFont(16)
+        
+        lblTitle.textColor = UIColor.textWhiteColor
+        lblDesc.textColor = UIColor.themePrimaryColor
+        lblEmail.textColor = UIColor.black
+        
+        btnSendEmail.titleLabel?.textColor = UIColor.textWhiteColor
+        btnSendEmail.titleLabel?.font = UIFont.BoldFont(16)
 
     }
 

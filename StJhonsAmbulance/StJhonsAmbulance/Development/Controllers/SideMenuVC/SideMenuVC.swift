@@ -39,6 +39,10 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     }
     
     func decorateUI(){
+        
+        lblName.font = UIFont.BoldFont(14)
+        lblEmail.font = UIFont.BoldFont(14)
+        
         lblName.text = "Name"
         lblEmail.text = "Email"
 
