@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D0BDED3298258BB00CC2030 /* MessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0BDED1298258BB00CC2030 /* MessageVC.swift */; };
+		1D0BDED4298258BB00CC2030 /* MessageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D0BDED2298258BB00CC2030 /* MessageVC.xib */; };
+		1D0BDED82982645400CC2030 /* MessageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0BDED62982645400CC2030 /* MessageTVC.swift */; };
+		1D0BDED92982645400CC2030 /* MessageTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D0BDED72982645400CC2030 /* MessageTVC.xib */; };
+		1D0BDEDD29826EC700CC2030 /* VounteerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0BDEDB29826EC700CC2030 /* VounteerVC.swift */; };
+		1D0BDEDE29826EC700CC2030 /* VounteerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D0BDEDC29826EC700CC2030 /* VounteerVC.xib */; };
+		1D0BDEE229826EE700CC2030 /* VounteerTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0BDEE029826EE700CC2030 /* VounteerTVC.swift */; };
+		1D0BDEE329826EE700CC2030 /* VounteerTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D0BDEE129826EE700CC2030 /* VounteerTVC.xib */; };
 		1D4DE841297FB4C600246242 /* ForgetVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D4DE83C297FB4C600246242 /* ForgetVC.xib */; };
 		1D4DE842297FB4C600246242 /* ForgetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4DE83D297FB4C600246242 /* ForgetVC.swift */; };
 		1D4DE843297FB4C600246242 /* LandingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D4DE83F297FB4C600246242 /* LandingVC.xib */; };
@@ -120,6 +128,14 @@
 
 /* Begin PBXFileReference section */
 		17C9EFF5DCD181366AD8E0B7 /* Pods-StJhonsAmbulanceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StJhonsAmbulanceTests.release.xcconfig"; path = "Target Support Files/Pods-StJhonsAmbulanceTests/Pods-StJhonsAmbulanceTests.release.xcconfig"; sourceTree = "<group>"; };
+		1D0BDED1298258BB00CC2030 /* MessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageVC.swift; sourceTree = "<group>"; };
+		1D0BDED2298258BB00CC2030 /* MessageVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageVC.xib; sourceTree = "<group>"; };
+		1D0BDED62982645400CC2030 /* MessageTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTVC.swift; sourceTree = "<group>"; };
+		1D0BDED72982645400CC2030 /* MessageTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageTVC.xib; sourceTree = "<group>"; };
+		1D0BDEDB29826EC700CC2030 /* VounteerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VounteerVC.swift; sourceTree = "<group>"; };
+		1D0BDEDC29826EC700CC2030 /* VounteerVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VounteerVC.xib; sourceTree = "<group>"; };
+		1D0BDEE029826EE700CC2030 /* VounteerTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VounteerTVC.swift; sourceTree = "<group>"; };
+		1D0BDEE129826EE700CC2030 /* VounteerTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VounteerTVC.xib; sourceTree = "<group>"; };
 		1D4DE83C297FB4C600246242 /* ForgetVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgetVC.xib; sourceTree = "<group>"; };
 		1D4DE83D297FB4C600246242 /* ForgetVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgetVC.swift; sourceTree = "<group>"; };
 		1D4DE83F297FB4C600246242 /* LandingVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LandingVC.xib; sourceTree = "<group>"; };
@@ -254,6 +270,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D0BDED0298258A300CC2030 /* MessageVC */ = {
+			isa = PBXGroup;
+			children = (
+				1D0BDED52982643200CC2030 /* MessageTVC */,
+				1D0BDED1298258BB00CC2030 /* MessageVC.swift */,
+				1D0BDED2298258BB00CC2030 /* MessageVC.xib */,
+			);
+			path = MessageVC;
+			sourceTree = "<group>";
+		};
+		1D0BDED52982643200CC2030 /* MessageTVC */ = {
+			isa = PBXGroup;
+			children = (
+				1D0BDED62982645400CC2030 /* MessageTVC.swift */,
+				1D0BDED72982645400CC2030 /* MessageTVC.xib */,
+			);
+			path = MessageTVC;
+			sourceTree = "<group>";
+		};
+		1D0BDEDA29826EA200CC2030 /* VounteerVC */ = {
+			isa = PBXGroup;
+			children = (
+				1D0BDEDF29826ECE00CC2030 /* VounteerTVC */,
+				1D0BDEDB29826EC700CC2030 /* VounteerVC.swift */,
+				1D0BDEDC29826EC700CC2030 /* VounteerVC.xib */,
+			);
+			path = VounteerVC;
+			sourceTree = "<group>";
+		};
+		1D0BDEDF29826ECE00CC2030 /* VounteerTVC */ = {
+			isa = PBXGroup;
+			children = (
+				1D0BDEE029826EE700CC2030 /* VounteerTVC.swift */,
+				1D0BDEE129826EE700CC2030 /* VounteerTVC.xib */,
+			);
+			path = VounteerTVC;
+			sourceTree = "<group>";
+		};
 		1D4DE83B297FB4C600246242 /* ForgetVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -376,6 +430,8 @@
 		353C61392813ECF400CC8B7F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1D0BDEDA29826EA200CC2030 /* VounteerVC */,
+				1D0BDED0298258A300CC2030 /* MessageVC */,
 				E48359D529812A17008CBFFF /* GroupsPickerVC */,
 				1D4DE851297FBC1B00246242 /* CSDashBoardVC */,
 				1D4DE83B297FB4C600246242 /* ForgetVC */,
@@ -836,12 +892,16 @@
 				1D4DE841297FB4C600246242 /* ForgetVC.xib in Resources */,
 				353C6113281213A600CC8B7F /* LaunchScreen.storyboard in Resources */,
 				353C6110281213A600CC8B7F /* Assets.xcassets in Resources */,
+				1D0BDEE329826EE700CC2030 /* VounteerTVC.xib in Resources */,
 				353C610E281213A500CC8B7F /* Main.storyboard in Resources */,
 				353C614E28140B6B00CC8B7F /* ENTALDHomeViewController.xib in Resources */,
+				1D0BDED4298258BB00CC2030 /* MessageVC.xib in Resources */,
 				359E9C77282EA58E001E3D73 /* ENTALDOffersViewController.xib in Resources */,
 				359E9C16282B7077001E3D73 /* ENTALDLocalizable.strings in Resources */,
 				E4B2EF0C297C57EB00D05014 /* Quicksand-Bold.ttf in Resources */,
+				1D0BDEDE29826EC700CC2030 /* VounteerVC.xib in Resources */,
 				E4B2EF10297C57EB00D05014 /* Quicksand-Light.ttf in Resources */,
+				1D0BDED92982645400CC2030 /* MessageTVC.xib in Resources */,
 				E47F99BD297DC8F900BF793B /* DashboardVC.xib in Resources */,
 				359E9C35282D47C2001E3D73 /* onBoardingJson.json in Resources */,
 				1D4DE855297FBC4000246242 /* CSDashBoardVC.xib in Resources */,
@@ -977,6 +1037,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				359E9C5D282E455F001E3D73 /* CoreTableView.swift in Sources */,
+				1D0BDED82982645400CC2030 /* MessageTVC.swift in Sources */,
 				1D4DE854297FBC4000246242 /* CSDashBoardVC.swift in Sources */,
 				353C617D2814CFEF00CC8B7F /* NSBundle+Extension.swift in Sources */,
 				353C61452813EF9600CC8B7F /* ENTALDAppConfig.swift in Sources */,
@@ -994,12 +1055,14 @@
 				359E9C5E282E455F001E3D73 /* CoreTableViewCell.swift in Sources */,
 				1D4DE842297FB4C600246242 /* ForgetVC.swift in Sources */,
 				E48359B7297D7887008CBFFF /* Algorithm.m in Sources */,
+				1D0BDEE229826EE700CC2030 /* VounteerTVC.swift in Sources */,
 				353C6107281213A500CC8B7F /* AppDelegate.swift in Sources */,
 				E48359C0297E6C68008CBFFF /* LandingRouter.swift in Sources */,
 				E4F7CB12297E121000428A4E /* SideMenuTVC.swift in Sources */,
 				E48359AE297D6B44008CBFFF /* AuthResponseModel.swift in Sources */,
 				359E9C76282EA58E001E3D73 /* ENTALDOffersViewController.swift in Sources */,
 				1D4DE84E297FB51C00246242 /* Validate.swift in Sources */,
+				1D0BDEDD29826EC700CC2030 /* VounteerVC.swift in Sources */,
 				E48359AB297D66E3008CBFFF /* AuthRequestModel.swift in Sources */,
 				1D4DE84D297FB51C00246242 /* NSString.swift in Sources */,
 				359E9C33282D46D9001E3D73 /* ENTALDDummyDataUtils.swift in Sources */,
@@ -1030,6 +1093,7 @@
 				353C61842816948500CC8B7F /* ENTALDAPIConst.swift in Sources */,
 				353C614D28140B6B00CC8B7F /* ENTALDHomeViewController.swift in Sources */,
 				1D4DE84A297FB51C00246242 /* NSURL.swift in Sources */,
+				1D0BDED3298258BB00CC2030 /* MessageVC.swift in Sources */,
 				359E9C66282E455F001E3D73 /* CoreTextField.swift in Sources */,
 				1D4DE85D297FE33C00246242 /* CommonModel.swift in Sources */,
 				E48359D829812AAF008CBFFF /* PickerViewController.swift in Sources */,

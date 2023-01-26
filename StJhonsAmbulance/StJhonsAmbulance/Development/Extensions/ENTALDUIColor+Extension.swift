@@ -127,6 +127,12 @@ extension UIColor {
     @nonobjc class var themePrimary: UIColor {
         return UIColor(named: "themePrimary")!
     }
+    @nonobjc class var themeBlackText: UIColor {
+        return UIColor(named: "themeBlackText")!
+    }
+    @nonobjc class var themeWhiteText: UIColor {
+        return UIColor(named: "themeWhiteText")!
+    }
     @nonobjc class var themeSecondry: UIColor {
         return UIColor(named: "themeSecondry")!
     }

@@ -17,5 +17,5 @@ class ProcessUtils {
     
     var userGroupsList : [LandingGroupsModel] = []
     var selectedUserGroup : LandingGroupsModel?
-    
+    var tabbarHeight : CGFloat?
 }

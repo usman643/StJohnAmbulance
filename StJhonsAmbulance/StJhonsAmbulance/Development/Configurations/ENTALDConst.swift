@@ -51,3 +51,5 @@ let IS_IPHONE_WITH_NOTCH_DEVICES = IS_IPHONE_X || IS_IPHONE_XR || IS_IPHONE_XS |
 
 let IS_RETINA = UIScreen.main.scale >= 2.0
 let IPHONE_6_DEVICE_OFFSET = UIScreen.main.bounds.width / 375
+
+

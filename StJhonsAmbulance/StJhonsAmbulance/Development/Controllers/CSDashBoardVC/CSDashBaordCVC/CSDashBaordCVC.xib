@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="196" height="164"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_camp" translatesAutoresizingMaskIntoConstraints="NO" id="b4z-r5-dJx">
-                                <rect key="frame" x="63" y="32" width="70" height="70"/>
+                                <rect key="frame" x="63" y="27" width="70" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="Dit-10-eE2"/>
                                     <constraint firstAttribute="width" constant="70" id="eYl-Gs-m3N"/>
@@ -46,8 +46,8 @@
                             <constraint firstItem="F36-aK-eur" firstAttribute="leading" secondItem="RZO-yC-3me" secondAttribute="leading" constant="8" id="Pa5-Fa-Tn9"/>
                             <constraint firstAttribute="bottom" secondItem="aCh-Ik-qFG" secondAttribute="bottom" constant="8" id="R90-yQ-Hzo"/>
                             <constraint firstAttribute="trailing" secondItem="aCh-Ik-qFG" secondAttribute="trailing" constant="8" id="UJA-eQ-FMI"/>
+                            <constraint firstItem="b4z-r5-dJx" firstAttribute="centerY" secondItem="RZO-yC-3me" secondAttribute="centerY" constant="-20" id="d0v-Hz-BMT"/>
                             <constraint firstItem="aCh-Ik-qFG" firstAttribute="top" secondItem="F36-aK-eur" secondAttribute="bottom" id="n3g-t3-gty"/>
-                            <constraint firstItem="b4z-r5-dJx" firstAttribute="top" secondItem="RZO-yC-3me" secondAttribute="top" constant="32" id="oP5-4O-khz"/>
                             <constraint firstAttribute="trailing" secondItem="F36-aK-eur" secondAttribute="trailing" constant="8" id="rIR-zq-zih"/>
                             <constraint firstItem="b4z-r5-dJx" firstAttribute="centerX" secondItem="RZO-yC-3me" secondAttribute="centerX" id="s30-g7-oE5"/>
                             <constraint firstItem="aCh-Ik-qFG" firstAttribute="leading" secondItem="RZO-yC-3me" secondAttribute="leading" constant="8" id="x7W-dA-sr5"/>
@@ -61,6 +61,7 @@
                 <constraint firstAttribute="trailing" secondItem="RZO-yC-3me" secondAttribute="trailing" id="9X1-KK-dyo"/>
                 <constraint firstItem="RZO-yC-3me" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="DSO-MH-OXF"/>
                 <constraint firstAttribute="bottom" secondItem="RZO-yC-3me" secondAttribute="bottom" id="FyV-cE-Vrl"/>
+                <constraint firstItem="RZO-yC-3me" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="SGK-xr-4em"/>
             </constraints>
             <size key="customSize" width="196" height="164"/>
             <connections>

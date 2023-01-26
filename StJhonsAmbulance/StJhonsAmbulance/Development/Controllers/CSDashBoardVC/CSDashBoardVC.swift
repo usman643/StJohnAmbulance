@@ -105,8 +105,10 @@ extension CSDashBoardVC : UICollectionViewDelegate,UICollectionViewDataSource, U
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
          let cellWidth = (UIScreen.main.bounds.size.width - 24)/2
+
+        let height = (self.collectionView.frame.size.height - 16 - 22) / 3
         
-        return CGSizeMake(cellWidth, 150)
+        return CGSizeMake(cellWidth, height )
     
     }
     

@@ -46,7 +46,7 @@ class ENTALDTabbarViewController: UITabBarController {
     
     override func viewDidLayoutSubviews() {
         let newTabBarHeight = defaultTabBarHeight + 20
-        
+        ProcessUtils.shared.tabbarHeight = newTabBarHeight
         var newFrame = tabBar.frame
         newFrame.size.height = newTabBarHeight
         newFrame.origin.y = view.frame.size.height - newTabBarHeight
