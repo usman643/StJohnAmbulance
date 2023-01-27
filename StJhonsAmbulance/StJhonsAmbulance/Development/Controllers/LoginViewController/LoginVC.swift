@@ -98,9 +98,13 @@ class LoginVC: ENTALDBaseViewController {
     }
     
     @IBAction func registerTapped(_ sender: Any) {
-        ENTALDControllers.shared.showTabbarViewController(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
-
-        }
+        
+        let regVC = PendingShiftVC(nibName: "PendingShiftVC", bundle: nil)
+        self.navigationController?.pushViewController(regVC, animated: true)
+        
+//        ENTALDControllers.shared.showTabbarViewController(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
+//
+//        }
     }
     
     @IBAction func forgotTapped(_ sender: Any) {
