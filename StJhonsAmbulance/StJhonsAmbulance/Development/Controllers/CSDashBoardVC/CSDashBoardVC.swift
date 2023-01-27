@@ -27,7 +27,7 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         collectionView.register(UINib(nibName: "CSDashBaordCVC", bundle: nil), forCellWithReuseIdentifier: "CSDashBaordCVC")
         decorateUI()
         setSideMenu()
@@ -112,10 +112,24 @@ extension CSDashBoardVC : UICollectionViewDelegate,UICollectionViewDataSource, U
     
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.row == 1 {
+            let vc = MessageVC.loadFromNib()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else if indexPath.row == 2 {
+            let vc = VounteerVC.loadFromNib()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else if indexPath.row == 3 {
+            let vc = PendingShiftVC.loadFromNib()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else if indexPath.row == 4 {
+            let vc = EventVC.loadFromNib()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
     
     
 }
-
 
 //
 //    <color name="teal_200">#FF03DAC5</color>

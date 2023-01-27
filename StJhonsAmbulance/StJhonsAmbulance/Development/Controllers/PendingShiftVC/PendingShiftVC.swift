@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PendingShiftVC: UIViewController {
+class PendingShiftVC: ENTALDBaseViewController {
 
     
     @IBOutlet weak var btnBack: UIButton!
@@ -69,13 +69,16 @@ class PendingShiftVC: UIViewController {
     
 
     @IBAction func backTapped(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func selectGroupTapped(_ sender: Any) {
+        
     }
     
 
     @IBAction func searchCloseTapped(_ sender: Any) {
+        
     }
 }
 

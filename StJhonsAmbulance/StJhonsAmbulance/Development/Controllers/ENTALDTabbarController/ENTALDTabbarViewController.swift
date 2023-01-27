@@ -65,12 +65,12 @@ class ENTALDTabbarViewController: UITabBarController {
     
     
     fileprivate func createNavController(for rootViewController: UIViewController, title: String, image: UIImage) -> UIViewController {
-        let navController = ENTALDBaseNavigationController(rootViewController: rootViewController)
-        navController.tabBarItem.title = title
-        navController.tabBarItem.image = image
-        navController.tabBarItem.selectedImage = image
+//        let navController = ENTALDBaseNavigationController(rootViewController: rootViewController)
+        rootViewController.tabBarItem.title = title
+        rootViewController.tabBarItem.image = image
+        rootViewController.tabBarItem.selectedImage = image
         rootViewController.navigationItem.title = title
-        return navController
+        return rootViewController
     }
     
     private func loadTabbarControllers(){

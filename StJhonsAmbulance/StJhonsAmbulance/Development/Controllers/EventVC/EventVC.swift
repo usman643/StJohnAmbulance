@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EventVC: UIViewController {
+class EventVC: ENTALDBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,7 +15,10 @@ class EventVC: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-
+    @IBAction func btnBackAction(_ sender: Any) {
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
     /*
     // MARK: - Navigation
 

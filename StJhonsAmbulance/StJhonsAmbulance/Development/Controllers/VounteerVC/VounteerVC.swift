@@ -7,7 +7,7 @@
 
 import UIKit
 
-class VounteerVC: UIViewController{
+class VounteerVC: ENTALDBaseViewController{
 
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnHome: UIButton!
@@ -60,6 +60,7 @@ class VounteerVC: UIViewController{
     
 
     @IBAction func backTapped(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func selectGroupTapped(_ sender: Any) {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MessageVC: UIViewController {
+class MessageVC: ENTALDBaseViewController {
 
     
     @IBOutlet weak var btnBack: UIButton!
@@ -64,6 +64,7 @@ class MessageVC: UIViewController {
 
 
     @IBAction func backTapped(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     
