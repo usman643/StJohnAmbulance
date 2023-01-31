@@ -231,7 +231,9 @@ extension LoginVC {
                 if let err = errorResponse {
                     message = err.error
                 }
-                ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
             }
         }
     }
@@ -259,7 +261,9 @@ extension LoginVC {
                 if let err = errorResponse {
                     message = err.error
                 }
-                ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
             }
         }
     }
@@ -285,7 +289,9 @@ extension LoginVC {
                 if let err = errorResponse {
                     message = err.error
                 }
-                ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
             }
         }
     }
@@ -309,7 +315,9 @@ extension LoginVC {
                 if let err = errorResponse {
                     message = err.error
                 }
-                ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
             }
         }
     }

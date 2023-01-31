@@ -46,6 +46,10 @@
 		1DF176F2298904BA005809C6 /* PendingShiftResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF176F1298904BA005809C6 /* PendingShiftResponseModel.swift */; };
 		1DF176F4298908BB005809C6 /* PendingShiftRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF176F3298908BB005809C6 /* PendingShiftRouter.swift */; };
 		1DF176F629892078005809C6 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF176F529892078005809C6 /* DateFormatter.swift */; };
+		1DF176FC29893B40005809C6 /* EventRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF176FB29893B40005809C6 /* EventRouter.swift */; };
+		1DF176FE29893E52005809C6 /* EventsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF176FD29893E52005809C6 /* EventsModel.swift */; };
+		1DF1770029893ECA005809C6 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF176FF29893ECA005809C6 /* MessageModel.swift */; };
+		1DF1770229893ED8005809C6 /* VolunteerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1770129893ED8005809C6 /* VolunteerModel.swift */; };
 		353C6107281213A500CC8B7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C6106281213A500CC8B7F /* AppDelegate.swift */; };
 		353C6109281213A500CC8B7F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C6108281213A500CC8B7F /* SceneDelegate.swift */; };
 		353C610E281213A500CC8B7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 353C610C281213A500CC8B7F /* Main.storyboard */; };
@@ -184,6 +188,10 @@
 		1DF176F1298904BA005809C6 /* PendingShiftResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingShiftResponseModel.swift; sourceTree = "<group>"; };
 		1DF176F3298908BB005809C6 /* PendingShiftRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PendingShiftRouter.swift; path = ../../../../../../../PendingShiftRouter.swift; sourceTree = "<group>"; };
 		1DF176F529892078005809C6 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		1DF176FB29893B40005809C6 /* EventRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRouter.swift; sourceTree = "<group>"; };
+		1DF176FD29893E52005809C6 /* EventsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsModel.swift; sourceTree = "<group>"; };
+		1DF176FF29893ECA005809C6 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
+		1DF1770129893ED8005809C6 /* VolunteerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerModel.swift; sourceTree = "<group>"; };
 		230A8997ED08A9DC21CB28B9 /* Pods-StJhonsAmbulance.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StJhonsAmbulance.debug.xcconfig"; path = "Target Support Files/Pods-StJhonsAmbulance/Pods-StJhonsAmbulance.debug.xcconfig"; sourceTree = "<group>"; };
 		353C6103281213A500CC8B7F /* StJhonsAmbulance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StJhonsAmbulance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		353C6106281213A500CC8B7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -815,8 +823,11 @@
 			isa = PBXGroup;
 			children = (
 				E48359AD297D6B44008CBFFF /* AuthResponseModel.swift */,
+				1DF176FD29893E52005809C6 /* EventsModel.swift */,
 				E48359D329811189008CBFFF /* LandingGroupsModel.swift */,
 				1DF176F1298904BA005809C6 /* PendingShiftResponseModel.swift */,
+				1DF176FF29893ECA005809C6 /* MessageModel.swift */,
+				1DF1770129893ED8005809C6 /* VolunteerModel.swift */,
 			);
 			path = ReponseModels;
 			sourceTree = "<group>";
@@ -848,6 +859,7 @@
 				E4B2EF05297C50AC00D05014 /* LoginRouter.swift */,
 				E48359BF297E6C68008CBFFF /* LandingRouter.swift */,
 				1DF176F3298908BB005809C6 /* PendingShiftRouter.swift */,
+				1DF176FB29893B40005809C6 /* EventRouter.swift */,
 			);
 			path = Routers;
 			sourceTree = "<group>";
@@ -1175,6 +1187,7 @@
 				E48359B7297D7887008CBFFF /* Algorithm.m in Sources */,
 				1D0BDEE229826EE700CC2030 /* VounteerTVC.swift in Sources */,
 				353C6107281213A500CC8B7F /* AppDelegate.swift in Sources */,
+				1DF1770029893ECA005809C6 /* MessageModel.swift in Sources */,
 				E48359C0297E6C68008CBFFF /* LandingRouter.swift in Sources */,
 				1D1443052984051C001F3B15 /* EventTVC.swift in Sources */,
 				E4F7CB12297E121000428A4E /* SideMenuTVC.swift in Sources */,
@@ -1193,6 +1206,7 @@
 				E48359B6297D7887008CBFFF /* Jwt.m in Sources */,
 				359E9C1A282B71AC001E3D73 /* ENTALDString+Extension.swift in Sources */,
 				353C615A28140D5800CC8B7F /* ENTALDBaseViewController.swift in Sources */,
+				1DF1770229893ED8005809C6 /* VolunteerModel.swift in Sources */,
 				353C619A2817D56500CC8B7F /* ENTALDDictionary+Extension.swift in Sources */,
 				E48359D429811189008CBFFF /* LandingGroupsModel.swift in Sources */,
 				353C61472813F0CE00CC8B7F /* ENTALDAPIConfig.swift in Sources */,
@@ -1210,6 +1224,7 @@
 				359E9C20282B812D001E3D73 /* ENTALDAlertView.swift in Sources */,
 				359E9C65282E455F001E3D73 /* CoreLabel.swift in Sources */,
 				353C61822816931000CC8B7F /* ENTALDLibraryAPI.swift in Sources */,
+				1DF176FE29893E52005809C6 /* EventsModel.swift in Sources */,
 				E4B2EF16297C633C00D05014 /* LoginVC.swift in Sources */,
 				1D4DE84C297FB51C00246242 /* UIButton.swift in Sources */,
 				353C61842816948500CC8B7F /* ENTALDAPIConst.swift in Sources */,
@@ -1229,6 +1244,7 @@
 				359E9C24282B96F2001E3D73 /* CommonEnums.swift in Sources */,
 				E4B2EF06297C50AC00D05014 /* LoginRouter.swift in Sources */,
 				359E9C1C282B7598001E3D73 /* ENTALDUIFont+Extension.swift in Sources */,
+				1DF176FC29893B40005809C6 /* EventRouter.swift in Sources */,
 				1D4DE859297FC4BA00246242 /* CSDashBaordCVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

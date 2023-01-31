@@ -43,9 +43,8 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         lblName.font = UIFont.BoldFont(14)
         lblEmail.font = UIFont.BoldFont(14)
         
-        lblName.text = "Name"
-        lblEmail.text = "Email"
-
+        lblName.text = UserDefaults.standard.userInfo?.fullname
+        lblEmail.text = UserDefaults.standard.userInfo?.emailaddress1
         imgMainVw.layer.cornerRadius = imgMainVw.frame.size.height/2
         
 

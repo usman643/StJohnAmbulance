@@ -7,7 +7,7 @@
 
 import UIKit
 
-class VounteerVC: ENTALDBaseViewController{
+class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate{
 
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnHome: UIButton!
@@ -18,7 +18,7 @@ class VounteerVC: ENTALDBaseViewController{
     
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var searchImg: UIImageView!
-    @IBOutlet weak var textSearch: UITextField!
+    @IBOutlet weak var textSearch: UISearchTextField!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblRole: UILabel!
@@ -32,9 +32,9 @@ class VounteerVC: ENTALDBaseViewController{
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "VounteerTVC", bundle: nil), forCellReuseIdentifier: "VounteerTVC")
-        
+        textSearch.delegate = self
         decorateUI()
-        
+
         btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
         
     }
@@ -55,13 +55,11 @@ class VounteerVC: ENTALDBaseViewController{
         searchView.layer.borderColor = UIColor.themePrimaryColor.cgColor
         stackView.layer.borderWidth = 1.5
         searchView.layer.borderWidth = 1.5
-        btnSearchClose.isHidden = false
+        btnSearchClose.isHidden = true
         btnSelectGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
         
     }
-    
-    
 
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -74,6 +72,8 @@ class VounteerVC: ENTALDBaseViewController{
     
 
     @IBAction func searchCloseTapped(_ sender: Any) {
+        textSearch.endEditing(true)
+        textSearch.text = ""
     }
     
     func showGroupsPicker(list:[LandingGroupsModel] = []){
@@ -88,10 +88,21 @@ class VounteerVC: ENTALDBaseViewController{
             }
         }
     }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        btnSearchClose.isHidden = false
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        btnSearchClose.isHidden = true
+    }
+    
+    
+    
+    
 }
 
 
-extension VounteerVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate{
+extension VounteerVC: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 30
     }
@@ -116,12 +127,6 @@ extension VounteerVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDeleg
         return 30
     }
     
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        btnSearchClose.isHidden = false
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        btnSearchClose.isHidden = true
-    }
+
     
 }

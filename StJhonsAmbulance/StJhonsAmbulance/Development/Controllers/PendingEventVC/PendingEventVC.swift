@@ -152,7 +152,7 @@ class PendingEventVC: ENTALDBaseViewController {
     
 }
 
-extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate{
+extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate, UIActionSheetDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 30
     }
@@ -180,6 +180,34 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 30
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PendingEventTVC", for: indexPath) as! PendingEventTVC
+        showActionSheet(pointView: cell.mainView, arrIndex:indexPath.row)
+    }
+    
+   
+    
+    func showActionSheet(pointView:UIView, arrIndex : Int) {
+        
+        let alert = UIAlertController(title: "Action", message: "Please choose action", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Edit", style: .default, handler: { action in
+            
+            
+        }))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { action in
+            
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { action in
+        }))
+        
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.sourceView = pointView
+            popoverController.sourceRect = pointView.bounds
+        }
+        
+        present(alert, animated: true)
     }
     
     
