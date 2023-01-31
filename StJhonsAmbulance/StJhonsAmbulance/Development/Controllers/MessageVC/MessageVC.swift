@@ -30,28 +30,29 @@ class MessageVC: ENTALDBaseViewController {
         tableview.register(UINib(nibName: "MessageTVC", bundle: nil), forCellReuseIdentifier: "MessageTVC")
         decorateUI()
         
+        btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
+        
     }
 
     func decorateUI(){
         
-        btnBack.titleLabel?.font = UIFont.RegularFont(14)
-        btnHome.titleLabel?.font = UIFont.RegularFont(14)
-        btnGroup.titleLabel?.font = UIFont.RegularFont(14)
+        
+        btnGroup.titleLabel?.font = UIFont.BoldFont(14)
         btnCall.titleLabel?.font = UIFont.RegularFont(14)
         btnText.titleLabel?.font = UIFont.RegularFont(14)
         btnEmail.titleLabel?.font = UIFont.RegularFont(14)
         
-        btnBack.titleLabel?.textColor = UIColor.textWhiteColor
-        btnHome.titleLabel?.textColor = UIColor.textWhiteColor
-        btnGroup.titleLabel?.textColor = UIColor.textWhiteColor
-        btnCall.titleLabel?.textColor = UIColor.textWhiteColor
-        btnText.titleLabel?.textColor = UIColor.textWhiteColor
-        btnEmail.titleLabel?.textColor = UIColor.textWhiteColor
         
-        groupView.layer.cornerRadius = 8
-        callView.layer.cornerRadius = 8
-        textView.layer.cornerRadius = 8
-        emailView.layer.cornerRadius = 8
+        btnGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
+        btnCall.setTitleColor(UIColor.textWhiteColor, for: .normal)
+        btnText.setTitleColor(UIColor.textWhiteColor, for: .normal)
+        btnEmail.setTitleColor(UIColor.textWhiteColor, for: .normal)
+        
+        
+        groupView.layer.cornerRadius = 3
+        callView.layer.cornerRadius = 3
+        textView.layer.cornerRadius = 3
+        emailView.layer.cornerRadius = 3
         
         groupView.backgroundColor = UIColor.themePrimaryColor
         callView.backgroundColor = UIColor.themePrimaryColor
@@ -72,6 +73,7 @@ class MessageVC: ENTALDBaseViewController {
     }
     
     @IBAction func selectGroupTapped(_ sender: Any) {
+        showGroupsPicker()
     }
     
     @IBAction func callTapped(_ sender: Any) {
@@ -81,6 +83,19 @@ class MessageVC: ENTALDBaseViewController {
     }
     
     @IBAction func emailTapped(_ sender: Any) {
+    }
+    
+    func showGroupsPicker(list:[LandingGroupsModel] = []){
+        
+        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, dataObj: ProcessUtils.shared.userGroupsList) { params, controller in
+            
+            if let data = params as? LandingGroupsModel {
+                ProcessUtils.shared.selectedUserGroup = data
+                
+                self.btnGroup.setTitle("\(data.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
+                
+            }
+        }
     }
     
 }

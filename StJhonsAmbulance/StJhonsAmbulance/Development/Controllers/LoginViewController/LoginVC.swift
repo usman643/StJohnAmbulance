@@ -9,9 +9,8 @@ import UIKit
 import ACFloatingTextfield_Swift
 
 class LoginVC: ENTALDBaseViewController {
-
-
     
+    var isRememberPassword: Bool!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblEmail: UILabel!
     @IBOutlet weak var lblPassword: UILabel!
@@ -39,6 +38,7 @@ class LoginVC: ENTALDBaseViewController {
         self.txtUserName.text = "dougsalomon@outlook.com"
         self.txtPassword.text = "qAz!2#sss"
         UserDefaults.standard.authToken = nil
+        isRememberPassword = false
         decorateUI()
     }
 
@@ -99,7 +99,7 @@ class LoginVC: ENTALDBaseViewController {
     
     @IBAction func registerTapped(_ sender: Any) {
         
-        let regVC = PendingShiftVC(nibName: "PendingShiftVC", bundle: nil)
+        let regVC = PendingEventVC(nibName: "PendingEventVC", bundle: nil)
         self.navigationController?.pushViewController(regVC, animated: true)
         
 //        ENTALDControllers.shared.showTabbarViewController(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
@@ -149,6 +149,16 @@ class LoginVC: ENTALDBaseViewController {
     }
     
     @IBAction func staySignin(_ sender: Any) {
+        if (isRememberPassword){
+            btnStaySignIn.setImage(UIImage(named: ""), for: .normal)
+            btnStaySignIn.backgroundColor = UIColor.viewLightGrayColor
+            isRememberPassword = false
+        }else{
+            btnStaySignIn .setImage(UIImage(named: "ic_check"), for: .normal)
+            btnStaySignIn.backgroundColor = UIColor.clear
+            isRememberPassword = true
+        }
+    
         
     }
     @IBAction func gmailLoginTapped(_ sender: Any) {
@@ -159,6 +169,15 @@ class LoginVC: ENTALDBaseViewController {
     
     @IBAction func showSecureFieldAction(_ sender: UIButton) {
         txtPassword.isSecureTextEntry = !txtPassword.isSecureTextEntry
+        let image = UIImage(named: "Vectoreye")?.withRenderingMode(.alwaysTemplate)
+        btnShowPass.setImage(image, for: .normal)
+        if (txtPassword.isSecureTextEntry){
+            btnShowPass.tintColor = UIColor.lightGray
+           
+        }else{
+            btnShowPass.tintColor = UIColor.themePrimaryColor
+        }
+        
     }
     
 

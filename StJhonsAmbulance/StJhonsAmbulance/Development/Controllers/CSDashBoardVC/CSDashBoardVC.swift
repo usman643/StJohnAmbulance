@@ -23,11 +23,14 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
     @IBOutlet weak var btnGroup: UIButton!
     @IBOutlet weak var lblLogoTitle: UILabel!
     
+    @IBOutlet weak var btnGroupSelectView: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+       
+//        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationController?.navigationBar.isHidden = true
         collectionView.register(UINib(nibName: "CSDashBaordCVC", bundle: nil), forCellWithReuseIdentifier: "CSDashBaordCVC")
         decorateUI()
         setSideMenu()
@@ -40,6 +43,7 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
                     DashBoardGridModel(title: "Pending Shifts", subTitle: "02", bgColor: UIColor.lightBlueColor, icon: "ic_hour"),
                     DashBoardGridModel(title: "Pending Events", subTitle: "06", bgColor: UIColor.themePrimaryColor, icon: "ic_pendingEvent")
                 ]
+        btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
     }
 
     func setSideMenu(){
@@ -78,13 +82,23 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
 
     func decorateUI(){
         self.btnMainView.backgroundColor = UIColor.themePrimaryColor
-        self.btnMainView.layer.cornerRadius = 8
+        self.btnMainView.layer.cornerRadius = 3
         lblLogoTitle.textColor = UIColor.themePrimaryColor
+        
+        btnGroupSelectView.layer.cornerRadius = 3
+        btnGroup.setTitleColor(UIColor.white, for: .normal)
+        btnGroup.titleLabel?.font = UIFont.BoldFont(14)
     }
 
+    @IBAction func selectGroupTapped(_ sender: Any) {
+        showGroupsPicker()
+    }
     @IBAction func sideMenuTapped(_ sender: Any) {
         present(menu!, animated: true)
     }
+    
+    
+    
     
 }
 
@@ -113,6 +127,10 @@ extension CSDashBoardVC : UICollectionViewDelegate,UICollectionViewDataSource, U
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        if indexPath.row == 0 {
+//            let vc = MessageVC.loadFromNib()
+//            self.navigationController?.pushViewController(vc, animated: true)
+//        }else
         if indexPath.row == 1 {
             let vc = MessageVC.loadFromNib()
             self.navigationController?.pushViewController(vc, animated: true)
@@ -120,13 +138,30 @@ extension CSDashBoardVC : UICollectionViewDelegate,UICollectionViewDataSource, U
             let vc = VounteerVC.loadFromNib()
             self.navigationController?.pushViewController(vc, animated: true)
         }else if indexPath.row == 3 {
-            let vc = PendingShiftVC.loadFromNib()
+            let vc = EventVC.loadFromNib()
             self.navigationController?.pushViewController(vc, animated: true)
         }else if indexPath.row == 4 {
-            let vc = EventVC.loadFromNib()
+            let vc = PendingShiftVC.loadFromNib()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else if indexPath.row == 5 {
+            let vc = PendingEventVC.loadFromNib()
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
+    
+    func showGroupsPicker(list:[LandingGroupsModel] = []){
+        
+        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, dataObj: ProcessUtils.shared.userGroupsList) { params, controller in
+            
+            if let data = params as? LandingGroupsModel {
+                ProcessUtils.shared.selectedUserGroup = data
+                
+                self.btnGroup.setTitle("\(data.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
+                
+            }
+        }
+    }
+    
     
     
 }

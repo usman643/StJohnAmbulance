@@ -23,6 +23,7 @@ class CSDashBaordCVC: UICollectionViewCell {
     func decorateUI(){
         
         mainView.backgroundColor = UIColor.themePrimary
+        mainView.layer.cornerRadius = 3
         imgView.layer.cornerRadius = imgView.frame.size.height/2
         
         lblCount.font = UIFont.RegularFont(12)

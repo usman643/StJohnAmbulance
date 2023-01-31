@@ -13,7 +13,7 @@ extension  UIButton{
     
     func themeColorButton() {
         
-        self.layer.cornerRadius = 6
+        self.layer.cornerRadius = self.frame.size.height/2
         self.clipsToBounds = true
         self.backgroundColor = UIColor.themePrimary
         self.titleLabel?.textColor = UIColor.white

@@ -35,6 +35,8 @@ class VounteerVC: ENTALDBaseViewController{
         
         decorateUI()
         
+        btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
+        
     }
     
     func decorateUI(){
@@ -51,9 +53,11 @@ class VounteerVC: ENTALDBaseViewController{
         lblState.textColor = UIColor.themePrimaryColor
         stackView.layer.borderColor = UIColor.themePrimaryColor.cgColor
         searchView.layer.borderColor = UIColor.themePrimaryColor.cgColor
-        stackView.layer.borderWidth = 1
-        searchView.layer.borderWidth = 1
+        stackView.layer.borderWidth = 1.5
+        searchView.layer.borderWidth = 1.5
         btnSearchClose.isHidden = false
+        btnSelectGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
+        btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
         
     }
     
@@ -64,10 +68,25 @@ class VounteerVC: ENTALDBaseViewController{
     }
     
     @IBAction func selectGroupTapped(_ sender: Any) {
+        
+        showGroupsPicker()
     }
     
 
     @IBAction func searchCloseTapped(_ sender: Any) {
+    }
+    
+    func showGroupsPicker(list:[LandingGroupsModel] = []){
+        
+        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, dataObj: ProcessUtils.shared.userGroupsList) { params, controller in
+            
+            if let data = params as? LandingGroupsModel {
+                ProcessUtils.shared.selectedUserGroup = data
+                
+                self.btnSelectGroup.setTitle("\(data.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
+                
+            }
+        }
     }
 }
 

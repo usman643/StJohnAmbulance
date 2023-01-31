@@ -39,6 +39,11 @@ class ENTALDLibraryAPI {
         let router = LandingRouter.getAssiciatedGroups(params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
+
+    func requestPendingShifts(params:[String:Any],  _ completion:@escaping((ApiResult<PendingShiftResponseModel, ApiError>) -> Void )){
+        let router = PendingShiftRouter.getPendingShifts(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
     
 }
 

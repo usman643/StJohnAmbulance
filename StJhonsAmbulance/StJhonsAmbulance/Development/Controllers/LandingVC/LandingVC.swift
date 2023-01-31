@@ -37,14 +37,24 @@ class LandingVC: ENTALDBaseViewController {
         headerLogoView.backgroundColor = UIColor.themePrimary
         MainVw.layer.cornerRadius = 40
         MainVw.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        btn1.themeColorButton()
-        btn2.themeColorButton()
+//        btn1.themeColorButton()
+//        btn2.themeColorButton()
+        btn1.layer.cornerRadius = 3
+        btn1.backgroundColor = UIColor.themePrimary
+        btn1.setTitleColor(UIColor.white, for: .normal)
+        btn2.layer.cornerRadius = 3
+        btn2.backgroundColor = UIColor.themePrimary
+        btn2.setTitleColor(UIColor.white, for: .normal)
+        
         btn1.titleLabel?.font = UIFont.BoldFont(14)
         btn2.titleLabel?.font = UIFont.BoldFont(14)
         lblTitle.font = UIFont.BoldFont(24)
         lblDesc.font = UIFont.BoldFont(16)
         
+        
+        nextBtn.themeColorButton()
         nextBtn.backgroundColor = UIColor.themePrimaryColor
+        
         nextBtn.titleLabel?.font = UIFont.MediumFont(15.0)
         
         lblTitle.textColor = UIColor.textWhiteColor
@@ -94,7 +104,9 @@ class LandingVC: ENTALDBaseViewController {
                 if let err = errorResponse {
                     message = err.error
                 }
-                ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
             }
         }
     }
