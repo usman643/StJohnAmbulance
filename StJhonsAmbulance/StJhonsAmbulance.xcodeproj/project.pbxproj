@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D00A0D2298AB19000700418 /* CSDashBoardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D00A0D1298AB19000700418 /* CSDashBoardRouter.swift */; };
 		1D0BDED3298258BB00CC2030 /* MessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0BDED1298258BB00CC2030 /* MessageVC.swift */; };
 		1D0BDED4298258BB00CC2030 /* MessageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D0BDED2298258BB00CC2030 /* MessageVC.xib */; };
 		1D0BDED82982645400CC2030 /* MessageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0BDED62982645400CC2030 /* MessageTVC.swift */; };
@@ -44,7 +45,6 @@
 		1DF176EF29852F7A005809C6 /* PastEventTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF176ED29852F7A005809C6 /* PastEventTVC.swift */; };
 		1DF176F029852F7A005809C6 /* PastEventTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DF176EE29852F7A005809C6 /* PastEventTVC.xib */; };
 		1DF176F2298904BA005809C6 /* PendingShiftResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF176F1298904BA005809C6 /* PendingShiftResponseModel.swift */; };
-		1DF176F4298908BB005809C6 /* DashBoardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF176F3298908BB005809C6 /* DashBoardRouter.swift */; };
 		1DF176F629892078005809C6 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF176F529892078005809C6 /* DateFormatter.swift */; };
 		1DF176FC29893B40005809C6 /* EventRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF176FB29893B40005809C6 /* EventRouter.swift */; };
 		1DF176FE29893E52005809C6 /* EventsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF176FD29893E52005809C6 /* EventsModel.swift */; };
@@ -149,6 +149,7 @@
 
 /* Begin PBXFileReference section */
 		17C9EFF5DCD181366AD8E0B7 /* Pods-StJhonsAmbulanceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StJhonsAmbulanceTests.release.xcconfig"; path = "Target Support Files/Pods-StJhonsAmbulanceTests/Pods-StJhonsAmbulanceTests.release.xcconfig"; sourceTree = "<group>"; };
+		1D00A0D1298AB19000700418 /* CSDashBoardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSDashBoardRouter.swift; sourceTree = "<group>"; };
 		1D0BDED1298258BB00CC2030 /* MessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageVC.swift; sourceTree = "<group>"; };
 		1D0BDED2298258BB00CC2030 /* MessageVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageVC.xib; sourceTree = "<group>"; };
 		1D0BDED62982645400CC2030 /* MessageTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTVC.swift; sourceTree = "<group>"; };
@@ -186,7 +187,6 @@
 		1DF176ED29852F7A005809C6 /* PastEventTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastEventTVC.swift; sourceTree = "<group>"; };
 		1DF176EE29852F7A005809C6 /* PastEventTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PastEventTVC.xib; sourceTree = "<group>"; };
 		1DF176F1298904BA005809C6 /* PendingShiftResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingShiftResponseModel.swift; sourceTree = "<group>"; };
-		1DF176F3298908BB005809C6 /* DashBoardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DashBoardRouter.swift; path = ../../../../../../../DashBoardRouter.swift; sourceTree = "<group>"; };
 		1DF176F529892078005809C6 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		1DF176FB29893B40005809C6 /* EventRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRouter.swift; sourceTree = "<group>"; };
 		1DF176FD29893E52005809C6 /* EventsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsModel.swift; sourceTree = "<group>"; };
@@ -858,8 +858,8 @@
 				E4B2EF03297C4D9C00D05014 /* Router.swift */,
 				E4B2EF05297C50AC00D05014 /* LoginRouter.swift */,
 				E48359BF297E6C68008CBFFF /* LandingRouter.swift */,
-				1DF176F3298908BB005809C6 /* DashBoardRouter.swift */,
 				1DF176FB29893B40005809C6 /* EventRouter.swift */,
+				1D00A0D1298AB19000700418 /* CSDashBoardRouter.swift */,
 			);
 			path = Routers;
 			sourceTree = "<group>";
@@ -1192,7 +1192,6 @@
 				1D1443052984051C001F3B15 /* EventTVC.swift in Sources */,
 				E4F7CB12297E121000428A4E /* SideMenuTVC.swift in Sources */,
 				E48359AE297D6B44008CBFFF /* AuthResponseModel.swift in Sources */,
-				1DF176F4298908BB005809C6 /* DashBoardRouter.swift in Sources */,
 				359E9C76282EA58E001E3D73 /* ENTALDOffersViewController.swift in Sources */,
 				1D4DE84E297FB51C00246242 /* Validate.swift in Sources */,
 				1D144300298404ED001F3B15 /* EventVC.swift in Sources */,
@@ -1228,6 +1227,7 @@
 				E4B2EF16297C633C00D05014 /* LoginVC.swift in Sources */,
 				1D4DE84C297FB51C00246242 /* UIButton.swift in Sources */,
 				353C61842816948500CC8B7F /* ENTALDAPIConst.swift in Sources */,
+				1D00A0D2298AB19000700418 /* CSDashBoardRouter.swift in Sources */,
 				353C614D28140B6B00CC8B7F /* ENTALDHomeViewController.swift in Sources */,
 				1DF176F629892078005809C6 /* DateFormatter.swift in Sources */,
 				1D4DE84A297FB51C00246242 /* NSURL.swift in Sources */,

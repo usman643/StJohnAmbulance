@@ -126,12 +126,17 @@ extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
         let rowModel = pendingShiftData?[indexPath.row]
         cell.setCellData(rowModel : rowModel)
         let rowmodelThree = getPendingShiftThreeModelBy(rowModel?._sjavms_volunteerevent_value ?? "")
-        let startTime = DateFormatManager.shared.formatDateStrToStr(date: rowmodelThree?.msnfp_effectivefrom ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
         
-        let endTime = DateFormatManager.shared.formatDateStrToStr(date: rowmodelThree?.msnfp_effectiveto ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+        let rowModelEvent = getPendingShiftOneModelBy(rowModel?._sjavms_volunteerevent_value ?? "")
+        
+        
+        
+        let startTime = DateFormatManager.shared.formatDateStrToStr(date: rowModelEvent?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+        
+        let endTime = DateFormatManager.shared.formatDateStrToStr(date: rowModelEvent?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
         
         cell.lblShift.text = "\(startTime) - \(endTime)"
-        cell.lblEvent.text = "\(rowmodelThree?.msnfp_engagementopportunityschedule ?? "")"
+        cell.lblEvent.text = "\(rowModelEvent?.msnfp_engagementopportunitytitle ?? "")"
         return cell
     }
     
