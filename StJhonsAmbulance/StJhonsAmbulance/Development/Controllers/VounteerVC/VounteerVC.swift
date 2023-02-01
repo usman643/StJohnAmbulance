@@ -7,7 +7,7 @@
 
 import UIKit
 
-class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate{
+class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
     
     var volunteerData : [VolunteerModel]?
     var filteredData : [VolunteerModel]?
@@ -21,7 +21,7 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate{
     
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var searchImg: UIImageView!
-    @IBOutlet weak var textSearch: UISearchTextField!
+    @IBOutlet weak var textSearch: UITextField!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblRole: UILabel!
@@ -37,9 +37,9 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate{
         tableView.register(UINib(nibName: "VounteerTVC", bundle: nil), forCellReuseIdentifier: "VounteerTVC")
         textSearch.delegate = self
         decorateUI()
-
         btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
         getVolunteers()
+        textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
     }
     
     func decorateUI(){
@@ -77,6 +77,8 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate{
     @IBAction func searchCloseTapped(_ sender: Any) {
         textSearch.endEditing(true)
         textSearch.text = ""
+        filteredData = volunteerData
+        tableView.reloadData()
     }
     
     func showGroupsPicker(list:[LandingGroupsModel] = []){
@@ -87,7 +89,7 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate{
                 ProcessUtils.shared.selectedUserGroup = data
                 
                 self.btnSelectGroup.setTitle("\(data.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
-                
+                self.getVolunteers()
             }
         }
     }
@@ -99,6 +101,25 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate{
         btnSearchClose.isHidden = true
     }
     
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        
+        if (textField.text != ""){
+            
+           filteredData =  volunteerData?.filter({
+               if let name = $0.msnfp_contactId?.fullname, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                   return true
+                }
+              return false
+            })
+                
+                tableView.reloadData()
+        }else{
+            filteredData = volunteerData
+            tableView.reloadData()
+        }
+        
+        
+    }
     
     
     func getVolunteers(){
@@ -110,7 +131,7 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate{
             ParameterKeys.select : "msnfp_groupmembershipid,msnfp_membershiprole",
             
             ParameterKeys.expand : "msnfp_contactId($select=fullname,telephone1,emailaddress1,address1_stateorprovince,address1_postalcode,address1_country,address1_city),sjavms_RoleType($select=sjavms_rolecategory,sjavms_name)",
-            ParameterKeys.filter : "(statecode eq 0 and _msnfp_groupid_value eq 7079a17f-0339-ed11-9db1-0022486dfdbd) and (msnfp_contactId/statecode eq 0)",
+            ParameterKeys.filter : "(statecode eq 0 and _msnfp_groupid_value eq \(groupId)) and (msnfp_contactId/statecode eq 0)",
             ParameterKeys.orderby : "msnfp_membershiprole asc"
             
         ]
@@ -161,7 +182,7 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate{
 
 extension VounteerVC: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return volunteerData?.count ?? 0
+        return filteredData?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -173,25 +194,15 @@ extension VounteerVC: UITableViewDelegate,UITableViewDataSource {
             cell.mianView.backgroundColor = UIColor.viewLightColor
             cell.dividerView.backgroundColor = UIColor.gray
         }
-        cell.lblName.text = volunteerData?[indexPath.row].msnfp_contactId?.fullname
-        cell.lblRole.text = volunteerData?[indexPath.row].sjavms_RoleType?.sjavms_name
-        cell.lblCity.text = volunteerData?[indexPath.row].msnfp_contactId?.address1_city
-        cell.lblState.text = volunteerData?[indexPath.row].msnfp_contactId?.address1_stateorprovince
+        cell.lblName.text = filteredData?[indexPath.row].msnfp_contactId?.fullname
+        cell.lblRole.text = filteredData?[indexPath.row].sjavms_RoleType?.sjavms_name
+        cell.lblCity.text = filteredData?[indexPath.row].msnfp_contactId?.address1_city
+        cell.lblState.text = filteredData?[indexPath.row].msnfp_contactId?.address1_stateorprovince
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 30
     }
-//    
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//       
-//        filteredData = searchText.isEmpty ? volunteerData : volunteerData.msnfp_contactId?.fullname.filter { (item: String) -> Bool in
-//               
-//                return item.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
-//            }
-//            
-//            tableView.reloadData()
-//        }
     
 }

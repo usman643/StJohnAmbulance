@@ -98,7 +98,8 @@ class PendingShiftVC: ENTALDBaseViewController {
             
             if let data = params as? LandingGroupsModel {
                 ProcessUtils.shared.selectedUserGroup = data
-                
+                self.getPendingShift()
+                self.getPendingShiftThree()
                 self.btnSelectGroup.setTitle("\(data.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
                 
             }
