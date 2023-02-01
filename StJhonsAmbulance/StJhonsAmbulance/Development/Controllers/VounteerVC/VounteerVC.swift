@@ -8,6 +8,9 @@
 import UIKit
 
 class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate{
+    
+    var volunteerData : [VolunteerModel]?
+    var filteredData : [VolunteerModel]?
 
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnHome: UIButton!
@@ -36,7 +39,7 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate{
         decorateUI()
 
         btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
-        
+        getVolunteers()
     }
     
     func decorateUI(){
@@ -98,13 +101,67 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate{
     
     
     
+    func getVolunteers(){
+        
+        guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
+        
+        let params : [String:Any] = [
+            
+            ParameterKeys.select : "msnfp_groupmembershipid,msnfp_membershiprole",
+            
+            ParameterKeys.expand : "msnfp_contactId($select=fullname,telephone1,emailaddress1,address1_stateorprovince,address1_postalcode,address1_country,address1_city),sjavms_RoleType($select=sjavms_rolecategory,sjavms_name)",
+            ParameterKeys.filter : "(statecode eq 0 and _msnfp_groupid_value eq 7079a17f-0339-ed11-9db1-0022486dfdbd) and (msnfp_contactId/statecode eq 0)",
+            ParameterKeys.orderby : "msnfp_membershiprole asc"
+            
+        ]
+        
+        
+        self.getVolunteerData(params: params)
+        
+    }
+    
+    fileprivate func getVolunteerData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestVolunteer(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                
+                if let volunteers = response.value {
+                    self.volunteerData = volunteers
+                    self.filteredData = volunteers
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                        
+                    }
+                }
+
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    
     
 }
 
 
 extension VounteerVC: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        return volunteerData?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -116,17 +173,25 @@ extension VounteerVC: UITableViewDelegate,UITableViewDataSource {
             cell.mianView.backgroundColor = UIColor.viewLightColor
             cell.dividerView.backgroundColor = UIColor.gray
         }
-        cell.lblName.text = "NAME"
-        cell.lblRole.text = "Role"
-        cell.lblCity.text = "City"
-        cell.lblState.text = "State"
+        cell.lblName.text = volunteerData?[indexPath.row].msnfp_contactId?.fullname
+        cell.lblRole.text = volunteerData?[indexPath.row].sjavms_RoleType?.sjavms_name
+        cell.lblCity.text = volunteerData?[indexPath.row].msnfp_contactId?.address1_city
+        cell.lblState.text = volunteerData?[indexPath.row].msnfp_contactId?.address1_stateorprovince
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 30
     }
-    
-
+//    
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//       
+//        filteredData = searchText.isEmpty ? volunteerData : volunteerData.msnfp_contactId?.fullname.filter { (item: String) -> Bool in
+//               
+//                return item.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+//            }
+//            
+//            tableView.reloadData()
+//        }
     
 }

@@ -9,8 +9,10 @@ import UIKit
 
 class PendingShiftVC: ENTALDBaseViewController {
     
-    var pendingShiftData : [PendingShiftModel]?
-
+    var pendingShiftData : [PendingShiftModelTwo]?
+    var pendingShiftDataOne : [PendingShiftModelOne]?
+    var pendingShiftDataThree : [PendingShiftModelThree]?
+    
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnHome: UIButton!
@@ -20,7 +22,7 @@ class PendingShiftVC: ENTALDBaseViewController {
     @IBOutlet weak var lblSubTitle: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
- 
+    
     @IBOutlet weak var tableHeaderView: UIView!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblEvent: UILabel!
@@ -32,13 +34,14 @@ class PendingShiftVC: ENTALDBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "PendingShiftTVC", bundle: nil), forCellReuseIdentifier: "PendingShiftTVC")
         
         decorateUI()
         getPendingShift()
+        getPendingShiftThree()
         self.btnSelectGroup.setTitle("\(ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.getRoleType() ?? "")", for: .normal)
     }
     
@@ -70,12 +73,12 @@ class PendingShiftVC: ENTALDBaseViewController {
         tableHeaderView.layer.borderWidth = 1.5
         
         btnGroupView.layer.cornerRadius = 3
-       
+        
         
     }
     
     
-
+    
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -84,7 +87,7 @@ class PendingShiftVC: ENTALDBaseViewController {
         showGroupsPicker()
     }
     
-
+    
     @IBAction func searchCloseTapped(_ sender: Any) {
         
     }
@@ -122,42 +125,124 @@ extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
         
         let rowModel = pendingShiftData?[indexPath.row]
         cell.setCellData(rowModel : rowModel)
+        let rowmodelThree = getPendingShiftThreeModelBy(rowModel?._sjavms_volunteerevent_value ?? "")
+        let startTime = DateFormatManager.shared.formatDateStrToStr(date: rowmodelThree?.msnfp_effectivefrom ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
         
+        let endTime = DateFormatManager.shared.formatDateStrToStr(date: rowmodelThree?.msnfp_effectiveto ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+        
+        cell.lblShift.text = "\(startTime) - \(endTime)"
+        cell.lblEvent.text = "\(rowmodelThree?.msnfp_engagementopportunityschedule ?? "")"
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 30
     }
-    
-    
+}
+
+extension PendingShiftVC {
     
     
     func getPendingShift(){
         
-//            guard let conId = UserDefaults.standard.contactIdToken else {return}
-        guard let fullName = UserDefaults.standard.userInfo?.fullname else {return}
-            let params : [String:Any] = [
-                
-                
-                ParameterKeys.select : "msnfp_name,createdon,msnfp_participationscheduleid,msnfp_schedulestatus,sjavms_start,sjavms_hours,_sjavms_volunteerevent_value,_sjavms_volunteer_value,msnfp_participationscheduleid",
-                
-                ParameterKeys.expand : "sjavms_Volunteer($select=fullname)",
-                ParameterKeys.filter : "(Microsoft.Dynamics.CRM.In(PropertyName='sjavms_volunteerevent',PropertyValues=['{92aa2a1d-2d6c-ed11-81ac-0022486dfdbd}','{284fd341-0e4f-ed11-bba3-0022486dccc4}','{4238f255-0c86-ed11-81ac-000d3af4abef}','{9776fb59-9b80-ed11-81ad-0022486dccc4}','{d878db6d-a280-ed11-81ad-0022486dccc4}','{0243fc0b-d274-ed11-81ac-0022486dfdbd}','{7b947a1e-124f-ed11-bba3-0022486dccc4}','{29d82d41-1b78-ed11-81ac-0022486dfdbd}','{8be3303e-1c78-ed11-81ad-000d3af4aae6}','{351b55e1-4377-ed11-81ac-0022486dccc4}','{a9071130-dd91-ed11-aad1-0022486dfdbd}','{ff717a03-1278-ed11-81ac-0022486dfdbd}','{94134b71-0f39-ed11-9db1-0022486dfdbd}','{fc4d027f-0f4f-ed11-bba3-0022486dccc4}','{21523d6f-a380-ed11-81ad-0022486dccc4}','{9af211f8-514e-ed11-bba3-0022486dccc4}','{0b01ca80-554e-ed11-bba3-0022486dccc4}','{c484c86b-ee4e-ed11-bba3-0022486dccc4}','{6b11cfdc-0c4f-ed11-bba3-0022486dccc4}','{cb8ed467-124f-ed11-bba3-0022486dccc4}','{0ea28681-1078-ed11-81ac-0022486dfdbd}']))",
-                ParameterKeys.orderby : "msnfp_name asc"
-                
-            ]
+        guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
+        
+        let params : [String:Any] = [
             
-            self.getPendingShiftData(params: params)
+            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_needsreviewedparticipants,msnfp_minimum,msnfp_maximum,_sjavms_group_value,msnfp_endingdate,msnfp_cancelledparticipants,msnfp_appliedparticipants,msnfp_startingdate,msnfp_engagementopportunityid",
+            
+            ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(msnfp_groupid eq \(groupId)))",
+            ParameterKeys.filter : "(sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
+            ParameterKeys.orderby : "msnfp_engagementopportunitytitle asc"
+            
+        ]
+        
+        self.getPendingShiftDataOne(params: params)
         
     }
     
-    fileprivate func getPendingShiftData(params : [String:Any]){
+    
+    func getPendingShiftThree(){
+        
+        let paramsThree : [String:Any] = [
+            
+            ParameterKeys.select : "msnfp_engagementopportunityschedule,createdon,msnfp_totalhours,msnfp_startperiod,msnfp_hoursperday,_msnfp_engagementopportunity_value,msnfp_endperiod,msnfp_effectiveto,msnfp_effectivefrom,msnfp_workingdays,msnfp_engagementopportunityscheduleid",
+            
+//            ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(msnfp_groupid eq \(groupId)))",
+            ParameterKeys.filter : "(_msnfp_engagementopportunity_value eq 0243fc0b-d274-ed11-81ac-0022486dfdbd)",
+            ParameterKeys.orderby : "msnfp_engagementopportunityschedule asc"
+            
+        ]
+        
+
+        self.getPendingShiftDataThree(params: paramsThree)
+    }
+    
+    fileprivate func getPendingShiftDataOne(params : [String:Any]){
         DispatchQueue.main.async {
             LoadingView.show()
         }
         
-        ENTALDLibraryAPI.shared.requestPendingShifts(params: params){ result in
+        ENTALDLibraryAPI.shared.requestPendingShiftsOne(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                
+                if let pendingShift = response.value {
+                    self.pendingShiftDataOne = pendingShift
+                    
+                }
+                self.getPendingShiftDataTwo()
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    
+    fileprivate func getPendingShiftDataTwo(){
+        
+        
+        var engagementOppertunityId = ""
+        
+        for i in (0 ..< (self.pendingShiftDataOne?.count ?? 0)){
+            var str = ""
+            if ( i == (self.pendingShiftDataOne?.count ?? 0) - 1){
+                str = "'{\(self.pendingShiftDataOne?[i].msnfp_engagementopportunityid ?? "")}'"
+            }else{
+                str = "'{\(self.pendingShiftDataOne?[i].msnfp_engagementopportunityid ?? "")}',"
+            }
+            engagementOppertunityId += str
+            
+            
+            debugPrint(engagementOppertunityId)
+        }
+        
+        
+        let params : [String:Any] = [
+            
+            
+            ParameterKeys.select : "msnfp_name,createdon,msnfp_participationscheduleid,msnfp_schedulestatus,sjavms_start,sjavms_hours,_sjavms_volunteerevent_value,_sjavms_volunteer_value,msnfp_participationscheduleid",
+            
+            ParameterKeys.expand : "sjavms_Volunteer($select=fullname)",
+            ParameterKeys.filter : "(Microsoft.Dynamics.CRM.In(PropertyName='sjavms_volunteerevent',PropertyValues=[\(engagementOppertunityId)]))",
+            ParameterKeys.orderby : "msnfp_name asc"
+            
+        ]
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestPendingShiftsTwo(params: params){ result in
             DispatchQueue.main.async {
                 LoadingView.hide()
             }
@@ -167,10 +252,11 @@ extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
                 
                 if let pendingShift = response.value {
                     self.pendingShiftData = pendingShift
+                    
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
-                    
+
                 }
                 
             case .error(let error, let errorResponse):
@@ -186,5 +272,53 @@ extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
     }
     
     
+    fileprivate func getPendingShiftDataThree(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestPendingShiftsThree(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                
+                if let pendingShift = response.value {
+                    self.pendingShiftDataThree = pendingShift
 
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    
+    
+    func getPendingShiftOneModelBy(_ volunteerevent_value:String)->PendingShiftModelOne?{
+        let modelOne = pendingShiftDataOne?.filter({$0.msnfp_engagementopportunityid == volunteerevent_value}).first
+        return modelOne
+    }
+    
+    func getPendingShiftThreeModelBy(_ volunteerevent_value:String)->PendingShiftModelThree?{
+        let modelThree = pendingShiftDataThree?.filter({$0._msnfp_engagementopportunity_value == volunteerevent_value}).first
+        return modelThree
+    }
+    
+    //    func getPendingShiftTwoModelBy(_ opertunityId:String)->PendingShiftModelTwo{
+    //        let modelOne = pendingShiftDataTwo?.filter({$0.msnfp_engagementopportunityid == volunteerevent_value}).first
+    //        return modelOne
+    //    }
+    
+    
+    
 }

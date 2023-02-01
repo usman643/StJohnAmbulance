@@ -50,12 +50,12 @@ class PendingShiftTVC: UITableViewCell {
         lblAction.textColor = UIColor.textBlackColor
     }
     
-    func setCellData(rowModel : PendingShiftModel?){
+    func setCellData(rowModel : PendingShiftModelTwo?){
         lblName.text = rowModel?.sjavms_Volunteer?.fullname
         let hours = rowModel?.sjavms_hours
         let hoursStr = NSString(format: "%.2f", hours ?? Float())
         lblHours.text = String ("\(hoursStr)")
-        
+
 //        lblEvent.text =
         lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
 //        lblShift.text =

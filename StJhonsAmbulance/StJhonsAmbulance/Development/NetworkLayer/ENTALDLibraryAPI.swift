@@ -40,8 +40,28 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
 
-    func requestPendingShifts(params:[String:Any],  _ completion:@escaping((ApiResult<PendingShiftResponseModel, ApiError>) -> Void )){
-        let router = PendingShiftRouter.getPendingShifts(params: params)
+    func requestPendingShiftsOne(params:[String:Any],  _ completion:@escaping((ApiResult<PendingShiftResponseModelOne, ApiError>) -> Void )){
+        let router = DashBoardRouter.getPendingShiftsOne(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestPendingShiftsTwo(params:[String:Any],  _ completion:@escaping((ApiResult<PendingShiftResponseModelTwo, ApiError>) -> Void )){
+        let router = DashBoardRouter.getPendingShiftsTwo(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+        
+    func requestPendingShiftsThree(params:[String:Any],  _ completion:@escaping((ApiResult<PendingShiftResponseModelThree, ApiError>) -> Void )){
+        let router = DashBoardRouter.getPendingShiftsThree(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestMessages(params:[String:Any],  _ completion:@escaping((ApiResult<MessageResponseModel, ApiError>) -> Void )){
+        let router = DashBoardRouter.getMessages(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestVolunteer(params:[String:Any],  _ completion:@escaping((ApiResult<VolunteerResponseModel, ApiError>) -> Void )){
+        let router = DashBoardRouter.getVolunteers(params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     

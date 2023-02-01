@@ -43,6 +43,9 @@ struct LandingGroupIdsModel : Codable {
     func getGroupName()->String{
         return self.msnfp_groupname ?? ""
     }
+    func getGroupId()->String{
+        return self.msnfp_groupid ?? ""
+    }
 }
 
 struct LandingContactIdModel : Codable {

@@ -9,6 +9,7 @@ import UIKit
 
 class MessageVC: ENTALDBaseViewController {
 
+    var messagesData : [MessageModel]?
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnHome: UIButton!
@@ -29,9 +30,9 @@ class MessageVC: ENTALDBaseViewController {
         tableview.dataSource = self
         tableview.register(UINib(nibName: "MessageTVC", bundle: nil), forCellReuseIdentifier: "MessageTVC")
         decorateUI()
-        
+        getMessages()
         btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
-        
+
     }
 
     func decorateUI(){
@@ -93,21 +94,74 @@ class MessageVC: ENTALDBaseViewController {
                 ProcessUtils.shared.selectedUserGroup = data
                 
                 self.btnGroup.setTitle("\(data.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
-                
+                self.getMessages()
             }
         }
     }
     
+    
+    func getMessages(){
+
+        guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
+            let params : [String:Any] = [
+
+                ParameterKeys.select : "subject,statuscode,modifiedon,description,senton,activityid",
+                ParameterKeys.filter : "(_regardingobjectid_value eq \(groupId)",
+                ParameterKeys.orderby : "modifiedon desc"
+                
+            ]
+            
+            self.getMessagesData(params: params)
+        
+    }
+    
+    fileprivate func getMessagesData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestMessages(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                
+                if let messagesData = response.value {
+                    self.messagesData = messagesData
+                    DispatchQueue.main.async {
+                        
+                        self.tableview.reloadData()
+                    }
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
 }
 
 
 extension MessageVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return messagesData?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCell(withIdentifier: "MessageTVC", for: indexPath) as! MessageTVC
+        
+        
+        cell.lblName.text = messagesData?[indexPath.row].subject
+        cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: messagesData?[indexPath.row].modifiedon ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+        cell.lblMessage.text = messagesData?[indexPath.row].description
         
         
         return cell
