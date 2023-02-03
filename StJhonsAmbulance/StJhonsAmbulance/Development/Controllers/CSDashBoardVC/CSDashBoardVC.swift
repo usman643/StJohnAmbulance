@@ -79,8 +79,8 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
 //            let vc = HomeVC(nibName: "HomeVC", bundle: nil)
 //            self.navigationController?.pushViewController(vc , animated: true)
         }else if(named == "Logout"){
-           
-//            UserDefaultManger.shared.logout()
+            
+            UserDefaults.standard.signOut()
             self.navigationController?.popToRootViewController(animated: true)
             let loginvc = LoginVC(nibName: "LoginVC", bundle: nil)
             self.navigationController?.pushViewController(loginvc, animated: true)

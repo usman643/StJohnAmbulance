@@ -40,6 +40,9 @@ class MessageVC: ENTALDBaseViewController {
     }
 
     func decorateUI(){
+        self.view.backgroundColor = UIColor.themeLight
+        self.tableview.backgroundColor = UIColor.themeLight
+        
         btnGroup.backgroundColor = UIColor.themePrimary
         btnGroup.titleLabel?.font = UIFont.BoldFont(14)
         btnCall.titleLabel?.font = UIFont.RegularFont(14)
@@ -56,10 +59,10 @@ class MessageVC: ENTALDBaseViewController {
         textView.layer.cornerRadius = 3
         emailView.layer.cornerRadius = 3
         
-        groupView.backgroundColor = UIColor.themePrimaryColor
-        callView.backgroundColor = UIColor.themePrimaryColor
-        textView.backgroundColor = UIColor.themePrimaryColor
-        emailView.backgroundColor = UIColor.themePrimaryColor
+        groupView.backgroundColor = UIColor.themePrimary
+        callView.backgroundColor = UIColor.themePrimary
+        textView.backgroundColor = UIColor.themePrimary
+        emailView.backgroundColor = UIColor.themePrimary
         
         lblInbox.font = UIFont.BoldFont(16)
         lblInbox.textColor = UIColor.themePrimaryColor

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 fileprivate let keyAuthToken = "key_auth_token"
 fileprivate let contactId = "key_contact_id"
@@ -60,5 +61,8 @@ extension UserDefaults {
         removeObject(forKey: "key_auth_token")
         removeObject(forKey: "key_contact_id")
         removeObject(forKey: "key_user_identity")
+        ENTALDAppConfig.shared.showAppLaunch()
+        
+        
     }
 }

@@ -89,7 +89,11 @@ class ENTALDHttpClient {
 
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             
-            if let error = error {
+            if let error = error as? NSError {
+                if error.code == 401 || error.code == 401 {
+                    UserDefaults.standard.signOut()
+                    
+                }
                 completion(.error(error: self.getApiError(from: error), errorResponse: nil))
             }else if let data = data{
                 self.handleSuccessResponse(data: data) { handler in
