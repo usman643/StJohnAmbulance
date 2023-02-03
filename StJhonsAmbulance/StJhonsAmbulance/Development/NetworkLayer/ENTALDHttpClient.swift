@@ -49,7 +49,7 @@ class ENTALDHttpClient {
         
         
         if let client = request.client, let requstUrl = request.requestURL?.absoluteString {
-            print("request URL \(requstUrl)")
+            print("request URL :  \(requstUrl)")
             
             client.request(requstUrl,
                            method: HTTPMethod(rawValue: router.method),
@@ -90,15 +90,20 @@ class ENTALDHttpClient {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             
             if let error = error as? NSError {
-                if error.code == 401 || error.code == 401 {
+                if error.code == 401 || error.code == 401 || error.code == 3840 {
                     UserDefaults.standard.signOut()
                     
                 }
                 completion(.error(error: self.getApiError(from: error), errorResponse: nil))
             }else if let data = data{
-                self.handleSuccessResponse(data: data) { handler in
-                    completion(handler)
+                if (data.count != 0){
+                    self.handleSuccessResponse(data: data) { handler in
+                        completion(handler)
+                    }
+                }else{
+                    UserDefaults.standard.signOut()
                 }
+                
             }
         }
         task.resume()
@@ -116,7 +121,7 @@ extension ENTALDHttpClient {
                 let errorResponse = ErrorResponse(dictionary: responseDictionary) {
                 
                 #if DEBUG
-                print("Response\n \(errorResponse)")
+                print("++++++++++Response++++++++++++ \n\(errorResponse)")
                 #endif
                 // can logout app on 401 here
                 
@@ -125,7 +130,7 @@ extension ENTALDHttpClient {
             }else {
               
                 #if DEBUG
-                print("Response")
+                print("++++++++++Response++++++++++++ \n")
                 print(String(data: data, encoding: .utf8) ?? "")
                 #endif
 
@@ -135,11 +140,13 @@ extension ENTALDHttpClient {
         }catch (let error) {
             
             #if DEBUG
-            print("Response")
+            print("++++++++++Response++++++++++++ \n")
             print(error)
             #endif
             
             completion(ApiResult.error(error: .invalidJson, errorResponse: nil))
+            
+            
             
         }
     }

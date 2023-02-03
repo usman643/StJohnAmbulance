@@ -17,7 +17,10 @@ class ENTALDAppConfig {
     }
     
     func showAppLaunch(){
-        ENTALDControllers.shared.setupHomeViewController(from: UIApplication.getTopViewController(), callBack: nil)
+        DispatchQueue.main.async {
+            ENTALDControllers.shared.setupHomeViewController(from: UIApplication.getTopViewController(), callBack: nil)
+        }
+        
     }
     
     

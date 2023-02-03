@@ -77,7 +77,7 @@ class ENTALDTabbarViewController: UITabBarController {
         
         let homeVC = CSDashBoardVC.loadFromNib()
         
-        let homeImg = "hometab".templatedImage
+        let homeImg = "icHome".templatedImage
         
         let offersVC = ENTALDOffersViewController.loadFromNib()
         
@@ -85,7 +85,7 @@ class ENTALDTabbarViewController: UITabBarController {
         
         viewControllers = [
             self.createNavController(for: homeVC, title: "Home", image: homeImg),
-            self.createNavController(for: offersVC, title: "Offer", image: offersImg)
+//            self.createNavController(for: offersVC, title: "Offer", image: offersImg)
         ]
     }
     
