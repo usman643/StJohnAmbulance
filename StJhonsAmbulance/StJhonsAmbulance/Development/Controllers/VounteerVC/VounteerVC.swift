@@ -37,9 +37,13 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
         tableView.register(UINib(nibName: "VounteerTVC", bundle: nil), forCellReuseIdentifier: "VounteerTVC")
         textSearch.delegate = self
         decorateUI()
-        btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
         getVolunteers()
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
     }
     
     func decorateUI(){
@@ -61,9 +65,14 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
         btnSearchClose.isHidden = true
         btnSelectGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
+        btnSelectGroup.backgroundColor = UIColor.themePrimary
         
     }
 
+    @IBAction func homeTapped(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }

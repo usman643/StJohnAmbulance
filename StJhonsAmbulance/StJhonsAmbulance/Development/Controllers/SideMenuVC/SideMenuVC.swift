@@ -17,9 +17,7 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblEmail: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    
     @IBOutlet weak var imgMainVw: UIView!
-    
     @IBOutlet weak var profileImage: UIImageView!
     
     var navigation:SideMenuVC?
@@ -42,13 +40,11 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         lblName.font = UIFont.BoldFont(14)
         lblEmail.font = UIFont.BoldFont(14)
-        
+        lblName.textColor = UIColor.textWhiteColor
+        lblEmail.textColor = UIColor.textWhiteColor
         lblName.text = UserDefaults.standard.userInfo?.fullname
         lblEmail.text = UserDefaults.standard.userInfo?.emailaddress1
         imgMainVw.layer.cornerRadius = imgMainVw.frame.size.height/2
-        
-
-    
     }
 
     
@@ -61,7 +57,9 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTVC", for: indexPath) as! SideMenuTVC
         cell.lblTitle.text = arrMenuList[indexPath.row]
-        cell.imageView?.image = UIImage(named: arrMenuIconList[indexPath.row])
+        cell.icon.image = UIImage(named: arrMenuIconList[indexPath.row])
+        cell.icon.image = cell.icon.image?.withRenderingMode(.alwaysTemplate)
+        cell.icon.tintColor  = UIColor.textWhiteColor
         return cell;
     }
     

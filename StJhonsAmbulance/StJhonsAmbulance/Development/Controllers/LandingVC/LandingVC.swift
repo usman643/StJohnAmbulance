@@ -37,13 +37,12 @@ class LandingVC: ENTALDBaseViewController {
         headerLogoView.backgroundColor = UIColor.themePrimary
         MainVw.layer.cornerRadius = 40
         MainVw.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-//        btn1.themeColorButton()
-//        btn2.themeColorButton()
+
         btn1.layer.cornerRadius = 3
-        btn1.backgroundColor = UIColor.themePrimary
+        btn1.backgroundColor = UIColor.themeSecondry
         btn1.setTitleColor(UIColor.white, for: .normal)
         btn2.layer.cornerRadius = 3
-        btn2.backgroundColor = UIColor.themePrimary
+        btn2.backgroundColor = UIColor.themeSecondry
         btn2.setTitleColor(UIColor.white, for: .normal)
         
         btn1.titleLabel?.font = UIFont.BoldFont(14)
@@ -53,9 +52,10 @@ class LandingVC: ENTALDBaseViewController {
         
         
         nextBtn.themeColorButton()
-        nextBtn.backgroundColor = UIColor.themePrimaryColor
+        nextBtn.backgroundColor = UIColor.lightGray
+        nextBtn.titleLabel?.font = UIFont.BoldFont(15.0)
+        self.nextBtn.isEnabled = false
         
-        nextBtn.titleLabel?.font = UIFont.MediumFont(15.0)
         
         lblTitle.textColor = UIColor.textWhiteColor
         lblDesc.textColor = UIColor.themePrimaryColor
@@ -121,6 +121,8 @@ class LandingVC: ENTALDBaseViewController {
                 
                 self.btn2.setTitle("\(data.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
                 self.btn1.setTitle(data.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
+                self.nextBtn.isEnabled = true
+                self.nextBtn.backgroundColor = UIColor.themePrimary
             }
         }
     }

@@ -55,4 +55,10 @@ extension UserDefaults {
             
         }
     }
+    
+    func signOut(){
+        removeObject(forKey: "key_auth_token")
+        removeObject(forKey: "key_contact_id")
+        removeObject(forKey: "key_user_identity")
+    }
 }

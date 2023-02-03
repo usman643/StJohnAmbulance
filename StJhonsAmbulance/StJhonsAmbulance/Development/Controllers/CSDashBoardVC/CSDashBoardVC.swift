@@ -14,6 +14,7 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
     var sideMenu: SideMenuVC?
     var menu: SideMenuNavigationController?
     var gridData : [DashBoardGridModel]?
+    var latestEvent : [CurrentEventsModel]?
     
     @IBOutlet weak var btnSideMenu: UIButton!
     @IBOutlet weak var lblGroupName: UILabel!
@@ -36,14 +37,24 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
         setSideMenu()
         
         gridData = [
-                    DashBoardGridModel(title: "Youth Camp", subTitle: "November 12th", bgColor: UIColor.darkBlueColor, icon: "ic_camp"),
+                    DashBoardGridModel(title: "", subTitle: "", bgColor: UIColor.darkBlueColor, icon: "ic_camp"),
                     DashBoardGridModel(title: "Messages", subTitle: "02", bgColor: UIColor.orangeRedColor, icon: "ic_message"),
                     DashBoardGridModel(title: "Volunteer", subTitle: "02", bgColor: UIColor.orangeColor, icon: "ic_communication"),
                     DashBoardGridModel(title: "Events", subTitle: "02", bgColor: UIColor.darkFrozeColor, icon: "ic_event"),
                     DashBoardGridModel(title: "Pending Shifts", subTitle: "02", bgColor: UIColor.lightBlueColor, icon: "ic_hour"),
                     DashBoardGridModel(title: "Pending Events", subTitle: "06", bgColor: UIColor.themePrimaryColor, icon: "ic_pendingEvent")
                 ]
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
+        if ( self.latestEvent?.count == 0 || ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() != self.latestEvent?[0].msnfp_engagementopportunityid){
+            getLatestUpcomingEvent()
+        }
+        
     }
 
     func setSideMenu(){
@@ -88,6 +99,10 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
         btnGroupSelectView.layer.cornerRadius = 3
         btnGroup.setTitleColor(UIColor.white, for: .normal)
         btnGroup.titleLabel?.font = UIFont.BoldFont(14)
+        btnGroup.backgroundColor = UIColor.themePrimary
+        
+        self.view.backgroundColor = UIColor.themeLight
+        self.collectionView.backgroundColor = UIColor.themeLight
     }
 
     @IBAction func selectGroupTapped(_ sender: Any) {
@@ -95,6 +110,63 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
     }
     @IBAction func sideMenuTapped(_ sender: Any) {
         present(menu!, animated: true)
+    }
+    
+    func getLatestUpcomingEvent(){
+        guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
+        guard let currentDate = DateFormatManager.shared.getCurrentDateWithFormat(format: "yyyy-MM-dd") else {return}
+        let params : [String:Any] = [
+            
+            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_minimum,msnfp_maximum,msnfp_endingdate,msnfp_startingdate,msnfp_engagementopportunityid,_sjavms_contact_value,_sjavms_program_value",
+            ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(msnfp_groupid eq \(groupId)))",
+            ParameterKeys.filter : "(statecode eq 0 and Microsoft.Dynamics.CRM.OnOrAfter(PropertyName='msnfp_endingdate',PropertyValue='\(currentDate)') and Microsoft.Dynamics.CRM.In(PropertyName='msnfp_engagementopportunitystatus',PropertyValues=['844060003','844060002'])) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
+            ParameterKeys.orderby : "msnfp_startingdate asc,msnfp_engagementopportunitytitle asc",
+            ParameterKeys.top : "1"
+            
+        ]
+        
+        self.getLatestUpcomingEventData(params: params)
+    }
+    
+    fileprivate func getLatestUpcomingEventData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestLatestUpcomingEvent(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                
+                if let eventData = response.value {
+                    self.latestEvent = eventData
+                    DispatchQueue.main.async {
+                        if (self.latestEvent?.count != 0){
+                            let date = DateFormatManager.shared.formatDateStrToStr(date: self.latestEvent?[0].msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "MMMM dd")
+                            self.gridData?[0].title = self.latestEvent?[0].msnfp_engagementopportunitytitle ?? ""
+                            self.gridData?[0].subTitle = date
+                            
+                            self.collectionView.reloadData()
+                        }else{
+                            self.gridData?[0].title =  ""
+                            self.gridData?[0].subTitle = ""
+                        }
+                    }
+                }
+            
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
     }
     
     
@@ -118,9 +190,9 @@ extension CSDashBoardVC : UICollectionViewDelegate,UICollectionViewDataSource, U
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-         let cellWidth = (UIScreen.main.bounds.size.width - 24)/2
+         let cellWidth = (UIScreen.main.bounds.size.width - 6)/2
 
-        let height = (self.collectionView.frame.size.height - 16 - 22) / 3
+        let height = (self.collectionView.frame.size.height - 4 - 22) / 3
         
         return CGSizeMake(cellWidth, height )
     
@@ -155,7 +227,7 @@ extension CSDashBoardVC : UICollectionViewDelegate,UICollectionViewDataSource, U
             
             if let data = params as? LandingGroupsModel {
                 ProcessUtils.shared.selectedUserGroup = data
-                
+                self.getLatestUpcomingEvent()
                 self.btnGroup.setTitle("\(data.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
                 
             }

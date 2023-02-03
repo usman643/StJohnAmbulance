@@ -13,16 +13,18 @@ enum EventRouter : Router {
     case getPastEvents(params:[String:Any])
     case getPendingApprovalEvents(params:[String:Any])
     case getPendingPublishEvents(params:[String:Any])
+    case getLatestUpcomingEvents(params:[String:Any])
     
     case simulate401
     
     var procedure: String {
         switch self  {
-        case .getCurrentEvent : return ""
-        case .getUpcomingEvents : return ""
-        case .getPastEvents : return ""
-        case .getPendingApprovalEvents : return ""
-        case .getPendingPublishEvents : return ""
+        case .getCurrentEvent : return "msnfp_engagementopportunities"
+        case .getUpcomingEvents : return "msnfp_engagementopportunities"
+        case .getPastEvents : return "msnfp_engagementopportunities"
+        case .getPendingApprovalEvents : return "sjavms_eventrequests"
+        case .getPendingPublishEvents : return "msnfp_engagementopportunities"
+        case .getLatestUpcomingEvents : return "msnfp_engagementopportunities"
             
         case .simulate401: return "simulate-401"
         }
@@ -39,6 +41,8 @@ enum EventRouter : Router {
         case .getPendingApprovalEvents(let params):
             return params
         case .getPendingPublishEvents(let params):
+            return params
+        case .getLatestUpcomingEvents(let params):
             return params
         default: return [:]
         }

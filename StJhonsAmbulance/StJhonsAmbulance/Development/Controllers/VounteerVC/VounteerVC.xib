@@ -58,7 +58,7 @@
                             </connections>
                         </button>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="oq7-Cx-QSV">
-                            <rect key="frame" x="193" y="15.33333333333333" width="15" height="10.000000000000002"/>
+                            <rect key="frame" x="193" y="15.333333333333321" width="15" height="10.000000000000021"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="F6Z-3b-OfN"/>
@@ -113,6 +113,9 @@
                     </constraints>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" image="icHome"/>
+                    <connections>
+                        <action selector="homeTapped:" destination="-1" eventType="touchUpInside" id="0P4-vJ-EGf"/>
+                    </connections>
                 </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="4PL-pn-gJE">
                     <rect key="frame" x="10" y="276.33333333333331" width="373" height="541.66666666666674"/>

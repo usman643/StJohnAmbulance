@@ -8,7 +8,11 @@
 import UIKit
 
 class EventVC: ENTALDBaseViewController {
-
+    
+    var currentEventData : [CurrentEventsModel]?
+    var upcomingEventData : [CurrentEventsModel]?
+    var pastEventData : [CurrentEventsModel]?
+    
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnHome: UIButton!
     @IBOutlet weak var selectGroupView: UIView!
@@ -54,22 +58,30 @@ class EventVC: ENTALDBaseViewController {
         currentTableView.delegate = self
         currentTableView.dataSource = self
         currentTableView.register(UINib(nibName: "EventTVC", bundle: nil), forCellReuseIdentifier: "EventTVC")
+        currentTableView.register(UINib(nibName: "EmptyEventTableCell", bundle: nil), forCellReuseIdentifier: "EmptyEventTableCell")
         
         upcomingTableView.delegate = self
         upcomingTableView.dataSource = self
         upcomingTableView.register(UINib(nibName: "EventTVC", bundle: nil), forCellReuseIdentifier: "EventTVC")
+        upcomingTableView.register(UINib(nibName: "EmptyEventTableCell", bundle: nil), forCellReuseIdentifier: "EmptyEventTableCell")
         
         pastTableView.delegate = self
         pastTableView.dataSource = self
         pastTableView.register(UINib(nibName: "PastEventTVC", bundle: nil), forCellReuseIdentifier: "PastEventTVC")
+        pastTableView.register(UINib(nibName: "EmptyEventTableCell", bundle: nil), forCellReuseIdentifier: "EmptyEventTableCell")
         
-        self.btnSelectGroup.setTitle("\(ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.getRoleType() ?? "")", for: .normal)
+        
         
         decorateUI()
-        
+        getCurrentEvents()
         
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.btnSelectGroup.setTitle("\(ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.getRoleType() ?? "")", for: .normal)
+    }
+    
     func decorateUI(){
         selectGroupView.layer.cornerRadius = 3
         btnSelectGroup.layer.cornerRadius = 3
@@ -93,6 +105,7 @@ class EventVC: ENTALDBaseViewController {
         lblPast.textColor = UIColor.themePrimaryColor
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
         btnCreateEvent.titleLabel?.font = UIFont.BoldFont(12)
+        btnSelectGroup.backgroundColor = UIColor.themePrimary
         
         btnSelectGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnCreateEvent.setTitleColor(UIColor.textWhiteColor, for: .normal)
@@ -144,7 +157,7 @@ class EventVC: ENTALDBaseViewController {
         pastTableView.layer.shadowOffset = .zero
         pastTableView.layer.shadowRadius = 0
         pastTableView.layer.shadowOpacity = 0.5
-       
+        
     }
     
     @IBAction func btnBackAction(_ sender: Any) {
@@ -152,7 +165,7 @@ class EventVC: ENTALDBaseViewController {
     }
     
     @IBAction func homeTapped(_ sender: Any) {
-        
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func selectGroupTapped(_ sender: Any) {
@@ -161,14 +174,26 @@ class EventVC: ENTALDBaseViewController {
     
     @IBAction func currentFilterTapped(_ sender: Any) {
         
+        self.currentEventData = self.currentEventData?.reversed()
+        DispatchQueue.main.async {
+            self.currentTableView.reloadData()
+        }
+        
     }
     
     @IBAction func upcomingFilterTapped(_ sender: Any) {
+        self.upcomingEventData = self.upcomingEventData?.reversed()
+        DispatchQueue.main.async {
+            self.upcomingTableView.reloadData()
+        }
         
     }
     
     @IBAction func pastFilterTapped(_ sender: Any) {
-        
+        self.pastEventData = self.pastEventData?.reversed()
+        DispatchQueue.main.async {
+            self.pastTableView.reloadData()
+        }
     }
     
     func showGroupsPicker(list:[LandingGroupsModel] = []){
@@ -177,38 +202,197 @@ class EventVC: ENTALDBaseViewController {
             
             if let data = params as? LandingGroupsModel {
                 ProcessUtils.shared.selectedUserGroup = data
-                
+                self.getCurrentEvents()
                 self.btnSelectGroup.setTitle("\(data.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
                 
             }
         }
     }
     
-
+    
+    func getCurrentEvents(){
+        
+        guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
+        
+        let params : [String:Any] = [
+            
+            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_startingdate,msnfp_location,msnfp_engagementopportunitystatus,_sjavms_program_value,msnfp_engagementopportunityid,msnfp_endingdate,msnfp_maximum,msnfp_minimum",
+            
+            ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(msnfp_groupid eq \(groupId)))",
+            ParameterKeys.filter : "(statecode eq 0 and sjavms_adhocevent ne true and Microsoft.Dynamics.CRM.Today(PropertyName='msnfp_startingdate') and Microsoft.Dynamics.CRM.In(PropertyName='msnfp_engagementopportunitystatus',PropertyValues=['844060003','844060002'])) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
+            ParameterKeys.orderby : "msnfp_engagementopportunitytitle asc"
+            
+        ]
+        
+        self.getCurrentEventData(params: params)
+        
+    }
+    
+    
+    fileprivate func getCurrentEventData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestCurrentEvents(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            self.getUpcomingEvents()
+            switch result{
+            case .success(value: let response):
+                
+                if let currentEvent = response.value {
+                    self.currentEventData = currentEvent
+                    DispatchQueue.main.async {
+                        self.currentTableView.reloadData()
+                    }
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    
+    // Upcoming Events API
+    
+    func getUpcomingEvents(){
+        
+        guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
+        
+        let params : [String:Any] = [
+            
+            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_startingdate,msnfp_location,msnfp_engagementopportunitystatus,_sjavms_program_value,msnfp_engagementopportunityid,msnfp_endingdate,msnfp_maximum,msnfp_minimum",
+            
+            ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(msnfp_groupid eq \(groupId)))",
+            ParameterKeys.filter : "(statecode eq 0 and sjavms_adhocevent ne true and Microsoft.Dynamics.CRM.Today(PropertyName='msnfp_startingdate') and Microsoft.Dynamics.CRM.In(PropertyName='msnfp_engagementopportunitystatus',PropertyValues=['844060003','844060002'])) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
+            ParameterKeys.orderby : "msnfp_engagementopportunitytitle asc"
+            
+        ]
+        
+        self.getUpcomingEventData(params: params)
+        
+    }
+    
+    
+    fileprivate func getUpcomingEventData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestUpcomingEvents(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            self.getPastEvents()
+            switch result{
+            case .success(value: let response):
+                
+                if let upcomingEvent = response.value {
+                    self.upcomingEventData = upcomingEvent
+                    DispatchQueue.main.async {
+                        self.upcomingTableView.reloadData()
+                    }
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    // Past Event API
+    
+    
+    func getPastEvents(){
+        
+        guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
+        
+        let params : [String:Any] = [
+            
+            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_startingdate,msnfp_location,msnfp_engagementopportunitystatus,_sjavms_program_value,_sjavms_program_value,msnfp_engagementopportunityid,sjavms_maxparticipants,msnfp_endingdate,msnfp_maximum,msnfp_minimum",
+            
+            ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(msnfp_groupid eq \(groupId)))",
+            ParameterKeys.filter : "(statecode eq 0 and sjavms_adhocevent ne true and Microsoft.Dynamics.CRM.In(PropertyName='msnfp_engagementopportunitystatus',PropertyValues=['844060003','844060002']) and (Microsoft.Dynamics.CRM.Tomorrow(PropertyName='msnfp_startingdate') or Microsoft.Dynamics.CRM.NextXYears(PropertyName='msnfp_startingdate',PropertyValue=10))) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
+            ParameterKeys.orderby : "msnfp_engagementopportunitytitle asc"
+            
+        ]
+        
+        self.getPastEventData(params: params)
+        
+    }
+    
+    
+    fileprivate func getPastEventData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestPastEvents(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                
+                if let pastEvent = response.value {
+                    self.pastEventData = pastEvent
+                    DispatchQueue.main.async {
+                        self.pastTableView.reloadData()
+                    }
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    
 }
 
 
 extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        if (tableView == self.currentTableView){
+           return self.currentEventData?.count ?? 0
+        }else if (tableView == self.upcomingTableView){
+            return self.upcomingEventData?.count ?? 0
+        }else if(tableView == self.pastTableView){
+            return self.pastEventData?.count ?? 0
+            
+        }
+        
+        return self.currentEventData?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        var cell = tableView.dequeueReusableCell(withIdentifier: "PastEventTVC", for: indexPath)
+        //
         
-        if (tableView == self.pastTableView){
-           let  cell = tableView.dequeueReusableCell(withIdentifier: "PastEventTVC", for: indexPath) as! PastEventTVC
-            if indexPath.row % 2 == 0{
-                cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-                cell.seperaterView.backgroundColor = UIColor.themePrimaryColor
-            }else{
-                cell.mainView.backgroundColor = UIColor.viewLightColor
-                cell.seperaterView.backgroundColor = UIColor.gray
-            }
-            return cell
-        }else{
+        if (tableView == self.currentTableView){
             
-        let cell = tableView.dequeueReusableCell(withIdentifier: "EventTVC", for: indexPath) as! EventTVC
+            let cell = tableView.dequeueReusableCell(withIdentifier: "EventTVC", for: indexPath) as! EventTVC
             if indexPath.row % 2 == 0{
                 cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
                 cell.seperaterView.backgroundColor = UIColor.themePrimaryColor
@@ -216,22 +400,63 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
                 cell.mainView.backgroundColor = UIColor.viewLightColor
                 cell.seperaterView.backgroundColor = UIColor.gray
             }
+            
+            let rowModel = self.currentEventData?[indexPath.row]
+            
+            cell.lblEvent.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
+            //            cell.lblLocation.text = rowModel?.msnfp_location ?? ""
+            cell.lblStart.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
+            cell.lblEnd.text =  DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
+            cell.lblNeeded.text = "\(rowModel?.msnfp_minimum ?? 0)"
+            
+            return cell
+            
+            
+        }else if (tableView == self.upcomingTableView){
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "EventTVC", for: indexPath) as! EventTVC
+            if indexPath.row % 2 == 0{
+                cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+                cell.seperaterView.backgroundColor = UIColor.themePrimaryColor
+            }else{
+                cell.mainView.backgroundColor = UIColor.viewLightColor
+                cell.seperaterView.backgroundColor = UIColor.gray
+            }
+            
+            let rowModel = self.upcomingEventData?[indexPath.row]
+            
+            cell.lblEvent.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
+            //            cell.lblLocation.text = rowModel?.msnfp_location ?? ""
+            cell.lblStart.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
+            cell.lblEnd.text =  DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
+            cell.lblNeeded.text = "\(rowModel?.msnfp_minimum ?? 0)"
+            
+            return cell
+            
+        }else if(tableView == self.pastTableView){
+            
+            let  cell = tableView.dequeueReusableCell(withIdentifier: "PastEventTVC", for: indexPath) as! PastEventTVC
+            if indexPath.row % 2 == 0{
+                cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+                cell.seperaterView.backgroundColor = UIColor.themePrimaryColor
+            }else{
+                cell.mainView.backgroundColor = UIColor.viewLightColor
+                cell.seperaterView.backgroundColor = UIColor.gray
+            }
+            
+            let rowModel = self.pastEventData?[indexPath.row]
+            
+            cell.lblEvent.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
+            //            cell.lblLocation.text = rowModel?.msnfp_location ?? ""
+            cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
+            
             return cell
         }
-        
-        
-        
-//        cell.lblEvent.text =
-//        cell.lblLocation.text =
-//        cell.lblStart.text =
-//        cell.lblEnd.text =
-//        cell.lblNeeded.text =
-    
+        let cells = tableView.dequeueReusableCell(withIdentifier: "EmptyEventTableCell", for: indexPath) as! EmptyEventTableCell
+        return cells
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 30
     }
-    
-    
 }

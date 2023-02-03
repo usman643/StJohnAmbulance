@@ -32,9 +32,6 @@ class CSDashBaordCVC: UICollectionViewCell {
         lblCount.textColor = UIColor.textWhiteColor
         lblTitle.textColor = UIColor.textWhiteColor
         
-        lblCount.text = "22"
-        lblTitle.text = "youth camp"
-        
     }
 
 }

@@ -8,6 +8,9 @@
 import UIKit
 
 class PendingEventVC: ENTALDBaseViewController {
+    
+    var pendingApprovalData : [PendingApprovalEventsModel]?
+    var pendingPublishData : [UnpublishedEventsModel]?
 
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnHome: UIButton!
@@ -28,8 +31,8 @@ class PendingEventVC: ENTALDBaseViewController {
     @IBOutlet weak var approvalHeaderView: UIView!
    
     
-    @IBOutlet weak var pendingTableView: UITableView!
-    @IBOutlet weak var approvalTableView: UITableView!
+    @IBOutlet weak var pendingApprovalTableView: UITableView!
+    @IBOutlet weak var pendingPublishTableView: UITableView!
   
     
     @IBOutlet weak var lblPendingName: UILabel!
@@ -51,25 +54,32 @@ class PendingEventVC: ENTALDBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        pendingTableView.delegate = self
-        pendingTableView.dataSource = self
-        pendingTableView.register(UINib(nibName: "PendingEventTVC", bundle: nil), forCellReuseIdentifier: "PendingEventTVC")
+        pendingApprovalTableView.delegate = self
+        pendingApprovalTableView.dataSource = self
+        pendingApprovalTableView.register(UINib(nibName: "PendingEventTVC", bundle: nil), forCellReuseIdentifier: "PendingEventTVC")
+        pendingApprovalTableView.register(UINib(nibName: "EmptyEventTableCell", bundle: nil), forCellReuseIdentifier: "EmptyEventTableCell")
     
-        approvalTableView.delegate = self
-        approvalTableView.dataSource = self
-        approvalTableView.register(UINib(nibName: "PendingEventTVC", bundle: nil), forCellReuseIdentifier: "PendingEventTVC")
+        pendingPublishTableView.delegate = self
+        pendingPublishTableView.dataSource = self
+        pendingPublishTableView.register(UINib(nibName: "PendingEventTVC", bundle: nil), forCellReuseIdentifier: "PendingEventTVC")
+        pendingPublishTableView.register(UINib(nibName: "EmptyEventTableCell", bundle: nil), forCellReuseIdentifier: "EmptyEventTableCell")
         decorateUI()
+        getPendingApproval()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.btnSelectGroup.setTitle("\(ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.getRoleType() ?? "")", for: .normal)
     }
 
     func decorateUI(){
         selectGroupView.layer.cornerRadius = 3
+        btnSelectGroup.backgroundColor = UIColor.themePrimary
  
         pendingHeaderView.layer.borderColor = UIColor.themePrimaryColor.cgColor
         approvalHeaderView.layer.borderColor = UIColor.themePrimaryColor.cgColor
      
-        
         pendingHeaderView.layer.borderWidth = 1.5
         approvalHeaderView.layer.borderWidth = 1.5
       
@@ -77,7 +87,6 @@ class PendingEventVC: ENTALDBaseViewController {
         lblApproval.textColor = UIColor.themePrimaryColor
         lblPending.font = UIFont.BoldFont(20)
         lblPending.textColor = UIColor.themePrimaryColor
-       
         
         lblPendingName.font = UIFont.BoldFont(12)
         lblPendingLocation.font = UIFont.BoldFont(12)
@@ -103,28 +112,27 @@ class PendingEventVC: ENTALDBaseViewController {
         lblApprovalDate.textColor = UIColor.themePrimaryColor
         lblApprovalStatus.textColor = UIColor.themePrimaryColor
         
-        pendingTableView.clipsToBounds = false
-        pendingTableView.layer.masksToBounds = false
-        pendingTableView.layer.shadowColor = UIColor.lightGray.cgColor
-        pendingTableView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        pendingTableView.layer.shadowRadius = 0.0
-        pendingTableView.layer.shadowOpacity = 1.0
+        pendingApprovalTableView.clipsToBounds = false
+        pendingApprovalTableView.layer.masksToBounds = false
+        pendingApprovalTableView.layer.shadowColor = UIColor.lightGray.cgColor
+        pendingApprovalTableView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        pendingApprovalTableView.layer.shadowRadius = 0.0
+        pendingApprovalTableView.layer.shadowOpacity = 1.0
         
-        approvalTableView.clipsToBounds = false
-        approvalTableView.layer.masksToBounds = false
-        approvalTableView.layer.shadowColor = UIColor.lightGray.cgColor
-        approvalTableView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        approvalTableView.layer.shadowRadius = 0.0
-        approvalTableView.layer.shadowOpacity = 1.0
+        pendingPublishTableView.clipsToBounds = false
+        pendingPublishTableView.layer.masksToBounds = false
+        pendingPublishTableView.layer.shadowColor = UIColor.lightGray.cgColor
+        pendingPublishTableView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        pendingPublishTableView.layer.shadowRadius = 0.0
+        pendingPublishTableView.layer.shadowOpacity = 1.0
         
-      
     }
     @IBAction func btnBackAction(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func homeTapped(_ sender: Any) {
-        
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func selectGroupTapped(_ sender: Any) {
@@ -132,9 +140,17 @@ class PendingEventVC: ENTALDBaseViewController {
     }
     
     @IBAction func pendingFilterTapped(_ sender: Any) {
+        self.pendingApprovalData = self.pendingApprovalData?.reversed()
+        DispatchQueue.main.async {
+            self.pendingApprovalTableView.reloadData()
+        }
     }
     
     @IBAction func approvalFilterTapped(_ sender: Any) {
+        self.pendingPublishData = self.pendingPublishData?.reversed()
+        DispatchQueue.main.async {
+            self.pendingPublishTableView.reloadData()
+        }
     }
     
     func showGroupsPicker(list:[LandingGroupsModel] = []){
@@ -143,21 +159,124 @@ class PendingEventVC: ENTALDBaseViewController {
             
             if let data = params as? LandingGroupsModel {
                 ProcessUtils.shared.selectedUserGroup = data
-                
+                self.getPendingApproval()
                 self.btnSelectGroup.setTitle("\(data.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
                 
             }
         }
     }
     
+    
+    func getPendingApproval(){
+        guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
+        let params : [String:Any] = [
+            
+            ParameterKeys.select : "sjavms_name,sjavms_address1name,sjavms_maxvolunteers,sjavms_eventstartdate,statecode,_sjavms_program_value,sjavms_eventrequestid",
+            ParameterKeys.expand : "sjavms_msnfp_group_sjavms_eventrequest($filter=(msnfp_groupid eq \(groupId)))",
+            ParameterKeys.filter : "(statecode eq 0 and (statuscode eq 1 or statuscode eq 802280002)) and (sjavms_msnfp_group_sjavms_eventrequest/any(o1:(o1/msnfp_groupid eq \(groupId))))",
+//            ParameterKeys.orderby : "msnfp_engagementopportunityschedule asc"
+        ]
+
+        self.getPendingApprovalsData(params: params)
+    }
+    
+    fileprivate func getPendingApprovalsData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestApprovalPendingApproval(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            self.getPendingPublish()
+            switch result{
+            case .success(value: let response):
+                
+                if let pendingData = response.value {
+                    self.pendingApprovalData = pendingData
+                    DispatchQueue.main.async {
+                        self.pendingApprovalTableView.reloadData()
+                    }
+                }
+            
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    func getPendingPublish(){
+        guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
+        let params : [String:Any] = [
+            
+            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_location,msnfp_minimum,msnfp_startingdate,msnfp_engagementopportunitystatus,_sjavms_program_value,msnfp_engagementopportunityid,msnfp_maximum",
+            ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(msnfp_groupid eq \(groupId)))",
+            ParameterKeys.filter : "(msnfp_engagementopportunitystatus eq 844060000) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
+//            ParameterKeys.orderby : "msnfp_engagementopportunityschedule asc"
+        ]
+        
+        self.getPendingPublishData(params: params)
+    }
+    
+    fileprivate func getPendingPublishData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestPendingPublishEvents(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                
+                if let pendingData = response.value {
+                    self.pendingPublishData = pendingData
+                    DispatchQueue.main.async {
+                        self.pendingPublishTableView.reloadData()
+                    }
+                }
+            
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    
+    
+    
 }
 
 extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate, UIActionSheetDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        
+        if (tableView == self.pendingPublishTableView){
+            return self.pendingPublishData?.count ?? 0
+            
+        }else if (tableView == self.pendingApprovalTableView){
+            return self.pendingApprovalData?.count ?? 0
+        }
+
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "PendingEventTVC", for: indexPath) as! PendingEventTVC
@@ -169,12 +288,27 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
             cell.seperaterView.backgroundColor = UIColor.gray
         }
         
-//        cell.lblName.text =
-//        cell.lblLocation.text =
-//        cell.lblMax.text =
-//        cell.lblDate.text =
-//        cell.lblStatus.text =
-
+        if (tableView == self.pendingApprovalTableView){ // pending approval
+            
+            let rowModel = self.pendingApprovalData?[indexPath.row]
+            
+            cell.lblName.text = rowModel?.sjavms_name ?? ""
+            cell.lblLocation.text = rowModel?.sjavms_address1name ?? ""
+            cell.lblMax.text = rowModel?.sjavms_maxvolunteers ?? ""
+            cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
+            cell.lblStatus.text = rowModel?.sjavms_msnfp_group_sjavms_eventrequest?[0].getStatus()
+            
+        }else if (tableView == self.pendingPublishTableView){ // pending Publish
+            
+            let rowModel = self.pendingPublishData?[indexPath.row]
+            cell.lblName.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
+            cell.lblLocation.text = rowModel?.msnfp_location ?? ""
+            cell.lblMax.text = "\(rowModel?.msnfp_minimum  ?? 0)"
+            cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
+            cell.lblStatus.text = rowModel?.getStatus()
+        }
+        
+      
         return cell
     }
     

@@ -65,5 +65,35 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
+    func requestCurrentEvents(params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getCurrentEvent(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestUpcomingEvents(params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getUpcomingEvents(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestPastEvents(params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getPastEvents(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestApprovalPendingApproval(params:[String:Any],  _ completion:@escaping((ApiResult<PendingApprovalEventsResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getPendingApprovalEvents(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestPendingPublishEvents(params:[String:Any],  _ completion:@escaping((ApiResult<UnpublishedEventsResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getPendingPublishEvents(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestLatestUpcomingEvent(params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getLatestUpcomingEvents(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
 }
 

@@ -58,7 +58,7 @@
                             </connections>
                         </button>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="f7g-ZW-1v2">
-                            <rect key="frame" x="193" y="15.333333333333321" width="15" height="10.000000000000021"/>
+                            <rect key="frame" x="193" y="15.33333333333333" width="15" height="10.000000000000002"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="ChX-u6-sio"/>
@@ -79,9 +79,9 @@
                     </constraints>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="59F-28-B7c">
-                    <rect key="frame" x="8" y="213" width="377" height="605"/>
+                    <rect key="frame" x="2" y="213" width="389" height="605"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="P3e-Xe-Z0K">
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="P3e-Xe-Z0K">
                         <size key="itemSize" width="128" height="128"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -124,13 +124,13 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="59F-28-B7c" secondAttribute="bottom" id="Em8-U5-ZVx"/>
                 <constraint firstItem="VWD-na-ovv" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="8" id="Nfz-UE-Ewv"/>
                 <constraint firstItem="bSS-qU-bzq" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="8" id="WsT-Vn-yA6"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="59F-28-B7c" secondAttribute="trailing" constant="8" id="YgR-ct-43q"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="59F-28-B7c" secondAttribute="trailing" constant="2" id="YgR-ct-43q"/>
                 <constraint firstItem="bSS-qU-bzq" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="i3u-d9-X52"/>
                 <constraint firstItem="59F-28-B7c" firstAttribute="top" secondItem="tW3-J8-3TQ" secondAttribute="bottom" constant="24" id="i4e-eL-3nx"/>
                 <constraint firstItem="tW3-J8-3TQ" firstAttribute="top" secondItem="rkO-Hb-MwZ" secondAttribute="bottom" constant="8" id="iGN-v5-AtE"/>
                 <constraint firstItem="rkO-Hb-MwZ" firstAttribute="top" secondItem="bSS-qU-bzq" secondAttribute="bottom" constant="12" id="yoV-uK-kes"/>
                 <constraint firstItem="tW3-J8-3TQ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="zGa-jA-OcM"/>
-                <constraint firstItem="59F-28-B7c" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="zTW-6X-zLb"/>
+                <constraint firstItem="59F-28-B7c" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="2" id="zTW-6X-zLb"/>
             </constraints>
             <point key="canvasLocation" x="72.51908396946564" y="20.422535211267608"/>
         </view>

@@ -16,8 +16,10 @@ class SideMenuTVC: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         icon.image = icon.image?.withRenderingMode(.alwaysTemplate)
-        icon.tintColor  = UIColor.black
-        // Initialization code
+        icon.tintColor  = UIColor.textWhiteColor
+        lblTitle.font = UIFont.BoldFont(14)
+        lblTitle.textColor = UIColor.textWhiteColor
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

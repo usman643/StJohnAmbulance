@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 struct DashBoardGridModel {
-    let title : String?
-    let subTitle : String?
-    let bgColor : UIColor?
-    let icon : String?
+    var title : String?
+    var subTitle : String?
+    var bgColor : UIColor?
+    var icon : String?
 }

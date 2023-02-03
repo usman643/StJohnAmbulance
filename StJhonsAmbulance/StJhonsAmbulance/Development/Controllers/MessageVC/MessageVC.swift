@@ -31,24 +31,25 @@ class MessageVC: ENTALDBaseViewController {
         tableview.register(UINib(nibName: "MessageTVC", bundle: nil), forCellReuseIdentifier: "MessageTVC")
         decorateUI()
         getMessages()
+    
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
-
     }
 
     func decorateUI(){
-        
-        
+        btnGroup.backgroundColor = UIColor.themePrimary
         btnGroup.titleLabel?.font = UIFont.BoldFont(14)
         btnCall.titleLabel?.font = UIFont.RegularFont(14)
         btnText.titleLabel?.font = UIFont.RegularFont(14)
         btnEmail.titleLabel?.font = UIFont.RegularFont(14)
         
-        
         btnGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnCall.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnText.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnEmail.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        
         
         groupView.layer.cornerRadius = 3
         callView.layer.cornerRadius = 3
@@ -71,6 +72,7 @@ class MessageVC: ENTALDBaseViewController {
     
     
     @IBAction func homeTapped(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func selectGroupTapped(_ sender: Any) {

@@ -38,10 +38,16 @@ class PendingShiftVC: ENTALDBaseViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "PendingShiftTVC", bundle: nil), forCellReuseIdentifier: "PendingShiftTVC")
+        tableView.register(UINib(nibName: "EmptyEventTableCell", bundle: nil), forCellReuseIdentifier: "EmptyEventTableCell")
         
         decorateUI()
         getPendingShift()
         getPendingShiftThree()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.btnSelectGroup.setTitle("\(ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.getRoleType() ?? "")", for: .normal)
     }
     
@@ -57,6 +63,7 @@ class PendingShiftVC: ENTALDBaseViewController {
         lblShift.font = UIFont.BoldFont(12)
         lblAction.font = UIFont.BoldFont(12)
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
+        btnSelectGroup.backgroundColor = UIColor.themePrimary
         
         btnSelectGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
         lblTitle.textColor = UIColor.themePrimaryColor
@@ -88,7 +95,9 @@ class PendingShiftVC: ENTALDBaseViewController {
     }
     
     
-    @IBAction func searchCloseTapped(_ sender: Any) {
+    @IBAction func homeTapped(_ sender: Any) {
+        
+        self.navigationController?.popViewController(animated: true)
         
     }
     
@@ -126,7 +135,8 @@ extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
         
         let rowModel = pendingShiftData?[indexPath.row]
         cell.setCellData(rowModel : rowModel)
-        let rowmodelThree = getPendingShiftThreeModelBy(rowModel?._sjavms_volunteerevent_value ?? "")
+        
+//        let rowmodelThree = getPendingShiftThreeModelBy(rowModel?._sjavms_volunteerevent_value ?? "")
         
         let rowModelEvent = getPendingShiftOneModelBy(rowModel?._sjavms_volunteerevent_value ?? "")
         

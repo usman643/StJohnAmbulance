@@ -74,5 +74,18 @@ class DateFormatManager{
         //dateFormatter.date(from: date ?? "") // replace Date String
     }
     
+    func getCurrentDateWithFormat(format: String?) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        dateFormatter.timeZone = TimeZone.current
+//        dateFormatter.locale = Locale.current
+        let date = Date()//self.userData?.date_of_birth
+        return dateFormatter.string(from: date)
+        //dateFormatter.date(from: date ?? "") // replace Date String
+    }
+    
+    
+    
+    
 }
 
