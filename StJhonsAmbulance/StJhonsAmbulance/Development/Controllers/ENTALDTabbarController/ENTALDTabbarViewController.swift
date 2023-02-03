@@ -18,7 +18,7 @@ class ENTALDTabbarViewController: UITabBarController {
         super.viewDidLoad()
         view.backgroundColor = .white
         self.tabBar.tintColor = .themePrimary
-        self.tabBar.barTintColor = .themeLight
+        self.tabBar.barTintColor = .themeWhiteText
         UITabBar.appearance().barTintColor = .white
         UITabBar.appearance().selectionIndicatorImage = Bundle.loadImageFromResourceAFBundlePNG(imageName: "tab_bg")
         self.navigationController?.navigationBar.isHidden = true

@@ -40,8 +40,8 @@ class MessageVC: ENTALDBaseViewController {
     }
 
     func decorateUI(){
-        self.view.backgroundColor = UIColor.themeLight
-        self.tableview.backgroundColor = UIColor.themeLight
+        self.view.backgroundColor = UIColor.themeWhiteText
+        self.tableview.backgroundColor = UIColor.themeWhiteText
         
         btnGroup.backgroundColor = UIColor.themePrimary
         btnGroup.titleLabel?.font = UIFont.BoldFont(14)
@@ -104,6 +104,13 @@ class MessageVC: ENTALDBaseViewController {
         }
     }
     
+    func showEmptyView(){
+        DispatchQueue.main.async {
+            let view = EmptyView.instanceFromNib()
+            view.frame = self.tableview.frame
+            self.view.addSubview(view)
+        }
+    }
     
     func getMessages(){
 
@@ -135,10 +142,16 @@ class MessageVC: ENTALDBaseViewController {
                 
                 if let messagesData = response.value {
                     self.messagesData = messagesData
+                    if (self.messagesData?.count == 0 || self.messagesData?.count == nil){
+                        self.showEmptyView()
+                    }
                     DispatchQueue.main.async {
                         
                         self.tableview.reloadData()
                     }
+                    
+                }else{
+                        self.showEmptyView()
                 }
                 
             case .error(let error, let errorResponse):
@@ -146,6 +159,7 @@ class MessageVC: ENTALDBaseViewController {
                 if let err = errorResponse {
                     message = err.error
                 }
+                self.showEmptyView()
                 DispatchQueue.main.async {
                     ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
                 }

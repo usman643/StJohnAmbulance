@@ -153,6 +153,14 @@ class PendingEventVC: ENTALDBaseViewController {
         }
     }
     
+    func showEmptyView(tableVw : UITableView){
+        DispatchQueue.main.async {
+            let view = EmptyView.instanceFromNib()
+            view.frame = tableVw.frame
+            tableVw.addSubview(view)
+        }
+    }
+    
     func showGroupsPicker(list:[LandingGroupsModel] = []){
         
         ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, dataObj: ProcessUtils.shared.userGroupsList) { params, controller in
@@ -195,9 +203,15 @@ class PendingEventVC: ENTALDBaseViewController {
                 
                 if let pendingData = response.value {
                     self.pendingApprovalData = pendingData
+                    if (self.pendingApprovalData?.count == 0 || self.pendingApprovalData?.count == nil){
+                        self.showEmptyView(tableVw: self.pendingApprovalTableView)
+                    }
+                    
                     DispatchQueue.main.async {
                         self.pendingApprovalTableView.reloadData()
                     }
+                }else{
+                    self.showEmptyView(tableVw: self.pendingApprovalTableView)
                 }
             
             case .error(let error, let errorResponse):
@@ -205,6 +219,7 @@ class PendingEventVC: ENTALDBaseViewController {
                 if let err = errorResponse {
                     message = err.error
                 }
+                self.showEmptyView(tableVw: self.pendingApprovalTableView)
                 DispatchQueue.main.async {
                     ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
                 }
@@ -240,9 +255,14 @@ class PendingEventVC: ENTALDBaseViewController {
                 
                 if let pendingData = response.value {
                     self.pendingPublishData = pendingData
+                    if (self.pendingPublishData?.count == 0 || self.pendingPublishData?.count == nil){
+                        self.showEmptyView(tableVw: self.pendingPublishTableView)
+                    }
                     DispatchQueue.main.async {
                         self.pendingPublishTableView.reloadData()
                     }
+                }else{
+                    self.showEmptyView(tableVw: self.pendingPublishTableView)
                 }
             
             case .error(let error, let errorResponse):
@@ -250,6 +270,7 @@ class PendingEventVC: ENTALDBaseViewController {
                 if let err = errorResponse {
                     message = err.error
                 }
+                self.showEmptyView(tableVw: self.pendingPublishTableView)
                 DispatchQueue.main.async {
                     ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
                 }

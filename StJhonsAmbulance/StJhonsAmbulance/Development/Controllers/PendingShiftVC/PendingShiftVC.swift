@@ -101,6 +101,14 @@ class PendingShiftVC: ENTALDBaseViewController {
         
     }
     
+    func showEmptyView(tableVw : UITableView){
+        DispatchQueue.main.async {
+            let view = EmptyView.instanceFromNib()
+            view.frame = tableVw.frame
+            tableVw.addSubview(view)
+        }
+    }
+    
     func showGroupsPicker(list:[LandingGroupsModel] = []){
         
         ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, dataObj: ProcessUtils.shared.userGroupsList) { params, controller in
@@ -268,11 +276,15 @@ extension PendingShiftVC {
                 
                 if let pendingShift = response.value {
                     self.pendingShiftData = pendingShift
-                    
+                    if (self.pendingShiftData?.count == 0 || self.pendingShiftData?.count == nil){
+                        self.showEmptyView(tableVw: self.tableView)
+                    }
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
 
+                }else{
+                    self.showEmptyView(tableVw: self.tableView)
                 }
                 
             case .error(let error, let errorResponse):
@@ -280,6 +292,7 @@ extension PendingShiftVC {
                 if let err = errorResponse {
                     message = err.error
                 }
+                self.showEmptyView(tableVw: self.tableView)
                 DispatchQueue.main.async {
                     ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
                 }

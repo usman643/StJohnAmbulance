@@ -31,7 +31,7 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
         collectionView.dataSource = self
        
 //        self.navigationController?.setNavigationBarHidden(true, animated: false)
-        self.navigationController?.navigationBar.isHidden = true
+        
         collectionView.register(UINib(nibName: "CSDashBaordCVC", bundle: nil), forCellWithReuseIdentifier: "CSDashBaordCVC")
         decorateUI()
         setSideMenu()
@@ -49,7 +49,8 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
         btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
         if ( self.latestEvent?.count == 0 || ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() != self.latestEvent?[0].msnfp_engagementopportunityid){
             getLatestUpcomingEvent()
@@ -81,9 +82,9 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
         }else if(named == "Logout"){
             
             UserDefaults.standard.signOut()
-            self.navigationController?.popToRootViewController(animated: true)
-            let loginvc = LoginVC(nibName: "LoginVC", bundle: nil)
-            self.navigationController?.pushViewController(loginvc, animated: true)
+//            self.navigationController?.popToRootViewController(animated: true)
+//            let loginvc = LoginVC(nibName: "LoginVC", bundle: nil)
+//            self.navigationController?.pushViewController(loginvc, animated: true)
             
         }else{
             
@@ -101,8 +102,8 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
         btnGroup.titleLabel?.font = UIFont.BoldFont(14)
         btnGroup.backgroundColor = UIColor.themePrimary
         
-        self.view.backgroundColor = UIColor.themeLight
-        self.collectionView.backgroundColor = UIColor.themeLight
+        self.view.backgroundColor = UIColor.themeWhiteText
+        self.collectionView.backgroundColor = UIColor.themeWhiteText
     }
 
     @IBAction func selectGroupTapped(_ sender: Any) {

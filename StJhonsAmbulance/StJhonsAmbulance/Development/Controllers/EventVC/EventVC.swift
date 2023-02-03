@@ -196,6 +196,14 @@ class EventVC: ENTALDBaseViewController {
         }
     }
     
+    func showEmptyView(tableVw : UITableView){
+        DispatchQueue.main.async {
+            let view = EmptyView.instanceFromNib()
+            view.frame = tableVw.frame
+            tableVw.addSubview(view)
+        }
+    }
+    
     func showGroupsPicker(list:[LandingGroupsModel] = []){
         
         ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, dataObj: ProcessUtils.shared.userGroupsList) { params, controller in
@@ -244,9 +252,14 @@ class EventVC: ENTALDBaseViewController {
                 
                 if let currentEvent = response.value {
                     self.currentEventData = currentEvent
+                    if (self.currentEventData?.count == 0 || self.currentEventData?.count == nil){
+                        self.showEmptyView(tableVw: self.currentTableView)
+                    }
                     DispatchQueue.main.async {
                         self.currentTableView.reloadData()
                     }
+                }else{
+                    self.showEmptyView(tableVw: self.currentTableView)
                 }
                 
             case .error(let error, let errorResponse):
@@ -254,6 +267,9 @@ class EventVC: ENTALDBaseViewController {
                 if let err = errorResponse {
                     message = err.error
                 }
+               
+                self.showEmptyView(tableVw: self.currentTableView)
+                
                 DispatchQueue.main.async {
                     ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
                 }
@@ -298,9 +314,14 @@ class EventVC: ENTALDBaseViewController {
                 
                 if let upcomingEvent = response.value {
                     self.upcomingEventData = upcomingEvent
+                    if (self.upcomingEventData?.count == 0 || self.upcomingEventData?.count == nil){
+                        self.showEmptyView(tableVw: self.upcomingTableView)
+                    }
                     DispatchQueue.main.async {
                         self.upcomingTableView.reloadData()
                     }
+                }else{
+                    self.showEmptyView(tableVw: self.upcomingTableView)
                 }
                 
             case .error(let error, let errorResponse):
@@ -308,6 +329,7 @@ class EventVC: ENTALDBaseViewController {
                 if let err = errorResponse {
                     message = err.error
                 }
+                self.showEmptyView(tableVw: self.currentTableView)
                 DispatchQueue.main.async {
                     ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
                 }
@@ -352,9 +374,14 @@ class EventVC: ENTALDBaseViewController {
                 
                 if let pastEvent = response.value {
                     self.pastEventData = pastEvent
+                    if (self.pastEventData?.count == 0 || self.pastEventData?.count == nil){
+                        self.showEmptyView(tableVw: self.pastTableView)
+                    }
                     DispatchQueue.main.async {
                         self.pastTableView.reloadData()
                     }
+                }else{
+                    self.showEmptyView(tableVw: self.pastTableView)
                 }
                 
             case .error(let error, let errorResponse):
@@ -362,6 +389,7 @@ class EventVC: ENTALDBaseViewController {
                 if let err = errorResponse {
                     message = err.error
                 }
+                self.showEmptyView(tableVw: self.pastTableView)
                 DispatchQueue.main.async {
                     ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
                 }

@@ -80,7 +80,7 @@ class LoginVC: ENTALDBaseViewController {
         lblLoginWith.font = UIFont.RegularFont(14)
         btnLogin.titleLabel?.font = UIFont.BoldFont(20)
         
-        lblTitle.textColor = UIColor.themeLight
+        lblTitle.textColor = UIColor.textWhiteColor
         lblEmail.textColor = UIColor.textBlackColor
         lblPassword.textColor = UIColor.textBlackColor
         txtUserName.textColor = UIColor.textGrayColor

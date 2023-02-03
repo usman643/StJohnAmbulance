@@ -90,6 +90,14 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
         tableView.reloadData()
     }
     
+    func showEmptyView(){
+        DispatchQueue.main.async {
+            let view = EmptyView.instanceFromNib()
+            view.frame = self.tableView.frame
+            self.view.addSubview(view)
+        }
+    }
+    
     func showGroupsPicker(list:[LandingGroupsModel] = []){
         
         ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, dataObj: ProcessUtils.shared.userGroupsList) { params, controller in
@@ -166,10 +174,14 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
                 if let volunteers = response.value {
                     self.volunteerData = volunteers
                     self.filteredData = volunteers
+                    if (self.volunteerData?.count == 0 || self.volunteerData?.count == nil){
+                        self.showEmptyView()
+                    }
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
-                        
                     }
+                }else{
+                    self.showEmptyView()
                 }
 
             case .error(let error, let errorResponse):
@@ -177,14 +189,13 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
                 if let err = errorResponse {
                     message = err.error
                 }
+                self.showEmptyView()
                 DispatchQueue.main.async {
                     ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
                 }
             }
         }
     }
-    
-    
     
 }
 

@@ -49,7 +49,9 @@ class PickerViewController: ENTALDBaseViewController, UIPickerViewDelegate, UIPi
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.selectedGroup = self.groupsList[row]
+        if (self.groupsList.count != 0){
+            self.selectedGroup = self.groupsList[row]
+        }
     }
     
     /*
