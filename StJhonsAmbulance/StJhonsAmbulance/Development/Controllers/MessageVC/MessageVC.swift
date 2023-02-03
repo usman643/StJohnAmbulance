@@ -36,7 +36,7 @@ class MessageVC: ENTALDBaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
+        btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupName() ?? "", for: .normal)
     }
 
     func decorateUI(){
@@ -144,6 +144,12 @@ class MessageVC: ENTALDBaseViewController {
                     self.messagesData = messagesData
                     if (self.messagesData?.count == 0 || self.messagesData?.count == nil){
                         self.showEmptyView()
+                    }else{
+                        DispatchQueue.main.async {
+                            for subview in self.tableview.subviews {
+                                subview.removeFromSuperview()
+                            }
+                        }
                     }
                     DispatchQueue.main.async {
                         

@@ -79,7 +79,7 @@ class EventVC: ENTALDBaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.btnSelectGroup.setTitle("\(ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.getRoleType() ?? "")", for: .normal)
+        self.btnSelectGroup.setTitle("\(ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
     }
     
     func decorateUI(){
@@ -254,6 +254,12 @@ class EventVC: ENTALDBaseViewController {
                     self.currentEventData = currentEvent
                     if (self.currentEventData?.count == 0 || self.currentEventData?.count == nil){
                         self.showEmptyView(tableVw: self.currentTableView)
+                    }else{
+                        DispatchQueue.main.async {
+                            for subview in self.currentTableView.subviews {
+                                subview.removeFromSuperview()
+                            }
+                        }
                     }
                     DispatchQueue.main.async {
                         self.currentTableView.reloadData()
@@ -316,6 +322,12 @@ class EventVC: ENTALDBaseViewController {
                     self.upcomingEventData = upcomingEvent
                     if (self.upcomingEventData?.count == 0 || self.upcomingEventData?.count == nil){
                         self.showEmptyView(tableVw: self.upcomingTableView)
+                    }else{
+                        DispatchQueue.main.async {
+                            for subview in self.upcomingTableView.subviews {
+                                subview.removeFromSuperview()
+                            }
+                        }
                     }
                     DispatchQueue.main.async {
                         self.upcomingTableView.reloadData()
@@ -376,6 +388,12 @@ class EventVC: ENTALDBaseViewController {
                     self.pastEventData = pastEvent
                     if (self.pastEventData?.count == 0 || self.pastEventData?.count == nil){
                         self.showEmptyView(tableVw: self.pastTableView)
+                    }else{
+                        DispatchQueue.main.async {
+                            for subview in self.pastTableView.subviews {
+                                subview.removeFromSuperview()
+                            }
+                        }
                     }
                     DispatchQueue.main.async {
                         self.pastTableView.reloadData()

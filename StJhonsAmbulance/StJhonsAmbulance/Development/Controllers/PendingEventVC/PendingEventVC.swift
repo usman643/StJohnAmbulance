@@ -70,7 +70,7 @@ class PendingEventVC: ENTALDBaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.btnSelectGroup.setTitle("\(ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.getRoleType() ?? "")", for: .normal)
+        self.btnSelectGroup.setTitle("\(ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
     }
 
     func decorateUI(){
@@ -205,6 +205,12 @@ class PendingEventVC: ENTALDBaseViewController {
                     self.pendingApprovalData = pendingData
                     if (self.pendingApprovalData?.count == 0 || self.pendingApprovalData?.count == nil){
                         self.showEmptyView(tableVw: self.pendingApprovalTableView)
+                    }else{
+                        DispatchQueue.main.async {
+                            for subview in self.pendingApprovalTableView.subviews {
+                                subview.removeFromSuperview()
+                            }
+                        }
                     }
                     
                     DispatchQueue.main.async {
@@ -257,6 +263,12 @@ class PendingEventVC: ENTALDBaseViewController {
                     self.pendingPublishData = pendingData
                     if (self.pendingPublishData?.count == 0 || self.pendingPublishData?.count == nil){
                         self.showEmptyView(tableVw: self.pendingPublishTableView)
+                    }else{
+                        DispatchQueue.main.async {
+                            for subview in self.pendingPublishTableView.subviews {
+                                subview.removeFromSuperview()
+                            }
+                        }
                     }
                     DispatchQueue.main.async {
                         self.pendingPublishTableView.reloadData()
@@ -315,9 +327,11 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
             
             cell.lblName.text = rowModel?.sjavms_name ?? ""
             cell.lblLocation.text = rowModel?.sjavms_address1name ?? ""
-            cell.lblMax.text = rowModel?.sjavms_maxvolunteers ?? ""
+//            cell.lblMax.text = rowModel?.sjavms_maxvolunteers ?? ""
             cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
             cell.lblStatus.text = rowModel?.sjavms_msnfp_group_sjavms_eventrequest?[0].getStatus()
+            
+            
             
         }else if (tableView == self.pendingPublishTableView){ // pending Publish
             

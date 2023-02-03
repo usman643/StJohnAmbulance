@@ -51,7 +51,7 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
-        btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
+        btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupName() ?? "", for: .normal)
         if ( self.latestEvent?.count == 0 || ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() != self.latestEvent?[0].msnfp_engagementopportunityid){
             getLatestUpcomingEvent()
         }
@@ -102,6 +102,8 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
         btnGroup.titleLabel?.font = UIFont.BoldFont(14)
         btnGroup.backgroundColor = UIColor.themePrimary
         
+        lblGroupName.font = UIFont.BoldFont(16)
+        lblGroupName.textColor = UIColor.themeBlackText
         self.view.backgroundColor = UIColor.themeWhiteText
         self.collectionView.backgroundColor = UIColor.themeWhiteText
     }
@@ -200,6 +202,7 @@ extension CSDashBoardVC : UICollectionViewDelegate,UICollectionViewDataSource, U
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.view.endEditing(true)
 //        if indexPath.row == 0 {
 //            let vc = MessageVC.loadFromNib()
 //            self.navigationController?.pushViewController(vc, animated: true)

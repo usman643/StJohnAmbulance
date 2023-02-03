@@ -43,7 +43,7 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
+        btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupName() ?? "", for: .normal)
     }
     
     func decorateUI(){
@@ -176,6 +176,12 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
                     self.filteredData = volunteers
                     if (self.volunteerData?.count == 0 || self.volunteerData?.count == nil){
                         self.showEmptyView()
+                    }else{
+                        DispatchQueue.main.async {
+                            for subview in self.tableView.subviews {
+                                subview.removeFromSuperview()
+                            }
+                        }
                     }
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
