@@ -203,10 +203,10 @@ extension CSDashBoardVC : UICollectionViewDelegate,UICollectionViewDataSource, U
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.view.endEditing(true)
-//        if indexPath.row == 0 {
-//            let vc = MessageVC.loadFromNib()
-//            self.navigationController?.pushViewController(vc, animated: true)
-//        }else
+        if indexPath.row == 0 {
+            let vc = EventManageVC.loadFromNib()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else
         if indexPath.row == 1 {
             let vc = MessageVC.loadFromNib()
             self.navigationController?.pushViewController(vc, animated: true)

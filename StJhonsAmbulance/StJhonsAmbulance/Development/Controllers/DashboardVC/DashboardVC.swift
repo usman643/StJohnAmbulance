@@ -12,6 +12,7 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
     
     var sideMenu: SideMenuVC?
     var menu: SideMenuNavigationController?
+    var gridData : [DashBoardGridModel]?
     
     @IBOutlet weak var headerView: UIView!
     
@@ -25,10 +26,12 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
     @IBOutlet weak var campView: UIView!
     @IBOutlet weak var campImgView: UIImageView!
     @IBOutlet weak var lblCamp: UILabel!
+    @IBOutlet weak var lblCampNum: UILabel!
     
     @IBOutlet weak var messageView: UIView!
     @IBOutlet weak var messageImgView: UIImageView!
     @IBOutlet weak var lblMessage: UILabel!
+    @IBOutlet weak var lblMessageNum: UILabel!
     
     @IBOutlet weak var checkInView: UIView!
     @IBOutlet weak var checkInImgView: UIImageView!
@@ -37,10 +40,12 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
     @IBOutlet weak var calenderView: UIView!
     @IBOutlet weak var calenderImgView: UIImageView!
     @IBOutlet weak var lblCalender: UILabel!
+    @IBOutlet weak var lblCalenderNum: UILabel!
     
     @IBOutlet weak var hourView: UIView!
     @IBOutlet weak var hourImgView: UIImageView!
     @IBOutlet weak var lblHour: UILabel!
+    @IBOutlet weak var lblHourNum: UILabel!
     
     @IBOutlet weak var eventView: UIView!
     @IBOutlet weak var eventImgView: UIImageView!
@@ -50,6 +55,15 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
         super.viewDidLoad()
         decorateUI()
         setSideMenu()
+        
+//        gridData = [
+//                    DashBoardGridModel(title: "", subTitle: "", bgColor: UIColor.darkBlueColor, icon: "ic_camp"),
+//                    DashBoardGridModel(title: "Messages", subTitle: "02", bgColor: UIColor.orangeRedColor, icon: "ic_message"),
+//                    DashBoardGridModel(title: "Volunteer", subTitle: "02", bgColor: UIColor.orangeColor, icon: "ic_communication"),
+//                    DashBoardGridModel(title: "Events", subTitle: "02", bgColor: UIColor.darkFrozeColor, icon: "ic_event"),
+//                    DashBoardGridModel(title: "Pending Shifts", subTitle: "02", bgColor: UIColor.lightBlueColor, icon: "ic_hour"),
+//                    DashBoardGridModel(title: "Pending Events", subTitle: "06", bgColor: UIColor.themePrimaryColor, icon: "ic_pendingEvent")
+//                ]
         
     }
 
@@ -86,18 +100,26 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
         hourView.backgroundColor = UIColor.hexString(hex: "4151DE")
         eventView.backgroundColor = UIColor.hexString(hex: "41B8DE")
         
-        lblCamp.font = UIFont.RegularFont(14)
-        lblMessage.font = UIFont.RegularFont(14)
-        lblCheckIn.font = UIFont.RegularFont(14)
-        lblCalender.font = UIFont.RegularFont(14)
-        lblHour.font = UIFont.RegularFont(14)
-        lblEvent.font = UIFont.RegularFont(14)
+        lblCamp.font = UIFont.BoldFont(16)
+        lblCampNum.font = UIFont.BoldFont(16)
+        lblMessage.font = UIFont.BoldFont(16)
+        lblMessageNum.font = UIFont.BoldFont(16)
+        lblCheckIn.font = UIFont.BoldFont(16)
+        lblCalender.font = UIFont.BoldFont(16)
+        lblCalenderNum.font = UIFont.BoldFont(16)
+        lblHour.font = UIFont.BoldFont(16)
+        lblHourNum.font = UIFont.BoldFont(16)
+        lblEvent.font = UIFont.BoldFont(16)
         
         lblCamp.textColor = UIColor.themeLight
+        lblCampNum.textColor = UIColor.themeLight
         lblMessage.textColor = UIColor.themeLight
+        lblMessageNum.textColor = UIColor.themeLight
         lblCheckIn.textColor = UIColor.themeLight
         lblCalender.textColor = UIColor.themeLight
+        lblCalenderNum.textColor = UIColor.themeLight
         lblHour.textColor = UIColor.themeLight
+        lblHourNum.textColor = UIColor.themeLight
         lblEvent.textColor = UIColor.themeLight
         
 //        campView.backgroundColor = UIColor.hexString(hex: "203152")
@@ -105,15 +127,15 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
 //        checkInView.backgroundColor = UIColor.hexString(hex: "AC41DE")
 //        calenderView.backgroundColor = UIColor.hexString(hex: "2DD0DA")
         
-        lblName.textColor = UIColor.themePrimary
-        lblActiveDate.textColor = UIColor.hexString(hex: "727272")
-        lblTotalHours.textColor = UIColor.hexString(hex: "727272")
-        lblServiceYears.textColor = UIColor.hexString(hex: "727272")
+        lblName.textColor = UIColor.themeColorSecondry
+        lblActiveDate.textColor = UIColor.colorGrey72
+        lblTotalHours.textColor = UIColor.colorGrey72
+        lblServiceYears.textColor = UIColor.colorGrey72
         
         lblName.font = UIFont.BoldFont(24)
-        lblActiveDate.font = UIFont.RegularFont(12)
-        lblTotalHours.font = UIFont.RegularFont(12)
-        lblServiceYears.font = UIFont.RegularFont(12)
+        lblActiveDate.font = UIFont.BoldFont(12)
+        lblTotalHours.font = UIFont.BoldFont(12)
+        lblServiceYears.font = UIFont.BoldFont(12)
         
     }
     

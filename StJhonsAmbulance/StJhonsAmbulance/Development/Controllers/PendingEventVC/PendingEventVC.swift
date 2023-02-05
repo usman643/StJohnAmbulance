@@ -327,7 +327,7 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
             
             cell.lblName.text = rowModel?.sjavms_name ?? ""
             cell.lblLocation.text = rowModel?.sjavms_address1name ?? ""
-//            cell.lblMax.text = rowModel?.sjavms_maxvolunteers ?? ""
+            cell.lblMax.text = "\(rowModel?.sjavms_maxvolunteers ?? 0)"
             cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
             cell.lblStatus.text = rowModel?.sjavms_msnfp_group_sjavms_eventrequest?[0].getStatus()
             

@@ -24,6 +24,14 @@
 		1D144301298404ED001F3B15 /* EventVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D1442FF298404ED001F3B15 /* EventVC.xib */; };
 		1D1443052984051C001F3B15 /* EventTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1443032984051C001F3B15 /* EventTVC.swift */; };
 		1D1443062984051C001F3B15 /* EventTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D1443042984051C001F3B15 /* EventTVC.xib */; };
+		1D2E243D298F727B006AB56A /* EventManageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2E243B298F727B006AB56A /* EventManageVC.swift */; };
+		1D2E243E298F727B006AB56A /* EventManageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D2E243C298F727B006AB56A /* EventManageVC.xib */; };
+		1D2E2441298FD241006AB56A /* EventManagerTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2E243F298FD241006AB56A /* EventManagerTVC.swift */; };
+		1D2E2442298FD241006AB56A /* EventManagerTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D2E2440298FD241006AB56A /* EventManagerTVC.xib */; };
+		1D2E2446298FD40A006AB56A /* EventMangerSectionTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2E2444298FD40A006AB56A /* EventMangerSectionTVC.swift */; };
+		1D2E2447298FD40A006AB56A /* EventMangerSectionTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D2E2445298FD40A006AB56A /* EventMangerSectionTVC.xib */; };
+		1D2E244B298FD778006AB56A /* VolunteerEventsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2E2449298FD778006AB56A /* VolunteerEventsVC.swift */; };
+		1D2E244C298FD778006AB56A /* VolunteerEventsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D2E244A298FD778006AB56A /* VolunteerEventsVC.xib */; };
 		1D3E20F6298BCE4B00A97264 /* PendingEventResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E20F5298BCE4B00A97264 /* PendingEventResponseModel.swift */; };
 		1D3E20FA298BF33000A97264 /* EmptyEventTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E20F8298BF33000A97264 /* EmptyEventTableCell.swift */; };
 		1D3E20FB298BF33000A97264 /* EmptyEventTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D3E20F9298BF33000A97264 /* EmptyEventTableCell.xib */; };
@@ -171,6 +179,14 @@
 		1D1442FF298404ED001F3B15 /* EventVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventVC.xib; sourceTree = "<group>"; };
 		1D1443032984051C001F3B15 /* EventTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTVC.swift; sourceTree = "<group>"; };
 		1D1443042984051C001F3B15 /* EventTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventTVC.xib; sourceTree = "<group>"; };
+		1D2E243B298F727B006AB56A /* EventManageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManageVC.swift; sourceTree = "<group>"; };
+		1D2E243C298F727B006AB56A /* EventManageVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventManageVC.xib; sourceTree = "<group>"; };
+		1D2E243F298FD241006AB56A /* EventManagerTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManagerTVC.swift; sourceTree = "<group>"; };
+		1D2E2440298FD241006AB56A /* EventManagerTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventManagerTVC.xib; sourceTree = "<group>"; };
+		1D2E2444298FD40A006AB56A /* EventMangerSectionTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMangerSectionTVC.swift; sourceTree = "<group>"; };
+		1D2E2445298FD40A006AB56A /* EventMangerSectionTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventMangerSectionTVC.xib; sourceTree = "<group>"; };
+		1D2E2449298FD778006AB56A /* VolunteerEventsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerEventsVC.swift; sourceTree = "<group>"; };
+		1D2E244A298FD778006AB56A /* VolunteerEventsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VolunteerEventsVC.xib; sourceTree = "<group>"; };
 		1D3E20F5298BCE4B00A97264 /* PendingEventResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingEventResponseModel.swift; sourceTree = "<group>"; };
 		1D3E20F8298BF33000A97264 /* EmptyEventTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyEventTableCell.swift; sourceTree = "<group>"; };
 		1D3E20F9298BF33000A97264 /* EmptyEventTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyEventTableCell.xib; sourceTree = "<group>"; };
@@ -399,6 +415,44 @@
 			path = EventTVC;
 			sourceTree = "<group>";
 		};
+		1D2E2439298F71FF006AB56A /* EventManageVC */ = {
+			isa = PBXGroup;
+			children = (
+				1D2E2443298FD3F0006AB56A /* EventMangerSectionTVC */,
+				1D2E243A298F7262006AB56A /* EventManagerTVC */,
+				1D2E243B298F727B006AB56A /* EventManageVC.swift */,
+				1D2E243C298F727B006AB56A /* EventManageVC.xib */,
+			);
+			path = EventManageVC;
+			sourceTree = "<group>";
+		};
+		1D2E243A298F7262006AB56A /* EventManagerTVC */ = {
+			isa = PBXGroup;
+			children = (
+				1D2E243F298FD241006AB56A /* EventManagerTVC.swift */,
+				1D2E2440298FD241006AB56A /* EventManagerTVC.xib */,
+			);
+			path = EventManagerTVC;
+			sourceTree = "<group>";
+		};
+		1D2E2443298FD3F0006AB56A /* EventMangerSectionTVC */ = {
+			isa = PBXGroup;
+			children = (
+				1D2E2444298FD40A006AB56A /* EventMangerSectionTVC.swift */,
+				1D2E2445298FD40A006AB56A /* EventMangerSectionTVC.xib */,
+			);
+			path = EventMangerSectionTVC;
+			sourceTree = "<group>";
+		};
+		1D2E2448298FD749006AB56A /* VolunteerEventsVC */ = {
+			isa = PBXGroup;
+			children = (
+				1D2E2449298FD778006AB56A /* VolunteerEventsVC.swift */,
+				1D2E244A298FD778006AB56A /* VolunteerEventsVC.xib */,
+			);
+			path = VolunteerEventsVC;
+			sourceTree = "<group>";
+		};
 		1D3E20F7298BF30A00A97264 /* EmptyEventTableCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -567,6 +621,8 @@
 		353C61392813ECF400CC8B7F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1D2E2448298FD749006AB56A /* VolunteerEventsVC */,
+				1D2E2439298F71FF006AB56A /* EventManageVC */,
 				1D3E20F7298BF30A00A97264 /* EmptyEventTableCell */,
 				1DF176E0298523F2005809C6 /* PendingEventVC */,
 				1D1442FD298404D0001F3B15 /* EventVC */,
@@ -1032,6 +1088,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D2E244C298FD778006AB56A /* VolunteerEventsVC.xib in Resources */,
 				1DF176EA29852448005809C6 /* PendingEventTVC.xib in Resources */,
 				E4B2EF19297C6B9200D05014 /* LoginVC.xib in Resources */,
 				359E9C22282B8148001E3D73 /* ENTALDAlertView.xib in Resources */,
@@ -1050,6 +1107,7 @@
 				353C6110281213A600CC8B7F /* Assets.xcassets in Resources */,
 				1D0BDEE329826EE700CC2030 /* VounteerTVC.xib in Resources */,
 				353C610E281213A500CC8B7F /* Main.storyboard in Resources */,
+				1D2E2442298FD241006AB56A /* EventManagerTVC.xib in Resources */,
 				1D144301298404ED001F3B15 /* EventVC.xib in Resources */,
 				353C614E28140B6B00CC8B7F /* ENTALDHomeViewController.xib in Resources */,
 				1D0BDED4298258BB00CC2030 /* MessageVC.xib in Resources */,
@@ -1059,7 +1117,9 @@
 				1D0BDEDE29826EC700CC2030 /* VounteerVC.xib in Resources */,
 				E4B2EF10297C57EB00D05014 /* Quicksand-Light.ttf in Resources */,
 				1D0BDED92982645400CC2030 /* MessageTVC.xib in Resources */,
+				1D2E243E298F727B006AB56A /* EventManageVC.xib in Resources */,
 				E47F99BD297DC8F900BF793B /* DashboardVC.xib in Resources */,
+				1D2E2447298FD40A006AB56A /* EventMangerSectionTVC.xib in Resources */,
 				1D58BA56298CFBB0001FE5FD /* EmptyView.xib in Resources */,
 				1D1442FC2983E69B001F3B15 /* PendingShiftTVC.xib in Resources */,
 				359E9C35282D47C2001E3D73 /* onBoardingJson.json in Resources */,
@@ -1205,6 +1265,7 @@
 				359E9C5C282E455F001E3D73 /* CoreTableHeaderFooterView.swift in Sources */,
 				353C61A32817D7B600CC8B7F /* ENTALDHelperUtils.swift in Sources */,
 				359E9C67282E455F001E3D73 /* CoreButton.swift in Sources */,
+				1D2E2446298FD40A006AB56A /* EventMangerSectionTVC.swift in Sources */,
 				E4B2EF04297C4D9C00D05014 /* Router.swift in Sources */,
 				1D3E20FA298BF33000A97264 /* EmptyEventTableCell.swift in Sources */,
 				359E9C5F282E455F001E3D73 /* CoreCollectionView.swift in Sources */,
@@ -1218,6 +1279,7 @@
 				1D4DE850297FB57300246242 /* ACFloatingTextfield.swift in Sources */,
 				359E9C5E282E455F001E3D73 /* CoreTableViewCell.swift in Sources */,
 				1D4DE842297FB4C600246242 /* ForgetVC.swift in Sources */,
+				1D2E2441298FD241006AB56A /* EventManagerTVC.swift in Sources */,
 				E48359B7297D7887008CBFFF /* Algorithm.m in Sources */,
 				1D0BDEE229826EE700CC2030 /* VounteerTVC.swift in Sources */,
 				353C6107281213A500CC8B7F /* AppDelegate.swift in Sources */,
@@ -1268,7 +1330,9 @@
 				1DF176F629892078005809C6 /* DateFormatter.swift in Sources */,
 				1D4DE84A297FB51C00246242 /* NSURL.swift in Sources */,
 				1D0BDED3298258BB00CC2030 /* MessageVC.swift in Sources */,
+				1D2E244B298FD778006AB56A /* VolunteerEventsVC.swift in Sources */,
 				359E9C66282E455F001E3D73 /* CoreTextField.swift in Sources */,
+				1D2E243D298F727B006AB56A /* EventManageVC.swift in Sources */,
 				1D4DE85D297FE33C00246242 /* CommonModel.swift in Sources */,
 				E48359D829812AAF008CBFFF /* PickerViewController.swift in Sources */,
 				359E9C64282E455F001E3D73 /* CoreControls.swift in Sources */,

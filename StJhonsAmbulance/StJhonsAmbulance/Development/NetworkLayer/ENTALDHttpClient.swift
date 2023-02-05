@@ -128,14 +128,25 @@ extension ENTALDHttpClient {
                 completion(.error(error: .unknownError, errorResponse: errorResponse))
                 
             }else {
-              
+                
                 #if DEBUG
                 print("++++++++++Response++++++++++++ \n")
                 print(String(data: data, encoding: .utf8) ?? "")
                 #endif
-
-                let decodedObj = try JSONDecoder().decode(T.self, from: data)
-                completion(.success(value: decodedObj))
+                let json = try? JSONSerialization.jsonObject(with: data, options: [])
+                if let dict = json as? [String:Any] {
+                    let result = dict.filter({
+                        if let value = $0.value as? String{
+                            return !value.contains("<null>")
+                        }
+                        return true
+                    })
+                    let jsonData = try JSONSerialization.data(withJSONObject: result, options: .prettyPrinted)
+                    let decodedObj = try JSONDecoder().decode(T.self, from: jsonData)
+                    completion(.success(value: decodedObj))
+                    print("results \(result)")
+                }
+                
             }
         }catch (let error) {
             

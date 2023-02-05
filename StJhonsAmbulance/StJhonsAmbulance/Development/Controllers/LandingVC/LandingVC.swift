@@ -67,7 +67,16 @@ class LandingVC: ENTALDBaseViewController {
     }
     
     @IBAction func btnNextAction(_ sender: Any) {
-        self.callbackToController?(nil, self)
+//        self.callbackToController?(nil, self)
+        if (ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.sjavms_rolecategory == 802280000){
+            let vc = DashboardVC(nibName: "DashboardVC", bundle: nil)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else if (ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.sjavms_rolecategory == 802280001){
+            
+            self.callbackToController?(nil, self)
+            
+        }
+    
     }
     
     
@@ -127,4 +136,17 @@ class LandingVC: ENTALDBaseViewController {
         }
     }
 
+    @IBAction func volunteerTapped(_ sender: Any) {
+        if (ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.sjavms_rolecategory == 802280000){
+            let vc = DashboardVC(nibName: "DashboardVC", bundle: nil)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else if (ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.sjavms_rolecategory == 802280001){
+            
+            self.callbackToController?(nil, self)
+            
+        }
+        
+    }
+    
+    
 }
