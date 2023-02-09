@@ -246,14 +246,10 @@ extension PendingShiftVC {
                 str = "'{\(self.pendingShiftDataOne?[i].msnfp_engagementopportunityid ?? "")}',"
             }
             engagementOppertunityId += str
-            
-            
-            debugPrint(engagementOppertunityId)
+
         }
         
-        
         let params : [String:Any] = [
-            
             
             ParameterKeys.select : "msnfp_name,createdon,msnfp_participationscheduleid,msnfp_schedulestatus,sjavms_start,sjavms_hours,_sjavms_volunteerevent_value,_sjavms_volunteer_value,msnfp_participationscheduleid",
             
@@ -336,7 +332,6 @@ extension PendingShiftVC {
             }
         }
     }
-    
     
     
     func getPendingShiftOneModelBy(_ volunteerevent_value:String)->PendingShiftModelOne?{

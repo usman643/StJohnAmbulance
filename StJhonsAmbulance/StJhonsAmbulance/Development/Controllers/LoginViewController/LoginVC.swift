@@ -99,7 +99,7 @@ class LoginVC: ENTALDBaseViewController {
     
     @IBAction func registerTapped(_ sender: Any) {
         
-        let regVC = EventManageVC(nibName: "EventManageVC", bundle: nil)
+        let regVC = DashboardVC(nibName: "DashboardVC", bundle: nil)
         self.navigationController?.pushViewController(regVC, animated: true)
         
 //        ENTALDControllers.shared.showTabbarViewController(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in

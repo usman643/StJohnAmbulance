@@ -45,7 +45,13 @@ class DateFormatManager{
         
         let formatter = DateFormatter()
         formatter.dateFormat = newFormat
-        return formatter.string(from: formatedDate ?? Date() )
+        if (date != "" ){
+            return formatter.string(from: formatedDate ?? Date() )
+        }else{
+            return ""
+        }
+        
+        
     }
     
     

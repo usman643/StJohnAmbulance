@@ -52,5 +52,20 @@ struct UserIdentityModel : Codable {
     let emailaddress1:String?
     let address1_composite:String?
     let entityimage_url:String?
-    
+    let entityimage : String?
+    let sjavms_alias : String?
+    let sjavms_activedate : String?
+    let msnfp_totalengagements : Int?
+    let sjavms_yearsofservice : Int?
+    let address1_line1 : String?
+    let address1_line2 : String?
+    let address1_telephone1 : String?
+    let sjavms_totalpendinghrs : Float?
+    let sjavms_legacyhours : Float?
+    let sjavms_emergencycontactname : String?
+    let address1_line3 : String?
+    let sjavms_totalhourscompletedthisyear : Float?
+    let sjavms_totalhourscompletedpreviousyear : Float?
+    let msnfp_totalengagementhours : Float?
+    let sjavms_employmentstatus : Int?
 }

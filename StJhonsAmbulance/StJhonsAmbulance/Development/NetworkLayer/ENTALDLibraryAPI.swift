@@ -95,5 +95,37 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
+    func requestVolunteerEvent(params:[String:Any],  _ completion:@escaping((ApiResult<PendingShiftResponseModelTwo, ApiError>) -> Void )){
+        let router = VolunteerDashBoardRouter.getEvent(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestVolunteerNonEvent(params:[String:Any],  _ completion:@escaping((ApiResult<PendingShiftResponseModelTwo, ApiError>) -> Void )){
+        let router = VolunteerDashBoardRouter.getNonEvent(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestScheduleOne(params:[String:Any],  _ completion:@escaping((ApiResult<ScheduleResponseModelOne, ApiError>) -> Void )){
+        let router = VolunteerDashBoardRouter.getScheduleOne(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestScheduleTwo(params:[String:Any],  _ completion:@escaping((ApiResult<ScheduleResponseModelTwo, ApiError>) -> Void )){
+        let router = VolunteerDashBoardRouter.getScheduleTwo(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestScheduleThree(params:[String:Any],  _ completion:@escaping((ApiResult<ScheduleResponseModelThree, ApiError>) -> Void )){
+        let router = VolunteerDashBoardRouter.getScheduleThree(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestVolunteerAward(params:[String:Any],  _ completion:@escaping((ApiResult<VolunteerAwardResponseModel, ApiError>) -> Void )){
+        let router = VolunteerDashBoardRouter.getAwards(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    
+    
 }
 

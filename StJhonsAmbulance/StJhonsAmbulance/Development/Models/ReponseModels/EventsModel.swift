@@ -28,57 +28,18 @@ struct CurrentEventsResponseModel : Codable{
 }
 
 struct CurrentEventsModel: Codable {
-    let odataEtag : String?
+    
     let msnfp_engagementopportunitytitle : String?
     let msnfp_startingdate : String?
-//    let msnfp_location : NSNull?
+    let msnfp_location : String?
     let msnfp_engagementopportunitystatus : Int?
     let _sjavms_program_value : String?
     let msnfp_engagementopportunityid : String?
-    let sjavms_msnfp_engagementopportunity_msnfp_group_nextLink : String?
-    let sjavms_msnfp_engagementopportunity_msnfp_group : CurrentEventGroupModel?
     let msnfp_endingdate : String?
     let msnfp_maximum : Int?
     let msnfp_minimum : Int?
     let _sjavms_contact_value : String?
-    
-    
-    
-    
-    enum CodingKeys: String, CodingKey {
-
-        case odataEtag = "@odata.etag"
-        case msnfp_engagementopportunitytitle
-        case msnfp_startingdate
-//        case msnfp_location
-        case msnfp_engagementopportunitystatus
-        case _sjavms_program_value
-        case msnfp_engagementopportunityid
-        case sjavms_msnfp_engagementopportunity_msnfp_group
-        case sjavms_msnfp_engagementopportunity_msnfp_group_nextLink = "sjavms_msnfp_engagementopportunity_msnfp_group@odata.nextLink"
-        case msnfp_endingdate
-        case msnfp_maximum
-        case msnfp_minimum
-        case _sjavms_contact_value
-        
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.odataEtag = try container.decodeIfPresent(String.self, forKey: .odataEtag)
-        self.msnfp_engagementopportunitytitle = try container.decodeIfPresent(String.self, forKey: .msnfp_engagementopportunitytitle)
-        self.msnfp_startingdate = try container.decodeIfPresent(String.self, forKey: .msnfp_startingdate)
-//        self.msnfp_location = try container.decodeIfPresent(NSNull.self, forKey: .msnfp_location)
-        self.msnfp_engagementopportunitystatus = try container.decodeIfPresent(Int.self, forKey: .msnfp_engagementopportunitystatus)
-        self._sjavms_program_value = try container.decodeIfPresent(String.self, forKey: ._sjavms_program_value)
-        self.msnfp_engagementopportunityid = try container.decodeIfPresent(String.self, forKey: .msnfp_engagementopportunityid)
-        self.sjavms_msnfp_engagementopportunity_msnfp_group_nextLink = try container.decodeIfPresent(String.self, forKey: .sjavms_msnfp_engagementopportunity_msnfp_group_nextLink)
-        self.msnfp_endingdate = try container.decodeIfPresent(String.self, forKey: .msnfp_endingdate)
-        self.msnfp_minimum = try container.decodeIfPresent(Int.self, forKey: .msnfp_minimum)
-        self.msnfp_maximum = try container.decodeIfPresent(Int.self, forKey: .msnfp_maximum)
-        self._sjavms_contact_value = try container.decodeIfPresent(String.self, forKey: ._sjavms_contact_value)
-        self.sjavms_msnfp_engagementopportunity_msnfp_group = try container.decodeIfPresent(CurrentEventGroupModel.self, forKey: .sjavms_msnfp_engagementopportunity_msnfp_group)
-    }
+    let sjavms_msnfp_engagementopportunity_msnfp_group : CurrentEventGroupModel?
     
 }
 

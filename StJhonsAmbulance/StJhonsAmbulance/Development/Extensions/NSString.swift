@@ -17,4 +17,20 @@ extension String {
         }
         return nil
     }
+    
+    
+}
+
+extension Float {
+    
+    public func getFormattedNumber() -> String {
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .none
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+        let formatedString = formatter.string(from: self as NSNumber)!
+        return formatedString
+        
+    }
 }

@@ -13,9 +13,12 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
     var sideMenu: SideMenuVC?
     var menu: SideMenuNavigationController?
     var gridData : [DashBoardGridModel]?
+    var awardData : [VolunteerAwardModel]?
     
     @IBOutlet weak var headerView: UIView!
     
+    @IBOutlet weak var awardNumView: UIView!
+    @IBOutlet weak var lblAward: UILabel!
     @IBOutlet weak var btnSideMenu: UIButton!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblActiveDate: UILabel!
@@ -55,7 +58,8 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
         super.viewDidLoad()
         decorateUI()
         setSideMenu()
-        
+        setupContent()
+        getVolunteerAward()
 //        gridData = [
 //                    DashBoardGridModel(title: "", subTitle: "", bgColor: UIColor.darkBlueColor, icon: "ic_camp"),
 //                    DashBoardGridModel(title: "Messages", subTitle: "02", bgColor: UIColor.orangeRedColor, icon: "ic_message"),
@@ -111,17 +115,20 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
         lblHourNum.font = UIFont.BoldFont(16)
         lblEvent.font = UIFont.BoldFont(16)
         
-        lblCamp.textColor = UIColor.themeLight
-        lblCampNum.textColor = UIColor.themeLight
-        lblMessage.textColor = UIColor.themeLight
-        lblMessageNum.textColor = UIColor.themeLight
-        lblCheckIn.textColor = UIColor.themeLight
-        lblCalender.textColor = UIColor.themeLight
-        lblCalenderNum.textColor = UIColor.themeLight
-        lblHour.textColor = UIColor.themeLight
-        lblHourNum.textColor = UIColor.themeLight
-        lblEvent.textColor = UIColor.themeLight
-        
+        lblCamp.textColor = UIColor.textWhiteColor
+        lblCampNum.textColor = UIColor.textWhiteColor
+        lblMessage.textColor = UIColor.textWhiteColor
+        lblMessageNum.textColor = UIColor.textWhiteColor
+        lblCheckIn.textColor = UIColor.textWhiteColor
+        lblCalender.textColor = UIColor.textWhiteColor
+        lblCalenderNum.textColor = UIColor.textWhiteColor
+        lblHour.textColor = UIColor.textWhiteColor
+        lblHourNum.textColor = UIColor.textWhiteColor
+        lblEvent.textColor = UIColor.textWhiteColor
+        awardNumView.backgroundColor = UIColor.red
+        awardNumView.layer.cornerRadius = awardNumView.frame.size.height/2
+        awardNumView.isHidden = true;
+        lblAward.isHidden = true;
 //        campView.backgroundColor = UIColor.hexString(hex: "203152")
 //        messageView.backgroundColor = UIColor.hexString(hex: "DE5D41")
 //        checkInView.backgroundColor = UIColor.hexString(hex: "AC41DE")
@@ -136,6 +143,17 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
         lblActiveDate.font = UIFont.BoldFont(12)
         lblTotalHours.font = UIFont.BoldFont(12)
         lblServiceYears.font = UIFont.BoldFont(12)
+        
+    }
+    
+    func setupContent(){
+        
+        let date = DateFormatManager.shared.formatDateStrToStr(date: UserDefaults.standard.userInfo?.sjavms_activedate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+        let hours = String(format: "%.2f", UserDefaults.standard.userInfo?.msnfp_totalengagementhours ?? 0)
+        lblName.text = UserDefaults.standard.userInfo?.fullname ?? ""
+        lblActiveDate.text = "Active Date: \(date)"
+        lblServiceYears.text = "Year of Service: \(UserDefaults.standard.userInfo?.sjavms_yearsofservice ?? 0)"
+        lblTotalHours.text = "Total Hours: \(hours)"
         
     }
     
@@ -162,5 +180,91 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
             dismiss(animated: true)
         }
     }
+    
+  
+    
+    @IBAction func currentEventTapped(_ sender: Any) {
+        
+        
+    }
+    
+    @IBAction func messagTapped(_ sender: Any) {
+        let vc = MessageVC(nibName: "MessageVC", bundle: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func checkInTapped(_ sender: Any) {
+    }
+    @IBAction func scheduleTapped(_ sender: Any) {
+        
+        let vc = ScheduleVC(nibName: "ScheduleVC", bundle: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+   
+    @IBAction func eventTapped(_ sender: Any) {
+    }
+    
+    @IBAction func hoursTapped(_ sender: Any) {
+        
+        let vc = VolunteerHoursVC(nibName: "VolunteerHoursVC", bundle: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
+    
+    func getVolunteerAward(){
+        
+        guard let contactId = UserDefaults.standard.contactIdToken  else {return}
+        let params : [String:Any] = [
+            
+            ParameterKeys.select : "msnfp_groupmembershipid,msnfp_groupmembershipname,_msnfp_groupid_value",
+            ParameterKeys.expand : "msnfp_groupId",
+            ParameterKeys.filter : "(statuscode eq 1 and _msnfp_contactid_value eq \(contactId)) and (msnfp_groupId/statecode eq 0)",
+            ParameterKeys.orderby : "msnfp_groupmembershipname asc"
+        ]
+        
+        self.getVolunteerAwardData(params: params)
+    }
+    
+    fileprivate func getVolunteerAwardData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestVolunteerAward(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                
+                if let award = response.value {
+                    self.awardData = award
+        
+                        self.lblAward.text = "\(award.count)"
+                        self.awardNumView.isHidden = false
+                        self.lblAward.isHidden = false
+                    
+                }else{
+                    self.awardNumView.isHidden = true
+                    self.lblAward.isHidden = true
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    
+    
     
 }
