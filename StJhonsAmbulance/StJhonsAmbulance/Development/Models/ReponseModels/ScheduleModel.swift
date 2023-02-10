@@ -159,7 +159,7 @@ struct AvailableEventModel : Codable {
     let msnfp_location : String?
     let msnfp_engagementopportunityid : String?
     let _sjavms_program_value : String?
-    let msnfp_maximum : String?
-    let msnfp_minimum : String?
+    let msnfp_maximum : Int?
+    let msnfp_minimum : Int?
 //    let sjavms_msnfp_engagementopportunity_msnfp_group :  [EngagementopportunityGroupModel]?
 }

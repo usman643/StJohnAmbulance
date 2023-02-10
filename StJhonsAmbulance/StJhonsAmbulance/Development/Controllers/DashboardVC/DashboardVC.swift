@@ -198,7 +198,17 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
         UIView.transition(from: self.campView,
                           to: self.campView,
                           duration: 0.7,
-                          options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in}
+                          options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in
+            
+            if status{
+                if (self.latestEventData?.count != 0 && self.latestEventData?.count != nil){
+                    let vc = EventDetailVC(nibName: "EventDetailVC", bundle: nil)
+                    vc.latestEvent = self.latestEventData?[0]
+                    self.navigationController?.pushViewController(vc , animated: true)
+                }
+                
+            }
+        }
         
     }
     

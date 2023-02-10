@@ -7,7 +7,7 @@
 
 import UIKit
 
-class VolunteerHoursVC: UIViewController {
+class VolunteerHoursVC: ENTALDBaseViewController {
     
     var eventData : [PendingShiftModelTwo]?
     var nonEventData : [PendingShiftModelTwo]?

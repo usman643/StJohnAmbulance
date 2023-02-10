@@ -35,6 +35,7 @@ class EventDetailVC: UIViewController {
     var availableEvent: AvailableEventModel?
     var scheduleEvent: ScheduleModelThree?
     var pastEvent: VolunteerEventsModel?
+    var latestEvent : LatestEventDataModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,12 +65,17 @@ class EventDetailVC: UIViewController {
         btnContact.titleLabel?.font = UIFont.BoldFont(14)
         btnContact.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnContact.layer.cornerRadius = 2
+        btnContact.backgroundColor = UIColor.themePrimaryColor
+        
         btnCheckIn.titleLabel?.font = UIFont.BoldFont(14)
         btnCheckIn.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnCheckIn.layer.cornerRadius = 2
+        btnCheckIn.backgroundColor = UIColor.themePrimaryColor
+        
         btnCancel.titleLabel?.font = UIFont.BoldFont(14)
         btnCancel.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnCancel.layer.cornerRadius = 2
+        btnCancel.backgroundColor = UIColor.themePrimaryColor
         
         
     }
@@ -115,7 +121,22 @@ class EventDetailVC: UIViewController {
         lblShift.text = "Shift: \(startTime) - \(endTime)"
         lblLocationDesc.text = pastEvent?.sjavms_VolunteerEvent?.msnfp_location
             lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: pastEvent?.msnfp_schedulestatus ?? 0) ?? "")"
+            
+        }else if((latestEvent) != nil){
+            
+            let date = DateFormatManager.shared.formatDateStrToStr(date: latestEvent?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
+            
+            let startTime = DateFormatManager.shared.formatDateStrToStr(date: latestEvent?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            
+        let endTime = DateFormatManager.shared.formatDateStrToStr(date: latestEvent?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            
+            lblEventName.text = latestEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
+        lblDate.text = "Date: \(date)"
+        lblShift.text = "Shift: \(startTime) - \(endTime)"
+        lblLocationDesc.text = latestEvent?.sjavms_VolunteerEvent?.msnfp_location
+            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: latestEvent?.msnfp_schedulestatus ?? 0) ?? "")"
         }
+        
     }
 
     @IBAction func backTapped(_ sender: Any) {

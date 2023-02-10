@@ -21,6 +21,7 @@ class ProcessUtils {
     var tabbarHeight : CGFloat?
     var groupListValue : String?
     
+    
     func getStatus(code:Int)->String?{
         switch code {
         case 335940000:
@@ -33,10 +34,26 @@ class ProcessUtils {
             return "Cancelled"
         case 844060000:
             return "Unpublished"
-        case 844060001:
-            return "Active"
         case 802280002:
             return "Submitted"
+        case 1:
+            return "Active"
+        case 0:
+            return "Draft"
+        case 8:
+            return "Failed"
+        case 2:
+            return "Completed"
+        case 3:
+            return "Sent"
+        case 4:
+            return "Received"
+        case 6:
+            return "Pending Send"
+        case 7:
+            return "Sending"
+        case 5:
+            return "Canceled"
         default:
             return ""
         }
