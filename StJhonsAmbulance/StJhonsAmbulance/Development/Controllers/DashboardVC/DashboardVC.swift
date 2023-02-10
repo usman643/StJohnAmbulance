@@ -195,33 +195,71 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
     
     @IBAction func currentEventTapped(_ sender: Any) {
         
+        UIView.transition(from: self.campView,
+                          to: self.campView,
+                          duration: 0.7,
+                          options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in}
         
     }
     
     @IBAction func messagTapped(_ sender: Any) {
-        let vc = MessageVC(nibName: "MessageVC", bundle: nil)
-        self.navigationController?.pushViewController(vc, animated: true)
+        UIView.transition(from: self.messageView,
+                          to: self.messageView,
+                          duration: 0.7,
+                          options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in
+            if status {
+                let vc = MessageVC(nibName: "MessageVC", bundle: nil)
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
     
     @IBAction func checkInTapped(_ sender: Any) {
+        
+        UIView.transition(from: self.checkInView,
+                          to: self.checkInView,
+                          duration: 0.7,
+                          options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in}
+        
     }
     @IBAction func scheduleTapped(_ sender: Any) {
         
-        let vc = ScheduleVC(nibName: "ScheduleVC", bundle: nil)
-        self.navigationController?.pushViewController(vc, animated: true)
+        UIView.transition(from: self.calenderView,
+                          to: self.calenderView,
+                          duration: 0.7,
+                          options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in
+            if status {
+                let vc = ScheduleVC(nibName: "ScheduleVC", bundle: nil)
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
     
    
     @IBAction func eventTapped(_ sender: Any) {
-        let vc = VolunteerEventsVC(nibName: "VolunteerEventsVC", bundle: nil)
-        self.navigationController?.pushViewController(vc, animated: true)
         
+        UIView.transition(from: self.eventView,
+                          to: self.eventView,
+                          duration: 0.7,
+                          options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in
+            if status {
+                let vc = VolunteerEventsVC(nibName: "VolunteerEventsVC", bundle: nil)
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
     
     @IBAction func hoursTapped(_ sender: Any) {
         
-        let vc = VolunteerHoursVC(nibName: "VolunteerHoursVC", bundle: nil)
-        self.navigationController?.pushViewController(vc, animated: true)
+        UIView.transition(from: self.hourView,
+                          to: self.hourView,
+                          duration: 0.7,
+                          options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in
+            if status {
+                let vc = VolunteerHoursVC(nibName: "VolunteerHoursVC", bundle: nil)
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
     
     // ==================  API  =====================
