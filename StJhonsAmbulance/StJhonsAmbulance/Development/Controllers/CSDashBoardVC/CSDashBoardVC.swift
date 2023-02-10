@@ -203,25 +203,37 @@ extension CSDashBoardVC : UICollectionViewDelegate,UICollectionViewDataSource, U
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.view.endEditing(true)
-        if indexPath.row == 0 {
-            let vc = EventManageVC.loadFromNib()
-            self.navigationController?.pushViewController(vc, animated: true)
-        }else if indexPath.row == 1 {
-            let vc = MessageVC.loadFromNib()
-            self.navigationController?.pushViewController(vc, animated: true)
-        }else if indexPath.row == 2 {
-            let vc = VounteerVC.loadFromNib()
-            self.navigationController?.pushViewController(vc, animated: true)
-        }else if indexPath.row == 3 {
-            let vc = EventVC.loadFromNib()
-            self.navigationController?.pushViewController(vc, animated: true)
-        }else if indexPath.row == 4 {
-            let vc = PendingShiftVC.loadFromNib()
-            self.navigationController?.pushViewController(vc, animated: true)
-        }else if indexPath.row == 5 {
-            let vc = PendingEventVC.loadFromNib()
-            self.navigationController?.pushViewController(vc, animated: true)
+        
+        let cell = collectionView.cellForItem(at: indexPath) as! CSDashBaordCVC
+        
+        UIView.transition(from: cell.mainView,
+                          to: cell.mainView,
+                          duration: 0.7,
+                          options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in
+            if status {
+                if indexPath.row == 0 {
+                    let vc = EventManageVC.loadFromNib()
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }else if indexPath.row == 1 {
+                    let vc = MessageVC.loadFromNib()
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }else if indexPath.row == 2 {
+                    let vc = VounteerVC.loadFromNib()
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }else if indexPath.row == 3 {
+                    let vc = EventVC.loadFromNib()
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }else if indexPath.row == 4 {
+                    let vc = PendingShiftVC.loadFromNib()
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }else if indexPath.row == 5 {
+                    let vc = PendingEventVC.loadFromNib()
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+            
         }
+        
     }
     
     func showGroupsPicker(list:[LandingGroupsModel] = []){
