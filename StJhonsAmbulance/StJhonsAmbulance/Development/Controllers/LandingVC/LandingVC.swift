@@ -83,7 +83,7 @@ class LandingVC: ENTALDBaseViewController {
     func getGroups(){
         guard let conId = UserDefaults.standard.contactIdToken else {return}
         let params : [String:Any] = [
-            ParameterKeys.select : "_msnfp_groupid_value,msnfp_groupmembershipid",
+            ParameterKeys.select : "msnfp_groupmembershipid,msnfp_groupmembershipname,_msnfp_contactid_value,_msnfp_groupid_value",
             ParameterKeys.expand : "msnfp_groupId($select=msnfp_groupname),msnfp_contactId($select=fullname),sjavms_RoleType($select=sjavms_rolecategory)",
             ParameterKeys.filter : "(statecode eq 0 and _msnfp_contactid_value eq \(conId)) and (msnfp_groupId/statecode eq 0)",
             ParameterKeys.orderby : "_msnfp_groupid_value asc"
@@ -106,6 +106,23 @@ class LandingVC: ENTALDBaseViewController {
             case .success(let response):
                 if let userGroups = response.value {
                     ProcessUtils.shared.userGroupsList = userGroups
+                    
+                    var propertyValues = ""
+                    
+                    for i in (0 ..< (ProcessUtils.shared.userGroupsList.count )){
+                        var str = ""
+                        
+                        if let groupid_value = ProcessUtils.shared.userGroupsList[i]._msnfp_contactid_value {
+                            
+                            if ( i == (ProcessUtils.shared.userGroupsList.count) - 1){
+                                str = "'{\(groupid_value)}'"
+                            }else{
+                                str = "'{\(groupid_value)}',"
+                            }
+                            propertyValues += str
+                        }
+                    }
+                    ProcessUtils.shared.groupListValue = propertyValues
                 }
                 break
             case .error(let error, let errorResponse):

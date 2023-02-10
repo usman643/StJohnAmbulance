@@ -32,15 +32,90 @@ class EventDetailVC: UIViewController {
     
     @IBOutlet weak var btnCancel: UIButton!
     
-
+    var availableEvent: AvailableEventModel?
+    var scheduleEvent: ScheduleModelThree?
+    var pastEvent: VolunteerEventsModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupData()
         decorateUI()
     }
 
     func decorateUI(){
+        lblEventName.font = UIFont.BoldFont(16)
+        lblLocation.font = UIFont.BoldFont(16)
+        lblDetail.font = UIFont.BoldFont(16)
         
+        lblEventName.textColor = UIColor.themePrimaryColor
+        lblLocation.textColor = UIColor.themePrimaryColor
+        lblDetail.textColor = UIColor.themePrimaryColor
+        
+        lblDate.font = UIFont.RegularFont(14)
+        lblShift.font = UIFont.RegularFont(14)
+        lblStatus.font = UIFont.RegularFont(14)
+        lblLocationDesc.font = UIFont.RegularFont(14)
+        
+        lblDate.textColor = UIColor.textGrayColor
+        lblShift.textColor = UIColor.textGrayColor
+        lblStatus.textColor = UIColor.textGrayColor
+        lblLocationDesc.textColor = UIColor.textGrayColor
+        
+        btnContact.titleLabel?.font = UIFont.BoldFont(14)
+        btnContact.setTitleColor(UIColor.textWhiteColor, for: .normal)
+        btnContact.layer.cornerRadius = 2
+        btnCheckIn.titleLabel?.font = UIFont.BoldFont(14)
+        btnCheckIn.setTitleColor(UIColor.textWhiteColor, for: .normal)
+        btnCheckIn.layer.cornerRadius = 2
+        btnCancel.titleLabel?.font = UIFont.BoldFont(14)
+        btnCancel.setTitleColor(UIColor.textWhiteColor, for: .normal)
+        btnCancel.layer.cornerRadius = 2
+        
+        
+    }
+    
+    func setupData(){
+        if ((availableEvent) != nil){
+          
+            let date = DateFormatManager.shared.formatDateStrToStr(date: availableEvent?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
+                let startTime = DateFormatManager.shared.formatDateStrToStr(date: availableEvent?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+
+            let endTime = DateFormatManager.shared.formatDateStrToStr(date: availableEvent?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            
+            lblEventName.text = availableEvent?.msnfp_engagementopportunitytitle
+            lblDate.text = "Date: \(date)"
+            lblShift.text = "Shift: \(startTime) - \(endTime)"
+            lblLocationDesc.text = availableEvent?.msnfp_location
+            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: availableEvent?.msnfp_engagementopportunitystatus ?? 0) ?? "")"
+            
+            
+        }else if ((scheduleEvent) != nil){
+            
+            let date = DateFormatManager.shared.formatDateStrToStr(date: scheduleEvent?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
+            let startTime = DateFormatManager.shared.formatDateStrToStr(date: scheduleEvent?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+
+        let endTime = DateFormatManager.shared.formatDateStrToStr(date: scheduleEvent?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            
+            lblEventName.text = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
+            lblDate.text = "Date: \(date)"
+        lblShift.text = "Shift: \(startTime) - \(endTime)"
+            lblLocationDesc.text = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_location
+            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: scheduleEvent?.msnfp_schedulestatus ?? 0) ?? "")"
+            
+        }else if ((pastEvent) != nil){
+            
+            let date = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
+            
+            let startTime = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            
+        let endTime = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            
+            lblEventName.text = pastEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
+        lblDate.text = "Date: \(date)"
+        lblShift.text = "Shift: \(startTime) - \(endTime)"
+        lblLocationDesc.text = pastEvent?.sjavms_VolunteerEvent?.msnfp_location
+            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: pastEvent?.msnfp_schedulestatus ?? 0) ?? "")"
+        }
     }
 
     @IBAction func backTapped(_ sender: Any) {
@@ -48,6 +123,8 @@ class EventDetailVC: UIViewController {
     }
     
     @IBAction func homeTapped(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     

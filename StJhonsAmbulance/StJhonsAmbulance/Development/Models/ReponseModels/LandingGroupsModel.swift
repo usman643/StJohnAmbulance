@@ -30,6 +30,9 @@ struct LandingResponseModel : Codable {
 
 struct LandingGroupsModel : Codable {
     let msnfp_groupmembershipid : String?
+    let msnfp_groupmembershipname : String?
+    let _msnfp_groupid_value : String?
+    let _msnfp_contactid_value : String?
     let msnfp_groupId : LandingGroupIdsModel?
     let msnfp_contactId : LandingContactIdModel?
     let sjavms_RoleType : LandingRoleTypeModel?
@@ -39,6 +42,7 @@ struct LandingGroupsModel : Codable {
 struct LandingGroupIdsModel : Codable {
     let msnfp_groupname : String?
     let msnfp_groupid : String?
+    let _sjavms_groupid_value : String?
     
     func getGroupName()->String{
         return self.msnfp_groupname ?? ""

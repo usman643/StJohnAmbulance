@@ -14,6 +14,8 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
     var menu: SideMenuNavigationController?
     var gridData : [DashBoardGridModel]?
     var awardData : [VolunteerAwardModel]?
+    var latestEventIdData : [LatestEventModel]?
+    var latestEventData : [LatestEventDataModel]?
     
     @IBOutlet weak var headerView: UIView!
     
@@ -60,6 +62,8 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
         setSideMenu()
         setupContent()
         getVolunteerAward()
+//        getLatestIncomingEvent()
+        getIncomingEvent()
 //        gridData = [
 //                    DashBoardGridModel(title: "", subTitle: "", bgColor: UIColor.darkBlueColor, icon: "ic_camp"),
 //                    DashBoardGridModel(title: "Messages", subTitle: "02", bgColor: UIColor.orangeRedColor, icon: "ic_message"),
@@ -154,8 +158,14 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
         lblActiveDate.text = "Active Date: \(date)"
         lblServiceYears.text = "Year of Service: \(UserDefaults.standard.userInfo?.sjavms_yearsofservice ?? 0)"
         lblTotalHours.text = "Total Hours: \(hours)"
-        
+        profileImg.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: UserDefaults.standard.userInfo?.entityimage ?? "")
     }
+    
+//    func convertBase64StringToImage (imageBase64String:String) -> UIImage {
+//        let imageData = Data(base64Encoded: imageBase64String)
+//        let image = UIImage(data: imageData!)
+//        return image!
+//    }
     
     @IBAction func sideMenuTapped(_ sender: Any) {
         present(menu!, animated: true)
@@ -203,6 +213,9 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
     
    
     @IBAction func eventTapped(_ sender: Any) {
+        let vc = VolunteerEventsVC(nibName: "VolunteerEventsVC", bundle: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     @IBAction func hoursTapped(_ sender: Any) {
@@ -211,17 +224,17 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    
+    // ==================  API  =====================
     
     func getVolunteerAward(){
         
         guard let contactId = UserDefaults.standard.contactIdToken  else {return}
         let params : [String:Any] = [
             
-            ParameterKeys.select : "msnfp_groupmembershipid,msnfp_groupmembershipname,_msnfp_groupid_value",
-            ParameterKeys.expand : "msnfp_groupId",
-            ParameterKeys.filter : "(statuscode eq 1 and _msnfp_contactid_value eq \(contactId)) and (msnfp_groupId/statecode eq 0)",
-            ParameterKeys.orderby : "msnfp_groupmembershipname asc"
+            ParameterKeys.select : "_msnfp_awardid_value,msnfp_awarddate,msnfp_awardversionid",
+//            ParameterKeys.expand : "msnfp_groupId",
+            ParameterKeys.filter : "(msnfp_status eq 844060003 and _msnfp_primarycontactid_value eq \(contactId))",
+            ParameterKeys.orderby : "_msnfp_awardid_value asc"
         ]
         
         self.getVolunteerAwardData(params: params)
@@ -239,17 +252,148 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
             
             switch result{
             case .success(value: let response):
-                
-                if let award = response.value {
-                    self.awardData = award
-        
+                DispatchQueue.main.async {
+                    if let award = response.value {
+                        self.awardData = award
+                        
                         self.lblAward.text = "\(award.count)"
                         self.awardNumView.isHidden = false
                         self.lblAward.isHidden = false
-                    
-                }else{
-                    self.awardNumView.isHidden = true
-                    self.lblAward.isHidden = true
+                        
+                    }else{
+                        self.awardNumView.isHidden = true
+                        self.lblAward.isHidden = true
+                    }
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    func getLatestIncomingEvent(){
+        
+        guard let contactId = UserDefaults.standard.contactIdToken  else {return}
+        let params : [String:Any] = [
+            
+            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_needsreviewedparticipants,msnfp_minimum,msnfp_maximum,_sjavms_group_value,msnfp_endingdate,msnfp_cancelledparticipants,msnfp_appliedparticipants,msnfp_startingdate,msnfp_engagementopportunityid",
+            ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(statecode eq 0 and Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(ProcessUtils.shared.groupListValue ?? "")])))",
+            ParameterKeys.filter : "(statecode eq 0) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/statecode eq 0 and o1/Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(ProcessUtils.shared.groupListValue ?? "")]))))",
+            ParameterKeys.orderby : "msnfp_engagementopportunitytitle asc"
+        ]
+        
+        self.getLatestIncomingEventData(params: params)
+    }
+    
+    fileprivate func getLatestIncomingEventData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestVolunteerLatestEventInfo(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                DispatchQueue.main.async {
+                    if let award = response.value {
+                        self.latestEventIdData = award
+                        self.getIncomingEvent()
+
+                    }else{
+                        self.lblCamp.text = ""
+                        self.lblCampNum.text = ""
+                    }
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    func getIncomingEvent(){
+        
+                var propertyValues = ""
+        
+                for i in (0 ..< (self.latestEventIdData?.count ?? 0)){
+                    var str = ""
+        
+                    if let groupid_value = self.latestEventIdData?[i].msnfp_engagementopportunityid {
+        
+                        if ( i == (self.latestEventIdData?.count ?? 0) - 1){
+                            str = "'{\(groupid_value)}'"
+                        }else{
+                            str = "'{\(groupid_value)}',"
+                        }
+        
+                        propertyValues += str
+                    }
+        
+        
+                }
+        
+        guard let contactId = UserDefaults.standard.contactIdToken  else {return}
+        guard let currentDate = DateFormatManager.shared.getCurrentDateWithFormat(format: "yyyy-MM-dd") else {return}
+        let params : [String:Any] = [
+            
+            ParameterKeys.select : "msnfp_name,msnfp_participationscheduleid,statuscode,statecode,msnfp_schedulestatus,sjavms_start,sjavms_end",
+            ParameterKeys.expand : "sjavms_VolunteerEvent($select=msnfp_engagementopportunitytitle,msnfp_location)",
+
+            ParameterKeys.filter : "(_sjavms_volunteer_value eq \(contactId) and msnfp_schedulestatus eq 335940000 and Microsoft.Dynamics.CRM.OnOrAfter(PropertyName='sjavms_end',PropertyValue='\(currentDate))') and Microsoft.Dynamics.CRM.In(PropertyName='sjavms_volunteerevent',PropertyValues=[\(propertyValues)]))",
+            ParameterKeys.orderby : "msnfp_name asc"
+        ]
+        
+        self.getVolunteerIncomingData(params: params)
+    }
+    
+    fileprivate func getVolunteerIncomingData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestVolunteerLatestEvents(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                DispatchQueue.main.async {
+                    if let award = response.value {
+                        self.latestEventData = award
+                        
+                        self.lblCamp.text = self.latestEventData?[0].sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
+                        if (self.latestEventData?[0].sjavms_start != nil && self.latestEventData?[0].sjavms_start != ""){
+                            let startData = DateFormatManager.shared.formatDateStrToStr(date: self.latestEventData?[0].sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
+                            self.lblCampNum.text = startData
+                        }else{
+                            self.lblCampNum.text = ""
+                        }
+
+                    }else{
+                        self.lblCamp.isHidden = true
+                        self.lblCampNum.isHidden = true
+                    }
                 }
                 
             case .error(let error, let errorResponse):

@@ -45,6 +45,7 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         lblName.text = UserDefaults.standard.userInfo?.fullname
         lblEmail.text = UserDefaults.standard.userInfo?.emailaddress1
         imgMainVw.layer.cornerRadius = imgMainVw.frame.size.height/2
+        profileImage.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: UserDefaults.standard.userInfo?.entityimage ?? "")
     }
 
     

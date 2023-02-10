@@ -48,7 +48,7 @@ class VoluteerHoursTVC: UITableViewCell {
         lblStart.text = startTime
         lblEnd.text = endTime
         lblTotal.text = cellModel?.sjavms_hours?.getFormattedNumber()
-//        lblStatus.text = cellModel?.
+        lblStatus.text = ProcessUtils.shared.getStatus(code: cellModel?.msnfp_schedulestatus ?? 0) 
         
     }
 }

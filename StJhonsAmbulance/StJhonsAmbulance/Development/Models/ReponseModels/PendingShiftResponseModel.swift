@@ -161,14 +161,14 @@ struct PendingShiftModelThree : Codable {
 
     let msnfp_engagementopportunityschedule : String?
     let createdon : String?
-//    let msnfp_totalhours : String?
-//    let msnfp_startperiod : String?
-//    let msnfp_hoursperday : String?
+    let msnfp_totalhours : String?
+    let msnfp_startperiod : String?
+    let msnfp_hoursperday : String?
     let _msnfp_engagementopportunity_value : String?
-//    let msnfp_endperiod : String?
+    let msnfp_endperiod : String?
     let msnfp_effectiveto : String?
     let msnfp_effectivefrom : String?
-//    let msnfp_workingdays : String?
+    let msnfp_workingdays : String?
     let msnfp_engagementopportunityscheduleid : String?
     
 

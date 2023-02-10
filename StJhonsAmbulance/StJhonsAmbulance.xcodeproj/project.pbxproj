@@ -62,6 +62,7 @@
 		1D50ECDD29921B4D00821049 /* EventDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D50ECDB29921B4D00821049 /* EventDetailVC.xib */; };
 		1D58BA56298CFBB0001FE5FD /* EmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D58BA55298CFBB0001FE5FD /* EmptyView.xib */; };
 		1D58BA58298CFBBB001FE5FD /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D58BA57298CFBBB001FE5FD /* EmptyView.swift */; };
+		1DAA75D12995A06600C85807 /* LatestEventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAA75D02995A06600C85807 /* LatestEventModel.swift */; };
 		1DB25AE32993D31F0049CE22 /* VolunteerAwardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB25AE22993D31F0049CE22 /* VolunteerAwardModel.swift */; };
 		1DD46E322992D28E00B25E10 /* VolunteerDashBoardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD46E312992D28E00B25E10 /* VolunteerDashBoardRouter.swift */; };
 		1DD46E342992D59200B25E10 /* ContactResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD46E332992D59200B25E10 /* ContactResponseModel.swift */; };
@@ -234,6 +235,7 @@
 		1D50ECDB29921B4D00821049 /* EventDetailVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventDetailVC.xib; sourceTree = "<group>"; };
 		1D58BA55298CFBB0001FE5FD /* EmptyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyView.xib; sourceTree = "<group>"; };
 		1D58BA57298CFBBB001FE5FD /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		1DAA75D02995A06600C85807 /* LatestEventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventModel.swift; sourceTree = "<group>"; };
 		1DB25AE22993D31F0049CE22 /* VolunteerAwardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerAwardModel.swift; sourceTree = "<group>"; };
 		1DD46E312992D28E00B25E10 /* VolunteerDashBoardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerDashBoardRouter.swift; sourceTree = "<group>"; };
 		1DD46E332992D59200B25E10 /* ContactResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactResponseModel.swift; sourceTree = "<group>"; };
@@ -1003,6 +1005,7 @@
 			isa = PBXGroup;
 			children = (
 				E48359AD297D6B44008CBFFF /* AuthResponseModel.swift */,
+				1DAA75D02995A06600C85807 /* LatestEventModel.swift */,
 				1DF176FD29893E52005809C6 /* EventsModel.swift */,
 				E48359D329811189008CBFFF /* LandingGroupsModel.swift */,
 				1DF176F1298904BA005809C6 /* PendingShiftResponseModel.swift */,
@@ -1429,6 +1432,7 @@
 				359E9C6B282E6DE4001E3D73 /* ENTALDUIColor+Extension.swift in Sources */,
 				353C618A2816A7F500CC8B7F /* ENTALDHttpClient.swift in Sources */,
 				359E9C20282B812D001E3D73 /* ENTALDAlertView.swift in Sources */,
+				1DAA75D12995A06600C85807 /* LatestEventModel.swift in Sources */,
 				359E9C65282E455F001E3D73 /* CoreLabel.swift in Sources */,
 				353C61822816931000CC8B7F /* ENTALDLibraryAPI.swift in Sources */,
 				1DF176FE29893E52005809C6 /* EventsModel.swift in Sources */,

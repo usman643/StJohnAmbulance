@@ -125,7 +125,31 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
+    func requestVolunteerPastEvent(params:[String:Any],  _ completion:@escaping((ApiResult<VolunteerEventResponseModel, ApiError>) -> Void )){
+        let router = VolunteerDashBoardRouter.getVolunteerPastEvent(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
     
+    func requestVolunteerAvailableEventTwo(params:[String:Any],  _ completion:@escaping((ApiResult<AvailableEventResponseModel, ApiError>) -> Void )){
+        let router = VolunteerDashBoardRouter.getVolunteerAvailableEventTwo(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestVolunteerAvailableEventThree(params:[String:Any],  _ completion:@escaping((ApiResult<AvailableEventResponseModel, ApiError>) -> Void )){
+        let router = VolunteerDashBoardRouter.getVolunteerAvailableEventThree(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    
+    func requestVolunteerLatestEventInfo(params:[String:Any],  _ completion:@escaping((ApiResult<LatestEventResponseModel, ApiError>) -> Void )){
+        let router = VolunteerDashBoardRouter.getLatestEventInfo(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestVolunteerLatestEvents(params:[String:Any],  _ completion:@escaping((ApiResult<LatestEventDataResponseModel, ApiError>) -> Void )){
+        let router = VolunteerDashBoardRouter.getLatestEvents(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
     
 }
 

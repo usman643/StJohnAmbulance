@@ -72,6 +72,7 @@ struct ScheduleModelTwo : Codable {
     let msnfp_engagementopportunitystatus : Int?
     let msnfp_startingdate : String?
     let msnfp_endingdate : String?
+    let msnfp_location : String?
     let msnfp_engagementopportunityid : String?
     let sjavms_msnfp_engagementopportunity_msnfp_group :  [EngagementopportunityGroupModel]?
 }
@@ -122,4 +123,43 @@ struct ScheduleDataModel : Codable {
     let msnfp_location : String?
     let msnfp_engagementopportunityid : String?
     
+}
+
+
+//============================
+
+
+struct AvailableEventResponseModel: Codable {
+    let context: String?
+    let value: [AvailableEventModel]?
+    
+    enum CodingKeys: String, CodingKey {
+        case context = "odata.context"
+        case value
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.context = try container.decodeIfPresent(String.self, forKey: .context)
+        self.value = try container.decodeIfPresent([AvailableEventModel].self, forKey: .value)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        
+    }
+}
+
+
+struct AvailableEventModel : Codable {
+    
+    let msnfp_engagementopportunitytitle : String?
+    let msnfp_engagementopportunitystatus : Int?
+    let msnfp_startingdate : String?
+    let msnfp_endingdate : String?
+    let msnfp_location : String?
+    let msnfp_engagementopportunityid : String?
+    let _sjavms_program_value : String?
+    let msnfp_maximum : String?
+    let msnfp_minimum : String?
+//    let sjavms_msnfp_engagementopportunity_msnfp_group :  [EngagementopportunityGroupModel]?
 }

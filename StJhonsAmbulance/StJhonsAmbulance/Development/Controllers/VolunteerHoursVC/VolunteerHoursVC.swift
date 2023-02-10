@@ -89,10 +89,18 @@ class VolunteerHoursVC: UIViewController {
     }
     
     @IBAction func eventFilterTapped(_ sender: Any) {
+        self.eventData = self.eventData?.reversed()
+        DispatchQueue.main.async {
+            self.eventTableView.reloadData()
+        }
         
     }
     
     @IBAction func nonEventFilterTapped(_ sender: Any) {
+        self.nonEventData = self.nonEventData?.reversed()
+        DispatchQueue.main.async {
+            self.nonEventTableView.reloadData()
+        }
     }
     
     
@@ -252,5 +260,4 @@ extension VolunteerHoursVC : UITableViewDelegate, UITableViewDataSource{
         
         return cell
     }
-
 }

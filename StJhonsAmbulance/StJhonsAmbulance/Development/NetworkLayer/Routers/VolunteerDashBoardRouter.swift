@@ -19,8 +19,12 @@ enum VolunteerDashBoardRouter : Router {
     case getNonEvent(params:[String:Any])
     case getAwards(params:[String:Any])
     case getVolunteerPastEvent(params:[String:Any])
-    case getVolunteerAvailableEvent(params:[String:Any])
+    case getVolunteerAvailableEventTwo(params:[String:Any])
+    case getVolunteerAvailableEventThree(params:[String:Any])
     case getVolunteerEvent(params:[String:Any])
+    case getLatestEventInfo(params:[String:Any])
+    case getLatestEvents(params:[String:Any])
+    
     case simulate401
     
     var procedure: String {
@@ -31,8 +35,11 @@ enum VolunteerDashBoardRouter : Router {
         case .getScheduleTwo: return "msnfp_engagementopportunities"
         case .getScheduleThree : return "msnfp_participationschedules"
         case .getVolunteerPastEvent : return "msnfp_participationschedules"
-        case .getVolunteerAvailableEvent : return "msnfp_engagementopportunities"
+        case .getVolunteerAvailableEventTwo : return "msnfp_engagementopportunities"
+        case .getVolunteerAvailableEventThree : return "msnfp_engagementopportunities"
         case .getVolunteerEvent : return "msnfp_participationschedules"
+        case .getLatestEventInfo : return "msnfp_participationschedules"
+        case .getLatestEvents : return "msnfp_participationschedules"
         case .getEvent : return "msnfp_participationschedules"
         case .getNonEvent : return "msnfp_participationschedules"
         case .getMessages : return "emails"
@@ -67,7 +74,13 @@ enum VolunteerDashBoardRouter : Router {
             return params
         case .getVolunteerEvent(let params):
             return params
-         case .getVolunteerAvailableEvent(let params):
+         case .getVolunteerAvailableEventTwo(let params):
+            return params
+         case .getVolunteerAvailableEventThree(let params):
+            return params
+        case .getLatestEventInfo(let params):
+            return params
+        case .getLatestEvents(let params):
             return params
         default: return [:]
         }
