@@ -15,6 +15,7 @@ enum DashBoardRouter : Router {
     case getPendingShiftsThree(params:[String:Any])
     case getMessages(params:[String:Any])
     case getVolunteers(params:[String:Any])
+    case getVolunteersOfEvent(params:[String:Any])
     case simulate401
     
     var procedure: String {
@@ -26,6 +27,7 @@ enum DashBoardRouter : Router {
         case .getPendingShiftsThree : return "msnfp_engagementopportunityschedules"
         case .getMessages : return "emails"
         case .getVolunteers : return "msnfp_groupmemberships"
+        case .getVolunteersOfEvent : return "msnfp_participationschedules"
         case .simulate401: return "simulate-401"
         }
     }
@@ -41,6 +43,8 @@ enum DashBoardRouter : Router {
         case .getMessages(let params):
             return params
         case .getVolunteers(let params):
+            return params
+        case .getVolunteersOfEvent(let params):
             return params
         default: return [:]
         }

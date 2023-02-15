@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ForgetVC: UIViewController {
+class ForgetVC: ENTALDBaseViewController {
 
     
     @IBOutlet weak var headerLogoView: UIView!

@@ -27,8 +27,11 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
     @IBOutlet weak var lblRole: UILabel!
     @IBOutlet weak var lblCity: UILabel!
     @IBOutlet weak var lblState: UILabel!
-    
     @IBOutlet weak var btnSearchClose: UIButton!
+    
+    @IBOutlet weak var lblTabTitle: UILabel!
+    
+    @IBOutlet weak var selectedTabImg: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,10 +57,12 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
         lblRole.font = UIFont.BoldFont(12)
         lblCity.font = UIFont.BoldFont(12)
         lblState.font = UIFont.BoldFont(12)
+        lblTabTitle.font = UIFont.BoldFont(16)
         lblName.textColor = UIColor.themePrimaryColor
         lblRole.textColor = UIColor.themePrimaryColor
         lblCity.textColor = UIColor.themePrimaryColor
         lblState.textColor = UIColor.themePrimaryColor
+        lblTabTitle.textColor = UIColor.themePrimaryColor
         stackView.layer.borderColor = UIColor.themePrimaryColor.cgColor
         searchView.layer.borderColor = UIColor.themePrimaryColor.cgColor
         stackView.layer.borderWidth = 1.5
@@ -66,6 +71,11 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
         btnSelectGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
         btnSelectGroup.backgroundColor = UIColor.themePrimary
+        
+        
+        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
+        selectedTabImg.tintColor = UIColor.themePrimaryColor
+        
         
     }
 
@@ -89,6 +99,41 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
         filteredData = volunteerData
         tableView.reloadData()
     }
+    
+    @IBAction func openMessagesScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?(1, self)
+    }
+    @IBAction func openVolunteerScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?(2, self)
+    }
+    @IBAction func openEventScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?(3, self)
+    }
+    @IBAction func openPendingEventScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?(4, self)
+    }
+    @IBAction func openPendingShiftsScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?(5, self)
+    }
+ 
+    
+    
+    
+    @IBAction func openDashBoardScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+    }
+    
+    
+    
+    
+    
+    
+    
     
     func showEmptyView(){
         DispatchQueue.main.async {

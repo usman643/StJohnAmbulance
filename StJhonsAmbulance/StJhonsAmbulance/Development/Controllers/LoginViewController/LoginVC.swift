@@ -99,22 +99,13 @@ class LoginVC: ENTALDBaseViewController {
     
     @IBAction func registerTapped(_ sender: Any) {
         
-        let regVC = DashboardVC(nibName: "DashboardVC", bundle: nil)
-        self.navigationController?.pushViewController(regVC, animated: true)
-        
-//        ENTALDControllers.shared.showTabbarViewController(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
-//
-//        }
+        ENTALDControllers.shared.showContactInfoScreen(type: .ENTALDPUSH, from: self, callBack: nil)
     }
     
     @IBAction func forgotTapped(_ sender: Any) {
         let regVC = ForgetVC(nibName: "ForgetVC", bundle: nil)
         self.navigationController?.pushViewController(regVC, animated: true)
         
-    }
-    
-    func showLandingScreen(){
-       
     }
     
     @IBAction func loginTapped(_ sender: Any) {
@@ -154,7 +145,7 @@ class LoginVC: ENTALDBaseViewController {
             btnStaySignIn.backgroundColor = UIColor.viewLightGrayColor
             isRememberPassword = false
         }else{
-            btnStaySignIn .setImage(UIImage(named: "ic_check"), for: .normal)
+            btnStaySignIn.setImage(UIImage(named: "ic_check"), for: .normal)
             btnStaySignIn.backgroundColor = UIColor.clear
             isRememberPassword = true
         }

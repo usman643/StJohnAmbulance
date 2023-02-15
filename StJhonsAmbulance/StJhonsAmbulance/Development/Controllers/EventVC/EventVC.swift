@@ -52,6 +52,8 @@ class EventVC: ENTALDBaseViewController {
     @IBOutlet weak var lblPastLocation: UILabel!
     @IBOutlet weak var lblPastDate: UILabel!
     
+    @IBOutlet weak var lblTabTitle: UILabel!
+    @IBOutlet weak var selectedTabImg: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -158,6 +160,11 @@ class EventVC: ENTALDBaseViewController {
         pastTableView.layer.shadowRadius = 0
         pastTableView.layer.shadowOpacity = 0.5
         
+        lblTabTitle.textColor = UIColor.themePrimaryColor
+        lblTabTitle.font = UIFont.BoldFont(16)
+        
+        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
+        selectedTabImg.tintColor = UIColor.themePrimaryColor
     }
     
     @IBAction func btnBackAction(_ sender: Any) {
@@ -195,6 +202,34 @@ class EventVC: ENTALDBaseViewController {
             self.pastTableView.reloadData()
         }
     }
+    
+    
+// bottom bar action
+    
+    @IBAction func openMessagesScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?(1, self)
+    }
+    @IBAction func openVolunteerScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?(2, self)
+    }
+    @IBAction func openEventScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?(3, self)
+    }
+    @IBAction func openPendingEventScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?(4, self)
+    }
+    @IBAction func openPendingShiftsScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?(5, self)
+    }
+    @IBAction func openDashBoardScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+    }
+ 
     
     func showEmptyView(tableVw : UITableView){
         DispatchQueue.main.async {
@@ -349,7 +384,7 @@ class EventVC: ENTALDBaseViewController {
         }
     }
     
-    // Past Event API
+    // ================ Past Event API =================
     
     
     func getPastEvents(){
@@ -507,7 +542,18 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = EventManageVC.loadFromNib()
-        self.navigationController?.pushViewController(vc, animated: true)
+        
+
+        if (tableView == self.currentTableView){
+            
+            ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data:self.currentEventData?[indexPath.row], callBack: nil)
+        }else if (tableView == self.upcomingTableView){
+            
+            ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data:self.upcomingEventData?[indexPath.row], callBack: nil)
+        }else if(tableView == self.pastTableView){
+            
+            ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data:self.pastEventData?[indexPath.row], callBack: nil)
+        }
+
     }
 }

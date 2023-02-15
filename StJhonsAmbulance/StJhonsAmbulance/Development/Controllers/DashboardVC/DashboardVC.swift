@@ -178,12 +178,17 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
             dismiss(animated: true)
 //            let vc = HomeVC(nibName: "HomeVC", bundle: nil)
 //            self.navigationController?.pushViewController(vc , animated: true)
-        }else if(named == "Logout"){
-           
-//            UserDefaultManger.shared.logout()
+        }else if(named == "Profile"){
+            
             self.navigationController?.popToRootViewController(animated: true)
-            let loginvc = LoginVC(nibName: "LoginVC", bundle: nil)
-            self.navigationController?.pushViewController(loginvc, animated: true)
+            ENTALDControllers.shared.showContactInfoScreen(type: .ENTALDPUSH, from: self, callBack: nil)
+                        
+        }else if(named == "Logout"){
+            
+            UserDefaults.standard.signOut()
+//            self.navigationController?.popToRootViewController(animated: true)
+//            let loginvc = LoginVC(nibName: "LoginVC", bundle: nil)
+//            self.navigationController?.pushViewController(loginvc, animated: true)
             
         }else{
             
@@ -199,17 +204,14 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
                           to: self.campView,
                           duration: 0.7,
                           options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in
-            
             if status{
                 if (self.latestEventData?.count != 0 && self.latestEventData?.count != nil){
-                    let vc = EventDetailVC(nibName: "EventDetailVC", bundle: nil)
-                    vc.latestEvent = self.latestEventData?[0]
-                    self.navigationController?.pushViewController(vc , animated: true)
+                    if ((self.latestEventData?[0]) != nil){
+                        self.openNextScreen(controller: "latestEvent")
+                    }
                 }
-                
             }
         }
-        
     }
     
     @IBAction func messagTapped(_ sender: Any) {
@@ -218,8 +220,7 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
                           duration: 0.7,
                           options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in
             if status {
-                let vc = MessageVC(nibName: "MessageVC", bundle: nil)
-                self.navigationController?.pushViewController(vc, animated: true)
+                self.openNextScreen(controller: "message")
             }
         }
     }
@@ -229,8 +230,11 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
         UIView.transition(from: self.checkInView,
                           to: self.checkInView,
                           duration: 0.7,
-                          options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in}
-        
+                          options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in
+            if status{
+                self.openNextScreen(controller: "checkIn")
+            }
+        }
     }
     @IBAction func scheduleTapped(_ sender: Any) {
         
@@ -239,8 +243,7 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
                           duration: 0.7,
                           options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in
             if status {
-                let vc = ScheduleVC(nibName: "ScheduleVC", bundle: nil)
-                self.navigationController?.pushViewController(vc, animated: true)
+                self.openNextScreen(controller: "schedule")
             }
         }
     }
@@ -253,8 +256,8 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
                           duration: 0.7,
                           options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in
             if status {
-                let vc = VolunteerEventsVC(nibName: "VolunteerEventsVC", bundle: nil)
-                self.navigationController?.pushViewController(vc, animated: true)
+                ENTALDControllers.shared.showVolunteerEventScreen(type: .ENTALDPUSH, from: self, callBack: nil)
+                self.openNextScreen(controller: "event")
             }
         }
     }
@@ -266,11 +269,74 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
                           duration: 0.7,
                           options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in
             if status {
-                let vc = VolunteerHoursVC(nibName: "VolunteerHoursVC", bundle: nil)
-                self.navigationController?.pushViewController(vc, animated: true)
+                self.openNextScreen(controller: "hour")
             }
         }
     }
+    
+    // Bottom bar Action
+    
+    @IBAction func openLastestEvent(_ sender: Any) {
+        self.openNextScreen(controller: "latestEvent")
+    }
+    
+    @IBAction func openCheckInScreen(_ sender: Any) {
+        self.openNextScreen(controller: "checkIn")
+    }
+    
+    @IBAction func openEventScreen(_ sender: Any) {
+        self.openNextScreen(controller:"event")
+        
+    }
+    
+    @IBAction func openHoursScreen(_ sender: Any) {
+     
+        self.openNextScreen(controller:"hour")
+    }
+    
+    @IBAction func openMessagesScreen(_ sender: Any) {
+        self.openNextScreen(controller:"message")
+        
+    }
+    
+    @IBAction func openScheduleScreen(_ sender: Any) {
+        self.openNextScreen(controller:"schedule")
+        
+    }
+    
+    
+    func openNextScreen(controller:String?){
+        
+        if (controller == "latestEvent"){
+            ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.latestEventData?[0], eventName: "latestEvent") { params, controller in
+                self.openNextScreen(controller:params as? String)
+            }
+        
+            
+        }else if (controller == "message"){
+            ENTALDControllers.shared.showMessageScreen(type: .ENTALDPUSH, from: self) { params, controller in
+                self.openNextScreen(controller:params as? String)
+            }
+            
+        }else if (controller == "checkIn" ){
+            
+        }else if (controller == "schedule"){
+            ENTALDControllers.shared.showVolunteerScheduleScreen(type: .ENTALDPUSH, from: self) { params, controller in
+                self.openNextScreen(controller:params as? String)
+            }
+        }else if (controller == "hour"){
+            ENTALDControllers.shared.showVolunteerHourScreen(type: .ENTALDPUSH, from: self) { params, controller in
+                self.openNextScreen(controller:params as? String)
+            }
+        }else if (controller == "event"){
+            ENTALDControllers.shared.showVolunteerEventScreen(type: .ENTALDPUSH, from: self) { params, controller in
+                self.openNextScreen(controller:params as? String)
+            }
+        }
+        
+        
+    }
+    
     
     // ==================  API  =====================
     

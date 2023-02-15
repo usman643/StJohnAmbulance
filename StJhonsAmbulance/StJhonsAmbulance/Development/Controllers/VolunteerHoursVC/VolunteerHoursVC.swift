@@ -28,6 +28,8 @@ class VolunteerHoursVC: ENTALDBaseViewController {
     @IBOutlet weak var lblYeartoDate: UILabel!
     @IBOutlet weak var lblLifeTime: UILabel!
     
+    @IBOutlet weak var lblTabTitle: UILabel!
+    @IBOutlet weak var selectedTabImg: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +80,11 @@ class VolunteerHoursVC: ENTALDBaseViewController {
         lblNonEventHeading.font = UIFont.BoldFont(18)
         lblNonEventHeading.textColor = UIColor.themePrimaryColor
         
+        lblTabTitle.textColor = UIColor.themePrimaryColor
+        lblTabTitle.font = UIFont.BoldFont(16)
+        
+        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
+        selectedTabImg.tintColor = UIColor.themePrimaryColor
     }
 
     @IBAction func backTapped(_ sender: Any) {
@@ -101,6 +108,47 @@ class VolunteerHoursVC: ENTALDBaseViewController {
         DispatchQueue.main.async {
             self.nonEventTableView.reloadData()
         }
+    }
+    
+    // Bottom bar Action
+    
+    @IBAction func openLatestEventScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?("latestEvent", self)
+    }
+    
+    @IBAction func openCheckInScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?("checkIn", self)
+    }
+    
+    @IBAction func openEventScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?("event", self)
+        
+    }
+    
+    @IBAction func openHoursScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?("hour", self)
+        
+    }
+    
+    @IBAction func openMessagesScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?("message", self)
+        
+    }
+    
+    @IBAction func openScheduleScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?("schedule", self)
+        
+    }
+    
+    @IBAction func openDashBoardScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        
     }
     
     

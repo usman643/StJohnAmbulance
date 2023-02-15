@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EventDetailVC: UIViewController {
+class EventDetailVC: ENTALDBaseViewController {
     
     @IBOutlet weak var btnBack: UIButton!
     
@@ -77,6 +77,9 @@ class EventDetailVC: UIViewController {
         btnCancel.layer.cornerRadius = 2
         btnCancel.backgroundColor = UIColor.themePrimaryColor
         
+        checkInBtnImg.image = checkInBtnImg.image?.withRenderingMode(.alwaysTemplate)
+        checkInBtnImg.tintColor = UIColor.white
+
         
     }
     
@@ -102,11 +105,11 @@ class EventDetailVC: UIViewController {
 
         let endTime = DateFormatManager.shared.formatDateStrToStr(date: scheduleEvent?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
-            lblEventName.text = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
-            lblDate.text = "Date: \(date)"
+        lblEventName.text = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
+        lblDate.text = "Date: \(date)"
         lblShift.text = "Shift: \(startTime) - \(endTime)"
-            lblLocationDesc.text = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_location
-            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: scheduleEvent?.msnfp_schedulestatus ?? 0) ?? "")"
+        lblLocationDesc.text = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_location
+        lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: scheduleEvent?.msnfp_schedulestatus ?? 0) ?? "")"
             
         }else if ((pastEvent) != nil){
             
@@ -116,11 +119,11 @@ class EventDetailVC: UIViewController {
             
         let endTime = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
-            lblEventName.text = pastEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
+        lblEventName.text = pastEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
         lblDate.text = "Date: \(date)"
         lblShift.text = "Shift: \(startTime) - \(endTime)"
         lblLocationDesc.text = pastEvent?.sjavms_VolunteerEvent?.msnfp_location
-            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: pastEvent?.msnfp_schedulestatus ?? 0) ?? "")"
+        lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: pastEvent?.msnfp_schedulestatus ?? 0) ?? "")"
             
         }else if((latestEvent) != nil){
             
@@ -130,11 +133,11 @@ class EventDetailVC: UIViewController {
             
         let endTime = DateFormatManager.shared.formatDateStrToStr(date: latestEvent?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
-            lblEventName.text = latestEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
+        lblEventName.text = latestEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
         lblDate.text = "Date: \(date)"
         lblShift.text = "Shift: \(startTime) - \(endTime)"
         lblLocationDesc.text = latestEvent?.sjavms_VolunteerEvent?.msnfp_location
-            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: latestEvent?.msnfp_schedulestatus ?? 0) ?? "")"
+        lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: latestEvent?.msnfp_schedulestatus ?? 0) ?? "")"
         }
         
     }
@@ -144,16 +147,18 @@ class EventDetailVC: UIViewController {
     }
     
     @IBAction func homeTapped(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-        self.navigationController?.popViewController(animated: true)
+//        self.navigationController?.popViewController(animated: true)
+//        self.navigationController?.popViewController(animated: true)
     }
     
     
     @IBAction func checkInTapped(_ sender: Any) {
+            ENTALDAlertView.shared.showAPIAlertWithTitle(title: "Alter", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
     }
     
     
     @IBAction func cancelTapped(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     
 }

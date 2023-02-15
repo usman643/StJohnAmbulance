@@ -31,7 +31,9 @@ class PendingShiftVC: ENTALDBaseViewController {
     @IBOutlet weak var lblShift: UILabel!
     @IBOutlet weak var lblAction: UILabel!
     
+    @IBOutlet weak var lblTabTitle: UILabel!
     
+    @IBOutlet weak var selectedTabImg: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,6 +64,7 @@ class PendingShiftVC: ENTALDBaseViewController {
         lblHours.font = UIFont.BoldFont(12)
         lblShift.font = UIFont.BoldFont(12)
         lblAction.font = UIFont.BoldFont(12)
+        lblTabTitle.font = UIFont.BoldFont(14)
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
         btnSelectGroup.backgroundColor = UIColor.themePrimary
         
@@ -75,12 +78,15 @@ class PendingShiftVC: ENTALDBaseViewController {
         lblHours.textColor = UIColor.themePrimaryColor
         lblShift.textColor = UIColor.themePrimaryColor
         lblAction.textColor = UIColor.themePrimaryColor
+        lblTabTitle.textColor = UIColor.themePrimaryColor
         
         tableHeaderView.layer.borderColor = UIColor.themePrimaryColor.cgColor
         tableHeaderView.layer.borderWidth = 1.5
         
         btnGroupView.layer.cornerRadius = 3
         
+        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
+        selectedTabImg.tintColor = UIColor.themePrimaryColor
         
     }
     
@@ -100,6 +106,36 @@ class PendingShiftVC: ENTALDBaseViewController {
         self.navigationController?.popViewController(animated: true)
         
     }
+    
+    // Bottom bar action
+    
+    @IBAction func openMessagesScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?(1, self)
+    }
+    @IBAction func openVolunteerScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?(2, self)
+    }
+    @IBAction func openEventScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?(3, self)
+    }
+    @IBAction func openPendingEventScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?(4, self)
+    }
+    @IBAction func openPendingShiftsScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?(5, self)
+    }
+    
+    @IBAction func openDashBoardScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        
+    }
+    
+    
     
     func showEmptyView(tableVw : UITableView){
         DispatchQueue.main.async {
@@ -162,6 +198,14 @@ extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 30
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
+        
+        ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data:self.pendingShiftData?[indexPath.row], callBack: nil)
+    }
+    
 }
 
 extension PendingShiftVC {

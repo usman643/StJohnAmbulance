@@ -25,6 +25,16 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
     @IBOutlet weak var lblLogoTitle: UILabel!
     
     @IBOutlet weak var btnGroupSelectView: UIButton!
+    
+    
+    @IBOutlet weak var menuSelectedsImg: UIImageView!
+    @IBOutlet weak var lblTabTitle: UILabel!
+    
+    
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
@@ -38,11 +48,11 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
         
         gridData = [
                     DashBoardGridModel(title: "", subTitle: "", bgColor: UIColor.darkBlueColor, icon: "ic_camp"),
-                    DashBoardGridModel(title: "Messages", subTitle: "02", bgColor: UIColor.orangeRedColor, icon: "ic_message"),
-                    DashBoardGridModel(title: "Volunteer", subTitle: "02", bgColor: UIColor.orangeColor, icon: "ic_communication"),
-                    DashBoardGridModel(title: "Events", subTitle: "02", bgColor: UIColor.darkFrozeColor, icon: "ic_event"),
-                    DashBoardGridModel(title: "Pending Shifts", subTitle: "02", bgColor: UIColor.lightBlueColor, icon: "ic_hour"),
-                    DashBoardGridModel(title: "Pending Events", subTitle: "06", bgColor: UIColor.themePrimaryColor, icon: "ic_pendingEvent")
+                    DashBoardGridModel(title: "Messages", subTitle: "", bgColor: UIColor.orangeRedColor, icon: "ic_message"),
+                    DashBoardGridModel(title: "Volunteer", subTitle: "", bgColor: UIColor.orangeColor, icon: "ic_communication"),
+                    DashBoardGridModel(title: "Events", subTitle: "", bgColor: UIColor.darkFrozeColor, icon: "ic_event"),
+                    DashBoardGridModel(title: "Pending Shifts", subTitle: "", bgColor: UIColor.lightBlueColor, icon: "ic_hour"),
+                    DashBoardGridModel(title: "Pending Events", subTitle: "", bgColor: UIColor.themePrimaryColor, icon: "ic_pendingEvent")
                 ]
         
         
@@ -77,15 +87,15 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
         
         if (named == "Home") {
             dismiss(animated: true)
-//            let vc = HomeVC(nibName: "HomeVC", bundle: nil)
-//            self.navigationController?.pushViewController(vc , animated: true)
+        }else if(named == "Profile"){
+            
+            self.navigationController?.popToRootViewController(animated: true)
+            ENTALDControllers.shared.showContactInfoScreen(type: .ENTALDPUSH, from: self, callBack: nil)
+                        
         }else if(named == "Logout"){
             
             UserDefaults.standard.signOut()
-//            self.navigationController?.popToRootViewController(animated: true)
-//            let loginvc = LoginVC(nibName: "LoginVC", bundle: nil)
-//            self.navigationController?.pushViewController(loginvc, animated: true)
-            
+
         }else{
             
             dismiss(animated: true)
@@ -96,6 +106,8 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
         self.btnMainView.backgroundColor = UIColor.themePrimaryColor
         self.btnMainView.layer.cornerRadius = 3
         lblLogoTitle.textColor = UIColor.themePrimaryColor
+        lblTabTitle.textColor = UIColor.themePrimaryColor
+        lblTabTitle.font = UIFont.BoldFont(14)
         
         btnGroupSelectView.layer.cornerRadius = 3
         btnGroup.setTitleColor(UIColor.white, for: .normal)
@@ -114,6 +126,28 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
     @IBAction func sideMenuTapped(_ sender: Any) {
         present(menu!, animated: true)
     }
+    
+    
+    @IBAction func openVolunteerScreen(_ sender: Any) {
+        
+        self.openNextScreecn(controller: 2)
+    }
+    
+    @IBAction func openEventScreen(_ sender: Any) {
+        self.openNextScreecn(controller: 3)
+        
+    }
+    
+    @IBAction func openPendingShiftsScreen(_ sender: Any) {
+        self.openNextScreecn(controller: 4)
+        
+    }
+    
+    @IBAction func openMessagesScreen(_ sender: Any) {
+        self.openNextScreecn(controller: 5)
+        
+    }
+    
     
     func getLatestUpcomingEvent(){
         guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
@@ -146,17 +180,19 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
                 
                 if let eventData = response.value {
                     self.latestEvent = eventData
-                    DispatchQueue.main.async {
+                    
                         if (self.latestEvent?.count != 0){
                             let date = DateFormatManager.shared.formatDateStrToStr(date: self.latestEvent?[0].msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "MMMM dd")
                             self.gridData?[0].title = self.latestEvent?[0].msnfp_engagementopportunitytitle ?? ""
                             self.gridData?[0].subTitle = date
                             
-                            self.collectionView.reloadData()
+                            
                         }else{
                             self.gridData?[0].title =  ""
                             self.gridData?[0].subTitle = ""
                         }
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
                     }
                 }
             
@@ -171,6 +207,8 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
             }
         }
     }
+    
+    
     
     
     
@@ -211,29 +249,9 @@ extension CSDashBoardVC : UICollectionViewDelegate,UICollectionViewDataSource, U
                           duration: 0.7,
                           options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in
             if status {
-                if indexPath.row == 0 {
-                    let vc = EventManageVC.loadFromNib()
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }else if indexPath.row == 1 {
-                    let vc = MessageVC.loadFromNib()
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }else if indexPath.row == 2 {
-                    let vc = VounteerVC.loadFromNib()
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }else if indexPath.row == 3 {
-                    let vc = EventVC.loadFromNib()
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }else if indexPath.row == 4 {
-                    let vc = PendingShiftVC.loadFromNib()
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }else if indexPath.row == 5 {
-                    let vc = PendingEventVC.loadFromNib()
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
+                self.openNextScreecn(controller:indexPath.row)
             }
-            
         }
-        
     }
     
     func showGroupsPicker(list:[LandingGroupsModel] = []){
@@ -249,26 +267,39 @@ extension CSDashBoardVC : UICollectionViewDelegate,UICollectionViewDataSource, U
         }
     }
     
-    
-    
+    func openNextScreecn(controller:Int?){
+        if controller == 0 {
+            if (self.latestEvent?[0] != nil){
+                ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data: self.latestEvent?[0]) { params, controller in
+                    self.openNextScreecn(controller: params as? Int)
+                }
+            }
+        }else if controller == 1 {
+            
+            ENTALDControllers.shared.showMessageScreen(type: .ENTALDPUSH, from: self) { params, controller in
+                self.openNextScreecn(controller: params as? Int)
+            }
+        }else if controller == 2 {
+            
+            ENTALDControllers.shared.showVolunteersScreen(type: .ENTALDPUSH, from: self) { params, controller in
+                self.openNextScreecn(controller: params as? Int)
+            }
+        }else if controller == 3 {
+            
+            ENTALDControllers.shared.showEventScreen(type: .ENTALDPUSH, from: self) { params, controller in
+                self.openNextScreecn(controller: params as? Int)
+            }
+        }else if controller == 4 {
+            
+            ENTALDControllers.shared.showPendingShiftScreen(type: .ENTALDPUSH, from: self) { params, controller in
+                self.openNextScreecn(controller: params as? Int)
+            }
+        }else if controller == 5 {
+            
+            ENTALDControllers.shared.showPendingEventScreen(type: .ENTALDPUSH, from: self) { params, controller in
+                self.openNextScreecn(controller: params as? Int)
+            }
+        }
+    }
+ 
 }
-
-//
-//    <color name="teal_200">#FF03DAC5</color>
-//    <color name="teal_700">#FF018786</color>
-//
-//
-//    <color name="colorLightRed">#E2364B</color>
-//    <color name="colorRed">#D9011A</color>
-//    <color name="colorScheduleEr">#DA542D</color>
-//    <color name="colorScheduleErBackground">#FDDDD4</color>
-//    <color name="colorScheduleNormal">#188A5C</color>
-//    <color name="colorScheduleNormalBackground">#CEFEEB</color>
-//
-//
-//
-//    <color name="colorBlack">#000000</color>
-//    <color name="colorThemeBlack">#000000</color>
-//    <color name="colorThemeBlack1">#151515</color>
-
-//    <color name="colorTransparent">#80000000</color>

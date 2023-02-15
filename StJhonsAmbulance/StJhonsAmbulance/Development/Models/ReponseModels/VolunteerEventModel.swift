@@ -48,3 +48,11 @@ struct VolunteerEventsDataModel : Codable {
 }
 
 
+
+struct VolunteersOfEventModel : Codable {
+    
+    let date : String?
+    let data : [VolunteerOfEventDataModel]
+    
+}
+

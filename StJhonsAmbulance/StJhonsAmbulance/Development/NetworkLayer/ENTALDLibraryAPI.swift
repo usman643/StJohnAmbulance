@@ -151,5 +151,26 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
+    func requestVolunteersOfEvent(params:[String:Any],  _ completion:@escaping((ApiResult<VolunteerOfEventDataResponseModel, ApiError>) -> Void )){
+        let router = DashBoardRouter.getVolunteersOfEvent(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    
+    func requestAllProgram(params:[String:Any],  _ completion:@escaping((ApiResult<ProgramResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getAllProgram(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+        
+    func requestContactInfo(params:[String:Any],  _ completion:@escaping((ApiResult<ContactResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getContactInfo(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+//    func requestCloseEvent(params:[String:Any],  _ completion:@escaping((ApiResult<ProgramResponseModel, ApiError>) -> Void )){
+//        let router = EventRouter.cancelEvent(params: params)
+//        ENTALDHttpClient.shared.request(router, completion: completion)
+//    }
+    
 }
 

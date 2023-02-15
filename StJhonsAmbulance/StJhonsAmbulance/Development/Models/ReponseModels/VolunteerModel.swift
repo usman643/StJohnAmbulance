@@ -116,3 +116,71 @@ struct VolunteerRoleModel : Codable{
         
     }
 }
+
+
+
+
+
+
+
+
+
+struct VolunteerOfEventDataResponseModel: Codable {
+    let context: String?
+    let value: [VolunteerOfEventDataModel]?
+    
+    enum CodingKeys: String, CodingKey {
+        case context = "@odata.context"
+        case value
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.context = try container.decodeIfPresent(String.self, forKey: .context)
+        self.value = try container.decodeIfPresent([VolunteerOfEventDataModel].self, forKey: .value)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        
+    }
+}
+
+struct VolunteerOfEventDataModel : Codable {
+    
+    let msnfp_schedulestatus : Int?
+    let sjavms_start : String?
+    let sjavms_end : String?
+    let sjavms_hours : Float?
+    let _sjavms_volunteerevent_value : String?
+    let _sjavms_volunteer_value : String?
+    let msnfp_participationscheduleid : String?
+    let sjavms_Volunteer : VolunteerOfEventVolunteerModel?
+    
+    
+//
+//    let msnfp_name : String?
+//    let createdon : String?
+//    let msnfp_schedulestatus : Int?
+//    let sjavms_end : String?
+//    let sjavms_VolunteerEvent : VolunteerEventModel?
+    
+    
+}
+
+struct VolunteerOfEventVolunteerModel : Codable {
+    
+    let fullname : String?
+    let contactid : String?
+   
+    
+}
+
+struct VounteerEventDataByDate : Codable {
+    
+    let key : String?
+    let value : [VolunteerOfEventDataModel]?
+    
+    
+}
+
+

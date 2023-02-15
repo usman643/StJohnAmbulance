@@ -20,6 +20,9 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     @IBOutlet weak var imgMainVw: UIView!
     @IBOutlet weak var profileImage: UIImageView!
     
+    @IBOutlet weak var lblRole: UILabel!
+    
+    @IBOutlet weak var btnSwitch: UISwitch!
     var navigation:SideMenuVC?
     var arrMenuList = ["Profile","Availability","Skills","Qualifications/Certifications","Documents","Language","Change Password","Settings","Logout"]
     var arrMenuIconList = ["ic_profile","ic_availability","ic_skill","ic_Qualification","ic_document","ic_language","ic_passKey","ic_setting","ic_logout"]
@@ -46,6 +49,15 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         lblEmail.text = UserDefaults.standard.userInfo?.emailaddress1
         imgMainVw.layer.cornerRadius = imgMainVw.frame.size.height/2
         profileImage.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: UserDefaults.standard.userInfo?.entityimage ?? "")
+        if (ProcessUtils.shared.currentRole == "cslead"){
+            self.lblRole.text = "CS Lead"
+            self.btnSwitch.setOn(true, animated: true)
+        }else{
+            self.btnSwitch.setOn(false, animated: true)
+            self.lblRole.text = "Volunteer"
+        }
+        
+        btnSwitch.onTintColor = UIColor.themePrimaryColor
     }
 
     
@@ -73,6 +85,24 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
     }
     
+    @IBAction func switchRole(_ sender: Any) {
+        
+        if (ProcessUtils.shared.currentRole == "cslead"){
+            self.btnSwitch.setOn(false, animated: true)
+            ProcessUtils.shared.currentRole = "volunteer"
+            self.lblRole.text = "Volunteer"
+            ENTALDControllers.shared.showVolunteerDashBoardScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
+            }
+        }else{
+            self.btnSwitch.setOn(false, animated: true)
+            ProcessUtils.shared.currentRole = "cslead"
+            self.lblRole.text = "CS Lead"
+            ENTALDControllers.shared.showCSDashBoardScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
+            }
+        }
+        
+        
+    }
     
 }
 

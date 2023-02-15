@@ -45,9 +45,8 @@ class PendingEventVC: ENTALDBaseViewController {
     @IBOutlet weak var lblApprovalMax: UILabel!
     @IBOutlet weak var lblApprovalDate: UILabel!
     @IBOutlet weak var lblApprovalStatus: UILabel!
- 
-    
-    
+    @IBOutlet weak var lblTabTitle: UILabel!
+    @IBOutlet weak var selectedTabImg: UIImageView!
     
     
     
@@ -98,6 +97,7 @@ class PendingEventVC: ENTALDBaseViewController {
         lblApprovalMax.font = UIFont.BoldFont(12)
         lblApprovalDate.font = UIFont.BoldFont(12)
         lblApprovalStatus.font = UIFont.BoldFont(12)
+        lblTabTitle.font = UIFont.BoldFont(14)
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
         
         btnSelectGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
@@ -111,6 +111,7 @@ class PendingEventVC: ENTALDBaseViewController {
         lblApprovalMax.textColor = UIColor.themePrimaryColor
         lblApprovalDate.textColor = UIColor.themePrimaryColor
         lblApprovalStatus.textColor = UIColor.themePrimaryColor
+        lblTabTitle.textColor = UIColor.themePrimaryColor
         
         pendingApprovalTableView.clipsToBounds = false
         pendingApprovalTableView.layer.masksToBounds = false
@@ -125,6 +126,9 @@ class PendingEventVC: ENTALDBaseViewController {
         pendingPublishTableView.layer.shadowOffset = CGSize(width: 0, height: 0)
         pendingPublishTableView.layer.shadowRadius = 0.0
         pendingPublishTableView.layer.shadowOpacity = 1.0
+        
+        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
+        selectedTabImg.tintColor = UIColor.themePrimaryColor
         
     }
     @IBAction func btnBackAction(_ sender: Any) {
@@ -152,6 +156,34 @@ class PendingEventVC: ENTALDBaseViewController {
             self.pendingPublishTableView.reloadData()
         }
     }
+    
+    // Bottom bar action
+    
+    @IBAction func openMessagesScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?(1, self)
+    }
+    @IBAction func openVolunteerScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?(2, self)
+    }
+    @IBAction func openEventScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?(3, self)
+    }
+    @IBAction func openPendingEventScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?(4, self)
+    }
+    @IBAction func openPendingShiftsScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?(5, self)
+    }
+    @IBAction func openDashBoardScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        
+    }
+ 
     
     func showEmptyView(tableVw : UITableView){
         DispatchQueue.main.async {
@@ -237,7 +269,7 @@ class PendingEventVC: ENTALDBaseViewController {
         guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
         let params : [String:Any] = [
             
-            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_location,msnfp_minimum,msnfp_startingdate,msnfp_engagementopportunitystatus,_sjavms_program_value,msnfp_engagementopportunityid,msnfp_maximum",
+            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_location,msnfp_minimum,msnfp_startingdate,msnfp_endingdate,msnfp_engagementopportunitystatus,_sjavms_program_value,msnfp_engagementopportunityid,msnfp_maximum",
             ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(msnfp_groupid eq \(groupId)))",
             ParameterKeys.filter : "(msnfp_engagementopportunitystatus eq 844060000) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
 //            ParameterKeys.orderby : "msnfp_engagementopportunityschedule asc"

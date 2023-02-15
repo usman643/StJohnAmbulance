@@ -16,7 +16,9 @@
                 <outlet property="btnBack" destination="jqy-u3-qcD" id="6GS-P5-tmZ"/>
                 <outlet property="btnCalender" destination="MJ5-Pk-zJf" id="r78-ot-S0S"/>
                 <outlet property="btnSignUp" destination="6l3-1q-ydU" id="oK8-3o-Kjs"/>
+                <outlet property="lblTabTitle" destination="gO6-bk-5sJ" id="LKx-jT-Nty"/>
                 <outlet property="lblTitle" destination="Kg3-cd-046" id="IGf-dq-ckI"/>
+                <outlet property="selectedTabImg" destination="dEn-9g-8y0" id="ehg-Y1-Wmh"/>
                 <outlet property="tableView" destination="loY-5Y-vDQ" id="rph-JP-GG5"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -42,7 +44,7 @@
                     <rect key="frame" x="16" y="107" width="361" height="40"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Schedule" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kg3-cd-046">
-                            <rect key="frame" x="0.0" y="9.6666666666666714" width="194" height="21"/>
+                            <rect key="frame" x="0.0" y="9.9999999999999982" width="194" height="20.333333333333329"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -107,20 +109,89 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="loY-5Y-vDQ">
-                    <rect key="frame" x="0.0" y="147" width="393" height="705"/>
+                    <rect key="frame" x="0.0" y="147" width="393" height="621"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mgk-Za-Kvb">
+                    <rect key="frame" x="0.0" y="768" width="393" height="50"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabCalender" translatesAutoresizingMaskIntoConstraints="NO" id="dEn-9g-8y0">
+                            <rect key="frame" x="12" y="5" width="40" height="40"/>
+                            <color key="tintColor" name="PrimaryGreen"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="23U-6J-KpS"/>
+                                <constraint firstAttribute="height" constant="40" id="P7b-d5-DY9"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Schedule" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gO6-bk-5sJ">
+                            <rect key="frame" x="60" y="14.999999999999998" width="71" height="20.333333333333329"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="0jw-oG-l6Z">
+                            <rect key="frame" x="143" y="5" width="245" height="40"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sAA-jY-4KC">
+                                    <rect key="frame" x="0.0" y="0.0" width="55.333333333333336" height="40"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="tabEvent"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1YB-t8-IBH">
+                                    <rect key="frame" x="63.333333333333343" y="0.0" width="55.333333333333343" height="40"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="tabLocation"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zxX-LH-gxQ">
+                                    <rect key="frame" x="126.66666666666669" y="0.0" width="55" height="40"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="tabHome"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RTD-gw-ibg">
+                                    <rect key="frame" x="189.66666666666669" y="0.0" width="55.333333333333343" height="40"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="tabMessage"/>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="piJ-aY-FsX"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.90196078430000004" green="0.94901960780000005" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="0jw-oG-l6Z" firstAttribute="centerY" secondItem="mgk-Za-Kvb" secondAttribute="centerY" id="5dq-Oj-ocu"/>
+                        <constraint firstAttribute="height" constant="50" id="Ju6-Ns-SHy"/>
+                        <constraint firstAttribute="trailing" secondItem="0jw-oG-l6Z" secondAttribute="trailing" constant="5" id="Mp1-IS-plp"/>
+                        <constraint firstItem="gO6-bk-5sJ" firstAttribute="centerY" secondItem="mgk-Za-Kvb" secondAttribute="centerY" id="NKK-yO-JyW"/>
+                        <constraint firstItem="gO6-bk-5sJ" firstAttribute="leading" secondItem="dEn-9g-8y0" secondAttribute="trailing" constant="8" id="YnN-iN-lC5"/>
+                        <constraint firstItem="0jw-oG-l6Z" firstAttribute="leading" secondItem="gO6-bk-5sJ" secondAttribute="trailing" constant="12" id="Zga-1w-wGT"/>
+                        <constraint firstItem="dEn-9g-8y0" firstAttribute="centerY" secondItem="mgk-Za-Kvb" secondAttribute="centerY" id="iPg-2e-KMy"/>
+                        <constraint firstItem="dEn-9g-8y0" firstAttribute="leading" secondItem="mgk-Za-Kvb" secondAttribute="leading" constant="12" id="lRh-JH-9XZ"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eqt-eQ-NpO">
+                    <rect key="frame" x="0.0" y="818" width="393" height="34"/>
+                    <color key="backgroundColor" red="0.90196078430000004" green="0.94901960780000005" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="mgk-Za-Kvb" secondAttribute="trailing" id="0w5-Wt-dzp"/>
                 <constraint firstItem="loY-5Y-vDQ" firstAttribute="top" secondItem="pQ6-Uc-W3G" secondAttribute="bottom" id="6Tu-Kn-Io1"/>
                 <constraint firstItem="jqy-u3-qcD" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="6bO-sQ-eBY"/>
+                <constraint firstItem="Eqt-eQ-NpO" firstAttribute="top" secondItem="mgk-Za-Kvb" secondAttribute="bottom" id="Dnh-Jt-vRt"/>
+                <constraint firstItem="mgk-Za-Kvb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Eyv-87-R0t"/>
+                <constraint firstAttribute="bottom" secondItem="Eqt-eQ-NpO" secondAttribute="bottom" id="HlT-pA-eae"/>
                 <constraint firstItem="jqy-u3-qcD" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="8" id="IZe-7d-oK8"/>
+                <constraint firstItem="Eqt-eQ-NpO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="NxU-9L-ecu"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="pQ6-Uc-W3G" secondAttribute="trailing" constant="16" id="QK2-uJ-W8j"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="loY-5Y-vDQ" secondAttribute="trailing" id="Sy8-U3-K7b"/>
                 <constraint firstItem="loY-5Y-vDQ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="bi7-0I-JZE"/>
-                <constraint firstAttribute="bottom" secondItem="loY-5Y-vDQ" secondAttribute="bottom" id="du8-b1-h4A"/>
+                <constraint firstItem="mgk-Za-Kvb" firstAttribute="top" secondItem="loY-5Y-vDQ" secondAttribute="bottom" id="pTz-EU-bZh"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="mgk-Za-Kvb" secondAttribute="bottom" id="tRU-Lr-U4c"/>
+                <constraint firstAttribute="trailing" secondItem="Eqt-eQ-NpO" secondAttribute="trailing" id="ttO-TU-33q"/>
                 <constraint firstItem="pQ6-Uc-W3G" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="vOU-yw-eFr"/>
                 <constraint firstItem="pQ6-Uc-W3G" firstAttribute="top" secondItem="jqy-u3-qcD" secondAttribute="bottom" constant="10" id="y4n-LI-pKx"/>
             </constraints>
@@ -131,6 +202,11 @@
         <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="ic_add" width="34.666667938232422" height="33.333332061767578"/>
         <image name="icbackArrow" width="32" height="32"/>
+        <image name="tabCalender" width="37.666667938232422" height="33.333332061767578"/>
+        <image name="tabEvent" width="33.666667938232422" height="29"/>
+        <image name="tabHome" width="33" height="27.666666030883789"/>
+        <image name="tabLocation" width="29.666666030883789" height="33.333332061767578"/>
+        <image name="tabMessage" width="31" height="21.333333969116211"/>
         <namedColor name="PrimaryGreen">
             <color red="0.0078431372549019607" green="0.30980392156862746" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

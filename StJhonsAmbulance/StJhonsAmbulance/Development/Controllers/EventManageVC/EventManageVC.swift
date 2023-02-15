@@ -9,6 +9,18 @@ import UIKit
 
 class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
     
+    var volunteerData : [VolunteerOfEventDataModel]?
+    var eventData : CurrentEventsModel?
+    
+    var pendingShiftData : PendingShiftModelTwo?
+    var pendingEventApprovalData : PendingApprovalEventsModel?
+    var unpublishEventData : UnpublishedEventsModel?
+    
+    var dataVol : [String:Any] = [:]
+    var programsData : [ProgramModel]?
+    var eventProgramData : ProgramModel?
+    var contactInfo : [ContactDataModel]?
+    
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var lblEventName: UILabel!
     @IBOutlet weak var lblDate: UILabel!
@@ -24,15 +36,72 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(UINib(nibName: "EventManagerSectionView", bundle: nil), forHeaderFooterViewReuseIdentifier: "EventManagerSectionView")
+        tableView.register(UINib(nibName: "EventManagerTVC", bundle: nil), forCellReuseIdentifier: "EventManagerTVC")
+        
         txtSearch.delegate = self
         txtSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         decorateUI()
+        setupData()
+        getVolunteers()
+        getAllProgramesfile()
     }
-
+    
+    func setupData(){
+        
+        if ((eventData) != nil){
+            
+            lblEventName.text = eventData?.msnfp_engagementopportunitytitle
+            if (eventData?.msnfp_startingdate != nil && eventData?.msnfp_startingdate == ""){
+                let date =  DateFormatManager.shared.formatDateStrToStr(date: eventData?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
+                lblDate.text = date
+            }else{
+                lblDate.text = " "
+            }
+            lblLocation.text = eventData?.msnfp_location
+            
+        }else if ((pendingShiftData) != nil){
+            
+            lblEventName.text = pendingShiftData?.msnfp_name
+            if (pendingShiftData?.sjavms_start != nil && pendingShiftData?.sjavms_start == ""){
+                let date =  DateFormatManager.shared.formatDateStrToStr(date: pendingShiftData?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
+                lblDate.text = date
+            }else{
+                lblDate.text = " "
+            }
+            //            lblLocation.text = pendingShiftData?.
+            
+        }else if ((unpublishEventData) != nil){
+            
+            lblEventName.text = unpublishEventData?.msnfp_engagementopportunitytitle
+            if (unpublishEventData?.msnfp_startingdate != nil && unpublishEventData?.msnfp_startingdate == ""){
+                let date =  DateFormatManager.shared.formatDateStrToStr(date: unpublishEventData?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
+                lblDate.text = date
+            }else{
+                lblDate.text = " "
+            }
+            lblLocation.text = unpublishEventData?.msnfp_location
+            
+        }else if ((pendingEventApprovalData) != nil){
+            
+            lblEventName.text = pendingEventApprovalData?.sjavms_name
+            if (pendingEventApprovalData?.sjavms_eventstartdate != nil && pendingEventApprovalData?.sjavms_eventstartdate == ""){
+                let date =  DateFormatManager.shared.formatDateStrToStr(date: pendingEventApprovalData?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
+                lblDate.text = date
+            }else{
+                lblDate.text = " "
+            }
+            //            lblLocation.text = pendingEventApprovalData?.
+            
+        }
+        
+    }
+    
     func decorateUI(){
         
         btnBack.tintColor = .white
@@ -68,7 +137,6 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
         searchView.layer.cornerRadius = 2
         searchView.layer.borderColor = UIColor.textWhiteColor.cgColor
         searchView.layer.borderWidth = 1
-
         
         btnSearchClose.isHidden = true
     }
@@ -83,30 +151,28 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         
-//        if (textField.text != ""){
-//
-//           filteredData =  volunteerData?.filter({
-//               if let name = $0.msnfp_contactId?.fullname, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
-//                   return true
-//                }
-//              return false
-//            })
-//
-//                tableView.reloadData()
-//        }else{
-//            filteredData = volunteerData
-//            tableView.reloadData()
-//        }
-//
-//
+        //        if (textField.text != ""){
+        //
+        //           filteredData =  volunteerData?.filter({
+        //               if let name = $0.msnfp_contactId?.fullname, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+        //                   return true
+        //                }
+        //              return false
+        //            })
+        //
+        //                tableView.reloadData()
+        //        }else{
+        //            filteredData = volunteerData
+        //            tableView.reloadData()
+        //        }
     }
-
+    
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func contactTapped(_ sender: Any) {
-        
+        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "Alter", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
     }
     
     @IBAction func closeTapped(_ sender: Any) {
@@ -121,19 +187,230 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
         
     }
     
+    func getVolunteers(){
+        
+        let eventId = self.eventData?.msnfp_engagementopportunityid ?? ""
+        
+        let params : [String:Any] = [
+            
+            ParameterKeys.select : "msnfp_schedulestatus,sjavms_start,sjavms_hours,_sjavms_volunteerevent_value,_sjavms_volunteer_value,msnfp_participationscheduleid,sjavms_start",
+            
+            ParameterKeys.expand : "sjavms_Volunteer($select=fullname)",
+            ParameterKeys.filter : "(_sjavms_volunteerevent_value eq \(eventId))",
+            ParameterKeys.orderby : "_sjavms_volunteer_value asc,_sjavms_volunteerevent_value asc"
+            
+        ]
+        
+        self.getVolunteersData(params: params)
+        
+    }
+    
+    
+    fileprivate func getVolunteersData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestVolunteersOfEvent(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                
+                if let pastEvent = response.value {
+                    self.volunteerData = pastEvent
+                    if (self.volunteerData?.count == 0 || self.volunteerData?.count == nil){
+                        self.showEmptyView(tableVw: self.tableView)
+                    }else{
+                        
+                        self.dataVol = self.getEntryTypesByGroup() ?? [:]
+                        DispatchQueue.main.async {
+                            for subview in self.tableView.subviews {
+                                subview.removeFromSuperview()
+                            }
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }else{
+                    self.showEmptyView(tableVw: self.tableView)
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                self.showEmptyView(tableVw: self.tableView)
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    private func getAllProgramesfile(){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestAllProgram(params: [:]){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                
+                if let pastEvent = response.value {
+                    self.programsData = pastEvent
+                    self.eventProgramData = self.getProgramName(self.eventData?._sjavms_program_value ?? "")
+                    DispatchQueue.main.async {
+                        self.lblProgramType.text = self.eventProgramData?.sjavms_name ?? ""
+                        //contact info
+                    }
+                    
+                }
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
 
+    //====================== Orgnizer Contact API ==========================
+    
+//    func getContact(){
+//
+//        let eventId = self.eventData?.msnfp_engagementopportunityid ?? ""
+//
+//        let params : [String:Any] = [
+//
+//            ParameterKeys.select : "msnfp_engagementopportunitytitle",
+//
+//            ParameterKeys.expand : "sjavms_Contact($select=emailaddress1,address1_country,address1_line1,address1_line3,address1_city,lastname,firstname,address1_postalcode,telephone1,address1_stateorprovince,address1_line2)",
+//            ParameterKeys.filter : "(msnfp_engagementopportunityid eq \(eventId)) and (sjavms_Contact/contactid ne null)",
+//            //            ParameterKeys.orderby : "_sjavms_volunteer_value asc,_sjavms_volunteerevent_value asc"
+//        ]
+//
+//        self.getContactData(params: params)
+//
+//    }
+//
+//    fileprivate func getContactData(params : [String:Any]){
+//        DispatchQueue.main.async {
+//            LoadingView.show()
+//        }
+//
+//        ENTALDLibraryAPI.shared.requestContactInfo(params: params){ result in
+//            DispatchQueue.main.async {
+//                LoadingView.hide()
+//            }
+//
+//            switch result{
+//            case .success(value: let response):
+//
+//                if let contactData = response.value {
+//                    self.contactInfo = contactData
+//                }
+//
+//            case .error(let error, let errorResponse):
+//                var message = error.message
+//                if let err = errorResponse {
+//                    message = err.error
+//                }
+//
+//                DispatchQueue.main.async {
+//                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+//                }
+//            }
+//        }
+//    }
+    
+    
+    func showEmptyView(tableVw : UITableView){
+        DispatchQueue.main.async {
+            let view = EmptyView.instanceFromNib()
+            view.frame = tableVw.frame
+            tableVw.addSubview(view)
+        }
+    }
+    
+    func getEntryTypesByGroup()->[String:Any]?{
+        if let entryTypes = self.volunteerData {
+            let dictionary = Dictionary(grouping: entryTypes, by:  { DateFormatManager.shared.formatDateStrToStr(date: $0.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd") })
+            return dictionary
+        }
+        return nil
+    }
+    
+    
+    func getProgramName(_ programId:String)->ProgramModel?{
+        let programModel = self.programsData?.filter({$0.sjavms_programid == programId}).first
+        return programModel
+    }
+    
 }
 
-//extension EventManageVC : UITableViewDelegate, UITableViewDataSource{
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 100
-//    }
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        <#code#>
-//    }
-//
-//
-//
-//
-//
-//}
+extension EventManageVC : UITableViewDelegate, UITableViewDataSource{
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "EventManagerSectionView") as! EventManagerSectionView
+        
+        let key = Array(self.dataVol.keys)[section]
+        if let rowModel : [VolunteerOfEventDataModel] = self.dataVol[key] as? [VolunteerOfEventDataModel]{
+            
+            let startTime = DateFormatManager.shared.formatDateStrToStr(date: rowModel.first?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            
+            let endTime = DateFormatManager.shared.formatDateStrToStr(date: rowModel.first?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            
+            headerView.lblTime.text = "\(startTime) - \(endTime)"
+        }
+        headerView.lblDate.text = key
+        
+        return headerView
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return self.numberOfSection()
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.numberOfRows(section: section)
+        
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "EventManagerTVC", for: indexPath) as! EventManagerTVC
+        
+        
+        let key = Array(self.dataVol.keys)[indexPath.section]
+        if let rowModel : [VolunteerOfEventDataModel] = self.dataVol[key] as? [VolunteerOfEventDataModel]{
+            cell.lblTitle.text = rowModel[indexPath.row].sjavms_Volunteer?.fullname ?? ""
+        }
+        return cell
+    }
+    
+    func numberOfSection() -> Int {
+        return self.dataVol.count
+    }
+    
+    func numberOfRows(section : Int) -> Int {
+        let key = Array(self.dataVol.keys)[section]
+        if let rowModel : [VolunteerOfEventDataModel] = self.dataVol[key] as? [VolunteerOfEventDataModel]{
+            return rowModel.count
+        }
+        return 0
+    }
+}

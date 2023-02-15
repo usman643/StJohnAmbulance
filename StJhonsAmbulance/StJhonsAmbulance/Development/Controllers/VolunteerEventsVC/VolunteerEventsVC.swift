@@ -30,6 +30,8 @@ class VolunteerEventsVC: ENTALDBaseViewController {
     @IBOutlet weak var scheduleTable: UITableView!
     @IBOutlet weak var pastTable: UITableView!
     
+    @IBOutlet weak var lblTabTitle: UILabel!
+    @IBOutlet weak var selectedTabImg: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +61,11 @@ class VolunteerEventsVC: ENTALDBaseViewController {
         
         pastHeaderView.layer.borderColor = UIColor.themePrimaryColor.cgColor
         pastHeaderView.layer.borderWidth = 1
+        lblTabTitle.textColor = UIColor.themePrimaryColor
+        lblTabTitle.font = UIFont.BoldFont(16)
         
+        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
+        selectedTabImg.tintColor = UIColor.themePrimaryColor
 
     }
     
@@ -108,6 +114,47 @@ class VolunteerEventsVC: ENTALDBaseViewController {
             self.pastTable.reloadData()
             self.pastTable.reloadData()
         }
+    }
+    
+    // Bottom bar Action
+    
+    @IBAction func openLatestEventScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?("latestEvent", self)
+    }
+    
+    @IBAction func openCheckInScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?("checkIn", self)
+    }
+    
+    @IBAction func openEventScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?("event", self)
+        
+    }
+    
+    @IBAction func openHoursScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?("hour", self)
+        
+    }
+    
+    @IBAction func openMessagesScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?("message", self)
+        
+    }
+    
+    @IBAction func openScheduleScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?("schedule", self)
+        
+    }
+    
+    @IBAction func openDashBoardScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        
     }
     
     func showEmptyView(tableVw : UITableView){
@@ -159,20 +206,19 @@ extension VolunteerEventsVC : UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (tableView == availableTable){
-            let vc = EventDetailVC(nibName: "EventDetailVC", bundle: nil)
-            vc.availableEvent = self.availableData?[indexPath.row]
-            self.navigationController?.pushViewController(vc , animated: true)
+            
+            ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.availableData?[indexPath.row], eventName: "availableEvent", callBack: nil)
+
         }else if (tableView == scheduleTable){
-            let vc = EventDetailVC(nibName: "EventDetailVC", bundle: nil)
-            vc.scheduleEvent = self.scheduleData?[indexPath.row]
-            self.navigationController?.pushViewController(vc , animated: true)
+            
+            ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.scheduleData?[indexPath.row], eventName: "scheduleEvent", callBack: nil)
+            
         }else if (tableView == pastTable){
-            let vc = EventDetailVC(nibName: "EventDetailVC", bundle: nil)
-            vc.pastEvent = self.pastEventData?[indexPath.row]
-            self.navigationController?.pushViewController(vc , animated: true)
+            
+            ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.pastEventData?[indexPath.row], eventName: "pastEvent", callBack: nil)
         }
     }
 }

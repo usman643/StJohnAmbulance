@@ -51,13 +51,23 @@ class ENTALDControllers {
             
             self.showLandingScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
                 
-                self.showTabbarViewController(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
+                if(params as? String == "volunteer"){
+                    ProcessUtils.shared.currentRole = "volunteer"
+                    self.showVolunteerDashBoardScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
 
+                    }
+
+                }else if(params as? String == "cslead"){
+                    ProcessUtils.shared.currentRole = "cslead"
+                    self.showCSDashBoardScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
+
+                    }
                 }
             }
         }
-        
     }
+    
+    
     
     func showLoginScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
         let vc = LoginVC.loadFromNib()
@@ -103,6 +113,157 @@ class ENTALDControllers {
             window.windowLevel = .normal
         }
     }
+    
+    func showCSDashBoardScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = CSDashBoardVC.loadFromNib()
+        vc.callbackToController = callBack
+        let nav = ENTALDBaseNavigationController(rootViewController: vc)
+        
+        if let window = sceneDelegate?.window{
+            window.rootViewController = nav
+            window.makeKeyAndVisible()
+            window.windowLevel = .normal
+        }
+    }
+    
+    
+    func showVolunteerDashBoardScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = DashboardVC.loadFromNib()
+        vc.callbackToController = callBack
+        let nav = ENTALDBaseNavigationController(rootViewController: vc)
+        
+        if let window = sceneDelegate?.window{
+            window.rootViewController = nav
+            window.makeKeyAndVisible()
+            window.windowLevel = .normal
+        }
+    }
+    
+    func showMessageScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = MessageVC.loadFromNib()
+        vc.callbackToController = callBack
+        
+        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+    
+    func showVolunteerScheduleScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = ScheduleVC.loadFromNib()
+        vc.callbackToController = callBack
+        
+        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+    
+    func showVolunteerHourScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = VolunteerHoursVC.loadFromNib()
+        vc.callbackToController = callBack
+        
+        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+    
+    func showVolunteerEventScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = VolunteerEventsVC.loadFromNib()
+        vc.callbackToController = callBack
+        
+        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+    
+    func showVolunteersScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = VounteerVC.loadFromNib()
+        vc.callbackToController = callBack
+        
+        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+    
+    func showEventScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = EventVC.loadFromNib()
+        vc.callbackToController = callBack
+        
+        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+    
+    func showPendingShiftScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = PendingShiftVC.loadFromNib()
+        vc.callbackToController = callBack
+        
+        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+    
+    func showPendingEventScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = PendingEventVC.loadFromNib()
+        vc.callbackToController = callBack
+        
+        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+    
+    func showEventManageScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, data:Any?, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = EventManageVC.loadFromNib()
+        vc.eventData = data as? CurrentEventsModel
+        vc.callbackToController = callBack
+        
+        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+    
+    func showEventDetailScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, data:Any?, eventName:String?, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = EventDetailVC.loadFromNib()
+        
+        if (eventName == "availableEvent"){
+            vc.availableEvent = data as? AvailableEventModel
+        }else if (eventName == "scheduleEvent"){
+            vc.scheduleEvent = data as? ScheduleModelThree
+        }else if (eventName == "pastEvent"){
+            vc.pastEvent = data as? VolunteerEventsModel
+        }else if (eventName == "latestEvent"){
+            vc.latestEvent = data as? LatestEventDataModel
+        }
+        
+        vc.callbackToController = callBack
+        
+        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+    
+    func showForgetPasswordScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = ForgetVC.loadFromNib()
+        vc.callbackToController = callBack
+        
+        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+       
+    func showContactInfoScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = ContactInfoVC.loadFromNib()
+        vc.callbackToController = callBack
+        
+        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

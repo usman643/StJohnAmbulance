@@ -10,6 +10,7 @@ import UIKit
 class MessageVC: ENTALDBaseViewController {
 
     var messagesData : [MessageModel]?
+    var fromVolunteerController : Bool?
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnHome: UIButton!
@@ -24,6 +25,9 @@ class MessageVC: ENTALDBaseViewController {
 
     @IBOutlet weak var lblInbox: UILabel!
     @IBOutlet weak var tableview: UITableView!
+    
+    @IBOutlet weak var lblTabTitle: UILabel!
+    @IBOutlet weak var selectedTabImg: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         tableview.delegate = self
@@ -66,8 +70,13 @@ class MessageVC: ENTALDBaseViewController {
         
         lblInbox.font = UIFont.BoldFont(16)
         lblInbox.textColor = UIColor.themePrimaryColor
+        
+        lblTabTitle.textColor = UIColor.themePrimaryColor
+        lblTabTitle.font = UIFont.BoldFont(16)
+        
+        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
+        selectedTabImg.tintColor = UIColor.themePrimaryColor
     }
-
 
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -91,6 +100,47 @@ class MessageVC: ENTALDBaseViewController {
     @IBAction func emailTapped(_ sender: Any) {
     }
     
+    // bottom bar action
+        
+  
+        @IBAction func openVolunteerScreen(_ sender: Any) {
+            self.navigationController?.popViewController(animated: false)
+            if(fromVolunteerController ?? false){
+//                self.callbackToController?("message", self)
+            }else{
+                self.callbackToController?(2, self)
+            }
+        }
+        @IBAction func openEventScreen(_ sender: Any) {
+            self.navigationController?.popViewController(animated: false)
+            if(fromVolunteerController ?? false){
+                self.callbackToController?("event", self)
+            }else{
+                self.callbackToController?(3, self)
+            }
+        }
+        @IBAction func openPendingEventScreen(_ sender: Any) {
+            self.navigationController?.popViewController(animated: false)
+            if(fromVolunteerController ?? false){
+//                self.callbackToController?("message", self)
+            }else{
+                self.callbackToController?(4, self)
+            }
+        }
+        @IBAction func openPendingShiftsScreen(_ sender: Any) {
+            self.navigationController?.popViewController(animated: false)
+            if(fromVolunteerController ?? false){
+//                self.callbackToController?("message", self)
+            }else{
+                self.callbackToController?(5, self)
+            }
+        }
+    
+    @IBAction func openDashboardScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+        
+    }
+ 
     func showGroupsPicker(list:[LandingGroupsModel] = []){
         
         ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, dataObj: ProcessUtils.shared.userGroupsList) { params, controller in
@@ -112,13 +162,15 @@ class MessageVC: ENTALDBaseViewController {
         }
     }
     
+    //======================== API ==========================//
+    
     func getMessages(){
 
         guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
             let params : [String:Any] = [
 
                 ParameterKeys.select : "subject,statuscode,modifiedon,description,senton,activityid",
-                ParameterKeys.filter : "(_regardingobjectid_value eq \(groupId)",
+                ParameterKeys.filter : "(_regardingobjectid_value eq \(groupId))",
                 ParameterKeys.orderby : "modifiedon desc"
                 
             ]
@@ -172,6 +224,9 @@ class MessageVC: ENTALDBaseViewController {
             }
         }
     }
+    
+    //======================== API End ==========================//
+    
 }
 
 

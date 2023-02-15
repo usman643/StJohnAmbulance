@@ -14,6 +14,9 @@ enum EventRouter : Router {
     case getPendingApprovalEvents(params:[String:Any])
     case getPendingPublishEvents(params:[String:Any])
     case getLatestUpcomingEvents(params:[String:Any])
+    case getAllProgram(params:[String:Any])
+    case cancelEvent(params:[String:Any])
+    case getContactInfo(params:[String:Any])
     
     case simulate401
     
@@ -25,6 +28,9 @@ enum EventRouter : Router {
         case .getPendingApprovalEvents : return "sjavms_eventrequests"
         case .getPendingPublishEvents : return "msnfp_engagementopportunities"
         case .getLatestUpcomingEvents : return "msnfp_engagementopportunities"
+        case .getAllProgram : return "sjavms_programs"
+        case .cancelEvent : return "sjavms_programs"
+        case .getContactInfo : return "sjavms_programs"
             
         case .simulate401: return "simulate-401"
         }
@@ -44,6 +50,12 @@ enum EventRouter : Router {
             return params
         case .getLatestUpcomingEvents(let params):
             return params
+        case .getAllProgram(let params):
+            return params
+        case .cancelEvent(let params):
+            return params
+        case .getContactInfo(let params):
+            return params
         default: return [:]
         }
         
@@ -55,6 +67,12 @@ enum EventRouter : Router {
     }
     
     var method: String {
+        switch self {
+        case .cancelEvent(_):
+            return HTTPMethodType.patch.rawValue
+        default:
+            break
+        }
         return HTTPMethodType.get.rawValue
     }
     

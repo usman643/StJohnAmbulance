@@ -11,6 +11,7 @@ import Alamofire
 enum HTTPMethodType : String {
     case post = "POST"
     case get = "GET"
+    case patch = "PATCH"
 }
 
 enum ApiResult<T, Failure> where Failure: Error {

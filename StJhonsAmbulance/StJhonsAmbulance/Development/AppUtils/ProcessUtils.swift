@@ -20,6 +20,7 @@ class ProcessUtils {
     var selectedUserGroup : LandingGroupsModel?
     var tabbarHeight : CGFloat?
     var groupListValue : String?
+    var currentRole : String?
     
     
     func getStatus(code:Int)->String?{

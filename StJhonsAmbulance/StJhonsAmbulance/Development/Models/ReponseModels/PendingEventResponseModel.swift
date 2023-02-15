@@ -158,6 +158,7 @@ struct UnpublishedEventsModel: Codable {
     let msnfp_location : String?
     let msnfp_minimum : Int?
     let msnfp_startingdate : String?
+    let msnfp_endingdate : String?
     let msnfp_engagementopportunitystatus : Int?
     let _sjavms_program_value : String?
     let msnfp_engagementopportunityid : String?

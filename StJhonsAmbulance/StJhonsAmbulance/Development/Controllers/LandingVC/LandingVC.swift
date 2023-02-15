@@ -60,6 +60,8 @@ class LandingVC: ENTALDBaseViewController {
         lblTitle.textColor = UIColor.textWhiteColor
         lblDesc.textColor = UIColor.themePrimaryColor
         
+        self.btn1.setTitle("Volunteer", for: .normal)
+        
     }
     
     @IBAction func groupBtnAction(_ sender: Any) {
@@ -67,18 +69,15 @@ class LandingVC: ENTALDBaseViewController {
     }
     
     @IBAction func btnNextAction(_ sender: Any) {
-//        self.callbackToController?(nil, self)
+
         if (ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.sjavms_rolecategory == 802280000){
-            let vc = DashboardVC(nibName: "DashboardVC", bundle: nil)
-            self.navigationController?.pushViewController(vc, animated: true)
+            
+            self.callbackToController?("volunteer", self)
         }else if (ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.sjavms_rolecategory == 802280001){
             
-            self.callbackToController?(nil, self)
-            
+            self.callbackToController?("cslead", self)
         }
-    
     }
-    
     
     func getGroups(){
         guard let conId = UserDefaults.standard.contactIdToken else {return}
@@ -146,7 +145,7 @@ class LandingVC: ENTALDBaseViewController {
                 ProcessUtils.shared.selectedUserGroup = data
                 
                 self.btn2.setTitle("\(data.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
-                self.btn1.setTitle(data.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
+//                self.btn1.setTitle(data.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
                 self.nextBtn.isEnabled = true
                 self.nextBtn.backgroundColor = UIColor.themePrimary
             }
@@ -154,15 +153,8 @@ class LandingVC: ENTALDBaseViewController {
     }
 
     @IBAction func volunteerTapped(_ sender: Any) {
-        if (ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.sjavms_rolecategory == 802280000){
-            let vc = DashboardVC(nibName: "DashboardVC", bundle: nil)
-            self.navigationController?.pushViewController(vc, animated: true)
-        }else if (ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.sjavms_rolecategory == 802280001){
-            
-            self.callbackToController?(nil, self)
-            
-        }
         
+        self.callbackToController?("volunteer", self)
     }
     
     

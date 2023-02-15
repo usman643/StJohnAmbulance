@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ScheduleVC: UIViewController {
+class ScheduleVC: ENTALDBaseViewController {
     
     var scheduleGroupData : [ScheduleGroupsModel]?
     var scheduleEngagementData : [ScheduleModelTwo]?
@@ -20,6 +20,9 @@ class ScheduleVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var addImg: UIImageView!
+    
+    @IBOutlet weak var selectedTabImg: UIImageView!
+    @IBOutlet weak var lblTabTitle: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,9 +50,15 @@ class ScheduleVC: UIViewController {
         addImg.image = image
         addImg.tintColor = .white
         
+        lblTabTitle.textColor = UIColor.themePrimaryColor
+        lblTabTitle.font = UIFont.BoldFont(16)
+        
+        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
+        selectedTabImg.tintColor = UIColor.themePrimaryColor
     }
     
     @IBAction func signUpTapped(_ sender: Any) {
+        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "Alter", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
         
     }
     
@@ -64,6 +73,43 @@ class ScheduleVC: UIViewController {
             view.frame = tableVw.frame
             tableVw.addSubview(view)
         }
+    }
+    
+    // Bottom bar Action
+    
+    
+    @IBAction func openCheckInScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?("checkIn", self)
+    }
+    
+    @IBAction func openEventScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?("event", self)
+        
+    }
+    
+    @IBAction func openHoursScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?("hour", self)
+        
+    }
+    
+    @IBAction func openMessagesScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?("message", self)
+        
+    }
+    
+    @IBAction func openScheduleScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        self.callbackToController?("schedule", self)
+        
+    }
+    
+    @IBAction func openDashBoardScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: false)
+        
     }
     
 }
@@ -101,62 +147,7 @@ extension ScheduleVC : UITableViewDelegate, UITableViewDataSource{
 // ============================ API ==========================//
 
 extension ScheduleVC {
-    
-//    func getScheduleInfo(){
-//
-//        guard let contactId = UserDefaults.standard.contactIdToken  else {return}
-//        let params : [String:Any] = [
-//
-//            ParameterKeys.select : "msnfp_groupmembershipid,msnfp_groupmembershipname,_msnfp_groupid_value",
-//            ParameterKeys.expand : "msnfp_groupId",
-//            ParameterKeys.filter : "(statuscode eq 1 and _msnfp_contactid_value eq \(contactId)) and (msnfp_groupId/statecode eq 0)",
-//            ParameterKeys.orderby : "msnfp_groupmembershipname asc"
-//        ]
-//
-//        self.getGroupidData(params: params)
-//    }
-//    fileprivate func getGroupidData(params : [String:Any]){
-//        DispatchQueue.main.async {
-//            LoadingView.show()
-//        }
-//
-//        ENTALDLibraryAPI.shared.requestScheduleOne(params: params){ result in
-//            DispatchQueue.main.async {
-//                LoadingView.hide()
-//            }
-//
-//            switch result{
-//            case .success(value: let response):
-//
-//                if let scheduleGroup = response.value {
-//                    self.scheduleGroupData = scheduleGroup
-//                    if (self.scheduleGroupData?.count == 0 || self.scheduleGroupData?.count == nil){
-//                        self.showEmptyView(tableVw: self.tableView)
-//                    }else{
-//                        self.getScheduleInfoTwo()
-//                        DispatchQueue.main.async {
-//                            for subview in self.tableView.subviews {
-//                                subview.removeFromSuperview()
-//                            }
-//                        }
-//                    }
-//                }else{
-//                    self.showEmptyView(tableVw: self.tableView)
-//                }
-//
-//            case .error(let error, let errorResponse):
-//                var message = error.message
-//                if let err = errorResponse {
-//                    message = err.error
-//                }
-//                self.showEmptyView(tableVw: self.tableView)
-//                DispatchQueue.main.async {
-//                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
-//                }
-//            }
-//        }
-//    }
-//
+
     func getScheduleInfo(){
     
         let params : [String:Any] = [
