@@ -65,6 +65,9 @@
                     </constraints>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" image="icbackArrow"/>
+                    <connections>
+                        <action selector="backTapped:" destination="-1" eventType="touchUpInside" id="J36-RB-m75"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dNw-ik-PLC">
                     <rect key="frame" x="155" y="67" width="83" height="41"/>
@@ -106,7 +109,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="393" height="750"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Xg-g8-PTE">
-                                    <rect key="frame" x="0.0" y="131.99999999999997" width="377" height="181.00000000000003"/>
+                                    <rect key="frame" x="0.0" y="131.99999999999997" width="377" height="186.00000000000003"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pIX-z8-8YW">
                                             <rect key="frame" x="0.0" y="0.0" width="377" height="181"/>
@@ -366,7 +369,7 @@
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="pIX-z8-8YW" secondAttribute="trailing" id="1H2-vb-Rp3"/>
                                         <constraint firstItem="pIX-z8-8YW" firstAttribute="top" secondItem="8Xg-g8-PTE" secondAttribute="top" id="OJa-qe-paC"/>
-                                        <constraint firstAttribute="bottom" secondItem="pIX-z8-8YW" secondAttribute="bottom" id="VkQ-DS-O6V"/>
+                                        <constraint firstAttribute="bottom" secondItem="pIX-z8-8YW" secondAttribute="bottom" constant="5" id="VkQ-DS-O6V"/>
                                         <constraint firstItem="pIX-z8-8YW" firstAttribute="leading" secondItem="8Xg-g8-PTE" secondAttribute="leading" id="YN4-7q-iJd"/>
                                     </constraints>
                                     <userDefinedRuntimeAttributes>
@@ -379,7 +382,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7UZ-gD-m5b">
-                                    <rect key="frame" x="0.0" y="329" width="377" height="370"/>
+                                    <rect key="frame" x="0.0" y="334" width="377" height="375"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Acd-fm-6UR">
                                             <rect key="frame" x="0.0" y="0.0" width="377" height="370"/>
@@ -847,7 +850,7 @@
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="Acd-fm-6UR" secondAttribute="bottom" id="Kp1-vx-82X"/>
+                                        <constraint firstAttribute="bottom" secondItem="Acd-fm-6UR" secondAttribute="bottom" constant="5" id="Kp1-vx-82X"/>
                                         <constraint firstAttribute="trailing" secondItem="Acd-fm-6UR" secondAttribute="trailing" id="YVu-qS-pMt"/>
                                         <constraint firstItem="Acd-fm-6UR" firstAttribute="top" secondItem="7UZ-gD-m5b" secondAttribute="top" id="cCn-F3-Wdx"/>
                                         <constraint firstItem="Acd-fm-6UR" firstAttribute="leading" secondItem="7UZ-gD-m5b" secondAttribute="leading" id="sU0-zp-hvm"/>
@@ -862,7 +865,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MxF-PS-b3G">
-                                    <rect key="frame" x="32" y="723" width="329" height="50"/>
+                                    <rect key="frame" x="32" y="733" width="329" height="50"/>
                                     <color key="backgroundColor" name="themePrimary"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="pT1-Yh-rkv"/>

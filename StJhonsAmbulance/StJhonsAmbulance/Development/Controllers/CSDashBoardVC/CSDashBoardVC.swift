@@ -92,10 +92,44 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
             self.navigationController?.popToRootViewController(animated: true)
             ENTALDControllers.shared.showContactInfoScreen(type: .ENTALDPUSH, from: self, callBack: nil)
                         
+        }else if(named == "Qualifications/Certifications"){
+            
+            self.navigationController?.popToRootViewController(animated: true)
+            ENTALDControllers.shared.showSideMenuQualificationScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
+                        
+        }else if(named == "Availability"){
+            
+            self.navigationController?.popToRootViewController(animated: true)
+            ENTALDControllers.shared.showSideMenuAvailabilityScreen(type: .ENTALDPUSH, from: self, callBack: nil)
+            
+        }else if(named == "Skills"){
+            
+            self.navigationController?.popToRootViewController(animated: true)
+            ENTALDControllers.shared.showSideMenuSkillsScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
+                        
+        }else if(named == "Language"){
+            
+            self.navigationController?.popToRootViewController(animated: true)
+            ENTALDControllers.shared.showLanguageScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
+                        
+        }else if(named == "Settings"){
+            
+            self.navigationController?.popToRootViewController(animated: true)
+            ENTALDControllers.shared.showSettingScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
+                        
+        }else if(named == "Change Password"){
+            
+            self.navigationController?.popToRootViewController(animated: true)
+            ENTALDControllers.shared.showChangePasswordScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
+                        
+        }else if(named == "Documents"){
+            
+            ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
+            
         }else if(named == "Logout"){
             
             UserDefaults.standard.signOut()
-
+            
         }else{
             
             dismiss(animated: true)

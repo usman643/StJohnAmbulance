@@ -29,8 +29,8 @@ enum EventRouter : Router {
         case .getPendingPublishEvents : return "msnfp_engagementopportunities"
         case .getLatestUpcomingEvents : return "msnfp_engagementopportunities"
         case .getAllProgram : return "sjavms_programs"
-        case .cancelEvent : return "sjavms_programs"
-        case .getContactInfo : return "sjavms_programs"
+        case .cancelEvent : return "msnfp_engagementopportunities"
+        case .getContactInfo : return "msnfp_engagementopportunities"
             
         case .simulate401: return "simulate-401"
         }

@@ -46,22 +46,22 @@ class VolunteerEventsVC: ENTALDBaseViewController {
         
         for lbltext in allLabels{
             lbltext.font = UIFont.BoldFont(12)
-            lbltext.textColor = UIColor.themePrimaryColor
+            lbltext.textColor = UIColor.themePrimaryWhite
         }
         for lbltext in allHeadingLabels{
             lbltext.font = UIFont.BoldFont(18)
-            lbltext.textColor = UIColor.themePrimaryColor
+            lbltext.textColor = UIColor.themePrimaryWhite
         }
         
-        availableHeaderView.layer.borderColor = UIColor.themePrimaryColor.cgColor
+        availableHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         availableHeaderView.layer.borderWidth = 1
         
-        scheduleHeaderView.layer.borderColor = UIColor.themePrimaryColor.cgColor
+        scheduleHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         scheduleHeaderView.layer.borderWidth = 1
         
-        pastHeaderView.layer.borderColor = UIColor.themePrimaryColor.cgColor
+        pastHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         pastHeaderView.layer.borderWidth = 1
-        lblTabTitle.textColor = UIColor.themePrimaryColor
+        lblTabTitle.textColor = UIColor.themePrimaryWhite
         lblTabTitle.font = UIFont.BoldFont(16)
         
         selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)

@@ -27,6 +27,7 @@ struct ContactModel : Codable{
     let address1_city : String?
     let lastname : String?
     let firstname : String?
+    let fullname : String?
     let address1_postalcode : String?
     let telephone1 : String?
     let address1_stateorprovince : String?

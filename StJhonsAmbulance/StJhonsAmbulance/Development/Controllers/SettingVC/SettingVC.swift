@@ -7,23 +7,33 @@
 
 import UIKit
 
-class SettingVC: UIViewController {
+class SettingVC: ENTALDBaseViewController {
 
+    
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblTheme: UILabel!
+    
+    @IBOutlet weak var themeSwitch: UISwitch!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        decorateUI()
     }
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func decorateUI(){
+        lblTitle.textColor = UIColor.themePrimaryWhite
+        lblTitle.font = UIFont.BoldFont(16)
+        lblTheme.textColor = UIColor.themePrimaryWhite
+        lblTheme.font = UIFont.BoldFont(16)
+        
     }
-    */
+
+    @IBAction func backTapped(_ sender: Any) {
+        
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 
 }

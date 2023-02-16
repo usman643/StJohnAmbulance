@@ -99,7 +99,6 @@ class LoginVC: ENTALDBaseViewController {
     
     @IBAction func registerTapped(_ sender: Any) {
         
-        ENTALDControllers.shared.showContactInfoScreen(type: .ENTALDPUSH, from: self, callBack: nil)
     }
     
     @IBAction func forgotTapped(_ sender: Any) {

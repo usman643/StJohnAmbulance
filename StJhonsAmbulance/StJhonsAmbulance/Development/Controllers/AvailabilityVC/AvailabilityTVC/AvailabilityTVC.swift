@@ -39,13 +39,25 @@ class AvailabilityTVC: UITableViewCell {
         
     }
     
-//    func setContent(cellModel: rowModel){
-//        
-//        lblTitle.text = cellModel.
-//        lblEffectiveFrom.text = cellModel.
-//        lblEffectiveto.text = cellModel.
+    func setContent(cellModel: AvailablityHourModel?){
+        
+        lblTitle.text = cellModel?.msnfp_availabilitytitle
+        
+        if let date = cellModel?.msnfp_effectivefrom {
+            let start = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            lblEffectiveFrom.text = start
+        }else{
+            lblEffectiveFrom.text = ""
+        }
+        
+        if let date = cellModel?.msnfp_effectiveto {
+            let start = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            lblEffectiveto.text = start
+        }else{
+            lblEffectiveto.text = ""
+        }
 //        lblWorkingDays.text = cellModel.
-//        
-//    }
+       
+    }
     
 }

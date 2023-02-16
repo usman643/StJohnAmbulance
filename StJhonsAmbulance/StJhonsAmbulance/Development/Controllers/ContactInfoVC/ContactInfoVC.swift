@@ -165,18 +165,18 @@ class ContactInfoVC: ENTALDBaseViewController {
     func setupData(){
         
     profileImg.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: UserDefaults.standard.userInfo?.entityimage ?? "")
-        txtFirstName.text = UserDefaults.standard.userInfo?.firstname
-        txtLastName.text = UserDefaults.standard.userInfo?.lastname
-        txtBirthday.text = UserDefaults.standard.userInfo?.birthdate
-        txtEmail.text = UserDefaults.standard.userInfo?.emailaddress1
-        txtPrimaryPhone.text = UserDefaults.standard.userInfo?.address1_telephone1
-        txtStreetOne.text = UserDefaults.standard.userInfo?.address1_line1
-        txtStreetTwo.text = UserDefaults.standard.userInfo?.address1_line2
-        txtStreetThree.text = UserDefaults.standard.userInfo?.address1_line3
-        txtCity.text = UserDefaults.standard.userInfo?.address1_city
-//        txtProvince.text = UserDefaults.standard.userInfo?.
-        txtPostalCode.text = UserDefaults.standard.userInfo?.address1_postalcode
-        txtEmergencyContactName.text = UserDefaults.standard.userInfo?.sjavms_emergencycontactname
+        txtFirstName.text = UserDefaults.standard.userInfo?.firstname ?? ""
+        txtLastName.text = UserDefaults.standard.userInfo?.lastname ?? ""
+        txtBirthday.text = UserDefaults.standard.userInfo?.birthdate ?? ""
+        txtEmail.text = UserDefaults.standard.userInfo?.emailaddress1 ?? ""
+        txtPrimaryPhone.text = UserDefaults.standard.userInfo?.address1_telephone1 ?? ""
+        txtStreetOne.text = UserDefaults.standard.userInfo?.address1_line1 ?? ""
+        txtStreetTwo.text = UserDefaults.standard.userInfo?.address1_line2 ?? ""
+        txtStreetThree.text = UserDefaults.standard.userInfo?.address1_line3 ?? ""
+        txtCity.text = UserDefaults.standard.userInfo?.address1_city ?? ""
+        txtProvince.text = UserDefaults.standard.userInfo?.address1_stateorprovince ?? ""
+        txtPostalCode.text = UserDefaults.standard.userInfo?.address1_postalcode ?? ""
+        txtEmergencyContactName.text = UserDefaults.standard.userInfo?.sjavms_emergencycontactname ?? ""
 //        txtEmergencyContactPhone.text = UserDefaults.standard.userInfo?.
 //        btnPrefferenNoun.setTitle(UserDefaults.standard.userInfo?., for: .normal)
 //        btnGender.setTitle(UserDefaults.standard.userInfo?., for: .normal)
@@ -188,23 +188,29 @@ class ContactInfoVC: ENTALDBaseViewController {
     
     
     @IBAction func selectGenderTapped(_ sender: Any) {
-        
+        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
     }
     
     @IBAction func selectPronounTapped(_ sender: Any) {
-        
+        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
     }
     
     @IBAction func optNotificationTapped(_ sender: Any) {
-        
+        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
     }
     
     @IBAction func preferredMethodTapped(_ sender: Any) {
-        
+        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
     }
     
+    @IBAction func backTapped(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    
     @IBAction func submitTapped(_ sender: Any) {
-        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "Wait", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
+        
+        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
     }
     
     

@@ -50,19 +50,37 @@ class VolunteerHourAvailabilityTVC: UITableViewCell {
         
     }
     
-//    func setContent(cellModel: rowModel){
+    func setContent(cellModel: SideMenuHoursModel?){
 //        
-//        lblEvent.text = cellModel.
+        lblEvent.text = cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
 //        lblProgram.text = cellModel.
 //        lblSchedule.text = cellModel.
-//        lblStart.text = cellModel.
-//        lblEnd.text = cellModel.
-//        lblHours.text = cellModel.
-//        lblStatus.text = cellModel.
+        if let date = cellModel?.sjavms_start {
+            let start = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            lblStart.text = start
+        }else{
+            lblStart.text = ""
+        }
+        
+        if let date = cellModel?.sjavms_end {
+            let end = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            lblEnd.text = end
+        }else{
+            lblEnd.text = ""
+        }
+        
+        lblHours.text = cellModel?.sjavms_hours?.getFormattedNumber()
+        
+        if let status = cellModel?.msnfp_schedulestatus {
+            lblStatus.text = ProcessUtils.shared.getStatus(code: status)
+        }else{
+            lblStatus.text = ""
+        }
+        
 //        
 //        
 //        
-//    }
+    }
     
     
 }

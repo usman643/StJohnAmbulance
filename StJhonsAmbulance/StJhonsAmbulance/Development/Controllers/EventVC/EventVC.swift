@@ -89,22 +89,22 @@ class EventVC: ENTALDBaseViewController {
         btnSelectGroup.layer.cornerRadius = 3
         btnCreateEvent.layer.cornerRadius = 3
         lblTitle.font = UIFont.BoldFont(20)
-        lblTitle.textColor = UIColor.themePrimaryColor
+        lblTitle.textColor = UIColor.themePrimaryWhite
         
-        currentHeaderView.layer.borderColor = UIColor.themePrimaryColor.cgColor
-        upcomingHeaderView.layer.borderColor = UIColor.themePrimaryColor.cgColor
-        pastHeaderView.layer.borderColor = UIColor.themePrimaryColor.cgColor
+        currentHeaderView.layer.borderColor = UIColor.themePrimary.cgColor
+        upcomingHeaderView.layer.borderColor = UIColor.themePrimary.cgColor
+        pastHeaderView.layer.borderColor = UIColor.themePrimary.cgColor
         
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
         currentHeaderView.layer.borderWidth = 1.5
         upcomingHeaderView.layer.borderWidth = 1.5
         pastHeaderView.layer.borderWidth = 1.5
         lblUpcoming.font = UIFont.BoldFont(16)
-        lblUpcoming.textColor = UIColor.themePrimaryColor
+        lblUpcoming.textColor = UIColor.themePrimaryWhite
         lblCurrent.font = UIFont.BoldFont(16)
-        lblCurrent.textColor = UIColor.themePrimaryColor
+        lblCurrent.textColor = UIColor.themePrimaryWhite
         lblPast.font = UIFont.BoldFont(16)
-        lblPast.textColor = UIColor.themePrimaryColor
+        lblPast.textColor = UIColor.themePrimaryWhite
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
         btnCreateEvent.titleLabel?.font = UIFont.BoldFont(12)
         btnSelectGroup.backgroundColor = UIColor.themePrimary
@@ -125,19 +125,19 @@ class EventVC: ENTALDBaseViewController {
         lblPastLocation.font = UIFont.BoldFont(12)
         lblPastDate.font = UIFont.BoldFont(12)
         
-        lblCurrentEvent.textColor = UIColor.themePrimaryColor
-        lblCurrentLocation.textColor = UIColor.themePrimaryColor
-        lblCurrentStart.textColor = UIColor.themePrimaryColor
-        lblCurrentEnd.textColor = UIColor.themePrimaryColor
-        lblCurrentNeeded.textColor = UIColor.themePrimaryColor
-        lblUpcomingEvent.textColor = UIColor.themePrimaryColor
-        lblUpcomingLocation.textColor = UIColor.themePrimaryColor
-        lblUpcomingStart.textColor = UIColor.themePrimaryColor
-        lblUpcomingEnd.textColor = UIColor.themePrimaryColor
-        lblUpcomingNeeded.textColor = UIColor.themePrimaryColor
-        lblPastEvent.textColor = UIColor.themePrimaryColor
-        lblPastLocation.textColor = UIColor.themePrimaryColor
-        lblPastDate.textColor = UIColor.themePrimaryColor
+        lblCurrentEvent.textColor = UIColor.themePrimaryWhite
+        lblCurrentLocation.textColor = UIColor.themePrimaryWhite
+        lblCurrentStart.textColor = UIColor.themePrimaryWhite
+        lblCurrentEnd.textColor = UIColor.themePrimaryWhite
+        lblCurrentNeeded.textColor = UIColor.themePrimaryWhite
+        lblUpcomingEvent.textColor = UIColor.themePrimaryWhite
+        lblUpcomingLocation.textColor = UIColor.themePrimaryWhite
+        lblUpcomingStart.textColor = UIColor.themePrimaryWhite
+        lblUpcomingEnd.textColor = UIColor.themePrimaryWhite
+        lblUpcomingNeeded.textColor = UIColor.themePrimaryWhite
+        lblPastEvent.textColor = UIColor.themePrimaryWhite
+        lblPastLocation.textColor = UIColor.themePrimaryWhite
+        lblPastDate.textColor = UIColor.themePrimaryWhite
         
         currentTableView.clipsToBounds = false
         currentTableView.layer.masksToBounds = false
@@ -160,11 +160,11 @@ class EventVC: ENTALDBaseViewController {
         pastTableView.layer.shadowRadius = 0
         pastTableView.layer.shadowOpacity = 0.5
         
-        lblTabTitle.textColor = UIColor.themePrimaryColor
+        lblTabTitle.textColor = UIColor.themePrimaryWhite
         lblTabTitle.font = UIFont.BoldFont(16)
         
         selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
-        selectedTabImg.tintColor = UIColor.themePrimaryColor
+        selectedTabImg.tintColor = UIColor.themePrimaryWhite
     }
     
     @IBAction func btnBackAction(_ sender: Any) {
@@ -230,6 +230,11 @@ class EventVC: ENTALDBaseViewController {
         self.navigationController?.popViewController(animated: false)
     }
  
+    @IBAction func createEventTapped(_ sender: Any) {
+        
+        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK) { status in
+        }
+    }
     
     func showEmptyView(tableVw : UITableView){
         DispatchQueue.main.async {
@@ -476,7 +481,7 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
             let cell = tableView.dequeueReusableCell(withIdentifier: "EventTVC", for: indexPath) as! EventTVC
             if indexPath.row % 2 == 0{
                 cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-                cell.seperaterView.backgroundColor = UIColor.themePrimaryColor
+                cell.seperaterView.backgroundColor = UIColor.themePrimary
             }else{
                 cell.mainView.backgroundColor = UIColor.viewLightColor
                 cell.seperaterView.backgroundColor = UIColor.gray

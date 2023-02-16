@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SkillsVC: UIViewController {
+class SkillsVC: ENTALDBaseViewController {
     
     var isWorkingVolunteerPeople = false
     var isPatientCare = false
@@ -112,7 +112,7 @@ class SkillsVC: UIViewController {
         btnSubmit.themeColorButton()
         btnSubmit.backgroundColor = UIColor.lightGray
         btnSubmit.titleLabel?.font = UIFont.BoldFont(16.0)
-        self.btnSubmit.isEnabled = false
+//        self.btnSubmit.isEnabled = false
         
         
     }
@@ -121,7 +121,7 @@ class SkillsVC: UIViewController {
     
     
     @IBAction func submitSelected(_ sender: Any) {
-        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "Wait", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
+        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
     }
     
     @IBAction func backTapped(_ sender: Any) {
@@ -191,14 +191,14 @@ class SkillsVC: UIViewController {
     }
     
     @IBAction func ComputerServiceSelected(_ sender: Any) {
-        if (isComputer){
-            btnComputer.setImage(UIImage(named: ""), for: .normal)
-            btnComputer.backgroundColor = UIColor.viewLightGrayColor
-            isComputer = false
+        if (isCustomerServices){
+            btnCustomerServices.setImage(UIImage(named: ""), for: .normal)
+            btnCustomerServices.backgroundColor = UIColor.viewLightGrayColor
+            isCustomerServices = false
         }else{
-            btnComputer.setImage(UIImage(named: "ic_check"), for: .normal)
-            btnComputer.backgroundColor = UIColor.clear
-            isComputer = true
+            btnCustomerServices.setImage(UIImage(named: "ic_check"), for: .normal)
+            btnCustomerServices.backgroundColor = UIColor.clear
+            isCustomerServices = true
         }
     }
     
@@ -227,14 +227,14 @@ class SkillsVC: UIViewController {
     }
     
     @IBAction func voulnteerLeadershipSelected(_ sender: Any) {
-        if (isWorkingVolunteerPeople){
-            btnWorkingVolunteerPeople.setImage(UIImage(named: ""), for: .normal)
-            btnWorkingVolunteerPeople.backgroundColor = UIColor.viewLightGrayColor
-            isWorkingVolunteerPeople = false
+        if (isVoulnteerLeadership){
+            btnVoulnteerLeadership.setImage(UIImage(named: ""), for: .normal)
+            btnVoulnteerLeadership.backgroundColor = UIColor.viewLightGrayColor
+            isVoulnteerLeadership = false
         }else{
-            btnWorkingVolunteerPeople.setImage(UIImage(named: "ic_check"), for: .normal)
-            btnWorkingVolunteerPeople.backgroundColor = UIColor.clear
-            isWorkingVolunteerPeople = true
+            btnVoulnteerLeadership.setImage(UIImage(named: "ic_check"), for: .normal)
+            btnVoulnteerLeadership.backgroundColor = UIColor.clear
+            isVoulnteerLeadership = true
         }
     }
     

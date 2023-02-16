@@ -235,6 +235,48 @@ class ENTALDControllers {
         self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
     }
     
+    func showSideMenuAvailabilityScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = AvailabilityVC.loadFromNib()
+        vc.callbackToController = callBack
+        
+        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+    
+    func showSideMenuQualificationScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = QualificationCertificationVC.loadFromNib()
+        vc.callbackToController = callBack
+        
+        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+    
+    func showSideMenuSkillsScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = SkillsVC.loadFromNib()
+        vc.callbackToController = callBack
+        
+        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+    
+    func showLanguageScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = LanguageVC.loadFromNib()
+        vc.callbackToController = callBack
+        
+        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+    
+    func showChangePasswordScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = ChangePasswordVC.loadFromNib()
+        vc.callbackToController = callBack
+        
+        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+    
+    func showSettingScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = SettingVC.loadFromNib()
+        vc.callbackToController = callBack
+        
+        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+    
     
     
     

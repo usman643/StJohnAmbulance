@@ -57,17 +57,17 @@ class VolunteerHoursVC: ENTALDBaseViewController {
 
     func decorateUI(){
         headerView.layer.borderWidth = 1
-        headerView.layer.borderColor = UIColor.themePrimaryColor.cgColor
+        headerView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         
         eventHeaderView.layer.borderWidth = 1
-        eventHeaderView.layer.borderColor = UIColor.themePrimaryColor.cgColor
+        eventHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         nonEventHeaderView.layer.borderWidth = 1
-        nonEventHeaderView.layer.borderColor = UIColor.themePrimaryColor.cgColor
+        nonEventHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         
         
         for lbltext in allTableHeadingLabel{
             lbltext.font = UIFont.BoldFont(12)
-            lbltext.textColor = UIColor.themePrimaryColor
+            lbltext.textColor = UIColor.themePrimaryWhite
         }
         
         for lbltext in allHeadingLabel{
@@ -76,11 +76,11 @@ class VolunteerHoursVC: ENTALDBaseViewController {
         }
         
         lblEventHeading.font = UIFont.BoldFont(18)
-        lblEventHeading.textColor = UIColor.themePrimaryColor
+        lblEventHeading.textColor = UIColor.themePrimaryWhite
         lblNonEventHeading.font = UIFont.BoldFont(18)
-        lblNonEventHeading.textColor = UIColor.themePrimaryColor
+        lblNonEventHeading.textColor = UIColor.themePrimaryWhite
         
-        lblTabTitle.textColor = UIColor.themePrimaryColor
+        lblTabTitle.textColor = UIColor.themePrimaryWhite
         lblTabTitle.font = UIFont.BoldFont(16)
         
         selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)

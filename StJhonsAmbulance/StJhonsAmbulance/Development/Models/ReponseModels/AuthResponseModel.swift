@@ -47,6 +47,7 @@ struct UserIdentityModel : Codable {
     let firstname:String?
     let lastname:String?
     let address1_city:String?
+    let address1_stateorprovince:String?
     let address1_postalcode: String?
     let fullname:String?
     let emailaddress1:String?

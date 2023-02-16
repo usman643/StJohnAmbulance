@@ -17,6 +17,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
     var unpublishEventData : UnpublishedEventsModel?
     
     var dataVol : [String:Any] = [:]
+    var filteredData : [String:Any] = [:]
     var programsData : [ProgramModel]?
     var eventProgramData : ProgramModel?
     var contactInfo : [ContactDataModel]?
@@ -172,7 +173,8 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
     }
     
     @IBAction func contactTapped(_ sender: Any) {
-        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "Alter", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
+        self.getContact()
+        
     }
     
     @IBAction func closeTapped(_ sender: Any) {
@@ -180,7 +182,8 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
     }
     
     @IBAction func searchCloseTapped(_ sender: Any) {
-        
+        txtSearch.text = ""
+        txtSearch.endEditing(true)
     }
     
     @IBAction func addVolunteer(_ sender: Any) {
@@ -288,52 +291,66 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
 
     //====================== Orgnizer Contact API ==========================
     
-//    func getContact(){
-//
-//        let eventId = self.eventData?.msnfp_engagementopportunityid ?? ""
-//
-//        let params : [String:Any] = [
-//
-//            ParameterKeys.select : "msnfp_engagementopportunitytitle",
-//
-//            ParameterKeys.expand : "sjavms_Contact($select=emailaddress1,address1_country,address1_line1,address1_line3,address1_city,lastname,firstname,address1_postalcode,telephone1,address1_stateorprovince,address1_line2)",
-//            ParameterKeys.filter : "(msnfp_engagementopportunityid eq \(eventId)) and (sjavms_Contact/contactid ne null)",
-//            //            ParameterKeys.orderby : "_sjavms_volunteer_value asc,_sjavms_volunteerevent_value asc"
-//        ]
-//
-//        self.getContactData(params: params)
-//
-//    }
-//
-//    fileprivate func getContactData(params : [String:Any]){
-//        DispatchQueue.main.async {
-//            LoadingView.show()
-//        }
-//
-//        ENTALDLibraryAPI.shared.requestContactInfo(params: params){ result in
-//            DispatchQueue.main.async {
-//                LoadingView.hide()
-//            }
-//
-//            switch result{
-//            case .success(value: let response):
-//
-//                if let contactData = response.value {
-//                    self.contactInfo = contactData
-//                }
-//
-//            case .error(let error, let errorResponse):
-//                var message = error.message
-//                if let err = errorResponse {
-//                    message = err.error
-//                }
-//
-//                DispatchQueue.main.async {
-//                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
-//                }
-//            }
-//        }
-//    }
+    func getContact(){
+
+        let eventId = self.eventData?.msnfp_engagementopportunityid ?? ""
+
+        let params : [String:Any] = [
+
+            ParameterKeys.select : "msnfp_engagementopportunitytitle",
+            ParameterKeys.expand : "sjavms_Contact($select=emailaddress1,address1_country,address1_line1,address1_line3,address1_city,lastname,firstname,fullname,address1_postalcode,telephone1,address1_stateorprovince,address1_line2)",
+            ParameterKeys.filter : "(msnfp_engagementopportunityid eq \(eventId)) and (sjavms_Contact/contactid ne null)"
+            //            ParameterKeys.orderby : "_sjavms_volunteer_value asc,_sjavms_volunteerevent_value asc"
+            
+        ]
+
+        self.getContactData(params: params)
+
+    }
+
+    fileprivate func getContactData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+
+        ENTALDLibraryAPI.shared.requestContactInfo(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+
+            switch result{
+            case .success(value: let response):
+
+                if let contactData = response.value {
+                    self.contactInfo = contactData
+                    var messageStr = ""
+                    if let str = self.contactInfo?[0].sjavms_Contact?.fullname{
+                        messageStr += "Name: \(str)\n"
+                    }
+                    if let str = self.contactInfo?[0].sjavms_Contact?.telephone1{
+                        messageStr += "Phone: \(str)\n"
+                    }
+                    if let str = self.contactInfo?[0].sjavms_Contact?.emailaddress1{
+                        messageStr += "Email: \(str)\n"
+                    }
+                    
+                    DispatchQueue.main.async {
+                        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Organizer Contact Infomation", message: messageStr, actionTitle: .KOK, completion: {status in })
+                    }
+                }
+
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
     
     
     func showEmptyView(tableVw : UITableView){

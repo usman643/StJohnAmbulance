@@ -48,9 +48,9 @@ class EventDetailVC: ENTALDBaseViewController {
         lblLocation.font = UIFont.BoldFont(16)
         lblDetail.font = UIFont.BoldFont(16)
         
-        lblEventName.textColor = UIColor.themePrimaryColor
-        lblLocation.textColor = UIColor.themePrimaryColor
-        lblDetail.textColor = UIColor.themePrimaryColor
+        lblEventName.textColor = UIColor.themePrimaryWhite
+        lblLocation.textColor = UIColor.themePrimaryWhite
+        lblDetail.textColor = UIColor.themePrimaryWhite
         
         lblDate.font = UIFont.RegularFont(14)
         lblShift.font = UIFont.RegularFont(14)
@@ -63,19 +63,19 @@ class EventDetailVC: ENTALDBaseViewController {
         lblLocationDesc.textColor = UIColor.textGrayColor
         
         btnContact.titleLabel?.font = UIFont.BoldFont(14)
-        btnContact.setTitleColor(UIColor.textWhiteColor, for: .normal)
+        btnContact.setTitleColor(UIColor.themeWhiteText, for: .normal)
         btnContact.layer.cornerRadius = 2
-        btnContact.backgroundColor = UIColor.themePrimaryColor
+        btnContact.backgroundColor = UIColor.themePrimaryWhite
         
         btnCheckIn.titleLabel?.font = UIFont.BoldFont(14)
-        btnCheckIn.setTitleColor(UIColor.textWhiteColor, for: .normal)
+        btnCheckIn.setTitleColor(UIColor.themeWhiteText, for: .normal)
         btnCheckIn.layer.cornerRadius = 2
-        btnCheckIn.backgroundColor = UIColor.themePrimaryColor
+        btnCheckIn.backgroundColor = UIColor.themePrimaryWhite
         
         btnCancel.titleLabel?.font = UIFont.BoldFont(14)
-        btnCancel.setTitleColor(UIColor.textWhiteColor, for: .normal)
+        btnCancel.setTitleColor(UIColor.themeWhiteText, for: .normal)
         btnCancel.layer.cornerRadius = 2
-        btnCancel.backgroundColor = UIColor.themePrimaryColor
+        btnCancel.backgroundColor = UIColor.themePrimaryWhite
         
         checkInBtnImg.image = checkInBtnImg.image?.withRenderingMode(.alwaysTemplate)
         checkInBtnImg.tintColor = UIColor.white
@@ -153,7 +153,7 @@ class EventDetailVC: ENTALDBaseViewController {
     
     
     @IBAction func checkInTapped(_ sender: Any) {
-            ENTALDAlertView.shared.showAPIAlertWithTitle(title: "Alter", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
+            ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alter", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
     }
     
     
@@ -161,4 +161,7 @@ class EventDetailVC: ENTALDBaseViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func contactTapped(_ sender: Any) {
+        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alter", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
+    }
 }

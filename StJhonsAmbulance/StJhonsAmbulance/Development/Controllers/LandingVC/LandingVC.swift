@@ -38,10 +38,10 @@ class LandingVC: ENTALDBaseViewController {
         MainVw.layer.cornerRadius = 40
         MainVw.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
 
-        btn1.layer.cornerRadius = 3
+        btn1.layer.cornerRadius = 4
         btn1.backgroundColor = UIColor.themeSecondry
         btn1.setTitleColor(UIColor.white, for: .normal)
-        btn2.layer.cornerRadius = 3
+        btn2.layer.cornerRadius = 4
         btn2.backgroundColor = UIColor.themeSecondry
         btn2.setTitleColor(UIColor.white, for: .normal)
         

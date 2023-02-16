@@ -69,18 +69,18 @@ class PendingShiftVC: ENTALDBaseViewController {
         btnSelectGroup.backgroundColor = UIColor.themePrimary
         
         btnSelectGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        lblTitle.textColor = UIColor.themePrimaryColor
-        lblSubTitle.textColor = UIColor.themePrimaryColor
-        lblName.textColor = UIColor.themePrimaryColor
-        lblName.textColor = UIColor.themePrimaryColor
-        lblEvent.textColor = UIColor.themePrimaryColor
-        lblDate.textColor = UIColor.themePrimaryColor
-        lblHours.textColor = UIColor.themePrimaryColor
-        lblShift.textColor = UIColor.themePrimaryColor
-        lblAction.textColor = UIColor.themePrimaryColor
-        lblTabTitle.textColor = UIColor.themePrimaryColor
+        lblTitle.textColor = UIColor.themePrimaryWhite
+        lblSubTitle.textColor = UIColor.themePrimaryWhite
+        lblName.textColor = UIColor.themePrimaryWhite
+        lblName.textColor = UIColor.themePrimaryWhite
+        lblEvent.textColor = UIColor.themePrimaryWhite
+        lblDate.textColor = UIColor.themePrimaryWhite
+        lblHours.textColor = UIColor.themePrimaryWhite
+        lblShift.textColor = UIColor.themePrimaryWhite
+        lblAction.textColor = UIColor.themePrimaryWhite
+        lblTabTitle.textColor = UIColor.themePrimaryWhite
         
-        tableHeaderView.layer.borderColor = UIColor.themePrimaryColor.cgColor
+        tableHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         tableHeaderView.layer.borderWidth = 1.5
         
         btnGroupView.layer.cornerRadius = 3

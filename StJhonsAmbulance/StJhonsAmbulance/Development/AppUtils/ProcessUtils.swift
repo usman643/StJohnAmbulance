@@ -60,6 +60,28 @@ class ProcessUtils {
         }
     }
     
+    func getDay(code:Int)->String?{
+        
+        switch code {
+        case 844060000:
+            return "Monday"
+        case 844060001:
+            return "Tuesday"
+        case 844060002:
+            return "Wednesday"
+        case 844060003:
+            return "Thursday"
+        case 844060004:
+            return "Friday"
+        case 844060005:
+            return "Saturday"
+        case 844060006:
+            return "Sunday"
+        default:
+            return ""
+        }
+    }
+    
     func getRoleType(code:Int)->String?{
         
         switch code {

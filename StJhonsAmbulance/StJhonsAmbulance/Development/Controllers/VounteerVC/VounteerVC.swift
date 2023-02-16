@@ -52,19 +52,19 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
     func decorateUI(){
         
         lblTitle.font = UIFont.BoldFont(20)
-        lblTitle.textColor = UIColor.themePrimaryColor
+        lblTitle.textColor = UIColor.themePrimaryWhite
         lblName.font = UIFont.BoldFont(12)
         lblRole.font = UIFont.BoldFont(12)
         lblCity.font = UIFont.BoldFont(12)
         lblState.font = UIFont.BoldFont(12)
         lblTabTitle.font = UIFont.BoldFont(16)
-        lblName.textColor = UIColor.themePrimaryColor
-        lblRole.textColor = UIColor.themePrimaryColor
-        lblCity.textColor = UIColor.themePrimaryColor
-        lblState.textColor = UIColor.themePrimaryColor
-        lblTabTitle.textColor = UIColor.themePrimaryColor
-        stackView.layer.borderColor = UIColor.themePrimaryColor.cgColor
-        searchView.layer.borderColor = UIColor.themePrimaryColor.cgColor
+        lblName.textColor = UIColor.themePrimaryWhite
+        lblRole.textColor = UIColor.themePrimaryWhite
+        lblCity.textColor = UIColor.themePrimaryWhite
+        lblState.textColor = UIColor.themePrimaryWhite
+        lblTabTitle.textColor = UIColor.themePrimaryWhite
+        stackView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         stackView.layer.borderWidth = 1.5
         searchView.layer.borderWidth = 1.5
         btnSearchClose.isHidden = true

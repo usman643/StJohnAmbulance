@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="q6Z-iz-NPE" customClass="ExternalQualificationTVC" customModule="StJhonsAmbulance" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="q6Z-iz-NPE" id="gUe-TQ-DL1">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D18-O9-2kd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="xmg-DL-CwQ">
+                        <rect key="frame" x="5" y="0.0" width="315" height="30"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Certification ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pyY-DI-1gQ">
+                                <rect key="frame" x="0.0" y="0.0" width="51" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Qualification" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2gx-9a-YC2">
+                                <rect key="frame" x="53" y="0.0" width="50.666666666666657" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iXo-BJ-FRd">
+                                <rect key="frame" x="105.66666666666669" y="0.0" width="51" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Issued" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D6z-6b-Sqt">
+                                <rect key="frame" x="158.66666666666666" y="0.0" width="50.666666666666657" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expires" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9T9-TA-GqG">
+                                <rect key="frame" x="211.33333333333334" y="0.0" width="51.000000000000028" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Action" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M9Z-KV-KGB">
+                                <rect key="frame" x="264.33333333333331" y="0.0" width="50.666666666666686" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="bVh-OI-1zz"/>
+                        </constraints>
+                    </stackView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tsu-Zr-2Ug">
+                        <rect key="frame" x="0.0" y="30" width="320" height="1"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="ZIw-Rw-DYE"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="tsu-Zr-2Ug" firstAttribute="top" secondItem="xmg-DL-CwQ" secondAttribute="bottom" id="1UL-dp-HdS"/>
+                    <constraint firstItem="xmg-DL-CwQ" firstAttribute="leading" secondItem="gUe-TQ-DL1" secondAttribute="leading" constant="5" id="Jqj-6c-wXp"/>
+                    <constraint firstItem="D18-O9-2kd" firstAttribute="top" secondItem="gUe-TQ-DL1" secondAttribute="top" id="NeE-ka-9u5"/>
+                    <constraint firstAttribute="trailing" secondItem="tsu-Zr-2Ug" secondAttribute="trailing" id="SqU-nm-Sls"/>
+                    <constraint firstItem="D18-O9-2kd" firstAttribute="leading" secondItem="gUe-TQ-DL1" secondAttribute="leading" id="StL-GV-wT9"/>
+                    <constraint firstItem="tsu-Zr-2Ug" firstAttribute="leading" secondItem="gUe-TQ-DL1" secondAttribute="leading" id="bJ8-RS-8Ml"/>
+                    <constraint firstAttribute="trailing" secondItem="xmg-DL-CwQ" secondAttribute="trailing" id="dTX-Lb-uXB"/>
+                    <constraint firstAttribute="bottom" secondItem="tsu-Zr-2Ug" secondAttribute="bottom" id="f9V-9I-TNA"/>
+                    <constraint firstItem="xmg-DL-CwQ" firstAttribute="top" secondItem="gUe-TQ-DL1" secondAttribute="top" id="pIH-Za-WlU"/>
+                    <constraint firstAttribute="trailing" secondItem="D18-O9-2kd" secondAttribute="trailing" id="prw-Ut-GO1"/>
+                    <constraint firstItem="tsu-Zr-2Ug" firstAttribute="top" secondItem="D18-O9-2kd" secondAttribute="bottom" id="vXf-Cp-Bzc"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="4zy-No-t9g"/>
+            <connections>
+                <outlet property="lblAction" destination="M9Z-KV-KGB" id="o9p-0P-0xh"/>
+                <outlet property="lblCertificateId" destination="pyY-DI-1gQ" id="WiX-2F-MBs"/>
+                <outlet property="lblExpire" destination="9T9-TA-GqG" id="fXd-Yu-Zqk"/>
+                <outlet property="lblIssue" destination="D6z-6b-Sqt" id="sFe-GQ-0lS"/>
+                <outlet property="lblQualification" destination="2gx-9a-YC2" id="7CI-Aa-wIz"/>
+                <outlet property="lblType" destination="iXo-BJ-FRd" id="wFm-wp-H50"/>
+                <outlet property="seperaterView" destination="tsu-Zr-2Ug" id="3ru-Qh-QZP"/>
+            </connections>
+            <point key="canvasLocation" x="201.52671755725191" y="13.380281690140846"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

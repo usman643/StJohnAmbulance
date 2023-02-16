@@ -155,6 +155,9 @@
                     <state key="normal" title="Create Event">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                    <connections>
+                        <action selector="createEventTapped:" destination="-1" eventType="touchUpInside" id="HOn-0o-ne2"/>
+                    </connections>
                 </button>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="ZpD-gJ-hlg">
                     <rect key="frame" x="10" y="200" width="373" height="568"/>

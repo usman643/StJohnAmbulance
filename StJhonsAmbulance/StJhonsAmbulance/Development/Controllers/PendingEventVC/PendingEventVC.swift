@@ -74,18 +74,18 @@ class PendingEventVC: ENTALDBaseViewController {
 
     func decorateUI(){
         selectGroupView.layer.cornerRadius = 3
-        btnSelectGroup.backgroundColor = UIColor.themePrimary
+        btnSelectGroup.backgroundColor = UIColor.themePrimaryWhite
  
-        pendingHeaderView.layer.borderColor = UIColor.themePrimaryColor.cgColor
-        approvalHeaderView.layer.borderColor = UIColor.themePrimaryColor.cgColor
+        pendingHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+        approvalHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
      
         pendingHeaderView.layer.borderWidth = 1.5
         approvalHeaderView.layer.borderWidth = 1.5
       
         lblApproval.font = UIFont.BoldFont(20)
-        lblApproval.textColor = UIColor.themePrimaryColor
+        lblApproval.textColor = UIColor.themePrimaryWhite
         lblPending.font = UIFont.BoldFont(20)
-        lblPending.textColor = UIColor.themePrimaryColor
+        lblPending.textColor = UIColor.themePrimaryWhite
         
         lblPendingName.font = UIFont.BoldFont(12)
         lblPendingLocation.font = UIFont.BoldFont(12)
@@ -101,17 +101,17 @@ class PendingEventVC: ENTALDBaseViewController {
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
         
         btnSelectGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        lblPendingName.textColor = UIColor.themePrimaryColor
-        lblPendingLocation.textColor = UIColor.themePrimaryColor
-        lblPendingMax.textColor = UIColor.themePrimaryColor
-        lblPendingDate.textColor = UIColor.themePrimaryColor
-        lblPendingStatus.textColor = UIColor.themePrimaryColor
-        lblApprovalName.textColor = UIColor.themePrimaryColor
-        lblApprovalLocation.textColor = UIColor.themePrimaryColor
-        lblApprovalMax.textColor = UIColor.themePrimaryColor
-        lblApprovalDate.textColor = UIColor.themePrimaryColor
-        lblApprovalStatus.textColor = UIColor.themePrimaryColor
-        lblTabTitle.textColor = UIColor.themePrimaryColor
+        lblPendingName.textColor = UIColor.themePrimaryWhite
+        lblPendingLocation.textColor = UIColor.themePrimaryWhite
+        lblPendingMax.textColor = UIColor.themePrimaryWhite
+        lblPendingDate.textColor = UIColor.themePrimaryWhite
+        lblPendingStatus.textColor = UIColor.themePrimaryWhite
+        lblApprovalName.textColor = UIColor.themePrimaryWhite
+        lblApprovalLocation.textColor = UIColor.themePrimaryWhite
+        lblApprovalMax.textColor = UIColor.themePrimaryWhite
+        lblApprovalDate.textColor = UIColor.themePrimaryWhite
+        lblApprovalStatus.textColor = UIColor.themePrimaryWhite
+        lblTabTitle.textColor = UIColor.themePrimaryWhite
         
         pendingApprovalTableView.clipsToBounds = false
         pendingApprovalTableView.layer.masksToBounds = false

@@ -167,10 +167,37 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
-//    func requestCloseEvent(params:[String:Any],  _ completion:@escaping((ApiResult<ProgramResponseModel, ApiError>) -> Void )){
-//        let router = EventRouter.cancelEvent(params: params)
-//        ENTALDHttpClient.shared.request(router, completion: completion)
-//    }
+    func requestCloseEvent(params:[String:Any],  _ completion:@escaping((ApiResult<ProgramResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.cancelEvent(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestSideMenuAvailablityHour(params:[String:Any],  _ completion:@escaping((ApiResult<AvailablityHourResponseModel, ApiError>) -> Void )){
+        let router = SideMenuRouter.getAvailablityHour(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestAdhocHour(params:[String:Any],  _ completion:@escaping((ApiResult<SideMenuHoursResponseModel, ApiError>) -> Void )){
+        let router = SideMenuRouter.getAdhocHour(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestSideMenuVolunteerHour(params:[String:Any],  _ completion:@escaping((ApiResult<SideMenuHoursResponseModel, ApiError>) -> Void )){
+        let router = SideMenuRouter.getVolunteerHour(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestExternalQualification(params:[String:Any],  _ completion:@escaping((ApiResult<ExternalQualificationResponseModel, ApiError>) -> Void )){
+        let router = SideMenuRouter.getExternalQualification(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestSJAQualification(params:[String:Any],  _ completion:@escaping((ApiResult<SJAQualificationResponseModel, ApiError>) -> Void )){
+        let router = SideMenuRouter.getSJAQualification(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    
     
 }
 

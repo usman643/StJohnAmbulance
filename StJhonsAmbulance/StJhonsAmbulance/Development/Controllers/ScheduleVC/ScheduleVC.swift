@@ -39,7 +39,7 @@ class ScheduleVC: ENTALDBaseViewController {
     }
     
     func decorateUI(){
-        lblTitle.textColor = UIColor.themePrimaryColor
+        lblTitle.textColor = UIColor.themePrimaryWhite
         lblTitle.font = UIFont.BoldFont(24)
         
         btnSignUp.setTitleColor(UIColor.textWhiteColor, for: .normal)
@@ -50,15 +50,15 @@ class ScheduleVC: ENTALDBaseViewController {
         addImg.image = image
         addImg.tintColor = .white
         
-        lblTabTitle.textColor = UIColor.themePrimaryColor
+        lblTabTitle.textColor = UIColor.themePrimaryWhite
         lblTabTitle.font = UIFont.BoldFont(16)
         
         selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
-        selectedTabImg.tintColor = UIColor.themePrimaryColor
+        selectedTabImg.tintColor = UIColor.themePrimaryWhite
     }
     
     @IBAction func signUpTapped(_ sender: Any) {
-        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "Alter", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
+        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
         
     }
     
@@ -130,7 +130,6 @@ extension ScheduleVC : UITableViewDelegate, UITableViewDataSource{
         
         if indexPath.row % 2 == 0{
             cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-//            cell.seperatorView.backgroundColor = UIColor.themePrimaryColor
         }else{
             cell.backgroundColor = UIColor.viewLightColor
 //            cell.seperatorView.backgroundColor = UIColor.gray
