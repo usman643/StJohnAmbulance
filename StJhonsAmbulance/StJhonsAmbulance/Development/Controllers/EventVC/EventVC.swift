@@ -57,23 +57,7 @@ class EventVC: ENTALDBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        currentTableView.delegate = self
-        currentTableView.dataSource = self
-        currentTableView.register(UINib(nibName: "EventTVC", bundle: nil), forCellReuseIdentifier: "EventTVC")
-        currentTableView.register(UINib(nibName: "EmptyEventTableCell", bundle: nil), forCellReuseIdentifier: "EmptyEventTableCell")
-        
-        upcomingTableView.delegate = self
-        upcomingTableView.dataSource = self
-        upcomingTableView.register(UINib(nibName: "EventTVC", bundle: nil), forCellReuseIdentifier: "EventTVC")
-        upcomingTableView.register(UINib(nibName: "EmptyEventTableCell", bundle: nil), forCellReuseIdentifier: "EmptyEventTableCell")
-        
-        pastTableView.delegate = self
-        pastTableView.dataSource = self
-        pastTableView.register(UINib(nibName: "PastEventTVC", bundle: nil), forCellReuseIdentifier: "PastEventTVC")
-        pastTableView.register(UINib(nibName: "EmptyEventTableCell", bundle: nil), forCellReuseIdentifier: "EmptyEventTableCell")
-        
-        
-        
+        registerCells()
         decorateUI()
         getCurrentEvents()
         
@@ -91,9 +75,9 @@ class EventVC: ENTALDBaseViewController {
         lblTitle.font = UIFont.BoldFont(20)
         lblTitle.textColor = UIColor.themePrimaryWhite
         
-        currentHeaderView.layer.borderColor = UIColor.themePrimary.cgColor
-        upcomingHeaderView.layer.borderColor = UIColor.themePrimary.cgColor
-        pastHeaderView.layer.borderColor = UIColor.themePrimary.cgColor
+        currentHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+        upcomingHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+        pastHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
         currentHeaderView.layer.borderWidth = 1.5
@@ -165,6 +149,21 @@ class EventVC: ENTALDBaseViewController {
         
         selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
         selectedTabImg.tintColor = UIColor.themePrimaryWhite
+    }
+    
+    func registerCells(){
+        currentTableView.delegate = self
+        currentTableView.dataSource = self
+        currentTableView.register(UINib(nibName: "EventTVC", bundle: nil), forCellReuseIdentifier: "EventTVC")
+        
+        upcomingTableView.delegate = self
+        upcomingTableView.dataSource = self
+        upcomingTableView.register(UINib(nibName: "EventTVC", bundle: nil), forCellReuseIdentifier: "EventTVC")
+        
+        pastTableView.delegate = self
+        pastTableView.dataSource = self
+        pastTableView.register(UINib(nibName: "PastEventTVC", bundle: nil), forCellReuseIdentifier: "PastEventTVC")
+
     }
     
     @IBAction func btnBackAction(_ sender: Any) {
@@ -491,8 +490,8 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
             
             cell.lblEvent.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
             //            cell.lblLocation.text = rowModel?.msnfp_location ?? ""
-            cell.lblStart.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
-            cell.lblEnd.text =  DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
+            cell.lblStart.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+            cell.lblEnd.text =  DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
             cell.lblNeeded.text = "\(rowModel?.msnfp_minimum ?? 0)"
             
             return cell
@@ -513,8 +512,8 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
             
             cell.lblEvent.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
             //            cell.lblLocation.text = rowModel?.msnfp_location ?? ""
-            cell.lblStart.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
-            cell.lblEnd.text =  DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
+            cell.lblStart.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+            cell.lblEnd.text =  DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
             cell.lblNeeded.text = "\(rowModel?.msnfp_minimum ?? 0)"
             
             return cell
@@ -534,11 +533,11 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
             
             cell.lblEvent.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
             //            cell.lblLocation.text = rowModel?.msnfp_location ?? ""
-            cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
+            cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
             
             return cell
         }
-        let cells = tableView.dequeueReusableCell(withIdentifier: "EmptyEventTableCell", for: indexPath) as! EmptyEventTableCell
+        let cells = tableView.dequeueReusableCell(withIdentifier: "PastEventTVC", for: indexPath) as! PastEventTVC
         return cells
     }
     

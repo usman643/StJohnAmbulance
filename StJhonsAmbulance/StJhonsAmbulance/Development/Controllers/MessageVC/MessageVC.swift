@@ -69,9 +69,9 @@ class MessageVC: ENTALDBaseViewController {
         emailView.backgroundColor = UIColor.themePrimary
         
         lblInbox.font = UIFont.BoldFont(16)
-        lblInbox.textColor = UIColor.themePrimaryColor
+        lblInbox.textColor = UIColor.themePrimaryWhite
         
-        lblTabTitle.textColor = UIColor.themePrimaryColor
+        lblTabTitle.textColor = UIColor.themePrimaryWhite
         lblTabTitle.font = UIFont.BoldFont(16)
         
         selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)

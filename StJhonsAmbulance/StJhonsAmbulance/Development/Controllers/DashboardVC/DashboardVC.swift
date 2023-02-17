@@ -338,9 +338,15 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
     func openNextScreen(controller:String?){
         
         if (controller == "latestEvent"){
-            ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.latestEventData?[0], eventName: "latestEvent") { params, controller in
-                self.openNextScreen(controller:params as? String)
+            
+            if (self.latestEventData?.count != 0 && self.latestEventData?.count != nil){
+                if ((self.latestEventData?[0]) != nil){
+                    ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.latestEventData?[0], eventName: "latestEvent") { params, controller in
+                        self.openNextScreen(controller:params as? String)
+                    }
+                }
             }
+            
         
             
         }else if (controller == "message"){
@@ -499,7 +505,7 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
                 }
         
         guard let contactId = UserDefaults.standard.contactIdToken  else {return}
-        guard let currentDate = DateFormatManager.shared.getCurrentDateWithFormat(format: "yyyy-MM-dd") else {return}
+        guard let currentDate = DateFormatManager.shared.getCurrentDateWithFormat(format: "dd/MM/yyyy") else {return}
         let params : [String:Any] = [
             
             ParameterKeys.select : "msnfp_name,msnfp_participationscheduleid,statuscode,statecode,msnfp_schedulestatus,sjavms_start,sjavms_end",
@@ -530,7 +536,7 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
                         
                         self.lblCamp.text = self.latestEventData?[0].sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
                         if (self.latestEventData?[0].sjavms_start != nil && self.latestEventData?[0].sjavms_start != ""){
-                            let startData = DateFormatManager.shared.formatDateStrToStr(date: self.latestEventData?[0].sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
+                            let startData = DateFormatManager.shared.formatDateStrToStr(date: self.latestEventData?[0].sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
                             self.lblCampNum.text = startData
                         }else{
                             self.lblCampNum.text = ""

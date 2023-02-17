@@ -62,7 +62,7 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
         lblRole.textColor = UIColor.themePrimaryWhite
         lblCity.textColor = UIColor.themePrimaryWhite
         lblState.textColor = UIColor.themePrimaryWhite
-        lblTabTitle.textColor = UIColor.themePrimaryWhite
+        lblTabTitle.textColor = UIColor.themePrimaryColor
         stackView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         stackView.layer.borderWidth = 1.5

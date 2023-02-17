@@ -74,7 +74,7 @@ class PendingEventVC: ENTALDBaseViewController {
 
     func decorateUI(){
         selectGroupView.layer.cornerRadius = 3
-        btnSelectGroup.backgroundColor = UIColor.themePrimaryWhite
+        btnSelectGroup.backgroundColor = UIColor.themePrimary
  
         pendingHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         approvalHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
@@ -111,7 +111,7 @@ class PendingEventVC: ENTALDBaseViewController {
         lblApprovalMax.textColor = UIColor.themePrimaryWhite
         lblApprovalDate.textColor = UIColor.themePrimaryWhite
         lblApprovalStatus.textColor = UIColor.themePrimaryWhite
-        lblTabTitle.textColor = UIColor.themePrimaryWhite
+        lblTabTitle.textColor = UIColor.themePrimaryColor
         
         pendingApprovalTableView.clipsToBounds = false
         pendingApprovalTableView.layer.masksToBounds = false
@@ -360,7 +360,7 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
             cell.lblName.text = rowModel?.sjavms_name ?? ""
             cell.lblLocation.text = rowModel?.sjavms_address1name ?? ""
             cell.lblMax.text = "\(rowModel?.sjavms_maxvolunteers ?? 0)"
-            cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
+            cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
             cell.lblStatus.text = rowModel?.sjavms_msnfp_group_sjavms_eventrequest?[0].getStatus()
             
             
@@ -371,7 +371,7 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
             cell.lblName.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
             cell.lblLocation.text = rowModel?.msnfp_location ?? ""
             cell.lblMax.text = "\(rowModel?.msnfp_minimum  ?? 0)"
-            cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
+            cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
             cell.lblStatus.text = rowModel?.getStatus()
         }
         

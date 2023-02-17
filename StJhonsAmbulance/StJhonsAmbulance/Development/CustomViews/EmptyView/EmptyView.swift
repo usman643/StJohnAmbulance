@@ -18,6 +18,7 @@ class EmptyView: UIView {
     
     override func draw(_ rect: CGRect) {
         lblTitle.font = UIFont.BoldFont(16)
+        lblTitle.textColor = UIColor.themePrimaryWhite
     }
     
 

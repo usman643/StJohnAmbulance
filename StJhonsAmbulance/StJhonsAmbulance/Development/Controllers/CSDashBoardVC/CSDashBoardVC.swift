@@ -185,7 +185,7 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
     
     func getLatestUpcomingEvent(){
         guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
-        guard let currentDate = DateFormatManager.shared.getCurrentDateWithFormat(format: "yyyy-MM-dd") else {return}
+        guard let currentDate = DateFormatManager.shared.getCurrentDateWithFormat(format: "dd/MM/yyyy") else {return}
         let params : [String:Any] = [
             
             ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_minimum,msnfp_maximum,msnfp_endingdate,msnfp_startingdate,msnfp_engagementopportunityid,_sjavms_contact_value,_sjavms_program_value",
@@ -267,7 +267,7 @@ extension CSDashBoardVC : UICollectionViewDelegate,UICollectionViewDataSource, U
         
          let cellWidth = (UIScreen.main.bounds.size.width - 6)/2
 
-        let height = (self.collectionView.frame.size.height - 4 - 22) / 3
+        let height = (self.collectionView.frame.size.height - 10 ) / 3
         
         return CGSizeMake(cellWidth, height )
     

@@ -78,7 +78,7 @@ class PendingShiftVC: ENTALDBaseViewController {
         lblHours.textColor = UIColor.themePrimaryWhite
         lblShift.textColor = UIColor.themePrimaryWhite
         lblAction.textColor = UIColor.themePrimaryWhite
-        lblTabTitle.textColor = UIColor.themePrimaryWhite
+        lblTabTitle.textColor = UIColor.themePrimaryColor
         
         tableHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         tableHeaderView.layer.borderWidth = 1.5

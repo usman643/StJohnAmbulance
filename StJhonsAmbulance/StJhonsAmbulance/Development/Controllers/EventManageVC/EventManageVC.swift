@@ -59,7 +59,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
             
             lblEventName.text = eventData?.msnfp_engagementopportunitytitle
             if (eventData?.msnfp_startingdate != nil && eventData?.msnfp_startingdate == ""){
-                let date =  DateFormatManager.shared.formatDateStrToStr(date: eventData?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
+                let date =  DateFormatManager.shared.formatDateStrToStr(date: eventData?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
                 lblDate.text = date
             }else{
                 lblDate.text = " "
@@ -70,7 +70,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
             
             lblEventName.text = pendingShiftData?.msnfp_name
             if (pendingShiftData?.sjavms_start != nil && pendingShiftData?.sjavms_start == ""){
-                let date =  DateFormatManager.shared.formatDateStrToStr(date: pendingShiftData?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
+                let date =  DateFormatManager.shared.formatDateStrToStr(date: pendingShiftData?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
                 lblDate.text = date
             }else{
                 lblDate.text = " "
@@ -81,7 +81,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
             
             lblEventName.text = unpublishEventData?.msnfp_engagementopportunitytitle
             if (unpublishEventData?.msnfp_startingdate != nil && unpublishEventData?.msnfp_startingdate == ""){
-                let date =  DateFormatManager.shared.formatDateStrToStr(date: unpublishEventData?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
+                let date =  DateFormatManager.shared.formatDateStrToStr(date: unpublishEventData?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
                 lblDate.text = date
             }else{
                 lblDate.text = " "
@@ -92,7 +92,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
             
             lblEventName.text = pendingEventApprovalData?.sjavms_name
             if (pendingEventApprovalData?.sjavms_eventstartdate != nil && pendingEventApprovalData?.sjavms_eventstartdate == ""){
-                let date =  DateFormatManager.shared.formatDateStrToStr(date: pendingEventApprovalData?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
+                let date =  DateFormatManager.shared.formatDateStrToStr(date: pendingEventApprovalData?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
                 lblDate.text = date
             }else{
                 lblDate.text = " "
@@ -363,7 +363,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
     
     func getEntryTypesByGroup()->[String:Any]?{
         if let entryTypes = self.volunteerData {
-            let dictionary = Dictionary(grouping: entryTypes, by:  { DateFormatManager.shared.formatDateStrToStr(date: $0.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd") })
+            let dictionary = Dictionary(grouping: entryTypes, by:  { DateFormatManager.shared.formatDateStrToStr(date: $0.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy") })
             return dictionary
         }
         return nil
