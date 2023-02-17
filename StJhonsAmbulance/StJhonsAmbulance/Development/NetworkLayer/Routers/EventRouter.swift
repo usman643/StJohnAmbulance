@@ -15,7 +15,7 @@ enum EventRouter : Router {
     case getPendingPublishEvents(params:[String:Any])
     case getLatestUpcomingEvents(params:[String:Any])
     case getAllProgram(params:[String:Any])
-    case cancelEvent(params:[String:Any])
+    case cancelEvent(eventId:String, params:[String:Any])
     case getContactInfo(params:[String:Any])
     
     case simulate401
@@ -29,7 +29,7 @@ enum EventRouter : Router {
         case .getPendingPublishEvents : return "msnfp_engagementopportunities"
         case .getLatestUpcomingEvents : return "msnfp_engagementopportunities"
         case .getAllProgram : return "sjavms_programs"
-        case .cancelEvent : return "msnfp_engagementopportunities"
+        case .cancelEvent(let eventID, _) : return "msnfp_engagementopportunities(\(eventID))"
         case .getContactInfo : return "msnfp_engagementopportunities"
             
         case .simulate401: return "simulate-401"
@@ -52,7 +52,7 @@ enum EventRouter : Router {
             return params
         case .getAllProgram(let params):
             return params
-        case .cancelEvent(let params):
+        case .cancelEvent(_, let params):
             return params
         case .getContactInfo(let params):
             return params
@@ -68,7 +68,7 @@ enum EventRouter : Router {
     
     var method: String {
         switch self {
-        case .cancelEvent(_):
+        case .cancelEvent(_,_):
             return HTTPMethodType.patch.rawValue
         default:
             break
@@ -81,6 +81,12 @@ enum EventRouter : Router {
     }
     
     var encoding: ENTALDEncodingType {
+        switch self {
+        case .cancelEvent(_,_):
+            return .ENTJSONEncoding
+        default:
+            break
+        }
         return .ENTDefaultEncoding
     }
     

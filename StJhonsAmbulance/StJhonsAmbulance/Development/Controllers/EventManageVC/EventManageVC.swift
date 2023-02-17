@@ -181,6 +181,14 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
         
     }
     
+    @IBAction func btnProgramAction(_ sender: Any) {
+        let params = [
+            "msnfp_engagementopportunitystatus": 844060004
+        ]
+        
+        self.closeVolunteersData(params: params)
+        
+    }
     @IBAction func searchCloseTapped(_ sender: Any) {
         txtSearch.text = ""
         txtSearch.endEditing(true)
@@ -238,6 +246,38 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
+                }else{
+                    self.showEmptyView(tableVw: self.tableView)
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                self.showEmptyView(tableVw: self.tableView)
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    
+    fileprivate func closeVolunteersData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        let eventId = self.eventData?.msnfp_engagementopportunityid ?? ""
+        ENTALDLibraryAPI.shared.requestCloseEvent(eventId:eventId, params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                if let pastEvent = response.value {
+                    
                 }else{
                     self.showEmptyView(tableVw: self.tableView)
                 }

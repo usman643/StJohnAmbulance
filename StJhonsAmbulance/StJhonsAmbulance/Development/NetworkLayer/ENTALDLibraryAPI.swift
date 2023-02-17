@@ -167,8 +167,8 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
-    func requestCloseEvent(params:[String:Any],  _ completion:@escaping((ApiResult<ProgramResponseModel, ApiError>) -> Void )){
-        let router = EventRouter.cancelEvent(params: params)
+    func requestCloseEvent(eventId:String, params:[String:Any],  _ completion:@escaping((ApiResult<ProgramResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.cancelEvent(eventId:eventId, params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     

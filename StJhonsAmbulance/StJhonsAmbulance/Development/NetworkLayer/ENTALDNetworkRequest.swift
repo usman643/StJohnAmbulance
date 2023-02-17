@@ -49,6 +49,8 @@ class ENTALDNetworkRequest {
         switch HTTPMethodType(rawValue: router.method) {
         case .post:
             request.parameters = router.params
+        case .patch:
+            request.parameters = router.params
         case .get:
             var component = URLComponents(string: "\(baseURL.absoluteString)\(router.procedure)")
             var queryItems : [URLQueryItem] = []
