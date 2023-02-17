@@ -255,9 +255,11 @@
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9mq-pg-to7">
                                     <rect key="frame" x="64" y="0.0" width="55.666666666666657" height="40"/>
+                                    <color key="tintColor" systemColor="separatorColor"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" image="tabCommunity"/>
+                                    <state key="normal" image="hourglass" catalog="system"/>
                                     <connections>
+                                        <action selector="openPendingShiftsScreen:" destination="-1" eventType="touchUpInside" id="DAl-5z-stS"/>
                                         <action selector="openVolunteerScreen:" destination="-1" eventType="touchUpInside" id="ziE-90-EMw"/>
                                     </connections>
                                 </button>
@@ -337,10 +339,10 @@
     </objects>
     <resources>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
+        <image name="hourglass" catalog="system" width="103" height="128"/>
         <image name="icHome" width="32" height="32"/>
         <image name="icbackArrow" width="32" height="32"/>
         <image name="logo_icon" width="102" height="97"/>
-        <image name="tabCommunity" width="37.333332061767578" height="24.333333969116211"/>
         <image name="tabEventsCheck" width="26.666666030883789" height="33.333332061767578"/>
         <image name="tabHome" width="33" height="27.666666030883789"/>
         <image name="tabLocation" width="29.666666030883789" height="33.333332061767578"/>
@@ -348,6 +350,9 @@
         <namedColor name="PrimaryGreen">
             <color red="0.0078431372549019607" green="0.30980392156862746" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="separatorColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

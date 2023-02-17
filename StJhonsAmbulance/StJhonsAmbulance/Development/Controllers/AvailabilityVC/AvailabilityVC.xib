@@ -20,9 +20,7 @@
                 <outlet property="headerLabelView" destination="Sda-aK-vpa" id="Eff-II-8dU"/>
                 <outlet property="lblLifeTime" destination="mYQ-3y-22p" id="5wG-Od-WPd"/>
                 <outlet property="lblPending" destination="mQS-BP-3bO" id="51J-h5-2zo"/>
-                <outlet property="lblTabTitle" destination="ITJ-Pe-KMv" id="XcI-CL-Rbs"/>
                 <outlet property="lblYeartoDate" destination="qY1-pe-LFh" id="KJd-Pa-IGD"/>
-                <outlet property="selectedTabImg" destination="tje-Q3-lIO" id="VfC-pa-nRG"/>
                 <outlet property="view" destination="TsD-cw-wbH" id="qdQ-Yy-QW9"/>
                 <outlet property="voluteerHourHeaderView" destination="EdF-er-6X7" id="efe-9m-fr0"/>
                 <outlet property="voluteerHourTableView" destination="B2V-bj-GrD" id="b5z-Om-8qc"/>
@@ -189,8 +187,8 @@
                         <constraint firstItem="FLz-YM-1ly" firstAttribute="top" secondItem="Sda-aK-vpa" secondAttribute="bottom" id="wu1-5O-n0b"/>
                     </constraints>
                 </view>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="2S4-gE-Msq">
-                    <rect key="frame" x="10" y="184" width="373" height="584"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="44" translatesAutoresizingMaskIntoConstraints="NO" id="2S4-gE-Msq">
+                    <rect key="frame" x="10" y="184" width="373" height="668"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IzM-Et-0Ma">
                             <rect key="frame" x="0.0" y="0.0" width="373" height="193.33333333333334"/>
@@ -293,7 +291,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="axg-w0-BJU">
-                            <rect key="frame" x="0.0" y="195.33333333333331" width="373" height="193.33333333333331"/>
+                            <rect key="frame" x="0.0" y="237.33333333333331" width="373" height="193.33333333333331"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DnG-1f-6Qe">
                                     <rect key="frame" x="0.0" y="0.0" width="373" height="30"/>
@@ -405,7 +403,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PMi-Ho-Zgq">
-                            <rect key="frame" x="0.0" y="390.66666666666663" width="373" height="193.33333333333337"/>
+                            <rect key="frame" x="0.0" y="474.66666666666657" width="373" height="193.33333333333331"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vhe-WN-8XC">
                                     <rect key="frame" x="0.0" y="0.0" width="373" height="30"/>
@@ -506,90 +504,21 @@
                         </view>
                     </subviews>
                 </stackView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M32-Mo-kUq">
-                    <rect key="frame" x="0.0" y="768" width="393" height="50"/>
-                    <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hourglass" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="tje-Q3-lIO">
-                            <rect key="frame" x="12" y="6.6666666666666643" width="40" height="37"/>
-                            <color key="tintColor" name="PrimaryGreen"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="DF0-xK-uc7"/>
-                                <constraint firstAttribute="width" constant="40" id="u6T-MD-QsU"/>
-                            </constraints>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hour" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ITJ-Pe-KMv">
-                            <rect key="frame" x="60" y="14.999999999999998" width="37.333333333333343" height="20.333333333333329"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="93e-8A-MAa">
-                            <rect key="frame" x="109.33333333333334" y="5" width="278.66666666666663" height="40"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgf-Ka-Yez">
-                                    <rect key="frame" x="0.0" y="0.0" width="63.666666666666664" height="40"/>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" image="tabHome"/>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iVH-dT-wow">
-                                    <rect key="frame" x="71.666666666666671" y="0.0" width="63.666666666666671" height="40"/>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" image="tabEvent"/>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyN-Hd-AnY">
-                                    <rect key="frame" x="143.33333333333331" y="0.0" width="63.666666666666657" height="40"/>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" image="tabCalender"/>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Nw-q7-UT2">
-                                    <rect key="frame" x="215" y="0.0" width="63.666666666666686" height="40"/>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" image="tabMessage"/>
-                                </button>
-                            </subviews>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="WlT-T7-IEF"/>
-                            </constraints>
-                        </stackView>
-                    </subviews>
-                    <color key="backgroundColor" red="0.90196078430000004" green="0.94901960780000005" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="trailing" secondItem="93e-8A-MAa" secondAttribute="trailing" constant="5" id="908-3s-Jbh"/>
-                        <constraint firstAttribute="height" constant="50" id="RYh-ZP-hgx"/>
-                        <constraint firstItem="tje-Q3-lIO" firstAttribute="leading" secondItem="M32-Mo-kUq" secondAttribute="leading" constant="12" id="X4E-hL-2Cc"/>
-                        <constraint firstItem="93e-8A-MAa" firstAttribute="centerY" secondItem="M32-Mo-kUq" secondAttribute="centerY" id="YdT-IU-cpf"/>
-                        <constraint firstItem="tje-Q3-lIO" firstAttribute="centerY" secondItem="M32-Mo-kUq" secondAttribute="centerY" id="cmf-dk-SlA"/>
-                        <constraint firstItem="93e-8A-MAa" firstAttribute="leading" secondItem="ITJ-Pe-KMv" secondAttribute="trailing" constant="12" id="hjg-iA-NDU"/>
-                        <constraint firstItem="ITJ-Pe-KMv" firstAttribute="centerY" secondItem="M32-Mo-kUq" secondAttribute="centerY" id="oe9-fs-VJC"/>
-                        <constraint firstItem="ITJ-Pe-KMv" firstAttribute="leading" secondItem="tje-Q3-lIO" secondAttribute="trailing" constant="8" id="pSU-p1-yN9"/>
-                    </constraints>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JiP-cZ-JiD">
-                    <rect key="frame" x="0.0" y="818" width="393" height="34"/>
-                    <color key="backgroundColor" red="0.90196078430000004" green="0.94901960780000005" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
-                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="nVE-JJ-bRw"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="m4Z-5v-h3L" firstAttribute="top" secondItem="nVE-JJ-bRw" secondAttribute="top" constant="8" id="0cs-tc-e4O"/>
-                <constraint firstAttribute="bottom" secondItem="JiP-cZ-JiD" secondAttribute="bottom" id="3dt-Ex-4Yz"/>
                 <constraint firstItem="aB2-Mn-4VO" firstAttribute="leading" secondItem="nVE-JJ-bRw" secondAttribute="leading" constant="16" id="3eo-kN-e8L"/>
                 <constraint firstItem="2S4-gE-Msq" firstAttribute="leading" secondItem="nVE-JJ-bRw" secondAttribute="leading" constant="10" id="45q-gZ-2B3"/>
-                <constraint firstItem="M32-Mo-kUq" firstAttribute="top" secondItem="2S4-gE-Msq" secondAttribute="bottom" id="4Sz-iz-0Sy"/>
                 <constraint firstItem="nVE-JJ-bRw" firstAttribute="trailing" secondItem="m4Z-5v-h3L" secondAttribute="trailing" constant="16" id="6bV-Im-GG8"/>
+                <constraint firstAttribute="bottom" secondItem="2S4-gE-Msq" secondAttribute="bottom" id="6c2-ck-Wmy"/>
                 <constraint firstItem="aB2-Mn-4VO" firstAttribute="top" secondItem="nVE-JJ-bRw" secondAttribute="top" constant="8" id="6xQ-Di-4E4"/>
                 <constraint firstItem="5qu-Y8-tdX" firstAttribute="top" secondItem="nVE-JJ-bRw" secondAttribute="top" constant="8" id="8a6-5C-kbc"/>
-                <constraint firstItem="JiP-cZ-JiD" firstAttribute="top" secondItem="M32-Mo-kUq" secondAttribute="bottom" id="Gs1-fk-Gnv"/>
-                <constraint firstItem="nVE-JJ-bRw" firstAttribute="bottom" secondItem="M32-Mo-kUq" secondAttribute="bottom" id="Kq3-Za-Vmn"/>
                 <constraint firstItem="nVE-JJ-bRw" firstAttribute="trailing" secondItem="8W9-IU-R1B" secondAttribute="trailing" id="NRj-jr-peb"/>
-                <constraint firstItem="JiP-cZ-JiD" firstAttribute="leading" secondItem="TsD-cw-wbH" secondAttribute="leading" id="Nwu-nS-nki"/>
                 <constraint firstItem="nVE-JJ-bRw" firstAttribute="trailing" secondItem="2S4-gE-Msq" secondAttribute="trailing" constant="10" id="V7G-oi-cRg"/>
                 <constraint firstItem="8W9-IU-R1B" firstAttribute="centerX" secondItem="TsD-cw-wbH" secondAttribute="centerX" id="aft-Ob-g1d"/>
                 <constraint firstItem="8W9-IU-R1B" firstAttribute="top" secondItem="5qu-Y8-tdX" secondAttribute="bottom" constant="12" id="cHf-LO-0KG"/>
-                <constraint firstItem="M32-Mo-kUq" firstAttribute="trailing" secondItem="nVE-JJ-bRw" secondAttribute="trailing" id="cfQ-qr-UV6"/>
-                <constraint firstAttribute="trailing" secondItem="JiP-cZ-JiD" secondAttribute="trailing" id="dH8-m0-ik5"/>
-                <constraint firstItem="M32-Mo-kUq" firstAttribute="leading" secondItem="nVE-JJ-bRw" secondAttribute="leading" id="dsN-SD-q9L"/>
                 <constraint firstItem="5qu-Y8-tdX" firstAttribute="centerX" secondItem="TsD-cw-wbH" secondAttribute="centerX" id="wVv-Tu-csd"/>
                 <constraint firstItem="2S4-gE-Msq" firstAttribute="top" secondItem="8W9-IU-R1B" secondAttribute="bottom" constant="12" id="zuT-BU-d1P"/>
             </constraints>
@@ -597,15 +526,10 @@
         </view>
     </objects>
     <resources>
-        <image name="hourglass" catalog="system" width="103" height="128"/>
         <image name="icFilter" width="32" height="32"/>
         <image name="icHome" width="32" height="32"/>
         <image name="icbackArrow" width="32" height="32"/>
         <image name="logo_icon" width="102" height="97"/>
-        <image name="tabCalender" width="37.666667938232422" height="33.333332061767578"/>
-        <image name="tabEvent" width="33.666667938232422" height="29"/>
-        <image name="tabHome" width="33" height="27.666666030883789"/>
-        <image name="tabMessage" width="31" height="21.333333969116211"/>
         <namedColor name="PrimaryGreen">
             <color red="0.0078431372549019607" green="0.30980392156862746" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

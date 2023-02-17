@@ -41,6 +41,15 @@ class EventDetailVC: ENTALDBaseViewController {
         super.viewDidLoad()
         setupData()
         decorateUI()
+        registerCell()
+    }
+    
+    func registerCell(){
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(UINib(nibName: "EventDetailCVC", bundle: nil), forCellWithReuseIdentifier: "EventDetailCVC")
+        
     }
 
     func decorateUI(){
@@ -164,4 +173,28 @@ class EventDetailVC: ENTALDBaseViewController {
     @IBAction func contactTapped(_ sender: Any) {
         ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alter", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
     }
+}
+
+extension EventDetailVC : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EventDetailCVC", for: indexPath) as! EventDetailCVC
+        
+        
+        return cell
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        
+//        let width =  (collectionView.frame.size.width / 2) - 8
+//        
+//        
+//        return collectionView.
+//    }
+
+
 }

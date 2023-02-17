@@ -122,7 +122,7 @@ class MessageVC: ENTALDBaseViewController {
         @IBAction func openPendingEventScreen(_ sender: Any) {
             self.navigationController?.popViewController(animated: false)
             if(fromVolunteerController ?? false){
-//                self.callbackToController?("message", self)
+                self.callbackToController?("checkIn", self)
             }else{
                 self.callbackToController?(4, self)
             }
@@ -130,7 +130,7 @@ class MessageVC: ENTALDBaseViewController {
         @IBAction func openPendingShiftsScreen(_ sender: Any) {
             self.navigationController?.popViewController(animated: false)
             if(fromVolunteerController ?? false){
-//                self.callbackToController?("message", self)
+                self.callbackToController?("hours", self)
             }else{
                 self.callbackToController?(5, self)
             }
