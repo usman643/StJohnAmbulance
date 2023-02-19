@@ -80,7 +80,7 @@ class VolunteerHoursVC: ENTALDBaseViewController {
         lblNonEventHeading.font = UIFont.BoldFont(18)
         lblNonEventHeading.textColor = UIColor.themePrimaryWhite
         
-        lblTabTitle.textColor = UIColor.themePrimaryWhite
+        lblTabTitle.textColor = UIColor.themePrimaryColor
         lblTabTitle.font = UIFont.BoldFont(16)
         
         selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
@@ -92,6 +92,7 @@ class VolunteerHoursVC: ENTALDBaseViewController {
     }
     
     @IBAction func homeTapped(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     
     }
     

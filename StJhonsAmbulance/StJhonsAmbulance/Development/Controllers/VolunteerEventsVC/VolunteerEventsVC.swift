@@ -61,7 +61,7 @@ class VolunteerEventsVC: ENTALDBaseViewController {
         
         pastHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         pastHeaderView.layer.borderWidth = 1
-        lblTabTitle.textColor = UIColor.themePrimaryWhite
+        lblTabTitle.textColor = UIColor.themePrimaryColor
         lblTabTitle.font = UIFont.BoldFont(16)
         
         selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
@@ -90,6 +90,7 @@ class VolunteerEventsVC: ENTALDBaseViewController {
     }
     
     @IBAction func homeTapped(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func availableFilterTapped(_ sender: Any) {

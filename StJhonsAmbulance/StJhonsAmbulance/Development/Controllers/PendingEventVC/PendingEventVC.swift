@@ -384,8 +384,8 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PendingEventTVC", for: indexPath) as! PendingEventTVC
-        showActionSheet(pointView: cell.mainView, arrIndex:indexPath.row)
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "PendingEventTVC", for: indexPath) as! PendingEventTVC
+//        showActionSheet(pointView: cell.mainView, arrIndex:indexPath.row)
     }
     
    

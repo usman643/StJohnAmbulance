@@ -72,19 +72,19 @@ class EventDetailVC: ENTALDBaseViewController {
         lblLocationDesc.textColor = UIColor.textGrayColor
         
         btnContact.titleLabel?.font = UIFont.BoldFont(14)
-        btnContact.setTitleColor(UIColor.themeWhiteText, for: .normal)
+        btnContact.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnContact.layer.cornerRadius = 2
-        btnContact.backgroundColor = UIColor.themePrimaryWhite
+        btnContact.backgroundColor = UIColor.themeSecondry
         
         btnCheckIn.titleLabel?.font = UIFont.BoldFont(14)
-        btnCheckIn.setTitleColor(UIColor.themeWhiteText, for: .normal)
+        btnCheckIn.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnCheckIn.layer.cornerRadius = 2
-        btnCheckIn.backgroundColor = UIColor.themePrimaryWhite
+        btnCheckIn.backgroundColor = UIColor.themeSecondry
         
         btnCancel.titleLabel?.font = UIFont.BoldFont(14)
-        btnCancel.setTitleColor(UIColor.themeWhiteText, for: .normal)
+        btnCancel.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnCancel.layer.cornerRadius = 2
-        btnCancel.backgroundColor = UIColor.themePrimaryWhite
+        btnCancel.backgroundColor = UIColor.themeSecondry
         
         checkInBtnImg.image = checkInBtnImg.image?.withRenderingMode(.alwaysTemplate)
         checkInBtnImg.tintColor = UIColor.white

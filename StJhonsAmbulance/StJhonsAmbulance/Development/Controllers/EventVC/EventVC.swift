@@ -91,7 +91,7 @@ class EventVC: ENTALDBaseViewController {
         lblPast.textColor = UIColor.themePrimaryWhite
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
         btnCreateEvent.titleLabel?.font = UIFont.BoldFont(12)
-        btnSelectGroup.backgroundColor = UIColor.themePrimary
+        btnSelectGroup.backgroundColor = UIColor.themeSecondry
         
         btnSelectGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnCreateEvent.setTitleColor(UIColor.textWhiteColor, for: .normal)
@@ -144,11 +144,11 @@ class EventVC: ENTALDBaseViewController {
         pastTableView.layer.shadowRadius = 0
         pastTableView.layer.shadowOpacity = 0.5
         
-        lblTabTitle.textColor = UIColor.themePrimaryWhite
+        lblTabTitle.textColor = UIColor.themePrimaryColor
         lblTabTitle.font = UIFont.BoldFont(16)
         
         selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
-        selectedTabImg.tintColor = UIColor.themePrimaryWhite
+        selectedTabImg.tintColor = UIColor.themePrimaryColor
     }
     
     func registerCells(){

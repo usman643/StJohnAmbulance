@@ -138,18 +138,24 @@ class LandingVC: ENTALDBaseViewController {
     
     
     func showGroupsPicker(list:[LandingGroupsModel] = []){
-        
-        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, dataObj: ProcessUtils.shared.userGroupsList) { params, controller in
-            
-            if let data = params as? LandingGroupsModel {
-                ProcessUtils.shared.selectedUserGroup = data
+        if (ProcessUtils.shared.userGroupsList.count != 0){
+            ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, dataObj: ProcessUtils.shared.userGroupsList) { params, controller in
                 
-                self.btn2.setTitle("\(data.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
-//                self.btn1.setTitle(data.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
-                self.nextBtn.isEnabled = true
-                self.nextBtn.backgroundColor = UIColor.themePrimary
+                if let data = params as? LandingGroupsModel {
+                    ProcessUtils.shared.selectedUserGroup = data
+                    
+                    self.btn2.setTitle("\(data.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
+    //                self.btn1.setTitle(data.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
+                    self.nextBtn.isEnabled = true
+                    self.nextBtn.backgroundColor = UIColor.themePrimary
+                }
             }
+        }else{
+            self.getGroups()
+
+        
         }
+        
     }
 
     @IBAction func volunteerTapped(_ sender: Any) {

@@ -98,19 +98,19 @@ class SkillsVC: ENTALDBaseViewController {
         btnVoulnteerLeadership.layer.cornerRadius = 3
         btnOtherSkils.layer.cornerRadius = 3
         
-        btnWorkingVolunteerPeople.backgroundColor = UIColor.colorGrey72
-        btnPatientCare.backgroundColor = UIColor.colorGrey72
-        btnPalliativeCare.backgroundColor = UIColor.colorGrey72
-        btnCRPFirstAId.backgroundColor = UIColor.colorGrey72
-        btnRecreationalProgramming.backgroundColor = UIColor.colorGrey72
-        btnEducationalProgramming.backgroundColor = UIColor.colorGrey72
-        btnCustomerServices.backgroundColor = UIColor.colorGrey72
-        btnComputer.backgroundColor = UIColor.colorGrey72
-        btnVoulnteerLeadership.backgroundColor = UIColor.colorGrey72
-        btnOtherSkils.backgroundColor = UIColor.colorGrey72
+        btnWorkingVolunteerPeople.backgroundColor = UIColor.viewLightGrayColor
+        btnPatientCare.backgroundColor = UIColor.viewLightGrayColor
+        btnPalliativeCare.backgroundColor = UIColor.viewLightGrayColor
+        btnCRPFirstAId.backgroundColor = UIColor.viewLightGrayColor
+        btnRecreationalProgramming.backgroundColor = UIColor.viewLightGrayColor
+        btnEducationalProgramming.backgroundColor = UIColor.viewLightGrayColor
+        btnCustomerServices.backgroundColor = UIColor.viewLightGrayColor
+        btnComputer.backgroundColor = UIColor.viewLightGrayColor
+        btnVoulnteerLeadership.backgroundColor = UIColor.viewLightGrayColor
+        btnOtherSkils.backgroundColor = UIColor.viewLightGrayColor
         
         btnSubmit.themeColorButton()
-        btnSubmit.backgroundColor = UIColor.lightGray
+//        btnSubmit.backgroundColor = UIColor.lightGray
         btnSubmit.titleLabel?.font = UIFont.BoldFont(16.0)
 //        self.btnSubmit.isEnabled = false
         

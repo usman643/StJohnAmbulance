@@ -94,11 +94,12 @@ class LoginVC: ENTALDBaseViewController {
         txtPassword.placeHolderColor = UIColor.textLightGrayColor
         btnLogin.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnRegister.titleLabel?.textColor = UIColor.themePrimaryColor
+        btnStaySignIn.backgroundColor = UIColor.viewLightGrayColor
         
     }
     
     @IBAction func registerTapped(_ sender: Any) {
-        
+        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
     }
     
     @IBAction func forgotTapped(_ sender: Any) {

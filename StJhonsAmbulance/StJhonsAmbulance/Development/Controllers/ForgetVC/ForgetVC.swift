@@ -25,8 +25,6 @@ class ForgetVC: ENTALDBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         decorateUI()
-        
-        // Do any additional setup after loading the view.
     }
 
     func decorateUI(){
@@ -57,13 +55,18 @@ class ForgetVC: ENTALDBaseViewController {
 
     @objc func doneButtonClicked(_ sender: Any) {
         self.view.endEditing(true)
+        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
+    }
+    
+    
+    
+    @IBAction func backTapped(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func loginTapped(_ sender: Any) {
         
-        
-        let regVC = LoginVC(nibName: "LoginVC", bundle: nil)
-        self.navigationController?.pushViewController(regVC, animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     

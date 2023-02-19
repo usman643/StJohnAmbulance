@@ -18,8 +18,8 @@ class QualificationCertificationVC: ENTALDBaseViewController {
     
     @IBOutlet weak var externalQualificationTitle: UILabel!
     @IBOutlet weak var SJAQualificationTitle: UILabel!
-    @IBOutlet weak var lblTabTitle: UILabel!
-    @IBOutlet weak var selectedTabImg: UIImageView!
+//    @IBOutlet weak var lblTabTitle: UILabel!
+//    @IBOutlet weak var selectedTabImg: UIImageView!
   
     @IBOutlet weak var qualificationHeaderView: UIView!
     @IBOutlet weak var certificationHeaderView: UIView!
@@ -49,8 +49,8 @@ class QualificationCertificationVC: ENTALDBaseViewController {
         externalQualificationTitle.font = UIFont.BoldFont(16)
         SJAQualificationTitle.textColor = UIColor.themePrimaryWhite
         SJAQualificationTitle.font = UIFont.BoldFont(16)
-        lblTabTitle.textColor = UIColor.themePrimary
-        lblTabTitle.font = UIFont.BoldFont(16)
+//        lblTabTitle.textColor = UIColor.themePrimary
+//        lblTabTitle.font = UIFont.BoldFont(16)
         
         for lbltext in allTableHeadingLabel{
             lbltext.font = UIFont.BoldFont(10)

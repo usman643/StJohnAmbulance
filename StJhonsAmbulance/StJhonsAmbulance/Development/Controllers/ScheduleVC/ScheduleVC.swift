@@ -50,11 +50,11 @@ class ScheduleVC: ENTALDBaseViewController {
         addImg.image = image
         addImg.tintColor = .white
         
-        lblTabTitle.textColor = UIColor.themePrimaryWhite
+        lblTabTitle.textColor = UIColor.themePrimaryColor
         lblTabTitle.font = UIFont.BoldFont(16)
         
         selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
-        selectedTabImg.tintColor = UIColor.themePrimaryWhite
+        selectedTabImg.tintColor = UIColor.themePrimaryColor
     }
     
     @IBAction func signUpTapped(_ sender: Any) {

@@ -38,8 +38,8 @@ class AvailabilityVC: ENTALDBaseViewController {
     @IBOutlet weak var lblYeartoDate: UILabel!
     @IBOutlet weak var lblLifeTime: UILabel!
     
-    @IBOutlet weak var lblTabTitle: UILabel!
-    @IBOutlet weak var selectedTabImg: UIImageView!
+//    @IBOutlet weak var lblTabTitle: UILabel!
+//    @IBOutlet weak var selectedTabImg: UIImageView!
     
     
     override func viewDidLoad() {
@@ -109,11 +109,11 @@ class AvailabilityVC: ENTALDBaseViewController {
         lblYeartoDate.font = UIFont.BoldFont(16)
         lblLifeTime.textColor = UIColor.themePrimaryWhite
         lblLifeTime.font = UIFont.BoldFont(16)
-        lblTabTitle.textColor = UIColor.themePrimaryColor
-        lblTabTitle.font = UIFont.BoldFont(16)
-        
-        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
-        selectedTabImg.tintColor = UIColor.themePrimaryColor
+//        lblTabTitle.textColor = UIColor.themePrimaryColor
+//        lblTabTitle.font = UIFont.BoldFont(16)
+//        
+//        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
+//        selectedTabImg.tintColor = UIColor.themePrimaryColor
         
     }
     
