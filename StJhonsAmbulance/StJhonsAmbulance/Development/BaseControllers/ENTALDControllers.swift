@@ -277,6 +277,20 @@ class ENTALDControllers {
         self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
     }
     
+    func showRegisterScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = WebViewVC.loadFromNib()
+        vc.callbackToController = callBack
+        vc.urlType = "register"
+        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+    
+    func showForgetScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = WebViewVC.loadFromNib()
+        vc.callbackToController = callBack
+        vc.urlType = "forgot"
+        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+    
     
     
     

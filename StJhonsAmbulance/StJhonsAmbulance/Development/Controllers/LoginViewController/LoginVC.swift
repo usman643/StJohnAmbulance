@@ -35,8 +35,8 @@ class LoginVC: ENTALDBaseViewController {
     // Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.txtUserName.text = "dougsalomon@outlook.com"
-        self.txtPassword.text = "qAz!2#sss"
+//        self.txtUserName.text = "dougsalomon@outlook.com"
+//        self.txtPassword.text = "qAz!2#sss"
         UserDefaults.standard.authToken = nil
         isRememberPassword = false
         decorateUI()
@@ -99,12 +99,16 @@ class LoginVC: ENTALDBaseViewController {
     }
     
     @IBAction func registerTapped(_ sender: Any) {
-        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
+//        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
+    
+        ENTALDControllers.shared.showRegisterScreen(type: .ENTALDPUSH, from: self, callBack: nil)
+        
+        
     }
     
     @IBAction func forgotTapped(_ sender: Any) {
-        let regVC = ForgetVC(nibName: "ForgetVC", bundle: nil)
-        self.navigationController?.pushViewController(regVC, animated: true)
+        
+        ENTALDControllers.shared.showForgetPasswordScreen(type: .ENTALDPUSH, from: self, callBack: nil)
         
     }
     

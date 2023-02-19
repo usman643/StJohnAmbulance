@@ -33,6 +33,8 @@
 		1D1D1A4229919D0A00B5454E /* ScheduleVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D1D1A4029919D0A00B5454E /* ScheduleVC.xib */; };
 		1D1D1A4629919D2900B5454E /* ScheduleTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1D1A4429919D2900B5454E /* ScheduleTVC.swift */; };
 		1D1D1A4729919D2900B5454E /* ScheduleTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D1D1A4529919D2900B5454E /* ScheduleTVC.xib */; };
+		1D2AF04229A2520200ACE141 /* WebViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2AF04029A2520200ACE141 /* WebViewVC.swift */; };
+		1D2AF04329A2520200ACE141 /* WebViewVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D2AF04129A2520200ACE141 /* WebViewVC.xib */; };
 		1D2E243D298F727B006AB56A /* EventManageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2E243B298F727B006AB56A /* EventManageVC.swift */; };
 		1D2E243E298F727B006AB56A /* EventManageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D2E243C298F727B006AB56A /* EventManageVC.xib */; };
 		1D2E2441298FD241006AB56A /* EventManagerTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2E243F298FD241006AB56A /* EventManagerTVC.swift */; };
@@ -236,6 +238,8 @@
 		1D1D1A4029919D0A00B5454E /* ScheduleVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleVC.xib; sourceTree = "<group>"; };
 		1D1D1A4429919D2900B5454E /* ScheduleTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTVC.swift; sourceTree = "<group>"; };
 		1D1D1A4529919D2900B5454E /* ScheduleTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleTVC.xib; sourceTree = "<group>"; };
+		1D2AF04029A2520200ACE141 /* WebViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewVC.swift; sourceTree = "<group>"; };
+		1D2AF04129A2520200ACE141 /* WebViewVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebViewVC.xib; sourceTree = "<group>"; };
 		1D2E243B298F727B006AB56A /* EventManageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManageVC.swift; sourceTree = "<group>"; };
 		1D2E243C298F727B006AB56A /* EventManageVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventManageVC.xib; sourceTree = "<group>"; };
 		1D2E243F298FD241006AB56A /* EventManagerTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManagerTVC.swift; sourceTree = "<group>"; };
@@ -556,6 +560,15 @@
 				1D1D1A4529919D2900B5454E /* ScheduleTVC.xib */,
 			);
 			path = ScheduleTVC;
+			sourceTree = "<group>";
+		};
+		1D2AF03F29A251E000ACE141 /* WebViewVC */ = {
+			isa = PBXGroup;
+			children = (
+				1D2AF04029A2520200ACE141 /* WebViewVC.swift */,
+				1D2AF04129A2520200ACE141 /* WebViewVC.xib */,
+			);
+			path = WebViewVC;
 			sourceTree = "<group>";
 		};
 		1D2E2439298F71FF006AB56A /* EventManageVC */ = {
@@ -897,6 +910,7 @@
 		353C61392813ECF400CC8B7F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1D2AF03F29A251E000ACE141 /* WebViewVC */,
 				1D3BD162299D9545008F4178 /* ChangePasswordVC */,
 				1D3BD15D299D952B008F4178 /* LanguageVC */,
 				1D3BD158299D9508008F4178 /* SettingVC */,
@@ -1408,6 +1422,7 @@
 				E4F7CB10297E121000428A4E /* SideMenuVC.xib in Resources */,
 				1D50ECDD29921B4D00821049 /* EventDetailVC.xib in Resources */,
 				1D4DE841297FB4C600246242 /* ForgetVC.xib in Resources */,
+				1D2AF04329A2520200ACE141 /* WebViewVC.xib in Resources */,
 				1DF176F029852F7A005809C6 /* PastEventTVC.xib in Resources */,
 				353C6113281213A600CC8B7F /* LaunchScreen.storyboard in Resources */,
 				353C6110281213A600CC8B7F /* Assets.xcassets in Resources */,
@@ -1651,6 +1666,7 @@
 				359E9C65282E455F001E3D73 /* CoreLabel.swift in Sources */,
 				353C61822816931000CC8B7F /* ENTALDLibraryAPI.swift in Sources */,
 				1DF176FE29893E52005809C6 /* EventsModel.swift in Sources */,
+				1D2AF04229A2520200ACE141 /* WebViewVC.swift in Sources */,
 				1D58BA58298CFBBB001FE5FD /* EmptyView.swift in Sources */,
 				E4B2EF16297C633C00D05014 /* LoginVC.swift in Sources */,
 				1DD46E322992D28E00B25E10 /* VolunteerDashBoardRouter.swift in Sources */,
@@ -1876,7 +1892,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J5MCF6VR6V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StJhonsAmbulance/StJhons_info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "SJA Impact";
@@ -1893,7 +1909,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.STJohn.Ambulance;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "ST John Development";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Al Futtaim Development";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "StJhonsAmbulance/StJhonsAmbulance-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1907,12 +1923,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StJhonsAmbulance/StJhons_info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "SJA Impact";
@@ -1929,7 +1943,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.STJohn.Ambulance;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "ST John Distribution";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "StJhonsAmbulance/StJhonsAmbulance-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

@@ -33,7 +33,7 @@ class ForgetVC: ENTALDBaseViewController {
         headerLogoView.layer.cornerRadius =  headerLogoView.frame.size.height/2
         headerLogoView.backgroundColor = UIColor.themePrimary
         txtUserName.addDoneOnKeyboardWithTarget(self, action: #selector(doneButtonClicked), titleText: "Email")
-
+        txtUserName.textColor = UIColor.black
         self.view.backgroundColor = UIColor.themeSecondry
         MainVw.layer.cornerRadius = 40
         MainVw.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
@@ -55,9 +55,33 @@ class ForgetVC: ENTALDBaseViewController {
 
     @objc func doneButtonClicked(_ sender: Any) {
         self.view.endEditing(true)
-        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
     }
     
+    @IBAction func sendmailTapped(_ sender: Any) {
+        
+        guard let email = self.txtUserName.text else {
+            self.txtUserName.showErrorWithText(errorText: "Please enter email")
+            return
+        }
+        if email == "" {
+            self.txtUserName.showErrorWithText(errorText: "Please enter email")
+            return
+        }
+        
+        if !email.isEmail {
+            self.txtUserName.showErrorWithText(errorText: "Please enter valid email")
+            return
+        }
+        
+                ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
+        
+//        ENTALDControllers.shared.showForgetScreen(type: .ENTALDPUSH, from: self) { params, controller in
+//            self.navigationController?.popViewController(animated: true)
+//        }
+        
+        
+
+    }
     
     
     @IBAction func backTapped(_ sender: Any) {
@@ -68,6 +92,9 @@ class ForgetVC: ENTALDBaseViewController {
         
         self.navigationController?.popViewController(animated: true)
     }
+    
+    
+    
     
     
 }

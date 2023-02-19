@@ -21,7 +21,8 @@ class ProcessUtils {
     var tabbarHeight : CGFloat?
     var groupListValue : String?
     var currentRole : String?
-    
+    var registerURL = "https://sjavolunteers.powerappsportals.com/en-US/volunteer-application/"
+    var forgetURL = "https://sjavolunteers.powerappsportals.com/en-US/SignIn?returnUrl=/en-US/volunteer-application/"
     
     func getStatus(code:Int)->String?{
         switch code {
