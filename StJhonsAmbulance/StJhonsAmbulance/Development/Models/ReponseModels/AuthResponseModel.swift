@@ -43,6 +43,7 @@ struct ExternalAuthValueModel : Codable {
 struct UserIdentityModel : Codable {
     let adx_identity_username: String?
     let address2_name:String?
+    let address3_addressid:String?
     let birthdate:String?
     let firstname:String?
     let lastname:String?
@@ -69,4 +70,18 @@ struct UserIdentityModel : Codable {
     let sjavms_totalhourscompletedpreviousyear : Float?
     let msnfp_totalengagementhours : Float?
     let sjavms_employmentstatus : Int?
+    let bdo_preferredlanguage : Int?
+    let gendercode : Int?
+    let sjavms_preferredlanguage : Int?
+//    let sjavms_otherknownlanguages : String?
+    
+    
+    
+    
+    
+    let sjavms_otherskills : Bool?
+    
+    
+    
 }
+

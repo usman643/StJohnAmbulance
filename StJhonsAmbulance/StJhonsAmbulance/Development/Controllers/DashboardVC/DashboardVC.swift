@@ -61,7 +61,7 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
         decorateUI()
         setSideMenu()
         setupContent()
-        getVolunteerAward()
+//        getVolunteerAward()
 //        getLatestIncomingEvent()
         getIncomingEvent()
 //        gridData = [
@@ -148,6 +148,9 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
         lblTotalHours.font = UIFont.BoldFont(12)
         lblServiceYears.font = UIFont.BoldFont(12)
         
+        lblActiveDate.isHidden = true
+        lblTotalHours.isHidden = true
+        lblServiceYears.isHidden = true
     }
     
     func setupContent(){
@@ -211,8 +214,8 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
         }else if(named == "Change Password"){
             
             self.navigationController?.popToRootViewController(animated: true)
-            ENTALDControllers.shared.showChangePasswordScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
-                        
+//            ENTALDControllers.shared.showChangePasswordScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
+            ENTALDControllers.shared.showUpdatePasswordScreen(type: .ENTALDPUSH, from: self, callBack: nil)
         }else if(named == "Documents"){
             
             ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in }) 

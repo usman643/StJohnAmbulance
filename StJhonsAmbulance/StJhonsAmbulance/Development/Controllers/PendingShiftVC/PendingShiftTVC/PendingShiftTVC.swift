@@ -20,6 +20,7 @@ class PendingShiftTVC: UITableViewCell {
     @IBOutlet weak var lblHours: UILabel!
     @IBOutlet weak var lblShift: UILabel!
     @IBOutlet weak var lblAction: UILabel!
+    @IBOutlet weak var imgView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -54,13 +55,24 @@ class PendingShiftTVC: UITableViewCell {
         lblName.text = rowModel?.sjavms_Volunteer?.fullname
         let hours = rowModel?.sjavms_hours
         let hoursStr = NSString(format: "%.2f", hours ?? Float())
-        lblHours.text = String ("\(hoursStr)")
-
-//        lblEvent.text =
-        lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
-//        lblShift.text =
-//        lblAction.text =
+        let startTime = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.event_starttime ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
         
-    }
+        let endTime = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.event_endtime ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+        
+        lblHours.text = String ("\(hoursStr)")
+        lblEvent.text = rowModel?.event_name
+        lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+        lblShift.text = "\(startTime) - \(endTime)"
+        
+        if (rowModel?.msnfp_schedulestatus != nil){
+            lblAction.text = ProcessUtils.shared.getStatus(code: rowModel?.msnfp_schedulestatus ?? 00000)
+        }
     
+        if (rowModel?.event_selected ?? false){
+            
+            imgView.image = UIImage(systemName: "checkmark.square.fill")
+        }else{
+            imgView.image = UIImage(systemName: "square")
+        }
+    }
 }

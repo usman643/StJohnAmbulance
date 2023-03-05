@@ -310,7 +310,9 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
                 
                 if let pastEvent = response.value {
                     self.programsData = pastEvent
+                    ProcessUtils.shared.programsData = self.programsData
                     self.eventProgramData = self.getProgramName(self.eventData?._sjavms_program_value ?? "")
+                    
                     DispatchQueue.main.async {
                         self.lblProgramType.text = self.eventProgramData?.sjavms_name ?? ""
                         //contact info

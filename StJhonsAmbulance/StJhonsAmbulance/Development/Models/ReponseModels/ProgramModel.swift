@@ -34,6 +34,7 @@ struct ProgramModel: Codable {
     let sjavms_emergencymanagementprogram : Bool?
     let versionnumber : Int?
     let sjavms_programid : String?
+    let _sjavms_programsid_value : String?
     
 }
 

@@ -88,6 +88,13 @@ class ENTALDControllers {
         self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
     }
     
+    func showPendingShiftStatusUpdatePicker(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?){
+        let vc = PendingStatusPickerView.loadFromNib()
+        vc.dataModel = dataObj
+        vc.callbackToController = callBack
+        self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
+    }
+    
     func showLandingScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
         let vc = LandingVC.loadFromNib()
         vc.callbackToController = callBack
@@ -289,6 +296,34 @@ class ENTALDControllers {
         vc.callbackToController = callBack
         vc.urlType = "forgot"
         self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+    
+    func showUpdatePasswordScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = WebViewVC.loadFromNib()
+        vc.callbackToController = callBack
+        vc.urlType = "updatepass"
+        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+    
+    func showVolunteerDetailScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = VolunteerDetailVC.loadFromNib()
+        vc.callbackToController = callBack
+        vc.dataModel = dataObj
+        vc.isFromVolunteerScreen = true
+        self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
+    }
+    
+    func showMessageDetailScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = MessagedetailAlertVC.loadFromNib()
+        vc.callbackToController = callBack
+        vc.dataModel = dataObj
+        self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
+    }
+    
+    func showSendMessageScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = MessageDetailVC.loadFromNib()
+        vc.callbackToController = callBack
+        self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
     }
     
     

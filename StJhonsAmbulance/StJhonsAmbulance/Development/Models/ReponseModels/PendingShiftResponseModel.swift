@@ -117,6 +117,10 @@ struct PendingShiftModelTwo : Codable {
     let sjavms_hours : Float?
     let _sjavms_volunteerevent_value : String?
     let _sjavms_volunteer_value : String?
+    var event_name : String?
+    var event_starttime : String?
+    var event_endtime : String?
+    var event_selected : Bool?
     let sjavms_Volunteer : PendingShiftVolunteerModelTwo?
     let sjavms_VolunteerEvent : VolunteerEventModel?
 }

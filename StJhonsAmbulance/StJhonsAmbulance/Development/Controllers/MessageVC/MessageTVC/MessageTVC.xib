@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -31,10 +32,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="idJ-J3-AaP">
-                        <rect key="frame" x="16" y="31" width="300" height="44"/>
+                        <rect key="frame" x="5" y="31" width="322" height="40"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o0h-8g-6X4">
-                                <rect key="frame" x="3" y="0.0" width="294" height="44"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o0h-8g-6X4">
+                                <rect key="frame" x="3" y="0.0" width="316" height="40"/>
                                 <string key="text">CoreText note: Client requested name ".SFUI-Regular", it will get TimesNewRomanPSMT rather than the intended font. All system UI font access should be through proper APIs such as CTFontCreateUIFontForLanguage</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -50,26 +51,36 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="if7-x6-jzm">
-                        <rect key="frame" x="40" y="78" width="252" height="2"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <rect key="frame" x="0.0" y="74" width="332" height="1"/>
+                        <color key="backgroundColor" name="PrimaryGreen"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="2" id="OBv-h7-JJE"/>
+                            <constraint firstAttribute="height" constant="1" id="OBv-h7-JJE"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3xZ-w4-GoW">
+                        <rect key="frame" x="0.0" y="75" width="332" height="5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="5" id="Wom-QA-p1R"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="ybn-AA-6tz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="2Yi-rt-wHP"/>
-                    <constraint firstAttribute="trailing" secondItem="if7-x6-jzm" secondAttribute="trailing" constant="40" id="9uR-gA-Yua"/>
+                    <constraint firstAttribute="trailing" secondItem="3xZ-w4-GoW" secondAttribute="trailing" id="9P8-0K-tF3"/>
+                    <constraint firstAttribute="trailing" secondItem="if7-x6-jzm" secondAttribute="trailing" id="9uR-gA-Yua"/>
                     <constraint firstItem="iFx-Vf-IZX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="AWs-EC-ryf"/>
                     <constraint firstItem="ybn-AA-6tz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="AbV-GJ-wkG"/>
                     <constraint firstItem="idJ-J3-AaP" firstAttribute="top" secondItem="ybn-AA-6tz" secondAttribute="bottom" constant="5" id="CEe-J6-gOb"/>
                     <constraint firstItem="if7-x6-jzm" firstAttribute="top" secondItem="idJ-J3-AaP" secondAttribute="bottom" constant="3" id="HHA-2e-2qC"/>
-                    <constraint firstAttribute="trailing" secondItem="idJ-J3-AaP" secondAttribute="trailing" constant="16" id="Jh9-7u-4VO"/>
+                    <constraint firstAttribute="trailing" secondItem="idJ-J3-AaP" secondAttribute="trailing" constant="5" id="Jh9-7u-4VO"/>
                     <constraint firstItem="ybn-AA-6tz" firstAttribute="baseline" secondItem="iFx-Vf-IZX" secondAttribute="baseline" id="LeZ-LM-i7N"/>
-                    <constraint firstItem="if7-x6-jzm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="40" id="Oqr-qc-vO5"/>
-                    <constraint firstItem="idJ-J3-AaP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="T12-R8-DZX"/>
+                    <constraint firstItem="if7-x6-jzm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Oqr-qc-vO5"/>
+                    <constraint firstItem="idJ-J3-AaP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="T12-R8-DZX"/>
+                    <constraint firstItem="3xZ-w4-GoW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ZVn-Fs-Z46"/>
                     <constraint firstAttribute="trailing" secondItem="iFx-Vf-IZX" secondAttribute="trailing" constant="8" id="a42-RO-8Jg"/>
-                    <constraint firstAttribute="bottom" secondItem="if7-x6-jzm" secondAttribute="bottom" id="nmR-vd-EwK"/>
+                    <constraint firstItem="3xZ-w4-GoW" firstAttribute="top" secondItem="if7-x6-jzm" secondAttribute="bottom" id="dk5-bI-ImU"/>
+                    <constraint firstAttribute="bottom" secondItem="3xZ-w4-GoW" secondAttribute="bottom" id="nh1-hc-wLV"/>
                     <constraint firstItem="iFx-Vf-IZX" firstAttribute="leading" secondItem="ybn-AA-6tz" secondAttribute="trailing" constant="5" id="rhE-Pr-lVt"/>
                 </constraints>
             </tableViewCellContentView>
@@ -85,6 +96,9 @@
         </tableViewCell>
     </objects>
     <resources>
+        <namedColor name="PrimaryGreen">
+            <color red="0.0078431372549019607" green="0.30980392156862746" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

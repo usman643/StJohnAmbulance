@@ -24,6 +24,7 @@ class WebViewVC: ENTALDBaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.tintColor = UIColor.white
         
         super.viewWillAppear(animated)
         if (self.urlType == "register"){
@@ -34,6 +35,10 @@ class WebViewVC: ENTALDBaseViewController {
             let link = Foundation.URL(string:ProcessUtils.shared.registerURL)!
             let request = URLRequest(url: link)
             webview.load(request)
+        }else if (self.urlType == "updatepass"){
+            let link = Foundation.URL(string:ProcessUtils.shared.changePassURL)!
+            let request = URLRequest(url: link)
+            webview.load(request)
         }
         
     
@@ -41,8 +46,4 @@ class WebViewVC: ENTALDBaseViewController {
         
        
     }
-
-
- 
-
 }

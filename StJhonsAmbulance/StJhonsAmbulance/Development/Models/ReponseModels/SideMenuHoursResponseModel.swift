@@ -40,7 +40,8 @@ struct SideMenuHoursModel : Codable {
     let sjavms_hours : Float?
     let msnfp_participationscheduleid : String?
     let sjavms_VolunteerEvent : SideMenuHoursEventModel?
- 
+    let sjavms_programid: String?
+    var program_name: String?
 }
 
 struct SideMenuHoursEventModel : Codable {

@@ -16,10 +16,11 @@ enum EventRouter : Router {
     case getLatestUpcomingEvents(params:[String:Any])
     case getAllProgram(params:[String:Any])
     case cancelEvent(eventId:String, params:[String:Any])
+    case pendingShiftUpdate(eventId:String, params:[String:Any])
     case getContactInfo(params:[String:Any])
     
     case simulate401
-    
+   
     var procedure: String {
         switch self  {
         case .getCurrentEvent : return "msnfp_engagementopportunities"
@@ -30,6 +31,7 @@ enum EventRouter : Router {
         case .getLatestUpcomingEvents : return "msnfp_engagementopportunities"
         case .getAllProgram : return "sjavms_programs"
         case .cancelEvent(let eventID, _) : return "msnfp_engagementopportunities(\(eventID))"
+        case .pendingShiftUpdate(let eventId, _) : return "msnfp_engagementopportunities(\(eventId))"
         case .getContactInfo : return "msnfp_engagementopportunities"
             
         case .simulate401: return "simulate-401"
@@ -54,6 +56,8 @@ enum EventRouter : Router {
             return params
         case .cancelEvent(_, let params):
             return params
+        case .pendingShiftUpdate(_, let params):
+            return params
         case .getContactInfo(let params):
             return params
         default: return [:]
@@ -70,6 +74,8 @@ enum EventRouter : Router {
         switch self {
         case .cancelEvent(_,_):
             return HTTPMethodType.patch.rawValue
+        case .pendingShiftUpdate(_,_):
+            return HTTPMethodType.patch.rawValue
         default:
             break
         }
@@ -83,6 +89,8 @@ enum EventRouter : Router {
     var encoding: ENTALDEncodingType {
         switch self {
         case .cancelEvent(_,_):
+            return .ENTJSONEncoding
+        case .pendingShiftUpdate(_,_):
             return .ENTJSONEncoding
         default:
             break

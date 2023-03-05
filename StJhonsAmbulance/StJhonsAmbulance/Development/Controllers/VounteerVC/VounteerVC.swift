@@ -11,6 +11,9 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
     
     var volunteerData : [VolunteerModel]?
     var filteredData : [VolunteerModel]?
+    var isNameFilter : Bool = false
+    var isRoleFilter : Bool = false
+    
 
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnHome: UIButton!
@@ -30,7 +33,6 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
     @IBOutlet weak var btnSearchClose: UIButton!
     
     @IBOutlet weak var lblTabTitle: UILabel!
-    
     @IBOutlet weak var selectedTabImg: UIImageView!
     
     override func viewDidLoad() {
@@ -99,6 +101,59 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
         filteredData = volunteerData
         tableView.reloadData()
     }
+    
+    
+    
+    @IBAction func nameFilterTapped(_ sender: Any) {
+ 
+        if !isNameFilter{
+            self.filteredData = self.filteredData?.sorted {
+                $0.msnfp_contactId?.fullname ?? "" < $1.msnfp_contactId?.fullname ?? ""
+            }
+            isNameFilter = true
+        }else{
+            self.filteredData = self.filteredData?.sorted {
+                $0.msnfp_contactId?.fullname ?? "" > $1.msnfp_contactId?.fullname ?? ""
+            }
+            isNameFilter = false
+        }
+        
+        isRoleFilter = false
+
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    
+    @IBAction func roleFilterTapped(_ sender: Any) {
+        
+        if !isRoleFilter{
+            self.filteredData = self.filteredData?.sorted {
+                $0.sjavms_RoleType?.sjavms_name ?? "" < $1.sjavms_RoleType?.sjavms_name ?? ""
+            }
+            isRoleFilter = true
+        }else{
+            self.filteredData = self.filteredData?.sorted {
+                $0.sjavms_RoleType?.sjavms_name ?? "" > $1.sjavms_RoleType?.sjavms_name ?? ""
+            }
+            isRoleFilter = false
+        }
+        
+        isNameFilter = false
+
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        
+        
+    }
+    
+    
+    
+    
+    
+    //================ Side Menu =============//
     
     @IBAction func openMessagesScreen(_ sender: Any) {
         self.navigationController?.popViewController(animated: false)
@@ -171,6 +226,18 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
                if let name = $0.msnfp_contactId?.fullname, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
                    return true
                 }
+               if let role = $0.sjavms_RoleType?.sjavms_name, role.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                   return true
+                }
+               if let city = $0.msnfp_contactId?.address1_city, city.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                   return true
+                }
+               
+               if let state = $0.msnfp_contactId?.address1_stateorprovince, state.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                   return true
+                }
+ 
+                               
               return false
             })
                 
@@ -192,7 +259,7 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
             
             ParameterKeys.select : "msnfp_groupmembershipid,msnfp_membershiprole",
             
-            ParameterKeys.expand : "msnfp_contactId($select=fullname,telephone1,emailaddress1,address1_stateorprovince,address1_postalcode,address1_country,address1_city),sjavms_RoleType($select=sjavms_rolecategory,sjavms_name)",
+            ParameterKeys.expand : "msnfp_contactId($select=fullname,lastname,telephone1,emailaddress1,address1_stateorprovince,address1_line1,address1_postalcode,address1_country,address1_city),sjavms_RoleType($select=sjavms_rolecategory,sjavms_name)",
             ParameterKeys.filter : "(statecode eq 0 and _msnfp_groupid_value eq \(groupId)) and (msnfp_contactId/statecode eq 0)",
             ParameterKeys.orderby : "msnfp_membershiprole asc"
             
@@ -222,6 +289,11 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
                     if (self.volunteerData?.count == 0 || self.volunteerData?.count == nil){
                         self.showEmptyView()
                     }else{
+                        
+                        self.filteredData = self.filteredData?.sorted {
+                            $0.msnfp_contactId?.lastname ?? "" < $1.msnfp_contactId?.lastname ?? ""
+                        }
+                        
                         DispatchQueue.main.async {
                             for subview in self.tableView.subviews {
                                 subview.removeFromSuperview()
@@ -265,15 +337,28 @@ extension VounteerVC: UITableViewDelegate,UITableViewDataSource {
             cell.mianView.backgroundColor = UIColor.viewLightColor
             cell.dividerView.backgroundColor = UIColor.gray
         }
-        cell.lblName.text = filteredData?[indexPath.row].msnfp_contactId?.fullname
-        cell.lblRole.text = filteredData?[indexPath.row].sjavms_RoleType?.sjavms_name
-        cell.lblCity.text = filteredData?[indexPath.row].msnfp_contactId?.address1_city
-        cell.lblState.text = filteredData?[indexPath.row].msnfp_contactId?.address1_stateorprovince
+        
+        let rowModel = filteredData?[indexPath.row]
+ 
+        cell.lblName.text = rowModel?.msnfp_contactId?.fullname
+        cell.lblRole.text = rowModel?.sjavms_RoleType?.sjavms_name
+        cell.lblCity.text = rowModel?.msnfp_contactId?.address1_city
+        cell.lblState.text = rowModel?.msnfp_contactId?.address1_stateorprovince
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 30
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        ENTALDControllers.shared.showVolunteerDetailScreen(type: .ENTALDPRESENT_POPOVER, from: self, dataObj: filteredData?[indexPath.row]) { params, controller in
+            
+        }
+        
+        
+        
     }
     
 }

@@ -152,8 +152,6 @@ class LandingVC: ENTALDBaseViewController {
             }
         }else{
             self.getGroups()
-
-        
         }
         
     }

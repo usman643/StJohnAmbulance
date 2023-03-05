@@ -22,6 +22,9 @@ class MessageVC: ENTALDBaseViewController {
     @IBOutlet weak var callView: UIView!
     @IBOutlet weak var textView: UIView!
     @IBOutlet weak var emailView: UIView!
+    
+    @IBOutlet weak var btnMessage: UIButton!
+    
 
     @IBOutlet weak var lblInbox: UILabel!
     @IBOutlet weak var tableview: UITableView!
@@ -49,24 +52,17 @@ class MessageVC: ENTALDBaseViewController {
         
         btnGroup.backgroundColor = UIColor.themePrimary
         btnGroup.titleLabel?.font = UIFont.BoldFont(14)
-        btnCall.titleLabel?.font = UIFont.RegularFont(14)
-        btnText.titleLabel?.font = UIFont.RegularFont(14)
-        btnEmail.titleLabel?.font = UIFont.RegularFont(14)
+        btnMessage.titleLabel?.font = UIFont.BoldFont(14)
         
+       
         btnGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        btnCall.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        btnText.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        btnEmail.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        
+        btnMessage.setTitleColor(UIColor.textWhiteColor, for: .normal)
+    
+        btnMessage.layer.cornerRadius = 3
         groupView.layer.cornerRadius = 3
-        callView.layer.cornerRadius = 3
-        textView.layer.cornerRadius = 3
-        emailView.layer.cornerRadius = 3
         
         groupView.backgroundColor = UIColor.themePrimary
-        callView.backgroundColor = UIColor.themePrimary
-        textView.backgroundColor = UIColor.themePrimary
-        emailView.backgroundColor = UIColor.themePrimary
+        btnMessage.backgroundColor = UIColor.themePrimary
         
         lblInbox.font = UIFont.BoldFont(16)
         lblInbox.textColor = UIColor.themePrimaryWhite
@@ -81,7 +77,6 @@ class MessageVC: ENTALDBaseViewController {
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-    
     
     @IBAction func homeTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -98,6 +93,19 @@ class MessageVC: ENTALDBaseViewController {
     }
     
     @IBAction func emailTapped(_ sender: Any) {
+    }
+    
+    
+    @IBAction func messageTapped(_ sender: Any) {
+
+        ENTALDControllers.shared.showSendMessageScreen(type: .ENTALDPRESENT_POPOVER, from: self) { params, controller in
+            
+            if(params as? Int == 1){
+                
+                self.getMessages()
+            }
+            
+        }
     }
     
     // bottom bar action
@@ -238,6 +246,14 @@ extension MessageVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCell(withIdentifier: "MessageTVC", for: indexPath) as! MessageTVC
         
+        if indexPath.row % 2 == 0{
+            cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+           
+        }else{
+            cell.backgroundColor = UIColor.viewLightColor
+           
+        }
+        
         
         cell.lblName.text = messagesData?[indexPath.row].subject
         cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: messagesData?[indexPath.row].modifiedon ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
@@ -245,6 +261,12 @@ extension MessageVC: UITableViewDelegate, UITableViewDataSource{
         
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        ENTALDControllers.shared.showMessageDetailScreen(type: .ENTALDPRESENT_POPOVER, from: self, dataObj: messagesData?[indexPath.row], callBack: nil)
+        
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

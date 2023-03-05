@@ -167,11 +167,6 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
-    func requestCloseEvent(eventId:String, params:[String:Any],  _ completion:@escaping((ApiResult<ProgramResponseModel, ApiError>) -> Void )){
-        let router = EventRouter.cancelEvent(eventId:eventId, params: params)
-        ENTALDHttpClient.shared.request(router, completion: completion)
-    }
-    
     func requestSideMenuAvailablityHour(params:[String:Any],  _ completion:@escaping((ApiResult<AvailablityHourResponseModel, ApiError>) -> Void )){
         let router = SideMenuRouter.getAvailablityHour(params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
@@ -197,7 +192,53 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
+    func requestPreferedLanguage(params:[String:Any],  _ completion:@escaping((ApiResult<LanguageResponseModel, ApiError>) -> Void )){
+        let router = SideMenuRouter.getlanguages(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func postGroupMessage(params:PostGroupMessageRequestModel,  _ completion:@escaping((ApiResult<LanguageResponseModel, ApiError>) -> Void )){
+        let router = DashBoardRouter.postMessages(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ///========================  Patch Requests ===========================
+    
+    
+    func requestCloseEvent(eventId:String, params:[String:Any],  _ completion:@escaping((ApiResult<ProgramResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.cancelEvent(eventId:eventId, params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    
+    func requestPendingShiftUpdate(eventId:String, params:[String:Any],  _ completion:@escaping((ApiResult<ProgramResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.pendingShiftUpdate(eventId: eventId, params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+
 }
 

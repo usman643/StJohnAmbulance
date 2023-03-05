@@ -120,8 +120,8 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
         }else if(named == "Change Password"){
             
             self.navigationController?.popToRootViewController(animated: true)
-            ENTALDControllers.shared.showChangePasswordScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
-                        
+//            ENTALDControllers.shared.showChangePasswordScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
+            ENTALDControllers.shared.showUpdatePasswordScreen(type: .ENTALDPUSH, from: self, callBack: nil)
         }else if(named == "Documents"){
             
             ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })

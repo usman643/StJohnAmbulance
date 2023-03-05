@@ -36,7 +36,8 @@ class MessageTVC: UITableViewCell {
         lblName.textColor = UIColor.themeBlackText
         lblDate.textColor = UIColor.themeBlackText
         lblMessage.textColor = UIColor.themeBlackText
-        messageView.dropShadow(color: UIColor.gray, offSet: .zero)
+//        messageView.dropShadow(color: UIColor.gray, offSet: .zero)
+        messageView.backgroundColor = UIColor.clear
         dividerView.backgroundColor = UIColor.textBlackColor
     }
 //    func dropShadow() {

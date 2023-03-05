@@ -37,11 +37,11 @@ class AdhocHourTVC: UITableViewCell {
         
     }
     
-    func setContent(cellModel: SideMenuHoursModel?){
+    func setContent(cellModel: SideMenuHoursModel?, programName: String?){
 
 
         lblTitle.text = cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
-//        lblProgram.text = cellModel?
+        lblProgram.text = programName ?? ""
 
         lblHours.text = cellModel?.sjavms_hours?.getFormattedNumber()
         if let status = cellModel?.msnfp_schedulestatus {

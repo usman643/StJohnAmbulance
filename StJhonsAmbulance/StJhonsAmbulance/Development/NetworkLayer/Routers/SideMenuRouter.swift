@@ -14,6 +14,7 @@ enum SideMenuRouter: Router {
     case getAdhocHour(params:[String:Any])
     case getVolunteerHour(params:[String:Any])
     case getAvailablityHour(params:[String:Any])
+    case getlanguages(params:[String:Any])
     case simulate401
     
     var procedure: String { //endpoints
@@ -23,6 +24,7 @@ enum SideMenuRouter: Router {
         case .getAdhocHour: return "msnfp_participationschedules"
         case .getVolunteerHour: return "msnfp_participationschedules"
         case .getAvailablityHour: return "msnfp_availabilities"
+        case .getlanguages:return "stringmaps"
             
         case .simulate401: return "simulate-401"
         }

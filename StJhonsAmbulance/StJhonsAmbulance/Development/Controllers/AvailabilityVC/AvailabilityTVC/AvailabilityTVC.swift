@@ -56,7 +56,20 @@ class AvailabilityTVC: UITableViewCell {
         }else{
             lblEffectiveto.text = ""
         }
-//        lblWorkingDays.text = cellModel.
+        var dayStr = ""
+        if let days = cellModel?.msnfp_workingdays?.components(separatedBy: ","){
+            
+            for singleDay in days {
+                var intDay = Int(singleDay) ?? 0
+                let dayEng = ProcessUtils.shared.getDay(code: intDay as Int) ?? ""
+                if singleDay == days.last {
+                    dayStr += "\(dayEng)"
+                }else{
+                    dayStr += "\(dayEng),"
+                }
+            }
+        }
+        lblWorkingDays.text = dayStr
        
     }
     

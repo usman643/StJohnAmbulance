@@ -14,6 +14,7 @@ enum DashBoardRouter : Router {
     case getPendingShiftsTwo(params:[String:Any])
     case getPendingShiftsThree(params:[String:Any])
     case getMessages(params:[String:Any])
+    case postMessages(params:PostGroupMessageRequestModel)
     case getVolunteers(params:[String:Any])
     case getVolunteersOfEvent(params:[String:Any])
     case simulate401
@@ -26,6 +27,7 @@ enum DashBoardRouter : Router {
         case .getPendingShiftsTwo: return "msnfp_participationschedules"
         case .getPendingShiftsThree : return "msnfp_engagementopportunityschedules"
         case .getMessages : return "emails"
+        case .postMessages : return "emails"
         case .getVolunteers : return "msnfp_groupmemberships"
         case .getVolunteersOfEvent : return "msnfp_participationschedules"
         case .simulate401: return "simulate-401"
@@ -42,6 +44,11 @@ enum DashBoardRouter : Router {
             return params
         case .getMessages(let params):
             return params
+        case .postMessages(let params):
+            if let model = params.encodeModel() {
+                return model
+            }
+            return [:]
         case .getVolunteers(let params):
             return params
         case .getVolunteersOfEvent(let params):
@@ -57,6 +64,12 @@ enum DashBoardRouter : Router {
     }
     
     var method: String {
+        switch self {
+        case .postMessages(_):
+            return HTTPMethodType.post.rawValue
+        default:
+            break
+        }
         return HTTPMethodType.get.rawValue
     }
     
@@ -65,6 +78,12 @@ enum DashBoardRouter : Router {
     }
     
     var encoding: ENTALDEncodingType {
+        switch self {
+        case .postMessages(_):
+            return .ENTJSONEncoding
+        default:
+            break
+        }
         return .ENTDefaultEncoding
     }
     

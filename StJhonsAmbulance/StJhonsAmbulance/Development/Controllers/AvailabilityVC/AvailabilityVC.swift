@@ -13,6 +13,7 @@ class AvailabilityVC: ENTALDBaseViewController {
     var adhocData : [SideMenuHoursModel]?
     var volunteerHourData : [SideMenuHoursModel]?
     var availablityData : [AvailablityHourModel]?
+    var programsData : [ProgramModel]?
     let contactId = UserDefaults.standard.contactIdToken ?? ""
     
     
@@ -67,9 +68,14 @@ class AvailabilityVC: ENTALDBaseViewController {
         lblYeartoDate.text = UserDefaults.standard.userInfo?.sjavms_totalhourscompletedthisyear?.getFormattedNumber()
         lblLifeTime.text = UserDefaults.standard.userInfo?.msnfp_totalengagementhours?.getFormattedNumber()
         
-        getAdhocHour()
-        getAvailability()
-        getVolunteerHour()
+        self.getAllProgramesfile( completion: {status in
+            
+            self.getAdhocHour()
+            self.getAvailability()
+            self.getVolunteerHour()
+        })
+        
+        
     }
 
     func decorateUI(){
@@ -184,7 +190,8 @@ extension AvailabilityVC : UITableViewDelegate, UITableViewDataSource{
             }
 
             let rowModel = self.adhocData?[indexPath.row]
-            cell.setContent(cellModel: rowModel)
+            let programName = self.getProgramName(rowModel?.sjavms_VolunteerEvent?._sjavms_program_value ?? "")
+            cell.setContent(cellModel: rowModel , programName: programName)
             return cell
 
         }else if (tableView == voluteerHourTableView){
@@ -199,7 +206,8 @@ extension AvailabilityVC : UITableViewDelegate, UITableViewDataSource{
                 cell.seperaterView.backgroundColor = UIColor.gray
             }
             let rowModel = self.volunteerHourData?[indexPath.row]
-            cell.setContent(cellModel: rowModel)
+            let programName = self.getProgramName(rowModel?.sjavms_VolunteerEvent?._sjavms_program_value ?? "")
+            cell.setContent(cellModel: rowModel , programName: programName)
             return cell
 
         }else if (tableView == availablityTableView){
@@ -235,6 +243,48 @@ extension AvailabilityVC : UITableViewDelegate, UITableViewDataSource{
 
 
 extension AvailabilityVC {
+    
+    private func getAllProgramesfile( completion: @escaping(_ status:Bool)->Void) {
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestAllProgram(params: [:]){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                
+                if let pastEvent = response.value {
+                    self.programsData = pastEvent
+                    ProcessUtils.shared.programsData = self.programsData
+//                    self.eventProgramData = self.getProgramName(self.eventData?._sjavms_program_value ?? "")
+                    
+                    DispatchQueue.main.async {
+//                        self.lblProgramType.text = self.eventProgramData?.sjavms_name ?? ""
+                        //contact info
+                    }
+                    self.getAdhocHour()
+                    self.getAvailability()
+                    self.getVolunteerHour()
+                    
+                }
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+            
+        }
+        
+        
+    }
 
     func getAvailability(){
         
@@ -325,6 +375,11 @@ extension AvailabilityVC {
                     if (self.volunteerHourData?.count == 0 || self.volunteerHourData?.count == nil){
                         self.showEmptyView(tableVw: self.voluteerHourTableView)
                     }else{
+//                        for i in (0 ..< (self.adhocData?.count ?? 0)) {
+//
+//                            self.volunteerHourData?[i].program_name = self.getProgramName(self.volunteerHourData?[i].sjavms_VolunteerEvent?._sjavms_program_value  ?? "")
+//
+//                        }
                         DispatchQueue.main.async {
                             for subview in self.voluteerHourTableView.subviews {
                                 subview.removeFromSuperview()
@@ -385,6 +440,15 @@ extension AvailabilityVC {
                     if (self.adhocData?.count == 0 || self.adhocData?.count == nil){
                         self.showEmptyView(tableVw: self.adhocTableView)
                     }else{
+                        
+//                        for i in (0 ..< (self.adhocData?.count ?? 0)) {
+//
+//                            self.adhocData?[i].program_name = self.getProgramName(self.adhocData?[i].sjavms_VolunteerEvent?._sjavms_program_value ?? "")
+//
+//                        }
+                        
+                        
+                        
                         DispatchQueue.main.async {
                             for subview in self.adhocTableView.subviews {
                                 subview.removeFromSuperview()
@@ -411,6 +475,11 @@ extension AvailabilityVC {
                 }
             }
         }
+    }
+    
+    func getProgramName(_ programId:String)->String?{
+        let programName = self.programsData?.filter({$0._sjavms_programsid_value == programId}).first?.sjavms_name
+        return programName
     }
     
 }
