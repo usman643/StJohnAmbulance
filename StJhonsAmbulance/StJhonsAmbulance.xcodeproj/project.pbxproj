@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18BC50AC29B60F11007BF382 /* GeneralInfoFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BC50AA29B60F11007BF382 /* GeneralInfoFormVC.swift */; };
+		18BC50AD29B60F11007BF382 /* GeneralInfoFormVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18BC50AB29B60F11007BF382 /* GeneralInfoFormVC.xib */; };
 		1D00A0D2298AB19000700418 /* CSDashBoardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D00A0D1298AB19000700418 /* CSDashBoardRouter.swift */; };
 		1D0BDED3298258BB00CC2030 /* MessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0BDED1298258BB00CC2030 /* MessageVC.swift */; };
 		1D0BDED4298258BB00CC2030 /* MessageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D0BDED2298258BB00CC2030 /* MessageVC.xib */; };
@@ -177,8 +179,6 @@
 		CBBF866E9500D4C5310D30E4 /* Pods_StJhonsAmbulance_StJhonsAmbulanceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384D5212F5153F6EBC44A59B /* Pods_StJhonsAmbulance_StJhonsAmbulanceUITests.framework */; };
 		E43FFCBB29B5CCBE008814C2 /* EventDetailInfoFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43FFCB929B5CCBE008814C2 /* EventDetailInfoFormVC.swift */; };
 		E43FFCBC29B5CCBE008814C2 /* EventDetailInfoFormVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E43FFCBA29B5CCBE008814C2 /* EventDetailInfoFormVC.xib */; };
-		E43FFCBF29B5CCDC008814C2 /* GeneralInfoFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43FFCBD29B5CCDC008814C2 /* GeneralInfoFormVC.swift */; };
-		E43FFCC029B5CCDC008814C2 /* GeneralInfoFormVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E43FFCBE29B5CCDC008814C2 /* GeneralInfoFormVC.xib */; };
 		E43FFCC429B5CD19008814C2 /* CreateEventFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43FFCC229B5CD19008814C2 /* CreateEventFormVC.swift */; };
 		E43FFCC529B5CD19008814C2 /* CreateEventFormVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E43FFCC329B5CD19008814C2 /* CreateEventFormVC.xib */; };
 		E47F99BC297DC8F900BF793B /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47F99BA297DC8F900BF793B /* DashboardVC.swift */; };
@@ -228,6 +228,8 @@
 
 /* Begin PBXFileReference section */
 		17C9EFF5DCD181366AD8E0B7 /* Pods-StJhonsAmbulanceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StJhonsAmbulanceTests.release.xcconfig"; path = "Target Support Files/Pods-StJhonsAmbulanceTests/Pods-StJhonsAmbulanceTests.release.xcconfig"; sourceTree = "<group>"; };
+		18BC50AA29B60F11007BF382 /* GeneralInfoFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoFormVC.swift; sourceTree = "<group>"; };
+		18BC50AB29B60F11007BF382 /* GeneralInfoFormVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralInfoFormVC.xib; sourceTree = "<group>"; };
 		1D00A0D1298AB19000700418 /* CSDashBoardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSDashBoardRouter.swift; sourceTree = "<group>"; };
 		1D0BDED1298258BB00CC2030 /* MessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageVC.swift; sourceTree = "<group>"; };
 		1D0BDED2298258BB00CC2030 /* MessageVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageVC.xib; sourceTree = "<group>"; };
@@ -407,8 +409,6 @@
 		E2A3F7E87047CECA4F259EFD /* Pods-StJhonsAmbulance.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StJhonsAmbulance.release.xcconfig"; path = "Target Support Files/Pods-StJhonsAmbulance/Pods-StJhonsAmbulance.release.xcconfig"; sourceTree = "<group>"; };
 		E43FFCB929B5CCBE008814C2 /* EventDetailInfoFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailInfoFormVC.swift; sourceTree = "<group>"; };
 		E43FFCBA29B5CCBE008814C2 /* EventDetailInfoFormVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventDetailInfoFormVC.xib; sourceTree = "<group>"; };
-		E43FFCBD29B5CCDC008814C2 /* GeneralInfoFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoFormVC.swift; sourceTree = "<group>"; };
-		E43FFCBE29B5CCDC008814C2 /* GeneralInfoFormVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralInfoFormVC.xib; sourceTree = "<group>"; };
 		E43FFCC229B5CD19008814C2 /* CreateEventFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventFormVC.swift; sourceTree = "<group>"; };
 		E43FFCC329B5CD19008814C2 /* CreateEventFormVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateEventFormVC.xib; sourceTree = "<group>"; };
 		E47F99BA297DC8F900BF793B /* DashboardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
@@ -1274,8 +1274,8 @@
 		E43FFCB729B5CC8D008814C2 /* GeneralInfoForm */ = {
 			isa = PBXGroup;
 			children = (
-				E43FFCBD29B5CCDC008814C2 /* GeneralInfoFormVC.swift */,
-				E43FFCBE29B5CCDC008814C2 /* GeneralInfoFormVC.xib */,
+				18BC50AA29B60F11007BF382 /* GeneralInfoFormVC.swift */,
+				18BC50AB29B60F11007BF382 /* GeneralInfoFormVC.xib */,
 			);
 			path = GeneralInfoForm;
 			sourceTree = "<group>";
@@ -1536,6 +1536,7 @@
 				E4F7CB11297E121000428A4E /* SideMenuTVC.xib in Resources */,
 				1D1D1A3329918ED900B5454E /* VolunteerHoursVC.xib in Resources */,
 				E4B2EF0F297C57EB00D05014 /* Quicksand-Medium.ttf in Resources */,
+				18BC50AD29B60F11007BF382 /* GeneralInfoFormVC.xib in Resources */,
 				1D3E20FB298BF33000A97264 /* EmptyEventTableCell.xib in Resources */,
 				1D3BD161299D9541008F4178 /* LanguageVC.xib in Resources */,
 				1DEFC0F029B23055002276B2 /* MessagedetailAlertVC.xib in Resources */,
@@ -1582,7 +1583,6 @@
 				1D3BD152299D8004008F4178 /* SkillsVC.xib in Resources */,
 				1DC1872629B210480026BA64 /* VolunteerDetailVC.xib in Resources */,
 				1D1D1A4229919D0A00B5454E /* ScheduleVC.xib in Resources */,
-				E43FFCC029B5CCDC008814C2 /* GeneralInfoFormVC.xib in Resources */,
 				353C6180281678F900CC8B7F /* splash_loading2.gif in Resources */,
 				E4B2EF0E297C57EB00D05014 /* Quicksand-Regular.ttf in Resources */,
 			);
@@ -1765,6 +1765,7 @@
 				1D0BDEDD29826EC700CC2030 /* VounteerVC.swift in Sources */,
 				E48359AB297D66E3008CBFFF /* AuthRequestModel.swift in Sources */,
 				1D1D1A3229918ED900B5454E /* VolunteerHoursVC.swift in Sources */,
+				18BC50AC29B60F11007BF382 /* GeneralInfoFormVC.swift in Sources */,
 				1D4DE84D297FB51C00246242 /* NSString.swift in Sources */,
 				359E9C33282D46D9001E3D73 /* ENTALDDummyDataUtils.swift in Sources */,
 				1D1442F62983E67C001F3B15 /* PendingShiftVC.swift in Sources */,
@@ -1789,7 +1790,6 @@
 				353C618E2816B07900CC8B7F /* ENTALDNetworkRequest.swift in Sources */,
 				1DB25AE32993D31F0049CE22 /* VolunteerAwardModel.swift in Sources */,
 				353C61882816A2EF00CC8B7F /* ENTALDAPIErrorUtil.swift in Sources */,
-				E43FFCBF29B5CCDC008814C2 /* GeneralInfoFormVC.swift in Sources */,
 				359E9C70282EA32F001E3D73 /* ENTALDTabbarViewController.swift in Sources */,
 				E47F99BC297DC8F900BF793B /* DashboardVC.swift in Sources */,
 				359E9C6B282E6DE4001E3D73 /* ENTALDUIColor+Extension.swift in Sources */,

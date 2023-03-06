@@ -55,6 +55,7 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
     @IBOutlet weak var eventView: UIView!
     @IBOutlet weak var eventImgView: UIImageView!
     @IBOutlet weak var lblEvent: UILabel!
+    @IBOutlet weak var lblTabTitle: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,6 +152,9 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
         lblActiveDate.isHidden = true
         lblTotalHours.isHidden = true
         lblServiceYears.isHidden = true
+        
+        lblTabTitle.font = UIFont.BoldFont(16)
+        lblTabTitle.textColor = UIColor.themePrimary
     }
     
     func setupContent(){
@@ -163,12 +167,7 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
         lblTotalHours.text = "Total Hours: \(hours)"
         profileImg.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: UserDefaults.standard.userInfo?.entityimage ?? "")
     }
-    
-//    func convertBase64StringToImage (imageBase64String:String) -> UIImage {
-//        let imageData = Data(base64Encoded: imageBase64String)
-//        let image = UIImage(data: imageData!)
-//        return image!
-//    }
+
     
     @IBAction func sideMenuTapped(_ sender: Any) {
         present(menu!, animated: true)

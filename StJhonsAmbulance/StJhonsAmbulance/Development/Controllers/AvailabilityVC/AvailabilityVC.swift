@@ -161,80 +161,7 @@ class AvailabilityVC: ENTALDBaseViewController {
         }
     }
     
-}
 
-extension AvailabilityVC : UITableViewDelegate, UITableViewDataSource{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (tableView == self.adhocTableView){
-            return adhocData?.count ?? 0
-        }else if (tableView == voluteerHourTableView){
-            return volunteerHourData?.count ?? 0
-        }else if (tableView == availablityTableView){
-            return availablityData?.count ?? 0
-        }
-
-        return 0
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-
-        if (tableView == self.adhocTableView){
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AdhocHourTVC", for: indexPath) as! AdhocHourTVC
-
-            if indexPath.row % 2 == 0{
-                cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-                cell.seperatorView.backgroundColor = UIColor.themePrimaryColor
-            }else{
-                cell.backgroundColor = UIColor.viewLightColor
-                cell.seperatorView.backgroundColor = UIColor.gray
-            }
-
-            let rowModel = self.adhocData?[indexPath.row]
-            let programName = self.getProgramName(rowModel?.sjavms_VolunteerEvent?._sjavms_program_value ?? "")
-            cell.setContent(cellModel: rowModel , programName: programName)
-            return cell
-
-        }else if (tableView == voluteerHourTableView){
-
-            let cell = tableView.dequeueReusableCell(withIdentifier: "VolunteerHourAvailabilityTVC", for: indexPath) as! VolunteerHourAvailabilityTVC
-
-            if indexPath.row % 2 == 0{
-                cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-                cell.seperaterView.backgroundColor = UIColor.themePrimaryColor
-            }else{
-                cell.backgroundColor = UIColor.viewLightColor
-                cell.seperaterView.backgroundColor = UIColor.gray
-            }
-            let rowModel = self.volunteerHourData?[indexPath.row]
-            let programName = self.getProgramName(rowModel?.sjavms_VolunteerEvent?._sjavms_program_value ?? "")
-            cell.setContent(cellModel: rowModel , programName: programName)
-            return cell
-
-        }else if (tableView == availablityTableView){
-
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AvailabilityTVC", for: indexPath) as! AvailabilityTVC
-
-            if indexPath.row % 2 == 0{
-                cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-                cell.seperaterView.backgroundColor = UIColor.themePrimaryColor
-            }else{
-                cell.backgroundColor = UIColor.viewLightColor
-                cell.seperaterView.backgroundColor = UIColor.gray
-            }
-            let rowModel = self.availablityData?[indexPath.row]
-            cell.setContent(cellModel: rowModel)
-            return cell
-        }else{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AvailabilityTVC", for: indexPath) as! AvailabilityTVC
-            return cell
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 30
-    }
-    
-}
 
 
 
@@ -242,7 +169,6 @@ extension AvailabilityVC : UITableViewDelegate, UITableViewDataSource{
 
 
 
-extension AvailabilityVC {
     
     private func getAllProgramesfile( completion: @escaping(_ status:Bool)->Void) {
         DispatchQueue.main.async {
@@ -266,9 +192,9 @@ extension AvailabilityVC {
 //                        self.lblProgramType.text = self.eventProgramData?.sjavms_name ?? ""
                         //contact info
                     }
-                    self.getAdhocHour()
-                    self.getAvailability()
-                    self.getVolunteerHour()
+//                    self.getAdhocHour()
+//                    self.getAvailability()
+//                    self.getVolunteerHour()
                     
                 }
             case .error(let error, let errorResponse):
@@ -349,7 +275,7 @@ extension AvailabilityVC {
         let params : [String:Any] = [
             
             ParameterKeys.select : "msnfp_schedulestatus,sjavms_start,sjavms_end,_sjavms_volunteerevent_value,_msnfp_engagementopportunityscheduleid_value,sjavms_hours,msnfp_participationscheduleid",
-            ParameterKeys.expand : "sjavms_VolunteerEvent($select=_sjavms_program_value)",
+            ParameterKeys.expand : "sjavms_VolunteerEvent($select=_sjavms_program_value,msnfp_engagementopportunitytitle),msnfp_engagementOpportunityScheduleId($select=msnfp_shiftname,msnfp_engagementopportunityschedule)",
             ParameterKeys.filter : "(statecode eq 0 and _sjavms_volunteer_value eq \(self.contactId)) and (sjavms_VolunteerEvent/sjavms_adhocevent ne true)",
             ParameterKeys.orderby : "_sjavms_volunteerevent_value asc,msnfp_schedulestatus desc"
             
@@ -478,8 +404,84 @@ extension AvailabilityVC {
     }
     
     func getProgramName(_ programId:String)->String?{
-        let programName = self.programsData?.filter({$0._sjavms_programsid_value == programId}).first?.sjavms_name
+        let programName = self.programsData?.filter({$0.sjavms_programid == programId}).first?.sjavms_name
         return programName
     }
     
+
 }
+
+
+extension AvailabilityVC : UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (tableView == self.adhocTableView){
+            return adhocData?.count ?? 0
+        }else if (tableView == voluteerHourTableView){
+            return volunteerHourData?.count ?? 0
+        }else if (tableView == availablityTableView){
+            return availablityData?.count ?? 0
+        }
+
+        return 0
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+
+        if (tableView == self.adhocTableView){
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AdhocHourTVC", for: indexPath) as! AdhocHourTVC
+
+            if indexPath.row % 2 == 0{
+                cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+                cell.seperatorView.backgroundColor = UIColor.themePrimaryColor
+            }else{
+                cell.backgroundColor = UIColor.viewLightColor
+                cell.seperatorView.backgroundColor = UIColor.gray
+            }
+
+            let rowModel = self.adhocData?[indexPath.row]
+            let programName = self.getProgramName(rowModel?.sjavms_VolunteerEvent?._sjavms_program_value ?? "")
+            cell.setContent(cellModel: rowModel , programName: programName)
+            return cell
+
+        }else if (tableView == voluteerHourTableView){
+
+            let cell = tableView.dequeueReusableCell(withIdentifier: "VolunteerHourAvailabilityTVC", for: indexPath) as! VolunteerHourAvailabilityTVC
+
+            if indexPath.row % 2 == 0{
+                cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+                cell.seperaterView.backgroundColor = UIColor.themePrimaryColor
+            }else{
+                cell.backgroundColor = UIColor.viewLightColor
+                cell.seperaterView.backgroundColor = UIColor.gray
+            }
+            let rowModel = self.volunteerHourData?[indexPath.row]
+            let programName = self.getProgramName(rowModel?.sjavms_VolunteerEvent?._sjavms_program_value ?? "")
+            cell.setContent(cellModel: rowModel , programName: programName)
+            return cell
+
+        }else if (tableView == availablityTableView){
+
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AvailabilityTVC", for: indexPath) as! AvailabilityTVC
+
+            if indexPath.row % 2 == 0{
+                cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+                cell.seperaterView.backgroundColor = UIColor.themePrimaryColor
+            }else{
+                cell.backgroundColor = UIColor.viewLightColor
+                cell.seperaterView.backgroundColor = UIColor.gray
+            }
+            let rowModel = self.availablityData?[indexPath.row]
+            cell.setContent(cellModel: rowModel)
+            return cell
+        }else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AvailabilityTVC", for: indexPath) as! AvailabilityTVC
+            return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 30
+    }
+    
+}
+

@@ -155,9 +155,6 @@ class PendingShiftVC: ENTALDBaseViewController {
     
     @IBAction func selectActionTapped(_ sender: Any) {
         
-        
-        
-        
         ENTALDControllers.shared.showPendingShiftStatusUpdatePicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, dataObj: ProcessUtils.shared.getPendingShiftStatus()) { params, controller in
             
             let selectedEvents = self.pendingShiftData?.filter( {$0.event_selected == true})
@@ -166,7 +163,7 @@ class PendingShiftVC: ENTALDBaseViewController {
                 
                 if let data = params as? Int {
                     let params = [
-                        "msnfp_schedulestatus": data
+                        "msnfp_participationschedules": data
                     ]
                     
                     self.updateStatusData(eventId: selectedEvents?[i]._sjavms_volunteerevent_value ?? "", params: params as [String : Any])
@@ -298,12 +295,13 @@ class PendingShiftVC: ENTALDBaseViewController {
                 if let err = errorResponse {
                     message = err.error
                 }
-                self.showEmptyView(tableVw: self.tableView)
+//                self.showEmptyView(tableVw: self.tableView)
                 DispatchQueue.main.async {
                     ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
                 }
             }
         }
+        self.getPendingShift()
     }
     
     

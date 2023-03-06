@@ -13,6 +13,7 @@ enum LoginRouter: Router {
     case dynamicAuthentication(params:DynamicAuthRequest)
     case getExternalIdentity(subId:String)
     case getUserIdentity(conId:String)
+    case updateUserIdentity(conId:String,  params:[String:Any])
     case simulate401
     
     var procedure: String { //endpoints
@@ -21,6 +22,8 @@ enum LoginRouter: Router {
         case .dynamicAuthentication: return "token"
         case .getExternalIdentity: return "adx_externalidentities"
         case .getUserIdentity(let conId):
+            return "contacts(\(conId))"
+        case .updateUserIdentity(let conId, _):
             return "contacts(\(conId))"
         case .simulate401: return "simulate-401"
         }
@@ -40,6 +43,9 @@ enum LoginRouter: Router {
             return [:]
         case .getExternalIdentity(let subId):
             return [ParameterKeys.filter:"adx_username eq \(subId)"]
+            
+        case .updateUserIdentity(_, let params):
+            return params
         default: return [:]
         }
     }
@@ -54,6 +60,8 @@ enum LoginRouter: Router {
             return HTTPMethodType.post.rawValue
         case .dynamicAuthentication(_):
             return HTTPMethodType.post.rawValue
+        case .updateUserIdentity(_,_):
+            return HTTPMethodType.patch.rawValue
         default:
             break
         }
@@ -73,6 +81,13 @@ enum LoginRouter: Router {
     }
     
     var encoding: ENTALDEncodingType {
+        switch self {
+        case .updateUserIdentity(_,_):
+            return .ENTJSONEncoding
+        default:
+            break
+        }
+        
         return .ENTDefaultEncoding
     }
     

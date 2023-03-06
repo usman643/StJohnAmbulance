@@ -19,14 +19,15 @@ struct ExternalQualificationDataModel : Codable{
     let sjavms_issuedate : String?
     let sjavms_expirydate : String?
     let sjavms_verifiedqualificationid : String?
-    let sjavms_Qualification : ExternalQualificationModel?
+    var sjavms_Qualification : ExternalQualificationModel?
     
 }
 
 struct ExternalQualificationModel : Codable{
     let sjavms_type : Int?
+    let sjavms_name : String?
     let sjavms_vmsqualificationid : String?
-    
+    var sjavms_type_value : String?
 }
 
 
@@ -42,6 +43,27 @@ struct SJAQualificationDataModel : Codable {
     let bdo_effectivedate : String?
     let _bdo_qualificationsid_value : String?
     let bdo_qualificationgainedid : String?
+    
+}
+
+
+
+
+struct SJAQualificationTypeResponseModel: Codable {
+    let value: [SJAQualificationTypeDataModel]?
+}
+
+struct SJAQualificationTypeDataModel : Codable {
+    
+    let value : String?
+    let attributename : String?
+    let versionnumber : Int?
+    let langid : Int?
+    let objecttypecode : String?
+    let attributevalue : Int?
+    let stringmapid : String?
+    let organizationid : String?
+    let displayorder : String?
     
 }
 
