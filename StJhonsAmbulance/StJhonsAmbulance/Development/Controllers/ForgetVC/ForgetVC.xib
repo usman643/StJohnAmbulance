@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_12" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -25,20 +25,20 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" restorationIdentifier="LoginVC" id="u9m-tY-naL">
-            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N7b-AS-P6d">
-                    <rect key="frame" x="0.0" y="244.66666666666669" width="393" height="607.33333333333326"/>
+                    <rect key="frame" x="0.0" y="245" width="414" height="651"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afk-S4-S9Z">
-                            <rect key="frame" x="15.999999999999996" y="80.666666666666657" width="40.666666666666657" height="21"/>
+                            <rect key="frame" x="16" y="81" width="41" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="463-gY-tKZ" customClass="ACFloatingTextfield" customModule="StJhonsAmbulance" customModuleProvider="target">
-                            <rect key="frame" x="16" y="111.66666666666666" width="361" height="48"/>
+                            <rect key="frame" x="16" y="112" width="382" height="48"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="48" id="pZi-rd-NkR"/>
                             </constraints>
@@ -46,7 +46,7 @@
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lon-8Y-8fm">
-                            <rect key="frame" x="16" y="183.66666666666666" width="361" height="56"/>
+                            <rect key="frame" x="16" y="184" width="382" height="56"/>
                             <color key="backgroundColor" red="0.29803921570000003" green="0.43137254899999999" blue="0.84313725490000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="56" id="Dzo-5Q-QSP"/>
@@ -60,7 +60,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ftt-zb-ytx">
-                            <rect key="frame" x="297" y="255.66666666666663" width="80" height="27"/>
+                            <rect key="frame" x="318" y="256" width="80" height="27"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" title="Login account">
@@ -71,7 +71,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You will receive link in your email with instructions to reset password" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uoz-3U-2r2">
-                            <rect key="frame" x="16" y="24.000000000000025" width="361" height="40.666666666666657"/>
+                            <rect key="frame" x="16" y="24" width="382" height="41"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.0" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -95,16 +95,16 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Update Your Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jGB-PH-xSV">
-                    <rect key="frame" x="23.999999999999986" y="196" width="252.66666666666663" height="28.666666666666657"/>
+                    <rect key="frame" x="24" y="196" width="252.5" height="29"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5IW-Us-7AN">
-                    <rect key="frame" x="209" y="-36" width="220" height="220"/>
+                    <rect key="frame" x="230" y="-36" width="220" height="220"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_icon" translatesAutoresizingMaskIntoConstraints="NO" id="ZK7-UQ-4t1">
-                            <rect key="frame" x="57.666666666666686" y="70" width="85" height="80"/>
+                            <rect key="frame" x="57.5" y="70" width="85" height="80"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="80" id="ACH-7j-Ugg"/>
                                 <constraint firstAttribute="width" constant="85" id="Swj-q9-ETw"/>
@@ -129,7 +129,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="upN-7D-1ti">
-                    <rect key="frame" x="16" y="67" width="30" height="30"/>
+                    <rect key="frame" x="16" y="52" width="30" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="ZXb-Hz-lxc"/>
                         <constraint firstAttribute="width" constant="30" id="iXt-PK-GkM"/>
@@ -160,11 +160,11 @@
     </objects>
     <designables>
         <designable name="463-gY-tKZ">
-            <size key="intrinsicContentSize" width="104.33333333333333" height="18.666666666666668"/>
+            <size key="intrinsicContentSize" width="104.5" height="18.5"/>
         </designable>
     </designables>
     <resources>
-        <image name="ic_back_white" width="32.333332061767578" height="32"/>
+        <image name="ic_back_white" width="36.5" height="36"/>
         <image name="logo_icon" width="102" height="97"/>
         <namedColor name="themePrimary">
             <color red="0.0078431372549019607" green="0.30980392156862746" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

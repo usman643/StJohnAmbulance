@@ -269,7 +269,7 @@ extension CSDashBoardVC : UICollectionViewDelegate,UICollectionViewDataSource, U
 
         let height = (self.collectionView.frame.size.height - 10 ) / 3
         
-        return CGSizeMake(cellWidth, height )
+        return CGSize(width: cellWidth, height: height )
     
     }
     
