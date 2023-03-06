@@ -19,6 +19,7 @@ class ProcessUtils {
     var userGroupsList : [LandingGroupsModel] = []
     var selectedUserGroup : LandingGroupsModel?
     var programsData : [ProgramModel]?
+    var contactInfo : UserIdentityModel?
     var tabbarHeight : CGFloat?
     var groupListValue : String?
     var currentRole : String?

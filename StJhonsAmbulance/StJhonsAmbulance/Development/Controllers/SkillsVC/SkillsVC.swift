@@ -19,9 +19,10 @@ class SkillsVC: ENTALDBaseViewController {
     var isComputer = false
     var isVoulnteerLeadership = false
     var isOtherSkils = false
-    
-    
-
+    var otherSkillsExplain = ""
+    var edited = false
+    let userInfo = UserDefaults.standard.userInfo
+    let contactId = UserDefaults.standard.contactIdToken ?? ""
     @IBOutlet weak var btnBack: UIButton!
     
     @IBOutlet weak var lblTitle: UILabel!
@@ -58,7 +59,7 @@ class SkillsVC: ENTALDBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         decorateUI()
-        // Do any additional setup after loading the view.
+       setupData()
     }
 
 
@@ -117,11 +118,124 @@ class SkillsVC: ENTALDBaseViewController {
         
     }
 
-    
+    func setupData(){
+        
+        
+        if (userInfo?.sjavms_workingwvulnerablepeople == true) {
+            btnWorkingVolunteerPeople.setImage(UIImage(named: "ic_check"), for: .normal)
+            btnWorkingVolunteerPeople.backgroundColor = UIColor.clear
+            isWorkingVolunteerPeople = true
+        }else{
+            btnWorkingVolunteerPeople.setImage(UIImage(named: ""), for: .normal)
+            btnWorkingVolunteerPeople.backgroundColor = UIColor.viewLightGrayColor
+            isWorkingVolunteerPeople = false
+        }
+        
+        if (userInfo?.sjavms_patientcare == true) {
+            btnPatientCare.setImage(UIImage(named: "ic_check"), for: .normal)
+            btnPatientCare.backgroundColor = UIColor.clear
+            isPatientCare = true
+        }else{
+            btnPatientCare.setImage(UIImage(named: ""), for: .normal)
+            btnPatientCare.backgroundColor = UIColor.viewLightGrayColor
+            isPatientCare = false
+        }
+        
+        if (userInfo?.sjavms_palliativecare == true) {
+            btnPalliativeCare.setImage(UIImage(named: "ic_check"), for: .normal)
+            btnPalliativeCare.backgroundColor = UIColor.clear
+            isPalliativeCare = true
+        }else{
+            btnPalliativeCare.setImage(UIImage(named: ""), for: .normal)
+            btnPalliativeCare.backgroundColor = UIColor.viewLightGrayColor
+            isPalliativeCare = false
+        }
+        
+        if (userInfo?.sjavms_cprorfirstaid == true) {
+            btnCRPFirstAId.setImage(UIImage(named: "ic_check"), for: .normal)
+            btnCRPFirstAId.backgroundColor = UIColor.clear
+            isCRPFirstAId = true
+        }else{
+            btnCRPFirstAId.setImage(UIImage(named: ""), for: .normal)
+            btnCRPFirstAId.backgroundColor = UIColor.viewLightGrayColor
+            isCRPFirstAId = false
+        }
+        
+        if (userInfo?.sjavms_recreationalprogramming == true) {
+            btnRecreationalProgramming.setImage(UIImage(named: "ic_check"), for: .normal)
+            btnRecreationalProgramming.backgroundColor = UIColor.clear
+            isRecreationalProgramming = true
+        }else{
+            btnRecreationalProgramming.setImage(UIImage(named: ""), for: .normal)
+            btnRecreationalProgramming.backgroundColor = UIColor.viewLightGrayColor
+            isRecreationalProgramming = false
+        }
+        
+        if (userInfo?.sjavms_customerservice == true) {
+            btnCustomerServices.setImage(UIImage(named: "ic_check"), for: .normal)
+            btnCustomerServices.backgroundColor = UIColor.clear
+            isCustomerServices = true
+        }else{
+            btnCustomerServices.setImage(UIImage(named: ""), for: .normal)
+            btnCustomerServices.backgroundColor = UIColor.viewLightGrayColor
+            isCustomerServices = true
+        }
+        
+        if (userInfo?.sjavms_educationalprogramming == true) {
+            btnEducationalProgramming.setImage(UIImage(named: "ic_check"), for: .normal)
+            btnEducationalProgramming.backgroundColor = UIColor.clear
+            isEducationalProgramming = true
+        }else{
+            btnEducationalProgramming.setImage(UIImage(named: ""), for: .normal)
+            btnEducationalProgramming.backgroundColor = UIColor.viewLightGrayColor
+            isEducationalProgramming = false
+        }
+        
+        if (userInfo?.sjavms_computer == true) {
+            btnComputer.setImage(UIImage(named: "ic_check"), for: .normal)
+            btnComputer.backgroundColor = UIColor.clear
+            isComputer = true
+        }else{
+            btnComputer.setImage(UIImage(named: ""), for: .normal)
+            btnComputer.backgroundColor = UIColor.viewLightGrayColor
+            isComputer = false
+        }
+        
+        if (userInfo?.sjavms_volunteerleadership == true) {
+            btnVoulnteerLeadership.setImage(UIImage(named: "ic_check"), for: .normal)
+            btnVoulnteerLeadership.backgroundColor = UIColor.clear
+            isVoulnteerLeadership = true
+        }else{
+            btnVoulnteerLeadership.setImage(UIImage(named: ""), for: .normal)
+            btnVoulnteerLeadership.backgroundColor = UIColor.viewLightGrayColor
+            isVoulnteerLeadership = false
+        }
+        
+        if (userInfo?.sjavms_otherskills == true) {
+            btnOtherSkils.setImage(UIImage(named: "ic_check"), for: .normal)
+            btnOtherSkils.backgroundColor = UIColor.clear
+            isOtherSkils = true
+        }else{
+            btnOtherSkils.setImage(UIImage(named: ""), for: .normal)
+            btnOtherSkils.backgroundColor = UIColor.viewLightGrayColor
+            isOtherSkils = false
+        }
+        
+        if (userInfo?.sjavms_explainskillother != nil) {
+            textView.text = userInfo?.sjavms_explainskillother ?? ""
+        }else{
+            textView.text = ""
+        }
+        
+        
+        
+        
+    }
     
     
     @IBAction func submitSelected(_ sender: Any) {
-        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
+        self.updateSkills()
+//        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
     }
     
     @IBAction func backTapped(_ sender: Any) {
@@ -138,7 +252,7 @@ class SkillsVC: ENTALDBaseViewController {
                 btnWorkingVolunteerPeople.backgroundColor = UIColor.clear
                 isWorkingVolunteerPeople = true
             }
-
+        edited = true
     }
     
     @IBAction func patientCareTapped(_ sender: Any) {
@@ -151,7 +265,7 @@ class SkillsVC: ENTALDBaseViewController {
             btnPatientCare.backgroundColor = UIColor.clear
             isPatientCare = true
         }
-        
+        edited = true
     }
     
     @IBAction func PalliativeCareSelected(_ sender: Any) {
@@ -164,6 +278,7 @@ class SkillsVC: ENTALDBaseViewController {
             btnPalliativeCare.backgroundColor = UIColor.clear
             isPalliativeCare = true
         }
+        edited = true
     }
     
     @IBAction func CRPFirstAIdSelected(_ sender: Any) {
@@ -176,6 +291,7 @@ class SkillsVC: ENTALDBaseViewController {
             btnCRPFirstAId.backgroundColor = UIColor.clear
             isCRPFirstAId = true
         }
+        edited = true
     }
     
     @IBAction func RecreationalProgrammingSelected(_ sender: Any) {
@@ -188,6 +304,7 @@ class SkillsVC: ENTALDBaseViewController {
             btnRecreationalProgramming.backgroundColor = UIColor.clear
             isRecreationalProgramming = true
         }
+        edited = true
     }
     
     @IBAction func ComputerServiceSelected(_ sender: Any) {
@@ -200,6 +317,7 @@ class SkillsVC: ENTALDBaseViewController {
             btnCustomerServices.backgroundColor = UIColor.clear
             isCustomerServices = true
         }
+        edited = true
     }
     
     @IBAction func computerProgrammingSelected(_ sender: Any) {
@@ -212,6 +330,7 @@ class SkillsVC: ENTALDBaseViewController {
             btnEducationalProgramming.backgroundColor = UIColor.clear
             isEducationalProgramming = true
         }
+        edited = true
     }
     
     @IBAction func computerSelected(_ sender: Any) {
@@ -224,6 +343,7 @@ class SkillsVC: ENTALDBaseViewController {
             btnComputer.backgroundColor = UIColor.clear
             isComputer = true
         }
+        edited = true
     }
     
     @IBAction func voulnteerLeadershipSelected(_ sender: Any) {
@@ -236,6 +356,7 @@ class SkillsVC: ENTALDBaseViewController {
             btnVoulnteerLeadership.backgroundColor = UIColor.clear
             isVoulnteerLeadership = true
         }
+        edited = true
     }
     
     @IBAction func OtherSkilsSelected(_ sender: Any) {
@@ -250,7 +371,139 @@ class SkillsVC: ENTALDBaseViewController {
             isOtherSkils = true
             textView.isEditable = true
         }
+        edited = true
     }
     
     
+    func updateSkills() {
+        
+        if UserDefaults.standard.userInfo?.sjavms_explainskillother != lblExplainOtherSkill.text{
+            edited = true
+            otherSkillsExplain = lblExplainOtherSkill.text ?? ""
+        }
+        
+        if edited == true {
+            
+            self.updatedata(params: ["sjavms_workingwvulnerablepeople":isWorkingVolunteerPeople as! Bool ,"sjavms_patientcare":isPatientCare as! Bool ,"sjavms_palliativecare":isPalliativeCare as! Bool ,"sjavms_cprorfirstaid":isCRPFirstAId as! Bool ,"sjavms_recreationalprogramming":isRecreationalProgramming as! Bool ,"sjavms_educationalprogramming":isEducationalProgramming as! Bool ,"sjavms_customerservice":isCustomerServices as! Bool ,"sjavms_computer":isComputer as! Bool ,"sjavms_volunteerleadership":isVoulnteerLeadership as! Bool ,"sjavms_otherskills":isOtherSkils as! Bool, "sjavms_explainskillother" : textView.text ?? "" ])
+            
+            
+            UserDefaults.standard.userInfo?.sjavms_workingwvulnerablepeople = isWorkingVolunteerPeople
+            UserDefaults.standard.userInfo?.sjavms_patientcare = isPatientCare
+            UserDefaults.standard.userInfo?.sjavms_palliativecare = isPalliativeCare
+            UserDefaults.standard.userInfo?.sjavms_cprorfirstaid = isCRPFirstAId
+            UserDefaults.standard.userInfo?.sjavms_recreationalprogramming = isRecreationalProgramming
+            UserDefaults.standard.userInfo?.sjavms_customerservice =  isCustomerServices
+            UserDefaults.standard.userInfo?.sjavms_educationalprogramming = isEducationalProgramming
+            UserDefaults.standard.userInfo?.sjavms_computer = isComputer
+            UserDefaults.standard.userInfo?.sjavms_volunteerleadership = isVoulnteerLeadership
+            UserDefaults.standard.userInfo?.sjavms_otherskills = isOtherSkils
+            UserDefaults.standard.userInfo?.sjavms_explainskillother = textView.text ?? ""
+            
+
+            DispatchQueue.main.async {
+                ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: "User Detail updated Sucessfully", actionTitle: .KOK, completion: {status in })
+            }
+            
+//            if (isWorkingVolunteerPeople != userInfo?.sjavms_workingwvulnerablepeople){
+//                self.updatedata(params: ["sjavms_workingwvulnerablepeople":isWorkingVolunteerPeople])
+//            }
+//
+//            if (isPatientCare != userInfo?.sjavms_patientcare){
+//                self.updatedata(params: ["sjavms_patientcare":isPatientCare])
+//            }
+//            if (isPalliativeCare != userInfo?.sjavms_palliativecare){
+//                self.updatedata(params: ["sjavms_palliativecare":isPalliativeCare])
+//            }
+//            if (isCRPFirstAId != userInfo?.sjavms_cprorfirstaid ){
+//                self.updatedata(params: ["sjavms_cprorfirstaid":isCRPFirstAId])
+//            }
+//            if (isRecreationalProgramming != userInfo?.sjavms_recreationalprogramming){
+//                self.updatedata(params: ["sjavms_recreationalprogramming":isRecreationalProgramming])
+//            }
+//            if (isEducationalProgramming != userInfo?.sjavms_educationalprogramming ){
+//                self.updatedata(params: ["sjavms_educationalprogramming":isEducationalProgramming])
+//            }
+//            if (isCustomerServices != userInfo?.sjavms_customerservice ){
+//                self.updatedata(params: ["sjavms_customerservice":isCustomerServices])
+//            }
+//            if (isComputer != userInfo?.sjavms_computer ){
+//                self.updatedata(params: ["sjavms_computer":isComputer])
+//            }
+//            if (isVoulnteerLeadership != userInfo?.sjavms_volunteerleadership){
+//                self.updatedata(params: ["sjavms_volunteerleadership":isVoulnteerLeadership])
+//            }
+//            if (isOtherSkils != userInfo?.sjavms_otherskills){
+//                self.updatedata(params: ["sjavms_otherskills":isOtherSkils])
+//            }
+//            if (otherSkillsExplain != ){
+//                self.updatedata(params: [:otherSkillsExplain])
+//            }
+//            if (edited != false){
+//                self.updatedata(params: ["sjavms_explainskillother" : lblExplainOtherSkill.text ?? ""])
+//            }
+//            self.getUserIdentity(conId: self.contactId)
+        }
+        
+        
+    }
+    
+    fileprivate func updatedata(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+//        let eventId = self.eventData?.msnfp_engagementopportunityid ?? ""
+        
+        ENTALDLibraryAPI.shared.requestProfileInfoUpdate(conId: contactId, params: params) { result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                if let pastEvent = response.value {
+
+                }else{
+//                    self.showEmptyView(tableVw: self.tableView)
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+        DispatchQueue.main.async {
+            LoadingView.hide()
+        }
+    }
+    
+    func getUserIdentity(conId:String){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestUserIdentity(conId: UserDefaults.standard.contactIdToken ?? "") { result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result {
+            case .success(let response):
+                UserDefaults.standard.userInfo = response
+                self.callbackToController?(nil, self)
+                break
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
 }

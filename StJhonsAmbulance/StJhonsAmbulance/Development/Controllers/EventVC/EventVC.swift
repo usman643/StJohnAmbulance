@@ -480,15 +480,24 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
         if (tableView == self.currentTableView){
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "EventTVC", for: indexPath) as! EventTVC
+            let rowModel = self.currentEventData?[indexPath.row]
+//            if indexPath.row % 2 == 0{
+//                cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+//                cell.seperaterView.backgroundColor = UIColor.themePrimary
+//            }else{
+//                cell.mainView.backgroundColor = UIColor.viewLightColor
+//                cell.seperaterView.backgroundColor = UIColor.gray
+//            }
             if indexPath.row % 2 == 0{
-                cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-                cell.seperaterView.backgroundColor = UIColor.themePrimary
+            
+                cell.seperaterView.backgroundColor = UIColor.themePrimaryColor
             }else{
-                cell.mainView.backgroundColor = UIColor.viewLightColor
                 cell.seperaterView.backgroundColor = UIColor.gray
             }
             
-            let rowModel = self.currentEventData?[indexPath.row]
+            cell.mainView.backgroundColor = getEventColor(volunteerNum: rowModel?.msnfp_maximum ?? 0)
+        
+           
             
             cell.lblEvent.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
             //            cell.lblLocation.text = rowModel?.msnfp_location ?? ""
@@ -502,15 +511,26 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
         }else if (tableView == self.upcomingTableView){
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "EventTVC", for: indexPath) as! EventTVC
+            let rowModel = self.upcomingEventData?[indexPath.row]
+            
+//            if indexPath.row % 2 == 0{
+//                cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+//                cell.seperaterView.backgroundColor = UIColor.themePrimaryColor
+//            }else{
+//                cell.mainView.backgroundColor = UIColor.viewLightColor
+//                cell.seperaterView.backgroundColor = UIColor.gray
+//            }
             if indexPath.row % 2 == 0{
-                cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+                
                 cell.seperaterView.backgroundColor = UIColor.themePrimaryColor
             }else{
-                cell.mainView.backgroundColor = UIColor.viewLightColor
                 cell.seperaterView.backgroundColor = UIColor.gray
             }
             
-            let rowModel = self.upcomingEventData?[indexPath.row]
+            cell.mainView.backgroundColor = getEventColor(volunteerNum: rowModel?.msnfp_maximum ?? 0)
+            
+            
+           
             
             cell.lblEvent.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
             //            cell.lblLocation.text = rowModel?.msnfp_location ?? ""
@@ -562,4 +582,19 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
         }
 
     }
+    
+    func getEventColor(volunteerNum: Int) -> UIColor {
+        
+        if volunteerNum < 50 {
+            return UIColor.redPinkColor
+        
+        }else if volunteerNum < 100 {
+            return UIColor.hexString(hex: "faf3c3")
+        }else if volunteerNum >= 100{
+            return UIColor.hexString(hex: "e6f2eb")
+        }
+        
+        return UIColor.viewLightColor
+    }
+    
 }

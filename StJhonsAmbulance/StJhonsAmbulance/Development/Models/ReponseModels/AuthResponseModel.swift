@@ -17,7 +17,7 @@ struct PortalAuthModel : Codable {
 
 struct ExternalAuthModel : Codable {
     let context: String?
-    let value: [ExternalAuthValueModel]?
+    var value: [ExternalAuthValueModel]?
     
     enum CodingKeys: String, CodingKey {
         case context = "@odata.context"
@@ -73,14 +73,21 @@ struct UserIdentityModel : Codable {
     let bdo_preferredlanguage : Int?
     let gendercode : Int?
     let sjavms_preferredlanguage : Int?
-//    let sjavms_otherknownlanguages : String?
+    let sjavms_otherknownlanguages : String?
+    let contactid : String?
     
     
-    
-    
-    
-    let sjavms_otherskills : Bool?
-    
+    var sjavms_workingwvulnerablepeople : Bool?
+    var sjavms_patientcare : Bool?
+    var sjavms_palliativecare : Bool?
+    var sjavms_cprorfirstaid : Bool?
+    var sjavms_recreationalprogramming : Bool?
+    var sjavms_customerservice : Bool?
+    var sjavms_educationalprogramming : Bool?
+    var sjavms_computer : Bool?
+    var sjavms_volunteerleadership : Bool?
+    var sjavms_otherskills : Bool?
+    var sjavms_explainskillother : String?
     
     
 }

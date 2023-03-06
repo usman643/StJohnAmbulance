@@ -30,11 +30,11 @@ class SJAQualificationTVC: UITableViewCell {
         
         lblQualification.textColor = UIColor.textBlackColor
         lblQualification.font = UIFont.RegularFont(10)
-        lblType.textColor = UIColor.textBlackColor
+        lblType.textColor = UIColor.themeBlackText
         lblType.font = UIFont.RegularFont(10)
-        lblEffectiveFrom.textColor = UIColor.textBlackColor
+        lblEffectiveFrom.textColor = UIColor.themeBlackText
         lblEffectiveFrom.font = UIFont.RegularFont(10)
-        lblExpiration.textColor = UIColor.textBlackColor
+        lblExpiration.textColor = UIColor.themeBlackText
         lblExpiration.font = UIFont.RegularFont(10)
         
     }
