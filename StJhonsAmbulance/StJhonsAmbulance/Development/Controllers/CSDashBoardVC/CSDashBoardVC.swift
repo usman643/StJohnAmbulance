@@ -303,8 +303,8 @@ extension CSDashBoardVC : UICollectionViewDelegate,UICollectionViewDataSource, U
     
     func openNextScreecn(controller:Int?){
         if controller == 0 {
-            if let _ =  self.latestEvent?[0]{
-                ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data: self.latestEvent?[0]) { params, controller in
+            if self.latestEvent?.isEmpty ?? false{
+                ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data: self.latestEvent?.first) { params, controller in
                     self.openNextScreecn(controller: params as? Int)
                 }
             }
