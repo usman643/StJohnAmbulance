@@ -35,5 +35,11 @@ class SettingVC: ENTALDBaseViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-
+    @IBAction func themeSwicthAction(_ sender: Any) {
+        
+        UserDefaults.standard.isDarkMode = themeSwitch.isOn
+        self.setAppearanceDarkLightMode()
+        self.setNeedsStatusBarAppearanceUpdate()
+    }
+    
 }

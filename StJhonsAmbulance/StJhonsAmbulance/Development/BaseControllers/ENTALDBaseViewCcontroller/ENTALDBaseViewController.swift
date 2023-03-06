@@ -44,25 +44,23 @@ class ENTALDBaseViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
     }
         
-//    func setAppearanceDarkLightMode() {
-//        UITabBar.appearance().tintColor = .white
-//        UITabBar.appearance().unselectedItemTintColor = .silver
-//        UITabBar.appearance().overrideUserInterfaceStyle = UserDefaults.standard.isDarkMode ? .dark : .light
-//        UIView.appearance().overrideUserInterfaceStyle = UserDefaults.standard.isDarkMode ? .dark : .light
-//        UINavigationBar.appearance().overrideUserInterfaceStyle = UserDefaults.standard.isDarkMode ? .dark : .light
-//        let windows = UIApplication.shared.windows
-//        for window in windows {
-//            if NSStringFromClass(window.classForCoder) == "UITextEffectsWindow" {
-//                    NSLog("===== Ignore UITextEffectsWindow")
-//
-//                    return
-//                }
-//            for view in window.subviews {
-//                view.removeFromSuperview()
-//                window.addSubview(view)
-//            }
-//        }
-//    }
+    func setAppearanceDarkLightMode() {
+        UITabBar.appearance().overrideUserInterfaceStyle = UserDefaults.standard.isDarkMode ? .dark : .light
+        UIView.appearance().overrideUserInterfaceStyle = UserDefaults.standard.isDarkMode ? .dark : .light
+        UINavigationBar.appearance().overrideUserInterfaceStyle = UserDefaults.standard.isDarkMode ? .dark : .light
+        let windows = UIApplication.shared.windows
+        for window in windows {
+            if NSStringFromClass(window.classForCoder) == "UITextEffectsWindow" {
+                    NSLog("===== Ignore UITextEffectsWindow")
+
+                    return
+                }
+            for view in window.subviews {
+                view.removeFromSuperview()
+                window.addSubview(view)
+            }
+        }
+    }
     
     private func registerReloadDataNotifications(){
 //        NotificationCenter.default.addObserver(self, selector: #selector(userDidChangedStatus), name: Notification.Name(rawValue: ObserverNameConstants.nameStatusChangedNotification), object: nil)

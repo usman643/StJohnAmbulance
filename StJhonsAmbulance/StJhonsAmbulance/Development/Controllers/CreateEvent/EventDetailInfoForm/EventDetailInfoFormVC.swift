@@ -7,13 +7,9 @@
 
 import UIKit
 
-class EventDetailInfoFormVC: ENTALDBaseViewController {
+class EventDetailInfoFormVC: UIView {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
+    
 
 
     /*

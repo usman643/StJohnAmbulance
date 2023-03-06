@@ -11,8 +11,19 @@ import UIKit
 fileprivate let keyAuthToken = "key_auth_token"
 fileprivate let contactId = "key_contact_id"
 fileprivate let keyUserIdentity = "key_user_identity"
+fileprivate let keyDarkMode = "key_dark_mode"
+
 
 extension UserDefaults {
+    
+    var isDarkMode: Bool {
+        get {
+            return bool(forKey: keyDarkMode)
+        }
+        set {
+            set(newValue, forKey: keyDarkMode)
+        }
+    }
     
     var authToken: String? {
         get {
