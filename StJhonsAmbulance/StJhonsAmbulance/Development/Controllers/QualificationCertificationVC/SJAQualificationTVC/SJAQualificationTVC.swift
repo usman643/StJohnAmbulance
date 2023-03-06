@@ -40,11 +40,23 @@ class SJAQualificationTVC: UITableViewCell {
     }
     
         func setContent(cellModel: SJAQualificationDataModel?){
-    
-//            lblQualification.text = cellModel
+
 //            lblType.text = cellModel
-//            lblEffectiveFrom.text = cellModel
-//            lblExpiration.text = cellModel
+            lblQualification.text = cellModel?.bdo_qualificationsid?.bdo_name
+            if let date = cellModel?.bdo_effectivedate {
+                let start = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
+                lblEffectiveFrom.text = start
+            }else{
+                lblEffectiveFrom.text = ""
+            }
+            
+            if let date = cellModel?.bdo_expirationdate {
+                let expiry = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
+                lblExpiration.text = expiry
+            }else{
+                lblExpiration.text = ""
+            }
+            
         }
     
     

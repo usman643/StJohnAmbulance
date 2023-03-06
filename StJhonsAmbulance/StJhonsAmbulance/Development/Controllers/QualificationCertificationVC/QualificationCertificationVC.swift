@@ -34,7 +34,7 @@ class QualificationCertificationVC: ENTALDBaseViewController {
         super.viewDidLoad()
         registerCell()
         decorateUI()
-        getQualificationType { status in
+        self.getQualificationType() { status in
             self.getSJAQualification()
             self.getExternalQualification()
         }
@@ -112,7 +112,8 @@ class QualificationCertificationVC: ENTALDBaseViewController {
             
             ParameterKeys.select : "bdo_qualificationtype,bdo_expirationdate,bdo_effectivedate,_bdo_qualificationsid_value,bdo_qualificationgainedid",
             ParameterKeys.filter : "(statecode eq 0 and bdo_qualificationsource eq true and _bdo_qualifiedcontactid_value eq \(self.contactId))",
-            ParameterKeys.orderby : "bdo_effectivedate asc"
+            ParameterKeys.orderby : "bdo_effectivedate asc",
+            ParameterKeys.expand : "bdo_qualificationsid($select=bdo_name)"
             
         ]
         
@@ -244,19 +245,14 @@ class QualificationCertificationVC: ENTALDBaseViewController {
     
     
     
-    func getQualificationType( completion: @escaping(_ status:Bool)->Void){
+    fileprivate func getQualificationType( completion: @escaping(_ status:Bool)->Void){
         
         let params : [String:Any] = [
             
           
             ParameterKeys.filter : "(statecode eq 0 and _sjavms_volunteer_value eq \(self.contactId)) and (sjavms_Qualification/sjavms_visbility eq 802280001)",
-            
-        ]
-        self.getQualificationTypesData(params: params)
-    }
+            ]
     
-    
-    fileprivate func getQualificationTypesData(params : [String:Any]){
         DispatchQueue.main.async {
             LoadingView.show()
         }
@@ -271,13 +267,13 @@ class QualificationCertificationVC: ENTALDBaseViewController {
                 if let qualification = response.value {
                     self.SJAQualificationTypes = qualification
                 }
-                
+                completion(true)
             case .error(let error, let errorResponse):
                 var message = error.message
                 if let err = errorResponse {
                     message = err.error
                 }
-                
+                completion(false)
                 DispatchQueue.main.async {
                     ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
                 }

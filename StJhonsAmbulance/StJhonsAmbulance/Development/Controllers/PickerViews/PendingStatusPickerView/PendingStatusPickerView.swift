@@ -11,6 +11,7 @@ class PendingStatusPickerView:  ENTALDBaseViewController, UIPickerViewDelegate, 
     
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var doneBtn: UIButton!
+    @IBOutlet weak var cancelBtn: NSLayoutConstraint!
     
     var statusList : [Int] = []
     var selectedStatus : Int?
@@ -34,6 +35,11 @@ class PendingStatusPickerView:  ENTALDBaseViewController, UIPickerViewDelegate, 
         self.dismiss(animated: true)
     }
     
+    
+    @IBAction func btnCancelAction(_ sender: Any) {
+//        self.callbackToController?("", self)
+        self.dismiss(animated: true)
+    }
     
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
