@@ -16,6 +16,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PendingStatusPickerView" customModule="StJhonsAmbulance" customModuleProvider="target">
             <connections>
+                <outlet property="cancelBtn" destination="Rhc-lr-FNl" id="KuC-4T-Sxq"/>
                 <outlet property="doneBtn" destination="wHt-KO-YlL" id="gnv-ON-jZ7"/>
                 <outlet property="pickerView" destination="Y0J-Wo-Xfp" id="wM1-tT-aYY"/>
                 <outlet property="view" destination="K2v-Nt-cWK" id="9uV-Y5-NLc"/>
@@ -45,10 +46,22 @@
                                 <action selector="btnDoneAction:" destination="-1" eventType="touchUpInside" id="ke1-I4-gVz"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PhU-AW-Doh">
+                            <rect key="frame" x="5" y="3" width="55" height="34"/>
+                            <fontDescription key="fontDescription" name="Quicksand-SemiBold" family="Quicksand" pointSize="17"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Cancel"/>
+                            <connections>
+                                <action selector="btnCancelAction:" destination="-1" eventType="touchUpInside" id="hnW-Fl-M88"/>
+                                <action selector="btnDoneAction:" destination="-1" eventType="touchUpInside" id="YML-ui-sKm"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                     <constraints>
+                        <constraint firstItem="PhU-AW-Doh" firstAttribute="centerY" secondItem="4Rq-op-23j" secondAttribute="centerY" id="Rhc-lr-FNl"/>
                         <constraint firstAttribute="trailing" secondItem="wHt-KO-YlL" secondAttribute="trailing" constant="5" id="SqH-Au-mIX"/>
+                        <constraint firstItem="PhU-AW-Doh" firstAttribute="leading" secondItem="4Rq-op-23j" secondAttribute="leading" constant="5" id="lX2-Qu-tYD"/>
                         <constraint firstItem="wHt-KO-YlL" firstAttribute="centerY" secondItem="4Rq-op-23j" secondAttribute="centerY" id="lfv-o7-wDC"/>
                         <constraint firstAttribute="height" constant="40" id="w3j-sP-DyN"/>
                     </constraints>

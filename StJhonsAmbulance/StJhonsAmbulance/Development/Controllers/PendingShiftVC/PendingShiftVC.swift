@@ -75,8 +75,12 @@ class PendingShiftVC: ENTALDBaseViewController {
         lblTabTitle.font = UIFont.BoldFont(14)
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
         btnSelectGroup.backgroundColor = UIColor.themePrimary
-        
         btnSelectGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
+        
+        btnSeclectAction.titleLabel?.font = UIFont.BoldFont(14)
+        btnSeclectAction.backgroundColor = UIColor.themePrimary
+        btnSeclectAction.setTitleColor(UIColor.textWhiteColor, for: .normal)
+ 
         lblTitle.textColor = UIColor.themePrimaryWhite
         lblSubTitle.textColor = UIColor.themePrimaryWhite
         lblName.textColor = UIColor.themePrimaryWhite
@@ -97,9 +101,7 @@ class PendingShiftVC: ENTALDBaseViewController {
         selectedTabImg.tintColor = UIColor.themePrimaryColor
         
     }
-    
-    
-    
+ 
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -163,7 +165,7 @@ class PendingShiftVC: ENTALDBaseViewController {
                 
                 if let data = params as? Int {
                     let params = [
-                        "msnfp_participationschedules": data
+                        "msnfp_participationschedules": data as! Int
                     ]
                     
                     self.updateStatusData(eventId: selectedEvents?[i]._sjavms_volunteerevent_value ?? "", params: params as [String : Any])
@@ -241,11 +243,6 @@ class PendingShiftVC: ENTALDBaseViewController {
         }
     
     }
-    
-    
-    
-    
-    
     
     func showEmptyView(tableVw : UITableView){
         DispatchQueue.main.async {

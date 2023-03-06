@@ -197,11 +197,13 @@ class AvailabilityVC: ENTALDBaseViewController {
 //                    self.getVolunteerHour()
                     
                 }
+                completion(true)
             case .error(let error, let errorResponse):
                 var message = error.message
                 if let err = errorResponse {
                     message = err.error
                 }
+                completion(false)
                 DispatchQueue.main.async {
                     ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
                 }

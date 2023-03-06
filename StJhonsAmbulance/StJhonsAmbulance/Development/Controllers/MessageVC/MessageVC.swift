@@ -162,11 +162,11 @@ class MessageVC: ENTALDBaseViewController {
         }
     }
     
-    func showEmptyView(){
+    func showEmptyView(tableVw : UITableView){
         DispatchQueue.main.async {
             let view = EmptyView.instanceFromNib()
-            view.frame = self.tableview.frame
-            self.view.addSubview(view)
+            view.frame = tableVw.frame
+            tableVw.addSubview(view)
         }
     }
     
@@ -203,8 +203,9 @@ class MessageVC: ENTALDBaseViewController {
                 if let messagesData = response.value {
                     self.messagesData = messagesData
                     if (self.messagesData?.count == 0 || self.messagesData?.count == nil){
-                        self.showEmptyView()
+                        self.showEmptyView(tableVw: self.tableview)
                     }else{
+                        
                         DispatchQueue.main.async {
                             for subview in self.tableview.subviews {
                                 subview.removeFromSuperview()
@@ -217,7 +218,7 @@ class MessageVC: ENTALDBaseViewController {
                     }
                     
                 }else{
-                        self.showEmptyView()
+                    self.showEmptyView(tableVw: self.tableview)
                 }
                 
             case .error(let error, let errorResponse):
@@ -225,7 +226,7 @@ class MessageVC: ENTALDBaseViewController {
                 if let err = errorResponse {
                     message = err.error
                 }
-                self.showEmptyView()
+                self.showEmptyView(tableVw: self.tableview)
                 DispatchQueue.main.async {
                     ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
                 }
