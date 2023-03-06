@@ -33,5 +33,16 @@ struct ContactModel : Codable{
     let address1_stateorprovince : String?
     let address1_line2 : String?
     let contactid : String?
+    let sjavms_workingwvulnerablepeople : Bool?
+    let sjavms_patientcare : Bool?
+    let sjavms_palliativecare : Bool?
+    let sjavms_cprorfirstaid : Bool?
+    let sjavms_recreationalprogramming : Bool?
+    let sjavms_customerservice : Bool?
+    let sjavms_educationalprogramming : Bool?
+    let sjavms_computer : Bool?
+    let sjavms_volunteerleadership : Bool?
+    let sjavms_otherskills : Bool?
+    let sjavms_explainskillother : String?
     
 }

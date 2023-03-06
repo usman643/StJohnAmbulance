@@ -11,6 +11,7 @@ class QualificationCertificationVC: ENTALDBaseViewController {
     
     var externalQualification : [ExternalQualificationDataModel]?
     var SJAQualification : [SJAQualificationDataModel]?
+    var SJAQualificationTypes : [SJAQualificationTypeDataModel]?
     let contactId = UserDefaults.standard.contactIdToken ?? ""
     
     @IBOutlet weak var btnBack: UIButton!
@@ -33,8 +34,11 @@ class QualificationCertificationVC: ENTALDBaseViewController {
         super.viewDidLoad()
         registerCell()
         decorateUI()
-        getSJAQualification()
-        getExternalQualification()
+        getQualificationType { status in
+            self.getSJAQualification()
+            self.getExternalQualification()
+        }
+        
         
     }
 
@@ -140,6 +144,15 @@ class QualificationCertificationVC: ENTALDBaseViewController {
                             }
                         }
                     }
+//                    for i in (0..<(self.SJAQualification?.count ?? 0)){
+//
+//                        let data = self.getQualificationType(self.SJAQualification?[i].sjavms_Qualification?.sjavms_type ?? 000)
+//
+//                        self.externalQualification?[i].sjavms_Qualification?.sjavms_type_value = data?.value
+//
+//                    }
+                    
+                    
                     DispatchQueue.main.async {
                         self.SJATableview.reloadData()
                     }
@@ -198,6 +211,13 @@ class QualificationCertificationVC: ENTALDBaseViewController {
                                 subview.removeFromSuperview()
                             }
                         }
+                        for i in (0..<(self.externalQualification?.count ?? 0)){
+                            
+                            let data = self.getQualificationType(self.externalQualification?[i].sjavms_Qualification?.sjavms_type ?? 000)
+                            
+                            self.externalQualification?[i].sjavms_Qualification?.sjavms_type_value = data?.value
+                            
+                        }
                     }
                     DispatchQueue.main.async {
                         self.externalTable.reloadData()
@@ -220,6 +240,65 @@ class QualificationCertificationVC: ENTALDBaseViewController {
             }
         }
     }
+    
+    
+    
+    
+    func getQualificationType( completion: @escaping(_ status:Bool)->Void){
+        
+        let params : [String:Any] = [
+            
+          
+            ParameterKeys.filter : "(statecode eq 0 and _sjavms_volunteer_value eq \(self.contactId)) and (sjavms_Qualification/sjavms_visbility eq 802280001)",
+            
+        ]
+        self.getQualificationTypesData(params: params)
+    }
+    
+    
+    fileprivate func getQualificationTypesData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestQualificationTypes(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result{
+            case .success(value: let response):
+                
+                if let qualification = response.value {
+                    self.SJAQualificationTypes = qualification
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -265,6 +344,7 @@ extension QualificationCertificationVC : UITableViewDataSource, UITableViewDeleg
                 cell.backgroundColor = UIColor.viewLightColor
                 cell.seperaterView.backgroundColor = UIColor.gray
             }
+            
             cell.setContent(cellModel: externalQualification?[indexPath.row] )
             return cell
             
@@ -276,6 +356,14 @@ extension QualificationCertificationVC : UITableViewDataSource, UITableViewDeleg
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 30
+    }
+    
+    
+    func getQualificationType(_ qualificationType:Int)->SJAQualificationTypeDataModel?{
+        
+        let modelOne = SJAQualificationTypes?.filter({$0.attributevalue == qualificationType}).first
+        return modelOne
+        
     }
     
     

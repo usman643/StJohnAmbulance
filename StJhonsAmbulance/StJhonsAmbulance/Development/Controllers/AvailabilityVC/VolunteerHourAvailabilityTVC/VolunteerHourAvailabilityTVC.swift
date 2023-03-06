@@ -52,9 +52,9 @@ class VolunteerHourAvailabilityTVC: UITableViewCell {
     
     func setContent(cellModel: SideMenuHoursModel?, programName: String?){
 //        
-        lblEvent.text = cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
+        lblEvent.text = cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
         lblProgram.text = programName ?? ""
-//        lblSchedule.text = cellModel.
+        lblSchedule.text = cellModel?.msnfp_engagementOpportunityScheduleId?.msnfp_shiftname ?? ""
         if let date = cellModel?.sjavms_start {
             let start = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             lblStart.text = start

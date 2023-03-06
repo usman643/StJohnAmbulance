@@ -201,6 +201,11 @@ class ENTALDLibraryAPI {
         let router = DashBoardRouter.postMessages(params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
+
+    func requestQualificationTypes(params:[String : Any],  _ completion:@escaping((ApiResult<SJAQualificationTypeResponseModel, ApiError>) -> Void )){
+        let router = SideMenuRouter.getQualificationsType(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
     
     
     
@@ -240,5 +245,11 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
 
+    
+    func requestProfileInfoUpdate(conId:String, params:[String:Any],  _ completion:@escaping((ApiResult<ProgramResponseModel, ApiError>) -> Void )){
+        let router = LoginRouter.updateUserIdentity(conId: conId, params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
 }
 
