@@ -33,7 +33,7 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GSk-iL-GAH">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="920"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="980"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y7K-zU-pJv">
                                     <rect key="frame" x="16" y="0.0" width="382" height="40"/>
@@ -1056,6 +1056,34 @@
                                                 <constraint firstAttribute="trailing" secondItem="Yfm-UM-9iT" secondAttribute="trailing" id="w0d-EM-3zK"/>
                                             </constraints>
                                         </stackView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KUj-su-wPh">
+                                            <rect key="frame" x="87.5" y="892" width="207" height="40"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GAD-ph-nbM">
+                                                    <rect key="frame" x="0.0" y="0.0" width="207" height="40"/>
+                                                    <color key="backgroundColor" name="secondryGreen"/>
+                                                    <color key="tintColor" red="0.98738261049999998" green="0.99130114940000003" blue="0.96551151219999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="Next">
+                                                        <fontDescription key="titleFontDescription" name="Quicksand-SemiBold" family="Quicksand" pointSize="18"/>
+                                                    </buttonConfiguration>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="19"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstItem="GAD-ph-nbM" firstAttribute="top" secondItem="KUj-su-wPh" secondAttribute="top" id="JXB-dP-Uvg"/>
+                                                <constraint firstAttribute="bottom" secondItem="GAD-ph-nbM" secondAttribute="bottom" id="MAe-CR-ete"/>
+                                                <constraint firstItem="GAD-ph-nbM" firstAttribute="leading" secondItem="KUj-su-wPh" secondAttribute="leading" id="RGA-TY-K81"/>
+                                                <constraint firstAttribute="height" constant="40" id="lXb-Tk-vnz"/>
+                                                <constraint firstAttribute="width" constant="120" id="lr8-DD-tFZ"/>
+                                                <constraint firstAttribute="trailing" secondItem="GAD-ph-nbM" secondAttribute="trailing" id="z9j-VY-7dt"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
@@ -1064,9 +1092,11 @@
                                         <constraint firstItem="HNs-Mr-2ki" firstAttribute="leading" secondItem="Sak-ZX-fu9" secondAttribute="leading" id="91m-Fg-c6J"/>
                                         <constraint firstItem="HNs-Mr-2ki" firstAttribute="top" secondItem="Sak-ZX-fu9" secondAttribute="top" id="Im9-Vq-jqX"/>
                                         <constraint firstItem="ctM-pN-9Fu" firstAttribute="leading" secondItem="Sak-ZX-fu9" secondAttribute="leading" id="KbM-5B-wf8"/>
+                                        <constraint firstItem="KUj-su-wPh" firstAttribute="centerX" secondItem="Sak-ZX-fu9" secondAttribute="centerX" id="S2V-FA-Inf"/>
                                         <constraint firstItem="ctM-pN-9Fu" firstAttribute="top" secondItem="HNs-Mr-2ki" secondAttribute="bottom" id="S2r-Zl-t4t"/>
                                         <constraint firstItem="di8-dd-WUV" firstAttribute="top" secondItem="ctM-pN-9Fu" secondAttribute="bottom" id="V9E-g2-gMH"/>
                                         <constraint firstItem="di8-dd-WUV" firstAttribute="leading" secondItem="Sak-ZX-fu9" secondAttribute="leading" id="bFi-zT-Y6N"/>
+                                        <constraint firstItem="KUj-su-wPh" firstAttribute="top" secondItem="di8-dd-WUV" secondAttribute="bottom" constant="20" id="c4M-eb-u9f"/>
                                         <constraint firstAttribute="trailing" secondItem="di8-dd-WUV" secondAttribute="trailing" id="cMH-EG-odz"/>
                                         <constraint firstAttribute="bottom" secondItem="HNs-Mr-2ki" secondAttribute="bottom" id="k1b-Oa-ElS"/>
                                         <constraint firstAttribute="height" constant="260" id="sAQ-gI-Lat"/>
@@ -1079,13 +1109,14 @@
                                 <constraint firstItem="Y7K-zU-pJv" firstAttribute="leading" secondItem="GSk-iL-GAH" secondAttribute="leading" constant="16" id="d4p-zs-bWq"/>
                                 <constraint firstItem="Y7K-zU-pJv" firstAttribute="top" secondItem="GSk-iL-GAH" secondAttribute="top" id="dY4-4b-Y5N"/>
                                 <constraint firstItem="Sak-ZX-fu9" firstAttribute="top" secondItem="Y7K-zU-pJv" secondAttribute="bottom" id="gqG-fY-BsQ"/>
-                                <constraint firstAttribute="height" constant="920" id="jtP-MA-jc6"/>
+                                <constraint firstAttribute="height" constant="980" id="jtP-MA-jc6"/>
                                 <constraint firstAttribute="trailing" secondItem="Y7K-zU-pJv" secondAttribute="trailing" constant="16" id="kqy-FB-FIZ"/>
                                 <constraint firstItem="Sak-ZX-fu9" firstAttribute="leading" secondItem="GSk-iL-GAH" secondAttribute="leading" constant="16" id="w8e-9h-4uL"/>
                             </constraints>
                         </view>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="KUj-su-wPh" firstAttribute="width" secondItem="vLi-Yb-4Ze" secondAttribute="width" multiplier="0.5" id="2f5-S0-b5z"/>
                         <constraint firstItem="GSk-iL-GAH" firstAttribute="top" secondItem="vLi-Yb-4Ze" secondAttribute="top" id="FDx-GZ-sen"/>
                         <constraint firstAttribute="trailing" secondItem="GSk-iL-GAH" secondAttribute="trailing" id="IQd-gF-aNx"/>
                         <constraint firstAttribute="bottom" secondItem="GSk-iL-GAH" secondAttribute="bottom" id="d3S-oJ-7My"/>
@@ -1109,6 +1140,9 @@
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <namedColor name="PrimaryGreen">
             <color red="0.0078431372549019607" green="0.30980392156862746" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="secondryGreen">
+            <color red="0.0" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="themeBlackText">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
