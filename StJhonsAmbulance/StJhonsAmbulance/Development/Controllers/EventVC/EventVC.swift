@@ -231,8 +231,10 @@ class EventVC: ENTALDBaseViewController {
  
     @IBAction func createEventTapped(_ sender: Any) {
         
-        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK) { status in
+        ENTALDControllers.shared.showCreateEventForm(type: .ENTALDPUSH, from: self, isNavigationController: true) { params, controller in
+            
         }
+        
     }
     
     func showEmptyView(tableVw : UITableView){
