@@ -9,7 +9,7 @@ import UIKit
 
 class PendingShiftTVC: UITableViewCell {
 
-    
+    public var delegate: updatePendingShiftStatusDelegate?
     
     
     @IBOutlet weak var mainView: UIView!
@@ -21,6 +21,8 @@ class PendingShiftTVC: UITableViewCell {
     @IBOutlet weak var lblShift: UILabel!
     @IBOutlet weak var lblAction: UILabel!
     @IBOutlet weak var imgView: UIImageView!
+    
+    var eventId:String?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -74,5 +76,14 @@ class PendingShiftTVC: UITableViewCell {
         }else{
             imgView.image = UIImage(systemName: "square")
         }
+        self.eventId = rowModel?._sjavms_volunteerevent_value
     }
+    
+    
+    @IBAction func updateStatusTapped(_ sender: Any) {
+        
+        delegate?.updateSiglePendingShiftStatus(eventId: self.eventId ?? "")
+        
+    }
+    
 }

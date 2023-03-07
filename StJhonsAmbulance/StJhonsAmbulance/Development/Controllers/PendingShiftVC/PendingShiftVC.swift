@@ -7,7 +7,13 @@
 
 import UIKit
 
-class PendingShiftVC: ENTALDBaseViewController {
+protocol updatePendingShiftStatusDelegate {
+    
+    func updateSiglePendingShiftStatus(eventId:String)
+}
+
+class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate {
+
     
     var pendingShiftData : [PendingShiftModelTwo]?
     var pendingShiftDataOne : [PendingShiftModelOne]?
@@ -18,6 +24,7 @@ class PendingShiftVC: ENTALDBaseViewController {
     var isNamefilterApplied:Bool = false
     var isDatefilterApplied:Bool = false
     var isEventfilterApplied:Bool = false
+    
     
     
     @IBOutlet weak var btnBack: UIButton!
@@ -49,7 +56,7 @@ class PendingShiftVC: ENTALDBaseViewController {
         tableView.dataSource = self
         tableView.register(UINib(nibName: "PendingShiftTVC", bundle: nil), forCellReuseIdentifier: "PendingShiftTVC")
         tableView.register(UINib(nibName: "EmptyEventTableCell", bundle: nil), forCellReuseIdentifier: "EmptyEventTableCell")
-        
+    
         decorateUI()
         getPendingShift()
         getPendingShiftThree()
@@ -244,6 +251,20 @@ class PendingShiftVC: ENTALDBaseViewController {
     
     }
     
+    func updateSiglePendingShiftStatus(eventId:String) {
+        ENTALDControllers.shared.showPendingShiftStatusUpdatePicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, dataObj: ProcessUtils.shared.getPendingShiftStatus()) { params, controller in
+            
+//            let selectedEvents = self.pendingShiftData?.filter( {$0.event_selected == true})
+        
+                if let data = params as? Int {
+                    let params = [
+                        "msnfp_participationschedules": data as! Int
+                    ]
+                    self.updateStatusData(eventId: eventId , params: params )
+                }
+        }
+    }
+
     func showEmptyView(tableVw : UITableView){
         DispatchQueue.main.async {
             let view = EmptyView.instanceFromNib()
@@ -530,6 +551,8 @@ extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
             cell.mainView.backgroundColor = UIColor.viewLightColor
             cell.dividerView.backgroundColor = UIColor.gray
         }
+        
+        cell.delegate = self
         
         let rowModel = pendingShiftData?[indexPath.row]
         cell.setCellData(rowModel : rowModel)

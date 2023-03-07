@@ -70,13 +70,13 @@ class LandingVC: ENTALDBaseViewController {
     
     @IBAction func btnNextAction(_ sender: Any) {
 
-        if (ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.sjavms_rolecategory == 802280000){
-            
-            self.callbackToController?("volunteer", self)
-        }else if (ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.sjavms_rolecategory == 802280001){
+//        if (ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.sjavms_rolecategory == 802280000){
+//
+//            self.callbackToController?("volunteer", self)
+//        }else if (ProcessUtils.shared.selectedUserGroup?.sjavms_RoleType?.sjavms_rolecategory == 802280001){
             
             self.callbackToController?("cslead", self)
-        }
+//        }
     }
     
     func getGroups(){

@@ -13,6 +13,21 @@ class EventVC: ENTALDBaseViewController {
     var upcomingEventData : [CurrentEventsModel]?
     var pastEventData : [CurrentEventsModel]?
     
+    var isCurrentEventFilterApplied = false
+    var isCurrentLocatioFilterApplied = false
+    var isCurrentSatrtFilterApplied = false
+    var isCurrentEndFilterApplied = false
+    
+    var isUpcomingEventFilterApplied = false
+    var isUpcomingLocatioFilterApplied = false
+    var isUpcomingSatrtFilterApplied = false
+    var isUpcomingEndFilterApplied = false
+    
+    var isPastEventFilterApplied = false
+    var isPastLocatioFilterApplied = false
+    var isPastDateFilterApplied = false
+    
+    
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnHome: UIButton!
     @IBOutlet weak var selectGroupView: UIView!
@@ -259,6 +274,255 @@ class EventVC: ENTALDBaseViewController {
         }
     }
     
+//    ========================== Filters ========================//
+    
+    @IBAction func currentEevntFilter(_ sender: Any) {
+        
+        if !isCurrentEventFilterApplied{
+            self.currentEventData = self.currentEventData?.sorted {
+                $0.msnfp_engagementopportunitytitle ?? "" < $1.msnfp_engagementopportunitytitle ?? ""
+            }
+            isCurrentEventFilterApplied = true
+        }else{
+            self.currentEventData = self.currentEventData?.sorted {
+                $0.msnfp_engagementopportunitytitle ?? "" > $1.msnfp_engagementopportunitytitle ?? ""
+            }
+            isCurrentEventFilterApplied = false
+        }
+        
+        self.isCurrentLocatioFilterApplied = false
+        self.isCurrentSatrtFilterApplied = false
+        self.isCurrentEndFilterApplied = false
+        
+        DispatchQueue.main.async {
+            self.currentTableView.reloadData()
+        }
+    }
+        
+    
+    @IBAction func currentLocationFilter(_ sender: Any) {
+        if !isCurrentLocatioFilterApplied{
+            self.currentEventData = self.currentEventData?.sorted {
+                $0.msnfp_location ?? "" < $1.msnfp_location ?? ""
+            }
+            isCurrentLocatioFilterApplied = true
+        }else{
+            self.currentEventData = self.currentEventData?.sorted {
+                $0.msnfp_location ?? "" > $1.msnfp_location ?? ""
+            }
+            isCurrentLocatioFilterApplied = false
+        }
+    
+        self.isCurrentEventFilterApplied = false
+        self.isCurrentSatrtFilterApplied = false
+        self.isCurrentEndFilterApplied = false
+        
+        DispatchQueue.main.async {
+            self.currentTableView.reloadData()
+        }
+    }
+    
+    @IBAction func currentStartDateFilter(_ sender: Any) {
+        if !isCurrentSatrtFilterApplied{
+            self.currentEventData = self.currentEventData?.sorted {
+                $0.msnfp_startingdate ?? "" < $1.msnfp_startingdate ?? ""
+            }
+            isCurrentSatrtFilterApplied = true
+        }else{
+            self.currentEventData = self.currentEventData?.sorted {
+                $0.msnfp_startingdate ?? "" > $1.msnfp_startingdate ?? ""
+            }
+            isCurrentSatrtFilterApplied = false
+        }
+    
+        self.isCurrentEventFilterApplied = false
+        self.isCurrentLocatioFilterApplied = false
+        self.isCurrentEndFilterApplied = false
+        
+        DispatchQueue.main.async {
+            self.currentTableView.reloadData()
+        }
+    }
+    
+    @IBAction func currentEndDateFilter(_ sender: Any) {
+        if !isCurrentEndFilterApplied{
+            self.currentEventData = self.currentEventData?.sorted {
+                $0.msnfp_endingdate ?? "" < $1.msnfp_endingdate ?? ""
+            }
+            isCurrentEndFilterApplied = true
+        }else{
+            self.currentEventData = self.currentEventData?.sorted {
+                $0.msnfp_endingdate ?? "" > $1.msnfp_endingdate ?? ""
+            }
+            isCurrentEndFilterApplied = false
+
+        }
+    
+        self.isCurrentEventFilterApplied = false
+        self.isCurrentLocatioFilterApplied = false
+        self.isCurrentSatrtFilterApplied = false
+        
+        DispatchQueue.main.async {
+            self.currentTableView.reloadData()
+        }
+    }
+    
+    
+    @IBAction func UpcomingEevntFilter(_ sender: Any) {
+        if !isUpcomingEventFilterApplied{
+            self.upcomingEventData = self.upcomingEventData?.sorted {
+                $0.msnfp_engagementopportunitytitle ?? "" < $1.msnfp_engagementopportunitytitle ?? ""
+            }
+            isUpcomingEventFilterApplied = true
+        }else{
+            self.upcomingEventData = self.upcomingEventData?.sorted {
+                $0.msnfp_engagementopportunitytitle ?? "" > $1.msnfp_engagementopportunitytitle ?? ""
+            }
+            isUpcomingEventFilterApplied = false
+
+        }
+    
+        self.isUpcomingLocatioFilterApplied = false
+        self.isUpcomingSatrtFilterApplied = false
+        self.isUpcomingEndFilterApplied = false
+        
+        DispatchQueue.main.async {
+            self.upcomingTableView.reloadData()
+        }
+    }
+    
+    @IBAction func UpcomingLocationFilter(_ sender: Any) {
+        if !isUpcomingLocatioFilterApplied{
+            self.upcomingEventData = self.upcomingEventData?.sorted {
+                $0.msnfp_location ?? "" < $1.msnfp_location ?? ""
+            }
+            isUpcomingLocatioFilterApplied = true
+        }else{
+            self.upcomingEventData = self.upcomingEventData?.sorted {
+                $0.msnfp_location ?? "" > $1.msnfp_location ?? ""
+            }
+            isUpcomingLocatioFilterApplied = false
+
+        }
+    
+        self.isUpcomingEventFilterApplied = false
+        self.isUpcomingSatrtFilterApplied = false
+        self.isUpcomingEndFilterApplied = false
+        
+        DispatchQueue.main.async {
+            self.upcomingTableView.reloadData()
+        }
+    }
+    
+    @IBAction func UpcomingStartDateFilter(_ sender: Any) {
+        if !isUpcomingSatrtFilterApplied{
+            self.upcomingEventData = self.upcomingEventData?.sorted {
+                $0.msnfp_startingdate ?? "" < $1.msnfp_startingdate ?? ""
+            }
+            isUpcomingSatrtFilterApplied = true
+        }else{
+            self.upcomingEventData = self.upcomingEventData?.sorted {
+                $0.msnfp_startingdate ?? "" > $1.msnfp_startingdate ?? ""
+            }
+            isUpcomingSatrtFilterApplied = false
+
+        }
+    
+        self.isUpcomingEventFilterApplied = false
+        self.isUpcomingLocatioFilterApplied = false
+        self.isUpcomingEndFilterApplied = false
+        
+        DispatchQueue.main.async {
+            self.upcomingTableView.reloadData()
+        }
+    }
+    
+    @IBAction func UpcomingEndDateFilter(_ sender: Any) {
+        if !isUpcomingEndFilterApplied{
+            self.upcomingEventData = self.upcomingEventData?.sorted {
+                $0.msnfp_endingdate ?? "" < $1.msnfp_endingdate ?? ""
+            }
+            isUpcomingEndFilterApplied = true
+        }else{
+            self.upcomingEventData = self.upcomingEventData?.sorted {
+                $0.msnfp_endingdate ?? "" > $1.msnfp_endingdate ?? ""
+            }
+            isUpcomingEndFilterApplied = false
+
+        }
+    
+        self.isUpcomingEventFilterApplied = false
+        self.isUpcomingLocatioFilterApplied = false
+        self.isUpcomingSatrtFilterApplied = false
+        
+        DispatchQueue.main.async {
+            self.upcomingTableView.reloadData()
+        }
+    }
+    
+    @IBAction func PastEevntFilter(_ sender: Any) {
+        if !isPastEventFilterApplied{
+            self.pastEventData = self.pastEventData?.sorted {
+                $0.msnfp_location ?? "" < $1.msnfp_location ?? ""
+            }
+            isPastEventFilterApplied = true
+        }else{
+            self.pastEventData = self.pastEventData?.sorted {
+                $0.msnfp_location ?? "" > $1.msnfp_location ?? ""
+            }
+            isPastEventFilterApplied = false
+        }
+    
+        self.isPastLocatioFilterApplied = false
+        self.isPastDateFilterApplied = false
+        
+        DispatchQueue.main.async {
+            self.pastTableView.reloadData()
+        }
+    }
+    
+    @IBAction func pastLocationFilter(_ sender: Any) {
+        if !isPastLocatioFilterApplied{
+            self.pastEventData = self.pastEventData?.sorted {
+                $0.msnfp_location ?? "" < $1.msnfp_location ?? ""
+            }
+            isPastLocatioFilterApplied = true
+        }else{
+            self.pastEventData = self.pastEventData?.sorted {
+                $0.msnfp_location ?? "" > $1.msnfp_location ?? ""
+            }
+            isPastLocatioFilterApplied = false
+        }
+    
+        self.isPastEventFilterApplied = false
+        self.isPastDateFilterApplied = false
+        
+        DispatchQueue.main.async {
+            self.pastTableView.reloadData()
+        }
+    }
+    
+    @IBAction func pastDateFilter(_ sender: Any) {
+        if !isPastDateFilterApplied{
+            self.pastEventData = self.pastEventData?.sorted {
+                $0.msnfp_endingdate ?? "" < $1.msnfp_endingdate ?? ""
+            }
+            isPastDateFilterApplied = true
+        }else{
+            self.pastEventData = self.pastEventData?.sorted {
+                $0.msnfp_endingdate ?? "" > $1.msnfp_endingdate ?? ""
+            }
+            isPastDateFilterApplied = false
+        }
+    
+        self.isPastEventFilterApplied = false
+        self.isPastLocatioFilterApplied = false
+        
+        DispatchQueue.main.async {
+            self.pastTableView.reloadData()
+        }
+    }
+    
     
     func getCurrentEvents(){
         
@@ -501,7 +765,7 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
            
             
             cell.lblEvent.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
-            //            cell.lblLocation.text = rowModel?.msnfp_location ?? ""
+            cell.lblLocation.text = rowModel?.msnfp_location ?? ""
             cell.lblStart.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
             cell.lblEnd.text =  DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
             cell.lblNeeded.text = "\(rowModel?.msnfp_minimum ?? 0)"
@@ -534,7 +798,7 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
            
             
             cell.lblEvent.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
-            //            cell.lblLocation.text = rowModel?.msnfp_location ?? ""
+            cell.lblLocation.text = rowModel?.msnfp_location ?? ""
             cell.lblStart.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
             cell.lblEnd.text =  DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
             cell.lblNeeded.text = "\(rowModel?.msnfp_minimum ?? 0)"
@@ -555,7 +819,7 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
             let rowModel = self.pastEventData?[indexPath.row]
             
             cell.lblEvent.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
-            //            cell.lblLocation.text = rowModel?.msnfp_location ?? ""
+            cell.lblLocation.text = rowModel?.msnfp_location ?? ""
             cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
             
             return cell

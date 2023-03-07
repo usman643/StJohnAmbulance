@@ -241,12 +241,6 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
             }
         }
     }
-    
-    
-    
-    
-    
-    
 }
 
 extension CSDashBoardVC : UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

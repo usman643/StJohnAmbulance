@@ -11,6 +11,17 @@ class PendingEventVC: ENTALDBaseViewController {
     
     var pendingApprovalData : [PendingApprovalEventsModel]?
     var pendingPublishData : [UnpublishedEventsModel]?
+    
+    var isPendingNameFilterApplied = false
+    var isPendingLocationFilterApplied = false
+    var isPendingNumberFilterApplied = false
+    var isPendingDataFilterApplied = false
+    
+    var isPublishNameFilterApplied = false
+    var isPublishLocationFilterApplied = false
+    var isPublishNumberFilterApplied = false
+    var isPublishDataFilterApplied = false
+    
 
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnHome: UIButton!
@@ -206,6 +217,200 @@ class PendingEventVC: ENTALDBaseViewController {
         }
     }
     
+    //==================  Filters  ================//
+    
+    
+    @IBAction func pendingApprovalNameFilter(_ sender: Any) {
+        if !isPendingNameFilterApplied{
+            self.pendingApprovalData = self.pendingApprovalData?.sorted {
+                $0.sjavms_name ?? "" < $1.sjavms_name ?? ""
+            }
+            isPendingNameFilterApplied = true
+        }else{
+            self.pendingApprovalData = self.pendingApprovalData?.sorted {
+                $0.sjavms_name ?? "" > $1.sjavms_name ?? ""
+            }
+            isPendingNameFilterApplied = false
+        }
+        
+        self.isPendingLocationFilterApplied = false
+        self.isPendingNumberFilterApplied = false
+        self.isPendingDataFilterApplied = false
+        
+        DispatchQueue.main.async {
+            self.pendingApprovalTableView.reloadData()
+        }
+    }
+    
+    @IBAction func pendingApprovalLocationFilter(_ sender: Any) {
+        if !isPendingLocationFilterApplied{
+            self.pendingApprovalData = self.pendingApprovalData?.sorted {
+                $0.sjavms_address1name ?? "" < $1.sjavms_address1name ?? ""
+            }
+            isPendingLocationFilterApplied = true
+        }else{
+            self.pendingApprovalData = self.pendingApprovalData?.sorted {
+                $0.sjavms_address1name ?? "" > $1.sjavms_address1name ?? ""
+            }
+            isPendingLocationFilterApplied = false
+        }
+        
+        self.isPendingNameFilterApplied = false
+        self.isPendingNumberFilterApplied = false
+        self.isPendingDataFilterApplied = false
+        
+        DispatchQueue.main.async {
+            self.pendingApprovalTableView.reloadData()
+        }
+        
+    }
+    
+    @IBAction func pendingApprovalNumFilter(_ sender: Any) {
+        if !isPendingNumberFilterApplied{
+            self.pendingApprovalData = self.pendingApprovalData?.sorted {
+                $0.sjavms_maxvolunteers ?? 0 < $1.sjavms_maxvolunteers ?? 0
+            }
+            isPendingNumberFilterApplied = true
+        }else{
+            self.pendingApprovalData = self.pendingApprovalData?.sorted {
+                $0.sjavms_maxvolunteers ?? 0 > $1.sjavms_maxvolunteers ?? 0
+            }
+            isPendingNumberFilterApplied = false
+        }
+        
+        self.isPendingLocationFilterApplied = false
+        self.isPendingNameFilterApplied = false
+        self.isPendingDataFilterApplied = false
+        
+        DispatchQueue.main.async {
+            self.pendingApprovalTableView.reloadData()
+        }
+        
+    }
+    
+    @IBAction func pendingApprovalDateFilter(_ sender: Any) {
+        if !isPendingDataFilterApplied{
+            self.pendingApprovalData = self.pendingApprovalData?.sorted {
+                $0.sjavms_eventstartdate ?? "" < $1.sjavms_eventstartdate ?? ""
+            }
+            isPendingDataFilterApplied = true
+        }else{
+            self.pendingApprovalData = self.pendingApprovalData?.sorted {
+                $0.sjavms_eventstartdate ?? "" > $1.sjavms_eventstartdate ?? ""
+            }
+            isPendingDataFilterApplied = false
+        }
+        
+        self.isPendingLocationFilterApplied = false
+        self.isPendingNumberFilterApplied = false
+        self.isPendingNameFilterApplied = false
+        
+        DispatchQueue.main.async {
+            self.pendingApprovalTableView.reloadData()
+        }
+        
+    }
+    
+    
+    @IBAction func needPublishNameFilter(_ sender: Any) {
+        if !isPublishNameFilterApplied{
+            self.pendingPublishData = self.pendingPublishData?.sorted {
+                $0.msnfp_engagementopportunitytitle ?? "" < $1.msnfp_engagementopportunitytitle ?? ""
+            }
+            isPublishNameFilterApplied = true
+        }else{
+            self.pendingPublishData = self.pendingPublishData?.sorted {
+                $0.msnfp_engagementopportunitytitle ?? "" > $1.msnfp_engagementopportunitytitle ?? ""
+            }
+            isPublishNameFilterApplied = false
+
+        }
+        
+        self.isPublishLocationFilterApplied = false
+        self.isPublishNumberFilterApplied = false
+        self.isPublishDataFilterApplied = false
+        
+        DispatchQueue.main.async {
+            self.pendingPublishTableView.reloadData()
+        }
+        
+    }
+    
+    @IBAction func needPublishLocationFilter(_ sender: Any) {
+        if !isPublishLocationFilterApplied{
+            self.pendingPublishData = self.pendingPublishData?.sorted {
+                $0.msnfp_location ?? "" < $1.msnfp_location ?? ""
+            }
+            isPublishLocationFilterApplied = true
+        }else{
+            self.pendingPublishData = self.pendingPublishData?.sorted {
+                $0.msnfp_location ?? "" > $1.msnfp_location ?? ""
+            }
+            isPublishLocationFilterApplied = false
+
+        }
+        
+        self.isPublishDataFilterApplied = false
+        self.isPublishNumberFilterApplied = false
+        self.isPublishNameFilterApplied = false
+        
+        DispatchQueue.main.async {
+            self.pendingPublishTableView.reloadData()
+        }
+        
+    }
+    
+    @IBAction func needPublishNumFilter(_ sender: Any) {
+        if !isPublishNumberFilterApplied{
+            self.pendingPublishData = self.pendingPublishData?.sorted {
+                $0.msnfp_maximum ?? 0 < $1.msnfp_maximum ?? 0
+            }
+            isPublishNumberFilterApplied = true
+        }else{
+            self.pendingPublishData = self.pendingPublishData?.sorted {
+                $0.msnfp_maximum ?? 0 > $1.msnfp_maximum ?? 0
+            }
+            isPublishNumberFilterApplied = false
+
+        }
+        
+        self.isPublishLocationFilterApplied = false
+        self.isPublishDataFilterApplied = false
+        self.isPublishNameFilterApplied = false
+        
+        DispatchQueue.main.async {
+            self.pendingPublishTableView.reloadData()
+        }
+        
+    }
+    
+    @IBAction func needPublishDateFilter(_ sender: Any) {
+        if !isPublishDataFilterApplied{
+            self.pendingPublishData = self.pendingPublishData?.sorted {
+                $0.msnfp_startingdate ?? "" < $1.msnfp_startingdate ?? ""
+            }
+            isPublishDataFilterApplied = true
+        }else{
+            self.pendingPublishData = self.pendingPublishData?.sorted {
+                $0.msnfp_startingdate ?? "" > $1.msnfp_startingdate ?? ""
+            }
+            isPublishDataFilterApplied = false
+        }
+        
+        self.isPublishLocationFilterApplied = false
+        self.isPublishNumberFilterApplied = false
+        self.isPublishNameFilterApplied = false
+        
+        DispatchQueue.main.async {
+            self.pendingPublishTableView.reloadData()
+        }
+        
+    }
+    
+    
+    
+    
+    
     
     func getPendingApproval(){
         guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
@@ -370,7 +575,7 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
             let rowModel = self.pendingPublishData?[indexPath.row]
             cell.lblName.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
             cell.lblLocation.text = rowModel?.msnfp_location ?? ""
-            cell.lblMax.text = "\(rowModel?.msnfp_minimum  ?? 0)"
+            cell.lblMax.text = "\(rowModel?.msnfp_maximum  ?? 0)"
             cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
             cell.lblStatus.text = rowModel?.getStatus()
         }

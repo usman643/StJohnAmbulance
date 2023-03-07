@@ -16,6 +16,20 @@ class AvailabilityVC: ENTALDBaseViewController {
     var programsData : [ProgramModel]?
     let contactId = UserDefaults.standard.contactIdToken ?? ""
     
+    var isAdhocTitle = false
+    var isAdhocPrgram = false
+    var isAdhocHours = false
+    
+    var isVolunteerEvent = false
+    var isVolunteerProgram = false
+    var isVolunteerSchedule = false
+    var isVolunteerStart = false
+    var isVolunteerEnd = false
+    var isVolunteerHour = false
+
+    var isAvailabilityTitle = false
+    var isAvailabilityEffectiveFrom = false
+    var isAvailabilityEffectiveTo = false
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var headerView: UIView!
@@ -161,7 +175,289 @@ class AvailabilityVC: ENTALDBaseViewController {
         }
     }
     
+    // ============================  Filters  ===============================
+    
+    @IBAction func adhocTitleFilter(_ sender: Any) {
+        if !isAdhocTitle{
+            self.adhocData = self.adhocData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" < $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+            }
+            isAdhocTitle = true
+        }else{
+            self.adhocData = self.adhocData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" > $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+            }
+            isAdhocTitle = false
+        }
+        
+        DispatchQueue.main.async {
+            self.adhocTableView.reloadData()
+        }
+        
+        self.isAdhocPrgram = false
+        self.isAdhocHours = false
+    }
+    
+    @IBAction func adhocProgramFilter(_ sender: Any) {
+        if !isAdhocPrgram{
+            self.adhocData = self.adhocData?.sorted {
+                $0.program_name ?? "" < $1.program_name ?? ""
+            }
+            isAdhocPrgram = true
+        }else{
+            self.adhocData = self.adhocData?.sorted {
+                $0.program_name ?? "" > $1.program_name ?? ""
+            }
+            isAdhocPrgram = false
+        }
+        
+        DispatchQueue.main.async {
+            self.adhocTableView.reloadData()
+        }
+        self.isAdhocTitle = false
+        self.isAdhocHours = false
+    }
+    
+    @IBAction func adhocHourFilter(_ sender: Any) {
+        
+        if !isAdhocHours{
+            self.adhocData = self.adhocData?.sorted {
+                $0.sjavms_hours ?? 0 < $1.sjavms_hours ?? 0
+            }
+            isAdhocHours = true
+        }else{
+            self.adhocData = self.adhocData?.sorted {
+                $0.sjavms_hours ?? 0 > $1.sjavms_hours ?? 0
+            }
+            isAdhocHours = false
+        }
+        
+        DispatchQueue.main.async {
+            self.adhocTableView.reloadData()
+        }
+        
+        self.isAdhocTitle = false
+        self.isAdhocPrgram = false
+    }
+    
+    @IBAction func volunteerTitleFilter(_ sender: Any) {
+        if !isVolunteerEvent{
+            self.volunteerHourData = self.volunteerHourData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" < $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+            }
+            isVolunteerEvent = true
+        }else{
+            self.volunteerHourData = self.volunteerHourData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" > $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+            }
+            isVolunteerEvent = false
+        }
+        
+        DispatchQueue.main.async {
+            self.voluteerHourTableView.reloadData()
+        }
+        
 
+        self.isVolunteerProgram = false
+        self.isVolunteerSchedule = false
+        self.isVolunteerStart = false
+        self.isVolunteerEnd = false
+        self.isVolunteerHour = false
+    }
+    
+    @IBAction func volunteerProgramFilter(_ sender: Any) {
+        
+        if !isVolunteerProgram{
+            self.volunteerHourData = self.volunteerHourData?.sorted {
+                $0.program_name ?? "" < $1.program_name ?? ""
+            }
+            isVolunteerProgram = true
+        }else{
+            self.volunteerHourData = self.volunteerHourData?.sorted {
+                $0.program_name ?? "" > $1.program_name ?? ""
+            }
+            isVolunteerProgram = false
+        }
+        
+        DispatchQueue.main.async {
+            self.voluteerHourTableView.reloadData()
+        }
+        
+        self.isVolunteerEvent = false
+        self.isVolunteerSchedule = false
+        self.isVolunteerStart = false
+        self.isVolunteerEnd = false
+        self.isVolunteerHour = false
+    }
+    
+    @IBAction func volunteerScheduleFilter(_ sender: Any) {
+        
+        if !isVolunteerSchedule{
+            self.volunteerHourData = self.volunteerHourData?.sorted {
+                $0.msnfp_schedulestatus ?? 0 < $1.msnfp_schedulestatus ?? 0
+            }
+            isVolunteerSchedule = true
+        }else{
+            self.volunteerHourData = self.volunteerHourData?.sorted {
+                $0.msnfp_schedulestatus ?? 0 > $1.msnfp_schedulestatus ?? 0
+            }
+            isVolunteerSchedule = false
+        }
+        
+        DispatchQueue.main.async {
+            self.voluteerHourTableView.reloadData()
+        }
+        
+        self.isVolunteerEvent = false
+        self.isVolunteerProgram = false
+        self.isVolunteerStart = false
+        self.isVolunteerEnd = false
+        self.isVolunteerHour = false
+    }
+    @IBAction func volunteerStartFilter(_ sender: Any) {
+        
+        if !isVolunteerStart{
+            self.volunteerHourData = self.volunteerHourData?.sorted {
+                $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
+            }
+            isVolunteerStart = true
+        }else{
+            self.volunteerHourData = self.volunteerHourData?.sorted {
+                $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
+            }
+            isVolunteerStart = false
+        }
+        
+        DispatchQueue.main.async {
+            self.voluteerHourTableView.reloadData()
+        }
+        
+        self.isVolunteerEvent = false
+        self.isVolunteerProgram = false
+        self.isVolunteerSchedule = false
+        self.isVolunteerEnd = false
+        self.isVolunteerHour = false
+    }
+    @IBAction func volunteerEndFilter(_ sender: Any) {
+        
+        if !isVolunteerEnd{
+            self.volunteerHourData = self.volunteerHourData?.sorted {
+                $0.sjavms_end ?? "" < $1.sjavms_end ?? ""
+            }
+            isVolunteerEnd = true
+        }else{
+            self.volunteerHourData = self.volunteerHourData?.sorted {
+                $0.sjavms_end ?? "" > $1.sjavms_end ?? ""
+            }
+            isVolunteerEnd = false
+        }
+        
+        DispatchQueue.main.async {
+            self.voluteerHourTableView.reloadData()
+        }
+        
+        self.isVolunteerEvent = false
+        self.isVolunteerProgram = false
+        self.isVolunteerSchedule = false
+        self.isVolunteerStart = false
+        self.isVolunteerHour = false
+    }
+    
+    @IBAction func volunteerHourFilter(_ sender: Any) {
+        
+        if !isVolunteerHour{
+            self.volunteerHourData = self.volunteerHourData?.sorted {
+                $0.sjavms_hours ?? 0 < $1.sjavms_hours ?? 0
+            }
+            isVolunteerHour = true
+        }else{
+            self.volunteerHourData = self.volunteerHourData?.sorted {
+                $0.sjavms_hours ?? 0 > $1.sjavms_hours ?? 0
+            }
+            isVolunteerHour = false
+        }
+        
+        DispatchQueue.main.async {
+            self.voluteerHourTableView.reloadData()
+        }
+        
+        self.isVolunteerEvent = false
+        self.isVolunteerProgram = false
+        self.isVolunteerSchedule = false
+        self.isVolunteerStart = false
+        self.isVolunteerEnd = false
+    }
+    
+    @IBAction func availabilityTitleFilter(_ sender: Any) {
+        
+        if !isAvailabilityTitle{
+            self.availablityData = self.availablityData?.sorted {
+                $0.msnfp_availabilitytitle ?? "" < $1.msnfp_availabilitytitle ?? ""
+            }
+            isAvailabilityTitle = true
+        }else{
+            self.availablityData = self.availablityData?.sorted {
+                $0.msnfp_availabilitytitle ?? "" > $1.msnfp_availabilitytitle ?? ""
+            }
+            isAvailabilityTitle = false
+        }
+        
+        DispatchQueue.main.async {
+            self.availablityTableView.reloadData()
+        }
+        
+
+        self.isAvailabilityEffectiveFrom = false
+        self.isAvailabilityEffectiveTo = false
+    }
+    @IBAction func availabilityEffectiveFromFilter(_ sender: Any) {
+        
+        if !isAvailabilityEffectiveFrom{
+            self.availablityData = self.availablityData?.sorted {
+                $0.msnfp_effectivefrom ?? "" < $1.msnfp_effectivefrom ?? ""
+            }
+            isAvailabilityEffectiveFrom = true
+        }else{
+            self.availablityData = self.availablityData?.sorted {
+                $0.msnfp_effectivefrom ?? "" > $1.msnfp_effectivefrom ?? ""
+            }
+            isAvailabilityEffectiveFrom = false
+        }
+        
+        DispatchQueue.main.async {
+            self.availablityTableView.reloadData()
+        }
+        
+        self.isAvailabilityTitle = false
+        self.isAvailabilityEffectiveTo = false
+    }
+    
+    @IBAction func availabilityEffectiveToFilter(_ sender: Any) {
+        
+        if !isAvailabilityEffectiveTo{
+            self.availablityData = self.availablityData?.sorted {
+                $0.msnfp_effectiveto ?? "" < $1.msnfp_effectiveto ?? ""
+            }
+            isAvailabilityEffectiveTo = true
+        }else{
+            self.availablityData = self.availablityData?.sorted {
+                $0.msnfp_effectiveto ?? "" > $1.msnfp_effectiveto ?? ""
+            }
+            isAvailabilityEffectiveTo = false
+        }
+        
+        DispatchQueue.main.async {
+            self.availablityTableView.reloadData()
+        }
+
+        
+        self.isAvailabilityTitle = false
+        self.isAvailabilityEffectiveFrom = false
+    }
+    
+    
+    
+    
 
 
 
@@ -303,11 +599,13 @@ class AvailabilityVC: ENTALDBaseViewController {
                     if (self.volunteerHourData?.count == 0 || self.volunteerHourData?.count == nil){
                         self.showEmptyView(tableVw: self.voluteerHourTableView)
                     }else{
-//                        for i in (0 ..< (self.adhocData?.count ?? 0)) {
-//
-//                            self.volunteerHourData?[i].program_name = self.getProgramName(self.volunteerHourData?[i].sjavms_VolunteerEvent?._sjavms_program_value  ?? "")
-//
-//                        }
+                        for i in (0 ..< (self.volunteerHourData?.count ?? 0)) {
+                            if let value = self.getProgramName(self.volunteerHourData?[i].sjavms_VolunteerEvent?._sjavms_program_value  ?? ""){
+                                self.volunteerHourData?[i].sjavms_VolunteerEvent?.program_name = value
+                            }
+                            
+
+                        }
                         DispatchQueue.main.async {
                             for subview in self.voluteerHourTableView.subviews {
                                 subview.removeFromSuperview()
@@ -369,11 +667,12 @@ class AvailabilityVC: ENTALDBaseViewController {
                         self.showEmptyView(tableVw: self.adhocTableView)
                     }else{
                         
-//                        for i in (0 ..< (self.adhocData?.count ?? 0)) {
-//
-//                            self.adhocData?[i].program_name = self.getProgramName(self.adhocData?[i].sjavms_VolunteerEvent?._sjavms_program_value ?? "")
-//
-//                        }
+                        for i in (0 ..< (self.adhocData?.count ?? 0)) {
+                            if let value = self.getProgramName(self.adhocData?[i].sjavms_VolunteerEvent?._sjavms_program_value ?? ""){
+                                self.adhocData?[i].program_name = value
+                            }
+
+                        }
                         
                         
                         

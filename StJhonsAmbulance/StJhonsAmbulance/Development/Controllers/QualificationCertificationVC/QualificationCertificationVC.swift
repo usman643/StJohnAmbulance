@@ -14,6 +14,19 @@ class QualificationCertificationVC: ENTALDBaseViewController {
     var SJAQualificationTypes : [SJAQualificationTypeDataModel]?
     let contactId = UserDefaults.standard.contactIdToken ?? ""
     
+    var isExternalCertificationIDFilterApplied = false
+    var isExternalQualificationFilterApplied = false
+    var isExternalTypeFilterApplied = false
+    var isExternalIssuedFilterApplied = false
+    var isExternalExpireFilterApplied = false
+    
+    
+    var isGainedQualificationFilterApplied = false
+    var isGainedTypeFilterApplied = false
+    var isGainedEffectiveFilterApplied = false
+    var isGainedExpireFilterApplied = false
+    
+    
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet var allTableHeadingLabel: [UILabel]!
     
@@ -104,7 +117,215 @@ class QualificationCertificationVC: ENTALDBaseViewController {
         }
     }
     
+    // ================== Filters ====================//
     
+    @IBAction func externalCertificationIdFilter(_ sender: Any) {
+        
+        if !isExternalCertificationIDFilterApplied{
+            self.externalQualification = self.externalQualification?.sorted {
+                $0.sjavms_Qualification?.sjavms_type ?? 0 < $1.sjavms_Qualification?.sjavms_type ?? 0
+            }
+            isExternalCertificationIDFilterApplied = true
+        }else{
+            self.externalQualification = self.externalQualification?.sorted {
+                $0.sjavms_Qualification?.sjavms_type ?? 0 > $1.sjavms_Qualification?.sjavms_type ?? 0
+            }
+            isExternalCertificationIDFilterApplied = false
+        }
+    
+        DispatchQueue.main.async {
+            self.externalTable.reloadData()
+        }
+        
+        self.isExternalQualificationFilterApplied = false
+        self.isExternalTypeFilterApplied = false
+        self.isExternalIssuedFilterApplied = false
+        self.isExternalExpireFilterApplied = false
+        
+        
+    }
+    
+    @IBAction func externalQualificationFilter(_ sender: Any) {
+//        if !isExternalQualificationFilterApplied{
+//            self.externalQualification = self.externalQualification?.sorted {
+//                $0.sjavms_name ?? "" < $1.sjavms_name ?? ""
+//            }
+//            isExternalQualificationFilterApplied = true
+//        }else{
+//            self.externalQualification = self.externalQualification?.sorted {
+//                $0.sjavms_name ?? "" > $1.sjavms_name ?? ""
+//            }
+//            isExternalQualificationFilterApplied = false
+//        }
+//
+//        DispatchQueue.main.async {
+//            self.externalTable.reloadData()
+//        }
+        self.isExternalCertificationIDFilterApplied = false
+        self.isExternalTypeFilterApplied = false
+        self.isExternalIssuedFilterApplied = false
+        self.isExternalExpireFilterApplied = false
+    }
+    
+    @IBAction func externalTypeFilter(_ sender: Any) {
+        if !isExternalTypeFilterApplied{
+            self.externalQualification = self.externalQualification?.sorted {
+                $0.sjavms_Qualification?.sjavms_type_value ?? "" < $1.sjavms_Qualification?.sjavms_type_value  ?? ""
+            }
+            isExternalTypeFilterApplied = true
+        }else{
+            self.externalQualification = self.externalQualification?.sorted {
+                $0.sjavms_Qualification?.sjavms_type_value  ?? "" > $1.sjavms_Qualification?.sjavms_type_value  ?? ""
+            }
+            isExternalTypeFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.externalTable.reloadData()
+        }
+        
+        self.isExternalCertificationIDFilterApplied = false
+        self.isExternalQualificationFilterApplied = false
+        self.isExternalIssuedFilterApplied = false
+        self.isExternalExpireFilterApplied = false
+    }
+    
+    @IBAction func externalIssuedDateFilter(_ sender: Any) {
+        if !isExternalIssuedFilterApplied{
+            self.externalQualification = self.externalQualification?.sorted {
+                $0.sjavms_issuedate ?? "" < $1.sjavms_issuedate ?? ""
+            }
+            isExternalIssuedFilterApplied = true
+        }else{
+            self.externalQualification = self.externalQualification?.sorted {
+                $0.sjavms_issuedate ?? "" > $1.sjavms_issuedate ?? ""
+            }
+            isExternalIssuedFilterApplied = false
+        }
+    
+        DispatchQueue.main.async {
+            self.externalTable.reloadData()
+        }
+        
+        self.isExternalCertificationIDFilterApplied = false
+        self.isExternalQualificationFilterApplied = false
+        self.isExternalTypeFilterApplied = false
+        self.isExternalExpireFilterApplied = false
+        
+    }
+    
+    @IBAction func externalExpireDateFilter(_ sender: Any) {
+        if !isExternalExpireFilterApplied{
+            self.externalQualification = self.externalQualification?.sorted {
+                $0.sjavms_expirydate ?? "" < $1.sjavms_expirydate ?? ""
+            }
+            isExternalExpireFilterApplied = true
+        }else{
+            self.externalQualification = self.externalQualification?.sorted {
+                $0.sjavms_expirydate ?? "" > $1.sjavms_expirydate ?? ""
+            }
+            isExternalExpireFilterApplied = false
+        }
+    
+        DispatchQueue.main.async {
+            self.externalTable.reloadData()
+        }
+        
+        self.isExternalCertificationIDFilterApplied = false
+        self.isExternalQualificationFilterApplied = false
+        self.isExternalTypeFilterApplied = false
+        self.isExternalIssuedFilterApplied = false
+    }
+    
+    @IBAction func gainedQualificationFilter(_ sender: Any) {
+        if !isGainedQualificationFilterApplied{
+            self.SJAQualification = self.SJAQualification?.sorted {
+                $0.bdo_qualificationsid?.bdo_name ?? "" < $1.bdo_qualificationsid?.bdo_name ?? ""
+            }
+            isGainedQualificationFilterApplied = true
+        }else{
+            self.SJAQualification = self.SJAQualification?.sorted {
+                $0.bdo_qualificationsid?.bdo_name ?? "" > $1.bdo_qualificationsid?.bdo_name ?? ""
+            }
+            isGainedQualificationFilterApplied = false
+        }
+    
+        DispatchQueue.main.async {
+            self.SJATableview.reloadData()
+        }
+
+        self.isGainedTypeFilterApplied = false
+        self.isGainedEffectiveFilterApplied = false
+        self.isGainedExpireFilterApplied = false
+    }
+    
+    @IBAction func gainedTypeFilter(_ sender: Any) {
+        
+//        if !isGainedTypeFilterApplied{
+//            self.SJAQualification = self.SJAQualification?.sorted {
+//                $0.sjavms_expirydate ?? "" < $1.sjavms_expirydate ?? ""
+//            }
+//            isGainedTypeFilterApplied = true
+//        }else{
+//            self.SJAQualification = self.SJAQualification?.sorted {
+//                $0.sjavms_expirydate ?? "" > $1.sjavms_expirydate ?? ""
+//            }
+//            isGainedTypeFilterApplied = false
+//        }
+//
+//        DispatchQueue.main.async {
+//            self.SJATableview.reloadData()
+//        }
+        
+        self.isGainedQualificationFilterApplied = false
+        self.isGainedEffectiveFilterApplied = false
+        self.isGainedExpireFilterApplied = false
+    }
+    
+    @IBAction func gainedEffectiveFromFilter(_ sender: Any) {
+        
+        if !isGainedEffectiveFilterApplied{
+            self.SJAQualification = self.SJAQualification?.sorted {
+                $0.bdo_effectivedate ?? "" < $1.bdo_effectivedate ?? ""
+            }
+            isGainedEffectiveFilterApplied = true
+        }else{
+            self.SJAQualification = self.SJAQualification?.sorted {
+                $0.bdo_effectivedate ?? "" > $1.bdo_effectivedate ?? ""
+            }
+            isGainedEffectiveFilterApplied = false
+        }
+    
+        DispatchQueue.main.async {
+            self.SJATableview.reloadData()
+        }
+        
+        self.isGainedQualificationFilterApplied = false
+        self.isGainedTypeFilterApplied = false
+        self.isGainedExpireFilterApplied = false
+    }
+    
+    @IBAction func gainedExpireFilter(_ sender: Any) {
+        if !isGainedExpireFilterApplied{
+            self.SJAQualification = self.SJAQualification?.sorted {
+                $0.bdo_expirationdate ?? "" < $1.bdo_expirationdate ?? ""
+            }
+            isGainedExpireFilterApplied = true
+        }else{
+            self.SJAQualification = self.SJAQualification?.sorted {
+                $0.bdo_expirationdate ?? "" > $1.bdo_expirationdate ?? ""
+            }
+            isGainedExpireFilterApplied = false
+        }
+    
+        DispatchQueue.main.async {
+            self.SJATableview.reloadData()
+        }
+        
+        self.isGainedQualificationFilterApplied = false
+        self.isGainedTypeFilterApplied = false
+        self.isGainedEffectiveFilterApplied = false
+    }
     
     func getSJAQualification(){
         
