@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -30,7 +30,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vLi-Yb-4Ze">
-                    <rect key="frame" x="0.0" y="48" width="414" height="814"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GSk-iL-GAH">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="980"/>
@@ -137,6 +137,9 @@
                                                                     <color key="value" name="themeBlackText"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="provinceBtnPRessed:" destination="i5M-Pr-FkT" eventType="touchUpInside" id="oow-F1-V1H"/>
+                                                            </connections>
                                                         </button>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OrK-NU-Zaw">
                                                             <rect key="frame" x="347" y="34.5" width="25" height="20"/>
@@ -188,6 +191,9 @@
                                                                     <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="branchBtnPressed:" destination="i5M-Pr-FkT" eventType="touchUpInside" id="KNu-oO-Jfo"/>
+                                                            </connections>
                                                         </button>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L8z-kE-CRs">
                                                             <rect key="frame" x="347" y="34.5" width="25" height="20"/>
@@ -239,6 +245,9 @@
                                                                     <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="typeOfServiceBtnPressed:" destination="i5M-Pr-FkT" eventType="touchUpInside" id="XGf-J9-j9Q"/>
+                                                            </connections>
                                                         </button>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sxh-Lc-7Li">
                                                             <rect key="frame" x="347" y="36.5" width="25" height="20"/>
@@ -1072,6 +1081,9 @@
                                                             <real key="value" value="19"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="nextBtnPressed:" destination="i5M-Pr-FkT" eventType="touchUpInside" id="K52-uF-cKx"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1133,11 +1145,50 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="vLi-Yb-4Ze" secondAttribute="trailing" id="lBx-5h-Dad"/>
                 <constraint firstItem="GSk-iL-GAH" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="lyC-qd-AwY"/>
             </constraints>
+            <connections>
+                <outlet property="appInfoSecTitleLbl" destination="SKz-jh-N7R" id="zhd-Ed-yuX"/>
+                <outlet property="branchBtn" destination="uzZ-yC-FB0" id="LhG-7J-8LX"/>
+                <outlet property="branchLbl" destination="dO1-Xh-AgZ" id="8Pf-bG-rw5"/>
+                <outlet property="cityLbl" destination="HTB-fk-suF" id="bsT-4z-EwS"/>
+                <outlet property="cityTF" destination="BWg-4e-WaM" id="ZGB-Mv-xWf"/>
+                <outlet property="contactFirstNameLbl" destination="7VH-gh-WV3" id="pJY-pX-1Jz"/>
+                <outlet property="contactFirstNameTF" destination="2Ch-WM-H5z" id="rBL-Nx-OVi"/>
+                <outlet property="contactLastNameLbl" destination="NqP-GE-DzO" id="VgF-2p-0gv"/>
+                <outlet property="contactLastNameTF" destination="pBZ-gf-T0K" id="Ag7-Al-5Zv"/>
+                <outlet property="emailLbl" destination="Z4h-FH-Qdm" id="xb4-LU-yuc"/>
+                <outlet property="emailTF" destination="Q6Z-dd-2Mp" id="Sij-dp-mwr"/>
+                <outlet property="eventLocationAddressSecTitleLbl" destination="Rit-Ac-Bjk" id="rF3-Y8-HGe"/>
+                <outlet property="eventLocationNameLbl" destination="f3J-Kg-mS8" id="iy9-bm-O69"/>
+                <outlet property="eventLocationNameTF" destination="OdQ-KC-eiQ" id="E9U-Yr-7hD"/>
+                <outlet property="eventNameLbl" destination="pCs-gV-KPt" id="Twm-eR-TcW"/>
+                <outlet property="eventNameTF" destination="xcF-Nu-peo" id="liM-kd-AJ9"/>
+                <outlet property="eventOrganizerSecTitleLbl" destination="5aO-NV-iNd" id="kNl-nV-gVy"/>
+                <outlet property="generalInfoFormHeaderLbl" destination="D8i-VF-bBR" id="2Fs-jq-OvE"/>
+                <outlet property="nextBtn" destination="GAD-ph-nbM" id="2s2-1S-Jlw"/>
+                <outlet property="organizerNameLbl" destination="Cu2-fK-2zP" id="nMR-gI-Umr"/>
+                <outlet property="organizerNameTF" destination="p4y-E4-OcQ" id="MrH-M1-Agr"/>
+                <outlet property="postalCodeLbl" destination="Kyt-DF-TIY" id="DRd-N6-Whb"/>
+                <outlet property="postalCodeTF" destination="mnD-LL-qeO" id="5ln-Tt-OLa"/>
+                <outlet property="primaryPhoneLbl" destination="tWx-Y5-CP6" id="rUy-dn-Io8"/>
+                <outlet property="primaryPhoneTF" destination="Gdr-5Y-qwf" id="pzS-9V-Uuj"/>
+                <outlet property="provinceBtn" destination="2LI-Er-7Pa" id="pzv-WK-u92"/>
+                <outlet property="provinceLbl" destination="tQL-Ep-IKy" id="Nhx-WC-Gkl"/>
+                <outlet property="provinceTF" destination="YSO-V7-73A" id="0ge-j4-rkp"/>
+                <outlet property="provinceTextLbl" destination="WRf-EU-wzh" id="36h-PT-hhX"/>
+                <outlet property="street1Lbl" destination="4v2-2x-bVV" id="wE1-vE-nFl"/>
+                <outlet property="street1TF" destination="fqX-WY-X1p" id="8Sh-xi-JW8"/>
+                <outlet property="street2Lbl" destination="nYU-G1-onS" id="4sq-Tc-Up0"/>
+                <outlet property="street2TF" destination="0Hv-PM-Tjh" id="V6e-q0-CWi"/>
+                <outlet property="street3Lbl" destination="0WY-wK-9FH" id="Q9n-zc-nXr"/>
+                <outlet property="street3TF" destination="eg2-ye-1TI" id="uI0-mb-R4E"/>
+                <outlet property="typeOfServiceBtn" destination="Utx-DB-qVJ" id="4ZK-kC-gKN"/>
+                <outlet property="typeOfServiceLbl" destination="Fjt-9o-R3A" id="B3g-WR-hGv"/>
+            </connections>
             <point key="canvasLocation" x="137.68115942028987" y="62.946428571428569"/>
         </view>
     </objects>
     <resources>
-        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <namedColor name="PrimaryGreen">
             <color red="0.0078431372549019607" green="0.30980392156862746" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

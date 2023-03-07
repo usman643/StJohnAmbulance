@@ -26,13 +26,14 @@ class CreateEventFormVC: ENTALDBaseViewController, UIScrollViewDelegate {
         self.slides = self.createSlides()
         // Do any additional setup after loading the view.
         
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.08, execute: {
-//            self.setupSlideScrollView(slides: self.slides)
-//        })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.08, execute: {
+            self.setupSlideScrollView(slides: self.slides)
+        })
     }
 
 
     @IBAction func onChangeSegment(_ sender: Any) {
+        
         scrollView.scrollTo(currentPage: segmentsCOntroll.selectedSegmentIndex)
     }
     
