@@ -192,8 +192,13 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
-    func requestPreferedLanguage(params:[String:Any],  _ completion:@escaping((ApiResult<LanguageResponseModel, ApiError>) -> Void )){
+    func requestProfileInfoDetail(params:[String:Any],  _ completion:@escaping((ApiResult<LanguageResponseModel, ApiError>) -> Void )){
         let router = SideMenuRouter.getlanguages(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestPreferedLanguage(params:[String:Any],  _ completion:@escaping((ApiResult<PrefferedLanguageResponseModel, ApiError>) -> Void )){
+        let router = SideMenuRouter.getPreffferedLanguages(params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
@@ -206,6 +211,22 @@ class ENTALDLibraryAPI {
         let router = SideMenuRouter.getQualificationsType(params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
+    
+    func requestEventPrograme(params:[String : Any],  _ completion:@escaping((ApiResult<EventProgramResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getProgram(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestEventBranch(params:[String : Any],  _ completion:@escaping((ApiResult<EventBranchResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getBranch(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestEventCouncil(params:[String : Any],  _ completion:@escaping((ApiResult<EventCouncilResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getCouncil(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
     
     
     
@@ -248,6 +269,11 @@ class ENTALDLibraryAPI {
     
     func requestProfileInfoUpdate(conId:String, params:[String:Any],  _ completion:@escaping((ApiResult<ProgramResponseModel, ApiError>) -> Void )){
         let router = LoginRouter.updateUserIdentity(conId: conId, params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func requestContactInfoUpdate(contactId:String , params:[String:Any],  _ completion:@escaping((ApiResult<ContactResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.updateContactInfo(contactId: contactId, params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     

@@ -81,7 +81,7 @@ class LanguageVC: ENTALDBaseViewController {
             LoadingView.show()
         }
         
-        ENTALDLibraryAPI.shared.requestPreferedLanguage(params: params){ result in
+        ENTALDLibraryAPI.shared.requestProfileInfoDetail(params: params){ result in
             DispatchQueue.main.async {
                 LoadingView.hide()
             }

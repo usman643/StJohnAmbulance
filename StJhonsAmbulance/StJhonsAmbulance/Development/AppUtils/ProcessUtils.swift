@@ -20,6 +20,12 @@ class ProcessUtils {
     var selectedUserGroup : LandingGroupsModel?
     var programsData : [ProgramModel]?
     var contactInfo : UserIdentityModel?
+    
+    var genderData : [LanguageModel]?
+    var prefferedPronounData : [LanguageModel]?
+    var prefferedMethodContactData : [LanguageModel]?
+    var prefferedLanguageData : [PrefferedLanguageModel]?
+    
     var tabbarHeight : CGFloat?
     var groupListValue : String?
     var currentRole : String?

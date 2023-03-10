@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol updatePendingEventStatusDelegate {
+    
+    func updateSiglePendingEventStatus(eventId:String)
+}
+
 class PendingEventVC: ENTALDBaseViewController {
     
     var pendingApprovalData : [PendingApprovalEventsModel]?
@@ -532,7 +537,7 @@ class PendingEventVC: ENTALDBaseViewController {
     
 }
 
-extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate, UIActionSheetDelegate{
+extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate, UIActionSheetDelegate, updatePendingEventStatusDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if (tableView == self.pendingPublishTableView){
@@ -578,6 +583,8 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
             cell.lblMax.text = "\(rowModel?.msnfp_maximum  ?? 0)"
             cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
             cell.lblStatus.text = rowModel?.getStatus()
+            cell.delegate = self
+            cell.eventId = rowModel?.msnfp_engagementopportunityid
         }
         
       
@@ -593,6 +600,9 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
 //        showActionSheet(pointView: cell.mainView, arrIndex:indexPath.row)
     }
     
+    func updateSiglePendingEventStatus(eventId:String) {
+        
+    }
    
     
     func showActionSheet(pointView:UIView, arrIndex : Int) {

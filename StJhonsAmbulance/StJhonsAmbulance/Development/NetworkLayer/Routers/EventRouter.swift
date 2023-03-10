@@ -17,7 +17,11 @@ enum EventRouter : Router {
     case getAllProgram(params:[String:Any])
     case cancelEvent(eventId:String, params:[String:Any])
     case pendingShiftUpdate(eventId:String, params:[String:Any])
+    case getProgram(params:[String:Any])
+    case getBranch(params:[String:Any])
+    case getCouncil(params:[String:Any])
     case getContactInfo(params:[String:Any])
+    case updateContactInfo(contactId:String, params:[String:Any])
     
     case simulate401
    
@@ -33,6 +37,10 @@ enum EventRouter : Router {
         case .cancelEvent(let eventID, _) : return "msnfp_engagementopportunities(\(eventID))"
         case .pendingShiftUpdate(let eventId, _) : return "msnfp_engagementopportunities(\(eventId))"
         case .getContactInfo : return "msnfp_engagementopportunities"
+        case .getProgram : return "msnfp_groups"
+        case .getBranch : return "sjavms_branchs"
+        case .getCouncil : return "sjavms_vmscouncils"
+        case .updateContactInfo(let contactId, _) : return "contacts(\(contactId))"
             
         case .simulate401: return "simulate-401"
         }
@@ -60,6 +68,14 @@ enum EventRouter : Router {
             return params
         case .getContactInfo(let params):
             return params
+        case .getProgram(let params):
+            return params
+        case .getBranch(let params):
+            return params
+        case .getCouncil(let params):
+            return params
+        case .updateContactInfo(_, let params):
+            return params
         default: return [:]
         }
         
@@ -76,6 +92,8 @@ enum EventRouter : Router {
             return HTTPMethodType.patch.rawValue
         case .pendingShiftUpdate(_,_):
             return HTTPMethodType.patch.rawValue
+        case .updateContactInfo(_,_):
+            return HTTPMethodType.patch.rawValue
         default:
             break
         }
@@ -91,6 +109,8 @@ enum EventRouter : Router {
         case .cancelEvent(_,_):
             return .ENTJSONEncoding
         case .pendingShiftUpdate(_,_):
+            return .ENTJSONEncoding
+        case .updateContactInfo(_,_):
             return .ENTJSONEncoding
         default:
             break

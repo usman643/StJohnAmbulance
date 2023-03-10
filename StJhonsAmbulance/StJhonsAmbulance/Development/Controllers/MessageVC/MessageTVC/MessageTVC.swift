@@ -33,9 +33,9 @@ class MessageTVC: UITableViewCell {
         lblDate.font = UIFont.BoldFont(14)
         lblMessage.font = UIFont.RegularFont(12)
         
-        lblName.textColor = UIColor.themeBlackText
-        lblDate.textColor = UIColor.themeBlackText
-        lblMessage.textColor = UIColor.themeBlackText
+        lblName.textColor = UIColor.textBlackColor
+        lblDate.textColor = UIColor.textBlackColor
+        lblMessage.textColor = UIColor.textBlackColor
 //        messageView.dropShadow(color: UIColor.gray, offSet: .zero)
         messageView.backgroundColor = UIColor.clear
         dividerView.backgroundColor = UIColor.textBlackColor

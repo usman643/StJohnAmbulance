@@ -12,6 +12,18 @@ class VolunteerHoursVC: ENTALDBaseViewController {
     var eventData : [PendingShiftModelTwo]?
     var nonEventData : [PendingShiftModelTwo]?
     
+    var isEventFilterApplied = false
+    var isEventDateFilterApplied = false
+    var isEventStartFilterApplied = false
+    var isEventEndFilterApplied = false
+    var isEventTotalFilterApplied = false
+    
+    var isNonEventFilterApplied = false
+    var isNonEventDateFilterApplied = false
+    var isNonEventStartFilterApplied = false
+    var isNonEventEndFilterApplied = false
+    var isNonEventTotalFilterApplied = false
+    
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var headerView: UIView!
@@ -96,20 +108,300 @@ class VolunteerHoursVC: ENTALDBaseViewController {
     
     }
     
+    
+    // ==================== Filter =====================
+    
+    
     @IBAction func eventFilterTapped(_ sender: Any) {
-        self.eventData = self.eventData?.reversed()
+        if !isEventFilterApplied{
+            self.eventData = self.eventData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" < $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+            }
+            isEventFilterApplied = true
+        }else{
+            self.eventData = self.eventData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" > $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+            }
+            isEventFilterApplied = false
+        }
+
         DispatchQueue.main.async {
             self.eventTableView.reloadData()
         }
+
+        isEventDateFilterApplied = false
+        isEventStartFilterApplied = false
+        isEventEndFilterApplied = false
+        isEventTotalFilterApplied = false
         
     }
     
     @IBAction func nonEventFilterTapped(_ sender: Any) {
-        self.nonEventData = self.nonEventData?.reversed()
+        if !isNonEventFilterApplied{
+            self.nonEventData = self.nonEventData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" < $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+            }
+            isNonEventFilterApplied = true
+        }else{
+            self.nonEventData = self.nonEventData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" > $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+            }
+            isNonEventFilterApplied = false
+        }
+
         DispatchQueue.main.async {
             self.nonEventTableView.reloadData()
         }
+
+        isNonEventDateFilterApplied = false
+        isNonEventStartFilterApplied = false
+        isNonEventEndFilterApplied = false
+        isNonEventTotalFilterApplied = false
     }
+    
+    
+    @IBAction func eventFilter(_ sender: Any) {
+        
+        if !isEventFilterApplied{
+            self.eventData = self.eventData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" < $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+            }
+            isEventFilterApplied = true
+        }else{
+            self.eventData = self.eventData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" > $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+            }
+            isEventFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.eventTableView.reloadData()
+        }
+
+        isEventDateFilterApplied = false
+        isEventStartFilterApplied = false
+        isEventEndFilterApplied = false
+        isEventTotalFilterApplied = false
+    }
+    
+    @IBAction func eventDateFilter(_ sender: Any) {
+        
+        if !isEventDateFilterApplied{
+            self.eventData = self.eventData?.sorted {
+                $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
+            }
+            isEventDateFilterApplied = true
+        }else{
+            self.eventData = self.eventData?.sorted {
+                $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
+            }
+            isEventDateFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.eventTableView.reloadData()
+        }
+        
+        isEventFilterApplied = false
+        isEventStartFilterApplied = false
+        isEventEndFilterApplied = false
+        isEventTotalFilterApplied = false
+    }
+    
+    @IBAction func eventStartFilter(_ sender: Any) {
+        
+        if !isEventStartFilterApplied{
+            self.eventData = self.eventData?.sorted {
+                $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
+            }
+            isEventStartFilterApplied = true
+        }else{
+            self.eventData = self.eventData?.sorted {
+                $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
+            }
+            isEventStartFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.eventTableView.reloadData()
+        }
+        isEventFilterApplied = false
+        isEventDateFilterApplied = false
+        isEventEndFilterApplied = false
+        isEventTotalFilterApplied = false
+    }
+    
+    @IBAction func eventEndFilter(_ sender: Any) {
+        if !isEventEndFilterApplied{
+            self.eventData = self.eventData?.sorted {
+                $0.sjavms_end ?? "" < $1.sjavms_end ?? ""
+            }
+            isEventEndFilterApplied = true
+        }else{
+            self.eventData = self.eventData?.sorted {
+                $0.sjavms_end ?? "" > $1.sjavms_end ?? ""
+            }
+            isEventEndFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.eventTableView.reloadData()
+        }
+        
+        isEventFilterApplied = false
+        isEventDateFilterApplied = false
+        isEventStartFilterApplied = false
+        isEventTotalFilterApplied = false
+    }
+    
+    @IBAction func eventTotalFilter(_ sender: Any) {
+        
+        if !isEventTotalFilterApplied{
+            self.eventData = self.eventData?.sorted {
+                $0.sjavms_hours ?? 0 < $1.sjavms_hours ?? 0
+            }
+            isEventTotalFilterApplied = true
+        }else{
+            self.eventData = self.eventData?.sorted {
+                $0.sjavms_hours ?? 0 > $1.sjavms_hours ?? 0
+            }
+            isEventTotalFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.eventTableView.reloadData()
+        }
+        
+        isEventFilterApplied = false
+        isEventDateFilterApplied = false
+        isEventStartFilterApplied = false
+        isEventEndFilterApplied = false
+    }
+    
+    
+    
+    
+    @IBAction func nonEventFilter(_ sender: Any) {
+        
+        if !isNonEventFilterApplied{
+            self.nonEventData = self.nonEventData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" < $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+            }
+            isNonEventFilterApplied = true
+        }else{
+            self.nonEventData = self.nonEventData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" > $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+            }
+            isNonEventFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.nonEventTableView.reloadData()
+        }
+
+        isNonEventDateFilterApplied = false
+        isNonEventStartFilterApplied = false
+        isNonEventEndFilterApplied = false
+        isNonEventTotalFilterApplied = false
+    }
+    
+    @IBAction func nonEventDateFilter(_ sender: Any) {
+        if !isNonEventDateFilterApplied{
+            self.nonEventData = self.nonEventData?.sorted {
+                $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
+            }
+            isNonEventDateFilterApplied = true
+        }else{
+            self.nonEventData = self.nonEventData?.sorted {
+                $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
+            }
+            isNonEventDateFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.nonEventTableView.reloadData()
+        }
+        isNonEventFilterApplied = false
+        isNonEventStartFilterApplied = false
+        isNonEventEndFilterApplied = false
+        isNonEventTotalFilterApplied = false
+        
+    }
+    
+    @IBAction func nonEventStartFilter(_ sender: Any) {
+        
+        if !isNonEventStartFilterApplied{
+            self.nonEventData = self.nonEventData?.sorted {
+                $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
+            }
+            isNonEventStartFilterApplied = true
+        }else{
+            self.nonEventData = self.nonEventData?.sorted {
+                $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
+            }
+            isNonEventStartFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.nonEventTableView.reloadData()
+        }
+        
+        isNonEventFilterApplied = false
+        isNonEventDateFilterApplied = false
+        isNonEventEndFilterApplied = false
+        isNonEventTotalFilterApplied = false
+    }
+    
+    @IBAction func nonEventEndFilter(_ sender: Any) {
+        
+        if !isNonEventEndFilterApplied{
+            self.nonEventData = self.nonEventData?.sorted {
+                $0.sjavms_end ?? "" < $1.sjavms_end ?? ""
+            }
+            isNonEventEndFilterApplied = true
+        }else{
+            self.nonEventData = self.nonEventData?.sorted {
+                $0.sjavms_end ?? "" > $1.sjavms_end ?? ""
+            }
+            isNonEventEndFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.nonEventTableView.reloadData()
+        }
+        
+        isNonEventFilterApplied = false
+        isNonEventDateFilterApplied = false
+        isNonEventStartFilterApplied = false
+        isNonEventTotalFilterApplied = false
+    }
+    
+    @IBAction func nonEventTotalFilter(_ sender: Any) {
+        
+        if !isNonEventTotalFilterApplied{
+            self.nonEventData = self.nonEventData?.sorted {
+                $0.sjavms_hours ?? 0 < $1.sjavms_hours ?? 0
+            }
+            isNonEventTotalFilterApplied = true
+        }else{
+            self.nonEventData = self.nonEventData?.sorted {
+                $0.sjavms_hours ?? 0 > $1.sjavms_hours ?? 0
+            }
+            isNonEventTotalFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.nonEventTableView.reloadData()
+        }
+        
+        isNonEventFilterApplied = false
+        isNonEventDateFilterApplied = false
+        isNonEventStartFilterApplied = false
+        isNonEventEndFilterApplied = false
+    }
+    
+    
+    
     
     // Bottom bar Action
     

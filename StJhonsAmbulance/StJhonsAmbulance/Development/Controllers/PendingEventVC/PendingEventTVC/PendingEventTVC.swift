@@ -8,6 +8,9 @@
 import UIKit
 
 class PendingEventTVC: UITableViewCell {
+    
+    public var delegate: updatePendingEventStatusDelegate?
+    var eventId : String?
 
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var lblName: UILabel!
@@ -42,6 +45,14 @@ class PendingEventTVC: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    
+    @IBAction func changeStatusTapped(_ sender: Any) {
+        if eventId != nil && eventId != ""{
+            delegate?.updateSiglePendingEventStatus(eventId: self.eventId ?? "")
+        }
+        
     }
     
 }

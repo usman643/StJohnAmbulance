@@ -9,6 +9,11 @@ import UIKit
 
 class ContactInfoVC: ENTALDBaseViewController {
 
+    var selectedGender : Int?
+    var selectedPronoun : Int?
+    var selectedContactMethod : Int?
+    var selectedOptNotification : Int?
+    var selectedOptNotification_value : Bool?
     
     
     @IBOutlet weak var lblTitle: UILabel!
@@ -141,15 +146,19 @@ class ContactInfoVC: ENTALDBaseViewController {
         btnPrefferenNoun.backgroundColor = UIColor.themePrimaryWhite
         btnPrefferenNoun.titleLabel?.font = UIFont.BoldFont(14)
         btnPrefferenNoun.layer.cornerRadius = 2
+        btnPrefferenNoun.setTitleColor(UIColor.themePrimary, for: .normal)
         btnGender.backgroundColor = UIColor.themePrimaryWhite
         btnGender.titleLabel?.font = UIFont.BoldFont(14)
         btnGender.layer.cornerRadius = 2
+        btnGender.setTitleColor(UIColor.themePrimary, for: .normal)
         btnContactMethod.backgroundColor = UIColor.themePrimaryWhite
         btnContactMethod.titleLabel?.font = UIFont.BoldFont(14)
         btnContactMethod.layer.cornerRadius = 2
+        btnContactMethod.setTitleColor(UIColor.themePrimary, for: .normal)
         btnOptNotofocation.backgroundColor = UIColor.themePrimaryWhite
         btnOptNotofocation.titleLabel?.font = UIFont.BoldFont(14)
         btnOptNotofocation.layer.cornerRadius = 2
+        btnOptNotofocation.setTitleColor(UIColor.themePrimary, for: .normal)
         
         btnSubmit.themeColorButton()
         btnSubmit.backgroundColor = UIColor.lightGray
@@ -158,13 +167,25 @@ class ContactInfoVC: ENTALDBaseViewController {
         
         profileImg.layer.cornerRadius = profileImg.frame.size.height/2
         
+        txtFirstName.isUserInteractionEnabled = false
+        txtLastName.isUserInteractionEnabled = false
+        txtBirthday.isUserInteractionEnabled = false
+        txtEmail.isUserInteractionEnabled = false
+        txtPrimaryPhone.isUserInteractionEnabled = false
+        txtStreetOne.isUserInteractionEnabled = false
+        txtStreetTwo.isUserInteractionEnabled = false
+        txtStreetThree.isUserInteractionEnabled = false
+        txtCity.isUserInteractionEnabled = false
+        txtProvince.isUserInteractionEnabled = false
+        txtPostalCode.isUserInteractionEnabled = false
+        txtEmergencyContactName.isUserInteractionEnabled = false
+        txtEmergencyContactPhone.isUserInteractionEnabled = false
         
-  
     }
     
     func setupData(){
         
-    profileImg.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: UserDefaults.standard.userInfo?.entityimage ?? "")
+        profileImg.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: UserDefaults.standard.userInfo?.entityimage ?? "")
         txtFirstName.text = UserDefaults.standard.userInfo?.firstname ?? ""
         txtLastName.text = UserDefaults.standard.userInfo?.lastname ?? ""
         txtBirthday.text = UserDefaults.standard.userInfo?.birthdate ?? ""
@@ -177,30 +198,40 @@ class ContactInfoVC: ENTALDBaseViewController {
         txtProvince.text = UserDefaults.standard.userInfo?.address1_stateorprovince ?? ""
         txtPostalCode.text = UserDefaults.standard.userInfo?.address1_postalcode ?? ""
         txtEmergencyContactName.text = UserDefaults.standard.userInfo?.sjavms_emergencycontactname ?? ""
-//        txtEmergencyContactPhone.text = UserDefaults.standard.userInfo?.
-//        btnPrefferenNoun.setTitle(UserDefaults.standard.userInfo?., for: .normal)
-//        btnGender.setTitle(UserDefaults.standard.userInfo?., for: .normal)
-//        btnContactMethod.setTitle(UserDefaults.standard.userInfo?., for: .normal)
-//        btnOptNotofocation.setTitle(UserDefaults.standard.userInfo?., for: .normal)
+        txtEmergencyContactPhone.text = UserDefaults.standard.userInfo?.sjavms_emergencycontactphone ?? ""
+        
+        let gender = self.getGender(UserDefaults.standard.userInfo?.gendercode ?? 0)
+        let noun = self.getPreferedNoun(UserDefaults.standard.userInfo?.sjavms_preferredpronouns ?? 0)
+        let contactMethod = self.getPreferedContactMethod(UserDefaults.standard.userInfo?.preferredcontactmethodcode ?? 0)
+        
+        btnPrefferenNoun.setTitle(noun , for: .normal)
+        btnGender.setTitle(gender, for: .normal)
+        btnContactMethod.setTitle(contactMethod, for: .normal)
+        if (UserDefaults.standard.userInfo?.sjavms_optoutofnotifications == true) {
+            btnOptNotofocation.setTitle("ON", for: .normal)
+        }else{
+            btnOptNotofocation.setTitle("OFF", for: .normal)
+        }
+        
 
     }
     
     
     
     @IBAction func selectGenderTapped(_ sender: Any) {
-        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
+//        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
     }
     
     @IBAction func selectPronounTapped(_ sender: Any) {
-        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
+//        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
     }
     
     @IBAction func optNotificationTapped(_ sender: Any) {
-        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
+//        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
     }
     
     @IBAction func preferredMethodTapped(_ sender: Any) {
-        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
+//        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
     }
     
     @IBAction func backTapped(_ sender: Any) {
@@ -215,6 +246,57 @@ class ContactInfoVC: ENTALDBaseViewController {
     
     
     
+    func getGender(_ preferedLanguage:Int)->String?{
+        let language = ProcessUtils.shared.genderData?.filter({$0.attributevalue == preferedLanguage}).first?.value
+        return language ?? ""
+    }
+    
+    func getPreferedNoun(_ preferedNoun:Int)->String?{
+        let noun = ProcessUtils.shared.prefferedPronounData?.filter({$0.attributevalue == preferedNoun}).first?.value
+        return noun ?? ""
+    }
+    
+    func getPreferedContactMethod(_ prefferedContactId:Int)->String?{
+        let contactMethod = ProcessUtils.shared.prefferedMethodContactData?.filter({$0.attributevalue == prefferedContactId}).first?.value
+        return contactMethod ?? ""
+    }
+    
+    func updateUserInfo(){
+        
+    
+        
+//        var params:[String:Any] = [
+//            "firstname" : txtFirstName.text ?? "",
+//            "lastname" : txtLastName.text ?? "",
+//            "birthdate" : txtBirthday.text ?? "",
+//            "emailaddress1" : txtEmail.text ?? "",
+//            "address1_telephone1" : txtPrimaryPhone.text ?? "",
+//            "address1_line1" : txtStreetOne.text ?? "",
+//            "address1_line2" : txtStreetTwo.text ?? "",
+//            "address1_line3" : txtStreetThree.text ?? "",
+//            "address1_city" : txtCity.text ?? "",
+//            "address1_stateorprovince" : txtProvince.text ?? "",
+//            "address1_postalcode" : txtPostalCode.text ?? "",
+//            "sjavms_emergencycontactname" : txtEmergencyContactName.text ?? "",
+//            "sjavms_emergencycontactphone" : txtEmergencyContactPhone.text ?? ""
+//        ]
+//        
+//        if (selectedGender != nil){
+//            params.ns.addEntries(from: ["gendercode" : selectedGender])
+//        }
+//        if (selectedPronoun != nil){
+//            params.ns.addEntries(from: ["sjavms_preferredpronouns" : selectedPronoun])
+//        }
+//        if (selectedContactMethod != nil){
+//            params.ns.addEntries(from: ["preferredcontactmethodcode" : selectedContactMethod])
+//        }
+//        
+//        if (selectedOptNotification != nil){
+//            params.ns.addEntries(from: ["sjavms_optoutofnotifications" : selectedOptNotification_value])
+//        }
+//        
+//    
+    }
     
     
     

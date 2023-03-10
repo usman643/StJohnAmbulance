@@ -7,11 +7,15 @@
 
 import UIKit
 
-class EventVC: ENTALDBaseViewController {
+class EventVC: ENTALDBaseViewController, UITextFieldDelegate {
     
     var currentEventData : [CurrentEventsModel]?
     var upcomingEventData : [CurrentEventsModel]?
     var pastEventData : [CurrentEventsModel]?
+    
+    var filterCurrentEventData : [CurrentEventsModel]?
+    var filterUpcomingEventData : [CurrentEventsModel]?
+    var filterPastEventData : [CurrentEventsModel]?
     
     var isCurrentEventFilterApplied = false
     var isCurrentLocatioFilterApplied = false
@@ -67,10 +71,17 @@ class EventVC: ENTALDBaseViewController {
     @IBOutlet weak var lblPastLocation: UILabel!
     @IBOutlet weak var lblPastDate: UILabel!
     
+    @IBOutlet weak var searchView: UIView!
+    @IBOutlet weak var searchImg: UIImageView!
+    @IBOutlet weak var textSearch: UITextField!
+    @IBOutlet weak var btnSearchClose: UIButton!
+    
     @IBOutlet weak var lblTabTitle: UILabel!
     @IBOutlet weak var selectedTabImg: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        textSearch.delegate = self
         
         registerCells()
         decorateUI()
@@ -159,11 +170,16 @@ class EventVC: ENTALDBaseViewController {
         pastTableView.layer.shadowRadius = 0
         pastTableView.layer.shadowOpacity = 0.5
         
+        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+        searchView.layer.borderWidth = 1.5
+        btnSearchClose.isHidden = true
+        
         lblTabTitle.textColor = UIColor.themePrimaryColor
         lblTabTitle.font = UIFont.BoldFont(16)
         
         selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
         selectedTabImg.tintColor = UIColor.themePrimaryColor
+        
     }
     
     func registerCells(){
@@ -181,6 +197,20 @@ class EventVC: ENTALDBaseViewController {
 
     }
     
+    @IBAction func searchCloseTapped(_ sender: Any) {
+        textSearch.endEditing(true)
+        textSearch.text = ""
+        filterCurrentEventData = currentEventData
+        filterUpcomingEventData = upcomingEventData
+        filterPastEventData = pastEventData
+        
+        currentTableView.reloadData()
+        upcomingTableView.reloadData()
+        pastTableView.reloadData()
+    }
+    
+    
+    
     @IBAction func btnBackAction(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -195,7 +225,22 @@ class EventVC: ENTALDBaseViewController {
     
     @IBAction func currentFilterTapped(_ sender: Any) {
         
-        self.currentEventData = self.currentEventData?.reversed()
+        if !isCurrentEventFilterApplied{
+            self.filterCurrentEventData = self.filterCurrentEventData?.sorted {
+                $0.msnfp_engagementopportunitytitle ?? "" < $1.msnfp_engagementopportunitytitle ?? ""
+            }
+            isCurrentEventFilterApplied = true
+        }else{
+            self.filterCurrentEventData = self.filterCurrentEventData?.sorted {
+                $0.msnfp_engagementopportunitytitle ?? "" > $1.msnfp_engagementopportunitytitle ?? ""
+            }
+            isCurrentEventFilterApplied = false
+        }
+        
+        self.isCurrentLocatioFilterApplied = false
+        self.isCurrentSatrtFilterApplied = false
+        self.isCurrentEndFilterApplied = false
+        
         DispatchQueue.main.async {
             self.currentTableView.reloadData()
         }
@@ -203,7 +248,23 @@ class EventVC: ENTALDBaseViewController {
     }
     
     @IBAction func upcomingFilterTapped(_ sender: Any) {
-        self.upcomingEventData = self.upcomingEventData?.reversed()
+        if !isUpcomingEventFilterApplied{
+            self.filterUpcomingEventData = self.filterUpcomingEventData?.sorted {
+                $0.msnfp_engagementopportunitytitle ?? "" < $1.msnfp_engagementopportunitytitle ?? ""
+            }
+            isUpcomingEventFilterApplied = true
+        }else{
+            self.filterUpcomingEventData = self.filterUpcomingEventData?.sorted {
+                $0.msnfp_engagementopportunitytitle ?? "" > $1.msnfp_engagementopportunitytitle ?? ""
+            }
+            isUpcomingEventFilterApplied = false
+
+        }
+    
+        self.isUpcomingLocatioFilterApplied = false
+        self.isUpcomingSatrtFilterApplied = false
+        self.isUpcomingEndFilterApplied = false
+        
         DispatchQueue.main.async {
             self.upcomingTableView.reloadData()
         }
@@ -211,7 +272,21 @@ class EventVC: ENTALDBaseViewController {
     }
     
     @IBAction func pastFilterTapped(_ sender: Any) {
-        self.pastEventData = self.pastEventData?.reversed()
+        if !isPastEventFilterApplied{
+            self.filterPastEventData = self.filterPastEventData?.sorted {
+                $0.msnfp_location ?? "" < $1.msnfp_location ?? ""
+            }
+            isPastEventFilterApplied = true
+        }else{
+            self.filterPastEventData = self.filterPastEventData?.sorted {
+                $0.msnfp_location ?? "" > $1.msnfp_location ?? ""
+            }
+            isPastEventFilterApplied = false
+        }
+    
+        self.isPastLocatioFilterApplied = false
+        self.isPastDateFilterApplied = false
+        
         DispatchQueue.main.async {
             self.pastTableView.reloadData()
         }
@@ -274,17 +349,70 @@ class EventVC: ENTALDBaseViewController {
         }
     }
     
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        btnSearchClose.isHidden = false
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        btnSearchClose.isHidden = true
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        
+        if (textField.text != ""){
+
+           filterCurrentEventData  =  currentEventData?.filter({
+               if let name = $0.msnfp_engagementopportunitytitle, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                   return true
+                }
+              return false
+            })
+            
+        filterUpcomingEventData  =  upcomingEventData?.filter({
+            if let name = $0.msnfp_engagementopportunitytitle, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                return true
+             }
+           return false
+         })
+            
+        filterPastEventData  =  pastEventData?.filter({
+            if let name = $0.msnfp_engagementopportunitytitle, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                return true
+             }
+           return false
+         })
+
+            currentTableView.reloadData()
+            pastTableView.reloadData()
+            upcomingTableView.reloadData()
+            
+        }else{
+            
+            filterCurrentEventData = currentEventData
+            currentTableView.reloadData()
+            filterPastEventData = pastEventData
+            pastTableView.reloadData()
+            filterUpcomingEventData = upcomingEventData
+            upcomingTableView.reloadData()
+            
+            
+        }
+
+        
+    }
+    
 //    ========================== Filters ========================//
     
     @IBAction func currentEevntFilter(_ sender: Any) {
         
         if !isCurrentEventFilterApplied{
-            self.currentEventData = self.currentEventData?.sorted {
+            self.filterCurrentEventData = self.filterCurrentEventData?.sorted {
                 $0.msnfp_engagementopportunitytitle ?? "" < $1.msnfp_engagementopportunitytitle ?? ""
             }
             isCurrentEventFilterApplied = true
         }else{
-            self.currentEventData = self.currentEventData?.sorted {
+            self.filterCurrentEventData = self.filterCurrentEventData?.sorted {
                 $0.msnfp_engagementopportunitytitle ?? "" > $1.msnfp_engagementopportunitytitle ?? ""
             }
             isCurrentEventFilterApplied = false
@@ -302,12 +430,12 @@ class EventVC: ENTALDBaseViewController {
     
     @IBAction func currentLocationFilter(_ sender: Any) {
         if !isCurrentLocatioFilterApplied{
-            self.currentEventData = self.currentEventData?.sorted {
+            self.filterCurrentEventData = self.filterCurrentEventData?.sorted {
                 $0.msnfp_location ?? "" < $1.msnfp_location ?? ""
             }
             isCurrentLocatioFilterApplied = true
         }else{
-            self.currentEventData = self.currentEventData?.sorted {
+            self.filterCurrentEventData = self.filterCurrentEventData?.sorted {
                 $0.msnfp_location ?? "" > $1.msnfp_location ?? ""
             }
             isCurrentLocatioFilterApplied = false
@@ -324,12 +452,12 @@ class EventVC: ENTALDBaseViewController {
     
     @IBAction func currentStartDateFilter(_ sender: Any) {
         if !isCurrentSatrtFilterApplied{
-            self.currentEventData = self.currentEventData?.sorted {
+            self.filterCurrentEventData = self.filterCurrentEventData?.sorted {
                 $0.msnfp_startingdate ?? "" < $1.msnfp_startingdate ?? ""
             }
             isCurrentSatrtFilterApplied = true
         }else{
-            self.currentEventData = self.currentEventData?.sorted {
+            self.filterCurrentEventData = self.filterCurrentEventData?.sorted {
                 $0.msnfp_startingdate ?? "" > $1.msnfp_startingdate ?? ""
             }
             isCurrentSatrtFilterApplied = false
@@ -346,12 +474,12 @@ class EventVC: ENTALDBaseViewController {
     
     @IBAction func currentEndDateFilter(_ sender: Any) {
         if !isCurrentEndFilterApplied{
-            self.currentEventData = self.currentEventData?.sorted {
+            self.filterCurrentEventData = self.filterCurrentEventData?.sorted {
                 $0.msnfp_endingdate ?? "" < $1.msnfp_endingdate ?? ""
             }
             isCurrentEndFilterApplied = true
         }else{
-            self.currentEventData = self.currentEventData?.sorted {
+            self.filterCurrentEventData = self.filterCurrentEventData?.sorted {
                 $0.msnfp_endingdate ?? "" > $1.msnfp_endingdate ?? ""
             }
             isCurrentEndFilterApplied = false
@@ -370,12 +498,12 @@ class EventVC: ENTALDBaseViewController {
     
     @IBAction func UpcomingEevntFilter(_ sender: Any) {
         if !isUpcomingEventFilterApplied{
-            self.upcomingEventData = self.upcomingEventData?.sorted {
+            self.filterUpcomingEventData = self.filterUpcomingEventData?.sorted {
                 $0.msnfp_engagementopportunitytitle ?? "" < $1.msnfp_engagementopportunitytitle ?? ""
             }
             isUpcomingEventFilterApplied = true
         }else{
-            self.upcomingEventData = self.upcomingEventData?.sorted {
+            self.filterUpcomingEventData = self.filterUpcomingEventData?.sorted {
                 $0.msnfp_engagementopportunitytitle ?? "" > $1.msnfp_engagementopportunitytitle ?? ""
             }
             isUpcomingEventFilterApplied = false
@@ -393,12 +521,12 @@ class EventVC: ENTALDBaseViewController {
     
     @IBAction func UpcomingLocationFilter(_ sender: Any) {
         if !isUpcomingLocatioFilterApplied{
-            self.upcomingEventData = self.upcomingEventData?.sorted {
+            self.filterUpcomingEventData = self.filterUpcomingEventData?.sorted {
                 $0.msnfp_location ?? "" < $1.msnfp_location ?? ""
             }
             isUpcomingLocatioFilterApplied = true
         }else{
-            self.upcomingEventData = self.upcomingEventData?.sorted {
+            self.filterUpcomingEventData = self.filterUpcomingEventData?.sorted {
                 $0.msnfp_location ?? "" > $1.msnfp_location ?? ""
             }
             isUpcomingLocatioFilterApplied = false
@@ -416,12 +544,12 @@ class EventVC: ENTALDBaseViewController {
     
     @IBAction func UpcomingStartDateFilter(_ sender: Any) {
         if !isUpcomingSatrtFilterApplied{
-            self.upcomingEventData = self.upcomingEventData?.sorted {
+            self.filterUpcomingEventData = self.filterUpcomingEventData?.sorted {
                 $0.msnfp_startingdate ?? "" < $1.msnfp_startingdate ?? ""
             }
             isUpcomingSatrtFilterApplied = true
         }else{
-            self.upcomingEventData = self.upcomingEventData?.sorted {
+            self.filterUpcomingEventData = self.filterUpcomingEventData?.sorted {
                 $0.msnfp_startingdate ?? "" > $1.msnfp_startingdate ?? ""
             }
             isUpcomingSatrtFilterApplied = false
@@ -439,12 +567,12 @@ class EventVC: ENTALDBaseViewController {
     
     @IBAction func UpcomingEndDateFilter(_ sender: Any) {
         if !isUpcomingEndFilterApplied{
-            self.upcomingEventData = self.upcomingEventData?.sorted {
+            self.filterUpcomingEventData = self.filterUpcomingEventData?.sorted {
                 $0.msnfp_endingdate ?? "" < $1.msnfp_endingdate ?? ""
             }
             isUpcomingEndFilterApplied = true
         }else{
-            self.upcomingEventData = self.upcomingEventData?.sorted {
+            self.filterUpcomingEventData = self.filterUpcomingEventData?.sorted {
                 $0.msnfp_endingdate ?? "" > $1.msnfp_endingdate ?? ""
             }
             isUpcomingEndFilterApplied = false
@@ -462,12 +590,12 @@ class EventVC: ENTALDBaseViewController {
     
     @IBAction func PastEevntFilter(_ sender: Any) {
         if !isPastEventFilterApplied{
-            self.pastEventData = self.pastEventData?.sorted {
+            self.filterPastEventData = self.filterPastEventData?.sorted {
                 $0.msnfp_location ?? "" < $1.msnfp_location ?? ""
             }
             isPastEventFilterApplied = true
         }else{
-            self.pastEventData = self.pastEventData?.sorted {
+            self.filterPastEventData = self.filterPastEventData?.sorted {
                 $0.msnfp_location ?? "" > $1.msnfp_location ?? ""
             }
             isPastEventFilterApplied = false
@@ -483,12 +611,12 @@ class EventVC: ENTALDBaseViewController {
     
     @IBAction func pastLocationFilter(_ sender: Any) {
         if !isPastLocatioFilterApplied{
-            self.pastEventData = self.pastEventData?.sorted {
+            self.filterPastEventData = self.filterPastEventData?.sorted {
                 $0.msnfp_location ?? "" < $1.msnfp_location ?? ""
             }
             isPastLocatioFilterApplied = true
         }else{
-            self.pastEventData = self.pastEventData?.sorted {
+            self.filterPastEventData = self.filterPastEventData?.sorted {
                 $0.msnfp_location ?? "" > $1.msnfp_location ?? ""
             }
             isPastLocatioFilterApplied = false
@@ -504,12 +632,12 @@ class EventVC: ENTALDBaseViewController {
     
     @IBAction func pastDateFilter(_ sender: Any) {
         if !isPastDateFilterApplied{
-            self.pastEventData = self.pastEventData?.sorted {
+            self.filterPastEventData = self.filterPastEventData?.sorted {
                 $0.msnfp_endingdate ?? "" < $1.msnfp_endingdate ?? ""
             }
             isPastDateFilterApplied = true
         }else{
-            self.pastEventData = self.pastEventData?.sorted {
+            self.filterPastEventData = self.filterPastEventData?.sorted {
                 $0.msnfp_endingdate ?? "" > $1.msnfp_endingdate ?? ""
             }
             isPastDateFilterApplied = false
@@ -558,6 +686,7 @@ class EventVC: ENTALDBaseViewController {
                 
                 if let currentEvent = response.value {
                     self.currentEventData = currentEvent
+                    self.filterCurrentEventData = currentEvent
                     if (self.currentEventData?.count == 0 || self.currentEventData?.count == nil){
                         self.showEmptyView(tableVw: self.currentTableView)
                     }else{
@@ -598,9 +727,10 @@ class EventVC: ENTALDBaseViewController {
         
         let params : [String:Any] = [
             
-            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_startingdate,msnfp_location,msnfp_engagementopportunitystatus,_sjavms_program_value,msnfp_engagementopportunityid,msnfp_endingdate,msnfp_maximum,msnfp_minimum",
+            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_startingdate,msnfp_location,msnfp_engagementopportunitystatus,_sjavms_program_value,msnfp_engagementopportunityid,msnfp_endingdate,msnfp_maximum,msnfp_minimum,sjavms_maxparticipants",
             
             ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(msnfp_groupid eq \(groupId)))",
+//            ParameterKeys.filter : "(statecode eq 0 and sjavms_adhocevent ne true and Microsoft.Dynamics.CRM.In(PropertyName='msnfp_engagementopportunitystatus',PropertyValues=['844060003','844060002']) and (Microsoft.Dynamics.CRM.Tomorrow(PropertyName='msnfp_startingdate') or Microsoft.Dynamics.CRM.NextXYears(PropertyName='msnfp_startingdate',PropertyValue=10))) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
             ParameterKeys.filter : "(statecode eq 0 and sjavms_adhocevent ne true and Microsoft.Dynamics.CRM.Today(PropertyName='msnfp_startingdate') and Microsoft.Dynamics.CRM.In(PropertyName='msnfp_engagementopportunitystatus',PropertyValues=['844060003','844060002'])) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
             ParameterKeys.orderby : "msnfp_engagementopportunitytitle asc"
             
@@ -626,6 +756,7 @@ class EventVC: ENTALDBaseViewController {
                 
                 if let upcomingEvent = response.value {
                     self.upcomingEventData = upcomingEvent
+                    self.filterUpcomingEventData = upcomingEvent
                     if (self.upcomingEventData?.count == 0 || self.upcomingEventData?.count == nil){
                         self.showEmptyView(tableVw: self.upcomingTableView)
                     }else{
@@ -664,10 +795,10 @@ class EventVC: ENTALDBaseViewController {
         
         let params : [String:Any] = [
             
-            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_startingdate,msnfp_location,msnfp_engagementopportunitystatus,_sjavms_program_value,_sjavms_program_value,msnfp_engagementopportunityid,sjavms_maxparticipants,msnfp_endingdate,msnfp_maximum,msnfp_minimum",
+            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_startingdate,msnfp_location,msnfp_engagementopportunitystatus,_sjavms_program_value,msnfp_engagementopportunityid",
             
             ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(msnfp_groupid eq \(groupId)))",
-            ParameterKeys.filter : "(statecode eq 0 and sjavms_adhocevent ne true and Microsoft.Dynamics.CRM.In(PropertyName='msnfp_engagementopportunitystatus',PropertyValues=['844060003','844060002']) and (Microsoft.Dynamics.CRM.Tomorrow(PropertyName='msnfp_startingdate') or Microsoft.Dynamics.CRM.NextXYears(PropertyName='msnfp_startingdate',PropertyValue=10))) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
+            ParameterKeys.filter : "(statecode eq 0 and sjavms_adhocevent ne true and Microsoft.Dynamics.CRM.In(PropertyName='msnfp_engagementopportunitystatus',PropertyValues=['844060003','844060002']) and (Microsoft.Dynamics.CRM.Yesterday(PropertyName='msnfp_startingdate') or Microsoft.Dynamics.CRM.LastXYears(PropertyName='msnfp_startingdate',PropertyValue=10))) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
             ParameterKeys.orderby : "msnfp_engagementopportunitytitle asc"
             
         ]
@@ -692,6 +823,7 @@ class EventVC: ENTALDBaseViewController {
                 
                 if let pastEvent = response.value {
                     self.pastEventData = pastEvent
+                    self.filterPastEventData = pastEvent
                     if (self.pastEventData?.count == 0 || self.pastEventData?.count == nil){
                         self.showEmptyView(tableVw: self.pastTableView)
                     }else{
@@ -728,15 +860,15 @@ class EventVC: ENTALDBaseViewController {
 extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (tableView == self.currentTableView){
-           return self.currentEventData?.count ?? 0
+           return self.filterCurrentEventData?.count ?? 0
         }else if (tableView == self.upcomingTableView){
-            return self.upcomingEventData?.count ?? 0
+            return self.filterUpcomingEventData?.count ?? 0
         }else if(tableView == self.pastTableView){
-            return self.pastEventData?.count ?? 0
+            return self.filterPastEventData?.count ?? 0
             
         }
         
-        return self.currentEventData?.count ?? 0
+        return self.filterCurrentEventData?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -745,7 +877,7 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
         if (tableView == self.currentTableView){
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "EventTVC", for: indexPath) as! EventTVC
-            let rowModel = self.currentEventData?[indexPath.row]
+            let rowModel = self.filterCurrentEventData?[indexPath.row]
 //            if indexPath.row % 2 == 0{
 //                cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
 //                cell.seperaterView.backgroundColor = UIColor.themePrimary
@@ -776,7 +908,7 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
         }else if (tableView == self.upcomingTableView){
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "EventTVC", for: indexPath) as! EventTVC
-            let rowModel = self.upcomingEventData?[indexPath.row]
+            let rowModel = self.filterUpcomingEventData?[indexPath.row]
             
 //            if indexPath.row % 2 == 0{
 //                cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
@@ -816,7 +948,7 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
                 cell.seperaterView.backgroundColor = UIColor.gray
             }
             
-            let rowModel = self.pastEventData?[indexPath.row]
+            let rowModel = self.filterPastEventData?[indexPath.row]
             
             cell.lblEvent.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
             cell.lblLocation.text = rowModel?.msnfp_location ?? ""
@@ -837,13 +969,13 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
 
         if (tableView == self.currentTableView){
             
-            ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data:self.currentEventData?[indexPath.row], callBack: nil)
+            ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data:self.filterCurrentEventData?[indexPath.row], callBack: nil)
         }else if (tableView == self.upcomingTableView){
             
-            ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data:self.upcomingEventData?[indexPath.row], callBack: nil)
+            ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data:self.filterUpcomingEventData?[indexPath.row], callBack: nil)
         }else if(tableView == self.pastTableView){
             
-            ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data:self.pastEventData?[indexPath.row], callBack: nil)
+            ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data:self.filterPastEventData?[indexPath.row], callBack: nil)
         }
 
     }

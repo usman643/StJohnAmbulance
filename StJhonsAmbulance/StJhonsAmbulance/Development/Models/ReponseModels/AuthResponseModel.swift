@@ -72,9 +72,14 @@ struct UserIdentityModel : Codable {
     let sjavms_employmentstatus : Int?
     let bdo_preferredlanguage : Int?
     let gendercode : Int?
+    let sjavms_gender : Int?
     let sjavms_preferredlanguage : Int?
     let sjavms_otherknownlanguages : String?
     let contactid : String?
+    let sjavms_preferredpronouns : Int?
+    let preferredcontactmethodcode : Int?
+    let sjavms_emergencycontactphone : String?
+    let sjavms_optoutofnotifications : Bool?
     
     
     var sjavms_workingwvulnerablepeople : Bool?

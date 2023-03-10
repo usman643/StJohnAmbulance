@@ -39,6 +39,7 @@ struct CurrentEventsModel: Codable {
     let msnfp_maximum : Int?
     let msnfp_minimum : Int?
     let _sjavms_contact_value : String?
+    let sjavms_maxparticipants : String?
     let sjavms_msnfp_engagementopportunity_msnfp_group : CurrentEventGroupModel?
     
 }
@@ -76,5 +77,45 @@ struct CurrentEventGroupModel : Codable {
 //    let timezoneruleversionnumber : String?
 //    
 
+    
+}
+
+struct EventProgramResponseModel : Codable{
+    let value : [EventProgramDataModel]?
+    
+}
+struct EventProgramDataModel : Codable {
+    let msnfp_groupid : String?
+    let sjavms_Program : EventProgramModel?
+}
+
+struct EventProgramModel :Codable {
+    let sjavms_name : String?
+    let sjavms_programid : String?
+}
+
+struct EventBranchResponseModel : Codable{
+    let value : [EventBranchModel]?
+    
+}
+
+struct EventBranchModel : Codable {
+
+    let sjavms_name : String?
+    let _sjavms_council_value : String?
+    let sjavms_branchid : String?
+    
+}
+
+struct EventCouncilResponseModel : Codable{
+    let value : [EventCouncilModel]?
+    
+}
+
+struct EventCouncilModel : Codable {
+
+    let sjavms_name : String?
+    let _sjavms_council_value : String?
+    let sjavms_branchid : String?
     
 }

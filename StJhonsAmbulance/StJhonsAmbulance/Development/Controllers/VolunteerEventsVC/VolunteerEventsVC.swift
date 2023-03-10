@@ -16,6 +16,23 @@ class VolunteerEventsVC: ENTALDBaseViewController {
     var availableEngagementData : [ScheduleModelTwo]?
     var availableData : [AvailableEventModel]?
     
+    var isAvailableEventFilterApplied = false
+    var isAvailableLocationFilterApplied = false
+    var isAvailableDateFilterApplied = false
+    var isAvailableStartFilterApplied = false
+    var isAvailableEndFilterApplied = false
+    
+    var isScheduleEventFilterApplied = false
+    var isScheduleLocationFilterApplied = false
+    var isScheduleDateFilterApplied = false
+    var isScheduleStartFilterApplied = false
+    var isScheduleEndFilterApplied = false
+    
+    var isPastEventFilterApplied = false
+    var isPastLocationFilterApplied = false
+    var isPastDateFilterApplied = false
+    var isPastStartFilterApplied = false
+    var isPastEndFilterApplied = false
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnHome: UIButton!
@@ -94,27 +111,74 @@ class VolunteerEventsVC: ENTALDBaseViewController {
     }
     
     @IBAction func availableFilterTapped(_ sender: Any) {
-        self.availableData = self.availableData?.reversed()
+        if !isAvailableEventFilterApplied{
+            self.availableData = self.availableData?.sorted {
+                $0.msnfp_engagementopportunitytitle ?? "" < $1.msnfp_engagementopportunitytitle ?? ""
+            }
+            isAvailableEventFilterApplied = true
+        }else{
+            self.availableData = self.availableData?.sorted {
+                $0.msnfp_engagementopportunitytitle ?? "" > $1.msnfp_engagementopportunitytitle ?? ""
+            }
+            isAvailableEventFilterApplied = false
+        }
+
         DispatchQueue.main.async {
             self.availableTable.reloadData()
         }
         
+        isAvailableLocationFilterApplied = false
+        isAvailableDateFilterApplied = false
+        isAvailableStartFilterApplied = false
+        isAvailableEndFilterApplied = false
+        
     }
     
     @IBAction func scheduledFilterTapped(_ sender: Any) {
-        self.scheduleData = self.scheduleData?.reversed()
-        DispatchQueue.main.async {
-            self.scheduleTable.reloadData()
+        if !isScheduleLocationFilterApplied{
+            self.scheduleData = self.scheduleData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" < $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+            }
+            isScheduleLocationFilterApplied = true
+        }else{
+            self.scheduleData = self.scheduleData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" > $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+            }
+            isScheduleLocationFilterApplied = false
         }
+
+        DispatchQueue.main.async {
+            self.availableTable.reloadData()
+        }
+        
+        isScheduleEventFilterApplied = false
+        isScheduleDateFilterApplied = false
+        isScheduleStartFilterApplied = false
+        isScheduleEndFilterApplied = false
         
     }
     
     @IBAction func pastFilterTapped(_ sender: Any) {
-        self.pastEventData = self.pastEventData?.reversed()
+        if !isPastEventFilterApplied{
+            self.pastEventData = self.pastEventData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" < $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+            }
+            isPastEventFilterApplied = true
+        }else{
+            self.pastEventData = self.pastEventData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" > $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+            }
+            isPastEventFilterApplied = false
+        }
+
         DispatchQueue.main.async {
             self.pastTable.reloadData()
-            self.pastTable.reloadData()
         }
+      
+        isPastLocationFilterApplied = false
+        isPastDateFilterApplied = false
+        isPastStartFilterApplied = false
+        isPastEndFilterApplied = false
     }
     
     // Bottom bar Action
@@ -158,6 +222,384 @@ class VolunteerEventsVC: ENTALDBaseViewController {
         
     }
     
+    // ================ Filter ================
+    
+    @IBAction func availableEventFilter(_ sender: Any) {
+        
+        if !isAvailableEventFilterApplied{
+            self.availableData = self.availableData?.sorted {
+                $0.msnfp_engagementopportunitytitle ?? "" < $1.msnfp_engagementopportunitytitle ?? ""
+            }
+            isAvailableEventFilterApplied = true
+        }else{
+            self.availableData = self.availableData?.sorted {
+                $0.msnfp_engagementopportunitytitle ?? "" > $1.msnfp_engagementopportunitytitle ?? ""
+            }
+            isAvailableEventFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.availableTable.reloadData()
+        }
+        
+        isAvailableLocationFilterApplied = false
+        isAvailableDateFilterApplied = false
+        isAvailableStartFilterApplied = false
+        isAvailableEndFilterApplied = false
+
+    }
+    
+    @IBAction func availableLocationFilter(_ sender: Any) {
+        
+        if !isAvailableLocationFilterApplied{
+            self.availableData = self.availableData?.sorted {
+                $0.msnfp_location ?? "" < $1.msnfp_location ?? ""
+            }
+            isAvailableLocationFilterApplied = true
+        }else{
+            self.availableData = self.availableData?.sorted {
+                $0.msnfp_location ?? "" > $1.msnfp_location ?? ""
+            }
+            isAvailableLocationFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.availableTable.reloadData()
+        }
+        
+            isAvailableEventFilterApplied = false
+            isAvailableDateFilterApplied = false
+            isAvailableStartFilterApplied = false
+            isAvailableEndFilterApplied = false
+        
+    }
+    
+    @IBAction func availableDateFilter(_ sender: Any) {
+        
+        if !isAvailableDateFilterApplied{
+            self.availableData = self.availableData?.sorted {
+                $0.msnfp_startingdate ?? "" < $1.msnfp_startingdate ?? ""
+            }
+            isAvailableDateFilterApplied = true
+        }else{
+            self.availableData = self.availableData?.sorted {
+                $0.msnfp_startingdate ?? "" > $1.msnfp_startingdate ?? ""
+            }
+            isAvailableDateFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.availableTable.reloadData()
+        }
+        
+        isAvailableEventFilterApplied = false
+            isAvailableLocationFilterApplied = false
+            isAvailableStartFilterApplied = false
+            isAvailableEndFilterApplied = false
+        
+    }
+    
+    @IBAction func availableStartFilter(_ sender: Any) {
+        
+        if !isAvailableStartFilterApplied{
+            self.availableData = self.availableData?.sorted {
+                $0.msnfp_startingdate ?? "" < $1.msnfp_startingdate ?? ""
+            }
+            isAvailableStartFilterApplied = true
+        }else{
+            self.availableData = self.availableData?.sorted {
+                $0.msnfp_startingdate ?? "" > $1.msnfp_startingdate ?? ""
+            }
+            isAvailableStartFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.availableTable.reloadData()
+        }
+        
+        isAvailableEventFilterApplied = false
+            isAvailableLocationFilterApplied = false
+            isAvailableDateFilterApplied = false
+            isAvailableEndFilterApplied = false
+        
+    }
+    
+    @IBAction func availableEndFilter(_ sender: Any) {
+        
+        if !isAvailableEndFilterApplied{
+            self.availableData = self.availableData?.sorted {
+                $0.msnfp_endingdate ?? "" < $1.msnfp_endingdate ?? ""
+            }
+            isAvailableEndFilterApplied = true
+        }else{
+            self.availableData = self.availableData?.sorted {
+                $0.msnfp_endingdate ?? "" > $1.msnfp_endingdate ?? ""
+            }
+            isAvailableEndFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.availableTable.reloadData()
+        }
+        
+        isAvailableEventFilterApplied = false
+            isAvailableLocationFilterApplied = false
+            isAvailableDateFilterApplied = false
+            isAvailableStartFilterApplied = false
+    }
+    
+    
+    
+    
+    @IBAction func scheduleEventFilter(_ sender: Any) {
+        
+        if !isScheduleLocationFilterApplied{
+            self.scheduleData = self.scheduleData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" < $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+            }
+            isScheduleLocationFilterApplied = true
+        }else{
+            self.scheduleData = self.scheduleData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" > $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+            }
+            isScheduleLocationFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.availableTable.reloadData()
+        }
+        
+        isScheduleEventFilterApplied = false
+        isScheduleDateFilterApplied = false
+        isScheduleStartFilterApplied = false
+        isScheduleEndFilterApplied = false
+    }
+    
+    @IBAction func scheduleLocationFilter(_ sender: Any) {
+        
+        if !isScheduleDateFilterApplied{
+            self.scheduleData = self.scheduleData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_location ?? "" < $1.sjavms_VolunteerEvent?.msnfp_location ?? ""
+            }
+            isScheduleDateFilterApplied = true
+        }else{
+            self.scheduleData = self.scheduleData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_location ?? "" > $1.sjavms_VolunteerEvent?.msnfp_location ?? ""
+            }
+            isScheduleDateFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.scheduleTable.reloadData()
+        }
+        
+        isScheduleEventFilterApplied = false
+        isScheduleDateFilterApplied = false
+        isScheduleStartFilterApplied = false
+        isScheduleEndFilterApplied = false
+        
+    }
+    
+    @IBAction func scheduleDateFilter(_ sender: Any) {
+        
+        if !isScheduleDateFilterApplied{
+            self.scheduleData = self.scheduleData?.sorted {
+                $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
+            }
+            isScheduleDateFilterApplied = true
+        }else{
+            self.scheduleData = self.scheduleData?.sorted {
+                $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
+            }
+            isScheduleDateFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.scheduleTable.reloadData()
+        }
+        
+        isScheduleEventFilterApplied = false
+        isScheduleLocationFilterApplied = false
+        isScheduleStartFilterApplied = false
+        isScheduleEndFilterApplied = false
+        
+    }
+    
+    @IBAction func scheduleStartFilter(_ sender: Any) {
+        
+        if !isScheduleStartFilterApplied{
+            self.scheduleData = self.scheduleData?.sorted {
+                $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
+            }
+            isScheduleStartFilterApplied = true
+        }else{
+            self.scheduleData = self.scheduleData?.sorted {
+                $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
+            }
+            isScheduleStartFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.scheduleTable.reloadData()
+        }
+        
+        isScheduleEventFilterApplied = false
+        isScheduleLocationFilterApplied = false
+        isScheduleDateFilterApplied = false
+        isScheduleEndFilterApplied = false
+        
+    }
+    
+    @IBAction func scheduleEndFilter(_ sender: Any) {
+        
+        if !isScheduleEndFilterApplied{
+            self.scheduleData = self.scheduleData?.sorted {
+                $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
+            }
+            isScheduleEndFilterApplied = true
+        }else{
+            self.scheduleData = self.scheduleData?.sorted {
+                $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
+            }
+            isScheduleEndFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.scheduleTable.reloadData()
+        }
+        
+        isScheduleEventFilterApplied = false
+        isScheduleLocationFilterApplied = false
+        isScheduleDateFilterApplied = false
+        isScheduleStartFilterApplied = false
+    }
+    
+    
+    @IBAction func pastEventFilter(_ sender: Any) {
+        
+        if !isPastEventFilterApplied{
+            self.pastEventData = self.pastEventData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" < $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+            }
+            isPastEventFilterApplied = true
+        }else{
+            self.pastEventData = self.pastEventData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" > $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+            }
+            isPastEventFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.pastTable.reloadData()
+        }
+      
+        isPastLocationFilterApplied = false
+        isPastDateFilterApplied = false
+        isPastStartFilterApplied = false
+        isPastEndFilterApplied = false
+    }
+    
+    @IBAction func pastLocationFilter(_ sender: Any) {
+        
+        if !isPastLocationFilterApplied{
+            self.pastEventData = self.pastEventData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_location ?? "" < $1.sjavms_VolunteerEvent?.msnfp_location ?? ""
+            }
+            isPastLocationFilterApplied = true
+        }else{
+            self.pastEventData = self.pastEventData?.sorted {
+                $0.sjavms_VolunteerEvent?.msnfp_location ?? "" > $1.sjavms_VolunteerEvent?.msnfp_location ?? ""
+            }
+            isPastLocationFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.pastTable.reloadData()
+        }
+        
+        isPastEventFilterApplied = false
+        isPastDateFilterApplied = false
+        isPastStartFilterApplied = false
+        isPastEndFilterApplied = false
+        
+    }
+    
+    @IBAction func pastDateFilter(_ sender: Any) {
+        
+        if !isPastDateFilterApplied{
+            self.pastEventData = self.pastEventData?.sorted {
+                $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
+            }
+            isPastDateFilterApplied = true
+        }else{
+            self.pastEventData = self.pastEventData?.sorted {
+                $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
+            }
+            isPastDateFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.pastTable.reloadData()
+        }
+        
+        isPastEventFilterApplied = false
+        isPastLocationFilterApplied = false
+        isPastStartFilterApplied = false
+        isPastEndFilterApplied = false
+        
+    }
+    
+    @IBAction func pastStartFilter(_ sender: Any) {
+        
+        if !isPastStartFilterApplied{
+            self.pastEventData = self.pastEventData?.sorted {
+                $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
+            }
+            isPastStartFilterApplied = true
+        }else{
+            self.pastEventData = self.pastEventData?.sorted {
+                $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
+            }
+            isPastStartFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.pastTable.reloadData()
+        }
+        
+        isPastEventFilterApplied = false
+        isPastLocationFilterApplied = false
+        isPastDateFilterApplied = false
+        isPastEndFilterApplied = false
+        
+    }
+    
+    @IBAction func pastEndFilter(_ sender: Any) {
+        
+        if !isPastEndFilterApplied{
+            self.pastEventData = self.pastEventData?.sorted {
+                $0.sjavms_end ?? "" < $1.sjavms_end ?? ""
+            }
+            isPastEndFilterApplied = true
+        }else{
+            self.pastEventData = self.pastEventData?.sorted {
+                $0.sjavms_end ?? "" > $1.sjavms_end ?? ""
+            }
+            isPastEndFilterApplied = false
+        }
+
+        DispatchQueue.main.async {
+            self.pastTable.reloadData()
+        }
+        
+        isPastEventFilterApplied = false
+        isPastLocationFilterApplied = false
+        isPastDateFilterApplied = false
+        isPastStartFilterApplied = false
+    }
+    
+    
+    
     func showEmptyView(tableVw : UITableView){
         DispatchQueue.main.async {
             let view = EmptyView.instanceFromNib()
@@ -166,66 +608,7 @@ class VolunteerEventsVC: ENTALDBaseViewController {
         }
     }
     
-    
-}
-
-extension VolunteerEventsVC : UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (tableView == availableTable){
-            return availableData?.count ?? 0
-        }else if (tableView == scheduleTable){
-            return scheduleData?.count ?? 0
-        }else if (tableView == pastTable){
-            return pastEventData?.count ?? 0
-        }
-        
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "VolunteerEventTVC", for: indexPath) as! VolunteerEventTVC
-        
-        if (tableView == availableTable){
-            let rowModel = self.availableData?[indexPath.row]
-            cell.setContent(cellModel: rowModel)
-        }else if (tableView == scheduleTable){
-            let rowModel = self.scheduleData?[indexPath.row]
-            cell.setContent(cellModel: rowModel)
-        }else if (tableView == pastTable){
-            let rowModel = self.pastEventData?[indexPath.row]
-            cell.setContent(cellModel: rowModel)
-        }
-        
-        if indexPath.row % 2 == 0{
-            cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-            cell.seperatorView.backgroundColor = UIColor.themePrimaryColor
-        }else{
-            cell.backgroundColor = UIColor.viewLightColor
-            cell.seperatorView.backgroundColor = UIColor.gray
-        }
-        
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (tableView == availableTable){
-            
-            ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.availableData?[indexPath.row], eventName: "availableEvent", callBack: nil)
-
-        }else if (tableView == scheduleTable){
-            
-            ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.scheduleData?[indexPath.row], eventName: "scheduleEvent", callBack: nil)
-            
-        }else if (tableView == pastTable){
-            
-            ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.pastEventData?[indexPath.row], eventName: "pastEvent", callBack: nil)
-        }
-    }
-}
-
-
-extension VolunteerEventsVC {
+  // ============================== API ========================
     
     func getVolunteerPastEvent(){
         guard let contactId = UserDefaults.standard.contactIdToken else {return}
@@ -483,3 +866,59 @@ extension VolunteerEventsVC {
     
 }
 
+
+
+extension VolunteerEventsVC : UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (tableView == availableTable){
+            return availableData?.count ?? 0
+        }else if (tableView == scheduleTable){
+            return scheduleData?.count ?? 0
+        }else if (tableView == pastTable){
+            return pastEventData?.count ?? 0
+        }
+        
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "VolunteerEventTVC", for: indexPath) as! VolunteerEventTVC
+        
+        if (tableView == availableTable){
+            let rowModel = self.availableData?[indexPath.row]
+            cell.setContent(cellModel: rowModel)
+        }else if (tableView == scheduleTable){
+            let rowModel = self.scheduleData?[indexPath.row]
+            cell.setContent(cellModel: rowModel)
+        }else if (tableView == pastTable){
+            let rowModel = self.pastEventData?[indexPath.row]
+            cell.setContent(cellModel: rowModel)
+        }
+        
+        if indexPath.row % 2 == 0{
+            cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+            cell.seperatorView.backgroundColor = UIColor.themePrimaryColor
+        }else{
+            cell.backgroundColor = UIColor.viewLightColor
+            cell.seperatorView.backgroundColor = UIColor.gray
+        }
+        
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (tableView == availableTable){
+            
+            ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.availableData?[indexPath.row], eventName: "availableEvent", callBack: nil)
+
+        }else if (tableView == scheduleTable){
+            
+            ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.scheduleData?[indexPath.row], eventName: "scheduleEvent", callBack: nil)
+            
+        }else if (tableView == pastTable){
+            
+            ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.pastEventData?[indexPath.row], eventName: "pastEvent", callBack: nil)
+        }
+    }
+}
