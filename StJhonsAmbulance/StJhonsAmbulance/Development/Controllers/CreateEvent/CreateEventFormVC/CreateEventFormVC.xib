@@ -12,8 +12,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateEventFormVC" customModule="StJhonsAmbulance" customModuleProvider="target">
             <connections>
                 <outlet property="containerView" destination="wK9-su-gsb" id="R7T-mY-EGZ"/>
-                <outlet property="scrollView" destination="Wbc-wc-3i7" id="4zL-IG-w6s"/>
-                <outlet property="segmentsCOntroll" destination="h7a-8y-E9D" id="BCm-DS-eD3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -22,41 +20,18 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="h7a-8y-E9D">
-                    <rect key="frame" x="129" y="89" width="135" height="32"/>
-                    <segments>
-                        <segment title="General"/>
-                        <segment title="Detail"/>
-                    </segments>
-                    <connections>
-                        <action selector="onChangeSegment:" destination="-1" eventType="valueChanged" id="D3u-BL-7mb"/>
-                    </connections>
-                </segmentedControl>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wK9-su-gsb">
-                    <rect key="frame" x="0.0" y="140" width="393" height="678"/>
-                    <subviews>
-                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wbc-wc-3i7">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="678"/>
-                        </scrollView>
-                    </subviews>
+                    <rect key="frame" x="0.0" y="79" width="393" height="739"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    <constraints>
-                        <constraint firstAttribute="trailing" secondItem="Wbc-wc-3i7" secondAttribute="trailing" id="Awb-aP-4qb"/>
-                        <constraint firstItem="Wbc-wc-3i7" firstAttribute="leading" secondItem="wK9-su-gsb" secondAttribute="leading" id="hm1-B8-tye"/>
-                        <constraint firstAttribute="bottom" secondItem="Wbc-wc-3i7" secondAttribute="bottom" id="lic-Eh-qlH"/>
-                        <constraint firstItem="Wbc-wc-3i7" firstAttribute="top" secondItem="wK9-su-gsb" secondAttribute="top" id="rsQ-d5-Lim"/>
-                    </constraints>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="wK9-su-gsb" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="8JR-BC-g11"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="wK9-su-gsb" secondAttribute="bottom" id="GfX-bm-cys"/>
                 <constraint firstItem="wK9-su-gsb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="YO4-9h-2eK"/>
-                <constraint firstItem="h7a-8y-E9D" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Yoe-Ni-ZNu"/>
-                <constraint firstItem="h7a-8y-E9D" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="30" id="eog-oy-x2Z"/>
                 <constraint firstItem="wK9-su-gsb" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="hET-Wi-jTm"/>
-                <constraint firstItem="wK9-su-gsb" firstAttribute="top" secondItem="h7a-8y-E9D" secondAttribute="bottom" constant="20" id="qSc-nz-8YL"/>
             </constraints>
             <point key="canvasLocation" x="-69.465648854961827" y="19.718309859154932"/>
         </view>

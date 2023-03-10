@@ -6,17 +6,15 @@
 //
 
 import UIKit
+import Parchment
 
 class CreateEventFormVC: ENTALDBaseViewController, UIScrollViewDelegate {
     
     @IBOutlet var containerView: UIView!
-    @IBOutlet weak var segmentsCOntroll: UISegmentedControl!
-    @IBOutlet var scrollView: UIScrollView!{
-        didSet{
-            scrollView.delegate = self
-            scrollView.isPagingEnabled = true
-        }
-    }
+    
+    var pageController = PagingViewController(viewControllers: [])
+    var viewControllers: [UIViewController] = []
+    
     var slides:[Any] = []
     var programData : [EventProgramDataModel]?
     var branchData : [EventBranchModel]?
@@ -32,34 +30,23 @@ class CreateEventFormVC: ENTALDBaseViewController, UIScrollViewDelegate {
         self.getEventCouncil()
         // Do any additional setup after loading the view.
         
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.08, execute: {
-//            self.setupSlideScrollView(slides: self.slides)
-//        })
     }
+    
+    
+//    func reloadControllers(){
+//        self.pageController = PagingViewController(viewControllers: [])
+//        let genForm = GeneralInfoFormVC.load
+//        viewControllers.append(<#T##newElement: UIViewController##UIViewController#>)
+//        
+//        var option : PagingOptions = PagingOptions()
+//        option.borderColor = UIColor.separator
+//        option.borderOptions = .visible(height: 0.5, zIndex: 0, insets: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
+//        
+//        self.pageController = PagingViewController(options: option, viewControllers: viewControllers)
+//        
+//        self.segmentsConfigurations()
+//    }
 
-
-    @IBAction func onChangeSegment(_ sender: Any) {
-        scrollView.scrollTo(currentPage: segmentsCOntroll.selectedSegmentIndex)
-    }
-    
-    func setupSlideScrollView(slides : [Any]) {
-        let screenWidth = UIScreen.main.bounds.width
-        scrollView.contentSize = CGSize(width: screenWidth * CGFloat(slides.count), height: containerView.frame.height)
-        
-        for i in 0 ..< slides.count {
-            if i == 0 {
-                var view = slides[0] as! GeneralInfoFormVC
-                view.frame = CGRect(x: screenWidth * CGFloat(i), y: 0, width: screenWidth, height: containerView.frame.height)
-                scrollView.addSubview(view)
-            }else{
-                var view = slides[1] as! EventDetailInfoFormVC
-                view.frame = CGRect(x: screenWidth * CGFloat(i), y: 0, width: screenWidth, height: containerView.frame.height)
-                scrollView.addSubview(view)
-            }
-        }
-    }
-    
-    
     
     /*
     // MARK: - Navigation
