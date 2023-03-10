@@ -6,14 +6,20 @@
 //
 
 import UIKit
+import MobileCoreServices
 
-class ContactInfoVC: ENTALDBaseViewController {
+class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & UINavigationControllerDelegate {
 
     var selectedGender : Int?
     var selectedPronoun : Int?
     var selectedContactMethod : Int?
     var selectedOptNotification : Int?
     var selectedOptNotification_value : Bool?
+    let imagePicker = UIImagePickerController()
+    var url : URL?
+    var filename :String?
+    var imgBase64 : String?
+    let contactId = UserDefaults.standard.contactIdToken ?? ""
     
     
     @IBOutlet weak var lblTitle: UILabel!
@@ -34,6 +40,7 @@ class ContactInfoVC: ENTALDBaseViewController {
     @IBOutlet weak var lblCity: UILabel!
     @IBOutlet weak var lblProvince: UILabel!
     @IBOutlet weak var lblPostalCde: UILabel!
+    
     
     @IBOutlet weak var txtFirstName: ACFloatingTextfield!
     @IBOutlet weak var txtLastName: ACFloatingTextfield!
@@ -161,9 +168,9 @@ class ContactInfoVC: ENTALDBaseViewController {
         btnOptNotofocation.setTitleColor(UIColor.themePrimary, for: .normal)
         
         btnSubmit.themeColorButton()
-        btnSubmit.backgroundColor = UIColor.lightGray
+        btnSubmit.backgroundColor = UIColor.themePrimaryColor
         btnSubmit.titleLabel?.font = UIFont.BoldFont(16.0)
-        self.btnSubmit.isEnabled = false
+//        self.btnSubmit.isEnabled = false
         
         profileImg.layer.cornerRadius = profileImg.frame.size.height/2
         
@@ -240,8 +247,8 @@ class ContactInfoVC: ENTALDBaseViewController {
     
     
     @IBAction func submitTapped(_ sender: Any) {
-        
-        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
+        self.updateUserInfo()
+//        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
     }
     
     
@@ -261,44 +268,128 @@ class ContactInfoVC: ENTALDBaseViewController {
         return contactMethod ?? ""
     }
     
+    
+    @IBAction func selectProfileImg(_ sender: Any) {
+        self.showAlert()
+    }
+    
     func updateUserInfo(){
         
     
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        var params:[String:Any] = [
+            "firstname" : txtFirstName.text ?? "" as! String,
+            "lastname" : txtLastName.text ?? "" as! String,
+            "birthdate" : txtBirthday.text ?? "" as! String,
+            "emailaddress1" : txtEmail.text ?? "" as! String,
+            "address1_telephone1" : txtPrimaryPhone.text ?? "" as! String,
+            "address1_line1" : txtStreetOne.text ?? "" as! String,
+            "address1_line2" : txtStreetTwo.text ?? "" as! String,
+            "address1_line3" : txtStreetThree.text ?? "" as! String,
+            "address1_city" : txtCity.text ?? "" as! String,
+            "address1_stateorprovince" : txtProvince.text ?? "" as! String,
+            "address1_postalcode" : txtPostalCode.text ?? "" as! String,
+            "sjavms_emergencycontactname" : txtEmergencyContactName.text ?? "" as! String,
+            "sjavms_emergencycontactphone" : txtEmergencyContactPhone.text ?? "" as! String
+        ]
         
-//        var params:[String:Any] = [
-//            "firstname" : txtFirstName.text ?? "",
-//            "lastname" : txtLastName.text ?? "",
-//            "birthdate" : txtBirthday.text ?? "",
-//            "emailaddress1" : txtEmail.text ?? "",
-//            "address1_telephone1" : txtPrimaryPhone.text ?? "",
-//            "address1_line1" : txtStreetOne.text ?? "",
-//            "address1_line2" : txtStreetTwo.text ?? "",
-//            "address1_line3" : txtStreetThree.text ?? "",
-//            "address1_city" : txtCity.text ?? "",
-//            "address1_stateorprovince" : txtProvince.text ?? "",
-//            "address1_postalcode" : txtPostalCode.text ?? "",
-//            "sjavms_emergencycontactname" : txtEmergencyContactName.text ?? "",
-//            "sjavms_emergencycontactphone" : txtEmergencyContactPhone.text ?? ""
-//        ]
-//        
-//        if (selectedGender != nil){
-//            params.ns.addEntries(from: ["gendercode" : selectedGender])
-//        }
-//        if (selectedPronoun != nil){
-//            params.ns.addEntries(from: ["sjavms_preferredpronouns" : selectedPronoun])
-//        }
-//        if (selectedContactMethod != nil){
-//            params.ns.addEntries(from: ["preferredcontactmethodcode" : selectedContactMethod])
-//        }
-//        
-//        if (selectedOptNotification != nil){
-//            params.ns.addEntries(from: ["sjavms_optoutofnotifications" : selectedOptNotification_value])
-//        }
-//        
-//    
+        if (selectedGender != nil){
+            params["gendercode"] = selectedGender as! Int
+        
+        }
+        if (selectedPronoun != nil){
+            params["sjavms_preferredpronouns"] = selectedPronoun as! Int
+
+        }
+        if (selectedContactMethod != nil){
+          params["preferredcontactmethodcode"] = selectedContactMethod as! Int
+        }
+        
+        if (selectedOptNotification != nil){
+          params["sjavms_optoutofnotifications"] = selectedOptNotification_value as! Bool
+        }
+        
+        if (imgBase64 != nil){
+            params["entityimage"] = self.imgBase64 as! String
+        }
+        
+        
+        ENTALDLibraryAPI.shared.requestProfileInfoUpdate(conId: self.contactId, params: params){ result in
+        DispatchQueue.main.async {
+            LoadingView.hide()
+        }
+        switch result{
+        case .success(value: let response):
+                ENTALDAlertView.shared.showContactAlertWithTitle(title: "Profile Updated Sucessfully", message: "", actionTitle: .KOK, completion: { status in })
+            if let branchData = response.value {
+//                self.branchData = branchData
+
+            }
+        
+        case .error(let error, let errorResponse):
+            var message = error.message
+            if let err = errorResponse {
+                message = err.error
+            }
+            DispatchQueue.main.async {
+                ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+            }
+        }
+    }
+        
+    
     }
     
     
+    //MARK: - UIImagePickerControllerDelegate
+
+  
     
+     func showAlert() {
+
+            let alert = UIAlertController(title: "Image Selection", message: "Pick image from photo library", preferredStyle: .actionSheet)
+//            alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: {(action: UIAlertAction) in
+//                self.getImage(fromSourceType: .camera)
+//            }))
+            alert.addAction(UIAlertAction(title: "Photo Album", style: .default, handler: {(action: UIAlertAction) in
+                self.getImage(fromSourceType: .photoLibrary)
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+
+        //get image from source type
+        func getImage(fromSourceType sourceType: UIImagePickerController.SourceType) {
+
+            if UIImagePickerController.isSourceTypeAvailable(sourceType){
+                imagePicker.delegate = self
+                imagePicker.allowsEditing = true
+                imagePicker.sourceType = sourceType
+                imagePicker.modalPresentationStyle = .fullScreen
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+            
+        }
+
+        //MARK:- UIImagePickerViewDelegate.
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+ 
+        guard let urle = info[.imageURL] as? URL else { return }
+        guard let image = info[.originalImage] as? UIImage else {
+                    fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+                }
+        
+        self.profileImg.image = image
+        self.imgBase64 = convertImageToBase64String(img: image)
+        url = urle
+        
+        dismiss(animated: true)
+    }
+    
+    func convertImageToBase64String (img: UIImage) -> String {
+        return img.jpegData(compressionQuality: 1)?.base64EncodedString() ?? ""
+    }
     
 }

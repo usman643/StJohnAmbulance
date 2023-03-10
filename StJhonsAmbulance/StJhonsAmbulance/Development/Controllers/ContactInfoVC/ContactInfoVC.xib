@@ -864,14 +864,14 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </view>
-                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MxF-PS-b3G">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MxF-PS-b3G">
                                     <rect key="frame" x="32" y="733" width="329" height="50"/>
                                     <color key="backgroundColor" name="themePrimary"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="pT1-Yh-rkv"/>
                                     </constraints>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" title="Next">
+                                    <state key="normal" title="Update">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>
@@ -890,19 +890,32 @@
                                         <constraint firstAttribute="height" constant="100" id="S8O-QI-Hex"/>
                                     </constraints>
                                 </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SDg-dt-hYQ">
+                                    <rect key="frame" x="159" y="16" width="75" height="100"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <connections>
+                                        <action selector="selectProfileImg:" destination="-1" eventType="touchUpInside" id="CkC-lJ-atB"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="8Xg-g8-PTE" firstAttribute="top" secondItem="57m-mP-at9" secondAttribute="bottom" constant="16" id="2GN-MI-vEC"/>
+                                <constraint firstItem="SDg-dt-hYQ" firstAttribute="centerX" secondItem="57m-mP-at9" secondAttribute="centerX" id="6Br-7z-ueK"/>
+                                <constraint firstItem="SDg-dt-hYQ" firstAttribute="width" secondItem="57m-mP-at9" secondAttribute="width" multiplier="0.75" id="6CH-9c-5mr"/>
                                 <constraint firstItem="57m-mP-at9" firstAttribute="centerX" secondItem="xtd-cR-eRy" secondAttribute="centerX" id="AO7-0F-ki4"/>
                                 <constraint firstItem="MxF-PS-b3G" firstAttribute="top" secondItem="7UZ-gD-m5b" secondAttribute="bottom" constant="24" id="KA4-hV-022"/>
                                 <constraint firstAttribute="trailing" secondItem="7UZ-gD-m5b" secondAttribute="trailing" constant="12" id="Kh7-iX-KQ7"/>
                                 <constraint firstItem="MxF-PS-b3G" firstAttribute="leading" secondItem="xtd-cR-eRy" secondAttribute="leading" constant="32" id="QXW-TK-re2"/>
+                                <constraint firstItem="SDg-dt-hYQ" firstAttribute="top" secondItem="57m-mP-at9" secondAttribute="top" id="TgM-gd-gwZ"/>
                                 <constraint firstAttribute="trailing" secondItem="8Xg-g8-PTE" secondAttribute="trailing" constant="12" id="UY8-ll-HjW"/>
                                 <constraint firstItem="7UZ-gD-m5b" firstAttribute="top" secondItem="8Xg-g8-PTE" secondAttribute="bottom" constant="16" id="W4f-Qa-rpg"/>
+                                <constraint firstItem="SDg-dt-hYQ" firstAttribute="height" secondItem="57m-mP-at9" secondAttribute="height" id="cwv-5h-LR4"/>
                                 <constraint firstAttribute="height" constant="770" id="hR6-0k-l3D"/>
                                 <constraint firstAttribute="trailing" secondItem="MxF-PS-b3G" secondAttribute="trailing" constant="32" id="hc7-7D-dMl"/>
                                 <constraint firstItem="8Xg-g8-PTE" firstAttribute="leading" secondItem="xtd-cR-eRy" secondAttribute="leading" id="jlM-Go-shP"/>
+                                <constraint firstItem="SDg-dt-hYQ" firstAttribute="bottom" secondItem="57m-mP-at9" secondAttribute="bottom" id="lCp-Cl-LlZ"/>
                                 <constraint firstItem="7UZ-gD-m5b" firstAttribute="leading" secondItem="xtd-cR-eRy" secondAttribute="leading" id="t6k-Ie-jiI"/>
                                 <constraint firstItem="57m-mP-at9" firstAttribute="top" secondItem="xtd-cR-eRy" secondAttribute="top" constant="16" id="yvH-sI-DKj"/>
                             </constraints>

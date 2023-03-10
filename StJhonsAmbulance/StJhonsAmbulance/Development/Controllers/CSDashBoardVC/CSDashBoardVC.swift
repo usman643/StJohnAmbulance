@@ -49,7 +49,7 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
         gridData = [
                     DashBoardGridModel(title: "", subTitle: "", bgColor: UIColor.darkBlueColor, icon: "ic_camp"),
                     DashBoardGridModel(title: "Messages", subTitle: "", bgColor: UIColor.orangeRedColor, icon: "ic_message"),
-                    DashBoardGridModel(title: "Volunteer", subTitle: "", bgColor: UIColor.orangeColor, icon: "ic_communication"),
+                    DashBoardGridModel(title: "Volunteers", subTitle: "", bgColor: UIColor.orangeColor, icon: "ic_communication"),
                     DashBoardGridModel(title: "Events", subTitle: "", bgColor: UIColor.darkFrozeColor, icon: "ic_event"),
                     DashBoardGridModel(title: "Pending Shifts", subTitle: "", bgColor: UIColor.lightBlueColor, icon: "ic_hour"),
                     DashBoardGridModel(title: "Pending Events", subTitle: "", bgColor: UIColor.themePrimaryColor, icon: "ic_pendingEvent")
