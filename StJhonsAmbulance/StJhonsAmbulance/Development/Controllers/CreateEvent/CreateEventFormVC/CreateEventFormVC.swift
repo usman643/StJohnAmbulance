@@ -24,29 +24,67 @@ class CreateEventFormVC: ENTALDBaseViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.slides = self.createSlides()
-        self.getEventProgram()
-        self.getEventBranch()
-        self.getEventCouncil()
+//        self.getEventProgram()
+//        self.getEventBranch()
+//        self.getEventCouncil()
         // Do any additional setup after loading the view.
 
+        self.reloadControllers()
+    }
+    
+    func segmentsConfigurations(){
+        self.addPagerControllerAsChildView()
+        pageController.dataSource = self
+        pageController.menuHorizontalAlignment = .center
+        pageController.menuItemSize = .sizeToFit(minWidth: 80, height: 40)
+        pageController.menuBackgroundColor = .systemGray5
+        pageController.indicatorColor = UIColor.themePrimary
+        pageController.indicatorOptions = .visible(height: 3, zIndex: 0, spacing: .zero, insets: .zero)
+        let font:UIFont = UIFont.boldSystemFont(ofSize: 14)
+        pageController.font = font
+        pageController.selectedFont = font
+        
+        pageController.textColor = .black
+        pageController.selectedTextColor = .themeSecondry
+        pageController.collectionView.bounces = false
+    }
+    
+    func addPagerControllerAsChildView(){
+        DispatchQueue.main.async {
+            self.addChild(self.pageController)
+            self.containerView.addSubview(self.pageController.view)
+            self.containerView.constrainToEdges(self.pageController.view)
+            self.pageController.didMove(toParent: self)
+        }
     }
     
     
-//    func reloadControllers(){
-//        self.pageController = PagingViewController(viewControllers: [])
-//        let genForm = GeneralInfoFormVC.load
-//        viewControllers.append(<#T##newElement: UIViewController##UIViewController#>)
-//        
-//        var option : PagingOptions = PagingOptions()
-//        option.borderColor = UIColor.separator
-//        option.borderOptions = .visible(height: 0.5, zIndex: 0, insets: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
-//        
-//        self.pageController = PagingViewController(options: option, viewControllers: viewControllers)
-//        
-//        self.segmentsConfigurations()
-//    }
+    func reloadControllers(){
+        self.pageController = PagingViewController(viewControllers: [])
+        let genForm = GeneralInfoFormVC.loadFromNib()
+        let detailInfo = EventDetailInfoFormVC.loadFromNib()
+        genForm.title = "GenInfo"
+        detailInfo.title = "Detail"
+        viewControllers.append(genForm)
+        viewControllers.append(detailInfo)
+        
+        var option : PagingOptions = PagingOptions()
+        option.borderColor = UIColor.separator
+        option.borderOptions = .visible(height: 0.5, zIndex: 0, insets: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
+        
+        self.pageController = PagingViewController(options: option, viewControllers: viewControllers)
+        
+        self.segmentsConfigurations()
+    }
 
+    
+    @IBAction func btnBackAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func homeTapped(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
     
     /*
     // MARK: - Navigation
@@ -58,19 +96,6 @@ class CreateEventFormVC: ENTALDBaseViewController, UIScrollViewDelegate {
     }
     */
 
-    
-    func createSlides() -> [Any] {
-//
-        let slide1 : GeneralInfoFormVC = Bundle.main.loadNibNamed("GeneralInfoFormVC", owner: self, options: nil)?.first as! GeneralInfoFormVC
-        
-        let slide2 : EventDetailInfoFormVC = Bundle.main.loadNibNamed("EventDetailInfoFormVC", owner: self, options: nil)?.first as! EventDetailInfoFormVC
-        
-        return [slide1, slide2]
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-    }
     
     
     // ========================== API =========================
@@ -190,12 +215,21 @@ class CreateEventFormVC: ENTALDBaseViewController, UIScrollViewDelegate {
     
 }
 
+extension CreateEventFormVC: PagingViewControllerDataSource {
 
-extension UIScrollView {
-    func scrollTo(currentPage: Int? = 0) {
-        let screenWidth = UIScreen.main.bounds.width
-        var frame: CGRect = self.frame
-        frame.origin.x = screenWidth * CGFloat(currentPage ?? 0)
-        self.scrollRectToVisible(frame, animated: true)
+    func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
+        let title = viewControllers[index].title ?? ""
+        return PagingIndexItem(index: index, title: title)
     }
+
+    func pagingViewController(_: PagingViewController, viewControllerAt index: Int) -> UIViewController {
+        return viewControllers[index]
+//        return ContentViewController(title: viewControllers[index].title ?? "test")
+    }
+
+    func numberOfViewControllers(in _: PagingViewController) -> Int {
+        return viewControllers.count
+    }
+    
+    
 }

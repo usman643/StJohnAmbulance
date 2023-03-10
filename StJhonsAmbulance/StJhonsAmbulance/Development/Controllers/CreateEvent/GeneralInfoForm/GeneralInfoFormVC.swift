@@ -7,7 +7,8 @@
 
 import UIKit
 
-class GeneralInfoFormVC: UIView {
+class GeneralInfoFormVC: ENTALDBaseViewController {
+    
     @IBOutlet weak var generalInfoFormHeaderLbl: UILabel!
     @IBOutlet weak var appInfoSecTitleLbl: UIView!
     @IBOutlet weak var provinceLbl: UILabel!
@@ -28,7 +29,7 @@ class GeneralInfoFormVC: UIView {
     @IBOutlet weak var cityLbl: UILabel!
     @IBOutlet weak var provinceTextLbl: UILabel!
     @IBOutlet weak var postalCodeLbl: UILabel!
-    
+
     @IBOutlet weak var contactFirstNameTF: UITextField!
     @IBOutlet weak var contactLastNameTF: UITextField!
     @IBOutlet weak var eventNameTF: UITextField!
@@ -42,12 +43,12 @@ class GeneralInfoFormVC: UIView {
     @IBOutlet weak var cityTF: UITextField!
     @IBOutlet weak var provinceTF: UITextField!
     @IBOutlet weak var postalCodeTF: UITextField!
-    
+
     @IBOutlet weak var provinceBtn: UIButton!
     @IBOutlet weak var branchBtn: UIButton!
     @IBOutlet weak var typeOfServiceBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
- 
+
     @IBAction func provinceBtnPRessed(_ sender: UIButton) {
     }
     @IBAction func branchBtnPressed(_ sender: UIButton) {
@@ -56,5 +57,4 @@ class GeneralInfoFormVC: UIView {
     }
     @IBAction func nextBtnPressed(_ sender: UIButton) {
     }
-    
 }

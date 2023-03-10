@@ -7,8 +7,18 @@
 
 import UIKit
 
-class EventDetailInfoFormVC: UIView {
+class EventDetailInfoFormVC: ENTALDBaseViewController {
 
+    
+    @IBOutlet weak var eventDecTxtView: UITextView!
+    @IBOutlet weak var schecdualInfotxtView: UITextView!
+    @IBOutlet weak var otherCommentTxtView: UITextView!
+    
+    
+    @IBOutlet weak var txtStartDateTime: UITextField!
+    @IBOutlet weak var txtEndDateTime: UITextField!
+    @IBOutlet weak var txtdailyAttendies: UITextField!
+    @IBOutlet weak var txtDonation: UITextField!
     
     @IBOutlet var ageRangeCheckBoxCollec: [UIButton]!
     @IBOutlet var availOnSiteCheckBoxCollec: [UIButton]!
