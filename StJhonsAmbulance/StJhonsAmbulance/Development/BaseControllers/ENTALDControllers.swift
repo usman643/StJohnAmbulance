@@ -81,8 +81,9 @@ class ENTALDControllers {
         }
     }
     
-    func showSelectionPicker(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?){
+    func showSelectionPicker(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, pickerType:STPikerType, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?){
         let vc = PickerViewController.loadFromNib()
+        vc.pickerType = pickerType
         vc.dataModel = dataObj
         vc.callbackToController = callBack
         self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)

@@ -151,7 +151,7 @@ class MessageVC: ENTALDBaseViewController {
  
     func showGroupsPicker(list:[LandingGroupsModel] = []){
         
-        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, dataObj: ProcessUtils.shared.userGroupsList) { params, controller in
+        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.groups, dataObj: ProcessUtils.shared.userGroupsList) { params, controller in
             
             if let data = params as? LandingGroupsModel {
                 ProcessUtils.shared.selectedUserGroup = data

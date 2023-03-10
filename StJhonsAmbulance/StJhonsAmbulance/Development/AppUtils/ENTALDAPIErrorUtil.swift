@@ -77,6 +77,8 @@ enum ApiError: Error {
     case unknownError           //Status code not known
     case invalidJson            //if the response is not in json format
     case requestFailed
+    case patchSuccess
+    
     var message: String {
 
         switch self {
@@ -84,6 +86,7 @@ enum ApiError: Error {
         case .internalServerError: return "Internal Server Error. Please try again later"
         case .invalidJson: return "JSON Parsing Failure"
         case .requestFailed: return "Request failed"
+        case .patchSuccess: return "Success"
         default: return "Sorry, something went wrong. Please try again later."
 
         }

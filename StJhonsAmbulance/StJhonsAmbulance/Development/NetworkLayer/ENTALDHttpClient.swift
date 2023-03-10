@@ -65,6 +65,8 @@ class ENTALDHttpClient {
                         self.handleSuccessResponse(data: data) { handler in
                             completion(handler)
                         }
+                    }else if HTTPMethod(rawValue: router.method) == .patch{
+                        completion(ApiResult.error(error: .patchSuccess, errorResponse: nil))
                     }
                     break
                 case .failure(let error):

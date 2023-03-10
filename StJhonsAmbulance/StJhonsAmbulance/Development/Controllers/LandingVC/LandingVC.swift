@@ -36,6 +36,7 @@ class LandingVC: ENTALDBaseViewController {
         self.getGender()
         self.getPrefferedNoun()
         self.getPrefferedMethodContact()
+        self.getPrefferedLanguage()
     }
 
     func decorateUI(){
@@ -147,7 +148,7 @@ class LandingVC: ENTALDBaseViewController {
     
     func showGroupsPicker(list:[LandingGroupsModel] = []){
         if (ProcessUtils.shared.userGroupsList.count != 0){
-            ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, dataObj: ProcessUtils.shared.userGroupsList) { params, controller in
+            ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.groups, dataObj: ProcessUtils.shared.userGroupsList) { params, controller in
                 
                 if let data = params as? LandingGroupsModel {
                     ProcessUtils.shared.selectedUserGroup = data

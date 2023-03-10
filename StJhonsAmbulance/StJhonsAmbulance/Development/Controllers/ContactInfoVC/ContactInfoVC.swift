@@ -227,18 +227,46 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
     
     @IBAction func selectGenderTapped(_ sender: Any) {
 //        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
+        
+        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.gender, dataObj: ProcessUtils.shared.genderData) { params, controller in
+            
+            if let data = params as? LanguageModel {
+                self.btnGender.setTitle("\(data.value ?? "")", for: .normal)
+            }
+        }
+        
+        
     }
     
     @IBAction func selectPronounTapped(_ sender: Any) {
 //        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
+        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.pronoun, dataObj: ProcessUtils.shared.prefferedPronounData) { params, controller in
+            
+            if let data = params as? LanguageModel {
+                
+            }
+        }
     }
     
     @IBAction func optNotificationTapped(_ sender: Any) {
 //        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
+        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.prefferedData, dataObj: ProcessUtils.shared.prefferedMethodContactData) { params, controller in
+            
+            if let data = params as? LanguageModel {
+                
+            }
+        }
     }
     
     @IBAction func preferredMethodTapped(_ sender: Any) {
 //        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
+        
+        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.prefferedData, dataObj: ProcessUtils.shared.prefferedMethodContactData) { params, controller in
+            
+            if let data = params as? LanguageModel {
+                
+            }
+        }
     }
     
     @IBAction func backTapped(_ sender: Any) {
@@ -280,39 +308,39 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
             LoadingView.show()
         }
         var params:[String:Any] = [
-            "firstname" : txtFirstName.text ?? "" as! String,
-            "lastname" : txtLastName.text ?? "" as! String,
-            "birthdate" : txtBirthday.text ?? "" as! String,
-            "emailaddress1" : txtEmail.text ?? "" as! String,
-            "address1_telephone1" : txtPrimaryPhone.text ?? "" as! String,
-            "address1_line1" : txtStreetOne.text ?? "" as! String,
-            "address1_line2" : txtStreetTwo.text ?? "" as! String,
-            "address1_line3" : txtStreetThree.text ?? "" as! String,
-            "address1_city" : txtCity.text ?? "" as! String,
-            "address1_stateorprovince" : txtProvince.text ?? "" as! String,
-            "address1_postalcode" : txtPostalCode.text ?? "" as! String,
-            "sjavms_emergencycontactname" : txtEmergencyContactName.text ?? "" as! String,
-            "sjavms_emergencycontactphone" : txtEmergencyContactPhone.text ?? "" as! String
+            "firstname" : txtFirstName.text ?? "",
+            "lastname" : txtLastName.text ?? "",
+            "birthdate" : txtBirthday.text ?? "",
+            "emailaddress1" : txtEmail.text ?? "",
+            "address1_telephone1" : txtPrimaryPhone.text ?? "",
+            "address1_line1" : txtStreetOne.text ?? "",
+            "address1_line2" : txtStreetTwo.text ?? "",
+            "address1_line3" : txtStreetThree.text ?? "",
+            "address1_city" : txtCity.text ?? "",
+            "address1_stateorprovince" : txtProvince.text ?? "",
+            "address1_postalcode" : txtPostalCode.text ?? "",
+            "sjavms_emergencycontactname" : txtEmergencyContactName.text ?? "",
+            "sjavms_emergencycontactphone" : txtEmergencyContactPhone.text ?? ""
         ]
         
         if (selectedGender != nil){
-            params["gendercode"] = selectedGender as! Int
+            params["gendercode"] = selectedGender
         
         }
         if (selectedPronoun != nil){
-            params["sjavms_preferredpronouns"] = selectedPronoun as! Int
+            params["sjavms_preferredpronouns"] = selectedPronoun
 
         }
         if (selectedContactMethod != nil){
-          params["preferredcontactmethodcode"] = selectedContactMethod as! Int
+          params["preferredcontactmethodcode"] = selectedContactMethod
         }
         
         if (selectedOptNotification != nil){
-          params["sjavms_optoutofnotifications"] = selectedOptNotification_value as! Bool
+          params["sjavms_optoutofnotifications"] = selectedOptNotification_value
         }
         
         if (imgBase64 != nil){
-            params["entityimage"] = self.imgBase64 as! String
+            params["entityimage"] = self.imgBase64
         }
         
         
@@ -321,20 +349,19 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
             LoadingView.hide()
         }
         switch result{
-        case .success(value: let response):
-                ENTALDAlertView.shared.showContactAlertWithTitle(title: "Profile Updated Sucessfully", message: "", actionTitle: .KOK, completion: { status in })
-            if let branchData = response.value {
-//                self.branchData = branchData
-
-            }
-        
+        case .success(value: let _):
+             break
         case .error(let error, let errorResponse):
-            var message = error.message
-            if let err = errorResponse {
-                message = err.error
-            }
-            DispatchQueue.main.async {
-                ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+            if error == .patchSuccess {
+                ENTALDAlertView.shared.showContactAlertWithTitle(title: "Profile Updated Successfully", message: "", actionTitle: .KOK, completion: { status in })
+            }else{
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
             }
         }
     }

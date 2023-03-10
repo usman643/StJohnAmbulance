@@ -116,7 +116,7 @@ class LanguageVC: ENTALDBaseViewController {
     
     func showGroupsPicker(list:[LanguageModel] = []){
         if (self.languageData.count != 0){
-            ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, dataObj: self.languageData) { params, controller in
+            ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.groups, dataObj: self.languageData) { params, controller in
                 
                 if let data = params as? LanguageModel {
 //                    ProcessUtils.shared.selectedUserGroup = data

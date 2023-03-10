@@ -17,7 +17,7 @@ struct LanguageModel : Codable{
     let attributename : String?
     let versionnumber : Int?
     let langid : Int?
-    let objecttypecode : String?
+//    let objecttypecode : String?
     let attributevalue : Int?
     let stringmapid : String?
     let organizationid : String?
