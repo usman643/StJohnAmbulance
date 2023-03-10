@@ -10,16 +10,17 @@ import UIKit
 class EventDetailInfoFormVC: UIView {
 
     
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBOutlet var ageRangeCheckBoxCollec: [UIButton]!
+    @IBOutlet var availOnSiteCheckBoxCollec: [UIButton]!
+    @IBAction func multiDayEventBtnPressed(_ sender: UIButton) {
+        
+        
     }
-    */
-
+    @IBAction func ageRangeCheckBoxPressed(_ sender: UIButton) {
+        self.ageRangeCheckBoxCollec[sender.tag].isSelected = !sender.isSelected
+    }
+    @IBAction func availOnSiteCheckBoxPressed(_ sender: UIButton) {
+        self.availOnSiteCheckBoxCollec[sender.tag].isSelected = !sender.isSelected
+    }
+    
 }

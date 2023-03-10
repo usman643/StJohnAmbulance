@@ -29,7 +29,7 @@ class CreateEventFormVC: ENTALDBaseViewController, UIScrollViewDelegate {
         self.getEventBranch()
         self.getEventCouncil()
         // Do any additional setup after loading the view.
-        
+
     }
     
     
