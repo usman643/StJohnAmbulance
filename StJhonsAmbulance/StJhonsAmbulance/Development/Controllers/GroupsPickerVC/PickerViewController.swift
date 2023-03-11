@@ -7,30 +7,80 @@
 
 import UIKit
 
+enum STPikerType {
+    case groups
+    case gender
+    case pronoun
+    case prefferedData
+    case optNotification
+    case eventProvince
+    case eventBranch
+    case eventCouncil
+}
+
 class PickerViewController: ENTALDBaseViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var doneBtn: UIButton!
     
-    var groupsList : [LandingGroupsModel] = []
-    var selectedGroup : LandingGroupsModel?
-    
+    var pickerType : STPikerType = .groups
+    var selectedIndex : Int = 0
+    private var dataList : [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.pickerView.delegate = self
         self.pickerView.dataSource = self
-        self.selectedGroup = groupsList.count > 0 ? groupsList.first : nil
         
-        if let dlist = self.dataModel as? [LandingGroupsModel] {
-            self.groupsList = dlist
-            self.pickerView.reloadAllComponents()
-        }
+        self.dataList = self.setDataFromObject()
+        self.pickerView.reloadAllComponents()
+        
         // Do any additional setup after loading the view.
     }
+    
+    func setDataFromObject()->[String]{
+        
+        switch self.pickerType {
+        case .groups:
+            if let model = self.dataModel as? [LandingGroupsModel] {
+                return model.map({$0.msnfp_groupId?.msnfp_groupname ?? ""})
+            }
+            break
+        case .gender, .pronoun, .prefferedData:
+            if let model = self.dataModel as? [LanguageModel] {
+                return model.map({$0.value ?? ""})
+            }
+            break
+        case .optNotification:
+//            if let model = self.dataModel as? [PrefferedLanguageModel] {
+//                return model.map({$0.msnfp_groupId?.msnfp_groupname ?? ""})
+//            }
+            break
+        case .eventProvince:
+            if let model = self.dataModel as? [EventProgramDataModel] {
+                return model.map({$0.sjavms_Program?.sjavms_name ?? ""})
+            }
+            break
+        case .eventBranch:
+            if let model = self.dataModel as? [EventBranchModel] {
+                return model.map({$0.sjavms_name ?? ""})
+            }
+            break
+        case .eventCouncil:
+            if let model = self.dataModel as? [EventCouncilModel] {
+                return model.map({$0.sjavms_name ?? ""})
+            }
+            break
+        }
+        
+        return []
+    }
+    
+    
 
     @IBAction func btnDoneAction(_ sender: Any) {
-        self.callbackToController?(self.selectedGroup, self)
+        let data = self.getSelectedValue()
+        self.callbackToController?(data, self)
         self.dismiss(animated: true)
     }
     
@@ -41,18 +91,57 @@ class PickerViewController: ENTALDBaseViewController, UIPickerViewDelegate, UIPi
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.groupsList.count
+        return self.dataList.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return self.groupsList[row].msnfp_groupId?.msnfp_groupname
+        return self.dataList[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if (self.groupsList.count != 0){
-            self.selectedGroup = self.groupsList[row]
-        }
+        self.selectedIndex = row
     }
+    
+    func getSelectedValue()->Any?{
+        switch pickerType {
+        case .groups:
+            if let model = self.dataModel as? [LandingGroupsModel] {
+                return model[self.selectedIndex]
+            }
+        case .gender, .pronoun, .prefferedData:
+            if let model = self.dataModel as? [LanguageModel] {
+                return model[self.selectedIndex]
+            }
+            break
+        case .optNotification:
+//            if let model = self.dataModel as? [PrefferedLanguageModel] {
+//                return model.map({$0.msnfp_groupId?.msnfp_groupname ?? ""})
+//            }
+            break
+        case .eventProvince:
+            if let model = self.dataModel as? [EventProgramDataModel] {
+                return model[self.selectedIndex]
+            }
+            break
+        case .eventBranch:
+            if let model = self.dataModel as? [EventBranchModel] {
+                return model[self.selectedIndex]
+            }
+            break
+        case .eventCouncil:
+            if let model = self.dataModel as? [EventCouncilModel] {
+                return model[self.selectedIndex]
+            }
+            break
+        }
+        
+        return nil
+    }
+    
+    
+    
+    
+    
     
     /*
     // MARK: - Navigation
