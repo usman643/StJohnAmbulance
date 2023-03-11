@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="LanguageCVC" customModule="StJhonsAmbulance" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="130" height="40"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="130" height="40"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SnN-pi-lPM">
+                        <rect key="frame" x="0.0" y="0.0" width="130" height="40"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kO7-fk-qVb">
+                                <rect key="frame" x="8" y="0.0" width="89" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0LQ-Xa-l6m">
+                                <rect key="frame" x="97" y="7.6666666666666679" width="25" height="25.000000000000004"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="25" id="Onm-Re-vu3"/>
+                                    <constraint firstAttribute="height" constant="25" id="RXN-sQ-B5N"/>
+                                </constraints>
+                                <color key="tintColor" name="PrimaryGreen"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="xmark.circle.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="closeTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="ziN-Dr-aUn"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="kO7-fk-qVb" secondAttribute="bottom" id="GgS-U3-gbK"/>
+                            <constraint firstItem="kO7-fk-qVb" firstAttribute="leading" secondItem="SnN-pi-lPM" secondAttribute="leading" constant="8" id="M6j-mg-qaU"/>
+                            <constraint firstItem="0LQ-Xa-l6m" firstAttribute="centerY" secondItem="SnN-pi-lPM" secondAttribute="centerY" id="PKg-ft-FfF"/>
+                            <constraint firstItem="0LQ-Xa-l6m" firstAttribute="leading" secondItem="kO7-fk-qVb" secondAttribute="trailing" id="Tot-4V-Yxc"/>
+                            <constraint firstAttribute="trailing" secondItem="0LQ-Xa-l6m" secondAttribute="trailing" constant="8" id="W5i-BZ-r3e"/>
+                            <constraint firstItem="kO7-fk-qVb" firstAttribute="top" secondItem="SnN-pi-lPM" secondAttribute="top" id="Yz2-un-BUs"/>
+                            <constraint firstAttribute="height" constant="40" id="fK5-X2-emC"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="SnN-pi-lPM" secondAttribute="trailing" id="F8J-ps-wca"/>
+                <constraint firstItem="SnN-pi-lPM" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="SDZ-6M-6Iu"/>
+                <constraint firstItem="SnN-pi-lPM" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="kDP-Cw-1sG"/>
+                <constraint firstAttribute="bottom" secondItem="SnN-pi-lPM" secondAttribute="bottom" id="lfN-aa-BB7"/>
+            </constraints>
+            <size key="customSize" width="130" height="40"/>
+            <connections>
+                <outlet property="contentView" destination="SnN-pi-lPM" id="mBw-XS-Uq8"/>
+                <outlet property="lblTitle" destination="kO7-fk-qVb" id="jet-jx-p15"/>
+                <outlet property="mainContentView" destination="SnN-pi-lPM" id="2Jy-iV-cJu"/>
+            </connections>
+            <point key="canvasLocation" x="166.41221374045801" y="16.197183098591552"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="xmark.circle.fill" catalog="system" width="128" height="123"/>
+        <namedColor name="PrimaryGreen">
+            <color red="0.0078431372549019607" green="0.30980392156862746" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

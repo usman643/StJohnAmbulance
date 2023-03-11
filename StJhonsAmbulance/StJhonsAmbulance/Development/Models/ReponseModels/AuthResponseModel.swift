@@ -73,8 +73,8 @@ struct UserIdentityModel : Codable {
     let bdo_preferredlanguage : Int?
     let gendercode : Int?
     let sjavms_gender : Int?
-    let sjavms_preferredlanguage : Int?
-    let sjavms_otherknownlanguages : String?
+    var sjavms_preferredlanguage : Int?
+    var sjavms_otherknownlanguages : String?
     let contactid : String?
     let sjavms_preferredpronouns : Int?
     let preferredcontactmethodcode : Int?

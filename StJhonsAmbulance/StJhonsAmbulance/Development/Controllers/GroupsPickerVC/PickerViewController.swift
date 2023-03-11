@@ -16,6 +16,8 @@ enum STPikerType {
     case eventProvince
     case eventBranch
     case eventCouncil
+    case language
+    case prefferedLanguage
 }
 
 class PickerViewController: ENTALDBaseViewController, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -69,6 +71,14 @@ class PickerViewController: ENTALDBaseViewController, UIPickerViewDelegate, UIPi
         case .eventCouncil:
             if let model = self.dataModel as? [EventCouncilModel] {
                 return model.map({$0.sjavms_name ?? ""})
+            }
+        case .language:
+            if let model = self.dataModel as? [LanguageModel] {
+                return model.map({$0.value ?? ""})
+            }
+        case .prefferedLanguage:
+            if let model = self.dataModel as? [PrefferedLanguageModel] {
+                return model.map({$0.adx_name ?? ""})
             }
             break
         }
@@ -130,6 +140,16 @@ class PickerViewController: ENTALDBaseViewController, UIPickerViewDelegate, UIPi
             break
         case .eventCouncil:
             if let model = self.dataModel as? [EventCouncilModel] {
+                return model[self.selectedIndex]
+            }
+            break
+        case .language:
+            if let model = self.dataModel as? [LanguageModel] {
+                return model[self.selectedIndex]
+            }
+            break
+        case .prefferedLanguage:
+            if let model = self.dataModel as? [PrefferedLanguageModel] {
                 return model[self.selectedIndex]
             }
             break

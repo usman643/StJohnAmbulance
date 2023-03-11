@@ -54,7 +54,10 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
                     DashBoardGridModel(title: "Pending Shifts", subTitle: "", bgColor: UIColor.lightBlueColor, icon: "ic_hour"),
                     DashBoardGridModel(title: "Pending Events", subTitle: "", bgColor: UIColor.themePrimaryColor, icon: "ic_pendingEvent")
                 ]
-        
+        if (ProcessUtils.shared.selectedUserGroup == nil){
+            ProcessUtils.shared.selectedUserGroup = ProcessUtils.shared.userGroupsList[0]
+            btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupName() ?? "", for: .normal)
+        }
         
     }
     

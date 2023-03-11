@@ -97,6 +97,8 @@
 		1D76282A299EAEFB00609DED /* SideMenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D762829299EAEFB00609DED /* SideMenuRouter.swift */; };
 		1D76282C299EB05F00609DED /* SideMenuHoursResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D76282B299EB05F00609DED /* SideMenuHoursResponseModel.swift */; };
 		1D76282E299EB07E00609DED /* QualificationResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D76282D299EB07E00609DED /* QualificationResponseModel.swift */; };
+		1D7E25D129BC90AE00F08169 /* LanguageCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7E25CF29BC90AE00F08169 /* LanguageCVC.swift */; };
+		1D7E25D229BC90AE00F08169 /* LanguageCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D7E25D029BC90AE00F08169 /* LanguageCVC.xib */; };
 		1D92A48A29B22A4A00D5C8E3 /* MessageDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D92A48829B22A4A00D5C8E3 /* MessageDetailVC.swift */; };
 		1D92A48B29B22A4A00D5C8E3 /* MessageDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D92A48929B22A4A00D5C8E3 /* MessageDetailVC.xib */; };
 		1DA8F1A7299F512200640242 /* EventDetailCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA8F1A5299F512200640242 /* EventDetailCVC.swift */; };
@@ -319,6 +321,8 @@
 		1D762829299EAEFB00609DED /* SideMenuRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuRouter.swift; sourceTree = "<group>"; };
 		1D76282B299EB05F00609DED /* SideMenuHoursResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuHoursResponseModel.swift; sourceTree = "<group>"; };
 		1D76282D299EB07E00609DED /* QualificationResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualificationResponseModel.swift; sourceTree = "<group>"; };
+		1D7E25CF29BC90AE00F08169 /* LanguageCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageCVC.swift; sourceTree = "<group>"; };
+		1D7E25D029BC90AE00F08169 /* LanguageCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LanguageCVC.xib; sourceTree = "<group>"; };
 		1D92A48829B22A4A00D5C8E3 /* MessageDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailVC.swift; sourceTree = "<group>"; };
 		1D92A48929B22A4A00D5C8E3 /* MessageDetailVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageDetailVC.xib; sourceTree = "<group>"; };
 		1DA8F1A5299F512200640242 /* EventDetailCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailCVC.swift; sourceTree = "<group>"; };
@@ -670,6 +674,7 @@
 		1D3BD15D299D952B008F4178 /* LanguageVC */ = {
 			isa = PBXGroup;
 			children = (
+				1D7E25C429BC752D00F08169 /* LanguageCVC */,
 				1D3BD15E299D9541008F4178 /* LanguageVC.swift */,
 				1D3BD15F299D9541008F4178 /* LanguageVC.xib */,
 			);
@@ -839,6 +844,15 @@
 				1D762826299E98F200609DED /* SJAQualificationTVC.xib */,
 			);
 			path = SJAQualificationTVC;
+			sourceTree = "<group>";
+		};
+		1D7E25C429BC752D00F08169 /* LanguageCVC */ = {
+			isa = PBXGroup;
+			children = (
+				1D7E25CF29BC90AE00F08169 /* LanguageCVC.swift */,
+				1D7E25D029BC90AE00F08169 /* LanguageCVC.xib */,
+			);
+			path = LanguageCVC;
 			sourceTree = "<group>";
 		};
 		1D92A48729B22A3000D5C8E3 /* MessageDetailVC */ = {
@@ -1545,6 +1559,7 @@
 				1DEFC0F029B23055002276B2 /* MessagedetailAlertVC.xib in Resources */,
 				1D1D1A4729919D2900B5454E /* ScheduleTVC.xib in Resources */,
 				1D4DE843297FB4C600246242 /* LandingVC.xib in Resources */,
+				1D7E25D229BC90AE00F08169 /* LanguageCVC.xib in Resources */,
 				E4F7CB10297E121000428A4E /* SideMenuVC.xib in Resources */,
 				1D50ECDD29921B4D00821049 /* EventDetailVC.xib in Resources */,
 				1D4DE841297FB4C600246242 /* ForgetVC.xib in Resources */,
@@ -1747,6 +1762,7 @@
 				1D4DE850297FB57300246242 /* ACFloatingTextfield.swift in Sources */,
 				1DEFC0EF29B23055002276B2 /* MessagedetailAlertVC.swift in Sources */,
 				359E9C5E282E455F001E3D73 /* CoreTableViewCell.swift in Sources */,
+				1D7E25D129BC90AE00F08169 /* LanguageCVC.swift in Sources */,
 				1D4DE842297FB4C600246242 /* ForgetVC.swift in Sources */,
 				1D2E2441298FD241006AB56A /* EventManagerTVC.swift in Sources */,
 				1D76282E299EB07E00609DED /* QualificationResponseModel.swift in Sources */,

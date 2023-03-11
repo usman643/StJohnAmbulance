@@ -228,13 +228,13 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
     @IBAction func selectGenderTapped(_ sender: Any) {
 //        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
         
-        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.gender, dataObj: ProcessUtils.shared.genderData) { params, controller in
+        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.gender, dataObj: ProcessUtils.shared.genderData) { [self] params, controller in
             
             if let data = params as? LanguageModel {
                 self.btnGender.setTitle("\(data.value ?? "")", for: .normal)
+                self.selectedGender = data.attributevalue ?? 000
             }
         }
-        
         
     }
     
@@ -243,19 +243,21 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
         ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.pronoun, dataObj: ProcessUtils.shared.prefferedPronounData) { params, controller in
             
             if let data = params as? LanguageModel {
-                
+                self.btnPrefferenNoun.setTitle("\(data.value ?? "")", for: .normal)
+                self.selectedPronoun = data.attributevalue ?? 000
             }
         }
     }
     
     @IBAction func optNotificationTapped(_ sender: Any) {
-//        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
-        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.prefferedData, dataObj: ProcessUtils.shared.prefferedMethodContactData) { params, controller in
-            
-            if let data = params as? LanguageModel {
-                
-            }
-        }
+        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
+//        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.prefferedData, dataObj: ProcessUtils.shared.prefferedMethodContactData) { params, controller in
+//
+//            if let data = params as? LanguageModel {
+//                self.btnOptNotofocation.setTitle("\(data.value ?? "")", for: .normal)
+//                self.selectedOptNotification = data.attributevalue ?? 000
+//            }
+//        }
     }
     
     @IBAction func preferredMethodTapped(_ sender: Any) {
@@ -264,7 +266,8 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
         ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.prefferedData, dataObj: ProcessUtils.shared.prefferedMethodContactData) { params, controller in
             
             if let data = params as? LanguageModel {
-                
+                self.btnContactMethod.setTitle("\(data.value ?? "")", for: .normal)
+                self.selectedContactMethod = data.attributevalue ?? 000
             }
         }
     }

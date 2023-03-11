@@ -26,6 +26,7 @@ class ProcessUtils {
     var prefferedMethodContactData : [LanguageModel]?
     var prefferedLanguageData : [PrefferedLanguageModel]?
     
+    
     var tabbarHeight : CGFloat?
     var groupListValue : String?
     var currentRole : String?

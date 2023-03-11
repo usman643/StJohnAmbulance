@@ -20,6 +20,7 @@ class LandingVC: ENTALDBaseViewController {
     
     @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var lblDesc: UILabel!
+    let conId = UserDefaults.standard.contactIdToken ?? ""
     
     var selectedUserGroup : LandingGroupsModel?
     var genderData : [LanguageModel] = []
@@ -89,11 +90,11 @@ class LandingVC: ENTALDBaseViewController {
     }
     
     func getGroups(){
-        guard let conId = UserDefaults.standard.contactIdToken else {return}
+        
         let params : [String:Any] = [
             ParameterKeys.select : "msnfp_groupmembershipid,msnfp_groupmembershipname,_msnfp_contactid_value,_msnfp_groupid_value",
             ParameterKeys.expand : "msnfp_groupId($select=msnfp_groupname),msnfp_contactId($select=fullname),sjavms_RoleType($select=sjavms_rolecategory)",
-            ParameterKeys.filter : "(statecode eq 0 and _msnfp_contactid_value eq \(conId)) and (msnfp_groupId/statecode eq 0)",
+            ParameterKeys.filter : "(statecode eq 0 and _msnfp_contactid_value eq \(self.conId)) and (msnfp_groupId/statecode eq 0)",
             ParameterKeys.orderby : "_msnfp_groupid_value asc"
         ]
         
@@ -330,7 +331,12 @@ class LandingVC: ENTALDBaseViewController {
     fileprivate func getPrefferedLanguage() {
         
         let params : [String:Any] = [
-            ParameterKeys.filter : "objecttypecode eq 'contact' and attributename eq 'preferredcontactmethodcode' and langid eq 1033"
+            ParameterKeys.select : "adx_portallanguageid,adx_name,createdon",
+            ParameterKeys.expand : "adx_adx_portallanguage_adx_websitelanguage($filter=(_adx_websiteid_value eq 24684e99-f092-4556-8b54-060fd532e73b))",
+            ParameterKeys.filter : "(adx_adx_portallanguage_adx_websitelanguage/any(o1:(o1/_adx_websiteid_value eq 24684e99-f092-4556-8b54-060fd532e73b)))",
+            
+            ParameterKeys.orderby : "adx_name asc"
+            
         ]
     
         DispatchQueue.main.async {
@@ -360,10 +366,5 @@ class LandingVC: ENTALDBaseViewController {
             }
         }
     }
-    
-    
-    
-    
-    
     
 }
