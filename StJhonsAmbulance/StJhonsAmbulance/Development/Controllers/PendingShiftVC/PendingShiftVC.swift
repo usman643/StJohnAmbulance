@@ -25,6 +25,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     var isDatefilterApplied:Bool = false
     var isEventfilterApplied:Bool = false
     
+    let groupId : String = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() ?? ""
     
     
     @IBOutlet weak var btnBack: UIButton!
@@ -124,6 +125,10 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         
     }
     
+    @IBAction func sideMenuTapped(_ sender: Any) {
+        
+        present(menu!, animated: true)
+    }
     // Bottom bar action
     
     @IBAction func openMessagesScreen(_ sender: Any) {
@@ -172,7 +177,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                 
                 if let data = params as? Int {
                     let params = [
-                        "msnfp_participationschedules": data as! Int
+                        "msnfp_schedulestatus": data as! Int
                     ]
                     
                     self.updateStatusData(eventId: selectedEvents?[i]._sjavms_volunteerevent_value ?? "", params: params as [String : Any])
@@ -180,9 +185,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
             }
         }
     }
-    
-    @IBAction func nameFilterTapped(_ sender: Any) {
-        
+    func filterByName(){
         if !isNamefilterApplied{
             self.pendingShiftData = self.pendingShiftData?.sorted {
                 $0.sjavms_Volunteer?.fullname ?? "" < $1.sjavms_Volunteer?.fullname ?? ""
@@ -201,6 +204,12 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+    }
+    
+    
+    @IBAction func nameFilterTapped(_ sender: Any) {
+        self.filterByName()
+        
     }
     
     
@@ -258,7 +267,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         
                 if let data = params as? Int {
                     let params = [
-                        "msnfp_participationschedules": data as! Int
+                        "msnfp_schedulestatus": data as! Int
                     ]
                     self.updateStatusData(eventId: eventId , params: params )
                 }
@@ -325,7 +334,6 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     
     func getPendingShift(){
         
-        guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
         
         let params : [String:Any] = [
             
@@ -348,8 +356,8 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
             
             ParameterKeys.select : "msnfp_engagementopportunityschedule,createdon,msnfp_totalhours,msnfp_startperiod,msnfp_hoursperday,_msnfp_engagementopportunity_value,msnfp_endperiod,msnfp_effectiveto,msnfp_effectivefrom,msnfp_workingdays,msnfp_engagementopportunityscheduleid",
             
-//            ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(msnfp_groupid eq \(groupId)))",
             ParameterKeys.filter : "(_msnfp_engagementopportunity_value eq 0243fc0b-d274-ed11-81ac-0022486dfdbd)",
+//            ParameterKeys.filter : "(_msnfp_engagementopportunity_value eq 0243fc0b-d274-ed11-81ac-0022486dfdbd)",
             ParameterKeys.orderby : "msnfp_engagementopportunityschedule asc"
             
         ]
@@ -409,7 +417,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
             
             ParameterKeys.select : "msnfp_name,createdon,msnfp_participationscheduleid,msnfp_schedulestatus,sjavms_start,sjavms_hours,_sjavms_volunteerevent_value,_sjavms_volunteer_value,msnfp_participationscheduleid",
             
-            ParameterKeys.expand : "sjavms_Volunteer($select=fullname)",
+            ParameterKeys.expand : "sjavms_Volunteer($select=fullname,lastname,telephone1,emailaddress1,address1_stateorprovince,address1_postalcode,address1_country,address1_city)",
             ParameterKeys.filter : "(Microsoft.Dynamics.CRM.In(PropertyName='sjavms_volunteerevent',PropertyValues=[\(engagementOppertunityId)]))",
             ParameterKeys.orderby : "msnfp_name asc"
             
@@ -450,6 +458,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                         }
                     }
                     DispatchQueue.main.async {
+                        self.filterByName()
                         self.tableView.reloadData()
                     }
 
@@ -507,8 +516,8 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         return modelOne
     }
     
-    func getPendingShiftThreeModelBy(_ volunteerevent_value:String)->PendingShiftModelThree?{
-        let modelThree = pendingShiftDataThree?.filter({$0._msnfp_engagementopportunity_value == volunteerevent_value}).first
+    func getPendingShiftThreeModelBy(_ volunteerevent_value:String)->String?{
+        let modelThree = pendingShiftDataThree?.filter({$0._msnfp_engagementopportunity_value == volunteerevent_value}).first?.msnfp_engagementopportunityscheduleid
         return modelThree
     }
     
@@ -553,8 +562,10 @@ extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
         }
         
         cell.delegate = self
-        
         let rowModel = pendingShiftData?[indexPath.row]
+        let eventId = self.getPendingShiftThreeModelBy(rowModel?._sjavms_volunteerevent_value ?? "")
+        cell.eventId = eventId ?? ""
+        
         cell.setCellData(rowModel : rowModel)
         
         return cell

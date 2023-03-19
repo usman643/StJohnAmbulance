@@ -51,12 +51,37 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Action" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bi4-Zm-lh8">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5QW-Zw-mXc">
                                 <rect key="frame" x="264.33333333333331" y="0.0" width="50.666666666666686" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Action" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bi4-Zm-lh8">
+                                        <rect key="frame" x="0.0" y="0.0" width="50.666666666666664" height="30"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zvf-1L-q7e">
+                                        <rect key="frame" x="0.0" y="0.0" width="50.666666666666664" height="30"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <connections>
+                                            <action selector="actionBtnTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="kKs-mb-nBc"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="bi4-Zm-lh8" firstAttribute="top" secondItem="5QW-Zw-mXc" secondAttribute="top" id="Rwf-eq-E56"/>
+                                    <constraint firstAttribute="bottom" secondItem="bi4-Zm-lh8" secondAttribute="bottom" id="VuY-Mk-5ec"/>
+                                    <constraint firstAttribute="trailing" secondItem="Zvf-1L-q7e" secondAttribute="trailing" id="Yxg-vC-Q3g"/>
+                                    <constraint firstItem="Zvf-1L-q7e" firstAttribute="top" secondItem="5QW-Zw-mXc" secondAttribute="top" id="fSS-Ri-rxP"/>
+                                    <constraint firstAttribute="trailing" secondItem="bi4-Zm-lh8" secondAttribute="trailing" id="hY1-0o-cBb"/>
+                                    <constraint firstAttribute="bottom" secondItem="Zvf-1L-q7e" secondAttribute="bottom" id="iBb-BP-gKa"/>
+                                    <constraint firstItem="Zvf-1L-q7e" firstAttribute="leading" secondItem="5QW-Zw-mXc" secondAttribute="leading" id="lPu-0f-Www"/>
+                                    <constraint firstItem="bi4-Zm-lh8" firstAttribute="leading" secondItem="5QW-Zw-mXc" secondAttribute="leading" id="u6d-3i-9lT"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="nPX-yN-PKS"/>
@@ -82,6 +107,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="btnAction" destination="Zvf-1L-q7e" id="b5I-KX-Sew"/>
                 <outlet property="lblAction" destination="bi4-Zm-lh8" id="C6J-aP-csd"/>
                 <outlet property="lblDate" destination="fEy-uY-aHk" id="ND3-cn-5dD"/>
                 <outlet property="lblEnd" destination="jo4-Zs-ceL" id="hfC-aF-HYy"/>

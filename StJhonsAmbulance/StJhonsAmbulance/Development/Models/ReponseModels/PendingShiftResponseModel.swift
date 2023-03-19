@@ -142,38 +142,25 @@ struct VolunteerEventModel : Codable {
 
 
 struct PendingShiftResponseModelThree : Codable {
-    let context: String?
+
     let value: [PendingShiftModelThree]?
-    
-    enum CodingKeys: String, CodingKey {
-        case context = "@odata.context"
-        case value
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.context = try container.decodeIfPresent(String.self, forKey: .context)
-        self.value = try container.decodeIfPresent([PendingShiftModelThree].self, forKey: .value)
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        
-    }
+   
 }
 
 struct PendingShiftModelThree : Codable {
 
     let msnfp_engagementopportunityschedule : String?
     let createdon : String?
-    let msnfp_totalhours : String?
-    let msnfp_startperiod : String?
-    let msnfp_hoursperday : String?
+    let msnfp_totalhours : Float?
+//    let msnfp_startperiod : String?
+    let msnfp_hoursperday : Float?
     let _msnfp_engagementopportunity_value : String?
-    let msnfp_endperiod : String?
+//    let msnfp_endperiod : String?
     let msnfp_effectiveto : String?
     let msnfp_effectivefrom : String?
-    let msnfp_workingdays : String?
+//    let msnfp_workingdays : String?
     let msnfp_engagementopportunityscheduleid : String?
     
 
 }
+        

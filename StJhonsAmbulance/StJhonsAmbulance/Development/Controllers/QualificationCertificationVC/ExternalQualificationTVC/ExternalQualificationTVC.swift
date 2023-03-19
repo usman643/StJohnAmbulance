@@ -45,7 +45,7 @@ class ExternalQualificationTVC: UITableViewCell {
     
     func setContent(cellModel: ExternalQualificationDataModel?){
 
-        lblCertificateId.text = "\(cellModel?.sjavms_Qualification?.sjavms_type ?? NSNotFound)"
+        lblCertificateId.text = "\(cellModel?.sjavms_name ?? "")"
         lblQualification.text = cellModel?.sjavms_Qualification?.sjavms_name ?? ""
 //        lblAction.text = cellModel
         

@@ -402,7 +402,7 @@ class QualificationCertificationVC: ENTALDBaseViewController {
         let params : [String:Any] = [
             
             ParameterKeys.select : "sjavms_name,_sjavms_qualification_value,sjavms_issuedate,sjavms_expirydate,sjavms_verifiedqualificationid",
-            ParameterKeys.expand : "sjavms_Qualification($select=sjavms_type)",
+            ParameterKeys.expand : "sjavms_Qualification($select=sjavms_type,sjavms_name)",
             ParameterKeys.filter : "(statecode eq 0 and _sjavms_volunteer_value eq \(self.contactId)) and (sjavms_Qualification/sjavms_visbility eq 802280001)",
             ParameterKeys.orderby : "sjavms_name desc"
             
@@ -471,7 +471,10 @@ class QualificationCertificationVC: ENTALDBaseViewController {
         let params : [String:Any] = [
             
           
-            ParameterKeys.filter : "(statecode eq 0 and _sjavms_volunteer_value eq \(self.contactId)) and (sjavms_Qualification/sjavms_visbility eq 802280001)",
+//            ParameterKeys.filter : "(statecode eq 0 and _sjavms_volunteer_value eq \(self.contactId)) and (sjavms_Qualification/sjavms_visbility eq 802280001)",
+            ParameterKeys.filter : "objecttypecode eq 'sjavms_vmsqualification' and attributename eq 'sjavms_type' and langid eq 1033"
+            
+            
             ]
     
         DispatchQueue.main.async {

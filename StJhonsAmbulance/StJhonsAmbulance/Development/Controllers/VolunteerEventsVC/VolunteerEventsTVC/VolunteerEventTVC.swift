@@ -9,9 +9,14 @@ import UIKit
 
 class VolunteerEventTVC: UITableViewCell {
     
+    var cellType = ""
+    public var delegate: VolunteerEventDetailDelegate?
+    var indx :Int?
+    var eventId :String?
+    var availableEventdata : AvailableEventModel?
+    var scheduleEventdata : ScheduleModelThree?
     
     @IBOutlet weak var seperatorView: UIView!
-    
     @IBOutlet var allLabel: [UILabel]!
     
     @IBOutlet weak var lblEvent: UILabel!
@@ -21,9 +26,11 @@ class VolunteerEventTVC: UITableViewCell {
     @IBOutlet weak var lblLocation: UILabel!
     @IBOutlet weak var lblAction: UILabel!
     
+    @IBOutlet weak var btnAction: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         deocrateUI()
+        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -62,11 +69,15 @@ class VolunteerEventTVC: UITableViewCell {
         }
     }
     
-    func setContent(cellModel: ScheduleModelThree?){
-       
+    func setContent(cellModel: ScheduleModelThree?,  indx : Int){
+        self.scheduleEventdata = cellModel
+        self.eventId = cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
         self.lblEvent.text = cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
         self.lblLocation.text = cellModel?.sjavms_VolunteerEvent?.msnfp_location ?? ""
-        self.lblAction.text = ProcessUtils.shared.getStatus(code: cellModel?.msnfp_schedulestatus ?? 0)
+//        self.lblAction.text = ProcessUtils.shared.getStatus(code: cellModel?.msnfp_schedulestatus ?? 0)
+        self.lblAction.text = ""
+        btnAction.setImage(UIImage(named: "ic_pencil"), for: .normal)
+        self.cellType = "schedule"
         
         if (cellModel?.sjavms_start != "" && cellModel?.sjavms_start != nil ){
             let date = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
@@ -87,11 +98,16 @@ class VolunteerEventTVC: UITableViewCell {
         }
     }
     
-    func setContent(cellModel: AvailableEventModel?){
-       
+    func setContent(cellModel: AvailableEventModel?, indx : Int){
+        self.availableEventdata = cellModel
+        self.eventId = cellModel?.msnfp_engagementopportunityid ?? ""
+        
         self.lblEvent.text = cellModel?.msnfp_engagementopportunitytitle ?? ""
         self.lblLocation.text = cellModel?.msnfp_location ?? ""
-        self.lblAction.text = ProcessUtils.shared.getStatus(code: cellModel?.msnfp_engagementopportunitystatus ?? 0)
+//        self.lblAction.text = ProcessUtils.shared.getStatus(code: cellModel?.msnfp_engagementopportunitystatus ?? 0)
+        self.lblAction.text = ""
+        btnAction.setImage(UIImage(named: "ic_plus"), for: .normal)
+        self.cellType = "available"
         
         if (cellModel?.msnfp_startingdate != "" && cellModel?.msnfp_startingdate != nil ){
             let date = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
@@ -111,6 +127,24 @@ class VolunteerEventTVC: UITableViewCell {
             lblEnd.text = ""
         }
     }
+    
+    
+    
+    
+    @IBAction func actionBtnTapped(_ sender: Any) {
+        
+        if (self.cellType == "schedule" ){
+
+            delegate?.openScheduleEventDetailScreen(rowModel: self.scheduleEventdata )
+        }else if (self.cellType == "available"){
+            
+            delegate?.openAvailableEventDetailScreen(rowModel: self.availableEventdata)
+        }
+        
+        
+        
+    }
+    
     
     
 }

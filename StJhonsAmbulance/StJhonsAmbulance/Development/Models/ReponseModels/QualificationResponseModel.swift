@@ -69,7 +69,6 @@ struct SJAQualificationTypeDataModel : Codable {
     let attributevalue : Int?
     let stringmapid : String?
     let organizationid : String?
-    let displayorder : String?
+    let displayorder : Int?
     
 }
-

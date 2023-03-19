@@ -21,6 +21,8 @@ enum EventRouter : Router {
     case getBranch(params:[String:Any])
     case getCouncil(params:[String:Any])
     case getContactInfo(params:[String:Any])
+    case getEventClickShiftOption(params:[String:Any])
+    case getEventClickShiftDetail(params:[String:Any])
     case updateContactInfo(contactId:String, params:[String:Any])
     
     case simulate401
@@ -35,11 +37,13 @@ enum EventRouter : Router {
         case .getLatestUpcomingEvents : return "msnfp_engagementopportunities"
         case .getAllProgram : return "sjavms_programs"
         case .cancelEvent(let eventID, _) : return "msnfp_engagementopportunities(\(eventID))"
-        case .pendingShiftUpdate(let eventId, _) : return "msnfp_engagementopportunities(\(eventId))"
+        case .pendingShiftUpdate(let eventId, _) : return "msnfp_participationschedules(\(eventId))"
         case .getContactInfo : return "msnfp_engagementopportunities"
         case .getProgram : return "msnfp_groups"
         case .getBranch : return "sjavms_branchs"
         case .getCouncil : return "sjavms_vmscouncils"
+        case .getEventClickShiftOption : return "msnfp_engagementopportunityschedules"
+        case .getEventClickShiftDetail : return "msnfp_publicengagementopportunities"
         case .updateContactInfo(let contactId, _) : return "contacts(\(contactId))"
             
         case .simulate401: return "simulate-401"
@@ -73,6 +77,10 @@ enum EventRouter : Router {
         case .getBranch(let params):
             return params
         case .getCouncil(let params):
+            return params
+        case .getEventClickShiftOption(let params):
+            return params
+        case .getEventClickShiftDetail(let params):
             return params
         case .updateContactInfo(_, let params):
             return params

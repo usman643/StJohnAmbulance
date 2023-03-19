@@ -6,13 +6,18 @@
 //
 
 import UIKit
+import SideMenu
 
 enum RefreshDataObserverType{
     
 }
 
-class ENTALDBaseViewController: UIViewController {
+class ENTALDBaseViewController: UIViewController, MenuControllerDelegate {
+   
     
+    
+    var sideMenu: SideMenuVC?
+    var menu: SideMenuNavigationController?
     var callbackToController : ControllerCallBackCompletion?
     var dataModel: Any?
     
@@ -34,6 +39,7 @@ class ENTALDBaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerReloadDataNotifications()
+        self.setSideMenu(reference: self)
 //        setAppearanceDarkLightMode()
 //        self.navigationController?.navigationBar.prefersLargeTitles = false
 //        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
@@ -42,6 +48,69 @@ class ENTALDBaseViewController: UIViewController {
 //        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
         
         self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    func didSelectMenuItem(named: String) {
+        
+        if (named == "Home") {
+            dismiss(animated: true)
+//            let vc = HomeVC(nibName: "HomeVC", bundle: nil)
+//            self.navigationController?.pushViewController(vc , animated: true)
+            self.navigationController?.popToRootViewController(animated: true)
+        }else if(named == "Profile"){
+            
+            ENTALDControllers.shared.showContactInfoScreen(type: .ENTALDPUSH, from: self, callBack: nil)
+                        
+        }else if(named == "Qualifications/Certifications"){
+            
+            ENTALDControllers.shared.showSideMenuQualificationScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
+                        
+        }else if(named == "Availability"){
+            
+            ENTALDControllers.shared.showSideMenuAvailabilityScreen(type: .ENTALDPUSH, from: self, callBack: nil)
+            
+        }else if(named == "Skills"){
+            
+            ENTALDControllers.shared.showSideMenuSkillsScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
+                        
+        }else if(named == "Language"){
+            
+            ENTALDControllers.shared.showLanguageScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
+                        
+        }else if(named == "Settings"){
+            
+            ENTALDControllers.shared.showSettingScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
+                        
+        }else if(named == "Change Password"){
+            
+            ENTALDControllers.shared.showUpdatePasswordScreen(type: .ENTALDPUSH, from: self, callBack: nil)
+        }else if(named == "Documents"){
+            
+            ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
+        }else if(named == "Logout"){
+            
+            UserDefaults.standard.signOut()
+            
+        }else{
+            
+            dismiss(animated: true)
+        }
+    }
+    
+    func setSideMenu( reference : UIViewController){
+        
+        self.sideMenu = SideMenuVC()
+        if let list = sideMenu {
+            
+            list.delegate = self
+            self.menu = SideMenuNavigationController(rootViewController: list)
+            self.menu?.leftSide = false
+            self.menu?.setNavigationBarHidden(true, animated: true)
+            self.menu?.menuWidth = view.bounds.width * 0.8
+            SideMenuManager.default.leftMenuNavigationController = menu
+            SideMenuManager.default.addPanGestureToPresent(toView: self.view)
+            
+        }
     }
         
     func setAppearanceDarkLightMode() {

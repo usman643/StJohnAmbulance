@@ -9,10 +9,7 @@ import UIKit
 import SideMenu
 
 
-class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
- 
-    var sideMenu: SideMenuVC?
-    var menu: SideMenuNavigationController?
+class CSDashBoardVC: ENTALDBaseViewController{
     var gridData : [DashBoardGridModel]?
     var latestEvent : [CurrentEventsModel]?
     
@@ -44,7 +41,7 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
         
         collectionView.register(UINib(nibName: "CSDashBaordCVC", bundle: nil), forCellWithReuseIdentifier: "CSDashBaordCVC")
         decorateUI()
-        setSideMenu()
+//        setSideMenu()
         
         gridData = [
                     DashBoardGridModel(title: "", subTitle: "", bgColor: UIColor.darkBlueColor, icon: "ic_camp"),
@@ -71,73 +68,73 @@ class CSDashBoardVC: ENTALDBaseViewController,MenuControllerDelegate {
         
     }
 
-    func setSideMenu(){
-        
-        self.sideMenu = SideMenuVC()
-        if let list = sideMenu {
-            
-            list.delegate = self
-            self.menu = SideMenuNavigationController(rootViewController: list)
-            self.menu?.leftSide = false
-            self.menu?.setNavigationBarHidden(true, animated: true)
-            self.menu?.menuWidth = view.bounds.width * 0.8
-            SideMenuManager.default.leftMenuNavigationController = menu
-            SideMenuManager.default.addPanGestureToPresent(toView: self.view)
-        }
-    }
-    
-    func didSelectMenuItem(named: String) {
-        
-        if (named == "Home") {
-            dismiss(animated: true)
-        }else if(named == "Profile"){
-            
-            self.navigationController?.popToRootViewController(animated: true)
-            ENTALDControllers.shared.showContactInfoScreen(type: .ENTALDPUSH, from: self, callBack: nil)
-                        
-        }else if(named == "Qualifications/Certifications"){
-            
-            self.navigationController?.popToRootViewController(animated: true)
-            ENTALDControllers.shared.showSideMenuQualificationScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
-                        
-        }else if(named == "Availability"){
-            
-            self.navigationController?.popToRootViewController(animated: true)
-            ENTALDControllers.shared.showSideMenuAvailabilityScreen(type: .ENTALDPUSH, from: self, callBack: nil)
-            
-        }else if(named == "Skills"){
-            
-            self.navigationController?.popToRootViewController(animated: true)
-            ENTALDControllers.shared.showSideMenuSkillsScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
-                        
-        }else if(named == "Language"){
-            
-            self.navigationController?.popToRootViewController(animated: true)
-            ENTALDControllers.shared.showLanguageScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
-                        
-        }else if(named == "Settings"){
-            
-            self.navigationController?.popToRootViewController(animated: true)
-            ENTALDControllers.shared.showSettingScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
-                        
-        }else if(named == "Change Password"){
-            
-            self.navigationController?.popToRootViewController(animated: true)
-//            ENTALDControllers.shared.showChangePasswordScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
-            ENTALDControllers.shared.showUpdatePasswordScreen(type: .ENTALDPUSH, from: self, callBack: nil)
-        }else if(named == "Documents"){
-            
-            ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
-            
-        }else if(named == "Logout"){
-            
-            UserDefaults.standard.signOut()
-            
-        }else{
-            
-            dismiss(animated: true)
-        }
-    }
+//    func setSideMenu(){
+//
+//        self.sideMenu = SideMenuVC()
+//        if let list = sideMenu {
+//
+//            list.delegate = self
+//            self.menu = SideMenuNavigationController(rootViewController: list)
+//            self.menu?.leftSide = false
+//            self.menu?.setNavigationBarHidden(true, animated: true)
+//            self.menu?.menuWidth = view.bounds.width * 0.8
+//            SideMenuManager.default.leftMenuNavigationController = menu
+//            SideMenuManager.default.addPanGestureToPresent(toView: self.view)
+//        }
+//    }
+//
+//    func didSelectMenuItem(named: String) {
+//
+//        if (named == "Home") {
+//            dismiss(animated: true)
+//        }else if(named == "Profile"){
+//
+//            self.navigationController?.popToRootViewController(animated: true)
+//            ENTALDControllers.shared.showContactInfoScreen(type: .ENTALDPUSH, from: self, callBack: nil)
+//
+//        }else if(named == "Qualifications/Certifications"){
+//
+//            self.navigationController?.popToRootViewController(animated: true)
+//            ENTALDControllers.shared.showSideMenuQualificationScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
+//
+//        }else if(named == "Availability"){
+//
+//            self.navigationController?.popToRootViewController(animated: true)
+//            ENTALDControllers.shared.showSideMenuAvailabilityScreen(type: .ENTALDPUSH, from: self, callBack: nil)
+//
+//        }else if(named == "Skills"){
+//
+//            self.navigationController?.popToRootViewController(animated: true)
+//            ENTALDControllers.shared.showSideMenuSkillsScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
+//
+//        }else if(named == "Language"){
+//
+//            self.navigationController?.popToRootViewController(animated: true)
+//            ENTALDControllers.shared.showLanguageScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
+//
+//        }else if(named == "Settings"){
+//
+//            self.navigationController?.popToRootViewController(animated: true)
+//            ENTALDControllers.shared.showSettingScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
+//
+//        }else if(named == "Change Password"){
+//
+//            self.navigationController?.popToRootViewController(animated: true)
+////            ENTALDControllers.shared.showChangePasswordScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
+//            ENTALDControllers.shared.showUpdatePasswordScreen(type: .ENTALDPUSH, from: self, callBack: nil)
+//        }else if(named == "Documents"){
+//
+//            ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
+//
+//        }else if(named == "Logout"){
+//
+//            UserDefaults.standard.signOut()
+//
+//        }else{
+//
+//            dismiss(animated: true)
+//        }
+//    }
 
     func decorateUI(){
         self.btnMainView.backgroundColor = UIColor.themePrimaryColor

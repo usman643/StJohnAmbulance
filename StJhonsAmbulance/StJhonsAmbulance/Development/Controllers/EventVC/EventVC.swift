@@ -293,6 +293,11 @@ class EventVC: ENTALDBaseViewController, UITextFieldDelegate {
     }
     
     
+    
+    @IBAction func sideMenuTapped(_ sender: Any) {
+        present(menu!, animated: true)
+    }
+    
 // bottom bar action
     
     @IBAction func openMessagesScreen(_ sender: Any) {
@@ -727,7 +732,7 @@ class EventVC: ENTALDBaseViewController, UITextFieldDelegate {
         
         let params : [String:Any] = [
             
-            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_startingdate,msnfp_location,msnfp_engagementopportunitystatus,_sjavms_program_value,msnfp_engagementopportunityid,msnfp_endingdate,msnfp_maximum,msnfp_minimum,sjavms_maxparticipants",
+            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_startingdate,msnfp_location,msnfp_engagementopportunitystatus,_sjavms_program_value,_sjavms_program_value,msnfp_engagementopportunityid,sjavms_maxparticipants,msnfp_endingdate,msnfp_maximum,msnfp_minimum",
             
             ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(msnfp_groupid eq \(groupId)))",
 //            ParameterKeys.filter : "(statecode eq 0 and sjavms_adhocevent ne true and Microsoft.Dynamics.CRM.In(PropertyName='msnfp_engagementopportunitystatus',PropertyValues=['844060003','844060002']) and (Microsoft.Dynamics.CRM.Tomorrow(PropertyName='msnfp_startingdate') or Microsoft.Dynamics.CRM.NextXYears(PropertyName='msnfp_startingdate',PropertyValue=10))) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
@@ -952,7 +957,7 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
             
             cell.lblEvent.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
             cell.lblLocation.text = rowModel?.msnfp_location ?? ""
-            cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+            cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
             
             return cell
         }

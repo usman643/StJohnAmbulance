@@ -28,6 +28,7 @@ struct VolunteerAwardResponseModel : Codable {
 }
 struct VolunteerAwardModel: Codable{
     
+    let msnfp_name : String?
     let _msnfp_awardid_value : String?
     let msnfp_awarddate : String?
     let msnfp_awardversionid : String?

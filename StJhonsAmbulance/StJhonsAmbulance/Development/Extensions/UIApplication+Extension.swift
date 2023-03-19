@@ -24,6 +24,19 @@ extension UIApplication {
         return base
     }
     
+    
+    class func getLastViewController(base: UIViewController? = UIApplication.shared.windows.last?.rootViewController) -> UIViewController? {
+        
+        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.last
+        if let nav = base as? UINavigationController {
+            return nav.visibleViewController
+        }
+        
+
+        
+        return UIViewController()
+    }
+    
     class func topNavigation(_ viewController: UIViewController? = UIApplication.shared.windows.first?.rootViewController) -> ENTALDBaseNavigationController? {
         
         if let nav = viewController as? ENTALDBaseNavigationController {

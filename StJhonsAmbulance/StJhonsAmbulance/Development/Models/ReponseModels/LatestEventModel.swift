@@ -46,23 +46,8 @@ struct LatestEventModel : Codable {
 
 
 struct LatestEventDataResponseModel: Codable {
-    let context: String?
     let value: [LatestEventDataModel]?
-    
-    enum CodingKeys: String, CodingKey {
-        case context = "@odata.context"
-        case value
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.context = try container.decodeIfPresent(String.self, forKey: .context)
-        self.value = try container.decodeIfPresent([LatestEventDataModel].self, forKey: .value)
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        
-    }
+
 }
 
 struct LatestEventDataModel : Codable {

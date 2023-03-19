@@ -153,19 +153,19 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
         btnPrefferenNoun.backgroundColor = UIColor.themePrimaryWhite
         btnPrefferenNoun.titleLabel?.font = UIFont.BoldFont(14)
         btnPrefferenNoun.layer.cornerRadius = 2
-        btnPrefferenNoun.setTitleColor(UIColor.themePrimary, for: .normal)
+        btnPrefferenNoun.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnGender.backgroundColor = UIColor.themePrimaryWhite
         btnGender.titleLabel?.font = UIFont.BoldFont(14)
         btnGender.layer.cornerRadius = 2
-        btnGender.setTitleColor(UIColor.themePrimary, for: .normal)
+        btnGender.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnContactMethod.backgroundColor = UIColor.themePrimaryWhite
         btnContactMethod.titleLabel?.font = UIFont.BoldFont(14)
         btnContactMethod.layer.cornerRadius = 2
-        btnContactMethod.setTitleColor(UIColor.themePrimary, for: .normal)
+        btnContactMethod.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnOptNotofocation.backgroundColor = UIColor.themePrimaryWhite
         btnOptNotofocation.titleLabel?.font = UIFont.BoldFont(14)
         btnOptNotofocation.layer.cornerRadius = 2
-        btnOptNotofocation.setTitleColor(UIColor.themePrimary, for: .normal)
+        btnOptNotofocation.setTitleColor(UIColor.textWhiteColor, for: .normal)
         
         btnSubmit.themeColorButton()
         btnSubmit.backgroundColor = UIColor.themePrimaryColor
@@ -174,19 +174,19 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
         
         profileImg.layer.cornerRadius = profileImg.frame.size.height/2
         
-        txtFirstName.isUserInteractionEnabled = false
-        txtLastName.isUserInteractionEnabled = false
-        txtBirthday.isUserInteractionEnabled = false
-        txtEmail.isUserInteractionEnabled = false
-        txtPrimaryPhone.isUserInteractionEnabled = false
-        txtStreetOne.isUserInteractionEnabled = false
-        txtStreetTwo.isUserInteractionEnabled = false
-        txtStreetThree.isUserInteractionEnabled = false
-        txtCity.isUserInteractionEnabled = false
-        txtProvince.isUserInteractionEnabled = false
-        txtPostalCode.isUserInteractionEnabled = false
-        txtEmergencyContactName.isUserInteractionEnabled = false
-        txtEmergencyContactPhone.isUserInteractionEnabled = false
+//        txtFirstName.isUserInteractionEnabled = false
+//        txtLastName.isUserInteractionEnabled = false
+//        txtBirthday.isUserInteractionEnabled = false
+//        txtEmail.isUserInteractionEnabled = false
+//        txtPrimaryPhone.isUserInteractionEnabled = false
+//        txtStreetOne.isUserInteractionEnabled = false
+//        txtStreetTwo.isUserInteractionEnabled = false
+//        txtStreetThree.isUserInteractionEnabled = false
+//        txtCity.isUserInteractionEnabled = false
+//        txtProvince.isUserInteractionEnabled = false
+//        txtPostalCode.isUserInteractionEnabled = false
+//        txtEmergencyContactName.isUserInteractionEnabled = false
+//        txtEmergencyContactPhone.isUserInteractionEnabled = false
         
     }
     

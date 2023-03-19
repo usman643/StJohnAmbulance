@@ -401,6 +401,10 @@ class VolunteerHoursVC: ENTALDBaseViewController {
     }
     
     
+    @IBAction func sideMenuTapped(_ sender: Any) {
+        
+        present(menu!, animated: true)
+    }
     
     
     // Bottom bar Action

@@ -6,12 +6,10 @@
 //
 
 import UIKit
-import SideMenu
+//import SideMenu
 
-class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
+class DashboardVC: ENTALDBaseViewController{
     
-    var sideMenu: SideMenuVC?
-    var menu: SideMenuNavigationController?
     var gridData : [DashBoardGridModel]?
     var awardData : [VolunteerAwardModel]?
     var latestEventIdData : [LatestEventModel]?
@@ -60,10 +58,10 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         decorateUI()
-        setSideMenu()
+//        setSideMenu()
         setupContent()
-//        getVolunteerAward()
-//        getLatestIncomingEvent()
+        getVolunteerAward()
+        getLatestIncomingEvent()
         getIncomingEvent()
 //        gridData = [
 //                    DashBoardGridModel(title: "", subTitle: "", bgColor: UIColor.darkBlueColor, icon: "ic_camp"),
@@ -76,21 +74,21 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
         
     }
 
-    func setSideMenu(){
-        
-        self.sideMenu = SideMenuVC()
-        if let list = sideMenu {
-            
-            list.delegate = self
-            self.menu = SideMenuNavigationController(rootViewController: list)
-            self.menu?.leftSide = false
-            self.menu?.setNavigationBarHidden(true, animated: true)
-            self.menu?.menuWidth = view.bounds.width * 0.8
-            SideMenuManager.default.leftMenuNavigationController = menu
-            SideMenuManager.default.addPanGestureToPresent(toView: self.view)
-            
-        }
-    }
+//    func setSideMenu(){
+//        
+//        self.sideMenu = SideMenuVC()
+//        if let list = sideMenu {
+//            
+//            list.delegate = self
+//            self.menu = SideMenuNavigationController(rootViewController: list)
+//            self.menu?.leftSide = false
+//            self.menu?.setNavigationBarHidden(true, animated: true)
+//            self.menu?.menuWidth = view.bounds.width * 0.8
+//            SideMenuManager.default.leftMenuNavigationController = menu
+//            SideMenuManager.default.addPanGestureToPresent(toView: self.view)
+//            
+//        }
+//    }
 
     func decorateUI(){
         
@@ -174,62 +172,65 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
         
     }
     
-    func didSelectMenuItem(named: String) {
-        
-        if (named == "Home") {
-            dismiss(animated: true)
-//            let vc = HomeVC(nibName: "HomeVC", bundle: nil)
-//            self.navigationController?.pushViewController(vc , animated: true)
-        }else if(named == "Profile"){
-            
-            self.navigationController?.popToRootViewController(animated: true)
-            ENTALDControllers.shared.showContactInfoScreen(type: .ENTALDPUSH, from: self, callBack: nil)
-                        
-        }else if(named == "Qualifications/Certifications"){
-            
-            self.navigationController?.popToRootViewController(animated: true)
-            ENTALDControllers.shared.showSideMenuQualificationScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
-                        
-        }else if(named == "Availability"){
-            
-            self.navigationController?.popToRootViewController(animated: true)
-            ENTALDControllers.shared.showSideMenuAvailabilityScreen(type: .ENTALDPUSH, from: self, callBack: nil)
-            
-        }else if(named == "Skills"){
-            
-            self.navigationController?.popToRootViewController(animated: true)
-            ENTALDControllers.shared.showSideMenuSkillsScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
-                        
-        }else if(named == "Language"){
-            
-            self.navigationController?.popToRootViewController(animated: true)
-            ENTALDControllers.shared.showLanguageScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
-                        
-        }else if(named == "Settings"){
-            
-            self.navigationController?.popToRootViewController(animated: true)
-            ENTALDControllers.shared.showSettingScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
-                        
-        }else if(named == "Change Password"){
-            
-            self.navigationController?.popToRootViewController(animated: true)
-//            ENTALDControllers.shared.showChangePasswordScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
-            ENTALDControllers.shared.showUpdatePasswordScreen(type: .ENTALDPUSH, from: self, callBack: nil)
-        }else if(named == "Documents"){
-            
-            ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in }) 
-            
-        }else if(named == "Logout"){
-            
-            UserDefaults.standard.signOut()
-            
-        }else{
-            
-            dismiss(animated: true)
-        }
+//    func didSelectMenuItem(named: String) {
+//        
+//        if (named == "Home") {
+//            dismiss(animated: true)
+////            let vc = HomeVC(nibName: "HomeVC", bundle: nil)
+////            self.navigationController?.pushViewController(vc , animated: true)
+//        }else if(named == "Profile"){
+//            
+//            self.navigationController?.popToRootViewController(animated: true)
+//            ENTALDControllers.shared.showContactInfoScreen(type: .ENTALDPUSH, from: self, callBack: nil)
+//                        
+//        }else if(named == "Qualifications/Certifications"){
+//            
+//            self.navigationController?.popToRootViewController(animated: true)
+//            ENTALDControllers.shared.showSideMenuQualificationScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
+//                        
+//        }else if(named == "Availability"){
+//            
+//            self.navigationController?.popToRootViewController(animated: true)
+//            ENTALDControllers.shared.showSideMenuAvailabilityScreen(type: .ENTALDPUSH, from: self, callBack: nil)
+//            
+//        }else if(named == "Skills"){
+//            
+//            self.navigationController?.popToRootViewController(animated: true)
+//            ENTALDControllers.shared.showSideMenuSkillsScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
+//                        
+//        }else if(named == "Language"){
+//            
+//            self.navigationController?.popToRootViewController(animated: true)
+//            ENTALDControllers.shared.showLanguageScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
+//                        
+//        }else if(named == "Settings"){
+//            
+//            self.navigationController?.popToRootViewController(animated: true)
+//            ENTALDControllers.shared.showSettingScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
+//                        
+//        }else if(named == "Change Password"){
+//            
+//            self.navigationController?.popToRootViewController(animated: true)
+////            ENTALDControllers.shared.showChangePasswordScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
+//            ENTALDControllers.shared.showUpdatePasswordScreen(type: .ENTALDPUSH, from: self, callBack: nil)
+//        }else if(named == "Documents"){
+//            
+//            ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in }) 
+//            
+//        }else if(named == "Logout"){
+//            
+//            UserDefaults.standard.signOut()
+//            
+//        }else{
+//            
+//            dismiss(animated: true)
+//        }
+//    }
+    
+    @IBAction func achivementTapped(_ sender: Any) {
+        ENTALDControllers.shared.showAchivementScreen(type: .ENTALDPRESENT_POPOVER, from: self, dataObj: self.awardData, callBack: nil)
     }
     
-  
     
     @IBAction func currentEventTapped(_ sender: Any) {
         
@@ -385,7 +386,7 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
         guard let contactId = UserDefaults.standard.contactIdToken  else {return}
         let params : [String:Any] = [
             
-            ParameterKeys.select : "_msnfp_awardid_value,msnfp_awarddate,msnfp_awardversionid",
+            ParameterKeys.select : "_msnfp_awardid_value,msnfp_awarddate,msnfp_awardversionid,msnfp_name",
 //            ParameterKeys.expand : "msnfp_groupId",
             ParameterKeys.filter : "(msnfp_status eq 844060003 and _msnfp_primarycontactid_value eq \(contactId))",
             ParameterKeys.orderby : "_msnfp_awardid_value asc"
@@ -410,9 +411,9 @@ class DashboardVC: ENTALDBaseViewController,MenuControllerDelegate {
                     if let award = response.value {
                         self.awardData = award
                         
-                        self.lblAward.text = "\(award.count)"
-                        self.awardNumView.isHidden = false
-                        self.lblAward.isHidden = false
+//                        self.lblAward.text = "\(award.count)"
+//                        self.awardNumView.isHidden = false
+//                        self.lblAward.isHidden = false
                         
                     }else{
                         self.awardNumView.isHidden = true

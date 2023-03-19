@@ -227,8 +227,17 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
+    func requestVolunteerEventClickOption(params:[String : Any],  _ completion:@escaping((ApiResult<VolunteerEventClickOptionResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getEventClickShiftOption(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
     
+    func requestVolunteerEventClickShiftDetail(params:[String : Any],  _ completion:@escaping((ApiResult<VolunteerEventClickShiftDetailResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getEventClickShiftDetail(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
     
+
     
     
     

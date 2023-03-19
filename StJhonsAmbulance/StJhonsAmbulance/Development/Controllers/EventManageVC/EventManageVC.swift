@@ -58,8 +58,8 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
         if ((eventData) != nil){
             
             lblEventName.text = eventData?.msnfp_engagementopportunitytitle
-            if (eventData?.msnfp_startingdate != nil && eventData?.msnfp_startingdate == ""){
-                let date =  DateFormatManager.shared.formatDateStrToStr(date: eventData?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+            if (eventData?.msnfp_startingdate != nil && eventData?.msnfp_startingdate != ""){
+                let date =  DateFormatManager.shared.formatDateStrToStr(date: eventData?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEEE, MMMM d, yyyy")
                 lblDate.text = date
             }else{
                 lblDate.text = " "
@@ -69,18 +69,16 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
         }else if ((pendingShiftData) != nil){
             
             lblEventName.text = pendingShiftData?.msnfp_name
-            if (pendingShiftData?.sjavms_start != nil && pendingShiftData?.sjavms_start == ""){
-                let date =  DateFormatManager.shared.formatDateStrToStr(date: pendingShiftData?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+            if (pendingShiftData?.sjavms_start != nil && pendingShiftData?.sjavms_start != ""){
+                let date =  DateFormatManager.shared.formatDateStrToStr(date: pendingShiftData?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEEE, MMMM d, yyyy")
                 lblDate.text = date
             }else{
                 lblDate.text = " "
             }
-            //            lblLocation.text = pendingShiftData?.
-            
         }else if ((unpublishEventData) != nil){
             
             lblEventName.text = unpublishEventData?.msnfp_engagementopportunitytitle
-            if (unpublishEventData?.msnfp_startingdate != nil && unpublishEventData?.msnfp_startingdate == ""){
+            if (unpublishEventData?.msnfp_startingdate != nil && unpublishEventData?.msnfp_startingdate != ""){
                 let date =  DateFormatManager.shared.formatDateStrToStr(date: unpublishEventData?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
                 lblDate.text = date
             }else{
@@ -107,11 +105,11 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
         
         btnBack.tintColor = .white
         
-        lblEventName.font = UIFont.BoldFont(24)
-        lblDate.font = UIFont.BoldFont(18)
-        lblLocation.font = UIFont.BoldFont(18)
-        lblProgramType.font = UIFont.BoldFont(18)
-        lblTitle.font = UIFont.BoldFont(24)
+        lblEventName.font = UIFont.BoldFont(22)
+        lblDate.font = UIFont.BoldFont(16)
+        lblLocation.font = UIFont.BoldFont(16)
+        lblProgramType.font = UIFont.BoldFont(16)
+        lblTitle.font = UIFont.BoldFont(22)
         
         lblEventName.textColor = UIColor.textWhiteColor
         lblDate.textColor = UIColor.textWhiteColor
@@ -140,6 +138,8 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
         searchView.layer.borderWidth = 1
         
         btnSearchClose.isHidden = true
+        
+        btnProgram.setTitle("Cancel", for: .normal)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -204,7 +204,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
         
         let params : [String:Any] = [
             
-            ParameterKeys.select : "msnfp_schedulestatus,sjavms_start,sjavms_hours,_sjavms_volunteerevent_value,_sjavms_volunteer_value,msnfp_participationscheduleid,sjavms_start",
+            ParameterKeys.select : "msnfp_schedulestatus,sjavms_start,sjavms_hours,_sjavms_volunteerevent_value,_sjavms_volunteer_value,msnfp_participationscheduleid,sjavms_start,sjavms_end",
             
             ParameterKeys.expand : "sjavms_Volunteer($select=fullname)",
             ParameterKeys.filter : "(_sjavms_volunteerevent_value eq \(eventId))",

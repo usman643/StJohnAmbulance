@@ -119,3 +119,42 @@ struct EventCouncilModel : Codable {
     let sjavms_branchid : String?
     
 }
+
+//=================== Clicked ====================
+
+struct VolunteerEventClickShiftDetailResponseModel : Codable{
+    let value : [VolunteerEventClickShiftDetailModel]?
+    
+}
+
+struct VolunteerEventClickShiftDetailModel : Codable {
+    
+    let msnfp_location : String?
+    let msnfp_engagementopportunitytitle : String?
+    let msnfp_shortdescription : String?
+    let msnfp_qualifications : String?
+    let msnfp_startingdate : String?
+    let msnfp_endingdate : String?
+    let msnfp_locationname : String?
+    let msnfp_shifts : Bool?
+    let msnfp_locationcitystate : String?
+    let msnfp_publicengagementopportunityid : String?
+    
+}
+
+struct  VolunteerEventClickOptionResponseModel: Codable{
+    let value : [VolunteerEventClickOptionModel]?
+    
+}
+
+struct VolunteerEventClickOptionModel : Codable {
+    
+    let statecode : Int?
+    let msnfp_effectivefrom : String?
+    let msnfp_effectiveto : String?
+    let msnfp_engagementopportunityscheduleid : String?
+    let msnfp_hours : Float?
+    let msnfp_maximum : Int?
+    let msnfp_engagementopportunityschedule : String?
+    
+}

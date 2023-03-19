@@ -173,6 +173,9 @@ class PendingEventVC: ENTALDBaseViewController {
         }
     }
     
+    @IBAction func sideMenuTapped(_ sender: Any) {
+        present(menu!, animated: true)
+    }
     // Bottom bar action
     
     @IBAction func openMessagesScreen(_ sender: Any) {

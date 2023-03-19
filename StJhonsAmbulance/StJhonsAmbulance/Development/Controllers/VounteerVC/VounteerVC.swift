@@ -151,6 +151,10 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
     
     
     
+    @IBAction func sideMenuTapped(_ sender: Any) {
+        present(menu!, animated: true)
+        
+    }
     
     
     //================ Side Menu =============//
