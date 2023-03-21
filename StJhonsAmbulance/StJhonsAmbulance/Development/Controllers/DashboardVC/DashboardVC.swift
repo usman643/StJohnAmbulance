@@ -469,8 +469,9 @@ class DashboardVC: ENTALDBaseViewController{
                         self.getIncomingEvent()
 
                     }else{
-                        self.lblCamp.text = ""
+                        self.lblCamp.text = "No Upcoming Event"
                         self.lblCampNum.text = ""
+                        
                     }
                 }
                 
@@ -546,7 +547,7 @@ class DashboardVC: ENTALDBaseViewController{
                         }
 
                     }else{
-                        self.lblCamp.isHidden = true
+                        self.lblCamp.text = "No Upcoming Event"
                         self.lblCampNum.isHidden = true
                     }
                 }

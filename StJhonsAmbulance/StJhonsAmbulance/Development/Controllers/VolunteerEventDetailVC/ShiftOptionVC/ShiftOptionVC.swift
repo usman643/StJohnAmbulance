@@ -11,7 +11,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
     
     var eventOptions : [VolunteerEventClickOptionModel]?
     var eventId : String?
-    
+    var isBottombtnEnable : Bool?
     var isShiftFilterApplied = false
     var isStartFilterApplied = false
     var isEndFilterApplied = false
@@ -41,7 +41,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
         tableView.register(UINib(nibName: "ShiftOptionTVC", bundle: nil), forCellReuseIdentifier: "ShiftOptionTVC")
         
     }
-
+    
     func decorateUI(){
         lblTitle.font = UIFont.BoldFont(22)
         lblTitle.textColor = UIColor.themePrimaryColor
@@ -62,10 +62,16 @@ class ShiftOptionVC: ENTALDBaseViewController {
         btnBook.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnBook.titleLabel?.textColor = UIColor.textWhiteColor
         btnBook.titleLabel?.font = UIFont.BoldFont(16)
+        if (isBottombtnEnable == false) {
+            btnCancel.isEnabled = false
+            btnCancel.backgroundColor = UIColor.lightGray
+            btnBook.backgroundColor = UIColor.lightGray
+            btnBook.isEnabled = false
+        }
     }
     
     // ================== Filters =================
-   
+    
     @IBAction func filterTapped(_ sender: Any) {
         
         if !isShiftFilterApplied{
@@ -79,7 +85,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
             }
             isShiftFilterApplied = false
         }
-
+        
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -102,7 +108,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
             }
             isShiftFilterApplied = false
         }
-
+        
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -125,7 +131,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
             }
             isStartFilterApplied = false
         }
-
+        
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -148,7 +154,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
             }
             isEndFilterApplied = false
         }
-
+        
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -171,7 +177,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
             }
             isHourFilterApplied = false
         }
-
+        
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -196,7 +202,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
             }
             isNeedFilterApplied = false
         }
-
+        
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -204,7 +210,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
         isShiftFilterApplied = false
         isStartFilterApplied = false
         isEndFilterApplied = false
- 
+        
         
     }
     
@@ -217,17 +223,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
         
     }
     
-    
-   
-    
-
-    
-    
-    
-    
-    
-    
-    
+ 
     func getEventOptions() {
         
         let params : [String:Any] = [
@@ -259,7 +255,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
                         
                         self.tableView.reloadData()
                     }
-                
+                    
                 }
                 
             case .error(let error, let errorResponse):
@@ -267,7 +263,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
                 if let err = errorResponse {
                     message = err.error
                 }
-
+                
                 DispatchQueue.main.async {
                     ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
                 }
@@ -287,7 +283,13 @@ extension ShiftOptionVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ShiftOptionTVC", for: indexPath) as! ShiftOptionTVC
-        
+        if indexPath.row % 2 == 0{
+            cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+            cell.seperatorView.backgroundColor = UIColor.themePrimary
+        }else{
+            cell.mainView.backgroundColor = UIColor.viewLightColor
+            cell.seperatorView.backgroundColor = UIColor.gray
+        }
         cell.setContent(cellModel: self.eventOptions?[indexPath.row])
         
         return cell

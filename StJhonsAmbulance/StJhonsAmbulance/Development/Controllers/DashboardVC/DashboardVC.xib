@@ -176,32 +176,43 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="30a-7i-Mjl">
                                                     <rect key="frame" x="0.0" y="0.0" width="192" height="365"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Camp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7i-Se-hg2">
-                                                            <rect key="frame" x="8" y="336.66666666666669" width="176" height="20.333333333333314"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Upcoming Event" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7i-Se-hg2">
+                                                            <rect key="frame" x="8" y="328.66666666666669" width="176" height="20.333333333333314"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0So-s7-cgz">
-                                                            <rect key="frame" x="12" y="140" width="168" height="85"/>
+                                                            <rect key="frame" x="53.666666666666657" y="140" width="85" height="85"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_camp" translatesAutoresizingMaskIntoConstraints="NO" id="BNw-AU-PJE">
-                                                                    <rect key="frame" x="41.666666666666657" y="0.0" width="85" height="85"/>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_incoming" translatesAutoresizingMaskIntoConstraints="NO" id="BNw-AU-PJE">
+                                                                    <rect key="frame" x="17.333333333333336" y="17.666666666666686" width="50.000000000000007" height="50"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="85" id="bgf-7B-U4u"/>
-                                                                        <constraint firstAttribute="height" constant="85" id="yQB-qU-g5V"/>
+                                                                        <constraint firstAttribute="width" constant="50" id="bgf-7B-U4u"/>
+                                                                        <constraint firstAttribute="height" constant="50" id="yQB-qU-g5V"/>
                                                                     </constraints>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                            <real key="value" value="42"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
                                                                 </imageView>
                                                             </subviews>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstItem="BNw-AU-PJE" firstAttribute="centerX" secondItem="0So-s7-cgz" secondAttribute="centerX" id="3LE-yA-y88"/>
-                                                                <constraint firstItem="BNw-AU-PJE" firstAttribute="top" secondItem="0So-s7-cgz" secondAttribute="top" id="D5a-vG-v46"/>
-                                                                <constraint firstAttribute="bottom" secondItem="BNw-AU-PJE" secondAttribute="bottom" id="VTm-bQ-5t7"/>
+                                                                <constraint firstAttribute="width" constant="85" id="2fv-iS-WTk"/>
+                                                                <constraint firstAttribute="height" constant="85" id="kUx-pI-qjh"/>
+                                                                <constraint firstItem="BNw-AU-PJE" firstAttribute="centerY" secondItem="0So-s7-cgz" secondAttribute="centerY" id="njV-FE-2pf"/>
+                                                                <constraint firstItem="BNw-AU-PJE" firstAttribute="centerX" secondItem="0So-s7-cgz" secondAttribute="centerX" id="wHO-LF-dz2"/>
                                                             </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="42"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="02" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lk5-fd-cWd">
-                                                            <rect key="frame" x="8" y="313.33333333333331" width="176" height="20.333333333333314"/>
+                                                            <rect key="frame" x="8" y="305.33333333333331" width="176" height="20.333333333333314"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -216,13 +227,11 @@
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="B7i-Se-hg2" secondAttribute="bottom" constant="8" id="0X9-f9-yN6"/>
+                                                        <constraint firstAttribute="bottom" secondItem="B7i-Se-hg2" secondAttribute="bottom" constant="16" id="0X9-f9-yN6"/>
                                                         <constraint firstItem="0So-s7-cgz" firstAttribute="centerY" secondItem="30a-7i-Mjl" secondAttribute="centerY" id="93a-Kd-Kt6"/>
                                                         <constraint firstAttribute="trailing" secondItem="pN4-3V-tAq" secondAttribute="trailing" id="9PZ-nJ-kJs"/>
-                                                        <constraint firstAttribute="trailing" secondItem="0So-s7-cgz" secondAttribute="trailing" constant="12" id="KXk-tU-RTj"/>
                                                         <constraint firstItem="B7i-Se-hg2" firstAttribute="top" secondItem="Lk5-fd-cWd" secondAttribute="bottom" constant="3" id="Ldf-wV-cvv"/>
                                                         <constraint firstItem="pN4-3V-tAq" firstAttribute="leading" secondItem="30a-7i-Mjl" secondAttribute="leading" id="Q4L-NH-nrs"/>
-                                                        <constraint firstItem="0So-s7-cgz" firstAttribute="leading" secondItem="30a-7i-Mjl" secondAttribute="leading" constant="12" id="eeM-5z-U81"/>
                                                         <constraint firstAttribute="trailing" secondItem="B7i-Se-hg2" secondAttribute="trailing" constant="8" id="fPS-eA-ak0"/>
                                                         <constraint firstAttribute="bottom" secondItem="pN4-3V-tAq" secondAttribute="bottom" id="k7O-Rq-4de"/>
                                                         <constraint firstItem="0So-s7-cgz" firstAttribute="centerY" secondItem="30a-7i-Mjl" secondAttribute="centerY" id="nbJ-e6-XHl"/>
@@ -747,10 +756,10 @@
         <image name="icCup" width="28" height="33.333332061767578"/>
         <image name="ic_bell" width="24" height="24"/>
         <image name="ic_calender" width="84.666664123535156" height="84.333335876464844"/>
-        <image name="ic_camp" width="84.666664123535156" height="84.333335876464844"/>
         <image name="ic_checkIn" width="61.666667938232422" height="61"/>
         <image name="ic_event" width="84.333335876464844" height="84.333335876464844"/>
         <image name="ic_hour" width="84.333335876464844" height="84.333335876464844"/>
+        <image name="ic_incoming" width="50" height="50"/>
         <image name="ic_message" width="84.666664123535156" height="83.666664123535156"/>
         <image name="person.circle" catalog="system" width="128" height="123"/>
         <image name="sideMenu" width="90" height="59"/>

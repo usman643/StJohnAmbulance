@@ -82,7 +82,7 @@ extension AchivementVC : UITableViewDelegate,UITableViewDataSource {
         
         if indexPath.row % 2 == 0{
             cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-//            cell..backgroundColor = UIColor.themePrimaryColor
+//            cell.backgroundColor = UIColor.themePrimaryColor
         }else{
             cell.backgroundColor = UIColor.viewLightColor
 //            cell.seperaterView.backgroundColor = UIColor.gray

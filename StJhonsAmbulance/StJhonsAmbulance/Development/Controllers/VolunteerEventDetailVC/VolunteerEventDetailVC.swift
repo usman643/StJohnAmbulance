@@ -19,6 +19,8 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
     var slides:[Any] = []
     var eventType :String?
     var eventId = ""
+    let currentDateTime = Date()
+    var isBottombtnEnable = false
     
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var lblEventName: UILabel!
@@ -77,7 +79,11 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
             self.lblEventDate.text = ""
         }
         self.eventId = self.scheduleData?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
-        
+        if DateFormatManager.shared.formatDate(date: Date()) > self.scheduleData?.sjavms_end ?? ""{
+            isBottombtnEnable = false
+        }else{
+            isBottombtnEnable = true
+        }
     }
     
     func setupAvailiableScreenData(){
@@ -94,7 +100,11 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         }
         
         self.eventId = self.availableData?.msnfp_engagementopportunityid ?? ""
-        
+        if DateFormatManager.shared.formatDate(date: Date()) > self.availableData?.msnfp_endingdate ?? ""{
+            isBottombtnEnable = false
+        }else{
+            isBottombtnEnable = true
+        }
     }
 
     @IBAction func backTapped(_ sender: Any) {
@@ -139,15 +149,16 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
     
     func reloadControllers(){
         self.pageController = PagingViewController(viewControllers: [])
-        let genForm = ShiftOptionVC.loadFromNib()
-        let detailInfo = VEventDetailVC.loadFromNib()
-        genForm.title = "Schedule"
-        genForm.eventId = self.eventId
-        viewControllers.append(genForm)
+        let shiftVC = ShiftOptionVC.loadFromNib()
+        let detailVC = VEventDetailVC.loadFromNib()
+        shiftVC.title = "Schedule"
+        shiftVC.isBottombtnEnable = self.isBottombtnEnable
+        shiftVC.eventId = self.eventId
+        viewControllers.append(shiftVC)
         
-        detailInfo.title = "Detail"
-        detailInfo.eventId = self.eventId
-        viewControllers.append(detailInfo)
+        detailVC.title = "Detail"
+        detailVC.eventId = self.eventId
+        viewControllers.append(detailVC)
         
         var option : PagingOptions = PagingOptions()
         option.borderColor = UIColor.separator

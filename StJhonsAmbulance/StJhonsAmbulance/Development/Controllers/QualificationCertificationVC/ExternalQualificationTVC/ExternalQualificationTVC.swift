@@ -46,10 +46,11 @@ class ExternalQualificationTVC: UITableViewCell {
     func setContent(cellModel: ExternalQualificationDataModel?){
 
         lblCertificateId.text = "\(cellModel?.sjavms_name ?? "")"
-        lblQualification.text = cellModel?.sjavms_Qualification?.sjavms_name ?? ""
+        lblQualification.text = cellModel?.sjavms_Qualification?.sjavms_type_value ?? ""
 //        lblAction.text = cellModel
         
-        lblType.text = cellModel?.sjavms_Qualification?.sjavms_type_value ?? ""
+        lblType.text = cellModel?.sjavms_Qualification?.sjavms_name ?? ""
+//        lblType.text = cellModel?.sjavms_Qualification?.sjavms_type_value ?? ""
         
         if let date = cellModel?.sjavms_issuedate {
             let start = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")

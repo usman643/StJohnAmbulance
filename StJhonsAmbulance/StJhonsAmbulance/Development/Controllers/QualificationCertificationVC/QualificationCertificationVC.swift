@@ -366,13 +366,13 @@ class QualificationCertificationVC: ENTALDBaseViewController {
                             }
                         }
                     }
-//                    for i in (0..<(self.SJAQualification?.count ?? 0)){
-//
-//                        let data = self.getQualificationType(self.SJAQualification?[i].sjavms_Qualification?.sjavms_type ?? 000)
-//
-//                        self.externalQualification?[i].sjavms_Qualification?.sjavms_type_value = data?.value
-//
-//                    }
+                    for i in (0..<(self.SJAQualification?.count ?? 0)){
+
+                        let data = self.getQualificationType(self.SJAQualification?[i].bdo_qualificationtype ?? 000)
+                        
+                        self.SJAQualification?[i].bdo_type_value = data?.value
+
+                    }
                     
                     
                     DispatchQueue.main.async {

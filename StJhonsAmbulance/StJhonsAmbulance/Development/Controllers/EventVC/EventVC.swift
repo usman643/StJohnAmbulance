@@ -883,13 +883,7 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "EventTVC", for: indexPath) as! EventTVC
             let rowModel = self.filterCurrentEventData?[indexPath.row]
-//            if indexPath.row % 2 == 0{
-//                cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-//                cell.seperaterView.backgroundColor = UIColor.themePrimary
-//            }else{
-//                cell.mainView.backgroundColor = UIColor.viewLightColor
-//                cell.seperaterView.backgroundColor = UIColor.gray
-//            }
+
             if indexPath.row % 2 == 0{
             
                 cell.seperaterView.backgroundColor = UIColor.themePrimaryColor
@@ -914,14 +908,7 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "EventTVC", for: indexPath) as! EventTVC
             let rowModel = self.filterUpcomingEventData?[indexPath.row]
-            
-//            if indexPath.row % 2 == 0{
-//                cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-//                cell.seperaterView.backgroundColor = UIColor.themePrimaryColor
-//            }else{
-//                cell.mainView.backgroundColor = UIColor.viewLightColor
-//                cell.seperaterView.backgroundColor = UIColor.gray
-//            }
+
             if indexPath.row % 2 == 0{
                 
                 cell.seperaterView.backgroundColor = UIColor.themePrimaryColor
@@ -930,9 +917,6 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
             }
             
             cell.mainView.backgroundColor = getEventColor(volunteerNum: rowModel?.msnfp_maximum ?? 0)
-            
-            
-           
             
             cell.lblEvent.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
             cell.lblLocation.text = rowModel?.msnfp_location ?? ""

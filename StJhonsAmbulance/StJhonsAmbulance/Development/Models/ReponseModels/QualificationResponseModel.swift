@@ -39,6 +39,7 @@ struct SJAQualificationResponseModel: Codable {
 struct SJAQualificationDataModel : Codable {
     
     let bdo_qualificationtype : Int?
+    var bdo_type_value : String?
     let bdo_expirationdate : String?
     let bdo_effectivedate : String?
     let _bdo_qualificationsid_value : String?
