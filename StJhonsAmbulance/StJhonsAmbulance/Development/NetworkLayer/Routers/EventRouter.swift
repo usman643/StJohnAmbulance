@@ -26,6 +26,8 @@ enum EventRouter : Router {
     case getEventParticipationCheck(params:[String:Any])
     case updateContactInfo(contactId:String, params:[String:Any])
     
+    case createEvent(params:[String:Any])
+    
     case simulate401
    
     var procedure: String {
@@ -47,7 +49,7 @@ enum EventRouter : Router {
         case .getEventClickShiftDetail : return "msnfp_publicengagementopportunities"
         case .getEventParticipationCheck : return "msnfp_participations"
         case .updateContactInfo(let contactId, _) : return "contacts(\(contactId))"
-            
+        case .createEvent : return "sjavms_eventrequests"
         case .simulate401: return "simulate-401"
         }
     }
@@ -88,6 +90,8 @@ enum EventRouter : Router {
             return params
         case .updateContactInfo(_, let params):
             return params
+        case .createEvent(let params):
+            return params
         default: return [:]
         }
         
@@ -106,6 +110,8 @@ enum EventRouter : Router {
             return HTTPMethodType.patch.rawValue
         case .updateContactInfo(_,_):
             return HTTPMethodType.patch.rawValue
+        case .createEvent:
+            return HTTPMethodType.post.rawValue
         default:
             break
         }
@@ -123,6 +129,8 @@ enum EventRouter : Router {
         case .pendingShiftUpdate(_,_):
             return .ENTJSONEncoding
         case .updateContactInfo(_,_):
+            return .ENTJSONEncoding
+        case .createEvent:
             return .ENTJSONEncoding
         default:
             break

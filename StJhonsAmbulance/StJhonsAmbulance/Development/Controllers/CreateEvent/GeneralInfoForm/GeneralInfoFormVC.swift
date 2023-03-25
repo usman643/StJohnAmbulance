@@ -49,11 +49,16 @@ class GeneralInfoFormVC: ENTALDBaseViewController {
     @IBOutlet weak var typeOfServiceBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
     
+    var delegate : CreateEventSegmentDelegate?
     
     var programData : [EventProgramDataModel]?
     var branchData : [EventBranchModel]?
     var councilData : [EventCouncilModel]?
     
+    
+    var selectedProgramData : EventProgramDataModel?
+    var selectedBranchData : EventBranchModel?
+    var selectedCouncilData : EventCouncilModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -186,6 +191,7 @@ class GeneralInfoFormVC: ENTALDBaseViewController {
             
             if let data = params as? EventProgramDataModel {
                 self.provinceBtn.setTitle("\(data.sjavms_Program?.sjavms_name ?? "")", for: .normal)
+                self.selectedProgramData = data
             }
         }
     }
@@ -194,6 +200,7 @@ class GeneralInfoFormVC: ENTALDBaseViewController {
             
             if let data = params as? EventBranchModel {
                 self.branchBtn.setTitle("\(data.sjavms_name ?? "")", for: .normal)
+                self.selectedBranchData = data
             }
         }
     }
@@ -202,9 +209,47 @@ class GeneralInfoFormVC: ENTALDBaseViewController {
             
             if let data = params as? EventCouncilModel {
                 self.typeOfServiceBtn.setTitle("\(data.sjavms_name ?? "")", for: .normal)
+                self.selectedCouncilData = data
             }
         }
     }
     @IBAction func nextBtnPressed(_ sender: UIButton) {
+        self.delegate?.onPressNext(params: self.getGeneralFieldsParam(), controller: self)
+    }
+    
+    func getGeneralFieldsParam() -> [String:Any]{
+        var params : [String:Any] = [:]
+        if let program = self.selectedProgramData, let id = program.sjavms_Program?.sjavms_programid {
+            params["[sjavms_program@odata.bind]"] = "/sjavms_program(\(id))"
+        }
+        
+        if let branch = self.selectedBranchData, let id = branch.sjavms_branchid {
+            params["[sjavms_branch@odata.bind]"] = "/sjavms_branchs(\(id))"
+        }
+        
+        if let council = self.selectedCouncilData, let id = council.sjavms_branchid {
+            params["[sjavms_council@odata.bind]"] = "/sjavms_councils(\(id))"
+        }
+        
+        if let group = ProcessUtils.shared.selectedUserGroup, let id = group.msnfp_groupId?.msnfp_groupid {
+            params["[sjavms_group@odata.bind]"] = "/sjavms_group(\(id))"
+        }
+        
+        params["sjavms_firstname"] = self.contactFirstNameTF.text ?? ""
+        params["sjavms_lastname"] = self.contactLastNameTF.text ?? ""
+        params["sjavms_name"] = self.eventNameTF.text ?? ""
+        params["sjavms_organization"] = self.organizerNameTF.text ?? ""
+        params["sjavms_email"] = self.emailTF.text ?? ""
+        params["sjavms_phone"] = self.primaryPhoneTF.text ?? ""
+        
+        params["sjavms_address1name"] = self.eventLocationNameTF.text ?? ""
+        params["sjavms_address1line1"] = self.street1TF.text ?? ""
+        params["sjavms_address1line2"] = self.street2TF.text ?? ""
+        params["sjavms_address1line3"] = self.street3TF.text ?? ""
+        params["sjavms_address1city"] = self.cityTF.text ?? ""
+        params["sjavms_address1stateprovince"] = self.provinceTF.text ?? ""
+        params["sjavms_address1zippostalcode"] = self.postalCodeTF.text ?? ""
+        
+        return params
     }
 }

@@ -8,6 +8,11 @@
 import UIKit
 import Parchment
 
+protocol CreateEventSegmentDelegate {
+    func onPressNext(params:[String:Any], controller:UIViewController)
+    func onPressSubmit(params:[String:Any])
+}
+
 class CreateEventFormVC: ENTALDBaseViewController, UIScrollViewDelegate {
     
     @IBOutlet var containerView: UIView!
@@ -43,6 +48,11 @@ class CreateEventFormVC: ENTALDBaseViewController, UIScrollViewDelegate {
         pageController.textColor = .black
         pageController.selectedTextColor = .themeSecondry
         pageController.collectionView.bounces = false
+        
+        pageController.menuInteraction = .none
+        pageController.contentInteraction = .none
+        
+        pageController.delegate = self
     }
     
     func addPagerControllerAsChildView(){
@@ -60,7 +70,9 @@ class CreateEventFormVC: ENTALDBaseViewController, UIScrollViewDelegate {
         let genForm = GeneralInfoFormVC.loadFromNib()
         let detailInfo = EventDetailInfoFormVC.loadFromNib()
         genForm.title = "GenInfo"
+        genForm.delegate = self
         detailInfo.title = "Detail"
+        detailInfo.delegate = self
         viewControllers.append(genForm)
         viewControllers.append(detailInfo)
         
@@ -95,7 +107,7 @@ class CreateEventFormVC: ENTALDBaseViewController, UIScrollViewDelegate {
     
 }
 
-extension CreateEventFormVC: PagingViewControllerDataSource {
+extension CreateEventFormVC: PagingViewControllerDataSource, PagingViewControllerDelegate, CreateEventSegmentDelegate {
 
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
         let title = viewControllers[index].title ?? ""
@@ -111,5 +123,48 @@ extension CreateEventFormVC: PagingViewControllerDataSource {
         return viewControllers.count
     }
     
+    func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) {
+        if let vc = startingViewController as? GeneralInfoFormVC, transitionSuccessful {
+            self.passParamsToDetailInfo(params: vc.getGeneralFieldsParam(), controller: vc)
+        }
+    }
+    
+    func onPressNext(params: [String : Any], controller: UIViewController) {
+        self.pageController.select(index: 1, animated: true)
+        self.passParamsToDetailInfo(params: params, controller: controller)
+    }
+    
+    func passParamsToDetailInfo(params: [String : Any], controller: UIViewController){
+        if let _ = controller as? GeneralInfoFormVC {
+            if let detailVc = self.viewControllers[1] as? EventDetailInfoFormVC {
+                detailVc.setGenInfoParams(params: params)
+            }
+        }
+    }
+    
+    func onPressSubmit(params: [String : Any]) {
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        ENTALDLibraryAPI.shared.createEventRequest(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result{
+            case .success:
+                break
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in
+                        self.navigationController?.popViewController(animated: true)
+                    })
+                }
+            }
+        }
+    }
     
 }
