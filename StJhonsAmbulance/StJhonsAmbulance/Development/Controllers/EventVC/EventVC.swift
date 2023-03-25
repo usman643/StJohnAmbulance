@@ -7,7 +7,12 @@
 
 import UIKit
 
-class EventVC: ENTALDBaseViewController, UITextFieldDelegate {
+protocol EventSummaryDelegate {
+    
+    func openViewSummaryScreen(eventId : String)
+}
+
+class EventVC: ENTALDBaseViewController, UITextFieldDelegate,EventSummaryDelegate {
     
     var currentEventData : [CurrentEventsModel]?
     var upcomingEventData : [CurrentEventsModel]?
@@ -292,7 +297,12 @@ class EventVC: ENTALDBaseViewController, UITextFieldDelegate {
         }
     }
     
-    
+    func openViewSummaryScreen(eventId : String){
+        ENTALDControllers.shared.showEventSummaryScreen(type: .ENTALDPUSH, from: self , dataObj: eventId) { params, controller in
+            
+        }
+        
+    }
     
     @IBAction func sideMenuTapped(_ sender: Any) {
         present(menu!, animated: true)
@@ -736,7 +746,8 @@ class EventVC: ENTALDBaseViewController, UITextFieldDelegate {
             
             ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(msnfp_groupid eq \(groupId)))",
 //            ParameterKeys.filter : "(statecode eq 0 and sjavms_adhocevent ne true and Microsoft.Dynamics.CRM.In(PropertyName='msnfp_engagementopportunitystatus',PropertyValues=['844060003','844060002']) and (Microsoft.Dynamics.CRM.Tomorrow(PropertyName='msnfp_startingdate') or Microsoft.Dynamics.CRM.NextXYears(PropertyName='msnfp_startingdate',PropertyValue=10))) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
-            ParameterKeys.filter : "(statecode eq 0 and sjavms_adhocevent ne true and Microsoft.Dynamics.CRM.Today(PropertyName='msnfp_startingdate') and Microsoft.Dynamics.CRM.In(PropertyName='msnfp_engagementopportunitystatus',PropertyValues=['844060003','844060002'])) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
+  
+            ParameterKeys.filter : "(statecode eq 0 and sjavms_adhocevent ne true and Microsoft.Dynamics.CRM.In(PropertyName='msnfp_engagementopportunitystatus',PropertyValues=['844060003','844060002']) and (Microsoft.Dynamics.CRM.Tomorrow(PropertyName='msnfp_startingdate') or Microsoft.Dynamics.CRM.NextXYears(PropertyName='msnfp_startingdate',PropertyValue=10))) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
             ParameterKeys.orderby : "msnfp_engagementopportunitytitle asc"
             
         ]
@@ -890,11 +901,10 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
             }else{
                 cell.seperaterView.backgroundColor = UIColor.gray
             }
-            
+            cell.delegate = self
+            cell.eventID  = rowModel?.msnfp_engagementopportunitytitle ?? ""
             cell.mainView.backgroundColor = getEventColor(volunteerNum: rowModel?.msnfp_maximum ?? 0)
-        
-           
-            
+
             cell.lblEvent.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
             cell.lblLocation.text = rowModel?.msnfp_location ?? ""
             cell.lblStart.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
@@ -915,7 +925,8 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
             }else{
                 cell.seperaterView.backgroundColor = UIColor.gray
             }
-            
+            cell.delegate = self
+            cell.eventID  = rowModel?.msnfp_engagementopportunitytitle ?? ""
             cell.mainView.backgroundColor = getEventColor(volunteerNum: rowModel?.msnfp_maximum ?? 0)
             
             cell.lblEvent.text = rowModel?.msnfp_engagementopportunitytitle ?? ""

@@ -9,6 +9,8 @@ import UIKit
 
 class EventTVC: UITableViewCell {
 
+    public var delegate : EventSummaryDelegate?
+    var eventID = ""
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var lblEvent: UILabel!
     @IBOutlet weak var lblLocation: UILabel!
@@ -17,8 +19,10 @@ class EventTVC: UITableViewCell {
     @IBOutlet weak var lblNeeded: UILabel!
     @IBOutlet weak var seperaterView: UIView!
     
+    @IBOutlet weak var btnView: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         deocrateUI()
     }
     
@@ -29,12 +33,14 @@ class EventTVC: UITableViewCell {
         lblStart.font = UIFont.RegularFont(11)
         lblEnd.font = UIFont.RegularFont(11)
         lblNeeded.font = UIFont.RegularFont(11)
+        btnView.titleLabel?.font = UIFont.RegularFont(11)
         
         lblEvent.textColor = UIColor.textBlackColor
         lblLocation.textColor = UIColor.textBlackColor
         lblStart.textColor = UIColor.textBlackColor
         lblEnd.textColor = UIColor.textBlackColor
         lblNeeded.textColor = UIColor.textBlackColor
+        btnView.setTitleColor(UIColor.textBlackColor, for: .normal)
     }
     
 
@@ -42,6 +48,10 @@ class EventTVC: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    @IBAction func openEventSummary(_ sender: Any) {
+        delegate?.openViewSummaryScreen(eventId: self.eventID)
     }
     
 }

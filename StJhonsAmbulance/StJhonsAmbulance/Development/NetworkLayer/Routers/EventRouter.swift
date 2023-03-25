@@ -23,6 +23,7 @@ enum EventRouter : Router {
     case getContactInfo(params:[String:Any])
     case getEventClickShiftOption(params:[String:Any])
     case getEventClickShiftDetail(params:[String:Any])
+    case getEventParticipationCheck(params:[String:Any])
     case updateContactInfo(contactId:String, params:[String:Any])
     
     case simulate401
@@ -44,6 +45,7 @@ enum EventRouter : Router {
         case .getCouncil : return "sjavms_vmscouncils"
         case .getEventClickShiftOption : return "msnfp_engagementopportunityschedules"
         case .getEventClickShiftDetail : return "msnfp_publicengagementopportunities"
+        case .getEventParticipationCheck : return "msnfp_participations"
         case .updateContactInfo(let contactId, _) : return "contacts(\(contactId))"
             
         case .simulate401: return "simulate-401"
@@ -81,6 +83,8 @@ enum EventRouter : Router {
         case .getEventClickShiftOption(let params):
             return params
         case .getEventClickShiftDetail(let params):
+            return params
+        case .getEventParticipationCheck(let params):
             return params
         case .updateContactInfo(_, let params):
             return params

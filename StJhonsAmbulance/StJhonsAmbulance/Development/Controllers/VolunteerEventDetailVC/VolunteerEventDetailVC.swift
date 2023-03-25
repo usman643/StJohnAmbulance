@@ -16,6 +16,7 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
     var viewControllers: [UIViewController] = []
     var availableData : AvailableEventModel?
     var scheduleData : ScheduleModelThree?
+    var participationData : VolunteerEventParticipationCheckModel?
     var slides:[Any] = []
     var eventType :String?
     var eventId = ""
@@ -45,7 +46,7 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
             availableData = dataModel as? AvailableEventModel
             self.setupAvailiableScreenData()
         }
-
+        getEventParitionCheck()
         self.reloadControllers()
     }
     
@@ -168,6 +169,52 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         
         self.segmentsConfigurations()
     }
+    
+    func getEventParitionCheck() {
+        
+        let params : [String:Any] = [
+            ParameterKeys.filter : "(_msnfp_engagementopportunityid_value eq \(self.eventId ) and statecode eq 0)"
+        ]
+        
+        self.getEventParitionCheckData(params: params)
+        
+    }
+    
+    
+    fileprivate func getEventParitionCheckData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.getEventParticipationCheck(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result{
+            case .success(value: let response):
+                
+                if let option = response.value {
+                    self.participationData = option[0]
+                    
+                    DispatchQueue.main.async {
+                        
+//                        self.tableView.reloadData()
+                    }
+                    
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
 
     
 }
@@ -187,9 +234,6 @@ extension VolunteerEventDetailVC: PagingViewControllerDataSource {
     func numberOfViewControllers(in _: PagingViewController) -> Int {
         return viewControllers.count
     }
-    
-    
-    
     
 }
 

@@ -236,6 +236,11 @@ class ENTALDLibraryAPI {
         let router = EventRouter.getEventClickShiftDetail(params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
+        
+    func getEventParticipationCheck(params:[String : Any],  _ completion:@escaping((ApiResult<VolunteerEventParticipationCheckResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getEventParticipationCheck(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
     
 
     

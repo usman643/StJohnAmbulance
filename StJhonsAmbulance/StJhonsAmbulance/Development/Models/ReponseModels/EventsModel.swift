@@ -39,7 +39,7 @@ struct CurrentEventsModel: Codable {
     let msnfp_maximum : Int?
     let msnfp_minimum : Int?
     let _sjavms_contact_value : String?
-    let sjavms_maxparticipants : String?
+    let sjavms_maxparticipants : Int?
     let sjavms_msnfp_engagementopportunity_msnfp_group : CurrentEventGroupModel?
     
 }
@@ -158,3 +158,45 @@ struct VolunteerEventClickOptionModel : Codable {
     let msnfp_engagementopportunityschedule : String?
     
 }
+
+
+struct  VolunteerEventParticipationCheckResponseModel: Codable{
+    let value : [VolunteerEventParticipationCheckModel]?
+    
+}
+
+struct VolunteerEventParticipationCheckModel : Codable {
+    
+    let statecode : Int?
+    let createdon : String?
+    let msnfp_participationid : String?
+    let _ownerid_value : String?
+    let _msnfp_contactid_value : String?
+    let modifiedon : String?
+    let msnfp_hours : Float?
+    let versionnumber : Int?
+    let msnfp_status : Int?
+    let timezoneruleversionnumber : Int?
+    let statuscode : Int?
+    let _modifiedby_value : String?
+    let _modifiedonbehalfby_value : String?
+    let sjavms_totalpendinghours : Float?
+    let msnfp_participationtitle : String?
+    let _createdby_value : String?
+    let _owningbusinessunit_value : String?
+    let _owninguser_value : String?
+    let msnfp_enddate : String?
+    let _msnfp_engagementopportunityid_value : String?
+    let msnfp_startdate : String?
+    
+//    let msnfp_description : String?
+//    let _owningteam_value : String?
+//    let overriddencreatedon : String?
+//    let _msnfp_volunteergroupid_value : String?
+//    let importsequencenumber : String?
+//    let _msnfp_participationtypeid_value : String?
+//    let _createdonbehalfby_value : String?
+//    let utcconversiontimezonecode : String?
+    
+}
+

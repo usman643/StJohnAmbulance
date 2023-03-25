@@ -32,35 +32,46 @@
                                 <rect key="frame" x="5" y="0.0" width="315" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7VN-Bm-BT8">
-                                        <rect key="frame" x="0.0" y="0.0" width="59" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="48.333333333333336" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Y8-Mj-jCb">
-                                        <rect key="frame" x="64" y="0.0" width="59" height="30"/>
+                                        <rect key="frame" x="53.333333333333329" y="0.0" width="48.333333333333329" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JCQ-0Z-J43">
-                                        <rect key="frame" x="128" y="0.0" width="59" height="30"/>
+                                        <rect key="frame" x="106.66666666666667" y="0.0" width="48.333333333333329" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltx-qq-IS0">
-                                        <rect key="frame" x="192" y="0.0" width="59" height="30"/>
+                                        <rect key="frame" x="160" y="0.0" width="48.333333333333343" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Needed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUU-sE-Pwx">
-                                        <rect key="frame" x="256" y="0.0" width="59" height="30"/>
+                                        <rect key="frame" x="213.33333333333334" y="0.0" width="48.333333333333343" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zhY-3Z-YKW">
+                                        <rect key="frame" x="266.66666666666669" y="0.0" width="48.333333333333314" height="30"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="View">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="openEventSummary:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="24m-O2-FPq"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="ADn-TF-mfB"/>
@@ -87,6 +98,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="btnView" destination="zhY-3Z-YKW" id="OMV-go-Rbc"/>
                 <outlet property="lblEnd" destination="ltx-qq-IS0" id="jDR-UM-Qbd"/>
                 <outlet property="lblEvent" destination="7VN-Bm-BT8" id="QCu-vC-f18"/>
                 <outlet property="lblLocation" destination="3Y8-Mj-jCb" id="ZP6-qO-ct6"/>
