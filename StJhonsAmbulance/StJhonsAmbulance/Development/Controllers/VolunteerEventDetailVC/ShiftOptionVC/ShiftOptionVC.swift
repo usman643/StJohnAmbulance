@@ -223,6 +223,14 @@ class ShiftOptionVC: ENTALDBaseViewController {
         
     }
     
+    func showEmptyView(tableVw : UITableView){
+        DispatchQueue.main.async {
+            let view = EmptyView.instanceFromNib()
+            view.frame = tableVw.frame
+            tableVw.addSubview(view)
+        }
+    }
+    
  
     func getEventOptions() {
         
@@ -251,11 +259,23 @@ class ShiftOptionVC: ENTALDBaseViewController {
                 if let option = response.value {
                     self.eventOptions = option
                     
+                    if (self.eventOptions?.count == 0 || self.eventOptions?.count == nil){
+                        self.showEmptyView(tableVw: self.tableView)
+                    }else{
+                        
+                        DispatchQueue.main.async {
+                            for subview in self.tableView.subviews {
+                                subview.removeFromSuperview()
+                            }
+                        }
+                    }
                     DispatchQueue.main.async {
                         
                         self.tableView.reloadData()
                     }
                     
+                }else{
+                    self.showEmptyView(tableVw: self.tableView)
                 }
                 
             case .error(let error, let errorResponse):

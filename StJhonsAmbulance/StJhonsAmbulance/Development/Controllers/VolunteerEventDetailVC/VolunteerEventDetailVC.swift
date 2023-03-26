@@ -16,7 +16,9 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
     var viewControllers: [UIViewController] = []
     var availableData : AvailableEventModel?
     var scheduleData : ScheduleModelThree?
-    var participationData : VolunteerEventParticipationCheckModel?
+    var participationData : [VolunteerEventParticipationCheckModel]?
+    let contactId = UserDefaults.standard.contactIdToken ?? ""
+    var isUserParticipate = false
     var slides:[Any] = []
     var eventType :String?
     var eventId = ""
@@ -32,6 +34,7 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var lblDesc: UILabel!
     @IBOutlet var containerView: UIView!
+    @IBOutlet weak var closeImg: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +65,7 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         lblEventDate.font = UIFont.BoldFont(14)
         lblEventLocation.font = UIFont.BoldFont(14)
         lblDesc.font = UIFont.BoldFont(14)
-        
+        closeImg.isHidden = true
         
         
         
@@ -85,6 +88,12 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         }else{
             isBottombtnEnable = true
         }
+        
+        if self.scheduleData?.msnfp_schedulestatus == 335940003 {
+            self.lblDesc.text = "Cancelled"
+            self.closeImg.isHidden = false
+            self.btnCloseEvent.isHidden = true
+        }
     }
     
     func setupAvailiableScreenData(){
@@ -105,6 +114,12 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
             isBottombtnEnable = false
         }else{
             isBottombtnEnable = true
+        }
+        
+        if self.availableData?.msnfp_engagementopportunitystatus == 335940003 {
+            self.lblDesc.text = "Cancelled"
+            self.closeImg.isHidden = false
+            self.btnCloseEvent.isHidden = true
         }
     }
 
@@ -194,10 +209,23 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
             case .success(value: let response):
                 
                 if let option = response.value {
-                    self.participationData = option[0]
-                    
+                    self.participationData = option
+                    let modelData = self.participationData?.filter({$0._msnfp_contactid_value == self.contactId}).first
+                    if modelData != nil {
+                        self.isUserParticipate = true
+                    }
                     DispatchQueue.main.async {
-                        
+                        if (DateFormatManager.shared.formatDate(date: Date()) > self.availableData?.msnfp_endingdate ?? "" && self.isUserParticipate == false){
+                            self.lblDesc.text = "Missed"
+                            self.closeImg.isHidden = false
+                            self.btnCloseEvent.isHidden = true
+                        }else if (DateFormatManager.shared.formatDate(date: Date()) > self.self.scheduleData?.sjavms_end ?? "" && self.isUserParticipate == false){
+                            self.lblDesc.text = "Missed"
+                            self.closeImg.isHidden = false
+                            self.btnCloseEvent.isHidden = true
+                        }else{
+                            self.closeImg.isHidden = true
+                        }
 //                        self.tableView.reloadData()
                     }
                     

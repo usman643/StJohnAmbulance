@@ -12,7 +12,7 @@ class EventSummaryVC: ENTALDBaseViewController, UIScrollViewDelegate{
     
     var pageController = PagingViewController(viewControllers: [])
     var viewControllers: [UIViewController] = []
-    var eventId = ""
+    var eventData : CurrentEventsModel?
     var slides:[Any] = []
     
     @IBOutlet var containerView: UIView!
@@ -27,8 +27,9 @@ class EventSummaryVC: ENTALDBaseViewController, UIScrollViewDelegate{
         self.addPagerControllerAsChildView()
         pageController.dataSource = self
         pageController.menuHorizontalAlignment = .center
-        pageController.menuItemSize = .sizeToFit(minWidth: 70, height: 40)
-        pageController.menuBackgroundColor = .systemGray5
+        pageController.menuItemLabelSpacing = 0
+        pageController.menuItemSize = .sizeToFit(minWidth: 90, height: 40)
+        pageController.menuBackgroundColor = UIColor.hexString(hex: "e6f2eb")
         pageController.indicatorColor = UIColor.themePrimary
         pageController.indicatorOptions = .visible(height: 3, zIndex: 0, spacing: .zero, insets: .zero)
         let font:UIFont = UIFont.BoldFont(12)
@@ -51,7 +52,7 @@ class EventSummaryVC: ENTALDBaseViewController, UIScrollViewDelegate{
     
     
     func reloadControllers(){
-        self.eventId = self.dataModel as? String ?? ""
+        self.eventData = self.dataModel as? CurrentEventsModel
         self.pageController = PagingViewController(viewControllers: [])
         let eventSummary = EventSummaryScreenVC.loadFromNib()
         let eventDesc = EventDescriptionVC.loadFromNib()
@@ -71,14 +72,14 @@ class EventSummaryVC: ENTALDBaseViewController, UIScrollViewDelegate{
         eventNote.title = "Note"
         eventAudit.title = "Audit"
         
-        eventSummary.eventId = self.eventId
-        eventDesc.eventId = self.eventId
-        eventLocation.eventId = self.eventId
-        eventSchedule.eventId = self.eventId
-        eventMessage.eventId = self.eventId
-        eventHour.eventId = self.eventId
-        eventNote.eventId = self.eventId
-        eventAudit.eventId = self.eventId
+        eventSummary.eventData = self.eventData
+        eventDesc.eventData = self.eventData
+        eventLocation.eventData = self.eventData
+        eventSchedule.eventData = self.eventData
+        eventMessage.eventData = self.eventData
+        eventHour.eventData = self.eventData
+        eventNote.eventData = self.eventData
+        eventAudit.eventData = self.eventData
         
         viewControllers.append(eventSummary)
         viewControllers.append(eventDesc)

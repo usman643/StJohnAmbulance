@@ -133,27 +133,11 @@ struct PendingApprovalGroupEventRequestModel :Codable {
 
 
 struct UnpublishedEventsResponseModel : Codable{
-    let context: String?
     let value: [UnpublishedEventsModel]?
-    
-    enum CodingKeys: String, CodingKey {
-        case context = "@odata.context"
-        case value
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.context = try container.decodeIfPresent(String.self, forKey: .context)
-        self.value = try container.decodeIfPresent([UnpublishedEventsModel].self, forKey: .value)
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        
-    }
 }
 
 struct UnpublishedEventsModel: Codable {
-    let odataEtag : String?
+
     let msnfp_engagementopportunitytitle : String?
     let msnfp_location : String?
     let msnfp_minimum : Int?
@@ -163,9 +147,10 @@ struct UnpublishedEventsModel: Codable {
     let _sjavms_program_value : String?
     let msnfp_engagementopportunityid : String?
     let msnfp_maximum : Int?
+    let _sjavms_contact_value : String?
+    let sjavms_maxparticipants : Int?
     let sjavms_msnfp_engagementopportunity_msnfp_group : [UnpublishedEventsGroupModel]?
     
-  
     func getStatus()->String?{
         let status = self.msnfp_engagementopportunitystatus
         switch status {
@@ -192,34 +177,34 @@ struct UnpublishedEventsModel: Codable {
 
 struct UnpublishedEventsGroupModel : Codable {
     
-    let odataEtag : String?
+//    let odataEtag : String?
 //    let _sjavms_owningteam_value : String?
-    let _sjavms_program_value : String?
-    let modifiedon : String?
-    let _owninguser_value : String?
-    let _sjavms_groupid_value : String?
-    let sjavms_emergencymanagement : Bool?
+//    let _sjavms_program_value : String?
+//    let modifiedon : String?
+//    let _owninguser_value : String?
+//    let _sjavms_groupid_value : String?
+//    let sjavms_emergencymanagement : Bool?
 //    let overriddencreatedon : String?
-    let _sjavms_roletype_value : String?
+//    let _sjavms_roletype_value : String?
 //    let importsequencenumber : String?
 //    let _modifiedonbehalfby_value : String?
-    let msnfp_groupname : String?
-    let msnfp_groupid : String?
-    let statecode : Int?
-    let _sjavms_branch_value : String?
-    let versionnumber : Int?
+//    let msnfp_groupname : String?
+//    let msnfp_groupid : String?
+//    let statecode : Int?
+//    let _sjavms_branch_value : String?
+//    let versionnumber : Int?
 //    let utcconversiontimezonecode : String?
-//    let _createdonbehalfby_value : String?
+////    let _createdonbehalfby_value : String?
 //    let msnfp_description : String?
-    let _modifiedby_value : String?
-    let createdon : String?
-    let _owningbusinessunit_value : String?
-    let msnfp_grouptype : Int?
-    let sjavms_unitnumber : String?
-    let statuscode : Int?
+//    let _modifiedby_value : String?
+//    let createdon : String?
+//    let _owningbusinessunit_value : String?
+//    let msnfp_grouptype : Int?
+//    let sjavms_unitnumber : String?
+//    let statuscode : Int?
 //    let _owningteam_value : String?
-    let _createdby_value : String?
-    let _ownerid_value : String?
+//    let _createdby_value : String?
+//    let _ownerid_value : String?
 //    let timezoneruleversionnumber : String?
     
     

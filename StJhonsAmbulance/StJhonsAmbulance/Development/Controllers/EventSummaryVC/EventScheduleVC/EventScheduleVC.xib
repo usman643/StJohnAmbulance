@@ -27,7 +27,14 @@
                 <outlet property="btnSubmit" destination="2dM-f3-x5T" id="zrq-q2-VYt"/>
                 <outlet property="lblMultidayEvent" destination="YFx-d1-Qcy" id="6gj-NA-d9k"/>
                 <outlet property="lblTitle" destination="aGi-8a-8R7" id="cdu-Dv-Hbv"/>
+                <outlet property="maxDailyAttendance" destination="a42-3i-EJM" id="E7j-BA-oMd"/>
+                <outlet property="maxVolunteer" destination="9rr-ay-afR" id="oDZ-yC-kU3"/>
+                <outlet property="minVolunteer" destination="28N-Jl-38A" id="nRF-K8-elc"/>
                 <outlet property="tableView" destination="jg2-ml-067" id="v09-5T-Ov4"/>
+                <outlet property="txtEndDate" destination="vvf-P3-FJT" id="09h-3i-JeC"/>
+                <outlet property="txtEndTime" destination="H55-SP-lo1" id="I0f-kB-v8e"/>
+                <outlet property="txtStartDate" destination="6zX-Wk-eLr" id="dT2-rQ-wWn"/>
+                <outlet property="txtStartTime" destination="whK-RV-Nnu" id="5bZ-9M-Vqk"/>
                 <outlet property="view" destination="rcR-jQ-CrE" id="eat-02-1lX"/>
                 <outletCollection property="lblSectionTitle" destination="6Yf-bD-zkm" collectionClass="NSMutableArray" id="QsN-Ts-aGJ"/>
                 <outletCollection property="lblSectionTitle" destination="FGt-by-ewB" collectionClass="NSMutableArray" id="247-QQ-Ezd"/>
@@ -68,13 +75,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Hw-ln-F06">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="1100"/>
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="1000"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xRq-cr-Lll">
                                     <rect key="frame" x="12" y="12" width="369" height="50"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Schedule" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGi-8a-8R7">
-                                            <rect key="frame" x="0.0" y="18" width="369" height="28"/>
+                                            <rect key="frame" x="0.0" y="16" width="369" height="30"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="24"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -117,6 +124,9 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="351" height="35"/>
                                                     <color key="backgroundColor" name="PrimaryGreen"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <connections>
+                                                        <action selector="eventStatusUpdate:" destination="-1" eventType="touchUpInside" id="EH0-U4-Yd4"/>
+                                                    </connections>
                                                 </button>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="QIP-UV-WLl">
                                                     <rect key="frame" x="321" y="13.999999999999988" width="18" height="8.0000000000000018"/>
@@ -193,11 +203,6 @@
                                                                                 <constraint firstAttribute="bottom" secondItem="6zX-Wk-eLr" secondAttribute="bottom" id="c7P-y3-NVF"/>
                                                                                 <constraint firstItem="6zX-Wk-eLr" firstAttribute="top" secondItem="OY8-I6-6X2" secondAttribute="top" id="ibP-Cu-2lY"/>
                                                                             </constraints>
-                                                                            <userDefinedRuntimeAttributes>
-                                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                                    <real key="value" value="5"/>
-                                                                                </userDefinedRuntimeAttribute>
-                                                                            </userDefinedRuntimeAttributes>
                                                                         </view>
                                                                     </subviews>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -237,11 +242,6 @@
                                                                                 <constraint firstAttribute="trailing" secondItem="whK-RV-Nnu" secondAttribute="trailing" id="vbh-Dh-j4T"/>
                                                                                 <constraint firstItem="whK-RV-Nnu" firstAttribute="top" secondItem="7Ru-dn-dqx" secondAttribute="top" id="x0h-vi-F8w"/>
                                                                             </constraints>
-                                                                            <userDefinedRuntimeAttributes>
-                                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                                    <real key="value" value="5"/>
-                                                                                </userDefinedRuntimeAttribute>
-                                                                            </userDefinedRuntimeAttributes>
                                                                         </view>
                                                                     </subviews>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -301,7 +301,7 @@
                                                                             </constraints>
                                                                             <userDefinedRuntimeAttributes>
                                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                                    <real key="value" value="5"/>
+                                                                                    <real key="value" value="0.0"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                             </userDefinedRuntimeAttributes>
                                                                         </view>
@@ -345,7 +345,7 @@
                                                                             </constraints>
                                                                             <userDefinedRuntimeAttributes>
                                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                                    <real key="value" value="5"/>
+                                                                                    <real key="value" value="0.0"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                             </userDefinedRuntimeAttributes>
                                                                         </view>
@@ -405,7 +405,7 @@
                                     </constraints>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2dM-f3-x5T">
-                                    <rect key="frame" x="40" y="1026" width="313" height="50"/>
+                                    <rect key="frame" x="40" y="926" width="313" height="50"/>
                                     <color key="backgroundColor" name="themePrimary"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="HF6-3h-5vw"/>
@@ -795,7 +795,7 @@
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                    <real key="value" value="5"/>
+                                                                    <real key="value" value="0.0"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
@@ -837,11 +837,6 @@
                                                                 <constraint firstItem="a42-3i-EJM" firstAttribute="leading" secondItem="VeB-5A-STV" secondAttribute="leading" id="keh-bX-3bV"/>
                                                                 <constraint firstAttribute="trailing" secondItem="a42-3i-EJM" secondAttribute="trailing" id="oPG-Zy-Lwv"/>
                                                             </constraints>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                    <real key="value" value="5"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
                                                         </view>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -881,11 +876,6 @@
                                                                 <constraint firstAttribute="bottom" secondItem="9rr-ay-afR" secondAttribute="bottom" id="ulk-l7-doj"/>
                                                                 <constraint firstItem="9rr-ay-afR" firstAttribute="top" secondItem="nBw-0M-mXp" secondAttribute="top" id="vaj-CQ-YZb"/>
                                                             </constraints>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                    <real key="value" value="5"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
                                                         </view>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -911,10 +901,10 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1QW-E2-sb5">
-                                    <rect key="frame" x="16" y="857.33333333333337" width="361" height="110"/>
+                                    <rect key="frame" x="16" y="857.33333333333337" width="361" height="116"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="I0b-3L-hr5">
-                                            <rect key="frame" x="0.0" y="0.0" width="361" height="110"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="I0b-3L-hr5">
+                                            <rect key="frame" x="0.0" y="0.0" width="361" height="116"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dbr-Kt-ZhD">
                                                     <rect key="frame" x="0.0" y="0.0" width="361" height="50"/>
@@ -986,7 +976,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="tKs-3b-smW">
-                                                    <rect key="frame" x="0.0" y="60" width="361" height="50"/>
+                                                    <rect key="frame" x="0.0" y="66" width="361" height="50"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yFo-mA-Gf8">
                                                             <rect key="frame" x="0.0" y="0.0" width="174.66666666666666" height="50"/>
@@ -1105,7 +1095,7 @@
                                 <constraint firstItem="xRq-cr-Lll" firstAttribute="top" secondItem="5Hw-ln-F06" secondAttribute="top" constant="12" id="orv-CN-D3d"/>
                                 <constraint firstAttribute="trailing" secondItem="xRq-cr-Lll" secondAttribute="trailing" constant="12" id="rvb-XN-bHK"/>
                                 <constraint firstItem="QWD-Ex-uno" firstAttribute="leading" secondItem="FGt-by-ewB" secondAttribute="trailing" constant="5" id="siU-ZY-xMz"/>
-                                <constraint firstAttribute="height" constant="1100" id="ypn-KE-Uzy"/>
+                                <constraint firstAttribute="height" constant="1000" id="ypn-KE-Uzy"/>
                             </constraints>
                         </view>
                     </subviews>

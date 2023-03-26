@@ -14,7 +14,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
     
     var pendingShiftData : PendingShiftModelTwo?
     var pendingEventApprovalData : PendingApprovalEventsModel?
-    var unpublishEventData : UnpublishedEventsModel?
+    var unpublishEventData : CurrentEventsModel?
     
     var dataVol : [String:Any] = [:]
     var filteredData : [String:Any] = [:]

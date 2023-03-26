@@ -9,7 +9,7 @@ import UIKit
 
 class EventAuditVC:ENTALDBaseViewController {
     
-    var eventId :String?
+    var eventData : CurrentEventsModel?
     
     @IBOutlet weak var lbltitle: UILabel!
     @IBOutlet weak var lblSectionHeading: UILabel!
@@ -61,4 +61,7 @@ extension EventAuditVC : UITableViewDelegate, UITableViewDataSource{
         
         return cell
     }
+    
+    
+    
 }

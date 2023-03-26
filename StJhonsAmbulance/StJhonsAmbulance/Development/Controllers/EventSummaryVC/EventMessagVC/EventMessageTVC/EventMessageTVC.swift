@@ -44,4 +44,14 @@ class EventMessageTVC: UITableViewCell {
         
     }
     
+    func setContent(rowModel: MessageModel?){
+        
+//        lblSubject.text = rowModel?.
+//        lblDesc.text = rowModel?.
+//        lblStatus.text = rowModel?.
+//        lblSent.text = rowModel?.
+//        lblModified.text = rowModel?.
+        
+    }
+    
 }

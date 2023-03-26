@@ -11,6 +11,8 @@ class PendingEventTVC: UITableViewCell {
     
     public var delegate: updatePendingEventStatusDelegate?
     var eventId : String?
+    var eventData : CurrentEventsModel?
+    var isFromUnpublish : Bool?
 
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var lblName: UILabel!
@@ -49,6 +51,10 @@ class PendingEventTVC: UITableViewCell {
     
     
     @IBAction func changeStatusTapped(_ sender: Any) {
+        if isFromUnpublish == true {
+            delegate?.openViewSummaryScreen(eventdata: self.eventData!)
+            return
+        }
         if eventId != nil && eventId != ""{
             delegate?.updateSiglePendingEventStatus(eventId: self.eventId ?? "")
         }

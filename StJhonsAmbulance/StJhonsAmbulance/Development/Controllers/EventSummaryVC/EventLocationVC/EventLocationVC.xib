@@ -23,6 +23,13 @@
                 <outlet property="btnStatusView" destination="47g-Hm-cfz" id="t23-KT-E0S"/>
                 <outlet property="btnSubmit" destination="9Wx-Hi-Te7" id="mbr-A0-dt1"/>
                 <outlet property="lblTitle" destination="CLw-Be-JFY" id="II2-tk-bA7"/>
+                <outlet property="txtCity" destination="02m-aa-q8R" id="uUi-0k-iFF"/>
+                <outlet property="txtLocationContactName" destination="jX6-fX-gl8" id="YVi-nX-LcD"/>
+                <outlet property="txtPostalCode" destination="ttX-kg-PWK" id="4zl-qP-iYZ"/>
+                <outlet property="txtProvince" destination="gZw-Xq-69R" id="qWd-Hm-0AX"/>
+                <outlet property="txtStreet1" destination="SzQ-f5-bfA" id="j6n-GZ-c65"/>
+                <outlet property="txtStreet2" destination="deX-88-CHD" id="Q5u-st-Q0X"/>
+                <outlet property="txtStreet3" destination="SeI-5h-Pt7" id="fOf-44-gRX"/>
                 <outlet property="view" destination="809-Vr-Mr0" id="nsg-KB-CSH"/>
                 <outletCollection property="lblSectionHeading" destination="7B3-vw-Czh" collectionClass="NSMutableArray" id="EqD-9P-K0L"/>
                 <outletCollection property="lblSectionHeading" destination="i2d-g0-xu2" collectionClass="NSMutableArray" id="QhS-dF-VmT"/>
@@ -234,7 +241,7 @@
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                    <real key="value" value="5"/>
+                                                                    <real key="value" value="0.0"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
@@ -278,7 +285,7 @@
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                    <real key="value" value="5"/>
+                                                                    <real key="value" value="0.0"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
@@ -322,7 +329,7 @@
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                    <real key="value" value="5"/>
+                                                                    <real key="value" value="0.0"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
@@ -366,7 +373,7 @@
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                    <real key="value" value="5"/>
+                                                                    <real key="value" value="0.0"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
@@ -410,7 +417,7 @@
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                    <real key="value" value="5"/>
+                                                                    <real key="value" value="0.0"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
@@ -454,7 +461,7 @@
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                    <real key="value" value="5"/>
+                                                                    <real key="value" value="0.0"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
@@ -554,7 +561,7 @@
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                    <real key="value" value="5"/>
+                                                    <real key="value" value="0.0"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </view>

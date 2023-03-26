@@ -458,6 +458,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                         }
                     }
                     DispatchQueue.main.async {
+                        self.pendingShiftData = self.pendingShiftData?.filter({$0.msnfp_schedulestatus == 335940000})
                         self.filterByName()
                         self.tableView.reloadData()
                     }

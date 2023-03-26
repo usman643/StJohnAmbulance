@@ -9,7 +9,7 @@ import UIKit
 
 protocol EventSummaryDelegate {
     
-    func openViewSummaryScreen(eventId : String)
+    func openViewSummaryScreen(eventdata : CurrentEventsModel)
 }
 
 class EventVC: ENTALDBaseViewController, UITextFieldDelegate,EventSummaryDelegate {
@@ -297,8 +297,9 @@ class EventVC: ENTALDBaseViewController, UITextFieldDelegate,EventSummaryDelegat
         }
     }
     
-    func openViewSummaryScreen(eventId : String){
-        ENTALDControllers.shared.showEventSummaryScreen(type: .ENTALDPUSH, from: self , dataObj: eventId) { params, controller in
+    func openViewSummaryScreen(eventdata : CurrentEventsModel){
+        
+        ENTALDControllers.shared.showEventSummaryScreen(type: .ENTALDPUSH, from: self , dataObj: eventdata) { params, controller in
             
         }
         
@@ -902,7 +903,7 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
                 cell.seperaterView.backgroundColor = UIColor.gray
             }
             cell.delegate = self
-            cell.eventID  = rowModel?.msnfp_engagementopportunitytitle ?? ""
+            cell.eventdata  = rowModel
             cell.mainView.backgroundColor = getEventColor(volunteerNum: rowModel?.msnfp_maximum ?? 0)
 
             cell.lblEvent.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
@@ -926,7 +927,7 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
                 cell.seperaterView.backgroundColor = UIColor.gray
             }
             cell.delegate = self
-            cell.eventID  = rowModel?.msnfp_engagementopportunitytitle ?? ""
+            cell.eventdata  = rowModel
             cell.mainView.backgroundColor = getEventColor(volunteerNum: rowModel?.msnfp_maximum ?? 0)
             
             cell.lblEvent.text = rowModel?.msnfp_engagementopportunitytitle ?? ""

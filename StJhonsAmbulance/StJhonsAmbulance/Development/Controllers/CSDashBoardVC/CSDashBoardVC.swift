@@ -185,10 +185,10 @@ class CSDashBoardVC: ENTALDBaseViewController{
     
     func getLatestUpcomingEvent(){
         guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
-        guard let currentDate = DateFormatManager.shared.getCurrentDateWithFormat(format: "dd/MM/yyyy") else {return}
+        guard let currentDate = DateFormatManager.shared.getCurrentDateWithFormat(format: "yyyy/MM/dd") else {return}
         let params : [String:Any] = [
             
-            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_minimum,msnfp_maximum,msnfp_endingdate,msnfp_startingdate,msnfp_engagementopportunityid,_sjavms_contact_value,_sjavms_program_value",
+            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_minimum,msnfp_maximum,msnfp_endingdate,msnfp_startingdate,msnfp_engagementopportunityid,_sjavms_contact_value",
             ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(msnfp_groupid eq \(groupId)))",
             ParameterKeys.filter : "(statecode eq 0 and Microsoft.Dynamics.CRM.OnOrAfter(PropertyName='msnfp_endingdate',PropertyValue='\(currentDate)') and Microsoft.Dynamics.CRM.In(PropertyName='msnfp_engagementopportunitystatus',PropertyValues=['844060003','844060002'])) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
             ParameterKeys.orderby : "msnfp_startingdate asc,msnfp_engagementopportunitytitle asc",
@@ -222,7 +222,7 @@ class CSDashBoardVC: ENTALDBaseViewController{
                             
                             
                         }else{
-                            self.gridData?[0].title =  ""
+                            self.gridData?[0].title =  "No Upcoming Event"
                             self.gridData?[0].subTitle = ""
                         }
                     DispatchQueue.main.async {

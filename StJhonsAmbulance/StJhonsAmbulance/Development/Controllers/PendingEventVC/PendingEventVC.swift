@@ -10,12 +10,13 @@ import UIKit
 protocol updatePendingEventStatusDelegate {
     
     func updateSiglePendingEventStatus(eventId:String)
+    func openViewSummaryScreen(eventdata : CurrentEventsModel)
 }
 
 class PendingEventVC: ENTALDBaseViewController {
     
     var pendingApprovalData : [PendingApprovalEventsModel]?
-    var pendingPublishData : [UnpublishedEventsModel]?
+    var pendingPublishData : [CurrentEventsModel]?
     
     var isPendingNameFilterApplied = false
     var isPendingLocationFilterApplied = false
@@ -482,7 +483,7 @@ class PendingEventVC: ENTALDBaseViewController {
         guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
         let params : [String:Any] = [
             
-            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_location,msnfp_minimum,msnfp_startingdate,msnfp_endingdate,msnfp_engagementopportunitystatus,_sjavms_program_value,msnfp_engagementopportunityid,msnfp_maximum",
+            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_location,msnfp_minimum,msnfp_startingdate,msnfp_endingdate,msnfp_engagementopportunitystatus,_sjavms_program_value,msnfp_engagementopportunityid,msnfp_maximum,_sjavms_contact_value,sjavms_maxparticipants",
             ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(msnfp_groupid eq \(groupId)))",
             ParameterKeys.filter : "(msnfp_engagementopportunitystatus eq 844060000) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
 //            ParameterKeys.orderby : "msnfp_engagementopportunityschedule asc"
@@ -535,12 +536,15 @@ class PendingEventVC: ENTALDBaseViewController {
         }
     }
     
-    
-    
-    
 }
 
 extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate, UIActionSheetDelegate, updatePendingEventStatusDelegate{
+    
+    func openViewSummaryScreen(eventdata: CurrentEventsModel) {
+        ENTALDControllers.shared.showEventSummaryScreen(type: .ENTALDPUSH, from: self , dataObj: eventdata) { params, controller in
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if (tableView == self.pendingPublishTableView){
@@ -584,10 +588,13 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
             cell.lblName.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
             cell.lblLocation.text = rowModel?.msnfp_location ?? ""
             cell.lblMax.text = "\(rowModel?.msnfp_maximum  ?? 0)"
-            cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+            cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
             cell.lblStatus.text = rowModel?.getStatus()
             cell.delegate = self
             cell.eventId = rowModel?.msnfp_engagementopportunityid
+            cell.delegate = self
+            cell.isFromUnpublish = true
+            cell.eventData = rowModel
         }
         
       
@@ -604,6 +611,10 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
     }
     
     func updateSiglePendingEventStatus(eventId:String) {
+        
+        
+        
+        
         
     }
    

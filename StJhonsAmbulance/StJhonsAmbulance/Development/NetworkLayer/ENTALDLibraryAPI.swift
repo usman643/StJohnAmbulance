@@ -85,7 +85,7 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
-    func requestPendingPublishEvents(params:[String:Any],  _ completion:@escaping((ApiResult<UnpublishedEventsResponseModel, ApiError>) -> Void )){
+    func requestPendingPublishEvents(params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
         let router = EventRouter.getPendingPublishEvents(params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
@@ -242,6 +242,26 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
+    func getEventSummary(params:[String : Any],  _ completion:@escaping((ApiResult<EventSummaryResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getEventSummary(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+
+    func getReportedShifts(params:[String : Any],  _ completion:@escaping((ApiResult<VolunteerOfEventDataResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getReportedShift(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+
+    func getParticipantCount(params:[String : Any],  _ completion:@escaping((ApiResult<ParticipantsCountResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getParticipantCount(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func getOrgnizerContact(params:[String : Any],  _ completion:@escaping((ApiResult<OrgnizerEventResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getOrganizerContact(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
 
     
     
@@ -288,6 +308,11 @@ class ENTALDLibraryAPI {
     
     func requestContactInfoUpdate(contactId:String , params:[String:Any],  _ completion:@escaping((ApiResult<ContactResponseModel, ApiError>) -> Void )){
         let router = EventRouter.updateContactInfo(contactId: contactId, params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+
+    func updateEventStatus(eventid:String , params:[String:Any],  _ completion:@escaping((ApiResult<ContactResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.updateEventStatus(eventId: eventid, params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     

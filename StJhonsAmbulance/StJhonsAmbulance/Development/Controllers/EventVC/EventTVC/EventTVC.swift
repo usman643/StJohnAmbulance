@@ -10,7 +10,8 @@ import UIKit
 class EventTVC: UITableViewCell {
 
     public var delegate : EventSummaryDelegate?
-    var eventID = ""
+    var eventdata : CurrentEventsModel?
+    
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var lblEvent: UILabel!
     @IBOutlet weak var lblLocation: UILabel!
@@ -51,7 +52,9 @@ class EventTVC: UITableViewCell {
     }
     
     @IBAction func openEventSummary(_ sender: Any) {
-        delegate?.openViewSummaryScreen(eventId: self.eventID)
+        
+        delegate?.openViewSummaryScreen(eventdata: self.eventdata!)
+        
     }
     
 }

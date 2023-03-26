@@ -38,3 +38,15 @@ struct ProgramModel: Codable {
     
 }
 
+struct ProgramStatusModel : Codable{
+    
+    var status_id : Int?
+    var status_value : String?
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.status_id = try container.decodeIfPresent(Int.self, forKey: .status_id)
+        self.status_value = try container.decodeIfPresent(String.self, forKey: .status_value)
+        
+    }
+}

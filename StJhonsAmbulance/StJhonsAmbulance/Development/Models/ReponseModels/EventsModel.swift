@@ -41,7 +41,27 @@ struct CurrentEventsModel: Codable {
     let _sjavms_contact_value : String?
     let sjavms_maxparticipants : Int?
     let sjavms_msnfp_engagementopportunity_msnfp_group : CurrentEventGroupModel?
-    
+    func getStatus()->String?{
+        let status = self.msnfp_engagementopportunitystatus
+        switch status {
+        case 335940000:
+            return "Pending"
+        case 335940001:
+            return "Shift Hours Approved"
+        case 335940002:
+            return "No Show"
+        case 335940003:
+            return "Cancelled"
+        case 844060000:
+            return "Unpublished"
+        case 844060001:
+            return "Active"
+        case 802280002:
+            return "Submitted"
+        default:
+            return nil
+        }
+    }
 }
 
 
@@ -154,7 +174,9 @@ struct VolunteerEventClickOptionModel : Codable {
     let msnfp_effectiveto : String?
     let msnfp_engagementopportunityscheduleid : String?
     let msnfp_hours : Float?
+    let msnfp_number : Int?
     let msnfp_maximum : Int?
+    let msnfp_minimum : Int?
     let msnfp_engagementopportunityschedule : String?
     
 }
@@ -197,6 +219,52 @@ struct VolunteerEventParticipationCheckModel : Codable {
 //    let _msnfp_participationtypeid_value : String?
 //    let _createdonbehalfby_value : String?
 //    let utcconversiontimezonecode : String?
+    
+}
+
+
+struct  ParticipantsCountResponseModel: Codable{
+    let value : [ParticipantsCountModel]?
+    
+}
+
+struct ParticipantsCountModel : Codable {
+    let msnfp_status : Int?
+    let Participation : Int?
+    
+}
+
+
+
+struct  OrgnizerEventResponseModel: Codable{
+    let value : [OrgnizerEventModel]?
+    
+}
+
+struct OrgnizerEventModel : Codable {
+    
+    let msnfp_engagementopportunitytitle : String?
+    let msnfp_engagementopportunityid : String?
+    let sjavms_Contact : OrgnizerContactModel?
+    
+}
+
+struct OrgnizerContactModel : Codable {
+    
+    let emailaddress1 : String?
+    let address1_country : String?
+    let address1_line1 : String?
+    let address1_line3 : String?
+    let address1_city : String?
+    let lastname : String?
+    let firstname : String?
+    let address1_postalcode : String?
+    let telephone1 : String?
+    let address1_stateorprovince : String?
+    let address1_line2 : String?
+    let adx_organizationname : String?
+    let contactid : String?
+
     
 }
 

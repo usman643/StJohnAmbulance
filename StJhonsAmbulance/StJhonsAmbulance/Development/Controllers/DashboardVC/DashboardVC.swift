@@ -509,7 +509,7 @@ class DashboardVC: ENTALDBaseViewController{
                 }
         
         guard let contactId = UserDefaults.standard.contactIdToken  else {return}
-        guard let currentDate = DateFormatManager.shared.getCurrentDateWithFormat(format: "dd/MM/yyyy") else {return}
+        guard let currentDate = DateFormatManager.shared.getCurrentDateWithFormat(format: "yyyy/MM/dd") else {return}
         let params : [String:Any] = [
             
             ParameterKeys.select : "msnfp_name,msnfp_participationscheduleid,statuscode,statecode,msnfp_schedulestatus,sjavms_start,sjavms_end",

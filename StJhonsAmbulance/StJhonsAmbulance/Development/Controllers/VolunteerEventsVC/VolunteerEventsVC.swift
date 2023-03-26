@@ -691,7 +691,7 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
 
     
     func getScheduleInfo(){
-      var groupList =   ProcessUtils.shared.groupListValue ?? ""
+      let groupList =   ProcessUtils.shared.groupListValue ?? ""
         let params : [String:Any] = [
             
             ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_startingdate,msnfp_endingdate,msnfp_engagementopportunityid",

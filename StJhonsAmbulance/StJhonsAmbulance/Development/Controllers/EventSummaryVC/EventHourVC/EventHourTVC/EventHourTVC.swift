@@ -41,4 +41,25 @@ class EventHourTVC: UITableViewCell {
         lblHour.font = UIFont.RegularFont(11)
         lblStatus.font = UIFont.RegularFont(11)
     }
+    
+    func setContent(rowModel: VolunteerOfEventDataModel? , eventName: String?){
+        
+        lblName.text = rowModel?.sjavms_Volunteer?.fullname ?? ""
+        lblEvent.text = eventName ?? ""
+        lblHour.text = rowModel?.sjavms_hours?.getFormattedNumber()
+        if let statusCode = rowModel?.msnfp_schedulestatus{
+            lblStatus.text = ProcessUtils.shared.getStatus(code: statusCode)
+        }
+
+        if let date = rowModel?.sjavms_start {
+            let start = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
+            lblDate.text = start
+        }else{
+            lblDate.text = ""
+        }
+        
+    }
+    
+    
+    
 }

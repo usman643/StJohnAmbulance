@@ -18,6 +18,7 @@ enum STPikerType {
     case eventCouncil
     case language
     case prefferedLanguage
+    case eventStatus
 }
 
 class PickerViewController: ENTALDBaseViewController, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -27,6 +28,7 @@ class PickerViewController: ENTALDBaseViewController, UIPickerViewDelegate, UIPi
     
     var pickerType : STPikerType = .groups
     var selectedIndex : Int = 0
+    var selectedKey : String = ""
     private var dataList : [String] = []
     
     override func viewDidLoad() {
@@ -80,6 +82,10 @@ class PickerViewController: ENTALDBaseViewController, UIPickerViewDelegate, UIPi
             if let model = self.dataModel as? [PrefferedLanguageModel] {
                 return model.map({$0.adx_name ?? ""})
             }
+        case .eventStatus:
+            if let model = self.dataModel as? [Int:String] {
+                return model.map({$0.value })
+            }
             break
         }
         
@@ -110,6 +116,7 @@ class PickerViewController: ENTALDBaseViewController, UIPickerViewDelegate, UIPi
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.selectedIndex = row
+        self.selectedKey = self.dataList[row]
     }
     
     func getSelectedValue()->Any?{
@@ -151,6 +158,11 @@ class PickerViewController: ENTALDBaseViewController, UIPickerViewDelegate, UIPi
         case .prefferedLanguage:
             if let model = self.dataModel as? [PrefferedLanguageModel] {
                 return model[self.selectedIndex]
+            }
+        case .eventStatus:
+            if let model = self.dataModel as? [Int:String] {
+                let key = model.filter({$0.value == selectedKey}).first?.key ?? NSNotFound
+                return model[key]
             }
             break
         }

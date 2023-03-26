@@ -36,6 +36,7 @@ struct ParameterKeys
     static let select = "$select"
     static let expand = "$expand"
     static let orderby = "$orderby"
+    static let apply = "$apply"
     static let top = "$top"
     
 }

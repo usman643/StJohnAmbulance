@@ -14,6 +14,7 @@
                 <outlet property="btnSwitch" destination="faa-th-vOc" id="sJn-Pd-z72"/>
                 <outlet property="headerView" destination="aEE-sS-1B7" id="7N0-rE-nWO"/>
                 <outlet property="imgMainVw" destination="Hc9-ES-vvH" id="het-Lx-RDH"/>
+                <outlet property="lblCSLead" destination="L9d-Ue-kYa" id="Sv4-bQ-XUX"/>
                 <outlet property="lblEmail" destination="6lR-b1-gfM" id="L2V-4U-TI8"/>
                 <outlet property="lblName" destination="a41-bI-2EQ" id="dTl-p4-DEh"/>
                 <outlet property="lblRole" destination="h5u-as-eSt" id="TSK-NU-b3U"/>
@@ -95,19 +96,25 @@
                         <constraint firstAttribute="height" constant="3" id="h51-GN-4eg"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h5u-as-eSt">
-                    <rect key="frame" x="64" y="199" width="213" height="20.5"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Volunteer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h5u-as-eSt">
+                    <rect key="frame" x="24" y="199" width="134.5" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="faa-th-vOc">
-                    <rect key="frame" x="301" y="194" width="51" height="31"/>
+                    <rect key="frame" x="182.5" y="194" width="51" height="31"/>
                     <color key="tintColor" red="0.0" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <action selector="switchRole:" destination="-1" eventType="valueChanged" id="Olx-5C-6su"/>
                     </connections>
                 </switch>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CS Lead" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L9d-Ue-kYa">
+                    <rect key="frame" x="247.5" y="199" width="142.5" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="FYt-qa-RWz"/>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -123,13 +130,17 @@
                 <constraint firstItem="faa-th-vOc" firstAttribute="leading" secondItem="h5u-as-eSt" secondAttribute="trailing" constant="24" id="Px6-6f-nsJ"/>
                 <constraint firstItem="faa-th-vOc" firstAttribute="centerY" secondItem="h5u-as-eSt" secondAttribute="centerY" id="Qvx-vy-qsL"/>
                 <constraint firstItem="BaZ-4E-by2" firstAttribute="top" secondItem="aEE-sS-1B7" secondAttribute="bottom" id="RXa-7P-G6Q"/>
-                <constraint firstItem="h5u-as-eSt" firstAttribute="leading" secondItem="FYt-qa-RWz" secondAttribute="leading" constant="64" id="duo-ZC-8Ah"/>
+                <constraint firstItem="L9d-Ue-kYa" firstAttribute="top" secondItem="h5u-as-eSt" secondAttribute="top" id="UcT-JL-GAr"/>
+                <constraint firstItem="h5u-as-eSt" firstAttribute="leading" secondItem="FYt-qa-RWz" secondAttribute="leading" constant="24" id="duo-ZC-8Ah"/>
                 <constraint firstAttribute="trailing" secondItem="V5x-JB-Uag" secondAttribute="trailing" id="flD-NX-EZH"/>
+                <constraint firstItem="faa-th-vOc" firstAttribute="centerX" secondItem="AiP-cG-eec" secondAttribute="centerX" id="gTE-bK-u1S"/>
                 <constraint firstItem="lch-gB-LRx" firstAttribute="leading" secondItem="FYt-qa-RWz" secondAttribute="leading" id="k7T-Le-5mX"/>
+                <constraint firstItem="L9d-Ue-kYa" firstAttribute="leading" secondItem="faa-th-vOc" secondAttribute="trailing" constant="16" id="lbz-Se-Chv"/>
+                <constraint firstItem="FYt-qa-RWz" firstAttribute="trailing" secondItem="L9d-Ue-kYa" secondAttribute="trailing" constant="24" id="okC-OT-8bD"/>
+                <constraint firstItem="L9d-Ue-kYa" firstAttribute="bottom" secondItem="h5u-as-eSt" secondAttribute="bottom" id="p8Z-qv-dJL"/>
                 <constraint firstItem="FYt-qa-RWz" firstAttribute="bottom" secondItem="lch-gB-LRx" secondAttribute="bottom" id="ukZ-bQ-vwA"/>
                 <constraint firstItem="V5x-JB-Uag" firstAttribute="top" secondItem="h5u-as-eSt" secondAttribute="bottom" constant="32" id="vOu-Er-4Up"/>
                 <constraint firstItem="FYt-qa-RWz" firstAttribute="trailing" secondItem="BaZ-4E-by2" secondAttribute="trailing" id="wGS-Rq-cec"/>
-                <constraint firstItem="FYt-qa-RWz" firstAttribute="trailing" secondItem="faa-th-vOc" secondAttribute="trailing" constant="64" id="wix-om-DpC"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="37.681159420289859" y="10.714285714285714"/>

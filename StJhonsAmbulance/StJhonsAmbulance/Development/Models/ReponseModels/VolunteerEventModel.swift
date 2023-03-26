@@ -53,7 +53,6 @@ struct VolunteersOfEventModel : Codable {
     
     let date : String?
     let data : [VolunteerOfEventDataModel]
-    
 }
 
 

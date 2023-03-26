@@ -24,7 +24,12 @@ enum EventRouter : Router {
     case getEventClickShiftOption(params:[String:Any])
     case getEventClickShiftDetail(params:[String:Any])
     case getEventParticipationCheck(params:[String:Any])
+    case getEventSummary(params:[String:Any])
+    case getReportedShift(params:[String:Any])
     case updateContactInfo(contactId:String, params:[String:Any])
+    case updateEventStatus(eventId:String, params:[String:Any])
+    case getParticipantCount(params:[String:Any])
+    case getOrganizerContact(params:[String:Any])
     
     case simulate401
    
@@ -46,7 +51,12 @@ enum EventRouter : Router {
         case .getEventClickShiftOption : return "msnfp_engagementopportunityschedules"
         case .getEventClickShiftDetail : return "msnfp_publicengagementopportunities"
         case .getEventParticipationCheck : return "msnfp_participations"
+        case .getEventSummary : return "msnfp_engagementopportunities"
+        case .getReportedShift : return "msnfp_participationschedules"
         case .updateContactInfo(let contactId, _) : return "contacts(\(contactId))"
+        case .updateEventStatus(let eventId, _) : return "msnfp_engagementopportunities(\(eventId))"
+        case .getParticipantCount : return "msnfp_participations"
+        case .getOrganizerContact : return "msnfp_engagementopportunities"
             
         case .simulate401: return "simulate-401"
         }
@@ -86,7 +96,17 @@ enum EventRouter : Router {
             return params
         case .getEventParticipationCheck(let params):
             return params
+        case .getEventSummary(let params):
+            return params
+        case .getReportedShift(let params):
+            return params
         case .updateContactInfo(_, let params):
+            return params
+        case .updateEventStatus(_, let params):
+            return params
+        case .getParticipantCount(let params):
+            return params
+        case .getOrganizerContact(let params):
             return params
         default: return [:]
         }
@@ -106,6 +126,8 @@ enum EventRouter : Router {
             return HTTPMethodType.patch.rawValue
         case .updateContactInfo(_,_):
             return HTTPMethodType.patch.rawValue
+        case .updateEventStatus(_,_):
+            return HTTPMethodType.patch.rawValue
         default:
             break
         }
@@ -123,6 +145,8 @@ enum EventRouter : Router {
         case .pendingShiftUpdate(_,_):
             return .ENTJSONEncoding
         case .updateContactInfo(_,_):
+            return .ENTJSONEncoding
+        case .updateEventStatus(_,_):
             return .ENTJSONEncoding
         default:
             break

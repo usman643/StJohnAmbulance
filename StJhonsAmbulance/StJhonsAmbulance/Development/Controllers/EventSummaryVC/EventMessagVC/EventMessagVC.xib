@@ -87,6 +87,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="351" height="35"/>
                                             <color key="backgroundColor" name="PrimaryGreen"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <connections>
+                                                <action selector="eventStatusUpdate:" destination="-1" eventType="touchUpInside" id="wgC-sb-DlU"/>
+                                            </connections>
                                         </button>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="GxK-JM-FQp">
                                             <rect key="frame" x="321" y="14.000000000000002" width="18" height="8.0000000000000018"/>
@@ -378,15 +381,14 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wml-PK-HVm">
-                            <rect key="frame" x="190" y="159.33333333333334" width="187" height="35"/>
+                            <rect key="frame" x="186" y="159.33333333333334" width="191" height="35"/>
                             <color key="backgroundColor" name="PrimaryGreen"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="35" id="DZl-cf-qJF"/>
                             </constraints>
                             <color key="tintColor" name="PrimaryGreen"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="Message Participants"/>
-                            <buttonConfiguration key="configuration" style="filled" title="Message Participants"/>
+                            <state key="normal" title="  Message Participants  "/>
                             <connections>
                                 <action selector="messageTapped:" destination="-1" eventType="touchUpInside" id="I4k-Or-ygl"/>
                             </connections>

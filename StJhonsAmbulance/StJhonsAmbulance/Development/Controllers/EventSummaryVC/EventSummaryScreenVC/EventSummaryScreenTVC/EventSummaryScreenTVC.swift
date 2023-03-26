@@ -45,4 +45,28 @@ class EventSummaryScreenTVC: UITableViewCell {
         lblStatus.font = UIFont.RegularFont(11)
     }
     
+    func setContent(rowModel : VolunteerOfEventDataModel? ,eventName : String?){
+        
+        
+        lblVolunteen.text = rowModel?.sjavms_Volunteer?.fullname
+        lblEvent.text = eventName ?? ""
+        
+        if let date = rowModel?.sjavms_start {
+            
+            let dateStr = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat:"yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
+            self.lblStart.text = dateStr
+        }else{
+            self.lblStart.text = ""
+        }
+        lblHour.text = rowModel?.sjavms_hours?.getFormattedNumber()
+        
+        if let status = ProcessUtils.shared.getStatus(code: rowModel?.msnfp_schedulestatus ?? NSNotFound) {
+            lblStatus.text = status
+        }
+        
+        
+        
+        
+    }
+    
 }

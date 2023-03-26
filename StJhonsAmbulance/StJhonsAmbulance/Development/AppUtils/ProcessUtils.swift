@@ -20,12 +20,19 @@ class ProcessUtils {
     var selectedUserGroup : LandingGroupsModel?
     var programsData : [ProgramModel]?
     var contactInfo : UserIdentityModel?
+    var eventStatusArr = [
+        844060000 : "Draft",
+        844060002 : "Publish to Web",
+        844060003 : "Privately Published",
+        844060004 : "Closed",
+        844060005 : "Cancelled"
+    ]
     
     var genderData : [LanguageModel]?
     var prefferedPronounData : [LanguageModel]?
     var prefferedMethodContactData : [LanguageModel]?
     var prefferedLanguageData : [PrefferedLanguageModel]?
-    
+    var eventStatus : [ProgramStatusModel]?
     
     var tabbarHeight : CGFloat?
     var groupListValue : String?
@@ -93,6 +100,42 @@ class ProcessUtils {
         }
     }
     
+    func getLocationType(code:Int)->String?{
+        
+        switch code {
+        case 844060000:
+            return "On Location"
+        case 844060001:
+            return "Virtual"
+        case 844060002:
+            return "Both"
+        case 844060003:
+            return "None"
+    
+        default:
+            return ""
+        }
+    }
+    
+    func getParticipantsStatus(code:Int)->String?{
+        
+        switch code {
+        case 844060000:
+            return "Needs Review"
+        case 844060001:
+            return "In Review"
+        case 844060002:
+            return "Approved"
+        case 844060003:
+            return "Dismissed"
+        case 844060004:
+            return "Cancelled"
+        default:
+            return ""
+        }
+        
+    }
+    
     func getRoleType(code:Int)->String?{
         
         switch code {
@@ -117,5 +160,24 @@ class ProcessUtils {
         return dataArr
     }
     
+//    func getEventSummaryStatusArray () -> [ProgramStatusModel]?{
+//
+//        var EventStatusArr = [
+//            844060000 : "Draft",
+//            844060002 : "Publish to Web",
+//            844060003 : "Privately Published",
+//            844060004 : "Closed",
+//            844060005 : "Cancelled"
+//        ]
+//
+//        for prm in EventStatusArr {
+//            var program :ProgramStatusModel
+//
+//            program.status_id = prm.key
+//            program.status_value = prm.value
+//            eventStatus?.append(program )
+//        }
+//        return eventStatus
+//    }
 }
 
