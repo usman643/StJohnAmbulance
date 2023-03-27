@@ -106,6 +106,7 @@ struct ScheduleDataModel : Codable {
     let msnfp_engagementopportunitytitle : String?
     let msnfp_location : String?
     let msnfp_engagementopportunityid : String?
+    let msnfp_engagementopportunitystatus : Int?
     
 }
 

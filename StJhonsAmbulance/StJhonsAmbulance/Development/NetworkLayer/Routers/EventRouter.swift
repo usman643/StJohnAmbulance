@@ -16,6 +16,8 @@ enum EventRouter : Router {
     case getLatestUpcomingEvents(params:[String:Any])
     case getAllProgram(params:[String:Any])
     case cancelEvent(eventId:String, params:[String:Any])
+    case cancelVolunteerEvent(eventId:String, params:[String:Any])
+    case cancelVolunteerShift(eventId:String, params:[String:Any])
     case pendingShiftUpdate(eventId:String, params:[String:Any])
     case getProgram(params:[String:Any])
     case getBranch(params:[String:Any])
@@ -30,6 +32,9 @@ enum EventRouter : Router {
     case updateEventStatus(eventId:String, params:[String:Any])
     case getParticipantCount(params:[String:Any])
     case getOrganizerContact(params:[String:Any])
+    case bookShift(params:[String:Any])
+    case applyShift(params:[String:Any])
+    case getvolunteerShiftStatus(params:[String:Any])
     
     case createEvent(params:[String:Any])
     
@@ -45,6 +50,8 @@ enum EventRouter : Router {
         case .getLatestUpcomingEvents : return "msnfp_engagementopportunities"
         case .getAllProgram : return "sjavms_programs"
         case .cancelEvent(let eventID, _) : return "msnfp_engagementopportunities(\(eventID))"
+        case .cancelVolunteerEvent(let eventID, _) : return "msnfp_participationschedules(\(eventID))"
+        case .cancelVolunteerShift(let eventID, _) : return "msnfp_participations(\(eventID))"
         case .pendingShiftUpdate(let eventId, _) : return "msnfp_participationschedules(\(eventId))"
         case .getContactInfo : return "msnfp_engagementopportunities"
         case .getProgram : return "msnfp_groups"
@@ -60,6 +67,11 @@ enum EventRouter : Router {
         case .getParticipantCount : return "msnfp_participations"
         case .getOrganizerContact : return "msnfp_engagementopportunities"
         case .createEvent : return "sjavms_eventrequests"
+        case .bookShift : return "msnfp_participationschedules"
+        case .applyShift : return "msnfp_participations"
+        case .getvolunteerShiftStatus : return "msnfp_participationschedules"
+            
+            
         case .simulate401: return "simulate-401"
         }
     }
@@ -81,6 +93,10 @@ enum EventRouter : Router {
         case .getAllProgram(let params):
             return params
         case .cancelEvent(_, let params):
+            return params
+        case .cancelVolunteerEvent(_, let params):
+            return params
+        case .cancelVolunteerShift(_, let params):
             return params
         case .pendingShiftUpdate(_, let params):
             return params
@@ -111,7 +127,12 @@ enum EventRouter : Router {
         case .getOrganizerContact(let params):
             return params
         case .createEvent(let params):
-
+            return params
+        case .bookShift(let params):
+            return params
+        case .applyShift(let params):
+            return params
+        case .getvolunteerShiftStatus(let params):
             return params
         default: return [:]
         }
@@ -127,14 +148,21 @@ enum EventRouter : Router {
         switch self {
         case .cancelEvent(_,_):
             return HTTPMethodType.patch.rawValue
+        case .cancelVolunteerEvent(_,_):
+            return HTTPMethodType.patch.rawValue
+        case .cancelVolunteerShift(_,_):
+            return HTTPMethodType.patch.rawValue
         case .pendingShiftUpdate(_,_):
             return HTTPMethodType.patch.rawValue
         case .updateContactInfo(_,_):
             return HTTPMethodType.patch.rawValue
-
         case .updateEventStatus(_,_):
             return HTTPMethodType.patch.rawValue
         case .createEvent:
+            return HTTPMethodType.post.rawValue
+        case .bookShift:
+            return HTTPMethodType.post.rawValue
+        case .applyShift:
             return HTTPMethodType.post.rawValue
         default:
             break
@@ -150,6 +178,10 @@ enum EventRouter : Router {
         switch self {
         case .cancelEvent(_,_):
             return .ENTJSONEncoding
+        case .cancelVolunteerEvent(_,_):
+            return .ENTJSONEncoding
+        case .cancelVolunteerShift(_,_):
+            return .ENTJSONEncoding
         case .pendingShiftUpdate(_,_):
             return .ENTJSONEncoding
         case .updateContactInfo(_,_):
@@ -157,6 +189,10 @@ enum EventRouter : Router {
         case .updateEventStatus(_,_):
             return .ENTJSONEncoding
         case .createEvent:
+            return .ENTJSONEncoding
+        case .bookShift:
+            return .ENTJSONEncoding
+        case .applyShift:
             return .ENTJSONEncoding
         default:
             break

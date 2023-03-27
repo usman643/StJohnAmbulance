@@ -11,6 +11,7 @@ class VEventDetailVC: ENTALDBaseViewController {
     
     var detailData : [VolunteerEventClickShiftDetailModel]?
     var eventId : String?
+    var userParticipantData : VolunteerEventParticipationCheckModel?
     
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblQualificationTitle: UILabel!

@@ -164,3 +164,16 @@ struct PendingShiftModelThree : Codable {
 
 }
         
+
+struct VolunteerStatusShiftResponseModel : Codable {
+
+    let value: [VolunteerStatusShift]?
+    
+}
+
+struct VolunteerStatusShift : Codable {
+    
+    let  msnfp_schedulestatus : Int?
+    let msnfp_participationscheduleid : String?
+    
+}

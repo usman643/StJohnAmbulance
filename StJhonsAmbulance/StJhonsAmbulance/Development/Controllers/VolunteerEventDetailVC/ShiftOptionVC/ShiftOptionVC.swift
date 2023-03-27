@@ -7,9 +7,21 @@
 
 import UIKit
 
+protocol updateShiftOptionDelegate {
+    
+    func bookShift(eventId:String)
+    func cancelShift(eventId:String)
+}
+
 class ShiftOptionVC: ENTALDBaseViewController {
     
+    var userParticipantData : VolunteerEventParticipationCheckModel?
+    var participationData : [VolunteerEventParticipationCheckModel]?
+    let contactId = UserDefaults.standard.contactIdToken ?? ""
     var eventOptions : [VolunteerEventClickOptionModel]?
+    var eventOptionsNew : [VolunteerEventClickOptionModel]?
+    var eventStatus : [VolunteerStatusShift]?
+    
     var eventId : String?
     var isBottombtnEnable : Bool?
     var isShiftFilterApplied = false
@@ -32,6 +44,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
         super.viewDidLoad()
         self.decorateUI()
         registerCell()
+        getEventParitionCheck()
         self.getEventOptions()
     }
     
@@ -69,6 +82,204 @@ class ShiftOptionVC: ENTALDBaseViewController {
             btnBook.isEnabled = false
         }
     }
+    
+    
+    
+    func bookShift(){
+        
+        
+        let selectedEvents = self.eventOptions?.filter( {$0.event_selected == true})
+        
+        for i in (0..<(selectedEvents?.count ?? 0 )){
+            
+            if let data = selectedEvents?[i] as? VolunteerEventClickOptionModel {
+                
+                let startDate = data.msnfp_effectivefrom ?? ""
+                let endDate = data.msnfp_effectiveto ?? ""
+                let participationId = self.userParticipantData?.msnfp_participationid ?? ""
+                let engagementopportunityscheduleid = data.msnfp_engagementopportunityscheduleid ?? ""
+                let hour = data.msnfp_hours ?? Float(NSNotFound)
+                let eventid = self.eventId ?? ""
+                
+                let params = [
+                    
+                    "sjavms_start" : startDate as String,
+                    "sjavms_end" : endDate as String,
+                    "msnfp_participationId@odata.bind" : "/msnfp_participations(\(participationId))" as String,
+                    "sjavms_Volunteer@odata.bind" :  "/contacts(\(self.contactId))" as String,
+                    "msnfp_engagementOpportunityScheduleId@odata.bind" : "/msnfp_engagementopportunityschedules(\(engagementopportunityscheduleid))" as String,
+                    "sjavms_VolunteerEvent@odata.bind" : "/msnfp_engagementopportunities(\(eventid))" as String,
+                    "sjavms_hours" : hour as Float
+                ] as [String : Any]
+                self.bookEvents(params: params)
+            }
+        }
+    }
+    
+    func bookEvents(params: [String : Any]) {
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        ENTALDLibraryAPI.shared.bookShift(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result{
+            case .success:
+                break
+            case .error(let error, let errorResponse):
+                
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in
+                        
+                    })
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    func cancelShift(){
+        
+        let selectedEvents = self.eventOptions?.filter( {$0.event_selected == true})
+        
+        for i in (0..<(selectedEvents?.count ?? 0 )){
+            
+            if let data = selectedEvents?[i] as? VolunteerEventClickOptionModel {
+                
+                let startDate = data.msnfp_effectivefrom ?? ""
+                
+                let params = [
+                    
+                    "msnfp_engagementopportunitystatus": 335940003 as Int
+                ] as [String : Any]
+                
+                self.closeVolunteersData(params: params, eventid: data.msnfp_participationscheduleid ?? "")
+            }
+        }
+    }
+    
+    fileprivate func closeVolunteersData(params : [String:Any], eventid: String){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        //        let eventId = self.eventData?.msnfp_engagementopportunityid ?? ""
+        ENTALDLibraryAPI.shared.cancelVolunteerEvent(eventId:eventid , params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: _):
+                break
+            case .error(let error, let errorResponse):
+                if error == .patchSuccess {
+//                    ENTALDAlertView.shared.showContactAlertWithTitle(title: "Event Status Update Successfully", message: "", actionTitle: .KOK, completion: { status in })
+                    
+                }else{
+                    var message = error.message
+                    if let err = errorResponse {
+                        message = err.error
+                    }
+                    DispatchQueue.main.async {
+                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    
+    fileprivate func closeVolunteersShift(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        let params = [
+            
+            "msnfp_schedulestatus": 335940003 as Int
+        ] as [String : Any]
+        
+                let eventId = self.eventId ?? ""
+        ENTALDLibraryAPI.shared.cancelVolunteerShift(eventId:eventId , params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: _):
+                break
+            case .error(let error, let errorResponse):
+                if error == .patchSuccess {
+//                    ENTALDAlertView.shared.showContactAlertWithTitle(title: "Event Status Update Successfully", message: "", actionTitle: .KOK, completion: { status in })
+                    
+                }else{
+                    var message = error.message
+                    if let err = errorResponse {
+                        message = err.error
+                    }
+                    DispatchQueue.main.async {
+                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    func getEventParitionCheck() {
+        
+        let params : [String:Any] = [
+            ParameterKeys.filter : "(_msnfp_engagementopportunityid_value eq \(self.eventId ?? "" ) and statecode eq 0)"
+        ]
+        
+        self.getEventParitionCheckData(params: params)
+        
+    }
+    
+    fileprivate func getEventParitionCheckData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.getEventParticipationCheck(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result{
+            case .success(value: let response):
+                
+                if let option = response.value {
+                    self.participationData = option
+                    let modelData = self.participationData?.filter({$0._msnfp_contactid_value == self.contactId}).first
+                    self.userParticipantData = modelData
+                }
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
     
     // ================== Filters =================
     
@@ -215,11 +426,13 @@ class ShiftOptionVC: ENTALDBaseViewController {
     }
     
     @IBAction func bokkEventTapped(_ sender: Any) {
-        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
+        self.bookShift()
+        //        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
     }
     
     @IBAction func closeEventTapped(_ sender: Any) {
-        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
+        self.cancelShift()
+        //        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
         
     }
     
@@ -231,11 +444,11 @@ class ShiftOptionVC: ENTALDBaseViewController {
         }
     }
     
- 
+    
     func getEventOptions() {
         
         let params : [String:Any] = [
-            ParameterKeys.select : "statecode,msnfp_effectivefrom,msnfp_effectiveto,msnfp_engagementopportunityscheduleid,msnfp_hours,msnfp_maximum,msnfp_engagementopportunityschedule",
+            ParameterKeys.select : "statecode,msnfp_effectivefrom,msnfp_effectiveto,msnfp_engagementopportunityscheduleid,msnfp_hours,msnfp_maximum,msnfp_engagementopportunityschedule,msnfp_minimum,statuscode,msnfp_number",
             ParameterKeys.filter : "(_msnfp_engagementopportunity_value eq \(self.eventId ?? ""))"
         ]
         
@@ -270,7 +483,11 @@ class ShiftOptionVC: ENTALDBaseViewController {
                         }
                     }
                     DispatchQueue.main.async {
-                        
+                        for i in (0 ..< (self.eventOptions?.count ?? 0)) {
+                            
+                            self.getvolunteerShiftStatus(scheduleId : self.eventOptions?[i].msnfp_engagementopportunityscheduleid ?? "")
+                            
+                        }
                         self.tableView.reloadData()
                     }
                     
@@ -291,7 +508,52 @@ class ShiftOptionVC: ENTALDBaseViewController {
         }
     }
     
+    
+    func getvolunteerShiftStatus(scheduleId : String){
+        
+        let params : [String:Any] = [
+            ParameterKeys.select : "msnfp_schedulestatus",
+            ParameterKeys.filter : "(_sjavms_volunteer_value eq \(self.contactId) and _sjavms_volunteerevent_value eq \(self.eventId ?? "") and _msnfp_engagementopportunityscheduleid_value eq \(scheduleId))"
+        ]
+        
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.getvolunteerShiftStatus(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result{
+            case .success(value: let response):
+                
+                if let option = response.value {
+                    self.eventStatus = option
+                    var eventOption = self.eventOptions?.filter({$0.msnfp_engagementopportunityscheduleid == scheduleId}).first
+                    let shiftStatus = self.eventStatus?.filter({$0.msnfp_participationscheduleid == scheduleId}).first
+                    eventOption?.msnfp_schedulestatus = shiftStatus?.msnfp_schedulestatus
+                    eventOption?.msnfp_participationscheduleid = shiftStatus?.msnfp_participationscheduleid
+                    self.eventOptions?.append(eventOption!)
+                }
+                
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    
+    
 }
+
 
 
 extension ShiftOptionVC : UITableViewDelegate, UITableViewDataSource {
@@ -315,4 +577,22 @@ extension ShiftOptionVC : UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if isBottombtnEnable == true{
+            
+            
+            if (self.eventOptions?[indexPath.row].event_selected ?? false){
+                
+                self.eventOptions?[indexPath.row].event_selected = false
+            }else{
+                self.eventOptions?[indexPath.row].event_selected = true
+            }
+            
+            tableView.reloadRows(at: [indexPath], with: .none)
+            
+        }
+        
+        
+        //        ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data:self.pendingShiftData?[indexPath.row], callBack: nil)
+    }
 }

@@ -177,7 +177,12 @@ struct VolunteerEventClickOptionModel : Codable {
     let msnfp_number : Int?
     let msnfp_maximum : Int?
     let msnfp_minimum : Int?
+    var event_selected : Bool?
+    let msnfp_participationid : String?
+    let statuscode : Int?
     let msnfp_engagementopportunityschedule : String?
+    var msnfp_participationscheduleid : String?
+    var msnfp_schedulestatus : Int?
     
 }
 

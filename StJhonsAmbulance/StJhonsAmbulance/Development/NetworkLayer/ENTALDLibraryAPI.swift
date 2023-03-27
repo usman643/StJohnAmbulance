@@ -262,6 +262,11 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
+    func getvolunteerShiftStatus(params:[String : Any],  _ completion:@escaping((ApiResult<VolunteerStatusShiftResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getvolunteerShiftStatus(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
 
     
     
@@ -316,10 +321,32 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
+    func bookShift(params:[String:Any],  _ completion:@escaping((ApiResult<ContactResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.bookShift(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func cancelVolunteerEvent(eventId:String, params:[String:Any],  _ completion:@escaping((ApiResult<ProgramResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.cancelVolunteerEvent(eventId:eventId, params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func cancelVolunteerShift(eventId:String, params:[String:Any],  _ completion:@escaping((ApiResult<ProgramResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.cancelVolunteerShift(eventId:eventId, params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+
+    func applyforShift(params:[String:Any],  _ completion:@escaping((ApiResult<ContactResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.applyShift(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
     func createEventRequest(params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
         let router = EventRouter.createEvent(params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
+    
+    
     
 }
 

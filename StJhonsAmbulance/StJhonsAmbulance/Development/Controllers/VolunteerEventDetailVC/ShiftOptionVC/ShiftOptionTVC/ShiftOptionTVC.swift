@@ -8,16 +8,17 @@
 import UIKit
 
 class ShiftOptionTVC: UITableViewCell {
+    
+    public var delegate: updateShiftOptionDelegate?
 
     @IBOutlet weak var mainView: UIView!
-    
     @IBOutlet weak var lblShift: UILabel!
     @IBOutlet weak var lblStart: UILabel!
     @IBOutlet weak var lblEnd: UILabel!
     @IBOutlet weak var lblHours: UILabel!
     @IBOutlet weak var lblNeeded: UILabel!
     @IBOutlet weak var lblStatus: UILabel!
-    
+    @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var seperatorView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -54,7 +55,10 @@ class ShiftOptionTVC: UITableViewCell {
         lblShift.text = cellModel?.msnfp_engagementopportunityschedule ?? ""
         lblHours.text = "\(cellModel?.msnfp_hours ?? Float())"
         lblNeeded.text = "\(cellModel?.msnfp_maximum ?? NSNotFound)"
-        lblStatus.text = "\(cellModel?.statecode ?? NSNotFound)"
+        if let status = ProcessUtils.shared.getParticipantsStatus(code: cellModel?.msnfp_schedulestatus ?? NSNotFound){
+            lblStatus.text = status
+        }
+       
 
         if let date = cellModel?.msnfp_effectivefrom {
             let start = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
@@ -68,6 +72,12 @@ class ShiftOptionTVC: UITableViewCell {
             lblEnd.text = start
         }else{
             lblEnd.text = ""
+        }
+        if (cellModel?.event_selected ?? false){
+            
+            imgView.image = UIImage(systemName: "checkmark.square.fill")
+        }else{
+            imgView.image = UIImage(systemName: "square")
         }
     }
     
