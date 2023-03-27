@@ -34,6 +34,8 @@ class ENTALDHttpClient {
         
         if let token = UserDefaults.standard.authToken {
             headers.add(HTTPHeader(name: "Authorization", value: "Bearer \(token)"))
+            
+            headers.add(HTTPHeader(name: "Content-Type", value: "application/json"))
         }
         
         return headers
@@ -65,7 +67,7 @@ class ENTALDHttpClient {
                         self.handleSuccessResponse(data: data) { handler in
                             completion(handler)
                         }
-                    }else if HTTPMethod(rawValue: router.method) == .patch{
+                    }else if HTTPMethod(rawValue: router.method) == .patch || HTTPMethod(rawValue: router.method) == .post{
                         completion(ApiResult.error(error: .patchSuccess, errorResponse: nil))
                     }
                     break

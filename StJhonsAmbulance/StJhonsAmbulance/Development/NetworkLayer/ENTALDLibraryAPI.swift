@@ -316,5 +316,10 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
+    func createEventRequest(params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.createEvent(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
 }
 
