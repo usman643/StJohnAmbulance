@@ -17,6 +17,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
     var unpublishEventData : CurrentEventsModel?
     
     var dataVol : [String:Any] = [:]
+    var volentierResultData : [String:Any] = [:]
     var filteredData : [String:Any] = [:]
     var programsData : [ProgramModel]?
     var eventProgramData : ProgramModel?
@@ -152,6 +153,13 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         
+        if let str = textField.text, str.count > 2 {
+            let searchResults = self.getSearchData(keyword: str)
+            self.dataVol = searchResults
+            self.tableView.reloadData()
+        }
+        
+        
         //        if (textField.text != ""){
         //
         //           filteredData =  volunteerData?.filter({
@@ -192,6 +200,9 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
     @IBAction func searchCloseTapped(_ sender: Any) {
         txtSearch.text = ""
         txtSearch.endEditing(true)
+        
+        self.dataVol = self.volentierResultData
+        self.tableView.reloadData()
     }
     
     @IBAction func addVolunteer(_ sender: Any) {
@@ -236,7 +247,8 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
                         self.showEmptyView(tableVw: self.tableView)
                     }else{
                         
-                        self.dataVol = self.getEntryTypesByGroup() ?? [:]
+                        self.dataVol = self.getEntryTypesByGroup(volunteers: self.volunteerData) ?? [:]
+                        self.volentierResultData = self.getEntryTypesByGroup(volunteers:self.volunteerData) ?? [:]
                         DispatchQueue.main.async {
                             for subview in self.tableView.subviews {
                                 subview.removeFromSuperview()
@@ -403,8 +415,8 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
         }
     }
     
-    func getEntryTypesByGroup()->[String:Any]?{
-        if let entryTypes = self.volunteerData {
+    func getEntryTypesByGroup(volunteers:[VolunteerOfEventDataModel]?)->[String:Any]?{
+        if let entryTypes = volunteers {
             let dictionary = Dictionary(grouping: entryTypes, by:  { DateFormatManager.shared.formatDateStrToStr(date: $0.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy") })
             return dictionary
         }
@@ -471,5 +483,15 @@ extension EventManageVC : UITableViewDelegate, UITableViewDataSource{
             return rowModel.count
         }
         return 0
+    }
+    
+    func getSearchData(keyword:String)->[String:Any]{
+        
+        let result = self.volunteerData?.filter({
+            if let name = $0.sjavms_Volunteer?.fullname?.lowercased(), name.contains(keyword.lowercased()) {return true}
+            return false
+        })
+        
+        return self.getEntryTypesByGroup(volunteers: result) ?? [:]
     }
 }
