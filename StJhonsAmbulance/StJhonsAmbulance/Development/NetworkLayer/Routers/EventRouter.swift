@@ -35,6 +35,7 @@ enum EventRouter : Router {
     case bookShift(params:[String:Any])
     case applyShift(params:[String:Any])
     case getvolunteerShiftStatus(params:[String:Any])
+    case getAuditHistory(params:[String:Any])
     
     case createEvent(params:[String:Any])
     
@@ -70,6 +71,7 @@ enum EventRouter : Router {
         case .bookShift : return "msnfp_participationschedules"
         case .applyShift : return "msnfp_participations"
         case .getvolunteerShiftStatus : return "msnfp_participationschedules"
+        case .getAuditHistory : return "audits"
             
             
         case .simulate401: return "simulate-401"
@@ -133,6 +135,8 @@ enum EventRouter : Router {
         case .applyShift(let params):
             return params
         case .getvolunteerShiftStatus(let params):
+            return params
+        case .getAuditHistory(let params):
             return params
         default: return [:]
         }

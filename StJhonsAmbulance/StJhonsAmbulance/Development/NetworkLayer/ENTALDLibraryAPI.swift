@@ -267,6 +267,11 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
+    func getAuditHistory(params:[String : Any],  _ completion:@escaping((ApiResult<AuditResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getAuditHistory(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
 
     
     

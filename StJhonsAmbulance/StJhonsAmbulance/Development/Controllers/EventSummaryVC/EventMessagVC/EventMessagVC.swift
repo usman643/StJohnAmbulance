@@ -205,10 +205,8 @@ extension EventMessagVC : UITableViewDelegate, UITableViewDataSource{
         
         if indexPath.row % 2 == 0{
             cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-           
         }else{
             cell.backgroundColor = UIColor.viewLightColor
-           
         }
         
         

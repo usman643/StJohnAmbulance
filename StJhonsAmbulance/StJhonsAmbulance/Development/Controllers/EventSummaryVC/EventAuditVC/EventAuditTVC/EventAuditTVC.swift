@@ -48,4 +48,22 @@ class EventAuditTVC: UITableViewCell {
         lblNewValue.font = UIFont.RegularFont(11)
     }
     
+    func setContent(cellModel : AuditModel?){
+        
+        if let date = cellModel?.changedata {
+            let start = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
+            lblChangeDate.text = start
+        }else{
+            lblChangeDate.text = ""
+        }
+
+        lblChangeBy.text = cellModel?.userid_value_formatted_value
+        lblChangeEvent.text = cellModel?.operation_formatted_value
+//        lblChangeField.text = cellModel?.
+//        lblOldValue.text = cellModel?.
+//        lblNewValue.text = cellModel?.
+        
+    }
+    
+    
 }

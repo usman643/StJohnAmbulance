@@ -96,3 +96,61 @@ struct EventSummaryModel : Codable {
     let _transactioncurrencyid_value : String?
     
 }
+
+
+
+struct  AuditResponseModel: Codable{
+    let value : [AuditModel]?
+    
+}
+
+struct AuditModel : Codable {
+    
+    let objectid_formatted_value : String?
+    let objectid_value : String?
+    let userid_value_formatted_value : String?
+    let userid_value : String?
+    let versionnumber_formatted_value : String?
+    let versionnumber : Int?
+    let operation_formatted_value : String?
+    let operation : Int?
+    let createdon_formatted_value : String?
+    let createdon : String?
+    let auditid : String?
+    let changedata : String?
+    let attributemask : String?
+    let action_formatted_value : String?
+    let action : Int?
+    let objecttypecode_formatted_value: String?
+    let objecttypecode : String?
+    let transactionid : String?
+    let _regardingobjectid_value : String?
+    let useradditionalinfo : String?
+    let _callinguserid_value : String?
+    
+    
+    enum CodingKeys: String , CodingKey {
+        case objectid_formatted_value = "_objectid_value@OData.Community.Display.V1.FormattedValue"
+        case objectid_value = "_objectid_value"
+        case userid_value_formatted_value = "_userid_value@OData.Community.Display.V1.FormattedValue"
+        case userid_value = "_userid_value"
+        case versionnumber_formatted_value = "versionnumber@OData.Community.Display.V1.FormattedValue"
+        case versionnumber = "versionnumber"
+        case operation_formatted_value = "operation@OData.Community.Display.V1.FormattedValue"
+        case operation = "operation"
+        case createdon_formatted_value = "createdon@OData.Community.Display.V1.FormattedValue"
+        case createdon = "createdon"
+        case auditid = "auditid"
+        case changedata = "changedata"
+        case attributemask = "attributemask"
+        case action_formatted_value = "action@OData.Community.Display.V1.FormattedValue"
+        case action = "action"
+        case objecttypecode_formatted_value = "objecttypecode@OData.Community.Display.V1.FormattedValue"
+        case objecttypecode = "objecttypecode"
+        case transactionid = "transactionid"
+        case _regardingobjectid_value = "_regardingobjectid_value"
+        case useradditionalinfo = "useradditionalinfo"
+        case _callinguserid_value = "_callinguserid_value"
+    }
+    
+}

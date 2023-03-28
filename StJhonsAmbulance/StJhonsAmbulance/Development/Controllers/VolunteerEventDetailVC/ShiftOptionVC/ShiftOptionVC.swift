@@ -19,7 +19,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
     var participationData : [VolunteerEventParticipationCheckModel]?
     let contactId = UserDefaults.standard.contactIdToken ?? ""
     var eventOptions : [VolunteerEventClickOptionModel]?
-    var eventOptionsNew : [VolunteerEventClickOptionModel]?
+    var eventOptionsData : [VolunteerEventClickOptionModel]?
     var eventStatus : [VolunteerStatusShift]?
     
     var eventId : String?
@@ -60,7 +60,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
         lblTitle.textColor = UIColor.themePrimaryColor
         for label in headingAllLabel{
             label.font = UIFont.RegularFont(11)
-            label.textColor = UIColor.themePrimary
+            label.textColor = UIColor.themePrimaryWhite
         }
         tableHeadingView.layer.borderWidth = 1.5
         tableHeadingView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
@@ -154,9 +154,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
         for i in (0..<(selectedEvents?.count ?? 0 )){
             
             if let data = selectedEvents?[i] as? VolunteerEventClickOptionModel {
-                
-                let startDate = data.msnfp_effectivefrom ?? ""
-                
+
                 let params = [
                     
                     "msnfp_engagementopportunitystatus": 335940003 as Int
@@ -182,7 +180,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
                 break
             case .error(let error, let errorResponse):
                 if error == .patchSuccess {
-//                    ENTALDAlertView.shared.showContactAlertWithTitle(title: "Event Status Update Successfully", message: "", actionTitle: .KOK, completion: { status in })
+                    ENTALDAlertView.shared.showContactAlertWithTitle(title: "Event Status Update Successfully", message: "", actionTitle: .KOK, completion: { status in })
                     
                 }else{
                     var message = error.message
@@ -471,6 +469,8 @@ class ShiftOptionVC: ENTALDBaseViewController {
                 
                 if let option = response.value {
                     self.eventOptions = option
+                    self.eventOptionsData = option
+                    self.eventOptionsData?.removeAll()
                     
                     if (self.eventOptions?.count == 0 || self.eventOptions?.count == nil){
                         self.showEmptyView(tableVw: self.tableView)
@@ -482,14 +482,18 @@ class ShiftOptionVC: ENTALDBaseViewController {
                             }
                         }
                     }
-                    DispatchQueue.main.async {
+                    
                         for i in (0 ..< (self.eventOptions?.count ?? 0)) {
-                            
-                            self.getvolunteerShiftStatus(scheduleId : self.eventOptions?[i].msnfp_engagementopportunityscheduleid ?? "")
+                            var indx = false
+                            if (i == (self.eventOptions?.count ?? 0) - 1){
+                                indx = true
+                            }
+                            self.getvolunteerShiftStatus(scheduleId : self.eventOptions?[i].msnfp_engagementopportunityscheduleid ?? "" , indx :indx )
                             
                         }
-                        self.tableView.reloadData()
-                    }
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                        self.tableView.reloadData()
+//                    }
                     
                 }else{
                     self.showEmptyView(tableVw: self.tableView)
@@ -509,7 +513,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
     }
     
     
-    func getvolunteerShiftStatus(scheduleId : String){
+    func getvolunteerShiftStatus(scheduleId : String, indx : Bool){
         
         let params : [String:Any] = [
             ParameterKeys.select : "msnfp_schedulestatus",
@@ -527,13 +531,23 @@ class ShiftOptionVC: ENTALDBaseViewController {
             switch result{
             case .success(value: let response):
                 
-                if let option = response.value {
-                    self.eventStatus = option
+                if let optionStatus = response.value {
+                    self.eventStatus = optionStatus
                     var eventOption = self.eventOptions?.filter({$0.msnfp_engagementopportunityscheduleid == scheduleId}).first
-                    let shiftStatus = self.eventStatus?.filter({$0.msnfp_participationscheduleid == scheduleId}).first
-                    eventOption?.msnfp_schedulestatus = shiftStatus?.msnfp_schedulestatus
-                    eventOption?.msnfp_participationscheduleid = shiftStatus?.msnfp_participationscheduleid
-                    self.eventOptions?.append(eventOption!)
+                    for i in (0 ..< (optionStatus.count)) {
+                         
+                        eventOption?.msnfp_schedulestatus  = optionStatus[i].msnfp_schedulestatus
+                        eventOption?.msnfp_participationscheduleid  = optionStatus[i].msnfp_participationscheduleid
+                    
+                        self.eventOptionsData?.append(eventOption! as VolunteerEventClickOptionModel)
+                    }
+                    
+                    if (indx == true){
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                        }
+                        
+                    }
                 }
                 
                 
@@ -559,7 +573,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
 extension ShiftOptionVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.eventOptions?.count ?? 0
+        return self.eventOptionsData?.count ?? 0
     }
     
     
@@ -572,7 +586,7 @@ extension ShiftOptionVC : UITableViewDelegate, UITableViewDataSource {
             cell.mainView.backgroundColor = UIColor.viewLightColor
             cell.seperatorView.backgroundColor = UIColor.gray
         }
-        cell.setContent(cellModel: self.eventOptions?[indexPath.row])
+        cell.setContent(cellModel: self.eventOptionsData?[indexPath.row])
         
         return cell
     }
@@ -581,18 +595,15 @@ extension ShiftOptionVC : UITableViewDelegate, UITableViewDataSource {
         if isBottombtnEnable == true{
             
             
-            if (self.eventOptions?[indexPath.row].event_selected ?? false){
+            if (self.eventOptionsData?[indexPath.row].event_selected ?? false){
                 
-                self.eventOptions?[indexPath.row].event_selected = false
+                self.eventOptionsData?[indexPath.row].event_selected = false
             }else{
-                self.eventOptions?[indexPath.row].event_selected = true
+                self.eventOptionsData?[indexPath.row].event_selected = true
             }
-            
+//            tableView.reloadData()
             tableView.reloadRows(at: [indexPath], with: .none)
             
         }
-        
-        
-        //        ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data:self.pendingShiftData?[indexPath.row], callBack: nil)
     }
 }

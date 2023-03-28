@@ -87,10 +87,10 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
             self.lblEventDate.text = ""
         }
         self.eventId = self.scheduleData?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
-        if DateFormatManager.shared.formatDate(date: Date()) > self.scheduleData?.sjavms_end ?? ""{
-            isBottombtnEnable = false
-        }else{
+        if DateFormatManager.shared.formatDate(date: Date()) <= self.scheduleData?.sjavms_end ?? ""{
             isBottombtnEnable = true
+        }else{
+            isBottombtnEnable = false
         }
         
 //        if self.scheduleData?.msnfp_schedulestatus == 335940003 {
@@ -114,10 +114,10 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         }
         
         self.eventId = self.availableData?.msnfp_engagementopportunityid ?? ""
-        if DateFormatManager.shared.formatDate(date: Date()) > self.availableData?.msnfp_endingdate ?? ""{
-            isBottombtnEnable = false
-        }else{
+        if DateFormatManager.shared.formatDate(date: Date()) < self.availableData?.msnfp_endingdate ?? ""{
             isBottombtnEnable = true
+        }else{
+            isBottombtnEnable = false
         }
         
 //        if self.availableData?.msnfp_engagementopportunitystatus == 335940003 {

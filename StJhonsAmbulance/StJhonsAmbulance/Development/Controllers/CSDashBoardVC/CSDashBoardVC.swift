@@ -214,7 +214,7 @@ class CSDashBoardVC: ENTALDBaseViewController{
                 
                 if let eventData = response.value {
                     self.latestEvent = eventData
-                    
+                    DispatchQueue.main.async {
                         if (self.latestEvent?.count != 0){
                             let date = DateFormatManager.shared.formatDateStrToStr(date: self.latestEvent?[0].msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "MMMM dd")
                             self.gridData?[0].title = self.latestEvent?[0].msnfp_engagementopportunitytitle ?? ""
@@ -225,7 +225,7 @@ class CSDashBoardVC: ENTALDBaseViewController{
                             self.gridData?[0].title =  "No Upcoming Event"
                             self.gridData?[0].subTitle = ""
                         }
-                    DispatchQueue.main.async {
+                    
                         self.collectionView.reloadData()
                     }
                 }
@@ -297,7 +297,7 @@ extension CSDashBoardVC : UICollectionViewDelegate,UICollectionViewDataSource, U
     
     func openNextScreecn(controller:Int?){
         if controller == 0 {
-            if self.latestEvent?.isEmpty ?? false{
+            if !(self.latestEvent?.isEmpty ?? false){
                 ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data: self.latestEvent?.first) { params, controller in
                     self.openNextScreecn(controller: params as? Int)
                 }

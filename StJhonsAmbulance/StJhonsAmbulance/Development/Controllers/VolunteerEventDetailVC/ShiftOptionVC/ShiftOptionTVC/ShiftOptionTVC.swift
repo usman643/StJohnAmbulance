@@ -55,10 +55,10 @@ class ShiftOptionTVC: UITableViewCell {
         lblShift.text = cellModel?.msnfp_engagementopportunityschedule ?? ""
         lblHours.text = "\(cellModel?.msnfp_hours ?? Float())"
         lblNeeded.text = "\(cellModel?.msnfp_maximum ?? NSNotFound)"
-        if let status = ProcessUtils.shared.getParticipantsStatus(code: cellModel?.msnfp_schedulestatus ?? NSNotFound){
+        if let status = ProcessUtils.shared.getStatus(code: cellModel?.msnfp_schedulestatus ?? NSNotFound){
             lblStatus.text = status
         }
-       
+//        lblStatus.text = "\(cellModel?.msnfp_schedulestatus ?? NSNotFound)"
 
         if let date = cellModel?.msnfp_effectivefrom {
             let start = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
