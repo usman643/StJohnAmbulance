@@ -30,6 +30,7 @@ enum EventRouter : Router {
     case getReportedShift(params:[String:Any])
     case updateContactInfo(contactId:String, params:[String:Any])
     case updateEventStatus(eventId:String, params:[String:Any])
+    case volunteerCheckIn(participationId:String, params:[String:Any])
     case getParticipantCount(params:[String:Any])
     case getOrganizerContact(params:[String:Any])
     case bookShift(params:[String:Any])
@@ -65,6 +66,7 @@ enum EventRouter : Router {
         case .getReportedShift : return "msnfp_participationschedules"
         case .updateContactInfo(let contactId, _) : return "contacts(\(contactId))"
         case .updateEventStatus(let eventId, _) : return "msnfp_engagementopportunities(\(eventId))"
+        case .volunteerCheckIn(let participationId, _) : return "msnfp_participationschedules(\(participationId))"
         case .getParticipantCount : return "msnfp_participations"
         case .getOrganizerContact : return "msnfp_engagementopportunities"
         case .createEvent : return "sjavms_eventrequests"
@@ -99,6 +101,8 @@ enum EventRouter : Router {
         case .cancelVolunteerEvent(_, let params):
             return params
         case .cancelVolunteerShift(_, let params):
+            return params
+        case .volunteerCheckIn(_, let params):
             return params
         case .pendingShiftUpdate(_, let params):
             return params
@@ -162,6 +166,8 @@ enum EventRouter : Router {
             return HTTPMethodType.patch.rawValue
         case .updateEventStatus(_,_):
             return HTTPMethodType.patch.rawValue
+        case .volunteerCheckIn(_,_):
+            return HTTPMethodType.patch.rawValue
         case .createEvent:
             return HTTPMethodType.post.rawValue
         case .bookShift:
@@ -191,6 +197,8 @@ enum EventRouter : Router {
         case .updateContactInfo(_,_):
             return .ENTJSONEncoding
         case .updateEventStatus(_,_):
+            return .ENTJSONEncoding
+        case .volunteerCheckIn(_,_):
             return .ENTJSONEncoding
         case .createEvent:
             return .ENTJSONEncoding

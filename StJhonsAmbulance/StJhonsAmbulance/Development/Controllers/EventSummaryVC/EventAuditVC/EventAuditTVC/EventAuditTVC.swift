@@ -59,6 +59,9 @@ class EventAuditTVC: UITableViewCell {
 
         lblChangeBy.text = cellModel?.userid_value_formatted_value
         lblChangeEvent.text = cellModel?.operation_formatted_value
+        
+        
+        
 //        lblChangeField.text = cellModel?.
 //        lblOldValue.text = cellModel?.
 //        lblNewValue.text = cellModel?.

@@ -83,7 +83,7 @@ struct VolunteerOfEventDataModel : Codable {
     let _sjavms_volunteerevent_value : String?
     let _sjavms_volunteer_value : String?
     let msnfp_participationscheduleid : String?
-    let sjavms_checkedin : String?
+    var sjavms_checkedin : Bool?
     let sjavms_Volunteer : VolunteerOfEventVolunteerModel?
     
     

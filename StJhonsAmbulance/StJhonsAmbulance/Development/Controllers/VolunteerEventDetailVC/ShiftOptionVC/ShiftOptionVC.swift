@@ -88,7 +88,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
     func bookShift(){
         
         
-        let selectedEvents = self.eventOptions?.filter( {$0.event_selected == true})
+        let selectedEvents = self.eventOptionsData?.filter( {$0.event_selected == true})
         
         for i in (0..<(selectedEvents?.count ?? 0 )){
             
@@ -149,7 +149,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
     
     func cancelShift(){
         
-        let selectedEvents = self.eventOptions?.filter( {$0.event_selected == true})
+        let selectedEvents = self.eventOptionsData?.filter( {$0.event_selected == true})
         
         for i in (0..<(selectedEvents?.count ?? 0 )){
             
@@ -170,7 +170,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
             LoadingView.show()
         }
         //        let eventId = self.eventData?.msnfp_engagementopportunityid ?? ""
-        ENTALDLibraryAPI.shared.cancelVolunteerEvent(eventId:eventid , params: params){ result in
+        ENTALDLibraryAPI.shared.cancelVolunteerShift(eventId:eventid , params: params){ result in
             DispatchQueue.main.async {
                 LoadingView.hide()
             }
@@ -284,12 +284,12 @@ class ShiftOptionVC: ENTALDBaseViewController {
     @IBAction func filterTapped(_ sender: Any) {
         
         if !isShiftFilterApplied{
-            self.eventOptions = self.eventOptions?.sorted {
+            self.eventOptionsData = self.eventOptionsData?.sorted {
                 $0.msnfp_engagementopportunityschedule ?? "" < $1.msnfp_engagementopportunityschedule ?? ""
             }
             isShiftFilterApplied = true
         }else{
-            self.eventOptions = self.eventOptions?.sorted {
+            self.eventOptionsData = self.eventOptionsData?.sorted {
                 $0.msnfp_engagementopportunityschedule ?? "" > $1.msnfp_engagementopportunityschedule ?? ""
             }
             isShiftFilterApplied = false
@@ -307,12 +307,12 @@ class ShiftOptionVC: ENTALDBaseViewController {
     }
     @IBAction func shiftFilterTapped(_ sender: Any) {
         if !isShiftFilterApplied{
-            self.eventOptions = self.eventOptions?.sorted {
+            self.eventOptionsData = self.eventOptionsData?.sorted {
                 $0.msnfp_engagementopportunityschedule ?? "" < $1.msnfp_engagementopportunityschedule ?? ""
             }
             isShiftFilterApplied = true
         }else{
-            self.eventOptions = self.eventOptions?.sorted {
+            self.eventOptionsData = self.eventOptionsData?.sorted {
                 $0.msnfp_engagementopportunityschedule ?? "" > $1.msnfp_engagementopportunityschedule ?? ""
             }
             isShiftFilterApplied = false
@@ -330,12 +330,12 @@ class ShiftOptionVC: ENTALDBaseViewController {
     }
     @IBAction func startFilterTapped(_ sender: Any) {
         if !isStartFilterApplied{
-            self.eventOptions = self.eventOptions?.sorted {
+            self.eventOptionsData = self.eventOptionsData?.sorted {
                 $0.msnfp_effectivefrom ?? "" < $1.msnfp_effectivefrom ?? ""
             }
             isStartFilterApplied = true
         }else{
-            self.eventOptions = self.eventOptions?.sorted {
+            self.eventOptionsData = self.eventOptionsData?.sorted {
                 $0.msnfp_effectivefrom ?? "" > $1.msnfp_effectivefrom ?? ""
             }
             isStartFilterApplied = false
@@ -353,12 +353,12 @@ class ShiftOptionVC: ENTALDBaseViewController {
     }
     @IBAction func endFilterTapped(_ sender: Any) {
         if !isEndFilterApplied{
-            self.eventOptions = self.eventOptions?.sorted {
+            self.eventOptionsData = self.eventOptionsData?.sorted {
                 $0.msnfp_effectiveto ?? "" < $1.msnfp_effectiveto ?? ""
             }
             isEndFilterApplied = true
         }else{
-            self.eventOptions = self.eventOptions?.sorted {
+            self.eventOptionsData = self.eventOptionsData?.sorted {
                 $0.msnfp_effectiveto ?? "" > $1.msnfp_effectiveto ?? ""
             }
             isEndFilterApplied = false
@@ -376,12 +376,12 @@ class ShiftOptionVC: ENTALDBaseViewController {
     }
     @IBAction func hoursFilterTapped(_ sender: Any) {
         if !isHourFilterApplied{
-            self.eventOptions = self.eventOptions?.sorted {
+            self.eventOptionsData = self.eventOptionsData?.sorted {
                 $0.msnfp_hours ?? Float() < $1.msnfp_hours ?? Float()
             }
             isHourFilterApplied = true
         }else{
-            self.eventOptions = self.eventOptions?.sorted {
+            self.eventOptionsData = self.eventOptionsData?.sorted {
                 $0.msnfp_hours ?? Float() > $1.msnfp_hours ?? Float()
             }
             isHourFilterApplied = false
@@ -401,12 +401,12 @@ class ShiftOptionVC: ENTALDBaseViewController {
     
     @IBAction func neededFilterTapped(_ sender: Any) {
         if !isNeedFilterApplied{
-            self.eventOptions = self.eventOptions?.sorted {
+            self.eventOptionsData = self.eventOptionsData?.sorted {
                 $0.msnfp_maximum ?? NSNotFound < $1.msnfp_maximum ?? NSNotFound
             }
             isNeedFilterApplied = true
         }else{
-            self.eventOptions = self.eventOptions?.sorted {
+            self.eventOptionsData = self.eventOptionsData?.sorted {
                 $0.msnfp_maximum ?? NSNotFound > $1.msnfp_maximum ?? NSNotFound
             }
             isNeedFilterApplied = false

@@ -28,6 +28,9 @@
                         <rect key="frame" x="255" y="6.6666666666666679" width="51" height="31.000000000000004"/>
                         <color key="tintColor" name="secondryGreen"/>
                         <color key="onTintColor" name="PrimaryGreen"/>
+                        <connections>
+                            <action selector="switchButton:" destination="KGk-i7-Jjw" eventType="valueChanged" id="mqZ-sR-AYj"/>
+                        </connections>
                     </switch>
                 </subviews>
                 <color key="backgroundColor" red="0.1215686275" green="0.1960784314" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -40,6 +43,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="btnCheckIn" destination="fct-dr-LZe" id="2SD-S9-gvb"/>
                 <outlet property="lblTitle" destination="hbX-J0-ewG" id="a5M-FT-fGw"/>
             </connections>
             <point key="canvasLocation" x="139" y="20"/>

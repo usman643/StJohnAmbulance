@@ -350,6 +350,11 @@ class ENTALDLibraryAPI {
         let router = EventRouter.createEvent(params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
+        
+    func updateVolunteerCheckIn(particitionId: String ,params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.volunteerCheckIn(participationId: particitionId, params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
     
     
     

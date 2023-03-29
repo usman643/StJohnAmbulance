@@ -56,7 +56,7 @@ class DateFormatManager{
     func formatDate(date: Date) -> String
     {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss:SSS'Z'"
         return formatter.string(from: date)
     }
     

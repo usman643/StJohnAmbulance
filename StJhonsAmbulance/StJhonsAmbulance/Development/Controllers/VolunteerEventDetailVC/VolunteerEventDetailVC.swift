@@ -87,7 +87,7 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
             self.lblEventDate.text = ""
         }
         self.eventId = self.scheduleData?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
-        if DateFormatManager.shared.formatDate(date: Date()) <= self.scheduleData?.sjavms_end ?? ""{
+        if DateFormatManager.shared.formatDate(date: Date()) < self.scheduleData?.sjavms_end ?? ""{
             isBottombtnEnable = true
         }else{
             isBottombtnEnable = false
@@ -233,6 +233,17 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
                     DispatchQueue.main.async {
                         if modelData != nil {
                             self.isUserParticipate = true
+                            
+                            if ((DateFormatManager.shared.formatDate(date: Date()) > self.availableData?.msnfp_endingdate ?? "" || DateFormatManager.shared.formatDate(date: Date()) > self.self.scheduleData?.sjavms_end ?? "" ) ){
+                                
+                                self.lblDesc.text = "Cancelled"
+                                self.closeImg.isHidden = false
+                                self.closeImg.image = UIImage(named: "xmark.circle.fill")
+                                self.btnCloseEvent.isHidden = true
+                            
+                            }
+                            
+                            
                             if ((DateFormatManager.shared.formatDate(date: Date()) <= self.availableData?.msnfp_endingdate ?? "" || DateFormatManager.shared.formatDate(date: Date()) <= self.self.scheduleData?.sjavms_end ?? "" ) ){
                                 
                                 if (modelData?.statuscode == 844060000 || modelData?.statuscode ==  844060001  || modelData?.statuscode == 844060004) {

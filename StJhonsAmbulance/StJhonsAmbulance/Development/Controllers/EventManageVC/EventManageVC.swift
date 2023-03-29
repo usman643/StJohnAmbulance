@@ -7,7 +7,13 @@
 
 import UIKit
 
-class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
+protocol updateVolunteerCheckInDelegate {
+    
+    func updateVolunteerCheckIn(participationId:String , param : [String:Bool])
+   
+}
+
+class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunteerCheckInDelegate {
     
     var volunteerData : [VolunteerOfEventDataModel]?
     var eventData : CurrentEventsModel?
@@ -209,13 +215,19 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
         
     }
     
+    func updateVolunteerCheckIn(participationId:String , param : [String:Bool]){
+        
+        self.updateCheckInData(participationId: participationId, params: param)
+        
+    }
+    
     func getVolunteers(){
         
         let eventId = self.eventData?.msnfp_engagementopportunityid ?? ""
         
         let params : [String:Any] = [
             
-            ParameterKeys.select : "msnfp_schedulestatus,sjavms_start,sjavms_hours,_sjavms_volunteerevent_value,_sjavms_volunteer_value,msnfp_participationscheduleid,sjavms_start,sjavms_end",
+            ParameterKeys.select : "msnfp_schedulestatus,sjavms_start,sjavms_hours,_sjavms_volunteerevent_value,_sjavms_volunteer_value,msnfp_participationscheduleid,sjavms_start,sjavms_end,sjavms_checkedin",
             
             ParameterKeys.expand : "sjavms_Volunteer($select=fullname)",
             ParameterKeys.filter : "(_sjavms_volunteerevent_value eq \(eventId))",
@@ -289,9 +301,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
             switch result{
             case .success(value: let response):
                 if let pastEvent = response.value {
-                    
-                }else{
-                    self.showEmptyView(tableVw: self.tableView)
+
                 }
                 
             case .error(let error, let errorResponse):
@@ -299,13 +309,46 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
                 if let err = errorResponse {
                     message = err.error
                 }
-                self.showEmptyView(tableVw: self.tableView)
+//                self.showEmptyView(tableVw: self.tableView)
                 DispatchQueue.main.async {
                     ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
                 }
             }
         }
     }
+    
+    fileprivate func updateCheckInData(participationId: String, params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        
+        
+        ENTALDLibraryAPI.shared.updateVolunteerCheckIn(particitionId: participationId, params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                if let pastEvent = response.value {
+
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+//                self.showEmptyView(tableVw: self.tableView)
+                DispatchQueue.main.async {
+//                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    
     
     private func getAllProgramesfile(){
         DispatchQueue.main.async {
@@ -326,7 +369,8 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate {
                     self.eventProgramData = self.getProgramName(self.eventData?._sjavms_program_value ?? "")
                     
                     DispatchQueue.main.async {
-                        self.lblProgramType.text = self.eventProgramData?.sjavms_name ?? ""
+                        
+                        self.lblProgramType.text = self.eventProgramData?.sjavms_name ?? " "
                         //contact info
                     }
                     
@@ -468,7 +512,15 @@ extension EventManageVC : UITableViewDelegate, UITableViewDataSource{
         
         let key = Array(self.dataVol.keys)[indexPath.section]
         if let rowModel : [VolunteerOfEventDataModel] = self.dataVol[key] as? [VolunteerOfEventDataModel]{
+            cell.cellModel = rowModel[indexPath.row]
             cell.lblTitle.text = rowModel[indexPath.row].sjavms_Volunteer?.fullname ?? ""
+            if ( rowModel[indexPath.row].sjavms_checkedin == true){
+                cell.btnCheckIn.isOn = true
+            }else{
+                cell.btnCheckIn.isOn = false
+            }
+            cell.delegate = self
+            
         }
         return cell
     }
@@ -493,5 +545,30 @@ extension EventManageVC : UITableViewDelegate, UITableViewDataSource{
         })
         
         return self.getEntryTypesByGroup(volunteers: result) ?? [:]
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let key = Array(self.dataVol.keys)[indexPath.section]
+//        var rowModel  = self.dataVol[key] as? [VolunteerOfEventDataModel]
+//
+//        if ( rowModel?[indexPath.row].sjavms_checkedin == true){
+//            rowModel?[indexPath.row].sjavms_checkedin = false
+//
+//            let params = [
+//                "sjavms_checkedin": false
+//            ]
+//            self.updateCheckInData(participationId: rowModel?[indexPath.row].msnfp_participationscheduleid ?? "", params: params)
+//        }else{
+//
+//            rowModel?[indexPath.row].sjavms_checkedin = true
+//            let params = [
+//                "sjavms_checkedin": false
+//            ]
+//            self.updateCheckInData(participationId: rowModel?[indexPath.row].msnfp_participationscheduleid ?? "", params: params)
+//        }
+//
+//        tableView.reloadRows(at: [indexPath], with: .none)
+        
+        
     }
 }

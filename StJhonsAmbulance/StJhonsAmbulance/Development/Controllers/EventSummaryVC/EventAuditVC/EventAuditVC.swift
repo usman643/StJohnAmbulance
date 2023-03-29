@@ -20,6 +20,7 @@ class EventAuditVC:ENTALDBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         registerCell()
+        getAuditHistory()
         decorateUI()
     }
     
@@ -78,7 +79,7 @@ class EventAuditVC:ENTALDBaseViewController {
                 if let apiData = response.value {
                     self.auditHistory = apiData
                     DispatchQueue.main.async {
-                        self.setupData()
+                        self.tableview.reloadData()
                     }
                 }
                 
