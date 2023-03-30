@@ -115,41 +115,7 @@ class ScheduleVC: ENTALDBaseViewController {
         self.navigationController?.popViewController(animated: false)
         
     }
-    
-}
-
-
-// ============================  Tableview Delegates ===================================
-
-extension ScheduleVC : UITableViewDelegate, UITableViewDataSource{
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return scheduleData?.count ?? 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ScheduleTVC", for: indexPath) as! ScheduleTVC
-        let rowModel = scheduleData?[indexPath.row]
-        cell.setContent(cellModel : rowModel)
-        
-        if indexPath.row % 2 == 0{
-            cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-        }else{
-            cell.backgroundColor = UIColor.viewLightColor
-//            cell.seperatorView.backgroundColor = UIColor.gray
-        }
-        
-        return cell
-    }
-    
-}
-
-
-
-
-// ============================ API ==========================//
-
-extension ScheduleVC {
+    // ============================ API ==========================//
 
     func getScheduleInfo(){
     
@@ -210,9 +176,9 @@ extension ScheduleVC {
     func getScheduleInfoThree(){
         var propertyValues = ""
         
-        for i in (0 ..< (self.scheduleGroupData?.count ?? 0)){
+        for i in (0 ..< (self.scheduleEngagementData?.count ?? 0)){
             var str = ""
-            if ( i == (self.scheduleGroupData?.count ?? 0) - 1){
+            if ( i == (self.scheduleEngagementData?.count ?? 0) - 1){
                 str = "sjavms_VolunteerEvent/ msnfp_engagementopportunityid eq \(self.scheduleEngagementData?[i].msnfp_engagementopportunityid ?? "")"
             }else{
                 str = "sjavms_VolunteerEvent/ msnfp_engagementopportunityid eq \(self.scheduleEngagementData?[i].msnfp_engagementopportunityid ?? "") or "
@@ -225,7 +191,7 @@ extension ScheduleVC {
         guard let contactId = UserDefaults.standard.contactIdToken  else {return}
         let params : [String:Any] = [
             
-            ParameterKeys.select : "_sjavms_volunteerevent_value,msnfp_schedulestatus,sjavms_start,msnfp_participationscheduleid,sjavms_end",
+            ParameterKeys.select : "_sjavms_volunteerevent_value,msnfp_schedulestatus,sjavms_start,msnfp_participationscheduleid,sjavms_end,sjavms_checkedin",
             ParameterKeys.expand : "sjavms_VolunteerEvent($select=msnfp_engagementopportunitytitle,msnfp_location)",
             ParameterKeys.filter : "(_sjavms_volunteer_value eq \(contactId) and msnfp_schedulestatus eq 335940000 and (\(propertyValues))) ",
 //            ParameterKeys.filter : "(_sjavms_volunteer_value eq \(contactId) and msnfp_schedulestatus eq 335940000 and (\(propertyValues))) ",
@@ -283,5 +249,35 @@ extension ScheduleVC {
     }
 }
 
+
+// ============================  Tableview Delegates ===================================
+
+extension ScheduleVC : UITableViewDelegate, UITableViewDataSource{
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return scheduleData?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ScheduleTVC", for: indexPath) as! ScheduleTVC
+        let rowModel = scheduleData?[indexPath.row]
+        cell.setContent(cellModel : rowModel)
+        
+        if indexPath.row % 2 == 0{
+            cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+        }else{
+            cell.backgroundColor = UIColor.viewLightColor
+//            cell.seperatorView.backgroundColor = UIColor.gray
+        }
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let rowModel = scheduleData?[indexPath.row]
+        
+        ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: rowModel, eventType : "schedule" , callBack: nil)
+    }
+}
 
 

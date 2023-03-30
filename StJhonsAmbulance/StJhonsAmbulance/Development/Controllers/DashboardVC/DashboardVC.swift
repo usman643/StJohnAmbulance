@@ -62,7 +62,7 @@ class DashboardVC: ENTALDBaseViewController{
         setupContent()
         getVolunteerAward()
         getLatestIncomingEvent()
-        getIncomingEvent()
+//        getIncomingEvent()
 //        gridData = [
 //                    DashBoardGridModel(title: "", subTitle: "", bgColor: UIColor.darkBlueColor, icon: "ic_camp"),
 //                    DashBoardGridModel(title: "Messages", subTitle: "02", bgColor: UIColor.orangeRedColor, icon: "ic_message"),
@@ -344,9 +344,18 @@ class DashboardVC: ENTALDBaseViewController{
             
             if (self.latestEventData?.count != 0 && self.latestEventData?.count != nil){
                 if ((self.latestEventData?[0]) != nil){
-                    ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.latestEventData?[0], eventName: "latestEvent") { params, controller in
+                    
+                    ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: self.latestEventData?[0], eventType : "schedule") { params, controller in
                         self.openNextScreen(controller:params as? String)
+                        
                     }
+                    
+                    
+//
+//                    ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.latestEventData?[0], eventName: "latestEvent") { params, controller in
+//                        self.openNextScreen(controller:params as? String)
+//
+//                    }
                 }
             }
             

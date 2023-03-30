@@ -197,7 +197,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
     
     @IBAction func btnProgramAction(_ sender: Any) {
         let params = [
-            "msnfp_engagementopportunitystatus": 844060004
+            "msnfp_engagementopportunitystatus": 844060004 as Int
         ]
         
         self.closeVolunteersData(params: params)
@@ -258,9 +258,14 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
                     if (self.volunteerData?.count == 0 || self.volunteerData?.count == nil){
                         self.showEmptyView(tableVw: self.tableView)
                     }else{
+                        self.volunteerData = self.volunteerData?.sorted {
+                            $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
+                        }
                         
                         self.dataVol = self.getEntryTypesByGroup(volunteers: self.volunteerData) ?? [:]
                         self.volentierResultData = self.getEntryTypesByGroup(volunteers:self.volunteerData) ?? [:]
+                        
+                        
                         DispatchQueue.main.async {
                             for subview in self.tableView.subviews {
                                 subview.removeFromSuperview()

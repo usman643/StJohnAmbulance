@@ -12,6 +12,7 @@ class VEventDetailVC: ENTALDBaseViewController {
     var detailData : [VolunteerEventClickShiftDetailModel]?
     var eventId : String?
     var userParticipantData : VolunteerEventParticipationCheckModel?
+    var qualification : String?
     
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblQualificationTitle: UILabel!
@@ -91,7 +92,7 @@ class VEventDetailVC: ENTALDBaseViewController {
     
     func setupData(){
         self.lblLocation.text = self.detailData?[0].msnfp_location ?? ""
-        self.lblQualification.text = "None"
+        self.lblQualification.text = self.detailData?[0].msnfp_qualifications ?? "None"
         self.lblTitle.text = self.detailData?[0].msnfp_shortdescription ?? ""
     }
 

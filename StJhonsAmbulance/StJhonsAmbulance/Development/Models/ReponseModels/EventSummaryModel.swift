@@ -153,4 +153,30 @@ struct AuditModel : Codable {
         case _callinguserid_value = "_callinguserid_value"
     }
     
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.objectid_formatted_value = try container.decodeIfPresent(String.self, forKey: .objectid_formatted_value)
+        self.objectid_value = try container.decodeIfPresent(String.self, forKey: .objectid_value)
+        self.userid_value_formatted_value = try container.decodeIfPresent(String.self, forKey: .userid_value_formatted_value)
+        self.userid_value = try container.decodeIfPresent(String.self, forKey: .userid_value)
+        self.versionnumber_formatted_value = try container.decodeIfPresent(String.self, forKey: .versionnumber_formatted_value)
+        self.versionnumber = try container.decodeIfPresent(Int.self, forKey: .versionnumber)
+        self.operation_formatted_value = try container.decodeIfPresent(String.self, forKey: .operation_formatted_value)
+        self.operation = try container.decodeIfPresent(Int.self, forKey: .operation)
+        self.createdon_formatted_value = try container.decodeIfPresent(String.self, forKey: .createdon_formatted_value)
+        self.createdon = try container.decodeIfPresent(String.self, forKey: .createdon)
+        self.auditid = try container.decodeIfPresent(String.self, forKey: .auditid)
+        self.changedata = try container.decodeIfPresent(String.self, forKey: .changedata)
+        self.attributemask = try container.decodeIfPresent(String.self, forKey: .attributemask)
+        self.action_formatted_value = try container.decodeIfPresent(String.self, forKey: .action_formatted_value)
+        self.action = try container.decodeIfPresent(Int.self, forKey: .action)
+        self.objecttypecode_formatted_value = try container.decodeIfPresent(String.self, forKey: .objecttypecode_formatted_value)
+        self.objecttypecode = try container.decodeIfPresent(String.self, forKey: .objecttypecode)
+        self.transactionid = try container.decodeIfPresent(String.self, forKey: .transactionid)
+        self._regardingobjectid_value = try container.decodeIfPresent(String.self, forKey: ._regardingobjectid_value)
+        self.useradditionalinfo = try container.decodeIfPresent(String.self, forKey: .useradditionalinfo)
+        self._callinguserid_value = try container.decodeIfPresent(String.self, forKey: ._callinguserid_value)
+    }
+    
+    
 }
