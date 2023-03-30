@@ -88,7 +88,13 @@ class EventDetailVC: ENTALDBaseViewController {
         
         checkInBtnImg.image = checkInBtnImg.image?.withRenderingMode(.alwaysTemplate)
         checkInBtnImg.tintColor = UIColor.white
-
+        if ( self.latestEvent?.sjavms_checkedin == true ){
+            btnCheckIn.isEnabled = false
+            btnCheckIn.setTitle("Checked In", for: .normal)
+        }else{
+            btnCheckIn.isEnabled = true
+            btnCheckIn.setTitle("Check In", for: .normal)
+        }
         
     }
     
@@ -162,7 +168,13 @@ class EventDetailVC: ENTALDBaseViewController {
     
     
     @IBAction func checkInTapped(_ sender: Any) {
-            ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alter", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
+        if (self.latestEvent?.sjavms_checkedin == false){
+            updateCheckInData()
+        }
+//            ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alter", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
+        
+        
+        
     }
     
     
@@ -173,6 +185,41 @@ class EventDetailVC: ENTALDBaseViewController {
     @IBAction func contactTapped(_ sender: Any) {
         ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alter", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
     }
+    
+    fileprivate func updateCheckInData(){
+        let params = [
+            "sjavms_checkedin": true
+        ]
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        
+        
+        ENTALDLibraryAPI.shared.updateVolunteerCheckIn(particitionId: self.latestEvent?.msnfp_participationscheduleid ?? "", params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                if let pastEvent = response.value {
+
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+//                self.showEmptyView(tableVw: self.tableView)
+                DispatchQueue.main.async {
+//                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
 }
 
 extension EventDetailVC : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

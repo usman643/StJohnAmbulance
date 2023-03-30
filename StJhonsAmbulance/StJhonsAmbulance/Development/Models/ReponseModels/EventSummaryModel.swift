@@ -127,7 +127,7 @@ struct AuditModel : Codable {
     let _regardingobjectid_value : String?
     let useradditionalinfo : String?
     let _callinguserid_value : String?
-    
+
     
     enum CodingKeys: String , CodingKey {
         case objectid_formatted_value = "_objectid_value@OData.Community.Display.V1.FormattedValue"
@@ -151,6 +151,8 @@ struct AuditModel : Codable {
         case _regardingobjectid_value = "_regardingobjectid_value"
         case useradditionalinfo = "useradditionalinfo"
         case _callinguserid_value = "_callinguserid_value"
+
+        
     }
     
     init(from decoder: Decoder) throws {
@@ -176,7 +178,18 @@ struct AuditModel : Codable {
         self._regardingobjectid_value = try container.decodeIfPresent(String.self, forKey: ._regardingobjectid_value)
         self.useradditionalinfo = try container.decodeIfPresent(String.self, forKey: .useradditionalinfo)
         self._callinguserid_value = try container.decodeIfPresent(String.self, forKey: ._callinguserid_value)
+
+        
     }
+
+}
+
+struct ChangeAttributeModel : Decodable {
+    var changedAttributes : [ChangeModel]
     
-    
+}
+struct ChangeModel :Codable {
+    var logicalName : String?
+    var oldValue : String?
+    var newValue : String?
 }

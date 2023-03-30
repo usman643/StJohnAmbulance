@@ -61,7 +61,9 @@ class DashboardVC: ENTALDBaseViewController{
 //        setSideMenu()
         setupContent()
         getVolunteerAward()
-        getLatestIncomingEvent()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.getLatestIncomingEvent()
+        }
 //        getIncomingEvent()
 //        gridData = [
 //                    DashBoardGridModel(title: "", subTitle: "", bgColor: UIColor.darkBlueColor, icon: "ic_camp"),
@@ -345,17 +347,17 @@ class DashboardVC: ENTALDBaseViewController{
             if (self.latestEventData?.count != 0 && self.latestEventData?.count != nil){
                 if ((self.latestEventData?[0]) != nil){
                     
-                    ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: self.latestEventData?[0], eventType : "schedule") { params, controller in
-                        self.openNextScreen(controller:params as? String)
-                        
-                    }
-                    
-                    
-//
-//                    ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.latestEventData?[0], eventName: "latestEvent") { params, controller in
+//                    ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: self.latestEventData?[0], eventType : "schedule") { params, controller in
 //                        self.openNextScreen(controller:params as? String)
 //
 //                    }
+                    
+                    
+//
+                    ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.latestEventData?[0], eventName: "latestEvent") { params, controller in
+                        self.openNextScreen(controller:params as? String)
+
+                    }
                 }
             }
             
@@ -448,7 +450,6 @@ class DashboardVC: ENTALDBaseViewController{
     
     func getLatestIncomingEvent(){
         
-        guard let contactId = UserDefaults.standard.contactIdToken  else {return}
         let params : [String:Any] = [
             
             ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_needsreviewedparticipants,msnfp_minimum,msnfp_maximum,_sjavms_group_value,msnfp_endingdate,msnfp_cancelledparticipants,msnfp_appliedparticipants,msnfp_startingdate,msnfp_engagementopportunityid",
@@ -498,7 +499,7 @@ class DashboardVC: ENTALDBaseViewController{
     
     func getIncomingEvent(){
         
-                var propertyValues = ""
+              var propertyValues = ""
         
                 for i in (0 ..< (self.latestEventIdData?.count ?? 0)){
                     var str = ""
@@ -518,13 +519,13 @@ class DashboardVC: ENTALDBaseViewController{
                 }
         
         guard let contactId = UserDefaults.standard.contactIdToken  else {return}
-        guard let currentDate = DateFormatManager.shared.getCurrentDateWithFormat(format: "yyyy/MM/dd") else {return}
+        guard let currentDate = DateFormatManager.shared.getCurrentDateWithFormat(format: "yyyy-MM-dd") else {return}
         let params : [String:Any] = [
             
-            ParameterKeys.select : "msnfp_name,msnfp_participationscheduleid,statuscode,statecode,msnfp_schedulestatus,sjavms_start,sjavms_end",
+            ParameterKeys.select : "msnfp_name,msnfp_participationscheduleid,statuscode,statecode,msnfp_schedulestatus,sjavms_start,sjavms_end,sjavms_checkedin",
             ParameterKeys.expand : "sjavms_VolunteerEvent($select=msnfp_engagementopportunitytitle,msnfp_location)",
 
-            ParameterKeys.filter : "(_sjavms_volunteer_value eq \(contactId) and msnfp_schedulestatus eq 335940000 and Microsoft.Dynamics.CRM.OnOrAfter(PropertyName='sjavms_end',PropertyValue='\(currentDate))') and Microsoft.Dynamics.CRM.In(PropertyName='sjavms_volunteerevent',PropertyValues=[\(propertyValues)]))",
+            ParameterKeys.filter : "(_sjavms_volunteer_value eq \(contactId) and msnfp_schedulestatus eq 335940000 and Microsoft.Dynamics.CRM.OnOrAfter(PropertyName='sjavms_end',PropertyValue='\(currentDate)') and Microsoft.Dynamics.CRM.In(PropertyName='sjavms_volunteerevent',PropertyValues=[\(propertyValues)]))",
             ParameterKeys.orderby : "msnfp_name asc"
         ]
         
@@ -549,7 +550,7 @@ class DashboardVC: ENTALDBaseViewController{
                         
                         self.lblCamp.text = self.latestEventData?[0].sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
                         if (self.latestEventData?[0].sjavms_start != nil && self.latestEventData?[0].sjavms_start != ""){
-                            let startData = DateFormatManager.shared.formatDateStrToStr(date: self.latestEventData?[0].sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+                            let startData = DateFormatManager.shared.formatDateStrToStr(date: self.latestEventData?[0].sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
                             self.lblCampNum.text = startData
                         }else{
                             self.lblCampNum.text = ""

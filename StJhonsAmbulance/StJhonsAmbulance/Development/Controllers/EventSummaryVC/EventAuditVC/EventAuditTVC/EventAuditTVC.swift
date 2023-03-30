@@ -6,16 +6,9 @@
 //
 
 import UIKit
+import Foundation
 
-struct changeAttributeModel : Codable {
-    var changedAttributes : [ChangeModel]
-    
-}
-struct ChangeModel :Codable {
-    var logicalName : String?
-    var oldValue : String?
-    var newValue : String?
-}
+
 
 class EventAuditTVC: UITableViewCell {
 
@@ -67,10 +60,21 @@ class EventAuditTVC: UITableViewCell {
             lblChangeDate.text = ""
         }
         
-        lblChangeBy.text = cellModel?.userid_value_formatted_value
-        lblChangeEvent.text = cellModel?.objectid_formatted_value
+        lblChangeBy.text = cellModel?.userid_value_formatted_value ?? ""
+        lblChangeEvent.text = cellModel?.objectid_formatted_value ?? ""
         
         
+        do {
+            let data = Data((cellModel?.changedata?.utf8)!)
+            let str = try JSONDecoder().decode(ChangeAttributeModel.self, from: data)
+            lblChangeField.text = str.changedAttributes[0].logicalName ?? ""
+            lblOldValue.text = str.changedAttributes[0].oldValue ?? ""
+            lblNewValue.text = str.changedAttributes[0].newValue ?? ""
+        } catch {
+            print("Error on parsing response")
+        }
+        
+
         //        var somedata = cellModel?.changedata?.data(using: String.Encoding.utf8) ?? Data()
 //        do{
 //

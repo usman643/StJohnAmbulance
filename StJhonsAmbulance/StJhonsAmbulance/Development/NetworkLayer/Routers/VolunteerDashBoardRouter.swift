@@ -38,7 +38,7 @@ enum VolunteerDashBoardRouter : Router {
         case .getVolunteerAvailableEventTwo : return "msnfp_engagementopportunities"
         case .getVolunteerAvailableEventThree : return "msnfp_engagementopportunities"
         case .getVolunteerEvent : return "msnfp_participationschedules"
-        case .getLatestEventInfo : return "msnfp_participationschedules"
+        case .getLatestEventInfo : return "msnfp_engagementopportunities"
         case .getLatestEvents : return "msnfp_participationschedules"
         case .getEvent : return "msnfp_participationschedules"
         case .getNonEvent : return "msnfp_participationschedules"

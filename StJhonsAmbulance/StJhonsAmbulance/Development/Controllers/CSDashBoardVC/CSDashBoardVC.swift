@@ -188,7 +188,7 @@ class CSDashBoardVC: ENTALDBaseViewController{
         guard let currentDate = DateFormatManager.shared.getCurrentDateWithFormat(format: "yyyy/MM/dd") else {return}
         let params : [String:Any] = [
             
-            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_minimum,msnfp_maximum,msnfp_endingdate,msnfp_startingdate,msnfp_engagementopportunityid,_sjavms_contact_value",
+            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_startingdate,msnfp_location,msnfp_engagementopportunitystatus,_sjavms_program_value,_sjavms_program_value,msnfp_engagementopportunityid,sjavms_maxparticipants,msnfp_endingdate,msnfp_maximum,msnfp_minimum",
             ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(msnfp_groupid eq \(groupId)))",
             ParameterKeys.filter : "(statecode eq 0 and Microsoft.Dynamics.CRM.OnOrAfter(PropertyName='msnfp_endingdate',PropertyValue='\(currentDate)') and Microsoft.Dynamics.CRM.In(PropertyName='msnfp_engagementopportunitystatus',PropertyValues=['844060003','844060002'])) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
             ParameterKeys.orderby : "msnfp_startingdate asc,msnfp_engagementopportunitytitle asc",

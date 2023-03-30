@@ -100,6 +100,8 @@ class EventVC: ENTALDBaseViewController, UITextFieldDelegate,EventSummaryDelegat
     }
     
     func decorateUI(){
+        
+        textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         selectGroupView.layer.cornerRadius = 3
         btnSelectGroup.layer.cornerRadius = 3
         btnCreateEvent.layer.cornerRadius = 3
@@ -177,13 +179,14 @@ class EventVC: ENTALDBaseViewController, UITextFieldDelegate,EventSummaryDelegat
         
         searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         searchView.layer.borderWidth = 1.5
-        btnSearchClose.isHidden = true
+//        btnSearchClose.isHidden = true
         
         lblTabTitle.textColor = UIColor.themePrimaryColor
         lblTabTitle.font = UIFont.BoldFont(16)
         
         selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
         selectedTabImg.tintColor = UIColor.themePrimaryColor
+        searchView.isHidden = true
         
     }
     
@@ -203,6 +206,7 @@ class EventVC: ENTALDBaseViewController, UITextFieldDelegate,EventSummaryDelegat
     }
     
     @IBAction func searchCloseTapped(_ sender: Any) {
+        self.searchView.isHidden = true
         textSearch.endEditing(true)
         textSearch.text = ""
         filterCurrentEventData = currentEventData
@@ -230,71 +234,17 @@ class EventVC: ENTALDBaseViewController, UITextFieldDelegate,EventSummaryDelegat
     
     @IBAction func currentFilterTapped(_ sender: Any) {
         
-        if !isCurrentEventFilterApplied{
-            self.filterCurrentEventData = self.filterCurrentEventData?.sorted {
-                $0.msnfp_engagementopportunitytitle ?? "" < $1.msnfp_engagementopportunitytitle ?? ""
-            }
-            isCurrentEventFilterApplied = true
-        }else{
-            self.filterCurrentEventData = self.filterCurrentEventData?.sorted {
-                $0.msnfp_engagementopportunitytitle ?? "" > $1.msnfp_engagementopportunitytitle ?? ""
-            }
-            isCurrentEventFilterApplied = false
-        }
-        
-        self.isCurrentLocatioFilterApplied = false
-        self.isCurrentSatrtFilterApplied = false
-        self.isCurrentEndFilterApplied = false
-        
-        DispatchQueue.main.async {
-            self.currentTableView.reloadData()
-        }
+        self.searchView.isHidden = false
         
     }
     
     @IBAction func upcomingFilterTapped(_ sender: Any) {
-        if !isUpcomingEventFilterApplied{
-            self.filterUpcomingEventData = self.filterUpcomingEventData?.sorted {
-                $0.msnfp_engagementopportunitytitle ?? "" < $1.msnfp_engagementopportunitytitle ?? ""
-            }
-            isUpcomingEventFilterApplied = true
-        }else{
-            self.filterUpcomingEventData = self.filterUpcomingEventData?.sorted {
-                $0.msnfp_engagementopportunitytitle ?? "" > $1.msnfp_engagementopportunitytitle ?? ""
-            }
-            isUpcomingEventFilterApplied = false
-
-        }
-    
-        self.isUpcomingLocatioFilterApplied = false
-        self.isUpcomingSatrtFilterApplied = false
-        self.isUpcomingEndFilterApplied = false
-        
-        DispatchQueue.main.async {
-            self.upcomingTableView.reloadData()
-        }
+        self.searchView.isHidden = false
         
     }
     
     @IBAction func pastFilterTapped(_ sender: Any) {
-        if !isPastEventFilterApplied{
-            self.filterPastEventData = self.filterPastEventData?.sorted {
-                $0.msnfp_location ?? "" < $1.msnfp_location ?? ""
-            }
-            isPastEventFilterApplied = true
-        }else{
-            self.filterPastEventData = self.filterPastEventData?.sorted {
-                $0.msnfp_location ?? "" > $1.msnfp_location ?? ""
-            }
-            isPastEventFilterApplied = false
-        }
-    
-        self.isPastLocatioFilterApplied = false
-        self.isPastDateFilterApplied = false
-        
-        DispatchQueue.main.async {
-            self.pastTableView.reloadData()
-        }
+        self.searchView.isHidden = false
     }
     
     func openViewSummaryScreen(eventdata : CurrentEventsModel){
@@ -371,7 +321,7 @@ class EventVC: ENTALDBaseViewController, UITextFieldDelegate,EventSummaryDelegat
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        btnSearchClose.isHidden = true
+//        btnSearchClose.isHidden = true
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -398,19 +348,22 @@ class EventVC: ENTALDBaseViewController, UITextFieldDelegate,EventSummaryDelegat
              }
            return false
          })
-
-            currentTableView.reloadData()
-            pastTableView.reloadData()
-            upcomingTableView.reloadData()
+            DispatchQueue.main.async {
+                self.currentTableView.reloadData()
+                self.pastTableView.reloadData()
+                self.upcomingTableView.reloadData()
+            }
+            
             
         }else{
-            
-            filterCurrentEventData = currentEventData
-            currentTableView.reloadData()
-            filterPastEventData = pastEventData
-            pastTableView.reloadData()
-            filterUpcomingEventData = upcomingEventData
-            upcomingTableView.reloadData()
+            DispatchQueue.main.async {
+                self.filterCurrentEventData = self.currentEventData
+                self.currentTableView.reloadData()
+                self.filterPastEventData = self.pastEventData
+                self.pastTableView.reloadData()
+                self.filterUpcomingEventData = self.upcomingEventData
+                self.upcomingTableView.reloadData()
+            }
             
             
         }
