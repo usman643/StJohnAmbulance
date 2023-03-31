@@ -35,8 +35,8 @@ class LoginVC: ENTALDBaseViewController {
     // Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.txtUserName.text = "dougsalomon@outlook.com"
-        self.txtPassword.text = "qAz!2#sss"
+//        self.txtUserName.text = "dougsalomon@outlook.com"
+//        self.txtPassword.text = "qAz!2#sss"
         UserDefaults.standard.authToken = nil
         isRememberPassword = false
         decorateUI()

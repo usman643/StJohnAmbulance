@@ -181,6 +181,13 @@ enum EventRouter : Router {
     }
     
     var urlType: ENTALDBASEURLTYPE {
+        switch self{
+        case .getAuditHistory:
+            return .SAINJOHN_BASEURL_Api
+        default:
+            break
+        }
+    
         return .SAINJOHN_BASEURL
     }
     
