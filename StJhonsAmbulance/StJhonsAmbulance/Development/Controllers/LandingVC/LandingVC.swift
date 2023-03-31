@@ -132,6 +132,19 @@ class LandingVC: ENTALDBaseViewController {
                         }
                     }
                     ProcessUtils.shared.groupListValue = propertyValues
+                    
+                    if ProcessUtils.shared.userGroupsList.count == 0 {
+                        DispatchQueue.main.async {
+                            let button = UIButton()
+                            self.volunteerTapped(button)
+                        }
+                    }else if let data = ProcessUtils.shared.userGroupsList.first, ProcessUtils.shared.userGroupsList.count == 1 {
+                        DispatchQueue.main.async {
+                            self.setSelectedGroup(data: data)
+                        }
+                    }
+                    
+                    
                 }
                 break
             case .error(let error, let errorResponse):
@@ -152,18 +165,22 @@ class LandingVC: ENTALDBaseViewController {
             ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.groups, dataObj: ProcessUtils.shared.userGroupsList) { params, controller in
                 
                 if let data = params as? LandingGroupsModel {
-                    ProcessUtils.shared.selectedUserGroup = data
-                    
-                    self.btn2.setTitle("\(data.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
-    //                self.btn1.setTitle(data.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
-                    self.nextBtn.isEnabled = true
-                    self.nextBtn.backgroundColor = UIColor.themePrimary
+                    self.setSelectedGroup(data: data)
                 }
             }
         }else{
             self.getGroups()
         }
         
+    }
+    
+    func setSelectedGroup(data:LandingGroupsModel){
+        ProcessUtils.shared.selectedUserGroup = data
+        
+        self.btn2.setTitle("\(data.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
+//                self.btn1.setTitle(data.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
+        self.nextBtn.isEnabled = true
+        self.nextBtn.backgroundColor = UIColor.themePrimary
     }
 
     @IBAction func volunteerTapped(_ sender: Any) {
