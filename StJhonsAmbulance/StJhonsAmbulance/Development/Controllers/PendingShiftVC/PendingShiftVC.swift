@@ -177,7 +177,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                 
                 if let data = params as? Int {
                     let params = [
-                        "msnfp_schedulestatus": data as! Int
+                        "msnfp_schedulestatus": data
                     ]
                     
                     self.updateStatusData(eventId: selectedEvents?[i]._sjavms_volunteerevent_value ?? "", params: params as [String : Any])
@@ -322,10 +322,10 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                 if let err = errorResponse {
                     message = err.error
                 }
-//                self.showEmptyView(tableVw: self.tableView)
-                DispatchQueue.main.async {
-                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
-                }
+
+//                DispatchQueue.main.async {
+//                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+//                }
             }
         }
         self.getPendingShift()

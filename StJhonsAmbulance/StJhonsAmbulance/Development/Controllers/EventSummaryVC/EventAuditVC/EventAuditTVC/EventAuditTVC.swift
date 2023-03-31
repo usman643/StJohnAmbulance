@@ -73,33 +73,6 @@ class EventAuditTVC: UITableViewCell {
         } catch {
             print("Error on parsing response")
         }
-        
-
-        //        var somedata = cellModel?.changedata?.data(using: String.Encoding.utf8) ?? Data()
-//        do{
-//
-//            let jsonData = try JSONSerialization.data(withJSONObject: cellModel?.changedata ?? Date(), options: .prettyPrinted)
-//            let decodedObj = try JSONDecoder().decode(changeAttributeModel.self, from: jsonData)
-//            var str = decodedObj.changedAttributes[0]
-//
-//
-//            //            var changemodel = try? JSONDecoder().decode(changeAttributeModel.self, from: somedata)
-//            lblChangeField.text = str.logicalName
-//            lblOldValue.text = str.oldValue
-//            lblNewValue.text = str.newValue
-//
-//        }  catch {
-//            print("error ..........")
-//        }
-        
-        //        lblChangeField.text = cellModel?.
-        //        lblOldValue.text = cellModel?.
-        //        lblNewValue.text = cellModel?.
-        
-        
-        
-        
-        
     }
 
 }

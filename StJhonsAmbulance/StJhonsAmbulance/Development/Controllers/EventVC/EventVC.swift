@@ -37,6 +37,11 @@ class EventVC: ENTALDBaseViewController, UITextFieldDelegate,EventSummaryDelegat
     var isPastDateFilterApplied = false
     
     
+    var isCurrentEventTableSearch = false
+    var isUpcomingEventTableSearch = false
+    var isPastEventTableSearch = false
+    
+    
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnHome: UIButton!
     @IBOutlet weak var selectGroupView: UIView!
@@ -234,17 +239,31 @@ class EventVC: ENTALDBaseViewController, UITextFieldDelegate,EventSummaryDelegat
     
     @IBAction func currentFilterTapped(_ sender: Any) {
         
+        isCurrentEventTableSearch = true
+        isUpcomingEventTableSearch = false
+        isPastEventTableSearch = false
         self.searchView.isHidden = false
+        self.textSearch.placeholder = "Filter Current Event"
         
     }
     
     @IBAction func upcomingFilterTapped(_ sender: Any) {
+        
+        isCurrentEventTableSearch = false
+        isUpcomingEventTableSearch = true
+        isPastEventTableSearch = false
         self.searchView.isHidden = false
+        self.textSearch.placeholder = "Filter Upcoming Event"
         
     }
     
     @IBAction func pastFilterTapped(_ sender: Any) {
+        
+        isCurrentEventTableSearch = false
+        isUpcomingEventTableSearch = false
+        isPastEventTableSearch = true
         self.searchView.isHidden = false
+        self.textSearch.placeholder = "Filter Past Event"
     }
     
     func openViewSummaryScreen(eventdata : CurrentEventsModel){
@@ -326,34 +345,43 @@ class EventVC: ENTALDBaseViewController, UITextFieldDelegate,EventSummaryDelegat
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         
-        if (textField.text != ""){
-
-           filterCurrentEventData  =  currentEventData?.filter({
-               if let name = $0.msnfp_engagementopportunitytitle, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
-                   return true
+        if (textField.text != "" && isCurrentEventTableSearch == true ){
+            
+            filterCurrentEventData  =  currentEventData?.filter({
+                if let name = $0.msnfp_engagementopportunitytitle, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                    return true
                 }
-              return false
+                return false
             })
-            
-        filterUpcomingEventData  =  upcomingEventData?.filter({
-            if let name = $0.msnfp_engagementopportunitytitle, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
-                return true
-             }
-           return false
-         })
-            
-        filterPastEventData  =  pastEventData?.filter({
-            if let name = $0.msnfp_engagementopportunitytitle, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
-                return true
-             }
-           return false
-         })
             DispatchQueue.main.async {
                 self.currentTableView.reloadData()
-                self.pastTableView.reloadData()
+            }
+            
+            
+        }else if(textField.text != "" && isUpcomingEventTableSearch == true ){
+            
+            filterUpcomingEventData  =  upcomingEventData?.filter({
+                if let name = $0.msnfp_engagementopportunitytitle, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                    return true
+                 }
+               return false
+             })
+            
+            DispatchQueue.main.async {
                 self.upcomingTableView.reloadData()
             }
             
+        }else if(textField.text != "" && isPastEventTableSearch == true ){
+            
+            filterPastEventData  =  pastEventData?.filter({
+                if let name = $0.msnfp_engagementopportunitytitle, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                    return true
+                }
+                return false
+            })
+            DispatchQueue.main.async {
+                self.pastTableView.reloadData()
+            }
             
         }else{
             DispatchQueue.main.async {
@@ -364,11 +392,7 @@ class EventVC: ENTALDBaseViewController, UITextFieldDelegate,EventSummaryDelegat
                 self.filterUpcomingEventData = self.upcomingEventData
                 self.upcomingTableView.reloadData()
             }
-            
-            
         }
-
-        
     }
     
 //    ========================== Filters ========================//

@@ -91,9 +91,11 @@ class EventDetailVC: ENTALDBaseViewController {
         if ( self.latestEvent?.sjavms_checkedin == true ){
             btnCheckIn.isEnabled = false
             btnCheckIn.setTitle("Checked In", for: .normal)
+            checkInBtnImg.isHidden = false
         }else{
             btnCheckIn.isEnabled = true
             btnCheckIn.setTitle("Check In", for: .normal)
+            checkInBtnImg.isHidden = true
         }
         
     }
