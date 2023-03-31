@@ -76,7 +76,7 @@ class PendingShiftTVC: UITableViewCell {
         }else{
             imgView.image = UIImage(systemName: "square")
         }
-//        self.eventId = rowModel?._sjavms_volunteerevent_value
+        self.eventId = rowModel?.msnfp_participationscheduleid
     }
     
     

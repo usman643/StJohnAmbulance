@@ -19,6 +19,7 @@ enum STPikerType {
     case language
     case prefferedLanguage
     case eventStatus
+
 }
 
 class PickerViewController: ENTALDBaseViewController, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -56,9 +57,9 @@ class PickerViewController: ENTALDBaseViewController, UIPickerViewDelegate, UIPi
             }
             break
         case .optNotification:
-//            if let model = self.dataModel as? [PrefferedLanguageModel] {
-//                return model.map({$0.msnfp_groupId?.msnfp_groupname ?? ""})
-//            }
+            if let model = self.dataModel as? [Int:String] {
+                return model.map({$0.value })
+            }
             break
         case .eventProvince:
             if let model = self.dataModel as? [EventProgramDataModel] {
@@ -131,9 +132,10 @@ class PickerViewController: ENTALDBaseViewController, UIPickerViewDelegate, UIPi
             }
             break
         case .optNotification:
-//            if let model = self.dataModel as? [PrefferedLanguageModel] {
-//                return model.map({$0.msnfp_groupId?.msnfp_groupname ?? ""})
-//            }
+            if let model = self.dataModel as? [Int:String] {
+                let key = model.filter({$0.value == selectedKey}).first?.key ?? NSNotFound
+                return model[key]
+            }
             break
         case .eventProvince:
             if let model = self.dataModel as? [EventProgramDataModel] {

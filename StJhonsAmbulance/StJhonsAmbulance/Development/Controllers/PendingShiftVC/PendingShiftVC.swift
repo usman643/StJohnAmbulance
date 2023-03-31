@@ -175,12 +175,12 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
             
             for i in (0..<(selectedEvents?.count ?? 0 )){
                 
-                if let data = params as? Int {
-                    let params = [
-                        "msnfp_schedulestatus": data
+                if let data = params{
+                    let apiParams = [
+                        "msnfp_schedulestatus": data as! Int
                     ]
                     
-                    self.updateStatusData(eventId: selectedEvents?[i]._sjavms_volunteerevent_value ?? "", params: params as [String : Any])
+                    self.updateStatusData(eventId: selectedEvents?[i].msnfp_participationscheduleid ?? "", params: apiParams as [String : Any])
                 }
             }
         }
@@ -265,11 +265,11 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
             
 //            let selectedEvents = self.pendingShiftData?.filter( {$0.event_selected == true})
         
-                if let data = params as? Int {
-                    let params = [
+                if let data = params {
+                    let apiParams = [
                         "msnfp_schedulestatus": data as! Int
                     ]
-                    self.updateStatusData(eventId: eventId , params: params )
+                    self.updateStatusData(eventId: eventId , params: apiParams )
                 }
         }
     }

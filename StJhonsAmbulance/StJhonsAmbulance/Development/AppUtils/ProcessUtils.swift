@@ -33,6 +33,8 @@ class ProcessUtils {
     var prefferedMethodContactData : [LanguageModel]?
     var prefferedLanguageData : [PrefferedLanguageModel]?
     var eventStatus : [ProgramStatusModel]?
+    var optOutNotification = [0 : "No",
+                              1 : "Yes"]
     
     var tabbarHeight : CGFloat?
     var groupListValue : String?

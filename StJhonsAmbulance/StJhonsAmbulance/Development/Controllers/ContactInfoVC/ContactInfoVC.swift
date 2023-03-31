@@ -13,7 +13,7 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
     var selectedGender : Int?
     var selectedPronoun : Int?
     var selectedContactMethod : Int?
-    var selectedOptNotification : Int?
+    var selectedOptNotification : String?
     var selectedOptNotification_value : Bool?
     let imagePicker = UIImagePickerController()
     var url : URL?
@@ -192,24 +192,25 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
     
     func setupData(){
         
-        profileImg.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: UserDefaults.standard.userInfo?.entityimage ?? "")
-        txtFirstName.text = UserDefaults.standard.userInfo?.firstname ?? ""
-        txtLastName.text = UserDefaults.standard.userInfo?.lastname ?? ""
-        txtBirthday.text = UserDefaults.standard.userInfo?.birthdate ?? ""
-        txtEmail.text = UserDefaults.standard.userInfo?.emailaddress1 ?? ""
-        txtPrimaryPhone.text = UserDefaults.standard.userInfo?.address1_telephone1 ?? ""
-        txtStreetOne.text = UserDefaults.standard.userInfo?.address1_line1 ?? ""
-        txtStreetTwo.text = UserDefaults.standard.userInfo?.address1_line2 ?? ""
-        txtStreetThree.text = UserDefaults.standard.userInfo?.address1_line3 ?? ""
-        txtCity.text = UserDefaults.standard.userInfo?.address1_city ?? ""
-        txtProvince.text = UserDefaults.standard.userInfo?.address1_stateorprovince ?? ""
-        txtPostalCode.text = UserDefaults.standard.userInfo?.address1_postalcode ?? ""
-        txtEmergencyContactName.text = UserDefaults.standard.userInfo?.sjavms_emergencycontactname ?? ""
-        txtEmergencyContactPhone.text = UserDefaults.standard.userInfo?.sjavms_emergencycontactphone ?? ""
+        let userDefaultObj = UserDefaults.standard.userInfo
+        profileImg.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: userDefaultObj?.entityimage ?? "")
+        txtFirstName.text = userDefaultObj?.firstname ?? ""
+        txtLastName.text = userDefaultObj?.lastname ?? ""
+        txtBirthday.text = userDefaultObj?.birthdate ?? ""
+        txtEmail.text = userDefaultObj?.emailaddress1 ?? ""
+        txtPrimaryPhone.text = userDefaultObj?.address1_telephone1 ?? ""
+        txtStreetOne.text = userDefaultObj?.address1_line1 ?? ""
+        txtStreetTwo.text = userDefaultObj?.address1_line2 ?? ""
+        txtStreetThree.text = userDefaultObj?.address1_line3 ?? ""
+        txtCity.text = userDefaultObj?.address1_city ?? ""
+        txtProvince.text = userDefaultObj?.address1_stateorprovince ?? ""
+        txtPostalCode.text = userDefaultObj?.address1_postalcode ?? ""
+        txtEmergencyContactName.text = userDefaultObj?.sjavms_emergencycontactname ?? ""
+        txtEmergencyContactPhone.text = userDefaultObj?.sjavms_emergencycontactphone ?? ""
         
-        let gender = self.getGender(UserDefaults.standard.userInfo?.gendercode ?? 0)
-        let noun = self.getPreferedNoun(UserDefaults.standard.userInfo?.sjavms_preferredpronouns ?? 0)
-        let contactMethod = self.getPreferedContactMethod(UserDefaults.standard.userInfo?.preferredcontactmethodcode ?? 0)
+        let gender = self.getGender(userDefaultObj?.gendercode ?? 0)
+        let noun = self.getPreferedNoun(userDefaultObj?.sjavms_preferredpronouns ?? 0)
+        let contactMethod = self.getPreferedContactMethod(userDefaultObj?.preferredcontactmethodcode ?? 0)
         
         btnPrefferenNoun.setTitle(noun , for: .normal)
         btnGender.setTitle(gender, for: .normal)
@@ -219,8 +220,6 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
         }else{
             btnOptNotofocation.setTitle("OFF", for: .normal)
         }
-        
-
     }
     
     
@@ -250,14 +249,32 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
     }
     
     @IBAction func optNotificationTapped(_ sender: Any) {
-        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
-//        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.prefferedData, dataObj: ProcessUtils.shared.prefferedMethodContactData) { params, controller in
+//        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
+        
+        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.optNotification, dataObj: ProcessUtils.shared.optOutNotification) { params, controller in
+
+            self.selectedOptNotification  = params as? String
+            var status = ProcessUtils.shared.optOutNotification.filter({$0.value == params as? String}).first?.key
+            if (status == 0) {
+                self.selectedOptNotification_value = false
+                self.btnOptNotofocation.setTitle("OFF", for: .normal)
+            }else if(status == 1){
+                self.selectedOptNotification_value = true
+                self.btnOptNotofocation.setTitle("ON", for: .normal)
+            }
+//            if let data = params as? Bool {
 //
-//            if let data = params as? LanguageModel {
-//                self.btnOptNotofocation.setTitle("\(data.value ?? "")", for: .normal)
-//                self.selectedOptNotification = data.attributevalue ?? 000
+//                if data == true{
+//                    self.btnOptNotofocation.setTitle("Yes", for: .normal)
+//                    self.selectedOptNotification = true
+//                    self.selectedOptNotification_value = true
+//                }else{
+//                    self.btnOptNotofocation.setTitle("No", for: .normal)
+//                    self.selectedOptNotification_value = false
+//                    self.selectedOptNotification = false
+//                }
 //            }
-//        }
+        }
     }
     
     @IBAction func preferredMethodTapped(_ sender: Any) {
