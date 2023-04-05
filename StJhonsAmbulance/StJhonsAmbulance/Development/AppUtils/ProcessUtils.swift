@@ -20,6 +20,7 @@ class ProcessUtils {
     var selectedUserGroup : LandingGroupsModel?
     var programsData : [ProgramModel]?
     var contactInfo : UserIdentityModel?
+    var days =  [844060000 : "Monday",844060001 : "Tuesday",844060002 : "Wednesday",844060003 : "Thursday",844060004 : "Friday",844060005 : "Saturday",844060006 : "Sunday"]
     var eventStatusArr = [
         844060000 : "Draft",
         844060002 : "Publish to Web",

@@ -274,3 +274,77 @@ struct OrgnizerContactModel : Codable {
     
 }
 
+
+
+struct OtherVolunteerParticipationResponseModel : Codable{
+  
+    let value : [OtherVolunteerParticipationModel]?
+}
+
+struct OtherVolunteerParticipationModel : Codable {
+    
+    let createdonData: String?
+    let createdon : String?
+    let _msnfp_engagementopportunityid_valueData : String?
+    let _msnfp_engagementopportunityid_value : String?
+    let _msnfp_contactid_valueData : String?
+    let _msnfp_contactid_value : String?
+//    let sjavms_totalpendinghours : Float?
+//    let sjavms_totalpendinghoursData : String?
+    let msnfp_hoursData : String?
+    let msnfp_hours : Float?
+    let msnfp_participationid : String?
+    let msnfp_participationtitle : String?
+    let msnfp_startdateData : String?
+    let msnfp_startdate : String?
+    let msnfp_enddateData : String?
+    let msnfp_enddate : String?
+    var volunteerName : String?
+    var eventName : String?
+    
+    enum CodingKeys: String, CodingKey {
+        case createdonData = "createdon@OData.Community.Display.V1.FormattedValue"
+        case createdon
+        case _msnfp_engagementopportunityid_valueData = "_msnfp_engagementopportunityid_value@OData.Community.Display.V1.FormattedValue"
+        case _msnfp_engagementopportunityid_value
+        case _msnfp_contactid_valueData = "_msnfp_contactid_value@OData.Community.Display.V1.FormattedValue"
+        case _msnfp_contactid_value
+//        case sjavms_totalpendinghours
+//        case sjavms_totalpendinghoursData = "sjavms_totalpendinghours@OData.Community.Display.V1.FormattedValue"
+        case msnfp_hoursData = "msnfp_hours@OData.Community.Display.V1.FormattedValue"
+        case msnfp_hours
+        case msnfp_participationid
+        case msnfp_participationtitle
+        case msnfp_startdateData = "msnfp_startdate@OData.Community.Display.V1.FormattedValue"
+        case msnfp_startdate
+        case msnfp_enddateData = "msnfp_enddate@OData.Community.Display.V1.FormattedValue"
+        case msnfp_enddate
+        case volunteerName
+        case eventName
+    }
+    
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.createdonData = try container.decodeIfPresent(String.self, forKey: .createdonData)
+        self.createdon = try container.decodeIfPresent(String.self, forKey: .createdon)
+        self._msnfp_engagementopportunityid_valueData = try container.decodeIfPresent(String.self, forKey: ._msnfp_engagementopportunityid_valueData)
+        self._msnfp_engagementopportunityid_value = try container.decodeIfPresent(String.self, forKey: ._msnfp_engagementopportunityid_value)
+        self._msnfp_contactid_valueData = try container.decodeIfPresent(String.self, forKey: ._msnfp_contactid_valueData)
+        self._msnfp_contactid_value = try container.decodeIfPresent(String.self, forKey: ._msnfp_contactid_value)
+//        self.sjavms_totalpendinghours = try container.decode(Float.self, forKey: .sjavms_totalpendinghours)
+//        self.sjavms_totalpendinghoursData = try container.decode(String.self, forKey: .sjavms_totalpendinghoursData)
+        self.msnfp_hoursData = try container.decodeIfPresent(String.self, forKey: .msnfp_hoursData)
+        self.msnfp_hours = try container.decodeIfPresent(Float.self, forKey: .msnfp_hours)
+        self.msnfp_participationid = try container.decodeIfPresent(String.self, forKey: .msnfp_participationid)
+        self.msnfp_participationtitle = try container.decodeIfPresent(String.self, forKey: .msnfp_participationtitle)
+        self.msnfp_startdateData = try container.decodeIfPresent(String.self, forKey: .msnfp_startdateData)
+        self.msnfp_startdate = try container.decodeIfPresent(String.self, forKey: .msnfp_startdate)
+        self.msnfp_enddateData = try container.decodeIfPresent(String.self, forKey: .msnfp_enddateData)
+        self.msnfp_enddate = try container.decodeIfPresent(String.self, forKey: .msnfp_enddate)
+        self.volunteerName = try container.decodeIfPresent(String.self, forKey: .volunteerName)
+        self.eventName = try container.decodeIfPresent(String.self, forKey: .eventName)
+    }
+
+    
+}

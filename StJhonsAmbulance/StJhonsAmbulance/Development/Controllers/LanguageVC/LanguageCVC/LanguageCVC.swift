@@ -14,7 +14,9 @@ class LanguageCVC: UICollectionViewCell {
     @IBOutlet weak var mainContentView: UIView!
     @IBOutlet weak var lblTitle: UILabel!
     var index : Int!
+    var isFromAvailbility = false
     public var delegate: OtherLanguageCloseDelegate?
+    public var dayDelegate: OtherLanguageCloseDelegate?
     
     
     override func awakeFromNib() {
@@ -27,7 +29,12 @@ class LanguageCVC: UICollectionViewCell {
 
     @IBAction func closeTapped(_ sender: Any) {
         if index != nil {
-            delegate?.otherLanguageClose(index: self.index)
+            if isFromAvailbility == true{
+//                dayDelegate?.
+            }else{
+                delegate?.otherLanguageClose(index: self.index)
+            }
+            
         }
     }
 }

@@ -15,6 +15,7 @@ protocol updateVolunteerCheckInDelegate {
 
 class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunteerCheckInDelegate {
     
+    let currentDate = DateFormatManager.shared.getCurrentDateWithFormat(format: "yyyy/MM/dd") 
     var volunteerData : [VolunteerOfEventDataModel]?
     var eventData : CurrentEventsModel?
     
@@ -68,10 +69,17 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
             if (eventData?.msnfp_startingdate != nil && eventData?.msnfp_startingdate != ""){
                 let date =  DateFormatManager.shared.formatDateStrToStr(date: eventData?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEEE, MMMM d, yyyy")
                 lblDate.text = date
+                
+                if(DateFormatManager.shared.isDatePassed(date: eventData?.msnfp_startingdate ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
+                    self.btnProgram.isEnabled = false
+                    btnProgram.backgroundColor = UIColor.lightGray
+                }
             }else{
                 lblDate.text = " "
             }
             lblLocation.text = eventData?.msnfp_location
+            
+            
             
         }else if ((pendingShiftData) != nil){
             
@@ -79,6 +87,10 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
             if (pendingShiftData?.sjavms_start != nil && pendingShiftData?.sjavms_start != ""){
                 let date =  DateFormatManager.shared.formatDateStrToStr(date: pendingShiftData?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEEE, MMMM d, yyyy")
                 lblDate.text = date
+                if(DateFormatManager.shared.isDatePassed(date: pendingShiftData?.sjavms_start ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
+                    self.btnProgram.isEnabled = false
+                    btnProgram.backgroundColor = UIColor.lightGray
+                }
             }else{
                 lblDate.text = " "
             }
@@ -86,8 +98,12 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
             
             lblEventName.text = unpublishEventData?.msnfp_engagementopportunitytitle
             if (unpublishEventData?.msnfp_startingdate != nil && unpublishEventData?.msnfp_startingdate != ""){
-                let date =  DateFormatManager.shared.formatDateStrToStr(date: unpublishEventData?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+                let date =  DateFormatManager.shared.formatDateStrToStr(date: unpublishEventData?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
                 lblDate.text = date
+                if(DateFormatManager.shared.isDatePassed(date: unpublishEventData?.msnfp_startingdate ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
+                    self.btnProgram.isEnabled = false
+                    btnProgram.backgroundColor = UIColor.lightGray
+                }
             }else{
                 lblDate.text = " "
             }
@@ -99,6 +115,10 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
             if (pendingEventApprovalData?.sjavms_eventstartdate != nil && pendingEventApprovalData?.sjavms_eventstartdate == ""){
                 let date =  DateFormatManager.shared.formatDateStrToStr(date: pendingEventApprovalData?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
                 lblDate.text = date
+                if(DateFormatManager.shared.isDatePassed(date: pendingEventApprovalData?.sjavms_eventstartdate ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
+                    self.btnProgram.isEnabled = false
+                    btnProgram.backgroundColor = UIColor.lightGray
+                }
             }else{
                 lblDate.text = " "
             }
@@ -146,7 +166,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
         
         btnSearchClose.isHidden = true
         
-        btnProgram.setTitle("Cancel", for: .normal)
+        btnProgram.setTitle("Close Event", for: .normal)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {

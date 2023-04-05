@@ -357,6 +357,15 @@ class ENTALDControllers {
         self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
     }
     
+    func showAddAvilabilityScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil,eventType : String, callBack:ControllerCallBackCompletion?) {
+        let vc = AddAvilabilityVC.loadFromNib()
+        
+        vc.dataModel = dataObj
+        
+        vc.callbackToController = callBack
+        self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
+    }
+    
     
     
     

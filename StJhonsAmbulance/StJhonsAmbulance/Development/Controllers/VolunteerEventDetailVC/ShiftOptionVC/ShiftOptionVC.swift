@@ -176,20 +176,20 @@ class ShiftOptionVC: ENTALDBaseViewController {
             }
             
             switch result{
-            case .success(value: _):
-                break
-            case .error(let error, let errorResponse):
-                if error == .patchSuccess {
-                    ENTALDAlertView.shared.showContactAlertWithTitle(title: "Event Status Update Successfully", message: "", actionTitle: .KOK, completion: { status in })
-                    
+            case .success(value: let response):
+                if let pastEvent = response.value {
+
                 }else{
-                    var message = error.message
-                    if let err = errorResponse {
-                        message = err.error
-                    }
-                    DispatchQueue.main.async {
-                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
-                    }
+//                    self.showEmptyView(tableVw: self.tableView)
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
                 }
             }
         }

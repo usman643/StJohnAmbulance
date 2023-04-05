@@ -19,6 +19,7 @@ enum STPikerType {
     case language
     case prefferedLanguage
     case eventStatus
+    case days
 
 }
 
@@ -84,6 +85,10 @@ class PickerViewController: ENTALDBaseViewController, UIPickerViewDelegate, UIPi
                 return model.map({$0.adx_name ?? ""})
             }
         case .eventStatus:
+            if let model = self.dataModel as? [Int:String] {
+                return model.map({$0.value })
+            }
+        case .days:
             if let model = self.dataModel as? [Int:String] {
                 return model.map({$0.value })
             }
@@ -165,6 +170,11 @@ class PickerViewController: ENTALDBaseViewController, UIPickerViewDelegate, UIPi
             if let model = self.dataModel as? [Int:String] {
                 let key = model.filter({$0.value == selectedKey}).first?.key ?? NSNotFound
                 return model[key]
+            }
+        case .days:
+            if let model = self.dataModel as? [Int:String] {
+                let key = model.filter({$0.value == selectedKey}).first?.key ?? NSNotFound
+                return key
             }
             break
         }

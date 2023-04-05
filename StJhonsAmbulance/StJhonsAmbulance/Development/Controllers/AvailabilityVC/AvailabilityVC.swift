@@ -137,6 +137,15 @@ class AvailabilityVC: ENTALDBaseViewController {
         
     }
     
+    
+    @IBAction func addAvailabilityTapped(_ sender: Any) {
+        
+        ENTALDControllers.shared.showAddAvilabilityScreen(type: .ENTALDPUSH, from: self, eventType: "") { params, controller in
+            
+        }
+    }
+    
+    
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }

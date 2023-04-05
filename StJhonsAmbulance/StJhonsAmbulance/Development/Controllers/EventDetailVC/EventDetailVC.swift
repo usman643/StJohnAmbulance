@@ -31,7 +31,9 @@ class EventDetailVC: ENTALDBaseViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var btnCancel: UIButton!
+    @IBOutlet weak var checkInbtnView: UIView!
     
+    @IBOutlet weak var contactbtnView: UIView!
     var availableEvent: AvailableEventModel?
     var scheduleEvent: ScheduleModelThree?
     var pastEvent: VolunteerEventsModel?
@@ -91,11 +93,14 @@ class EventDetailVC: ENTALDBaseViewController {
         if ( self.latestEvent?.sjavms_checkedin == true ){
             btnCheckIn.isEnabled = false
             btnCheckIn.setTitle("Checked In", for: .normal)
+            checkInBtnImg.isHidden = true
             checkInBtnImg.isHidden = false
         }else{
             btnCheckIn.isEnabled = true
             btnCheckIn.setTitle("Check In", for: .normal)
             checkInBtnImg.isHidden = true
+            checkInBtnImg.isHidden = false
+            checkInBtnImg.tintColor = UIColor.white
         }
         
     }
@@ -129,7 +134,8 @@ class EventDetailVC: ENTALDBaseViewController {
         lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: scheduleEvent?.msnfp_schedulestatus ?? 0) ?? "")"
             
         }else if ((pastEvent) != nil){
-            
+            self.checkInbtnView.isHidden = true
+            self.contactbtnView.isHidden = true
             let date = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
             
             let startTime = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")

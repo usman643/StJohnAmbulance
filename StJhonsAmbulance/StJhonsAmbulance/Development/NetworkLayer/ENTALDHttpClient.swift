@@ -91,6 +91,9 @@ class ENTALDHttpClient {
         
         var request = URLRequest(url: requestUrl)
         request.addValue("Bearer \(UserDefaults.standard.authToken ?? "")", forHTTPHeaderField: "Authorization")
+        request.addValue("keep-alive", forHTTPHeaderField: "Connection")
+        request.addValue("gzip, deflate, br", forHTTPHeaderField: "Accept-Encoding")
+        request.addValue("odata.include-annotations=OData.Community.Display.V1.FormattedValue", forHTTPHeaderField: "Prefer")
 
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             

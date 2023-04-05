@@ -36,6 +36,9 @@ class CSDashBoardVC: ENTALDBaseViewController{
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.dragDelegate = self
+        collectionView.dropDelegate = self
+        collectionView.dragInteractionEnabled = true
        
 //        self.navigationController?.setNavigationBarHidden(true, animated: false)
         
@@ -241,46 +244,6 @@ class CSDashBoardVC: ENTALDBaseViewController{
             }
         }
     }
-}
-
-extension CSDashBoardVC : UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return gridData?.count ?? 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CSDashBaordCVC", for: indexPath) as! CSDashBaordCVC
-        cell.lblTitle.text = gridData?[indexPath.item].title
-        cell.lblCount.text = gridData?[indexPath.item].subTitle
-        cell.imgView.image = UIImage(named: gridData?[indexPath.item].icon ?? "")
-        cell.mainView.backgroundColor = gridData?[indexPath.item].bgColor
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-         let cellWidth = (UIScreen.main.bounds.size.width - 6)/2
-
-        let height = (self.collectionView.frame.size.height - 10 ) / 3
-        
-        return CGSize(width: cellWidth, height: height )
-    
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.view.endEditing(true)
-        
-        let cell = collectionView.cellForItem(at: indexPath) as! CSDashBaordCVC
-        
-        UIView.transition(from: cell.mainView,
-                          to: cell.mainView,
-                          duration: 0.7,
-                          options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in
-            if status {
-                self.openNextScreecn(controller:indexPath.row)
-            }
-        }
-    }
     
     func showGroupsPicker(list:[LandingGroupsModel] = []){
         
@@ -329,5 +292,63 @@ extension CSDashBoardVC : UICollectionViewDelegate,UICollectionViewDataSource, U
             }
         }
     }
+    
+    
+    
+    
+}
+
+extension CSDashBoardVC : UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDragDelegate,UICollectionViewDropDelegate {
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return gridData?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CSDashBaordCVC", for: indexPath) as! CSDashBaordCVC
+        cell.lblTitle.text = gridData?[indexPath.item].title
+        cell.lblCount.text = gridData?[indexPath.item].subTitle
+        cell.imgView.image = UIImage(named: gridData?[indexPath.item].icon ?? "")
+        cell.mainView.backgroundColor = gridData?[indexPath.item].bgColor
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+         let cellWidth = (UIScreen.main.bounds.size.width - 6)/2
+
+        let height = (self.collectionView.frame.size.height - 10 ) / 3
+        
+        return CGSize(width: cellWidth, height: height )
+    
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.view.endEditing(true)
+        
+        let cell = collectionView.cellForItem(at: indexPath) as! CSDashBaordCVC
+        
+        UIView.transition(from: cell.mainView,
+                          to: cell.mainView,
+                          duration: 0.7,
+                          options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in
+            if status {
+                self.openNextScreecn(controller:indexPath.row)
+            }
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        
+        return []
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+        
+        
+    }
+    
+    
  
 }

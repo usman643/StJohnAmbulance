@@ -41,10 +41,14 @@ class DateFormatManager{
     func formatDateStrToStr(date: String, oldFormat: String, newFormat:String )->String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = oldFormat
-        let formatedDate = dateFormatter.date(from: date)
+        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+
+        var formatedDate = dateFormatter.date(from: date)
         
+//        formatedDate = Calendar.current.date(byAdding: .hour, value: -5, to: formatedDate ?? Date())!
         let formatter = DateFormatter()
         formatter.dateFormat = newFormat
+        formatter.timeZone = TimeZone(identifier: "America/New_York")
         if (date != "" ){
             return formatter.string(from: formatedDate ?? Date() )
         }else{
@@ -71,7 +75,7 @@ class DateFormatManager{
     func getDate(date: String?) -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-//        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.timeZone = TimeZone(identifier: "UTC")
 //        dateFormatter.locale = Locale.current
         let date = date//self.userData?.date_of_birth
         return date
@@ -81,15 +85,42 @@ class DateFormatManager{
     func getCurrentDateWithFormat(format: String?) -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
-        dateFormatter.timeZone = TimeZone.current
-//        dateFormatter.locale = Locale.current
+        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+
         let date = Date()//self.userData?.date_of_birth
         return dateFormatter.string(from: date)
         //dateFormatter.date(from: date ?? "") // replace Date String
     }
     
     
+    func isDatePassed(date:String , format: String) -> Bool{
+        
+ 
+        
+        let dateFormat = DateFormatter()
+        dateFormat.timeZone = TimeZone(identifier: "UTC")
+        let currentdate = Date()
+        
+        let cDate = dateFormat.string(from: currentdate)
+        
+        if (date <  cDate){
+            return false
+        }
+        return true
+    }
     
     
+//    func getDateAndTime(timeZoneIdentifier: String) -> String? {
+//
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
+//        dateFormatter.timeZone = TimeZone(identifier: timeZoneIdentifier)
+//
+//        return dateFormatter.string(from: Date())
+//    }
+//
+//    print(getDateAndTime(timeZoneIdentifier: "UTC"))
+//    
+//    
 }
 

@@ -183,7 +183,9 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                     self.updateStatusData(eventId: selectedEvents?[i].msnfp_participationscheduleid ?? "", params: apiParams as [String : Any])
                 }
             }
+            self.getPendingShift()
         }
+        
     }
     func filterByName(){
         if !isNamefilterApplied{
@@ -271,7 +273,9 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                     ]
                     self.updateStatusData(eventId: eventId , params: apiParams )
                 }
+            self.getPendingShift()
         }
+        
     }
 
     func showEmptyView(tableVw : UITableView){
@@ -307,28 +311,28 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         }
 
         ENTALDLibraryAPI.shared.requestPendingShiftUpdate(eventId: eventId, params: params){ result in
-            DispatchQueue.main.async {
-                LoadingView.hide()
-            }
-            
-            switch result{
-            case .success(value: let response):
-                if response.value != nil {
-                    self.getPendingShift()
-                }
-                
-            case .error(let error, let errorResponse):
+        DispatchQueue.main.async {
+            LoadingView.hide()
+        }
+        switch result{
+        case .success(value: let _):
+             break
+        case .error(let error, let errorResponse):
+            if error == .patchSuccess {
+//                ENTALDAlertView.shared.showContactAlertWithTitle(title: "Profile Updated Successfully", message: "", actionTitle: .KOK, completion: { status in })
+            }else{
                 var message = error.message
                 if let err = errorResponse {
                     message = err.error
                 }
-
-//                DispatchQueue.main.async {
-//                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
-//                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
             }
         }
-        self.getPendingShift()
+    }
+    
+//
     }
     
     
@@ -564,7 +568,8 @@ extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
         
         cell.delegate = self
         let rowModel = pendingShiftData?[indexPath.row]
-        let eventId = self.getPendingShiftThreeModelBy(rowModel?._sjavms_volunteerevent_value ?? "")
+        let eventId = self.pendingShiftData?[indexPath.row].msnfp_participationscheduleid
+//        let eventId = self.getPendingShiftThreeModelBy(rowModel?._sjavms_volunteerevent_value ?? "")
         cell.eventId = eventId ?? ""
         
         cell.setCellData(rowModel : rowModel)

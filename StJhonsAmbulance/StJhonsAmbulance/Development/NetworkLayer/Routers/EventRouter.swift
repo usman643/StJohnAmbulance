@@ -37,6 +37,7 @@ enum EventRouter : Router {
     case applyShift(params:[String:Any])
     case getvolunteerShiftStatus(params:[String:Any])
     case getAuditHistory(params:[String:Any])
+    case getOtherVoulnteerParticipation(params:[String:Any])
     
     case createEvent(params:[String:Any])
     
@@ -74,6 +75,7 @@ enum EventRouter : Router {
         case .applyShift : return "msnfp_participations"
         case .getvolunteerShiftStatus : return "msnfp_participationschedules"
         case .getAuditHistory : return "audits"
+        case .getOtherVoulnteerParticipation : return "msnfp_participations"
             
             
         case .simulate401: return "simulate-401"
@@ -142,6 +144,8 @@ enum EventRouter : Router {
             return params
         case .getAuditHistory(let params):
             return params
+        case .getOtherVoulnteerParticipation(let params):
+            return params
         default: return [:]
         }
         
@@ -184,8 +188,6 @@ enum EventRouter : Router {
         switch self{
         case .getAuditHistory:
             return .SAINJOHN_BASEURL_Api
-//        case .pendingShiftUpdate:
-//            return .SAINJOHN_BASEURL_Api
         default:
             break
         }

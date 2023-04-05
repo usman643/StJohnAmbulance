@@ -144,8 +144,9 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         self.addPagerControllerAsChildView()
         pageController.dataSource = self
         pageController.menuHorizontalAlignment = .center
-        pageController.menuItemSize = .sizeToFit(minWidth: 80, height: 40)
-        pageController.menuBackgroundColor = .systemGray5
+        pageController.menuItemLabelSpacing = 0
+        pageController.menuItemSize = .sizeToFit(minWidth: 100, height: 40)
+        pageController.menuBackgroundColor = UIColor.hexString(hex: "e6f2eb")
         pageController.indicatorColor = UIColor.themePrimary
         pageController.indicatorOptions = .visible(height: 3, zIndex: 0, spacing: .zero, insets: .zero)
         let font:UIFont = UIFont.boldSystemFont(ofSize: 14)
@@ -171,6 +172,8 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         self.pageController = PagingViewController(viewControllers: [])
         let shiftVC = ShiftOptionVC.loadFromNib()
         let detailVC = VEventDetailVC.loadFromNib()
+        let participationVC = ParticipationDetailVC.loadFromNib()
+        
         shiftVC.title = "Schedule"
         shiftVC.isBottombtnEnable = self.isBottombtnEnable
         shiftVC.eventId = self.eventId
@@ -181,6 +184,11 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         detailVC.eventId = self.eventId
         detailVC.userParticipantData = self.userParticipantData
         viewControllers.append(detailVC)
+        
+        participationVC.title = "Participations"
+        participationVC.eventId = self.eventId
+        participationVC.userParticipantData = self.userParticipantData
+        viewControllers.append(participationVC)
         
         var option : PagingOptions = PagingOptions()
         option.borderColor = UIColor.separator

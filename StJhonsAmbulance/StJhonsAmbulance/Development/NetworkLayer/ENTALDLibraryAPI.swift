@@ -272,6 +272,11 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
+    func getOtherVolunteerParticipations(params:[String : Any],  _ completion:@escaping((ApiResult<OtherVolunteerParticipationResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getOtherVoulnteerParticipation(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
 
     
     
