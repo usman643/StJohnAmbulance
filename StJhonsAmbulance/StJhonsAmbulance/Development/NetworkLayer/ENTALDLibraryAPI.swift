@@ -206,6 +206,11 @@ class ENTALDLibraryAPI {
         let router = DashBoardRouter.postMessages(params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
+    
+    func postAddAvailablity(params:PostAddAvailabilityRequestModel,  _ completion:@escaping((ApiResult<LanguageResponseModel, ApiError>) -> Void )){
+        let router = DashBoardRouter.postAddAvailability(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
 
     func requestQualificationTypes(params:[String : Any],  _ completion:@escaping((ApiResult<SJAQualificationTypeResponseModel, ApiError>) -> Void )){
         let router = SideMenuRouter.getQualificationsType(params: params)
@@ -358,6 +363,11 @@ class ENTALDLibraryAPI {
         
     func updateVolunteerCheckIn(particitionId: String ,params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
         let router = EventRouter.volunteerCheckIn(participationId: particitionId, params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func updateAvailability(availabilityid: String ,params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
+        let router = SideMenuRouter.updateAvailability(availabilityid: availabilityid, params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     

@@ -17,6 +17,7 @@ enum SideMenuRouter: Router {
     case getlanguages(params:[String:Any])
     case getPreffferedLanguages(params:[String:Any])
     case getQualificationsType(params:[String:Any])
+    case updateAvailability(availabilityid:String, params:[String:Any])
     case simulate401
     
     var procedure: String { //endpoints
@@ -29,6 +30,7 @@ enum SideMenuRouter: Router {
         case .getlanguages:return "stringmaps"
         case .getPreffferedLanguages:return "adx_portallanguages"
         case .getQualificationsType: return "stringmaps"
+        case .updateAvailability(let availabilityid, _) : return "msnfp_availabilities(\(availabilityid))"
         case .simulate401: return "simulate-401"
         }
     }
@@ -51,6 +53,8 @@ enum SideMenuRouter: Router {
             return params
         case .getlanguages(let params):
             return params
+        case .updateAvailability(_, let params):
+            return params
         default: return [:]
         }
     }
@@ -60,6 +64,12 @@ enum SideMenuRouter: Router {
     }
     
     var method: String {
+        switch self {
+        case .updateAvailability(_,_):
+            return HTTPMethodType.patch.rawValue
+        default:
+            break
+        }
         return HTTPMethodType.get.rawValue
     }
     
@@ -68,6 +78,12 @@ enum SideMenuRouter: Router {
     }
     
     var encoding: ENTALDEncodingType {
+        switch self {
+        case .updateAvailability(_,_):
+            return .ENTJSONEncoding
+        default:
+            break
+        }
         return .ENTDefaultEncoding
     }
     

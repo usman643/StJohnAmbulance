@@ -11,6 +11,9 @@ struct PortalAuthModel : Codable {
     let access_token: String?
     let token_type:String?
     let expires_in:String?
+    let ext_expires_in:String?
+    let expires_on:String?
+    let not_before:String?
     let refresh_token:String?
     let id_token:String?
 }

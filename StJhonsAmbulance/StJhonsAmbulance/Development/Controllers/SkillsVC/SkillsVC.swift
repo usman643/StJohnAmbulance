@@ -384,7 +384,19 @@ class SkillsVC: ENTALDBaseViewController {
         
         if edited == true {
             
-            self.updatedata(params: ["sjavms_workingwvulnerablepeople":isWorkingVolunteerPeople as! Bool ,"sjavms_patientcare":isPatientCare as! Bool ,"sjavms_palliativecare":isPalliativeCare as! Bool ,"sjavms_cprorfirstaid":isCRPFirstAId as! Bool ,"sjavms_recreationalprogramming":isRecreationalProgramming as! Bool ,"sjavms_educationalprogramming":isEducationalProgramming as! Bool ,"sjavms_customerservice":isCustomerServices as! Bool ,"sjavms_computer":isComputer as! Bool ,"sjavms_volunteerleadership":isVoulnteerLeadership as! Bool ,"sjavms_otherskills":isOtherSkils as! Bool, "sjavms_explainskillother" : textView.text ?? "" ])
+            self.updatedata(params: [
+                "sjavms_workingwvulnerablepeople":isWorkingVolunteerPeople as! Bool,
+                "sjavms_patientcare":isPatientCare as! Bool,
+                "sjavms_palliativecare":isPalliativeCare as! Bool,
+                "sjavms_cprorfirstaid":isCRPFirstAId as! Bool ,
+                "sjavms_recreationalprogramming":isRecreationalProgramming as! Bool ,
+                "sjavms_educationalprogramming":isEducationalProgramming as! Bool ,
+                "sjavms_customerservice":isCustomerServices as! Bool ,
+                "sjavms_computer":isComputer as! Bool ,
+                "sjavms_volunteerleadership":isVoulnteerLeadership as! Bool ,
+                "sjavms_otherskills":isOtherSkils as! Bool,
+                "sjavms_explainskillother" : textView.text ?? ""
+            ])
             
             
             UserDefaults.standard.userInfo?.sjavms_workingwvulnerablepeople = isWorkingVolunteerPeople

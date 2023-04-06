@@ -43,12 +43,21 @@ class ENTALDHttpClient {
     
     func request<T: Codable>(_ router: Router, completion:@escaping (ApiResult<T, ApiError>) ->Void) {
         
+        
+        //refresh token
+//        let difference = Date().timeIntervalSince(ProcessUtils.shared.tokenTime)
+//        if difference > 50 {
+//            ProcessUtils.shared.refreshToken()
+//            
+//        }
+        
         guard let request = ENTALDNetworkRequest.shared.getRequestFor(router) else{return}
         
         if HTTPMethod(rawValue: router.method) == .get {
             self.getRequest(request, completion: completion)
             return
         }
+        
         
         
         if let client = request.client, let requstUrl = request.requestURL?.absoluteString {
@@ -86,6 +95,12 @@ class ENTALDHttpClient {
     
     private func getRequest<T: Codable>(_ netRequest:ENTALDNetworkRequest, completion:@escaping (ApiResult<T, ApiError>) ->Void) {
         
+        
+//        // Refresh
+//        let difference = Date().timeIntervalSince(ProcessUtils.shared.tokenTime)
+//        if difference > 200 {
+//            ProcessUtils.shared.refreshToken()
+//        }
         
         guard let requestUrl = netRequest.requestURL else {return}
         

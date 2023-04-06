@@ -140,8 +140,12 @@ class AvailabilityVC: ENTALDBaseViewController {
     
     @IBAction func addAvailabilityTapped(_ sender: Any) {
         
-        ENTALDControllers.shared.showAddAvilabilityScreen(type: .ENTALDPUSH, from: self, eventType: "") { params, controller in
+        ENTALDControllers.shared.showAddAvilabilityScreen(type: .ENTALDPUSH, from: self, action: "") { params, controller in
             
+            if(params as? Int == 1){
+                
+                self.getAvailability()
+            }
         }
     }
     
@@ -791,6 +795,22 @@ extension AvailabilityVC : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 30
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == availablityTableView {
+            
+            let rowModel = self.availablityData?[indexPath.row]
+            
+            ENTALDControllers.shared.showAddAvilabilityScreen(type: .ENTALDPUSH, from: self, dataObj : rowModel, action: "edit") { params, controller in
+                
+                if(params as? Int == 1){
+                    self.getAvailability()
+                }
+            }
+            
+            
+        }
     }
     
 }

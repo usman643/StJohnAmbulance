@@ -9,14 +9,14 @@ import UIKit
 
 class EventDetailVC: ENTALDBaseViewController {
     
-    @IBOutlet weak var btnBack: UIButton!
+    var contactInfo : [ContactDataModel]?
+    var eventId = ""
     
+    @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var contactBtnImg: UIImageView!
     @IBOutlet weak var btnContact: UIButton!
-    
     @IBOutlet weak var btnCheckIn: UIButton!
     @IBOutlet weak var checkInBtnImg: UIImageView!
-    
     @IBOutlet weak var lblEventName: UILabel!
     @IBOutlet weak var lblDate: UILabel!
     @IBOutlet weak var lblShift: UILabel!
@@ -53,7 +53,7 @@ class EventDetailVC: ENTALDBaseViewController {
         collectionView.register(UINib(nibName: "EventDetailCVC", bundle: nil), forCellWithReuseIdentifier: "EventDetailCVC")
         
     }
-
+    
     func decorateUI(){
         lblEventName.font = UIFont.BoldFont(16)
         lblLocation.font = UIFont.BoldFont(16)
@@ -107,10 +107,10 @@ class EventDetailVC: ENTALDBaseViewController {
     
     func setupData(){
         if ((availableEvent) != nil){
-          
+            
             let date = DateFormatManager.shared.formatDateStrToStr(date: availableEvent?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
-                let startTime = DateFormatManager.shared.formatDateStrToStr(date: availableEvent?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
-
+            let startTime = DateFormatManager.shared.formatDateStrToStr(date: availableEvent?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            
             let endTime = DateFormatManager.shared.formatDateStrToStr(date: availableEvent?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
             lblEventName.text = availableEvent?.msnfp_engagementopportunitytitle
@@ -118,20 +118,26 @@ class EventDetailVC: ENTALDBaseViewController {
             lblShift.text = "Shift: \(startTime) - \(endTime)"
             lblLocationDesc.text = availableEvent?.msnfp_location
             lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: availableEvent?.msnfp_engagementopportunitystatus ?? 0) ?? "")"
-            
+            self.eventId = availableEvent?.msnfp_engagementopportunityid ?? ""
             
         }else if ((scheduleEvent) != nil){
             
             let date = DateFormatManager.shared.formatDateStrToStr(date: scheduleEvent?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
             let startTime = DateFormatManager.shared.formatDateStrToStr(date: scheduleEvent?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
-
-        let endTime = DateFormatManager.shared.formatDateStrToStr(date: scheduleEvent?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
-        lblEventName.text = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
-        lblDate.text = "Date: \(date)"
-        lblShift.text = "Shift: \(startTime) - \(endTime)"
-        lblLocationDesc.text = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_location
-        lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: scheduleEvent?.msnfp_schedulestatus ?? 0) ?? "")"
+            let endTime = DateFormatManager.shared.formatDateStrToStr(date: scheduleEvent?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            
+            lblEventName.text = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
+            lblDate.text = "Date: \(date)"
+            lblShift.text = "Shift: \(startTime) - \(endTime)"
+            lblLocationDesc.text = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_location
+            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: scheduleEvent?.msnfp_schedulestatus ?? 0) ?? "")"
+            self.eventId = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
+            
+            
+            
+            
+            
             
         }else if ((pastEvent) != nil){
             self.checkInbtnView.isHidden = true
@@ -140,38 +146,39 @@ class EventDetailVC: ENTALDBaseViewController {
             
             let startTime = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
-        let endTime = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            let endTime = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
-        lblEventName.text = pastEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
-        lblDate.text = "Date: \(date)"
-        lblShift.text = "Shift: \(startTime) - \(endTime)"
-        lblLocationDesc.text = pastEvent?.sjavms_VolunteerEvent?.msnfp_location
-        lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: pastEvent?.msnfp_schedulestatus ?? 0) ?? "")"
-            
+            lblEventName.text = pastEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
+            lblDate.text = "Date: \(date)"
+            lblShift.text = "Shift: \(startTime) - \(endTime)"
+            lblLocationDesc.text = pastEvent?.sjavms_VolunteerEvent?.msnfp_location
+            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: pastEvent?.msnfp_schedulestatus ?? 0) ?? "")"
+            self.eventId = pastEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
         }else if((latestEvent) != nil){
             
             let date = DateFormatManager.shared.formatDateStrToStr(date: latestEvent?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
             
             let startTime = DateFormatManager.shared.formatDateStrToStr(date: latestEvent?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
-        let endTime = DateFormatManager.shared.formatDateStrToStr(date: latestEvent?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            let endTime = DateFormatManager.shared.formatDateStrToStr(date: latestEvent?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
-        lblEventName.text = latestEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
-        lblDate.text = "Date: \(date)"
-        lblShift.text = "Shift: \(startTime) - \(endTime)"
-        lblLocationDesc.text = latestEvent?.sjavms_VolunteerEvent?.msnfp_location
-        lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: latestEvent?.msnfp_schedulestatus ?? 0) ?? "")"
+            lblEventName.text = latestEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
+            lblDate.text = "Date: \(date)"
+            lblShift.text = "Shift: \(startTime) - \(endTime)"
+            lblLocationDesc.text = latestEvent?.sjavms_VolunteerEvent?.msnfp_location
+            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: latestEvent?.msnfp_schedulestatus ?? 0) ?? "")"
+            self.eventId = latestEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
         }
         
     }
-
+    
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func homeTapped(_ sender: Any) {
-//        self.navigationController?.popViewController(animated: true)
-//        self.navigationController?.popViewController(animated: true)
+        //        self.navigationController?.popViewController(animated: true)
+        //        self.navigationController?.popViewController(animated: true)
     }
     
     
@@ -179,7 +186,7 @@ class EventDetailVC: ENTALDBaseViewController {
         if (self.latestEvent?.sjavms_checkedin == false){
             updateCheckInData()
         }
-//            ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alter", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
+        //            ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alter", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
         
         
         
@@ -191,7 +198,8 @@ class EventDetailVC: ENTALDBaseViewController {
     }
     
     @IBAction func contactTapped(_ sender: Any) {
-        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alter", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
+        self.getContact()
+        //        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alter", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
     }
     
     fileprivate func updateCheckInData(){
@@ -212,7 +220,7 @@ class EventDetailVC: ENTALDBaseViewController {
             switch result{
             case .success(value: let response):
                 if let pastEvent = response.value {
-
+                    
                 }
                 
             case .error(let error, let errorResponse):
@@ -220,13 +228,87 @@ class EventDetailVC: ENTALDBaseViewController {
                 if let err = errorResponse {
                     message = err.error
                 }
-//                self.showEmptyView(tableVw: self.tableView)
+                //                self.showEmptyView(tableVw: self.tableView)
                 DispatchQueue.main.async {
-//                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                    //                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
                 }
             }
         }
     }
+    
+    func getContact(){
+        
+        
+        
+        let params : [String:Any] = [
+            
+            ParameterKeys.select : "msnfp_engagementopportunitytitle",
+            ParameterKeys.expand : "sjavms_Contact($select=emailaddress1,address1_country,address1_line1,address1_line3,address1_city,lastname,firstname,fullname,address1_postalcode,telephone1,address1_stateorprovince,address1_line2)",
+            ParameterKeys.filter : "(msnfp_engagementopportunityid eq \(self.eventId)) and (sjavms_Contact/contactid ne null)"
+        ]
+        
+        self.getContactData(params: params)
+        
+    }
+    
+    fileprivate func getContactData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestContactInfo(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                
+                if let contactData = response.value {
+                    self.contactInfo = contactData
+                    var messageStr = ""
+                    if let str = self.contactInfo?[0].sjavms_Contact?.fullname{
+                        messageStr += "Name: \(str)\n"
+                    }
+                    if let str = self.contactInfo?[0].sjavms_Contact?.telephone1{
+                        messageStr += "Phone: \(str)\n"
+                    }
+                    if let str = self.contactInfo?[0].sjavms_Contact?.emailaddress1{
+                        messageStr += "Email: \(str)\n"
+                    }
+                    
+                    DispatchQueue.main.async {
+                        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Organizer Contact Infomation", message: messageStr, actionTitle: .KOK, completion: {status in })
+                    }
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }
 
@@ -243,13 +325,13 @@ extension EventDetailVC : UICollectionViewDelegate, UICollectionViewDataSource, 
         return cell
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        
-//        let width =  (collectionView.frame.size.width / 2) - 8
-//        
-//        
-//        return collectionView.
-//    }
-
-
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    //
+    //        let width =  (collectionView.frame.size.width / 2) - 8
+    //
+    //
+    //        return collectionView.
+    //    }
+    
+    
 }

@@ -15,6 +15,7 @@ enum DashBoardRouter : Router {
     case getPendingShiftsThree(params:[String:Any])
     case getMessages(params:[String:Any])
     case postMessages(params:PostGroupMessageRequestModel)
+    case postAddAvailability(params:PostAddAvailabilityRequestModel)
     case getVolunteers(params:[String:Any])
     case getVolunteersOfEvent(params:[String:Any])
     case simulate401
@@ -28,6 +29,7 @@ enum DashBoardRouter : Router {
         case .getPendingShiftsThree : return "msnfp_engagementopportunityschedules"
         case .getMessages : return "emails"
         case .postMessages : return "emails"
+        case .postAddAvailability : return "msnfp_availabilities"
         case .getVolunteers : return "msnfp_groupmemberships"
         case .getVolunteersOfEvent : return "msnfp_participationschedules"
         case .simulate401: return "simulate-401"
@@ -45,6 +47,11 @@ enum DashBoardRouter : Router {
         case .getMessages(let params):
             return params
         case .postMessages(let params):
+            if let model = params.encodeModel() {
+                return model
+            }
+            return [:]
+        case .postAddAvailability(let params):
             if let model = params.encodeModel() {
                 return model
             }
@@ -67,6 +74,8 @@ enum DashBoardRouter : Router {
         switch self {
         case .postMessages(_):
             return HTTPMethodType.post.rawValue
+        case .postAddAvailability(_):
+            return HTTPMethodType.post.rawValue
         default:
             break
         }
@@ -80,6 +89,8 @@ enum DashBoardRouter : Router {
     var encoding: ENTALDEncodingType {
         switch self {
         case .postMessages(_):
+            return .ENTJSONEncoding
+        case .postAddAvailability(_):
             return .ENTJSONEncoding
         default:
             break

@@ -35,8 +35,6 @@ class AvailabilityTVC: UITableViewCell {
         lblEffectiveto.font = UIFont.RegularFont(12)
         lblWorkingDays.textColor = UIColor.textBlackColor
         lblWorkingDays.font = UIFont.RegularFont(12)
-        
-        
     }
     
     func setContent(cellModel: AvailablityHourModel?){
@@ -44,14 +42,14 @@ class AvailabilityTVC: UITableViewCell {
         lblTitle.text = cellModel?.msnfp_availabilitytitle
         
         if let date = cellModel?.msnfp_effectivefrom {
-            let start = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            let start = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
             lblEffectiveFrom.text = start
         }else{
             lblEffectiveFrom.text = ""
         }
         
         if let date = cellModel?.msnfp_effectiveto {
-            let start = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            let start = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy-MM-dd")
             lblEffectiveto.text = start
         }else{
             lblEffectiveto.text = ""

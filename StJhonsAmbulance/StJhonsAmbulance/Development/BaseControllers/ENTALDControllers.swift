@@ -31,7 +31,14 @@ class ENTALDControllers {
     }
     
     func startFlowFromSplash(from:UIViewController?, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?){
-        
+//        if (UserDefaults.standard.contactIdToken != nil){
+//            let difference = Date().timeIntervalSince(UserDefaults.standard.object(forKey: "tokenTime") as? Date ?? Date())
+//            if difference > 20 {
+//                UserDefaults.standard.authToken = nil
+//                UserDefaults.standard.userInfo = nil
+//                ProcessUtils.shared.refreshToken()
+//            }
+//        }
         if ENTALDHelperUtils.isUserLoggedIn() {
             
             self.startFlowfromLandingScreen(from: from, callBack: callBack)
@@ -357,9 +364,9 @@ class ENTALDControllers {
         self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
     }
     
-    func showAddAvilabilityScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil,eventType : String, callBack:ControllerCallBackCompletion?) {
+    func showAddAvilabilityScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil, action : String, callBack:ControllerCallBackCompletion?) {
         let vc = AddAvilabilityVC.loadFromNib()
-        
+        vc.action = action
         vc.dataModel = dataObj
         
         vc.callbackToController = callBack

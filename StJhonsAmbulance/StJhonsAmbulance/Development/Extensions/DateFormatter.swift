@@ -56,11 +56,29 @@ class DateFormatManager{
         }
     }
     
+    func formatDateStrToStrWithoutTimeZone(date: String, oldFormat: String, newFormat:String )->String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = oldFormat
+//        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+
+        var formatedDate = dateFormatter.date(from: date)
+        
+//        formatedDate = Calendar.current.date(byAdding: .hour, value: -5, to: formatedDate ?? Date())!
+        let formatter = DateFormatter()
+        formatter.dateFormat = newFormat
+        formatter.timeZone = TimeZone(identifier: "America/New_York")
+        if (date != "" ){
+            return formatter.string(from: formatedDate ?? Date() )
+        }else{
+            return ""
+        }
+    }
+    
     
     func formatDate(date: Date) -> String
     {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss:SSS'Z'"
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         return formatter.string(from: date)
     }
     
@@ -98,9 +116,9 @@ class DateFormatManager{
  
         
         let dateFormat = DateFormatter()
-        dateFormat.timeZone = TimeZone(identifier: "UTC")
+        dateFormat.timeZone = TimeZone(identifier: "America/New_York")
         let currentdate = Date()
-        
+        dateFormat.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         let cDate = dateFormat.string(from: currentdate)
         
         if (date <  cDate){

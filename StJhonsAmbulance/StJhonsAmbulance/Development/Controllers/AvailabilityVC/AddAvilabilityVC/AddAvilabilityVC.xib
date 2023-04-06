@@ -192,24 +192,17 @@
                             <rect key="frame" x="0.0" y="231.99999999999997" width="369" height="65.333333333333343"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Working days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wxQ-mD-XoG">
-                                    <rect key="frame" x="0.0" y="0.0" width="357" height="20.333333333333332"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="357" height="23"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ztW-Jg-pVJ" customClass="ACFloatingTextfield" customModule="StJhonsAmbulance" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="25.333333333333371" width="369" height="40"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                            <color key="value" name="PrimaryGreen"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
-                                </textField>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njh-iw-Fr7">
-                                    <rect key="frame" x="0.0" y="25.333333333333371" width="369" height="40"/>
+                                    <rect key="frame" x="0.0" y="28" width="369" height="35"/>
                                     <color key="backgroundColor" name="PrimaryGreen"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="35" id="jYR-Am-ZjN"/>
+                                    </constraints>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <connections>
                                         <action selector="btnSelectDay:" destination="-1" eventType="touchUpInside" id="DR7-VE-BzX"/>
@@ -227,20 +220,15 @@
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstItem="ztW-Jg-pVJ" firstAttribute="leading" secondItem="Eht-CV-5cb" secondAttribute="leading" id="64h-lH-4Du"/>
-                                <constraint firstAttribute="trailing" secondItem="ztW-Jg-pVJ" secondAttribute="trailing" id="8gx-xT-R5a"/>
-                                <constraint firstAttribute="bottom" secondItem="ztW-Jg-pVJ" secondAttribute="bottom" id="Gbp-7G-Enw"/>
-                                <constraint firstItem="njh-iw-Fr7" firstAttribute="trailing" secondItem="ztW-Jg-pVJ" secondAttribute="trailing" id="H1l-RI-Xpe"/>
-                                <constraint firstItem="njh-iw-Fr7" firstAttribute="leading" secondItem="ztW-Jg-pVJ" secondAttribute="leading" id="HXC-cN-Npg"/>
+                                <constraint firstItem="njh-iw-Fr7" firstAttribute="centerY" secondItem="Eo4-Zl-xNz" secondAttribute="centerY" id="078-tU-hW8"/>
+                                <constraint firstItem="njh-iw-Fr7" firstAttribute="centerX" secondItem="Eht-CV-5cb" secondAttribute="centerX" id="DAE-v7-lmp"/>
                                 <constraint firstAttribute="trailing" secondItem="Eo4-Zl-xNz" secondAttribute="trailing" constant="12" id="NAq-sF-zvQ"/>
-                                <constraint firstItem="njh-iw-Fr7" firstAttribute="top" secondItem="ztW-Jg-pVJ" secondAttribute="top" id="SWJ-ru-c8Q"/>
                                 <constraint firstAttribute="bottom" secondItem="Eo4-Zl-xNz" secondAttribute="bottom" constant="10" id="Vgi-HZ-eKe"/>
+                                <constraint firstItem="njh-iw-Fr7" firstAttribute="leading" secondItem="wxQ-mD-XoG" secondAttribute="leading" id="azf-JM-XY1"/>
                                 <constraint firstItem="wxQ-mD-XoG" firstAttribute="top" secondItem="Eht-CV-5cb" secondAttribute="top" id="d0f-OD-mYe"/>
+                                <constraint firstItem="njh-iw-Fr7" firstAttribute="top" secondItem="wxQ-mD-XoG" secondAttribute="bottom" constant="5.0000000000000391" id="eUr-sr-1BC"/>
                                 <constraint firstItem="wxQ-mD-XoG" firstAttribute="leading" secondItem="Eht-CV-5cb" secondAttribute="leading" id="h0G-0T-Ho5"/>
-                                <constraint firstItem="njh-iw-Fr7" firstAttribute="height" secondItem="ztW-Jg-pVJ" secondAttribute="height" id="kFD-og-M3u"/>
                                 <constraint firstAttribute="trailing" secondItem="wxQ-mD-XoG" secondAttribute="trailing" constant="12" id="qCh-eK-r3m"/>
-                                <constraint firstItem="ztW-Jg-pVJ" firstAttribute="top" secondItem="wxQ-mD-XoG" secondAttribute="bottom" constant="5" id="wjh-ef-mJK"/>
-                                <constraint firstItem="njh-iw-Fr7" firstAttribute="bottom" secondItem="ztW-Jg-pVJ" secondAttribute="bottom" id="yIi-cc-Ckg"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -309,9 +297,6 @@
             <size key="intrinsicContentSize" width="4" height="18.666666666666668"/>
         </designable>
         <designable name="wiu-Oo-Icc">
-            <size key="intrinsicContentSize" width="4" height="18.666666666666668"/>
-        </designable>
-        <designable name="ztW-Jg-pVJ">
             <size key="intrinsicContentSize" width="4" height="18.666666666666668"/>
         </designable>
     </designables>

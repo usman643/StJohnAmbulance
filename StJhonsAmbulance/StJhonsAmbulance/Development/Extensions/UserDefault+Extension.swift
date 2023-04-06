@@ -12,6 +12,7 @@ fileprivate let keyAuthToken = "key_auth_token"
 fileprivate let contactId = "key_contact_id"
 fileprivate let keyUserIdentity = "key_user_identity"
 fileprivate let keyDarkMode = "key_dark_mode"
+fileprivate let tokenTime = "tokenTime"
 
 
 extension UserDefaults {
@@ -33,6 +34,7 @@ extension UserDefaults {
             set(newValue, forKey: keyAuthToken)
         }
     }
+    
     
     var contactIdToken: String? {
         get {

@@ -20,6 +20,7 @@ class ProcessUtils {
     var selectedUserGroup : LandingGroupsModel?
     var programsData : [ProgramModel]?
     var contactInfo : UserIdentityModel?
+    var tokenTime : Date = Date()
     var days =  [844060000 : "Monday",844060001 : "Tuesday",844060002 : "Wednesday",844060003 : "Thursday",844060004 : "Friday",844060005 : "Saturday",844060006 : "Sunday"]
     var eventStatusArr = [
         844060000 : "Draft",
@@ -182,5 +183,31 @@ class ProcessUtils {
 //        }
 //        return eventStatus
 //    }
+    
+    func refreshToken(){
+        
+        let params : DynamicAuthRequest = DynamicAuthRequest(grant_type: "client_credentials", client_id: "e0508903-f48f-418c-ad61-7a2f38ff50a4", resource: "https://sja-sandbox.crm3.dynamics.com/", client_secret: "82a8Q~inojTl~emDlThirKD6TEV64PG0EH_rccGW")
+        
+        ENTALDLibraryAPI.shared.requestDynamicAuth(params: params) { result in
+            
+            switch result {
+            case .success(let response):
+                if let token = response.access_token {
+                    UserDefaults.standard.authToken = token
+                    UserDefaults.standard.set(Date(), forKey: "tokenTime")
+                    self.tokenTime = Date()
+                }
+                break
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
 }
 

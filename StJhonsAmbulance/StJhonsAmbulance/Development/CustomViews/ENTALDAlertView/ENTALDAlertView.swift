@@ -103,4 +103,33 @@ class ENTALDAlertView: UIView {
         alert.showSuccess(title ?? "", subTitle: message ?? "")
     }
     
+    func showActionAlertWithTitle(title:String?, message:String?, actionTitle:ActionTitle, completion: @escaping(_ status:Bool)->Void){
+        let appearence = SCLAlertView.SCLAppearance(
+            kWindowWidth : SCREEN_WIDTH * 0.80,
+            kTitleFont: UIFont.MediumFont(20.0),
+            kTextFont: UIFont.RegularFont(16.0),
+            showCloseButton: false,
+            showCircularIcon : false
+        )
+        let alert = SCLAlertView(appearance: appearence)
+        alert.addButton(actionTitle.getTitleString(), backgroundColor: UIColor.themeSecondry, textColor: UIColor.white) {
+            switch actionTitle {
+            case .KOK:
+                completion(true)
+            default:
+                completion(false)
+            }
+        }
+        alert.addButton(actionTitle.getTitleString(), backgroundColor: UIColor.themeSecondry, textColor: UIColor.white) {
+            switch actionTitle {
+            case .KCANCEL:
+                completion(false)
+            default:
+                completion(false)
+            }
+        }
+        
+        alert.showSuccess(title ?? "", subTitle: message ?? "")
+    }
+    
 }

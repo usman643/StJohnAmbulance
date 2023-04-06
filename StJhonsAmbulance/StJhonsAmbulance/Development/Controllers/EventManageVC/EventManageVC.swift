@@ -73,6 +73,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
                 if(DateFormatManager.shared.isDatePassed(date: eventData?.msnfp_startingdate ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
                     self.btnProgram.isEnabled = false
                     btnProgram.backgroundColor = UIColor.lightGray
+                    btnProgram.setTitle("Event Passed", for: .normal)
                 }
             }else{
                 lblDate.text = " "
@@ -90,6 +91,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
                 if(DateFormatManager.shared.isDatePassed(date: pendingShiftData?.sjavms_start ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
                     self.btnProgram.isEnabled = false
                     btnProgram.backgroundColor = UIColor.lightGray
+                    btnProgram.setTitle("Event Passed", for: .normal)
                 }
             }else{
                 lblDate.text = " "
@@ -103,6 +105,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
                 if(DateFormatManager.shared.isDatePassed(date: unpublishEventData?.msnfp_startingdate ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
                     self.btnProgram.isEnabled = false
                     btnProgram.backgroundColor = UIColor.lightGray
+                    btnProgram.setTitle("Event Passed", for: .normal)
                 }
             }else{
                 lblDate.text = " "
@@ -118,6 +121,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
                 if(DateFormatManager.shared.isDatePassed(date: pendingEventApprovalData?.sjavms_eventstartdate ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
                     self.btnProgram.isEnabled = false
                     btnProgram.backgroundColor = UIColor.lightGray
+                    btnProgram.setTitle("Event Passed", for: .normal)
                 }
             }else{
                 lblDate.text = " "
@@ -216,12 +220,23 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
     }
     
     @IBAction func btnProgramAction(_ sender: Any) {
-        let params = [
-            "msnfp_engagementopportunitystatus": 844060004 as Int
-        ]
         
-        self.closeVolunteersData(params: params)
         
+        
+        ENTALDAlertView.shared.showActionAlertWithTitle(title: "Alert", message: "Are you sure you want to Cancel Event", actionTitle: .KOK, completion: { status in
+            
+            if status == true{
+                let params = [
+                    "msnfp_engagementopportunitystatus": 844060004 as Int
+                ]
+                
+                self.closeVolunteersData(params: params)
+            }else{
+                
+            }
+            
+        })
+
     }
     @IBAction func searchCloseTapped(_ sender: Any) {
         txtSearch.text = ""

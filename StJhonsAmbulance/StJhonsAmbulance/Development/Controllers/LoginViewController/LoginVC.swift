@@ -35,8 +35,8 @@ class LoginVC: ENTALDBaseViewController {
     // Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.txtUserName.text = "dougsalomon@outlook.com"
-//        self.txtPassword.text = "qAz!2#sss"
+        self.txtUserName.text = "dougsalomon@outlook.com"
+        self.txtPassword.text = "qAz!2#sss"
         UserDefaults.standard.authToken = nil
         isRememberPassword = false
         decorateUI()
@@ -248,6 +248,8 @@ extension LoginVC {
             case .success(let response):
                 if let token = response.access_token {
                     UserDefaults.standard.authToken = token
+                    UserDefaults.standard.set(Date(), forKey: "tokenTime")
+                    ProcessUtils.shared.tokenTime = Date()
                     self.externalAuthentication(subId: subId)
                 }
                 break
