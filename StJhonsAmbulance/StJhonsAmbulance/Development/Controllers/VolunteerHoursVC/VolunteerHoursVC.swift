@@ -643,7 +643,7 @@ extension VolunteerHoursVC : UITableViewDelegate, UITableViewDataSource{
             
             ENTALDControllers.shared.showVolunteerHourDetailScreen(type: .ENTALDPUSH, from: self, dataObj : rowModel) { params, controller in
                 if(params as? Int == 1){
-//                    self.getVolunteerNonEvent()
+                    self.getVolunteerNonEvent()
                 }
             }
         }
