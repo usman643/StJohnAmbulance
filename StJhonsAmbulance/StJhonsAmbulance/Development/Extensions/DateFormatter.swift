@@ -17,7 +17,7 @@ class DateFormatManager{
         if let timeResult = (Double(time)) {
             let date = Date(timeIntervalSince1970: timeResult)
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "hh:mm a"
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
             //dateFormatter.timeZone = .current
             let localDate = dateFormatter.string(from: date)
             return localDate
@@ -93,7 +93,8 @@ class DateFormatManager{
     func getDate(date: String?) -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+        dateFormatter.timeZone = TimeZone(identifier: "America/New_York")
+//        dateFormatter.timeZone = TimeZone(identifier: "UTC")
 //        dateFormatter.locale = Locale.current
         let date = date//self.userData?.date_of_birth
         return date
@@ -131,18 +132,39 @@ class DateFormatManager{
         
         if let timeResult = (Double(date)) {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss z"
+//            dateFormatter.timeZone = TimeZone(identifier: "America/New_York")
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss z"
+            dateFormatter.timeZone = TimeZone(identifier: "America/New_York")
             let date = Date(timeIntervalSince1970: timeResult)
             let exptDate = dateFormatter.string(from: date)
             
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss z"
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss z"
 //            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
 //            dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
-//            
+//
             return dateFormatter.date(from: exptDate) ?? Date()
         }
         return Date()
     }
+    
+//    func getDateFromUnixCode(date: String) ->Date {
+//
+//        if let timeResult = (Double(date)) {
+//            let dateFormatter = DateFormatter()
+////            dateFormatter.timeZone = TimeZone(identifier: "America/New_York")
+//            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss z"
+//            dateFormatter.timeZone = TimeZone(identifier: "America/New_York")
+//            let date = Date(timeIntervalSince1970: timeResult)
+//            let exptDate = dateFormatter.string(from: date)
+//
+//            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss z"
+////            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+////            dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+////
+//            return dateFormatter.date(from: exptDate) ?? Date()
+//        }
+//        return Date()
+//    }
     
 //    func getDateAndTime(timeZoneIdentifier: String) -> String? {
 //
@@ -155,6 +177,20 @@ class DateFormatManager{
 //
 //    print(getDateAndTime(timeZoneIdentifier: "UTC"))
 //    
-//    
+//
+    
+    
+    func getCurrentDate()-> Date{
+        let dateFormat = DateFormatter()
+        dateFormat.timeZone = TimeZone(identifier: "America/New_York")
+        let currentdate = Date()
+        dateFormat.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        let strDate = dateFormat.string(from: currentdate)
+        
+        return dateFormat.date(from: strDate) ?? Date()
+        
+        
+        
+    }
 }
 

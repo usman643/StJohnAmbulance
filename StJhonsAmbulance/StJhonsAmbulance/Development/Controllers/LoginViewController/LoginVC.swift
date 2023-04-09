@@ -250,7 +250,7 @@ extension LoginVC {
             case .success(let response):
                 if let token = response.access_token {
                     UserDefaults.standard.authToken = token
-                    UserDefaults.standard.tokenExpireTime = response.not_before
+                    UserDefaults.standard.tokenExpireTime = response.expires_on
                     self.externalAuthentication(subId: subId)
                 }
                 break

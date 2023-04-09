@@ -9,7 +9,7 @@ import UIKit
 
 class VolunteerHourDetailVC: ENTALDBaseViewController, UISearchTextFieldDelegate {
 
-    var shiftData : SideMenuHoursModel?
+    var shiftData :  PendingShiftModelTwo?
     var datePicker = UIDatePicker()
     var startDateSelected : String?
     var startTimeSelected : String?
@@ -39,7 +39,7 @@ class VolunteerHourDetailVC: ENTALDBaseViewController, UISearchTextFieldDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.shiftData = self.dataModel as? SideMenuHoursModel
+        self.shiftData = self.dataModel as? PendingShiftModelTwo
         
         if #available(iOS 13.4, *) {
             datePicker.datePickerMode = .dateAndTime
@@ -153,9 +153,17 @@ class VolunteerHourDetailVC: ENTALDBaseViewController, UISearchTextFieldDelegate
         btnSubmit.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnSubmit.titleLabel?.font = UIFont.BoldFont(14)
         
+        lblEvent.textColor = UIColor.themePrimaryWhite
+        lblShift.textColor = UIColor.themePrimaryWhite
+        
+        lblEvent.font = UIFont.RegularFont(13)
+        lblShift.font = UIFont.RegularFont(13)
     }
     
     func setupData(){
+        
+        lblEvent.text = shiftData?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "Not Found"
+        lblShift.text = shiftData?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "Not Found"
         
         if let date = shiftData?.sjavms_start {
             let startDate = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
@@ -164,8 +172,8 @@ class VolunteerHourDetailVC: ENTALDBaseViewController, UISearchTextFieldDelegate
             txtstartDate.text = startDate
             txtstartTime.text = startTime
         }else{
-            txtstartDate.text = ""
-            txtstartTime.text = ""
+            txtstartDate.text = "Not Found"
+            txtstartTime.text = "Not Found"
         }
         
         if let date = shiftData?.sjavms_end {
@@ -175,17 +183,17 @@ class VolunteerHourDetailVC: ENTALDBaseViewController, UISearchTextFieldDelegate
             txtendDate.text = startDate
             txtendTime.text = startTime
         }else{
-            txtendDate.text = ""
-            txtendTime.text = ""
+            txtendDate.text = "Not Found"
+            txtendTime.text = "Not Found"
         }
         
-        txteventName.text = self.shiftData?.msnfp_engagementOpportunityScheduleId?.msnfp_engagementopportunityschedule ?? ""
-        txtprogramName.text = self.shiftData?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
-        txteventRequirement.text = ""
-        txtlocation.text = self.shiftData?.msnfp_location ?? ""
-//        txtstreetOne.text = self.shiftData?.
-//        txtstreetTwo.text = self.shiftData?.
-//        txtstreetThree.text = self.shiftData?.
+        txteventName.text = self.shiftData?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "Not Found"
+        txtprogramName.text = self.shiftData?.event_name ?? "Not Found"
+        txteventRequirement.text = self.shiftData?.sjavms_VolunteerEvent?.sjavms_eventrequirements ?? "Not Found"
+        txtlocation.text = self.shiftData?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found"
+        txtstreetOne.text = self.shiftData?.sjavms_VolunteerEvent?.msnfp_street1 ?? "Not Found"
+        txtstreetTwo.text = self.shiftData?.sjavms_VolunteerEvent?.msnfp_street2 ?? "Not Found"
+        txtstreetThree.text = self.shiftData?.sjavms_VolunteerEvent?.msnfp_street3 ?? "Not Found"
         
         
     }
@@ -197,15 +205,7 @@ class VolunteerHourDetailVC: ENTALDBaseViewController, UISearchTextFieldDelegate
     }
     
     @IBAction func submitTapped(_ sender: Any) {
-//        let startDate = self.startDateSelected?.replacingOccurrences(of: "-", with: ":")
-//        let startTime = self.startTimeSelected?.replacingOccurrences(of: " ", with: ":")
-//        let endDate = self.endDateSelected?.replacingOccurrences(of: "-", with: ":")
-//        let endTime = self.endTimeSelected?.replacingOccurrences(of: " ", with: ":")
-//
-//         var start = "\(startDate ?? "")'T'\(startTime ?? ""):ss'Z'"
-//        var end = "\(endDate ?? "")'T'\(endTime ?? ""):ss'Z'"
-//
-        
+
         self.updateShiftTime(params: [
             "sjavms_start": self.startDateSelected as? String ?? self.shiftData?.sjavms_start,
             "sjavms_end": self.endDateSelected as? String ?? self.shiftData?.sjavms_end
@@ -217,7 +217,7 @@ class VolunteerHourDetailVC: ENTALDBaseViewController, UISearchTextFieldDelegate
         DispatchQueue.main.async {
             LoadingView.show()
         }
-//        let eventId = self.eventData?.msnfp_engagementopportunityid ?? ""
+//        let eventId = self.eventData?.msnfp_engagementopportunityid ?? "Not Found"
         
         ENTALDLibraryAPI.shared.updateVolunteerShift(shiftId: self.shiftData?.msnfp_participationscheduleid ?? "", params: params) { result in
             

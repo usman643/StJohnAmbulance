@@ -815,14 +815,6 @@ extension AvailabilityVC : UITableViewDelegate, UITableViewDataSource{
                     self.getAvailability()
                 }
             }
-        }else if (tableView == voluteerHourTableView){
-            
-            let rowModel = self.volunteerHourData?[indexPath.row]
-            ENTALDControllers.shared.showVolunteerHourDetailScreen(type: .ENTALDPUSH, from: self, dataObj : rowModel) { params, controller in
-                if(params as? Int == 1){
-                    self.getVolunteerHour()
-                }
-            }
         }
     }
     

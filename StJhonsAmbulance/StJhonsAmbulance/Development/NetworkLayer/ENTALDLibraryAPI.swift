@@ -396,12 +396,12 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
-    func createAdhocHour(params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
-        let router = SideMenuRouter.createNonAdhocHour(params: params)
+    func createAdhocHour(params:PostAdhocHourEvent,  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
+        let router = SideMenuRouter.createAdhocHour(params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
-    func createNonAdhocHour(params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
+    func createNonAdhocHour(params:PostNonAdhocHourEvent,  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
         let router = SideMenuRouter.createNonAdhocHour(params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }

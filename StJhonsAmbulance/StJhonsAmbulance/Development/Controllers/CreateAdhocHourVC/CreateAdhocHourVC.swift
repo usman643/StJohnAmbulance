@@ -11,11 +11,24 @@ class CreateAdhocHourVC: ENTALDBaseViewController {
 
     var isTherapyDogSelected = false
     let conId = UserDefaults.standard.contactIdToken ?? ""
+    var selectedEventOppertunityID : String? = ""
+    var selectedNonEventOppertunityID : String? = ""
+    var numberOfHours : Float?
+    var date : String?
+    var therapyDogIdSelected : String?
+    var therapyDogFacilitySelected : String?
+    var therapyDogIDSelectedModel : TherapyDogIdModel?
+    var therapyDogFacilitySelectedModed : TherapyDogFacilityModel?
+    var adhocHourEventSelectedModel : AdhocHourVolunteerEventModel?
+    var nonAdhocHourEventSelectedModel : NonAdhocHourVolunteerEventModel?
+    var datePicker = UIDatePicker()
     
     var therapyDogID : [TherapyDogIdModel]?
     var therapyDogFacility : [TherapyDogFacilityModel]?
     var adhocHourEvent : [AdhocHourVolunteerEventModel]?
     var nonAdhocHourEvent : [NonAdhocHourVolunteerEventModel]?
+    
+    
 
     
     @IBOutlet weak var lblTitle: UILabel!
@@ -25,7 +38,7 @@ class CreateAdhocHourVC: ENTALDBaseViewController {
     @IBOutlet weak var txtDateWorked: UITextField!
     @IBOutlet weak var txtNotes: UITextView!
     
-    @IBOutlet weak var btnClose: UIButton!
+    @IBOutlet weak var btnCreate: UIButton!
     @IBOutlet weak var btnTherapyDogFamily: UIButton!
     @IBOutlet weak var btnTherapyDog: UIButton!
     @IBOutlet weak var btnEvent: UIButton!
@@ -41,6 +54,13 @@ class CreateAdhocHourVC: ENTALDBaseViewController {
         getTherapyDogFacility()
         getAdhocHourEvent()
         getnonAdhocHourEvent()
+        
+        if #available(iOS 13.4, *) {
+            datePicker.datePickerMode = .dateAndTime
+            datePicker.preferredDatePickerStyle = .wheels
+        } else {
+            // Fallback on earlier versions
+        }
         
     }
 
@@ -70,17 +90,40 @@ class CreateAdhocHourVC: ENTALDBaseViewController {
         
         
         
-        btnClose.setTitleColor(UIColor.textWhiteColor, for: .normal)
+        btnCreate.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnTherapyDogFamily.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnTherapyDog.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnEvent.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        btnClose.titleLabel?.font = UIFont.RegularFont(1)
-        btnTherapyDogFamily.titleLabel?.font = UIFont.RegularFont(1)
-        btnTherapyDog.titleLabel?.font = UIFont.RegularFont(1)
-        btnEvent.titleLabel?.font = UIFont.RegularFont(1)
+        btnCreate.titleLabel?.font = UIFont.BoldFont(14)
+        btnTherapyDogFamily.titleLabel?.font = UIFont.RegularFont(13)
+        btnTherapyDog.titleLabel?.font = UIFont.RegularFont(13)
+        btnEvent.titleLabel?.font = UIFont.RegularFont(13)
         therapyDogView.isHidden = true
         
+        txtHourNumbers.keyboardType = .decimalPad
+        self.txtDateWorked.inputView = datePicker
         
+        datePicker.addTarget(self, action: #selector(onChangeDate(_:)), for: .valueChanged)
+        
+    }
+    
+    @objc func onChangeDate(_ sender: UIDatePicker){
+        
+        let date = datePicker.date
+        let dateFormater = DateFormatter()
+        dateFormater.dateFormat = "yyyy/MM/dd"
+
+
+        if (self.txtDateWorked.isFirstResponder ){
+            //start date
+            
+            if #available(iOS 15.0, *) {
+                self.txtDateWorked.text = dateFormater.string(from: date)
+                self.date = date.ISO8601Format()
+            } else {
+                // Fallback on earlier versions
+            }
+        }
     }
 
     @IBAction func backTapped(_ sender: Any) {
@@ -89,10 +132,51 @@ class CreateAdhocHourVC: ENTALDBaseViewController {
     
     @IBAction func CreateTapped(_ sender: Any) {
         
-        
+        if isTherapyDogSelected == true {
+            
+            if (self.numberOfHours == nil){
+                
+                ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: "Number of Hours is a required field", actionTitle: .KOK, completion: {status in })
+                return
+            }else if (date == nil || date == "" ){
+                
+                ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: "Date Worked is a required field", actionTitle: .KOK, completion: {status in })
+                return
+                
+            }
+            self.postVolunteerNonAdhocHour()
+        }else{
+            
+            if (self.txtHourNumbers.text == nil || self.txtHourNumbers.text == ""){
+                
+                ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: "Number of Hours is a required field.", actionTitle: .KOK, completion: {status in })
+                return
+            }
+            self.postVolunteerAdhocHour()
+        }
     }
     
     @IBAction func eventTapped(_ sender: Any) {
+        if (isTherapyDogSelected == false){
+            
+            ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.adhocHourEvent, dataObj: self.adhocHourEvent) { params, controller in
+                
+                let model = params as? AdhocHourVolunteerEventModel
+                self.adhocHourEventSelectedModel = model
+                self.selectedEventOppertunityID = model?.msnfp_engagementopportunitytitle ?? ""
+                self.btnEvent.setTitle(self.selectedEventOppertunityID, for: .normal)
+            }
+            
+        }else{
+            ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.nonAdhocHourEvent, dataObj: self.nonAdhocHourEvent) { params, controller in
+                
+               let model = params as? NonAdhocHourVolunteerEventModel
+                self.nonAdhocHourEventSelectedModel = model
+                self.selectedNonEventOppertunityID = model?.msnfp_engagementopportunitytitle ?? ""
+                self.btnEvent.setTitle(self.selectedNonEventOppertunityID, for: .normal)
+            }
+        }
+        
     }
     
     
@@ -110,44 +194,48 @@ class CreateAdhocHourVC: ENTALDBaseViewController {
             self.btnTherapyDogShow.backgroundColor = UIColor.clear
             therapyDogView.isHidden = false
         }
-        
-//        self.btnTherapyDogShow.isSelected = !sender.isSelected
-        
+        self.resetData()
     }
     
     @IBAction func therapyDogTapped(_ sender: Any) {
-        
-        if (isTherapyDogSelected == false){
+        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.therapyDogID, dataObj: self.therapyDogID) { params, controller in
             
-            ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.adhocHourEvent, dataObj: self.adhocHourEvent) { params, controller in
-                
-                
-//                self.selectedStatus  = params as? String
-//                var status = ProcessUtils.shared.eventStatusArr.filter({$0.value == params as? String}).first?.key
-//                self.updateEventStatus(statusValue : status ?? NSNotFound)
-            }
-            
-            
-            
-            
-            
-        }else{
-            ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.nonAdhocHourEvent, dataObj: self.nonAdhocHourEvent) { params, controller in
-                
-                
-//                self.selectedStatus  = params as? String
-//                var status = ProcessUtils.shared.eventStatusArr.filter({$0.value == params as? String}).first?.key
-//                self.updateEventStatus(statusValue : status ?? NSNotFound)
-            }
-            
-            
-            
+            let model = params as? TherapyDogIdModel
+            self.therapyDogIDSelectedModel = model
+            self.therapyDogIdSelected = model?.sjavms_vmstherapydogid ?? ""
+            self.btnTherapyDog.setTitle(model?.sjavms_name ?? "", for: .normal)
         }
-        
+    
         
     }
     
     @IBAction func therapyDogFamilyTapped(_ sender: Any) {
+        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.therapyDogFacility, dataObj: self.therapyDogFacility) { params, controller in
+            
+            let model = params as? TherapyDogFacilityModel
+            self.therapyDogFacilitySelectedModed = model
+            self.therapyDogFacilitySelected = model?.accountid ?? ""
+            self.btnTherapyDog.setTitle(model?.name ?? "", for: .normal)
+
+        }
+    }
+    
+    func resetData(){
+        self.btnTherapyDogFamily.setTitle("", for: .normal)
+        self.btnTherapyDog.setTitle("", for: .normal)
+        self.btnEvent.setTitle("", for: .normal)
+        
+        self.selectedEventOppertunityID = ""
+        self.selectedNonEventOppertunityID = ""
+        self.numberOfHours = Float(NSNotFound)
+        self.date = ""
+        self.therapyDogIdSelected = ""
+        self.therapyDogFacilitySelected = ""
+        
+        txtNotes.text = ""
+        txtDateWorked.text = ""
+        txtHourNumbers.text = ""
+        
     }
     
     fileprivate func getTherapyDogID(){
@@ -295,6 +383,79 @@ class CreateAdhocHourVC: ENTALDBaseViewController {
     }
     
     
+    func postVolunteerAdhocHour() {
+        
+        let params : PostAdhocHourEvent = PostAdhocHourEvent(
+            sjavms_VolunteerId: "/contacts\(self.conId))",
+            sjavms_hoursreported: Float(self.txtHourNumbers.text ?? ""),
+            sjavms_therapydoghours: self.isTherapyDogSelected,
+            sjavms_therapydog_volunteeringevent: "/msnfp_engagementopportunities(\(self.adhocHourEventSelectedModel?.msnfp_engagementopportunityid ?? ""))" ,
+            sjavms_VMSTherapyDogId : "/sjavms_vmstherapydogs(\(self.therapyDogIDSelectedModel?.sjavms_vmstherapydogid ?? "")",
+            sjavms_TherapyDogFacilityId : "/accounts(\(self.therapyDogFacilitySelectedModed?.accountid ?? ""))",
+            sjavms_therapydogdateworked : self.date)
+        
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        ENTALDLibraryAPI.shared.createAdhocHour(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result{
+            case .success:
+                self.callbackToController?(1, self)
+                self.navigationController?.popViewController(animated: true)
+                break
+            case .error(let error, let errorResponse):
+                
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in
+                        
+                    })
+                }
+            }
+        }
+    }
+    
+    
+    func postVolunteerNonAdhocHour() {
+        
+        let params : PostNonAdhocHourEvent = PostNonAdhocHourEvent(
+            sjavms_VolunteerIdData: "/contacts\(self.conId))",
+            sjavms_VolunteeringEventIdData: "/msnfp_engagementopportunities(\(self.nonAdhocHourEventSelectedModel?.msnfp_engagementopportunityid ?? ""))",
+            sjavms_hoursreported: Float(self.txtHourNumbers.text ?? ""),
+            sjavms_therapydoghours: self.isTherapyDogSelected)
+        
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        ENTALDLibraryAPI.shared.createNonAdhocHour(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result{
+            case .success:
+                self.callbackToController?(1, self)
+                self.navigationController?.popViewController(animated: true)
+                break
+            case .error(let error, let errorResponse):
+                
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in
+                        
+                    })
+                }
+            }
+        }
+    }
     
     
     

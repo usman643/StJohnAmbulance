@@ -67,6 +67,65 @@ struct PostAddAvailabilityRequestModel : Codable {
         }
         return nil
     }
+}
+    struct PostAdhocHourEvent : Codable {
+        
+        let sjavms_VolunteerId : String?
+        let sjavms_hoursreported : Float?
+        let sjavms_therapydoghours : Bool?
+        let sjavms_therapydog_volunteeringevent : String?
+        let sjavms_VMSTherapyDogId : String?
+        let sjavms_TherapyDogFacilityId : String?
+        let sjavms_therapydogdateworked : String?
+        
+        enum CodingKeys: String, CodingKey {
+            case sjavms_VolunteerId = "sjavms_VolunteerId@odata.bind"
+            case sjavms_hoursreported
+            case sjavms_therapydoghours
+            case sjavms_therapydog_volunteeringevent = "sjavms_therapydog_volunteeringevent@odata.bind"
+            case sjavms_VMSTherapyDogId = "sjavms_VMSTherapyDogId@odata.bind"
+            case sjavms_TherapyDogFacilityId = "sjavms_TherapyDogFacilityId@odata.bind"
+            case sjavms_therapydogdateworked
+        }
+        
+        
+        func encodeModel()->[String:Any]?{
+            let encoder = JSONEncoder()
+            do {
+                let jsonData = try encoder.encode(self)
+                if let json = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any]{
+                    return json
+                }
+            } catch {
+                print(error.localizedDescription)
+            }
+            return nil
+        }
+}
+
+struct PostNonAdhocHourEvent : Codable {
     
+    let sjavms_VolunteerIdData : String?
+    let sjavms_VolunteeringEventIdData : String?
+    let sjavms_hoursreported : Float?
+    let sjavms_therapydoghours : Bool?
     
+    enum CodingKeys: String,CodingKey {
+        case sjavms_VolunteerIdData = "sjavms_VolunteerId@odata.bind"
+        case sjavms_VolunteeringEventIdData = "sjavms_VolunteeringEventId@odata.bind"
+        case sjavms_hoursreported
+        case sjavms_therapydoghours
+    }
+    func encodeModel()->[String:Any]?{
+        let encoder = JSONEncoder()
+        do {
+            let jsonData = try encoder.encode(self)
+            if let json = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any]{
+                return json
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+        return nil
+    }
 }

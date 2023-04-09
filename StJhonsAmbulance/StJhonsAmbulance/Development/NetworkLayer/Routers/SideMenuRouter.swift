@@ -21,8 +21,8 @@ enum SideMenuRouter: Router {
     case getTherapyDogFacility(params:[String:Any])
     case getAdhocHourVoluneteerEvent(params:[String:Any])
     case getNonAdhocHourVoluneteerEvent(params:[String:Any])
-    case createAdhocHour(params:[String:Any])
-    case createNonAdhocHour(params:[String:Any])
+    case createAdhocHour(params:PostAdhocHourEvent)
+    case createNonAdhocHour(params:PostNonAdhocHourEvent)
     case updateAvailability(availabilityid:String, params:[String:Any])
     case updateVolunteerShift(shiftId:String, params:[String:Any])
     
@@ -79,9 +79,15 @@ enum SideMenuRouter: Router {
         case .getNonAdhocHourVoluneteerEvent(let params):
             return params
         case .createAdhocHour(let params):
-            return params
+            if let model = params.encodeModel() {
+                return model
+            }
+            return [:]
         case .createNonAdhocHour(let params):
-            return params
+            if let model = params.encodeModel() {
+                return model
+            }
+            return [:]
         case .updateAvailability(_, let params):
             return params
         case .updateVolunteerShift(_, let params):

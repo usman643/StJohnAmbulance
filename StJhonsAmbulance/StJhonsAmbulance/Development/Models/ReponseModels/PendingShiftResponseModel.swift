@@ -131,9 +131,21 @@ struct PendingShiftVolunteerModelTwo : Codable {
 }
 
 struct VolunteerEventModel : Codable {
+    
+    let sjavms_eventrequirements : String?
+    let msnfp_street2 : String?
+    let msnfp_zippostalcode : String?
+    let msnfp_city : String?
     let msnfp_engagementopportunitytitle : String?
+    let msnfp_location : String?
+    let msnfp_stateprovince : String?
+    let msnfp_street3 : String?
     let _sjavms_program_value : String?
+    let msnfp_street1 : String?
     let msnfp_engagementopportunityid : String?
+    
+    
+    
 }
 
 //========================PendingShiftResponseModelThree==========================//

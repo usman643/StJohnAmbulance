@@ -214,7 +214,8 @@ class ProcessUtils {
     func shouldRefreshToken()->Bool{
         if let dateStr = UserDefaults.standard.tokenExpireTime {
             let expiryDate = DateFormatManager.shared.getDateFromUnixCode(date: dateStr)
-            let difference = Date().timeIntervalSince(expiryDate)
+            let currentDate = DateFormatManager.shared.getCurrentDate()
+            let difference = expiryDate.timeIntervalSince(currentDate)
             
             if difference <= 300 {
                 return true

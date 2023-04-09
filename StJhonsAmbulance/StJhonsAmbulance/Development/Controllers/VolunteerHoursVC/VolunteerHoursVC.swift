@@ -36,6 +36,7 @@ class VolunteerHoursVC: ENTALDBaseViewController {
     @IBOutlet weak var eventTableView: UITableView!
     @IBOutlet weak var nonEventTableView: UITableView!
     
+    @IBOutlet weak var btnCreateAdhocHour: UIButton!
     @IBOutlet weak var lblPending: UILabel!
     @IBOutlet weak var lblYeartoDate: UILabel!
     @IBOutlet weak var lblLifeTime: UILabel!
@@ -97,6 +98,9 @@ class VolunteerHoursVC: ENTALDBaseViewController {
         
         selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
         selectedTabImg.tintColor = UIColor.themePrimaryColor
+        btnCreateAdhocHour.setTitleColor(UIColor.textWhiteColor, for: .normal)
+        btnCreateAdhocHour.titleLabel?.font = UIFont.BoldFont(13)
+        btnCreateAdhocHour.layer.cornerRadius = 5
     }
 
     @IBAction func backTapped(_ sender: Any) {
@@ -108,6 +112,17 @@ class VolunteerHoursVC: ENTALDBaseViewController {
     
     }
     
+    @IBAction func createAdhocHour(_ sender: Any) {
+        
+        ENTALDControllers.shared.showAddAdhocHourScreen(type: .ENTALDPUSH, from: self) { params, controller in
+            
+            if(params as? Int == 1){
+                self.getVolunteerNonEvent()
+                self.getVolunteerEvents()
+                self.setupContent()
+            }
+        }
+    }
     
     // ==================== Filter =====================
     
@@ -454,7 +469,7 @@ class VolunteerHoursVC: ENTALDBaseViewController {
         let params : [String:Any] = [
             
             ParameterKeys.select : "msnfp_schedulestatus,sjavms_hours,msnfp_participationscheduleid,sjavms_start,sjavms_end",
-            ParameterKeys.expand : "sjavms_VolunteerEvent($select=msnfp_engagementopportunitytitle,_sjavms_program_value)",
+            ParameterKeys.expand : "sjavms_VolunteerEvent($select=sjavms_eventrequirements,msnfp_street2,msnfp_zippostalcode,msnfp_city,msnfp_engagementopportunitytitle,msnfp_location,msnfp_stateprovince,msnfp_street3,_sjavms_program_value,msnfp_street1)",
             ParameterKeys.filter : "(statecode eq 0 and _sjavms_volunteer_value eq \(contactId)) and (sjavms_VolunteerEvent/sjavms_adhocevent eq true)",
             ParameterKeys.orderby : "msnfp_schedulestatus desc"
         ]
@@ -510,8 +525,12 @@ class VolunteerHoursVC: ENTALDBaseViewController {
         guard let contactId = UserDefaults.standard.contactIdToken else {return}
         let params : [String:Any] = [
             
-            ParameterKeys.select : "msnfp_schedulestatus,sjavms_start,sjavms_end,_sjavms_volunteerevent_value,_msnfp_engagementopportunityscheduleid_value,sjavms_hours,msnfp_participationscheduleid",
-            ParameterKeys.expand : "sjavms_VolunteerEvent($select=msnfp_engagementopportunitytitle,_sjavms_program_value)",
+        
+            ParameterKeys.select :
+                "msnfp_schedulestatus,sjavms_start,sjavms_end,_sjavms_volunteerevent_value,_msnfp_engagementopportunityscheduleid_value,sjavms_hours,msnfp_participationscheduleid,statecode",
+            ParameterKeys.expand : "sjavms_VolunteerEvent($select=sjavms_eventrequirements,msnfp_street2,msnfp_zippostalcode,msnfp_city,msnfp_engagementopportunitytitle,msnfp_location,msnfp_stateprovince,msnfp_street3,_sjavms_program_value,msnfp_street1)",
+            
+            
             ParameterKeys.filter : "(statecode eq 0 and _sjavms_volunteer_value eq \(contactId)) and (sjavms_VolunteerEvent/sjavms_adhocevent ne true)",
             ParameterKeys.orderby : "_sjavms_volunteerevent_value asc,msnfp_schedulestatus desc"
         ]
@@ -605,4 +624,30 @@ extension VolunteerHoursVC : UITableViewDelegate, UITableViewDataSource{
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if (tableView == self.eventTableView){
+            let rowModel = self.eventData?[indexPath.row]
+            
+//            ENTALDControllers.shared.showVolunteerHourDetailScreen(type: .ENTALDPUSH, from: self, dataObj : rowModel) { params, controller in
+//                if(params as? Int == 1){
+//                    self.getVolunteerEvents()
+//                }
+//            }
+            
+            
+            
+        }else if (tableView == nonEventTableView){
+            let rowModel = self.nonEventData?[indexPath.row]
+            
+            ENTALDControllers.shared.showVolunteerHourDetailScreen(type: .ENTALDPUSH, from: self, dataObj : rowModel) { params, controller in
+                if(params as? Int == 1){
+//                    self.getVolunteerNonEvent()
+                }
+            }
+        }
+    }
+    
+    
 }
