@@ -20,6 +20,10 @@ enum STPikerType {
     case prefferedLanguage
     case eventStatus
     case days
+    case adhocHourEvent
+    case nonAdhocHourEvent
+//    case therapyDogID
+//    case therapyDogFacility
 
 }
 
@@ -91,6 +95,14 @@ class PickerViewController: ENTALDBaseViewController, UIPickerViewDelegate, UIPi
         case .days:
             if let model = self.dataModel as? [Int:String] {
                 return model.map({$0.value })
+            }
+        case .adhocHourEvent:
+            if let model = self.dataModel as? [AdhocHourVolunteerEventModel] {
+                return model.map({$0.msnfp_engagementopportunitytitle ?? "" })
+            }
+        case .nonAdhocHourEvent:
+            if let model = self.dataModel as? [NonAdhocHourVolunteerEventModel] {
+                return model.map({$0.msnfp_engagementopportunitytitle ?? ""})
             }
             break
         }
@@ -175,6 +187,14 @@ class PickerViewController: ENTALDBaseViewController, UIPickerViewDelegate, UIPi
             if let model = self.dataModel as? [Int:String] {
                 let key = model.filter({$0.value == selectedKey}).first?.key ?? NSNotFound
                 return key
+            }
+        case .adhocHourEvent:
+            if let model = self.dataModel as? [AdhocHourVolunteerEventModel] {
+                return model[self.selectedIndex]
+            }
+        case .nonAdhocHourEvent:
+            if let model = self.dataModel as? [NonAdhocHourVolunteerEventModel] {
+                return model[self.selectedIndex]
             }
             break
         }

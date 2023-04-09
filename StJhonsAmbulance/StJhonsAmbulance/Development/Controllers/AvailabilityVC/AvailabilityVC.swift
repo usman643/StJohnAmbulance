@@ -137,6 +137,16 @@ class AvailabilityVC: ENTALDBaseViewController {
         
     }
     
+    @IBAction func addAdhocHourTapped(_ sender: Any) {
+        ENTALDControllers.shared.showAddAdhocHourScreen(type: .ENTALDPUSH, from: self) { params, controller in
+            
+            if(params as? Int == 1){
+                self.getAdhocHour()
+            }
+        }
+        
+        
+    }
     
     @IBAction func addAvailabilityTapped(_ sender: Any) {
         
@@ -799,17 +809,20 @@ extension AvailabilityVC : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == availablityTableView {
-            
             let rowModel = self.availablityData?[indexPath.row]
-            
             ENTALDControllers.shared.showAddAvilabilityScreen(type: .ENTALDPUSH, from: self, dataObj : rowModel, action: "edit") { params, controller in
-                
                 if(params as? Int == 1){
                     self.getAvailability()
                 }
             }
+        }else if (tableView == voluteerHourTableView){
             
-            
+            let rowModel = self.volunteerHourData?[indexPath.row]
+            ENTALDControllers.shared.showVolunteerHourDetailScreen(type: .ENTALDPUSH, from: self, dataObj : rowModel) { params, controller in
+                if(params as? Int == 1){
+                    self.getVolunteerHour()
+                }
+            }
         }
     }
     

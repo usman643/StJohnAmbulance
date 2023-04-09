@@ -373,6 +373,23 @@ class ENTALDControllers {
         self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
     }
     
+    func showVolunteerHourDetailScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = VolunteerHourDetailVC.loadFromNib()
+        
+        vc.dataModel = dataObj
+        
+        vc.callbackToController = callBack
+        self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
+    }
+    
+    func showAddAdhocHourScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = CreateAdhocHourVC.loadFromNib()
+        
+        vc.dataModel = dataObj
+        
+        vc.callbackToController = callBack
+        self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
+    }
     
     
     

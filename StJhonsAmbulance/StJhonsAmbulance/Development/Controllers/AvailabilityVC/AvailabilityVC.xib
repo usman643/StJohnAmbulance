@@ -198,7 +198,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="373" height="30"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="240" verticalHuggingPriority="251" text="Ad hoc Hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJS-EK-cac">
-                                            <rect key="frame" x="6" y="2.6666666666666572" width="328" height="25"/>
+                                            <rect key="frame" x="6" y="2.6666666666666572" width="291" height="25"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -215,16 +215,31 @@
                                                 <action selector="adhocFilterTapped:" destination="-1" eventType="touchUpInside" id="B83-MS-Lh6"/>
                                             </connections>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Iu-j6-IDp">
+                                            <rect key="frame" x="305" y="2.6666666666666572" width="25" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="25" id="VgO-Fq-nCX"/>
+                                                <constraint firstAttribute="height" constant="25" id="gjY-U7-3qq"/>
+                                            </constraints>
+                                            <color key="tintColor" name="PrimaryGreen"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" image="plus" catalog="system"/>
+                                            <connections>
+                                                <action selector="addAdhocHourTapped:" destination="-1" eventType="touchUpInside" id="b1m-PB-VPt"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
+                                        <constraint firstItem="KvO-42-xid" firstAttribute="leading" secondItem="1Iu-j6-IDp" secondAttribute="trailing" constant="12" id="50D-bJ-TlP"/>
                                         <constraint firstItem="NJS-EK-cac" firstAttribute="leading" secondItem="ES5-S0-6NO" secondAttribute="leading" constant="6" id="5xX-M9-tgd"/>
+                                        <constraint firstItem="1Iu-j6-IDp" firstAttribute="centerY" secondItem="ES5-S0-6NO" secondAttribute="centerY" id="BEK-wT-h4m"/>
                                         <constraint firstItem="NJS-EK-cac" firstAttribute="centerY" secondItem="ES5-S0-6NO" secondAttribute="centerY" id="CoK-eX-0pd"/>
                                         <constraint firstAttribute="height" constant="30" id="Jeg-eU-ln8"/>
+                                        <constraint firstItem="1Iu-j6-IDp" firstAttribute="leading" secondItem="NJS-EK-cac" secondAttribute="trailing" constant="8" id="Mkm-WO-3ag"/>
                                         <constraint firstItem="KvO-42-xid" firstAttribute="top" secondItem="NJS-EK-cac" secondAttribute="top" id="Wvb-nl-wRO"/>
                                         <constraint firstAttribute="trailing" secondItem="KvO-42-xid" secondAttribute="trailing" constant="6" id="ati-fJ-LEu"/>
                                         <constraint firstItem="KvO-42-xid" firstAttribute="centerY" secondItem="ES5-S0-6NO" secondAttribute="centerY" id="fjh-Lf-bRK"/>
-                                        <constraint firstItem="KvO-42-xid" firstAttribute="leading" secondItem="NJS-EK-cac" secondAttribute="trailing" constant="8" id="jIP-cV-y2o"/>
                                     </constraints>
                                 </view>
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="5uu-57-bMj">

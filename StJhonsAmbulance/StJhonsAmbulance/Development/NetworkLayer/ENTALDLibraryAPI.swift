@@ -282,6 +282,26 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
+    func getTherapyDogID(params:[String : Any],  _ completion:@escaping((ApiResult<TherapyDogIdResponseModel, ApiError>) -> Void )){
+        let router = SideMenuRouter.getTherapyDogId(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+
+    func getTherapyDogFacility(params:[String : Any],  _ completion:@escaping((ApiResult<TherapyDogFacilityResponseModel, ApiError>) -> Void )){
+        let router = SideMenuRouter.getTherapyDogFacility(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+
+    func getAdhocHourVolunteerEevnt(params:[String : Any],  _ completion:@escaping((ApiResult<AdhocHourVolunteerEventResponseModel, ApiError>) -> Void )){
+        let router = SideMenuRouter.getAdhocHourVoluneteerEvent(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func getNonAdhocHourVolunteerEevnt(params:[String : Any],  _ completion:@escaping((ApiResult<NonAdhocHourVolunteerEventResponseModel, ApiError>) -> Void )){
+        let router = SideMenuRouter.getNonAdhocHourVoluneteerEvent(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
 
     
     
@@ -370,6 +390,22 @@ class ENTALDLibraryAPI {
         let router = SideMenuRouter.updateAvailability(availabilityid: availabilityid, params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
+
+    func updateVolunteerShift(shiftId: String ,params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
+        let router = SideMenuRouter.updateVolunteerShift(shiftId: shiftId, params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func createAdhocHour(params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
+        let router = SideMenuRouter.createNonAdhocHour(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func createNonAdhocHour(params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
+        let router = SideMenuRouter.createNonAdhocHour(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
     
     
     

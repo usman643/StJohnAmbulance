@@ -42,6 +42,7 @@ struct SideMenuHoursModel : Codable {
     var sjavms_VolunteerEvent : SideMenuHoursEventModel?
     let sjavms_programid: String?
     var program_name: String?
+    var msnfp_location: String?
     let msnfp_engagementOpportunityScheduleId: EngagementOpportunityScheduleModel?
 }
 
@@ -63,4 +64,73 @@ struct EngagementOpportunityScheduleModel : Codable {
 
 }
 
+struct AdhocHourVolunteerEventResponseModel : Codable {
+    
+    let value: [AdhocHourVolunteerEventModel]?
+    
+}
+
+struct AdhocHourVolunteerEventModel : Codable {
+    
+    let msnfp_engagementopportunitytitle : String?
+    let msnfp_engagementopportunityid : String?
+}
+
+
+struct NonAdhocHourVolunteerEventResponseModel : Codable {
+    
+    let value: [NonAdhocHourVolunteerEventModel]?
+    
+}
+
+struct NonAdhocHourVolunteerEventModel : Codable {
+
+    let msnfp_engagementopportunitytitle : String?
+    let msnfp_engagementopportunitystatus : Int?
+    let msnfp_needsreviewedparticipants : Int?
+    let msnfp_minimum : Int?
+    let msnfp_maximum : Int?
+    let _sjavms_group_value : String?
+    let msnfp_endingdate : String?
+    let msnfp_cancelledparticipants : Int?
+    let msnfp_appliedparticipants : Int?
+    let msnfp_startingdate : String?
+    let msnfp_engagementopportunityid : String?
+    
+}
+
+struct TherapyDogFacilityResponseModel : Codable {
+    
+    let value: [TherapyDogFacilityModel]?
+    
+}
+
+struct TherapyDogFacilityModel : Codable {
+    
+    let name : String?
+    let statecode : Int?
+    let createdon : String?
+    let sjavms_typeoffacility : String?
+    let accountid : String?
+    
+}
+
+
+struct TherapyDogIdResponseModel : Codable {
+    
+    let value: [TherapyDogIdModel]?
+    
+}
+
+struct TherapyDogIdModel : Codable {
+    
+    let sjavms_veterinaryexpiry : String?
+    let sjavms_dogsbreed : String?
+//    let sjavms_childevaluation : String?
+//    let sjavms_adultevaluation : String?
+    let sjavms_name : String?
+//    let sjavms_immunizationexpires : String?
+    let sjavms_vmstherapydogid : String?
+    
+}
 
