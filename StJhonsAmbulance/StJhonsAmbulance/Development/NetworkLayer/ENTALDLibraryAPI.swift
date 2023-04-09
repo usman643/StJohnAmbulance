@@ -22,7 +22,7 @@ class ENTALDLibraryAPI {
     
     func requestDynamicAuth(params:DynamicAuthRequest, _ completion:@escaping((ApiResult<PortalAuthModel, ApiError>) -> Void)){
         let router = LoginRouter.dynamicAuthentication(params: params)
-        ENTALDHttpClient.shared.request(router, completion: completion)
+        ENTALDHttpClient.shared.requestForRefreshToken(router, completion: completion)
     }
     
     func requestExternalAuth(subId:String, _ completion:@escaping((ApiResult<ExternalAuthModel, ApiError>) -> Void)){

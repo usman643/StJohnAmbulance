@@ -127,6 +127,22 @@ class DateFormatManager{
         return true
     }
     
+    func getDateFromUnixCode(date: String) ->Date {
+        
+        if let timeResult = (Double(date)) {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss z"
+            let date = Date(timeIntervalSince1970: timeResult)
+            let exptDate = dateFormatter.string(from: date)
+            
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss z"
+//            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+//            dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+//            
+            return dateFormatter.date(from: exptDate) ?? Date()
+        }
+        return Date()
+    }
     
 //    func getDateAndTime(timeZoneIdentifier: String) -> String? {
 //

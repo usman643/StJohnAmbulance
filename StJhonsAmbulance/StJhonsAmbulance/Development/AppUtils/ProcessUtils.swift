@@ -184,7 +184,7 @@ class ProcessUtils {
 //        return eventStatus
 //    }
     
-    func refreshToken(){
+    func refreshToken(completion:@escaping (_ status: Bool)->Void){
         
         let params : DynamicAuthRequest = DynamicAuthRequest(grant_type: "client_credentials", client_id: "e0508903-f48f-418c-ad61-7a2f38ff50a4", resource: "https://sja-sandbox.crm3.dynamics.com/", client_secret: "82a8Q~inojTl~emDlThirKD6TEV64PG0EH_rccGW")
         
@@ -194,8 +194,8 @@ class ProcessUtils {
             case .success(let response):
                 if let token = response.access_token {
                     UserDefaults.standard.authToken = token
-                    UserDefaults.standard.set(Date(), forKey: "tokenTime")
-                    self.tokenTime = Date()
+                    UserDefaults.standard.tokenExpireTime = response.not_before
+                    completion(true)
                 }
                 break
             case .error(let error, let errorResponse):
@@ -206,8 +206,22 @@ class ProcessUtils {
                 DispatchQueue.main.async {
                     ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
                 }
+                completion(false)
             }
         }
+    }
+    
+    func shouldRefreshToken()->Bool{
+        if let dateStr = UserDefaults.standard.tokenExpireTime {
+            let expiryDate = DateFormatManager.shared.getDateFromUnixCode(date: dateStr)
+            let difference = Date().timeIntervalSince(expiryDate)
+            
+            if difference <= 300 {
+                return true
+            }
+        }
+        
+        return false
     }
 }
 

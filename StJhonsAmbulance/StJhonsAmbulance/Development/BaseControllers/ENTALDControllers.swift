@@ -39,7 +39,7 @@ class ENTALDControllers {
 //                ProcessUtils.shared.refreshToken()
 //            }
 //        }
-        if ENTALDHelperUtils.isUserLoggedIn() {
+        if ENTALDHelperUtils.isUserLoggedIn() && UserDefaults.standard.staySignedIn {
             
             self.startFlowfromLandingScreen(from: from, callBack: callBack)
             

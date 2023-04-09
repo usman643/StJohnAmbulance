@@ -13,7 +13,8 @@ fileprivate let contactId = "key_contact_id"
 fileprivate let keyUserIdentity = "key_user_identity"
 fileprivate let keyDarkMode = "key_dark_mode"
 fileprivate let tokenTime = "tokenTime"
-
+fileprivate let keyStaySignedIn = "key_stay_signed_in"
+fileprivate let keyTokenExpireTime = "key_token_expire_time"
 
 extension UserDefaults {
     
@@ -70,12 +71,29 @@ extension UserDefaults {
         }
     }
     
+    var staySignedIn: Bool {
+        get {
+            return bool(forKey: keyStaySignedIn)
+        }
+        set {
+            set(newValue, forKey: keyStaySignedIn)
+        }
+    }
+    
+    var tokenExpireTime: String? {
+        get {
+            return string(forKey: keyTokenExpireTime)
+        }
+        set {
+            set(newValue, forKey: keyTokenExpireTime)
+        }
+    }
+    
     func signOut(){
-        removeObject(forKey: "key_auth_token")
-        removeObject(forKey: "key_contact_id")
-        removeObject(forKey: "key_user_identity")
+        removeObject(forKey: keyAuthToken)
+        removeObject(forKey: contactId)
+        removeObject(forKey: keyUserIdentity)
+        removeObject(forKey: keyStaySignedIn)
         ENTALDAppConfig.shared.showAppLaunch()
-        
-        
     }
 }

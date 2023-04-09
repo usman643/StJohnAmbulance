@@ -148,10 +148,12 @@ class LoginVC: ENTALDBaseViewController {
             btnStaySignIn.setImage(UIImage(named: ""), for: .normal)
             btnStaySignIn.backgroundColor = UIColor.viewLightGrayColor
             isRememberPassword = false
+            UserDefaults.standard.staySignedIn = false
         }else{
             btnStaySignIn.setImage(UIImage(named: "ic_check"), for: .normal)
             btnStaySignIn.backgroundColor = UIColor.clear
             isRememberPassword = true
+            UserDefaults.standard.staySignedIn = true
         }
     
         
@@ -248,8 +250,7 @@ extension LoginVC {
             case .success(let response):
                 if let token = response.access_token {
                     UserDefaults.standard.authToken = token
-                    UserDefaults.standard.set(Date(), forKey: "tokenTime")
-                    ProcessUtils.shared.tokenTime = Date()
+                    UserDefaults.standard.tokenExpireTime = response.not_before
                     self.externalAuthentication(subId: subId)
                 }
                 break

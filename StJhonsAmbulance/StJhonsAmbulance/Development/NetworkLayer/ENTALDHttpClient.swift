@@ -43,22 +43,21 @@ class ENTALDHttpClient {
     
     func request<T: Codable>(_ router: Router, completion:@escaping (ApiResult<T, ApiError>) ->Void) {
         
-        
-        //refresh token
-//        let difference = Date().timeIntervalSince(ProcessUtils.shared.tokenTime)
-//        if difference > 50 {
-//            ProcessUtils.shared.refreshToken()
-//            
-//        }
-        
+        if ProcessUtils.shared.shouldRefreshToken() {
+            ProcessUtils.shared.refreshToken { status in
+                if status {
+                    self.request(router, completion: completion)
+                }
+            }
+            return
+        }
+
         guard let request = ENTALDNetworkRequest.shared.getRequestFor(router) else{return}
         
         if HTTPMethod(rawValue: router.method) == .get {
             self.getRequest(request, completion: completion)
             return
         }
-        
-        
         
         if let client = request.client, let requstUrl = request.requestURL?.absoluteString {
             print("request URL :  \(requstUrl)")
@@ -202,4 +201,41 @@ extension ENTALDHttpClient {
         }
         
     }
+    
+    
+    func requestForRefreshToken<T: Codable>(_ router: Router, completion:@escaping (ApiResult<T, ApiError>) ->Void) {
+        
+        guard let request = ENTALDNetworkRequest.shared.getRequestFor(router) else{return}
+        
+        if let client = request.client, let requstUrl = request.requestURL?.absoluteString {
+            print("request URL :  \(requstUrl)")
+            
+            client.request(requstUrl,
+                           method: HTTPMethod(rawValue: router.method),
+                           parameters:request.parameters,
+                           encoding:router.encoding.getENcodingType()).validate().responseData(completionHandler: { response in
+                
+                switch response.result {
+                    
+                case .success(_):
+                    if let data = response.data {
+                        self.handleSuccessResponse(data: data) { handler in
+                            completion(handler)
+                        }
+                    }
+                    break
+                case .failure(let error):
+                    if let data = response.data {
+                        self.handleSuccessResponse(data: data) { handler in
+                            completion(handler)
+                        }
+                    }else{
+                        completion(.error(error: self.getApiError(from: error), errorResponse: nil))
+                    }
+                }
+            })
+        }
+    }
+    
+    
 }
