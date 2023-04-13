@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		18BC50AC29B60F11007BF382 /* GeneralInfoFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BC50AA29B60F11007BF382 /* GeneralInfoFormVC.swift */; };
 		18BC50AD29B60F11007BF382 /* GeneralInfoFormVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18BC50AB29B60F11007BF382 /* GeneralInfoFormVC.xib */; };
+		18D0B06A29E7F195000DA8F0 /* NewDashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D0B06829E7F195000DA8F0 /* NewDashboardVC.swift */; };
+		18D0B06B29E7F195000DA8F0 /* NewDashboardVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D0B06929E7F195000DA8F0 /* NewDashboardVC.xib */; };
 		1D00A0D2298AB19000700418 /* CSDashBoardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D00A0D1298AB19000700418 /* CSDashBoardRouter.swift */; };
 		1D0BDED3298258BB00CC2030 /* MessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0BDED1298258BB00CC2030 /* MessageVC.swift */; };
 		1D0BDED4298258BB00CC2030 /* MessageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D0BDED2298258BB00CC2030 /* MessageVC.xib */; };
@@ -284,6 +286,8 @@
 		17C9EFF5DCD181366AD8E0B7 /* Pods-StJhonsAmbulanceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StJhonsAmbulanceTests.release.xcconfig"; path = "Target Support Files/Pods-StJhonsAmbulanceTests/Pods-StJhonsAmbulanceTests.release.xcconfig"; sourceTree = "<group>"; };
 		18BC50AA29B60F11007BF382 /* GeneralInfoFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoFormVC.swift; sourceTree = "<group>"; };
 		18BC50AB29B60F11007BF382 /* GeneralInfoFormVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralInfoFormVC.xib; sourceTree = "<group>"; };
+		18D0B06829E7F195000DA8F0 /* NewDashboardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDashboardVC.swift; sourceTree = "<group>"; };
+		18D0B06929E7F195000DA8F0 /* NewDashboardVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewDashboardVC.xib; sourceTree = "<group>"; };
 		1D00A0D1298AB19000700418 /* CSDashBoardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSDashBoardRouter.swift; sourceTree = "<group>"; };
 		1D0BDED1298258BB00CC2030 /* MessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageVC.swift; sourceTree = "<group>"; };
 		1D0BDED2298258BB00CC2030 /* MessageVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageVC.xib; sourceTree = "<group>"; };
@@ -578,6 +582,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18D0B06729E7F141000DA8F0 /* NewDashboardVC */ = {
+			isa = PBXGroup;
+			children = (
+				18D0B06829E7F195000DA8F0 /* NewDashboardVC.swift */,
+				18D0B06929E7F195000DA8F0 /* NewDashboardVC.xib */,
+			);
+			path = NewDashboardVC;
+			sourceTree = "<group>";
+		};
 		1D0BDED0298258A300CC2030 /* MessageVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -1383,6 +1396,7 @@
 				1D4DE83B297FB4C600246242 /* ForgetVC */,
 				1D4DE83E297FB4C600246242 /* LandingVC */,
 				E4F7CB09297E121000428A4E /* SideMenuVC */,
+				18D0B06729E7F141000DA8F0 /* NewDashboardVC */,
 				E47F99B9297DC8D600BF793B /* DashboardVC */,
 				E4B2EF11297C630200D05014 /* LoginViewController */,
 				359E9C73282EA54F001E3D73 /* ENTALDOffersViewController */,
@@ -1898,6 +1912,7 @@
 				1D84797D29CD05FF00CE9F37 /* EventSummaryVC.xib in Resources */,
 				E4B2EF19297C6B9200D05014 /* LoginVC.xib in Resources */,
 				359E9C22282B8148001E3D73 /* ENTALDAlertView.xib in Resources */,
+				18D0B06B29E7F195000DA8F0 /* NewDashboardVC.xib in Resources */,
 				1D1443062984051C001F3B15 /* EventTVC.xib in Resources */,
 				1DCD2FA0299CBABA00B16CA2 /* ContactInfoVC.xib in Resources */,
 				1DA8F1A8299F512200640242 /* EventDetailCVC.xib in Resources */,
@@ -2243,6 +2258,7 @@
 				1D7DECAA29CECFFA00F86A6F /* EventScheduleVC.swift in Sources */,
 				E4F7CB0F297E121000428A4E /* SideMenuVC.swift in Sources */,
 				E43FFCC429B5CD19008814C2 /* CreateEventFormVC.swift in Sources */,
+				18D0B06A29E7F195000DA8F0 /* NewDashboardVC.swift in Sources */,
 				1DA8F1A7299F512200640242 /* EventDetailCVC.swift in Sources */,
 				1D1442FB2983E69B001F3B15 /* PendingShiftTVC.swift in Sources */,
 				1D3BD156299D9460008F4178 /* QualificationCertificationVC.swift in Sources */,
