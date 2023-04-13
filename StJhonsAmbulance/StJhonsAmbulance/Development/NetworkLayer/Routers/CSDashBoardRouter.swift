@@ -18,6 +18,9 @@ enum DashBoardRouter : Router {
     case postAddAvailability(params:PostAddAvailabilityRequestModel)
     case getVolunteers(params:[String:Any])
     case getVolunteersOfEvent(params:[String:Any])
+    case getDashboardTilesOrder(params:[String:Any])
+    case saveDashboardTilesOrder(params:[String:Any])
+    case updateDashboardTilesOrder(orderId:String, params:[String:Any])
     case simulate401
     
     var procedure: String {
@@ -32,6 +35,9 @@ enum DashBoardRouter : Router {
         case .postAddAvailability : return "msnfp_availabilities"
         case .getVolunteers : return "msnfp_groupmemberships"
         case .getVolunteersOfEvent : return "msnfp_participationschedules"
+        case .getDashboardTilesOrder : return "sjavms_dashboard_orders"
+        case .saveDashboardTilesOrder : return "sjavms_dashboard_orders"
+        case .updateDashboardTilesOrder(let orderId, _) : return "msnfp_participationschedules(\(orderId))"
         case .simulate401: return "simulate-401"
         }
     }
@@ -60,6 +66,12 @@ enum DashBoardRouter : Router {
             return params
         case .getVolunteersOfEvent(let params):
             return params
+        case .getDashboardTilesOrder(let params):
+            return params
+        case .saveDashboardTilesOrder(let params):
+            return params
+        case .updateDashboardTilesOrder(_, let params):
+            return params
         default: return [:]
         }
         
@@ -76,6 +88,10 @@ enum DashBoardRouter : Router {
             return HTTPMethodType.post.rawValue
         case .postAddAvailability(_):
             return HTTPMethodType.post.rawValue
+        case .saveDashboardTilesOrder(_):
+            return HTTPMethodType.post.rawValue
+        case .updateDashboardTilesOrder(_,_):
+            return HTTPMethodType.patch.rawValue
         default:
             break
         }
@@ -91,6 +107,10 @@ enum DashBoardRouter : Router {
         case .postMessages(_):
             return .ENTJSONEncoding
         case .postAddAvailability(_):
+            return .ENTJSONEncoding
+        case .saveDashboardTilesOrder(_):
+            return .ENTJSONEncoding
+        case .updateDashboardTilesOrder(_,_):
             return .ENTJSONEncoding
         default:
             break

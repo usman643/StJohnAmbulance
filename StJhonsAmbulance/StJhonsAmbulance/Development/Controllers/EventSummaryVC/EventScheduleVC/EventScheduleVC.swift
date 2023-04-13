@@ -13,6 +13,9 @@ class EventScheduleVC: ENTALDBaseViewController {
     var scheduleEvent : [VolunteerEventClickOptionModel]?
     var summaryData : EventSummaryModel?
     var selectedStatus : String?
+    var datePicker = UIDatePicker()
+    var startDateSelected : String?
+    var endDateSelected  : String?
     
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet var lblSectionTitle: [UILabel]!
@@ -64,6 +67,11 @@ class EventScheduleVC: ENTALDBaseViewController {
         btnMultiday.layer.cornerRadius = 3
         lblMultidayEvent.font = UIFont.RegularFont(12)
         lblMultidayEvent.textColor = UIColor.themePrimaryWhite
+        
+        minVolunteer.keyboardType = .decimalPad
+        maxVolunteer.keyboardType = .decimalPad
+        maxDailyAttendance.keyboardType = .decimalPad
+        
         for label in lblAge{
             label.font = UIFont.RegularFont(14)
             label.textColor = UIColor.themePrimaryWhite
@@ -88,6 +96,18 @@ class EventScheduleVC: ENTALDBaseViewController {
             txtField.layer.borderWidth = 1
             txtField.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         }
+        if #available(iOS 13.4, *) {
+            datePicker.datePickerMode = .dateAndTime
+            datePicker.preferredDatePickerStyle = .wheels
+        } else {
+            // Fallback on earlier versions
+        }
+        self.txtStartDate.inputView = datePicker
+        self.txtStartTime.inputView = datePicker
+        self.txtEndDate.inputView = datePicker
+        self.txtEndTime.inputView = datePicker
+        
+        datePicker.addTarget(self, action: #selector(onChangeDate(_:)), for: .valueChanged)
         
     }
     
@@ -124,7 +144,6 @@ class EventScheduleVC: ENTALDBaseViewController {
         maxDailyAttendance.text = ""
         maxVolunteer.text = "\(self.summaryData?.msnfp_maximum ?? NSNotFound)"
         self.setBtn(btn: btnMultiday, value: self.summaryData?.msnfp_multipledays ?? false)
-        
         self.setBtn(btn: btnAgeOne, value: self.summaryData?.sjavms_age13under ?? false)
         self.setBtn(btn: btnAgeTwo, value: self.summaryData?.sjavms_age1417 ?? false)
         self.setBtn(btn: btnAgeThree, value: self.summaryData?.sjavms_age1860 ?? false)
@@ -134,6 +153,41 @@ class EventScheduleVC: ENTALDBaseViewController {
         self.btnStatus.setTitle(status, for: .normal)
         
     }
+    
+    @objc func onChangeDate(_ sender: UIDatePicker){
+        
+        
+        let date = datePicker.date
+        let dateFormater = DateFormatter()
+        let timeFormater = DateFormatter()
+        dateFormater.dateFormat = "yyyy/MM/dd"
+        timeFormater.dateFormat = "hh:mm a"
+
+        if (self.txtStartDate.isFirstResponder || self.txtStartTime.isFirstResponder ){
+            //start date
+            
+            if #available(iOS 15.0, *) {
+                
+                self.txtStartDate.text = dateFormater.string(from: date)
+                self.txtStartTime.text = timeFormater.string(from: date)
+                self.startDateSelected = date.ISO8601Format()
+            } else {
+                // Fallback on earlier versions
+            }
+        }else if (self.txtEndDate.isFirstResponder || self.txtEndTime.isFirstResponder){
+            //End date
+           
+            if #available(iOS 15.0, *) {
+                
+                self.txtEndDate.text = dateFormater.string(from: date)
+                self.txtEndTime.text = timeFormater.string(from: date)
+                self.endDateSelected = date.ISO8601Format()
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+    }
+    
     @IBAction func eventStatusUpdate(_ sender: Any) {
         self.showGroupsPicker()
     }
@@ -143,30 +197,82 @@ class EventScheduleVC: ENTALDBaseViewController {
         if (value == true) {
             btn.setImage(UIImage(named: "ic_check"), for: .normal)
             btn.backgroundColor = UIColor.clear
+            btn.isSelected = true
         }else{
             btn.setImage(UIImage(named: ""), for: .normal)
             btn.backgroundColor = UIColor.viewLightGrayColor
+            btn.isSelected = false
         }
         
     }
     
     
+    @IBAction func multiDayEventTapped(_ sender: UIButton) {
+        if self.btnMultiday.isSelected == false  {
+            self.btnMultiday.setImage(UIImage(named: "ic_check"), for: .normal)
+            self.btnMultiday.backgroundColor = UIColor.clear
+        }else{
+            self.btnMultiday.setImage(UIImage(named: ""), for: .normal)
+            self.btnMultiday.backgroundColor = UIColor.viewLightGrayColor
+        }
+        
+        self.btnMultiday.isSelected = !sender.isSelected
+    }
     
     
-    @IBAction func age1Tapped(_ sender: Any) {
+    @IBAction func age1Tapped(_ sender: UIButton) {
+        
+        if self.btnAgeOne.isSelected == false  {
+            self.btnAgeOne.setImage(UIImage(named: "ic_check"), for: .normal)
+            self.btnAgeOne.backgroundColor = UIColor.clear
+        }else{
+            self.btnAgeOne.setImage(UIImage(named: ""), for: .normal)
+            self.btnAgeOne.backgroundColor = UIColor.viewLightGrayColor
+        }
+        
+        self.btnAgeOne.isSelected = !sender.isSelected
+        
     }
 
-    @IBAction func age2Tapped(_ sender: Any) {
+    @IBAction func age2Tapped(_ sender: UIButton) {
+        if self.btnAgeTwo.isSelected == false  {
+            self.btnAgeTwo.setImage(UIImage(named: "ic_check"), for: .normal)
+            self.btnAgeTwo.backgroundColor = UIColor.clear
+        }else{
+            self.btnAgeTwo.setImage(UIImage(named: ""), for: .normal)
+            self.btnAgeTwo.backgroundColor = UIColor.viewLightGrayColor
+        }
+        
+        self.btnAgeTwo.isSelected = !sender.isSelected
     }
     
-    @IBAction func age3Tapped(_ sender: Any) {
+    @IBAction func age3Tapped(_ sender: UIButton) {
+        if self.btnAgeThree.isSelected == false  {
+            self.btnAgeThree.setImage(UIImage(named: "ic_check"), for: .normal)
+            self.btnAgeThree.backgroundColor = UIColor.clear
+        }else{
+            self.btnAgeThree.setImage(UIImage(named: ""), for: .normal)
+            self.btnAgeThree.backgroundColor = UIColor.viewLightGrayColor
+        }
+        
+        self.btnAgeThree.isSelected = !sender.isSelected
     }
     
-    @IBAction func age4Tapped(_ sender: Any) {
+    @IBAction func age4Tapped(_ sender: UIButton) {
+        if self.btnAgeFour.isSelected == false  {
+            self.btnAgeFour.setImage(UIImage(named: "ic_check"), for: .normal)
+            self.btnAgeFour.backgroundColor = UIColor.clear
+        }else{
+            self.btnAgeFour.setImage(UIImage(named: ""), for: .normal)
+            self.btnAgeFour.backgroundColor = UIColor.viewLightGrayColor
+        }
+        
+        self.btnAgeFour.isSelected = !sender.isSelected
     }
     
     
     @IBAction func submitTapped(_ sender: Any) {
+        updatedata()
     }
     
     func showEmptyView(tableVw : UITableView){
@@ -319,6 +425,60 @@ class EventScheduleVC: ENTALDBaseViewController {
             }
     }
     
+    fileprivate func updatedata(){
+
+       var params = [
+           
+        "msnfp_multipledays" : btnMultiday.isSelected ? true : false as Bool,
+        "sjavms_age13under" : btnAgeOne.isSelected ? true : false as Bool,
+        "sjavms_age1417" : btnAgeTwo.isSelected ? true : false as Bool,
+        "sjavms_age1860" : btnAgeThree.isSelected ? true : false as Bool,
+        "sjavms_age60" : btnAgeFour.isSelected ? true : false as Bool,
+        "msnfp_minimum" : Int(minVolunteer.text ?? "") ?? 0 as Int,
+        "msnfp_maximum" : Int(maxVolunteer.text ?? "") ?? 0 as Int,
+        "sjavms_maxparticipants" : Int(maxDailyAttendance.text ?? "") ?? 0 as Int,
+
+        ] as [String : Any]
+        
+        if self.startDateSelected != nil {
+            params["msnfp_startingdate"] = (self.startDateSelected ?? self.eventData?.msnfp_startingdate ?? "") as String
+        }
+        
+        if self.endDateSelected != nil {
+            params["msnfp_locationtype"] = (self.endDateSelected ?? self.eventData?.msnfp_endingdate ?? "") as String
+        }
+        
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        let eventId = self.eventData?.msnfp_engagementopportunityid ?? ""
+        
+        ENTALDLibraryAPI.shared.updateSummaryData(eventId: eventId, params: params) { result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: _):
+                DispatchQueue.main.async {
+                    LoadingView.hide()
+                }
+                
+            case .error(let error, let errorResponse):
+                if error == .patchSuccess {
+                    debugPrint("Successfully Updated")
+                }else{
+                    var message = error.message
+                    if let err = errorResponse {
+                        message = err.error
+                    }
+                    DispatchQueue.main.async {
+                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                    }
+                }
+            }
+        }
+    }
 
     
     

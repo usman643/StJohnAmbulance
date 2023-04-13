@@ -14,6 +14,7 @@ class EventDescriptionVC: ENTALDBaseViewController {
     var orgnizerContactData : [OrgnizerEventModel]?
     var programsData : [ProgramModel]?
     var selectedStatus : String?
+    var adhocSelected : Bool?
     
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet var lblSectionHeading: [UILabel]!
@@ -53,8 +54,9 @@ class EventDescriptionVC: ENTALDBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        getSummaryData()
         decorateUI()
+        getSummaryData()
+        
     }
 
 
@@ -81,6 +83,8 @@ class EventDescriptionVC: ENTALDBaseViewController {
         
         txtOrgnizerName.layer.borderWidth = 1
         txtOrgnizerName.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+        DetailDescriptionTextView.layer.borderWidth = 1
+        DetailDescriptionTextView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         txtDonation.layer.borderWidth = 1
         txtDonation.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         txtEventName.font = UIFont.RegularFont(13)
@@ -89,13 +93,15 @@ class EventDescriptionVC: ENTALDBaseViewController {
         txtOrgnizerName.font = UIFont.RegularFont(13)
         DetailDescriptionTextView.font = UIFont.RegularFont(13)
         txtDonation.font = UIFont.RegularFont(13)
+        btnAdhocEvent.layer.cornerRadius = 3
+        txtDonation.keyboardType = .decimalPad
         
-        txtEventName.isUserInteractionEnabled = false
+//        txtEventName.isUserInteractionEnabled = false
         txtEmail.isUserInteractionEnabled = false
         txtPrimaryPhone.isUserInteractionEnabled = false
         txtOrgnizerName.isUserInteractionEnabled = false
-        DetailDescriptionTextView.isUserInteractionEnabled = false
-        txtDonation.isUserInteractionEnabled = false
+//        DetailDescriptionTextView.isUserInteractionEnabled = false
+//        txtDonation.isUserInteractionEnabled = false
         
         for label in lblSectionHeading{
             label.textColor = UIColor.themePrimaryColor
@@ -123,20 +129,20 @@ class EventDescriptionVC: ENTALDBaseViewController {
         btnSelectProgrm.setTitle(locationType, for: .normal)
         
         self.setBtn(btn: btnAdhocEvent, value: self.summaryData?.sjavms_adhocevent ?? false)
-        self.setBtn(btn: btnFirstAidRoom, value: self.summaryData?.sjavms_onsitefirstaidroomtent ?? false)
-        self.setBtn(btn: btnBathroom, value: self.summaryData?.sjavms_bathrooms ?? false)
-        self.setBtn(btn: btnCleanWater, value: self.summaryData?.sjavms_onsitecleandrinkingwater ?? false)
-        
-        self.setBtn(btn: btnShadedArea, value: self.summaryData?.sjavms_shadedareaifoutside ?? false)
-        self.setBtn(btn: btnParking, value: self.summaryData?.sjavms_parking ?? false)
-        self.setBtn(btn: btnOtherHealthAgency, value: self.summaryData?.sjavms_willotherhealthcareagenciesbeonsite ?? false)
-        self.setBtn(btn: btnVolunteerArea, value: self.summaryData?.sjavms_onsitedesignatedvolunteerarea ?? false)
-        self.setBtn(btn: btnPhone, value: self.summaryData?.sjavms_telephone ?? false)
-        self.setBtn(btn: btnTableChair, value: self.summaryData?.sjavms_tableschairsseating ?? false)
-        self.setBtn(btn: btnFood, value: self.summaryData?.sjavms_foodforvolunteers ?? false)
-        self.setBtn(btn: btnSiteMap, value: self.summaryData?.sjavms_sitemapifapplicable ?? false)
-        self.setBtn(btn: btnRecptionPhone, value: self.summaryData?.sjavms_cellphonereception ?? false)
-        self.setBtn(btn: btnPowerSupply, value: self.summaryData?.sjavms_electricalpowersupply ?? false)
+        self.adhocSelected = self.summaryData?.sjavms_adhocevent ?? false
+        self.setBtn(btn: btnAvailables[0], value: self.summaryData?.sjavms_onsitefirstaidroomtent ?? false)
+        self.setBtn(btn: btnAvailables[1], value: self.summaryData?.sjavms_bathrooms ?? false)
+        self.setBtn(btn: btnAvailables[2], value: self.summaryData?.sjavms_onsitecleandrinkingwater ?? false)
+        self.setBtn(btn: btnAvailables[3], value: self.summaryData?.sjavms_shadedareaifoutside ?? false)
+        self.setBtn(btn: btnAvailables[4], value: self.summaryData?.sjavms_parking ?? false)
+        self.setBtn(btn: btnAvailables[5], value: self.summaryData?.sjavms_willotherhealthcareagenciesbeonsite ?? false)
+        self.setBtn(btn: btnAvailables[6], value: self.summaryData?.sjavms_onsitedesignatedvolunteerarea ?? false)
+        self.setBtn(btn: btnAvailables[7], value: self.summaryData?.sjavms_telephone ?? false)
+        self.setBtn(btn: btnAvailables[8], value: self.summaryData?.sjavms_tableschairsseating ?? false)
+        self.setBtn(btn: btnAvailables[9], value: self.summaryData?.sjavms_foodforvolunteers ?? false)
+        self.setBtn(btn: btnAvailables[10], value: self.summaryData?.sjavms_sitemapifapplicable ?? false)
+        self.setBtn(btn: btnAvailables[11], value: self.summaryData?.sjavms_cellphonereception ?? false)
+        self.setBtn(btn: btnAvailables[12], value: self.summaryData?.sjavms_electricalpowersupply ?? false)
         
         self.txtDonation.text = self.summaryData?.sjavms_donationintended?.getFormattedNumber()
         self.txtEventName.text = self.summaryData?.msnfp_engagementopportunitytitle ?? ""
@@ -144,6 +150,7 @@ class EventDescriptionVC: ENTALDBaseViewController {
         
         let status = ProcessUtils.shared.eventStatusArr[self.summaryData?.msnfp_engagementopportunitystatus ?? 0]
         self.btnSelectStatus.setTitle(status, for: .normal)
+
     }
     
     func setBtn(btn: UIButton , value : Bool){
@@ -151,12 +158,31 @@ class EventDescriptionVC: ENTALDBaseViewController {
         if (value == true) {
             btn.setImage(UIImage(named: "ic_check"), for: .normal)
             btn.backgroundColor = UIColor.clear
+            btn.isSelected = true
         }else{
             btn.setImage(UIImage(named: ""), for: .normal)
             btn.backgroundColor = UIColor.viewLightGrayColor
+            btn.isSelected = false
         }
         
     }
+    
+    @IBAction func availableBtnTapped(_ sender: UIButton) {
+        
+        if self.btnAvailables[sender.tag].isSelected == false  {
+            self.btnAvailables[sender.tag].setImage(UIImage(named: "ic_check"), for: .normal)
+            self.btnAvailables[sender.tag].backgroundColor = UIColor.clear
+        }else{
+            self.btnAvailables[sender.tag].setImage(UIImage(named: ""), for: .normal)
+            self.btnAvailables[sender.tag].backgroundColor = UIColor.viewLightGrayColor
+            
+        }
+        
+        self.btnAvailables[sender.tag].isSelected = !sender.isSelected
+    }
+    
+    
+    
     @IBAction func eventStatusUpdate(_ sender: Any) {
         self.showGroupsPicker()
     }
@@ -174,11 +200,25 @@ class EventDescriptionVC: ENTALDBaseViewController {
     
     
     
+    
+    
     @IBAction func submitTapped(_ sender: Any) {
+        self.updatedata()
     }
     
-    
-    
+    @IBAction func adhocTapped(_ sender: Any) {
+        
+        if (self.adhocSelected == true){
+            self.adhocSelected = false
+            self.btnAdhocEvent.setImage(UIImage(named: ""), for: .normal)
+            self.btnAdhocEvent.backgroundColor = UIColor.viewLightGrayColor
+        }else{
+            self.adhocSelected = true
+            self.btnAdhocEvent.setImage(UIImage(named: "ic_check"), for: .normal)
+            self.btnAdhocEvent.backgroundColor = UIColor.clear
+        }
+        
+    }
     
     
     fileprivate func getSummaryData(){
@@ -342,6 +382,62 @@ class EventDescriptionVC: ENTALDBaseViewController {
                     }
                 }
             }
+    }
+    
+    fileprivate func updatedata(){
+
+        let params = [
+            "msnfp_engagementopportunitytitle": self.txtEventName.text as? String,
+            "msnfp_description": self.DetailDescriptionTextView.text as? String,
+            "sjavms_donationintended": self.txtDonation.text as? Float,
+            "sjavms_adhocevent": self.adhocSelected as? Bool,
+
+            "sjavms_onsitefirstaidroomtent" : btnAvailables[0].isSelected ? true : false as? Bool,
+            "sjavms_bathrooms" : btnAvailables[1].isSelected ? true : false as? Bool,
+            "sjavms_onsitecleandrinkingwater" : btnAvailables[2].isSelected ? true : false as? Bool,
+            "sjavms_shadedareaifoutside" : btnAvailables[3].isSelected ? true : false as? Bool,
+            "sjavms_parking" : btnAvailables[4].isSelected ? true : false as? Bool,
+            "sjavms_willotherhealthcareagenciesbeonsite" : btnAvailables[5].isSelected ? true : false as? Bool,
+            "sjavms_onsitedesignatedvolunteerarea" : btnAvailables[6].isSelected ? true : false as? Bool,
+            "sjavms_telephone" : btnAvailables[6].isSelected ? true : false as? Bool,
+            "sjavms_tableschairsseating" : btnAvailables[7].isSelected ? true : false as? Bool,
+            "sjavms_foodforvolunteers" : btnAvailables[8].isSelected ? true : false as? Bool,
+            "sjavms_sitemapifapplicable" : btnAvailables[9].isSelected ? true : false as? Bool,
+            "sjavms_cellphonereception" : btnAvailables[10].isSelected ? true : false as? Bool,
+            "sjavms_electricalpowersupply" : btnAvailables[11].isSelected ? true : false as? Bool
+               
+        ] as [String : Any]
+        
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        let eventId = self.eventData?.msnfp_engagementopportunityid ?? ""
+        
+        ENTALDLibraryAPI.shared.updateSummaryData(eventId: eventId, params: params) { result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: _):
+                DispatchQueue.main.async {
+                    LoadingView.hide()
+                }
+                
+            case .error(let error, let errorResponse):
+                if error == .patchSuccess {
+                    debugPrint("Successfully Updated")
+                }else{
+                    var message = error.message
+                    if let err = errorResponse {
+                        message = err.error
+                    }
+                    DispatchQueue.main.async {
+                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                    }
+                }
+            }
+        }
     }
     
     

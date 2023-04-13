@@ -116,6 +116,9 @@ class ParticipationDetailVC: ENTALDBaseViewController,UITextViewDelegate, UIText
     }
     
     
+    @IBAction func filterTapped(_ sender: Any) {
+        self.searchView.isHidden = true
+    }
     
     
     // ============  Filter ===============

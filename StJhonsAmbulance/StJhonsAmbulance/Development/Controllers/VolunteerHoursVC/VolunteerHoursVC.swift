@@ -7,11 +7,14 @@
 
 import UIKit
 
-class VolunteerHoursVC: ENTALDBaseViewController {
+class VolunteerHoursVC: ENTALDBaseViewController,UITextFieldDelegate {
     
     var eventData : [PendingShiftModelTwo]?
     var nonEventData : [PendingShiftModelTwo]?
+    var eventFilterData : [PendingShiftModelTwo]?
+    var nonEventFilterData : [PendingShiftModelTwo]?
     
+    var isEventSearchFilterApplied = false
     var isEventFilterApplied = false
     var isEventDateFilterApplied = false
     var isEventStartFilterApplied = false
@@ -19,6 +22,7 @@ class VolunteerHoursVC: ENTALDBaseViewController {
     var isEventTotalFilterApplied = false
     
     var isNonEventFilterApplied = false
+    var isNonEventSearchFilterApplied = false
     var isNonEventDateFilterApplied = false
     var isNonEventStartFilterApplied = false
     var isNonEventEndFilterApplied = false
@@ -41,6 +45,11 @@ class VolunteerHoursVC: ENTALDBaseViewController {
     @IBOutlet weak var lblYeartoDate: UILabel!
     @IBOutlet weak var lblLifeTime: UILabel!
     
+    @IBOutlet weak var searchView: UIView!
+    @IBOutlet weak var searchImg: UIImageView!
+    @IBOutlet weak var textSearch: UITextField!
+    @IBOutlet weak var btnSearchClose: UIButton!
+    
     @IBOutlet weak var lblTabTitle: UILabel!
     @IBOutlet weak var selectedTabImg: UIImageView!
     
@@ -51,6 +60,7 @@ class VolunteerHoursVC: ENTALDBaseViewController {
         getVolunteerEvents()
         setupContent()
         self.decorateUI()
+        textSearch.delegate = self
     }
 
     func registerCell(){
@@ -101,7 +111,26 @@ class VolunteerHoursVC: ENTALDBaseViewController {
         btnCreateAdhocHour.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnCreateAdhocHour.titleLabel?.font = UIFont.BoldFont(13)
         btnCreateAdhocHour.layer.cornerRadius = 5
+        
+        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+        searchView.layer.borderWidth = 1.5
+        searchView.isHidden = true
+        textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
     }
+    
+    @IBAction func searchCloseTapped(_ sender: Any) {
+        self.searchView.isHidden = true
+        textSearch.endEditing(true)
+        textSearch.text = ""
+        eventFilterData = eventData
+        nonEventFilterData = nonEventData
+
+        
+        eventTableView.reloadData()
+        nonEventTableView.reloadData()
+
+    }
+
 
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -124,66 +153,77 @@ class VolunteerHoursVC: ENTALDBaseViewController {
         }
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        btnSearchClose.isHidden = false
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        
+        if (textField.text != "" && isEventSearchFilterApplied == true ){
+            
+            eventFilterData  =  eventData?.filter({
+                if let name = $0.event_name, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                    return true
+                }
+                return false
+            })
+            DispatchQueue.main.async {
+                self.eventTableView.reloadData()
+            }
+            
+            
+        }else if(textField.text != "" && isNonEventSearchFilterApplied == true ){
+            
+            nonEventFilterData  =  nonEventData?.filter({
+                if let name = $0.event_name, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                    return true
+                 }
+               return false
+             })
+            
+            DispatchQueue.main.async {
+                self.nonEventTableView.reloadData()
+            }
+            
+        }else{
+            DispatchQueue.main.async {
+                self.eventFilterData = self.eventData
+                self.eventTableView.reloadData()
+                self.nonEventFilterData = self.nonEventData
+                self.nonEventTableView.reloadData()
+            }
+        }
+    }
+    
+    
     // ==================== Filter =====================
     
     
     @IBAction func eventFilterTapped(_ sender: Any) {
-        if !isEventFilterApplied{
-            self.eventData = self.eventData?.sorted {
-                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" < $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
-            }
-            isEventFilterApplied = true
-        }else{
-            self.eventData = self.eventData?.sorted {
-                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" > $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
-            }
-            isEventFilterApplied = false
-        }
-
-        DispatchQueue.main.async {
-            self.eventTableView.reloadData()
-        }
-
-        isEventDateFilterApplied = false
-        isEventStartFilterApplied = false
-        isEventEndFilterApplied = false
-        isEventTotalFilterApplied = false
+        isEventSearchFilterApplied = true
+        isNonEventSearchFilterApplied = false
+        self.searchView.isHidden = false
+        self.textSearch.placeholder = "Filter Event"
         
     }
     
     @IBAction func nonEventFilterTapped(_ sender: Any) {
-        if !isNonEventFilterApplied{
-            self.nonEventData = self.nonEventData?.sorted {
-                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" < $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
-            }
-            isNonEventFilterApplied = true
-        }else{
-            self.nonEventData = self.nonEventData?.sorted {
-                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" > $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
-            }
-            isNonEventFilterApplied = false
-        }
-
-        DispatchQueue.main.async {
-            self.nonEventTableView.reloadData()
-        }
-
-        isNonEventDateFilterApplied = false
-        isNonEventStartFilterApplied = false
-        isNonEventEndFilterApplied = false
-        isNonEventTotalFilterApplied = false
+        isEventSearchFilterApplied = false
+        isNonEventSearchFilterApplied = true
+        self.searchView.isHidden = false
+        self.textSearch.placeholder = "Filter Non Event"
     }
     
     
     @IBAction func eventFilter(_ sender: Any) {
         
         if !isEventFilterApplied{
-            self.eventData = self.eventData?.sorted {
+            self.eventFilterData = self.eventFilterData?.sorted {
                 $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" < $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
             }
             isEventFilterApplied = true
         }else{
-            self.eventData = self.eventData?.sorted {
+            self.eventFilterData = self.eventFilterData?.sorted {
                 $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" > $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
             }
             isEventFilterApplied = false
@@ -202,12 +242,12 @@ class VolunteerHoursVC: ENTALDBaseViewController {
     @IBAction func eventDateFilter(_ sender: Any) {
         
         if !isEventDateFilterApplied{
-            self.eventData = self.eventData?.sorted {
+            self.eventFilterData = self.eventFilterData?.sorted {
                 $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
             }
             isEventDateFilterApplied = true
         }else{
-            self.eventData = self.eventData?.sorted {
+            self.eventFilterData = self.eventFilterData?.sorted {
                 $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
             }
             isEventDateFilterApplied = false
@@ -226,12 +266,12 @@ class VolunteerHoursVC: ENTALDBaseViewController {
     @IBAction func eventStartFilter(_ sender: Any) {
         
         if !isEventStartFilterApplied{
-            self.eventData = self.eventData?.sorted {
+            self.eventFilterData = self.eventFilterData?.sorted {
                 $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
             }
             isEventStartFilterApplied = true
         }else{
-            self.eventData = self.eventData?.sorted {
+            self.eventFilterData = self.eventFilterData?.sorted {
                 $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
             }
             isEventStartFilterApplied = false
@@ -248,12 +288,12 @@ class VolunteerHoursVC: ENTALDBaseViewController {
     
     @IBAction func eventEndFilter(_ sender: Any) {
         if !isEventEndFilterApplied{
-            self.eventData = self.eventData?.sorted {
+            self.eventFilterData = self.eventFilterData?.sorted {
                 $0.sjavms_end ?? "" < $1.sjavms_end ?? ""
             }
             isEventEndFilterApplied = true
         }else{
-            self.eventData = self.eventData?.sorted {
+            self.eventFilterData = self.eventFilterData?.sorted {
                 $0.sjavms_end ?? "" > $1.sjavms_end ?? ""
             }
             isEventEndFilterApplied = false
@@ -272,12 +312,12 @@ class VolunteerHoursVC: ENTALDBaseViewController {
     @IBAction func eventTotalFilter(_ sender: Any) {
         
         if !isEventTotalFilterApplied{
-            self.eventData = self.eventData?.sorted {
+            self.eventFilterData = self.eventFilterData?.sorted {
                 $0.sjavms_hours ?? 0 < $1.sjavms_hours ?? 0
             }
             isEventTotalFilterApplied = true
         }else{
-            self.eventData = self.eventData?.sorted {
+            self.eventFilterData = self.eventFilterData?.sorted {
                 $0.sjavms_hours ?? 0 > $1.sjavms_hours ?? 0
             }
             isEventTotalFilterApplied = false
@@ -299,12 +339,12 @@ class VolunteerHoursVC: ENTALDBaseViewController {
     @IBAction func nonEventFilter(_ sender: Any) {
         
         if !isNonEventFilterApplied{
-            self.nonEventData = self.nonEventData?.sorted {
+            self.nonEventFilterData = self.nonEventFilterData?.sorted {
                 $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" < $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
             }
             isNonEventFilterApplied = true
         }else{
-            self.nonEventData = self.nonEventData?.sorted {
+            self.nonEventFilterData = self.nonEventFilterData?.sorted {
                 $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" > $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
             }
             isNonEventFilterApplied = false
@@ -322,12 +362,12 @@ class VolunteerHoursVC: ENTALDBaseViewController {
     
     @IBAction func nonEventDateFilter(_ sender: Any) {
         if !isNonEventDateFilterApplied{
-            self.nonEventData = self.nonEventData?.sorted {
+            self.nonEventFilterData = self.nonEventFilterData?.sorted {
                 $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
             }
             isNonEventDateFilterApplied = true
         }else{
-            self.nonEventData = self.nonEventData?.sorted {
+            self.nonEventFilterData = self.nonEventFilterData?.sorted {
                 $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
             }
             isNonEventDateFilterApplied = false
@@ -346,12 +386,12 @@ class VolunteerHoursVC: ENTALDBaseViewController {
     @IBAction func nonEventStartFilter(_ sender: Any) {
         
         if !isNonEventStartFilterApplied{
-            self.nonEventData = self.nonEventData?.sorted {
+            self.nonEventFilterData = self.nonEventFilterData?.sorted {
                 $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
             }
             isNonEventStartFilterApplied = true
         }else{
-            self.nonEventData = self.nonEventData?.sorted {
+            self.nonEventFilterData = self.nonEventFilterData?.sorted {
                 $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
             }
             isNonEventStartFilterApplied = false
@@ -370,12 +410,12 @@ class VolunteerHoursVC: ENTALDBaseViewController {
     @IBAction func nonEventEndFilter(_ sender: Any) {
         
         if !isNonEventEndFilterApplied{
-            self.nonEventData = self.nonEventData?.sorted {
+            self.nonEventFilterData = self.nonEventFilterData?.sorted {
                 $0.sjavms_end ?? "" < $1.sjavms_end ?? ""
             }
             isNonEventEndFilterApplied = true
         }else{
-            self.nonEventData = self.nonEventData?.sorted {
+            self.nonEventFilterData = self.nonEventFilterData?.sorted {
                 $0.sjavms_end ?? "" > $1.sjavms_end ?? ""
             }
             isNonEventEndFilterApplied = false
@@ -394,12 +434,12 @@ class VolunteerHoursVC: ENTALDBaseViewController {
     @IBAction func nonEventTotalFilter(_ sender: Any) {
         
         if !isNonEventTotalFilterApplied{
-            self.nonEventData = self.nonEventData?.sorted {
+            self.nonEventFilterData = self.nonEventFilterData?.sorted {
                 $0.sjavms_hours ?? 0 < $1.sjavms_hours ?? 0
             }
             isNonEventTotalFilterApplied = true
         }else{
-            self.nonEventData = self.nonEventData?.sorted {
+            self.nonEventFilterData = self.nonEventFilterData?.sorted {
                 $0.sjavms_hours ?? 0 > $1.sjavms_hours ?? 0
             }
             isNonEventTotalFilterApplied = false
@@ -490,8 +530,9 @@ class VolunteerHoursVC: ENTALDBaseViewController {
             switch result{
             case .success(value: let response):
                 
-                if let pendingData = response.value {
-                    self.eventData = pendingData
+                if let apiData = response.value {
+                    self.eventData = apiData
+                    self.eventFilterData = apiData
                     if (self.eventData?.count == 0 || self.eventData?.count == nil){
                         self.showEmptyView(tableVw: self.eventTableView)
                     }else{
@@ -551,8 +592,9 @@ class VolunteerHoursVC: ENTALDBaseViewController {
             switch result{
             case .success(value: let response):
                 
-                if let pendingData = response.value {
-                    self.nonEventData = pendingData
+                if let apiData = response.value {
+                    self.nonEventData = apiData
+                    self.nonEventFilterData = apiData
                     if (self.nonEventData?.count == 0 || self.nonEventData?.count == nil){
                         self.showEmptyView(tableVw: self.nonEventTableView)
                     }else{
@@ -596,9 +638,9 @@ class VolunteerHoursVC: ENTALDBaseViewController {
 extension VolunteerHoursVC : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (tableView == self.eventTableView){
-            return eventData?.count ?? 0
+            return eventFilterData?.count ?? 0
         }else if (tableView == nonEventTableView){
-            return nonEventData?.count ?? 0
+            return nonEventFilterData?.count ?? 0
         }
         return 0
     }
@@ -614,11 +656,11 @@ extension VolunteerHoursVC : UITableViewDelegate, UITableViewDataSource{
         }
         
         if (tableView == self.eventTableView){
-            let rowModel = self.eventData?[indexPath.row]
+            let rowModel = self.eventFilterData?[indexPath.row]
             cell.setContent(cellModel: rowModel)
             
         }else if (tableView == nonEventTableView){
-            let rowModel = self.nonEventData?[indexPath.row]
+            let rowModel = self.nonEventFilterData?[indexPath.row]
             cell.setContent(cellModel: rowModel)
         }
         
@@ -628,7 +670,7 @@ extension VolunteerHoursVC : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if (tableView == self.eventTableView){
-            let rowModel = self.eventData?[indexPath.row]
+            let rowModel = self.eventFilterData?[indexPath.row]
             
 //            ENTALDControllers.shared.showVolunteerHourDetailScreen(type: .ENTALDPUSH, from: self, dataObj : rowModel) { params, controller in
 //                if(params as? Int == 1){
@@ -639,7 +681,7 @@ extension VolunteerHoursVC : UITableViewDelegate, UITableViewDataSource{
             
             
         }else if (tableView == nonEventTableView){
-            let rowModel = self.nonEventData?[indexPath.row]
+            let rowModel = self.nonEventFilterData?[indexPath.row]
             
             ENTALDControllers.shared.showVolunteerHourDetailScreen(type: .ENTALDPUSH, from: self, dataObj : rowModel) { params, controller in
                 if(params as? Int == 1){

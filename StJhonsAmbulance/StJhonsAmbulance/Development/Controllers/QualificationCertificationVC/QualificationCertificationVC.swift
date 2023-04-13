@@ -7,12 +7,19 @@
 
 import UIKit
 
-class QualificationCertificationVC: ENTALDBaseViewController {
+class QualificationCertificationVC: ENTALDBaseViewController,UITextFieldDelegate {
     
     var externalQualification : [ExternalQualificationDataModel]?
     var SJAQualification : [SJAQualificationDataModel]?
     var SJAQualificationTypes : [SJAQualificationTypeDataModel]?
+    
+    var filterSJAQualification : [SJAQualificationDataModel]?
+    var filterExternalQualification : [ExternalQualificationDataModel]?
+    
     let contactId = UserDefaults.standard.contactIdToken ?? ""
+    
+    var isExternalTableSearch = false
+    var isSJATableSearch = false
     
     var isExternalCertificationIDFilterApplied = false
     var isExternalQualificationFilterApplied = false
@@ -41,6 +48,11 @@ class QualificationCertificationVC: ENTALDBaseViewController {
     @IBOutlet weak var externalTable: UITableView!
     @IBOutlet weak var SJATableview: UITableView!
     
+    @IBOutlet weak var searchView: UIView!
+    @IBOutlet weak var searchImg: UIImageView!
+    @IBOutlet weak var textSearch: UITextField!
+    @IBOutlet weak var btnSearchClose: UIButton!
+    
     
     
     override func viewDidLoad() {
@@ -51,7 +63,7 @@ class QualificationCertificationVC: ENTALDBaseViewController {
             self.getSJAQualification()
             self.getExternalQualification()
         }
-        
+        textSearch.delegate = self
         
     }
 
@@ -74,6 +86,12 @@ class QualificationCertificationVC: ENTALDBaseViewController {
             lbltext.textColor = UIColor.themePrimaryColor
         }
         
+        
+        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+        searchView.layer.borderWidth = 1.5
+        searchView.isHidden = true
+        textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        
     }
     
     func registerCell(){
@@ -94,19 +112,77 @@ class QualificationCertificationVC: ENTALDBaseViewController {
     }
     
     @IBAction func certificationFilterTapped(_ sender: Any) {
-        self.SJAQualification = self.SJAQualification?.reversed()
-        DispatchQueue.main.async {
-            self.SJATableview.reloadData()
-        }
+     
+        
+        
+        
     }
     
     @IBAction func qualificationFilterTapped(_ sender: Any) {
         
-        self.externalQualification = self.externalQualification?.reversed()
-        DispatchQueue.main.async {
-            self.externalTable.reloadData()
+      
+        
+        
+        
+        
+        
+    }
+    
+    
+    @IBAction func closeSearch(_ sender: Any) {
+        self.searchView.isHidden = true
+        textSearch.endEditing(true)
+        textSearch.text = ""
+        filterSJAQualification = SJAQualification
+        filterExternalQualification = externalQualification
+
+        SJATableview.reloadData()
+        externalTable.reloadData()
+        
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        btnSearchClose.isHidden = false
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        
+        if (textField.text != "" && isSJATableSearch == true ){
+            
+            filterSJAQualification  =  SJAQualification?.filter({
+                if let name = $0.bdo_qualificationsid?.bdo_name, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                    return true
+                }
+                return false
+            })
+            DispatchQueue.main.async {
+                self.SJATableview.reloadData()
+            }
+            
+            
+        }else if(textField.text != "" && isExternalTableSearch == true ){
+            
+            filterExternalQualification  =  externalQualification?.filter({
+                if let name = $0.sjavms_Qualification?.sjavms_type_value , name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                    return true
+                 }
+               return false
+             })
+            
+            DispatchQueue.main.async {
+                self.externalTable.reloadData()
+            }
+            
+        }else{
+            DispatchQueue.main.async {
+                self.filterSJAQualification = self.SJAQualification
+                self.SJATableview.reloadData()
+                self.filterExternalQualification = self.externalQualification
+                self.externalTable.reloadData()
+            }
         }
     }
+    
     
     
     func showEmptyView(tableVw : UITableView){
@@ -122,12 +198,12 @@ class QualificationCertificationVC: ENTALDBaseViewController {
     @IBAction func externalCertificationIdFilter(_ sender: Any) {
         
         if !isExternalCertificationIDFilterApplied{
-            self.externalQualification = self.externalQualification?.sorted {
+            self.filterExternalQualification = self.filterExternalQualification?.sorted {
                 $0.sjavms_Qualification?.sjavms_type ?? 0 < $1.sjavms_Qualification?.sjavms_type ?? 0
             }
             isExternalCertificationIDFilterApplied = true
         }else{
-            self.externalQualification = self.externalQualification?.sorted {
+            self.filterExternalQualification = self.filterExternalQualification?.sorted {
                 $0.sjavms_Qualification?.sjavms_type ?? 0 > $1.sjavms_Qualification?.sjavms_type ?? 0
             }
             isExternalCertificationIDFilterApplied = false
@@ -147,12 +223,12 @@ class QualificationCertificationVC: ENTALDBaseViewController {
     
     @IBAction func externalQualificationFilter(_ sender: Any) {
 //        if !isExternalQualificationFilterApplied{
-//            self.externalQualification = self.externalQualification?.sorted {
+//            self.filterExternalQualification = self.filterExternalQualification?.sorted {
 //                $0.sjavms_name ?? "" < $1.sjavms_name ?? ""
 //            }
 //            isExternalQualificationFilterApplied = true
 //        }else{
-//            self.externalQualification = self.externalQualification?.sorted {
+//            self.filterExternalQualification = self.filterExternalQualification?.sorted {
 //                $0.sjavms_name ?? "" > $1.sjavms_name ?? ""
 //            }
 //            isExternalQualificationFilterApplied = false
@@ -169,12 +245,12 @@ class QualificationCertificationVC: ENTALDBaseViewController {
     
     @IBAction func externalTypeFilter(_ sender: Any) {
         if !isExternalTypeFilterApplied{
-            self.externalQualification = self.externalQualification?.sorted {
+            self.filterExternalQualification = self.filterExternalQualification?.sorted {
                 $0.sjavms_Qualification?.sjavms_type_value ?? "" < $1.sjavms_Qualification?.sjavms_type_value  ?? ""
             }
             isExternalTypeFilterApplied = true
         }else{
-            self.externalQualification = self.externalQualification?.sorted {
+            self.filterExternalQualification = self.filterExternalQualification?.sorted {
                 $0.sjavms_Qualification?.sjavms_type_value  ?? "" > $1.sjavms_Qualification?.sjavms_type_value  ?? ""
             }
             isExternalTypeFilterApplied = false
@@ -192,12 +268,12 @@ class QualificationCertificationVC: ENTALDBaseViewController {
     
     @IBAction func externalIssuedDateFilter(_ sender: Any) {
         if !isExternalIssuedFilterApplied{
-            self.externalQualification = self.externalQualification?.sorted {
+            self.filterExternalQualification = self.filterExternalQualification?.sorted {
                 $0.sjavms_issuedate ?? "" < $1.sjavms_issuedate ?? ""
             }
             isExternalIssuedFilterApplied = true
         }else{
-            self.externalQualification = self.externalQualification?.sorted {
+            self.filterExternalQualification = self.filterExternalQualification?.sorted {
                 $0.sjavms_issuedate ?? "" > $1.sjavms_issuedate ?? ""
             }
             isExternalIssuedFilterApplied = false
@@ -216,12 +292,12 @@ class QualificationCertificationVC: ENTALDBaseViewController {
     
     @IBAction func externalExpireDateFilter(_ sender: Any) {
         if !isExternalExpireFilterApplied{
-            self.externalQualification = self.externalQualification?.sorted {
+            self.filterExternalQualification = self.filterExternalQualification?.sorted {
                 $0.sjavms_expirydate ?? "" < $1.sjavms_expirydate ?? ""
             }
             isExternalExpireFilterApplied = true
         }else{
-            self.externalQualification = self.externalQualification?.sorted {
+            self.filterExternalQualification = self.filterExternalQualification?.sorted {
                 $0.sjavms_expirydate ?? "" > $1.sjavms_expirydate ?? ""
             }
             isExternalExpireFilterApplied = false
@@ -239,12 +315,12 @@ class QualificationCertificationVC: ENTALDBaseViewController {
     
     @IBAction func gainedQualificationFilter(_ sender: Any) {
         if !isGainedQualificationFilterApplied{
-            self.SJAQualification = self.SJAQualification?.sorted {
+            self.filterSJAQualification = self.filterSJAQualification?.sorted {
                 $0.bdo_qualificationsid?.bdo_name ?? "" < $1.bdo_qualificationsid?.bdo_name ?? ""
             }
             isGainedQualificationFilterApplied = true
         }else{
-            self.SJAQualification = self.SJAQualification?.sorted {
+            self.filterSJAQualification = self.filterSJAQualification?.sorted {
                 $0.bdo_qualificationsid?.bdo_name ?? "" > $1.bdo_qualificationsid?.bdo_name ?? ""
             }
             isGainedQualificationFilterApplied = false
@@ -262,12 +338,12 @@ class QualificationCertificationVC: ENTALDBaseViewController {
     @IBAction func gainedTypeFilter(_ sender: Any) {
         
 //        if !isGainedTypeFilterApplied{
-//            self.SJAQualification = self.SJAQualification?.sorted {
+//            self.filterSJAQualification = self.filterSJAQualification?.sorted {
 //                $0.sjavms_expirydate ?? "" < $1.sjavms_expirydate ?? ""
 //            }
 //            isGainedTypeFilterApplied = true
 //        }else{
-//            self.SJAQualification = self.SJAQualification?.sorted {
+//            self.filterSJAQualification = self.filterSJAQualification?.sorted {
 //                $0.sjavms_expirydate ?? "" > $1.sjavms_expirydate ?? ""
 //            }
 //            isGainedTypeFilterApplied = false
@@ -285,12 +361,12 @@ class QualificationCertificationVC: ENTALDBaseViewController {
     @IBAction func gainedEffectiveFromFilter(_ sender: Any) {
         
         if !isGainedEffectiveFilterApplied{
-            self.SJAQualification = self.SJAQualification?.sorted {
+            self.filterSJAQualification = self.filterSJAQualification?.sorted {
                 $0.bdo_effectivedate ?? "" < $1.bdo_effectivedate ?? ""
             }
             isGainedEffectiveFilterApplied = true
         }else{
-            self.SJAQualification = self.SJAQualification?.sorted {
+            self.filterSJAQualification = self.filterSJAQualification?.sorted {
                 $0.bdo_effectivedate ?? "" > $1.bdo_effectivedate ?? ""
             }
             isGainedEffectiveFilterApplied = false
@@ -307,12 +383,12 @@ class QualificationCertificationVC: ENTALDBaseViewController {
     
     @IBAction func gainedExpireFilter(_ sender: Any) {
         if !isGainedExpireFilterApplied{
-            self.SJAQualification = self.SJAQualification?.sorted {
+            self.filterSJAQualification = self.filterSJAQualification?.sorted {
                 $0.bdo_expirationdate ?? "" < $1.bdo_expirationdate ?? ""
             }
             isGainedExpireFilterApplied = true
         }else{
-            self.SJAQualification = self.SJAQualification?.sorted {
+            self.filterSJAQualification = self.filterSJAQualification?.sorted {
                 $0.bdo_expirationdate ?? "" > $1.bdo_expirationdate ?? ""
             }
             isGainedExpireFilterApplied = false
@@ -357,6 +433,7 @@ class QualificationCertificationVC: ENTALDBaseViewController {
                 
                 if let qualification = response.value {
                     self.SJAQualification = qualification
+                    self.filterSJAQualification = qualification
                     if (self.SJAQualification?.count == 0 || self.SJAQualification?.count == nil){
                         self.showEmptyView(tableVw: self.SJATableview)
                     }else{
@@ -425,6 +502,7 @@ class QualificationCertificationVC: ENTALDBaseViewController {
                 
                 if let qualification = response.value {
                     self.externalQualification = qualification
+                    self.filterExternalQualification = qualification
                     if (self.externalQualification?.count == 0 || self.externalQualification?.count == nil){
                         self.showEmptyView(tableVw: self.externalTable)
                     }else{
@@ -530,11 +608,11 @@ extension QualificationCertificationVC : UITableViewDataSource, UITableViewDeleg
         
         if (tableView == SJATableview){
             
-            return SJAQualification?.count ?? 0
+            return filterSJAQualification?.count ?? 0
             
         }else if (tableView == externalTable){
             
-            return externalQualification?.count ?? 0
+            return filterExternalQualification?.count ?? 0
         }
         
         return 0
@@ -552,7 +630,7 @@ extension QualificationCertificationVC : UITableViewDataSource, UITableViewDeleg
                 cell.backgroundColor = UIColor.viewLightColor
                 cell.seperaterView.backgroundColor = UIColor.gray
             }
-            cell.setContent(cellModel: SJAQualification?[indexPath.row] )
+            cell.setContent(cellModel: filterSJAQualification?[indexPath.row] )
             return cell
             
         }else{
@@ -565,7 +643,7 @@ extension QualificationCertificationVC : UITableViewDataSource, UITableViewDeleg
                 cell.seperaterView.backgroundColor = UIColor.gray
             }
             
-            cell.setContent(cellModel: externalQualification?[indexPath.row] )
+            cell.setContent(cellModel: filterExternalQualification?[indexPath.row] )
             return cell
             
         }

@@ -302,6 +302,11 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
+    func getDashBoardTileOrder(params:[String : Any],  _ completion:@escaping((ApiResult<DashBoardGridOrderResponseModel, ApiError>) -> Void )){
+        let router = DashBoardRouter.getDashboardTilesOrder(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
 
     
     
@@ -405,9 +410,22 @@ class ENTALDLibraryAPI {
         let router = SideMenuRouter.createNonAdhocHour(params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
+        
+    func updateSummaryData(eventId: String ,params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.updateSummaryData(eventId: eventId, params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
     
     
-    
+    func saveDashBoardTileOrder(params:[String : Any],  _ completion:@escaping((ApiResult<DashBoardGridOrderResponseModel, ApiError>) -> Void )){
+        let router = DashBoardRouter.saveDashboardTilesOrder(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+
+    func updateDashBoardTileOrder(orderid: String ,params:[String : Any],  _ completion:@escaping((ApiResult<DashBoardGridOrderResponseModel, ApiError>) -> Void )){
+        let router = DashBoardRouter.updateDashboardTilesOrder(orderId: orderid, params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
     
 }
 

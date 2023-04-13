@@ -12,6 +12,8 @@ class EventLocationVC: ENTALDBaseViewController {
     var eventData : CurrentEventsModel?
     var summaryData : EventSummaryModel?
     var selectedStatus : String?
+    var selectedLocationType : String?
+    var selectedLocationTypeValue : Int?
     
     
     @IBOutlet weak var lblTitle: UILabel!
@@ -74,7 +76,7 @@ class EventLocationVC: ENTALDBaseViewController {
             txtfield.textColor = UIColor.themePrimaryWhite
             txtfield.layer.borderWidth = 1
             txtfield.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-            txtfield.isUserInteractionEnabled = false
+//            txtfield.isUserInteractionEnabled = false
         }
         
         
@@ -98,12 +100,28 @@ class EventLocationVC: ENTALDBaseViewController {
         
     }
 
+    @IBAction func submitTapped(_ sender: Any) {
+        self.updatedata()
+    }
     @IBAction func locationTypeTapped(_ sender: Any) {
+        
+        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.locationType, dataObj: ProcessUtils.shared.locationTypes) { params, controller in
+            
+            self.selectedLocationTypeValue = params as? Int
+            self.selectedLocationType = ProcessUtils.shared.getLocationType(code : self.selectedLocationTypeValue ?? NSNotFound )
+            self.btnLocationType.setTitle(self.selectedLocationType, for: .normal)
+            
+        }
+        
+        
     }
     
     @IBAction func statusTypeTapped(_ sender: Any) {
         self.showGroupsPicker()
     }
+    
+    
+    
     
     
     //================== API ====================
@@ -187,6 +205,55 @@ class EventLocationVC: ENTALDBaseViewController {
                     }
                 }
             }
+    }
+    
+    fileprivate func updatedata(){
+
+       var params = [
+            
+            "msnfp_street1" : txtStreet1.text ?? "" as String,
+            "msnfp_street2" : txtStreet2.text ?? "" as String,
+            "msnfp_street3" : txtStreet3.text ?? "" as String,
+            "msnfp_city" : txtCity.text ?? "" as String,
+            "msnfp_stateprovince" : txtProvince.text ?? "" as String,
+            "msnfp_zippostalcode" : txtPostalCode.text ?? "" as String,
+            "sjavms_locationcontactname" : txtLocationContactName.text ?? "" as String
+        ] as [String : Any]
+        
+        if self.selectedLocationTypeValue != nil {
+            params["msnfp_locationtype"] = (selectedLocationTypeValue ?? NSNotFound) as Int
+        }
+        
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        let eventId = self.eventData?.msnfp_engagementopportunityid ?? ""
+        
+        ENTALDLibraryAPI.shared.updateSummaryData(eventId: eventId, params: params) { result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: _):
+                DispatchQueue.main.async {
+                    LoadingView.hide()
+                }
+                
+            case .error(let error, let errorResponse):
+                if error == .patchSuccess {
+                    debugPrint("Successfully Updated")
+                }else{
+                    var message = error.message
+                    if let err = errorResponse {
+                        message = err.error
+                    }
+                    DispatchQueue.main.async {
+                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                    }
+                }
+            }
+        }
     }
     
 }

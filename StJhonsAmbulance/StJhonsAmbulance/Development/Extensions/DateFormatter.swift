@@ -90,7 +90,7 @@ class DateFormatManager{
 //        return formatter.string(from: date)
 //    }
 //
-    func getDate(date: String?) -> String? {
+    func getStringDate(date: String?) -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.timeZone = TimeZone(identifier: "America/New_York")
@@ -99,6 +99,17 @@ class DateFormatManager{
         let date = date//self.userData?.date_of_birth
         return date
         //dateFormatter.date(from: date ?? "") // replace Date String
+    }
+    
+    func getDate(date: String?) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.timeZone = TimeZone(identifier: "America/New_York")
+//        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+//        dateFormatter.locale = Locale.current
+        let date = date//self.userData?.date_of_birth
+//        return date
+        return dateFormatter.date(from: date ?? "") // replace Date String
     }
     
     func getCurrentDateWithFormat(format: String?) -> String? {

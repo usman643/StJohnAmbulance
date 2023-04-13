@@ -59,37 +59,33 @@ class ParticipationDetailTVC: UITableViewCell {
             
         }
         
-        if let date = cellModel?.createdon {
-            
-            let dateStr = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat:"yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
-            self.lblCreate.text = dateStr
-        }else{
-            self.lblCreate.text = ""
-        }
-        
-        
-        if let date = cellModel?.msnfp_startdate {
-            
-            let dateStr = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat:"yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
-            self.lblStart.text = dateStr
-        }else{
-            self.lblStart.text = ""
-        }
-        
-        if let date = cellModel?.msnfp_enddate {
-            
-            let dateStr = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat:"yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
-            self.lblEnd.text = dateStr
-        }else{
-            self.lblEnd.text = ""
-        }
-
-//        lblCreate.text = cellModel?.createdonData ?? ""
-//        lblVolunteer.text = cellModel?._msnfp_contactid_valueData ?? ""
-//        lblEvent.text = cellModel?._msnfp_engagementopportunityid_valueData ?? ""
-//        lblStart.text = cellModel?.msnfp_startdateData
-//        lblEnd.text = cellModel?.msnfp_enddateData
-        lblCompleted.text = cellModel?.msnfp_hours?.getFormattedNumber() ?? ""
+//        if let date = cellModel?.createdon {
+//            
+//            let dateStr = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat:"yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
+//            self.lblCreate.text = dateStr
+//        }else{
+//            self.lblCreate.text = ""
+//        }
+//        
+//        
+//        if let date = cellModel?.msnfp_startdate {
+//            
+//            let dateStr = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat:"yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+//            self.lblStart.text = dateStr
+//        }else{
+//            self.lblStart.text = ""
+//        }
+//        
+//        if let date = cellModel?.msnfp_enddate {
+//            
+//            let dateStr = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat:"yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+//            self.lblEnd.text = dateStr
+//        }else{
+//            self.lblEnd.text = ""
+//        }
+//
+//
+//        lblCompleted.text = cellModel?.msnfp_hours?.getFormattedNumber() ?? ""
 //        lblPending.text = cellModel?.sjavms_totalpendinghours?.getFormattedNumber() ?? ""
     }
     

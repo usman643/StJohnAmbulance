@@ -220,6 +220,7 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
     }
     
     @IBAction func closeEvent(_ sender: Any) {
+        
     }
     
     fileprivate func getEventParitionCheckData(params : [String:Any]){
@@ -287,8 +288,8 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
                                 
                             }else{
                                 
-                                self.closeImg.isHidden = true
-                                self.lblDesc.text = ""
+//                                self.closeImg.isHidden = true
+//                                self.lblDesc.text = ""
                             }
                     }
                 }
@@ -344,6 +345,13 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         }
     }
         
+    func requestCloseEvent(){
+        
+        
+        
+    }
+    
+    
         
 }
 

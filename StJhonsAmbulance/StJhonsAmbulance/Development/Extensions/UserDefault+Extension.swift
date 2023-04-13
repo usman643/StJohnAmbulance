@@ -94,6 +94,7 @@ extension UserDefaults {
         removeObject(forKey: contactId)
         removeObject(forKey: keyUserIdentity)
         removeObject(forKey: keyStaySignedIn)
+        removeObject(forKey: tokenExpireTime ?? "")
         ENTALDAppConfig.shared.showAppLaunch()
     }
 }

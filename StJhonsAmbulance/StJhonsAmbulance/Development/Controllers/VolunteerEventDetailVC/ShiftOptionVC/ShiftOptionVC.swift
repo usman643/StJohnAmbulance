@@ -446,8 +446,10 @@ class ShiftOptionVC: ENTALDBaseViewController {
     func getEventOptions() {
         
         let params : [String:Any] = [
-            ParameterKeys.select : "statecode,msnfp_effectivefrom,msnfp_effectiveto,msnfp_engagementopportunityscheduleid,msnfp_hours,msnfp_maximum,msnfp_engagementopportunityschedule,msnfp_minimum,statuscode,msnfp_number",
-            ParameterKeys.filter : "(_msnfp_engagementopportunity_value eq \(self.eventId ?? ""))"
+            ParameterKeys.select : "msnfp_engagementopportunityschedule,createdon,msnfp_totalhours,msnfp_startperiod,msnfp_hoursperday,_msnfp_engagementopportunity_value,msnfp_endperiod,msnfp_effectiveto,msnfp_effectivefrom,msnfp_workingdays,msnfp_engagementopportunityscheduleid",
+            ParameterKeys.expand : "msnfp_ParticipationSchedule_engagementOpp($select=msnfp_participationscheduleid,_msnfp_participationid_value,_sjavms_volunteer_value,msnfp_name,msnfp_schedulestatus;$filter=(_sjavms_volunteer_value eq d7b36463-1b9b-ec11-b3fe-0022486dfb67 and msnfp_schedulestatus eq 335940001))",
+            ParameterKeys.filter : "(statecode eq 0 and _msnfp_engagementopportunity_value eq \(self.eventId ?? ""))",
+            ParameterKeys.orderby : "msnfp_engagementopportunityschedule asc"
         ]
         
         self.getEventOptionData(params: params)

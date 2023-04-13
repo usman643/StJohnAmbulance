@@ -12,6 +12,9 @@ import SideMenu
 class CSDashBoardVC: ENTALDBaseViewController{
     var gridData : [DashBoardGridModel]?
     var latestEvent : [CurrentEventsModel]?
+    var dashBoardOrder : DashBoardGridOrderModel?
+    var params : [String:Any] = [:]
+    let conId = UserDefaults.standard.contactIdToken ?? ""
     
     @IBOutlet weak var btnSideMenu: UIButton!
     @IBOutlet weak var lblGroupName: UILabel!
@@ -44,15 +47,16 @@ class CSDashBoardVC: ENTALDBaseViewController{
         
         collectionView.register(UINib(nibName: "CSDashBaordCVC", bundle: nil), forCellWithReuseIdentifier: "CSDashBaordCVC")
         decorateUI()
+        getDashBoardOrder()
 //        setSideMenu()
         
         gridData = [
-                    DashBoardGridModel(title: "", subTitle: "", bgColor: UIColor.darkBlueColor, icon: "ic_camp"),
-                    DashBoardGridModel(title: "Messages", subTitle: "", bgColor: UIColor.orangeRedColor, icon: "ic_message"),
-                    DashBoardGridModel(title: "Volunteers", subTitle: "", bgColor: UIColor.orangeColor, icon: "ic_communication"),
-                    DashBoardGridModel(title: "Events", subTitle: "", bgColor: UIColor.darkFrozeColor, icon: "ic_event"),
-                    DashBoardGridModel(title: "Pending Shifts", subTitle: "", bgColor: UIColor.lightBlueColor, icon: "ic_hour"),
-                    DashBoardGridModel(title: "Pending Events", subTitle: "", bgColor: UIColor.themePrimaryColor, icon: "ic_pendingEvent")
+                    DashBoardGridModel(title: "", subTitle: "", bgColor: UIColor.darkBlueColor, icon: "ic_camp",key: "sjavms_youthcamp"),
+                    DashBoardGridModel(title: "Messages", subTitle: "", bgColor: UIColor.orangeRedColor, icon: "ic_message" ,key: "sjavms_messages"),
+                    DashBoardGridModel(title: "Volunteers", subTitle: "", bgColor: UIColor.orangeColor, icon: "ic_communication" ,key:"sjavms_volunteers"),
+                    DashBoardGridModel(title: "Events", subTitle: "", bgColor: UIColor.darkFrozeColor, icon: "ic_event", key: "sjavms_events"),
+                    DashBoardGridModel(title: "Pending Shifts", subTitle: "", bgColor: UIColor.lightBlueColor, icon: "ic_hour",key: "sjavms_pendingshifts"),
+                    DashBoardGridModel(title: "Pending Events", subTitle: "", bgColor: UIColor.themePrimaryColor, icon: "ic_pendingEvent", key: "sjavms_pendingevents")
                 ]
         if (ProcessUtils.shared.selectedUserGroup == nil){
             ProcessUtils.shared.selectedUserGroup = ProcessUtils.shared.userGroupsList[0]
@@ -245,6 +249,172 @@ class CSDashBoardVC: ENTALDBaseViewController{
         }
     }
     
+    
+    fileprivate func getDashBoardOrder(){
+        
+        let params : [String:Any] = [
+            
+            ParameterKeys.select : "statecode,sjavms_messages,sjavms_events,sjavms_checkin,sjavms_hours,sjavms_name,sjavms_myschedule,sjavms_dayofevent,sjavms_pendingevents,sjavms_csgrouplead,_sjavms_user_value,sjavms_volunteers,sjavms_youthcamp,sjavms_pendingshifts",
+            ParameterKeys.filter : "(sjavms_csgrouplead eq true and statecode eq 0 and _sjavms_user_value eq \(UserDefaults.standard.contactIdToken ?? ""))",
+            
+        ]
+        
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.getDashBoardTileOrder(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                
+                if let apidata = response.value {
+                    self.dashBoardOrder = apidata[0]        
+                    var modeldata : [DashBoardGridModel] = []
+                    
+                    var _ = self.gridData?.compactMap({ model in
+                        var model = model
+                        
+                        if model.key == "sjavms_youthcamp" {
+                            model.order = self.dashBoardOrder?.sjavms_youthcamp
+                        }else if model.key == "sjavms_messages" {
+                            model.order = self.dashBoardOrder?.sjavms_messages
+                        }else if model.key == "sjavms_volunteers" {
+                            model.order = self.dashBoardOrder?.sjavms_volunteers
+                        }else if model.key == "sjavms_events" {
+                            model.order = self.dashBoardOrder?.sjavms_events
+                        }else if model.key == "sjavms_pendingevents" {
+                            model.order = self.dashBoardOrder?.sjavms_pendingevents
+                        }else if model.key == "sjavms_pendingshifts" {
+                            model.order = self.dashBoardOrder?.sjavms_pendingshifts
+                        }
+                        
+                        modeldata.append(model)
+                        return true
+                    })
+                    
+                    self.gridData = modeldata
+     
+                    self.gridData = self.gridData?.sorted {
+                        $0.order ?? NSNotFound < $1.order ?? NSNotFound
+                    }
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                }else{
+                    self.saveDashboardGridOrder()
+                }
+            
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    fileprivate func saveDashboardGridOrder(){
+        
+        let params : [String:Any] = [
+            "sjavms_user@odata.bind" : "/contacts(\(self.conId))",
+               "sjavms_csgrouplead" : true,
+               "sjavms_messages": 2,
+               "sjavms_events": 4,
+               "sjavms_pendingevents": 6,
+               "sjavms_volunteers": 3,
+               "sjavms_youthcamp": 1,
+               "sjavms_pendingshifts": 5
+        ]
+
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.saveDashBoardTileOrder(params: params) { result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: _):
+                DispatchQueue.main.async {
+                    LoadingView.hide()
+                }
+                
+            case .error(let error, let errorResponse):
+                DispatchQueue.main.async {
+                    LoadingView.hide()
+                }
+                if error == .patchSuccess {
+//                    DispatchQueue.main.async {
+//                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: "patch sucess", actionTitle: .KOK, completion: {status in })
+//                    }
+                }else{
+                    var message = error.message
+                    if let err = errorResponse {
+                        message = err.error
+                    }
+                    DispatchQueue.main.async {
+                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    fileprivate func updateDashboardGridOrder(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.updateDashBoardTileOrder(orderid: self.dashBoardOrder?.sjavms_dashboard_orderid ?? "", params: params) { result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: _):
+                DispatchQueue.main.async {
+                    LoadingView.hide()
+                }
+                
+            case .error(let error, let errorResponse):
+                DispatchQueue.main.async {
+                    LoadingView.hide()
+                }
+                if error == .patchSuccess {
+//                    DispatchQueue.main.async {
+//                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: "patch sucess", actionTitle: .KOK, completion: {status in })
+//                    }
+                }else{
+                    var message = error.message
+                    if let err = errorResponse {
+                        message = err.error
+                    }
+                    DispatchQueue.main.async {
+                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     func showGroupsPicker(list:[LandingGroupsModel] = []){
         
         ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.groups, dataObj: ProcessUtils.shared.userGroupsList) { params, controller in
@@ -301,6 +471,8 @@ class CSDashBoardVC: ENTALDBaseViewController{
 extension CSDashBoardVC : UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDragDelegate,UICollectionViewDropDelegate {
     
     
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return gridData?.count ?? 0
     }
@@ -341,14 +513,78 @@ extension CSDashBoardVC : UICollectionViewDelegate,UICollectionViewDataSource, U
     
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         
-        return []
+//        let itemPrice = String(gridData?[indexPath.row].title ?? "")
+//        let itemProvider = NSItemProvider(object: (gridData?[indexPath.row].title! ?? "") as NSString)
+//        let dragItem = UIDragItem(itemProvider: itemProvider)
+//        dragItem.localObject = itemPrice
+//        return [dragItem]
+        
+        let item = self.gridData?[indexPath.row]
+        let itemProvider = NSItemProvider(object: item?.title as! NSString )
+        let dragItem = UIDragItem(itemProvider: itemProvider)
+        dragItem.localObject = item
+        return [dragItem]
     }
     
-    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        if collectionView.hasActiveDrag{
+            return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+        }
+        return UICollectionViewDropProposal(operation: .forbidden)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator)  {
+        
+        var destinationIndexPath : IndexPath
+        if let indexPath = coordinator.destinationIndexPath{
+            destinationIndexPath = indexPath
+        }else{
+            let row = collectionView.numberOfItems(inSection: 0)
+            destinationIndexPath = IndexPath(item: row - 1 , section: 0)
+        }
+        
+        if coordinator.proposal.operation == .move {
+            self.reorderItems(coordinator: coordinator, destinationIndexPath: destinationIndexPath, collectionView: collectionView)
+        }
         
         
     }
     
-    
+    fileprivate func reorderItems (coordinator: UICollectionViewDropCoordinator, destinationIndexPath: IndexPath, collectionView:UICollectionView){
+        
+        
+        if let item = coordinator.items.first,
+           let sourceIndexPath = item.sourceIndexPath {
+            collectionView.performBatchUpdates({
+                self.gridData?.remove(at: sourceIndexPath.item)
+                self.gridData?.insert(item.dragItem.localObject as! DashBoardGridModel, at: destinationIndexPath.item)
+                
+                collectionView.deleteItems (at: [sourceIndexPath])
+                collectionView.insertItems (at: [destinationIndexPath])}, completion: nil)
+                
+            
+            
+            coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
+        }
+        
+        params = [
+            "sjavms_user@odata.bind" : "/contacts(\(self.conId))",
+            "sjavms_csgrouplead" : true,
+            ]
+        for i in (0..<(self.gridData?.count ?? 0 )){
+            self.gridData?[i].order = i + 1
+            
+            var key = (self.gridData?[i].key ?? "") as String
+            var order = (self.gridData?[i].order ?? NSNotFound) as Int
+            params[key] = order
+
+        }
+
+        self.updateDashboardGridOrder(params: params)
+        params = [:]
+    }
  
 }
+
+
+

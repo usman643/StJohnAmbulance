@@ -30,6 +30,7 @@ enum EventRouter : Router {
     case getReportedShift(params:[String:Any])
     case updateContactInfo(contactId:String, params:[String:Any])
     case updateEventStatus(eventId:String, params:[String:Any])
+    case updateSummaryData(eventId:String, params:[String:Any])
     case volunteerCheckIn(participationId:String, params:[String:Any])
     case getParticipantCount(params:[String:Any])
     case getOrganizerContact(params:[String:Any])
@@ -67,6 +68,7 @@ enum EventRouter : Router {
         case .getReportedShift : return "msnfp_participationschedules"
         case .updateContactInfo(let contactId, _) : return "contacts(\(contactId))"
         case .updateEventStatus(let eventId, _) : return "msnfp_engagementopportunities(\(eventId))"
+        case .updateSummaryData(let eventId, _) : return "msnfp_engagementopportunities(\(eventId))"
         case .volunteerCheckIn(let participationId, _) : return "msnfp_participationschedules(\(participationId))"
         case .getParticipantCount : return "msnfp_participations"
         case .getOrganizerContact : return "msnfp_engagementopportunities"
@@ -130,6 +132,8 @@ enum EventRouter : Router {
             return params
         case .updateEventStatus(_, let params):
             return params
+        case .updateSummaryData(_, let params):
+            return params
         case .getParticipantCount(let params):
             return params
         case .getOrganizerContact(let params):
@@ -170,6 +174,8 @@ enum EventRouter : Router {
             return HTTPMethodType.patch.rawValue
         case .updateEventStatus(_,_):
             return HTTPMethodType.patch.rawValue
+        case .updateSummaryData(_,_):
+            return HTTPMethodType.patch.rawValue
         case .volunteerCheckIn(_,_):
             return HTTPMethodType.patch.rawValue
         case .createEvent:
@@ -208,6 +214,8 @@ enum EventRouter : Router {
         case .updateContactInfo(_,_):
             return .ENTJSONEncoding
         case .updateEventStatus(_,_):
+            return .ENTJSONEncoding
+        case .updateSummaryData(_,_):
             return .ENTJSONEncoding
         case .volunteerCheckIn(_,_):
             return .ENTJSONEncoding

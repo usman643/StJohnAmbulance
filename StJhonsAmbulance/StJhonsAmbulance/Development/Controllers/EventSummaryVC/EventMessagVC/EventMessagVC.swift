@@ -12,6 +12,7 @@ class EventMessagVC: ENTALDBaseViewController {
     var messagesData : [MessageModel]?
     var eventData : CurrentEventsModel?
     var selectedStatus: String?
+    var summaryData : EventSummaryModel?
     
     @IBOutlet weak var lbltitle: UILabel!
     @IBOutlet weak var lblStatus: UILabel!
@@ -26,6 +27,7 @@ class EventMessagVC: ENTALDBaseViewController {
         registerCell()
         getMessages()
         decorateUI()
+        getSummaryData()
     }
     
     func registerCell(){
@@ -49,6 +51,10 @@ class EventMessagVC: ENTALDBaseViewController {
             label.font = UIFont.BoldFont(11)
         }
         
+    }
+    func setupData(){
+        let status = ProcessUtils.shared.eventStatusArr[self.summaryData?.msnfp_engagementopportunitystatus ?? 0]
+        self.btnStatus.setTitle(status, for: .normal)
     }
 
 
@@ -187,6 +193,45 @@ class EventMessagVC: ENTALDBaseViewController {
             }
     }
     
+    
+    fileprivate func getSummaryData(){
+        guard let eventId = self.eventData?.msnfp_engagementopportunityid else {return}
+        let params : [String:Any] = [
+            
+            ParameterKeys.select : "_sjavms_group_value,sjavms_onsiteparking,sjavms_tableschairsseating,msnfp_engagementopportunityid,sjavms_designatedvolunteerarea,sjavms_cleandrinkingwater,sjavms_othertreatments,sjavms_designatedspaceforvolunteers,sjavms_electricalpowersupply,msnfp_stateprovince,msnfp_shortdescription,_sjavms_program_value,sjavms_foodforvolunteers,msnfp_filledshifts,statuscode,msnfp_location,sjavms_age1860,msnfp_description,msnfp_maximum,_sjavms_branch_value,msnfp_endingdate,sjavms_onsitefoodforvolunteers,sjavms_age13under,msnfp_appliedparticipants,sjavms_age60,sjavms_eventscheduleinformation,msnfp_engagementopportunitystatus,sjavms_bathrooms,_sjavms_contact_value,msnfp_engagementopportunitytitle,msnfp_completed,sjavms_onsitecleandrinkingwater,_sjavms_council_value,msnfp_street1,msnfp_street2,sjavms_age1417,msnfp_shifts,sjavms_donationreceived,_msnfp_primarycontactid_value,sjavms_willotherhealthcareagenciesbeonsite,msnfp_number,sjavms_numberofparticipants,msnfp_cancelledshifts,sjavms_multidayevent,sjavms_firstaidroomtent,sjavms_emergencyservicescalled,sjavms_sitemapifapplicable,sjavms_onsitedesignatedvolunteerarea,_sjavms_eventcoordinator_value,sjavms_totalapproved,sjavms_onsitecellphonereception,sjavms_telephone,sjavms_onsitebathrooms,sjavms_onsiteother,sjavms_cellphonereception,_sjavms_account_value,msnfp_locationtype,sjavms_patientstreated,sjavms_onsitefirstaidroomtent,_sjavms_posteventsurvey_value,msnfp_minimum,sjavms_onsitetelephone,msnfp_city,sjavms_parking,sjavms_eventorganizerprovidedadequatesupport,msnfp_multipledays,msnfp_startingdate,sjavms_donationintended,msnfp_street3,sjavms_othercomments,sjavms_eventrequirements,sjavms_surveycomments,statecode,sjavms_adhocevent,sjavms_shadedareaifoutside,msnfp_zippostalcode,sjavms_locationcontactname,sjavms_maxparticipants",
+            ParameterKeys.filter : "(msnfp_engagementopportunityid eq \(eventId))",
+
+        ]
+
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.getEventSummary(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result{
+            case .success(value: let response):
+                
+                if let summaryData = response.value {
+                    self.summaryData = summaryData[0]
+                    DispatchQueue.main.async {
+                        self.setupData()
+                    }
+                }
+            
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
     
     
     

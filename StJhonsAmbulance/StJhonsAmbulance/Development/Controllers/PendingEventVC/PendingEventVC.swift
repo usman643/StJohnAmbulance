@@ -18,6 +18,12 @@ class PendingEventVC: ENTALDBaseViewController {
     var pendingApprovalData : [PendingApprovalEventsModel]?
     var pendingPublishData : [CurrentEventsModel]?
     
+    var filterPendingApprovalData : [PendingApprovalEventsModel]?
+    var filterPendingPublishData : [CurrentEventsModel]?
+    
+    var isPendingApprovalTableSearch = false
+    var isPublishTableSearch = false
+    
     var isPendingNameFilterApplied = false
     var isPendingLocationFilterApplied = false
     var isPendingNumberFilterApplied = false
@@ -64,6 +70,11 @@ class PendingEventVC: ENTALDBaseViewController {
     @IBOutlet weak var lblApprovalStatus: UILabel!
     @IBOutlet weak var lblTabTitle: UILabel!
     @IBOutlet weak var selectedTabImg: UIImageView!
+    
+    @IBOutlet weak var searchView: UIView!
+    @IBOutlet weak var searchImg: UIImageView!
+    @IBOutlet weak var textSearch: UITextField!
+    @IBOutlet weak var btnSearchClose: UIButton!
     
     
     
@@ -147,7 +158,28 @@ class PendingEventVC: ENTALDBaseViewController {
         selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
         selectedTabImg.tintColor = UIColor.themePrimaryColor
         
+        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+        searchView.layer.borderWidth = 1.5
+        searchView.isHidden = true
+        textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        
+        
     }
+    
+    @IBAction func closeSearch(_ sender: Any) {
+        
+        self.searchView.isHidden = true
+        textSearch.endEditing(true)
+        textSearch.text = ""
+        filterPendingPublishData = pendingPublishData
+        filterPendingApprovalData = pendingApprovalData
+
+        
+        pendingPublishTableView.reloadData()
+        pendingApprovalTableView.reloadData()
+        
+    }
+    
     @IBAction func btnBackAction(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -161,17 +193,22 @@ class PendingEventVC: ENTALDBaseViewController {
     }
     
     @IBAction func pendingFilterTapped(_ sender: Any) {
-        self.pendingApprovalData = self.pendingApprovalData?.reversed()
-        DispatchQueue.main.async {
-            self.pendingApprovalTableView.reloadData()
-        }
+        
+        isPublishTableSearch = false
+        isPendingApprovalTableSearch = true
+        self.searchView.isHidden = false
+        self.textSearch.placeholder = "Filter Pending Publish"
+        
+        
     }
     
     @IBAction func approvalFilterTapped(_ sender: Any) {
-        self.pendingPublishData = self.pendingPublishData?.reversed()
-        DispatchQueue.main.async {
-            self.pendingPublishTableView.reloadData()
-        }
+        isPublishTableSearch = true
+        isPendingApprovalTableSearch = false
+        self.searchView.isHidden = false
+        self.textSearch.placeholder = "Filter Pending Approval"
+        
+        
     }
     
     @IBAction func sideMenuTapped(_ sender: Any) {
@@ -204,6 +241,47 @@ class PendingEventVC: ENTALDBaseViewController {
         
     }
  
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        btnSearchClose.isHidden = false
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        
+        if (textField.text != "" && isPendingApprovalTableSearch == true ){
+            
+            filterPendingApprovalData  =  pendingApprovalData?.filter({
+                if let name = $0.sjavms_name, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                    return true
+                }
+                return false
+            })
+            DispatchQueue.main.async {
+                self.pendingApprovalTableView.reloadData()
+            }
+            
+            
+        }else if(textField.text != "" && isPublishTableSearch == true ){
+            
+            filterPendingPublishData  =  pendingPublishData?.filter({
+                if let name = $0.msnfp_engagementopportunitytitle, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                    return true
+                 }
+               return false
+             })
+            
+            DispatchQueue.main.async {
+                self.pendingPublishTableView.reloadData()
+            }
+            
+        }else{
+            DispatchQueue.main.async {
+                self.filterPendingPublishData  =  self.pendingPublishData
+                self.pendingPublishTableView.reloadData()
+                self.filterPendingApprovalData = self.pendingApprovalData
+                self.pendingApprovalTableView.reloadData()
+            }
+        }
+    }
     
     func showEmptyView(tableVw : UITableView){
         DispatchQueue.main.async {
@@ -231,12 +309,12 @@ class PendingEventVC: ENTALDBaseViewController {
     
     @IBAction func pendingApprovalNameFilter(_ sender: Any) {
         if !isPendingNameFilterApplied{
-            self.pendingApprovalData = self.pendingApprovalData?.sorted {
+            self.filterPendingApprovalData = self.filterPendingApprovalData?.sorted {
                 $0.sjavms_name ?? "" < $1.sjavms_name ?? ""
             }
             isPendingNameFilterApplied = true
         }else{
-            self.pendingApprovalData = self.pendingApprovalData?.sorted {
+            self.filterPendingApprovalData = self.filterPendingApprovalData?.sorted {
                 $0.sjavms_name ?? "" > $1.sjavms_name ?? ""
             }
             isPendingNameFilterApplied = false
@@ -253,12 +331,12 @@ class PendingEventVC: ENTALDBaseViewController {
     
     @IBAction func pendingApprovalLocationFilter(_ sender: Any) {
         if !isPendingLocationFilterApplied{
-            self.pendingApprovalData = self.pendingApprovalData?.sorted {
+            self.filterPendingApprovalData = self.filterPendingApprovalData?.sorted {
                 $0.sjavms_address1name ?? "" < $1.sjavms_address1name ?? ""
             }
             isPendingLocationFilterApplied = true
         }else{
-            self.pendingApprovalData = self.pendingApprovalData?.sorted {
+            self.filterPendingApprovalData = self.filterPendingApprovalData?.sorted {
                 $0.sjavms_address1name ?? "" > $1.sjavms_address1name ?? ""
             }
             isPendingLocationFilterApplied = false
@@ -276,12 +354,12 @@ class PendingEventVC: ENTALDBaseViewController {
     
     @IBAction func pendingApprovalNumFilter(_ sender: Any) {
         if !isPendingNumberFilterApplied{
-            self.pendingApprovalData = self.pendingApprovalData?.sorted {
+            self.filterPendingApprovalData = self.filterPendingApprovalData?.sorted {
                 $0.sjavms_maxvolunteers ?? 0 < $1.sjavms_maxvolunteers ?? 0
             }
             isPendingNumberFilterApplied = true
         }else{
-            self.pendingApprovalData = self.pendingApprovalData?.sorted {
+            self.filterPendingApprovalData = self.filterPendingApprovalData?.sorted {
                 $0.sjavms_maxvolunteers ?? 0 > $1.sjavms_maxvolunteers ?? 0
             }
             isPendingNumberFilterApplied = false
@@ -299,12 +377,12 @@ class PendingEventVC: ENTALDBaseViewController {
     
     @IBAction func pendingApprovalDateFilter(_ sender: Any) {
         if !isPendingDataFilterApplied{
-            self.pendingApprovalData = self.pendingApprovalData?.sorted {
+            self.filterPendingApprovalData = self.filterPendingApprovalData?.sorted {
                 $0.sjavms_eventstartdate ?? "" < $1.sjavms_eventstartdate ?? ""
             }
             isPendingDataFilterApplied = true
         }else{
-            self.pendingApprovalData = self.pendingApprovalData?.sorted {
+            self.filterPendingApprovalData = self.filterPendingApprovalData?.sorted {
                 $0.sjavms_eventstartdate ?? "" > $1.sjavms_eventstartdate ?? ""
             }
             isPendingDataFilterApplied = false
@@ -323,12 +401,12 @@ class PendingEventVC: ENTALDBaseViewController {
     
     @IBAction func needPublishNameFilter(_ sender: Any) {
         if !isPublishNameFilterApplied{
-            self.pendingPublishData = self.pendingPublishData?.sorted {
+            self.filterPendingPublishData = self.filterPendingPublishData?.sorted {
                 $0.msnfp_engagementopportunitytitle ?? "" < $1.msnfp_engagementopportunitytitle ?? ""
             }
             isPublishNameFilterApplied = true
         }else{
-            self.pendingPublishData = self.pendingPublishData?.sorted {
+            self.filterPendingPublishData = self.filterPendingPublishData?.sorted {
                 $0.msnfp_engagementopportunitytitle ?? "" > $1.msnfp_engagementopportunitytitle ?? ""
             }
             isPublishNameFilterApplied = false
@@ -347,12 +425,12 @@ class PendingEventVC: ENTALDBaseViewController {
     
     @IBAction func needPublishLocationFilter(_ sender: Any) {
         if !isPublishLocationFilterApplied{
-            self.pendingPublishData = self.pendingPublishData?.sorted {
+            self.filterPendingPublishData = self.filterPendingPublishData?.sorted {
                 $0.msnfp_location ?? "" < $1.msnfp_location ?? ""
             }
             isPublishLocationFilterApplied = true
         }else{
-            self.pendingPublishData = self.pendingPublishData?.sorted {
+            self.filterPendingPublishData = self.filterPendingPublishData?.sorted {
                 $0.msnfp_location ?? "" > $1.msnfp_location ?? ""
             }
             isPublishLocationFilterApplied = false
@@ -371,12 +449,12 @@ class PendingEventVC: ENTALDBaseViewController {
     
     @IBAction func needPublishNumFilter(_ sender: Any) {
         if !isPublishNumberFilterApplied{
-            self.pendingPublishData = self.pendingPublishData?.sorted {
+            self.filterPendingPublishData = self.filterPendingPublishData?.sorted {
                 $0.msnfp_maximum ?? 0 < $1.msnfp_maximum ?? 0
             }
             isPublishNumberFilterApplied = true
         }else{
-            self.pendingPublishData = self.pendingPublishData?.sorted {
+            self.filterPendingPublishData = self.filterPendingPublishData?.sorted {
                 $0.msnfp_maximum ?? 0 > $1.msnfp_maximum ?? 0
             }
             isPublishNumberFilterApplied = false
@@ -395,12 +473,12 @@ class PendingEventVC: ENTALDBaseViewController {
     
     @IBAction func needPublishDateFilter(_ sender: Any) {
         if !isPublishDataFilterApplied{
-            self.pendingPublishData = self.pendingPublishData?.sorted {
+            self.filterPendingPublishData = self.filterPendingPublishData?.sorted {
                 $0.msnfp_startingdate ?? "" < $1.msnfp_startingdate ?? ""
             }
             isPublishDataFilterApplied = true
         }else{
-            self.pendingPublishData = self.pendingPublishData?.sorted {
+            self.filterPendingPublishData = self.filterPendingPublishData?.sorted {
                 $0.msnfp_startingdate ?? "" > $1.msnfp_startingdate ?? ""
             }
             isPublishDataFilterApplied = false
@@ -449,6 +527,7 @@ class PendingEventVC: ENTALDBaseViewController {
                 
                 if let pendingData = response.value {
                     self.pendingApprovalData = pendingData
+                    self.filterPendingApprovalData = pendingData
                     if (self.pendingApprovalData?.count == 0 || self.pendingApprovalData?.count == nil){
                         self.showEmptyView(tableVw: self.pendingApprovalTableView)
                     }else{
@@ -507,6 +586,7 @@ class PendingEventVC: ENTALDBaseViewController {
                 
                 if let pendingData = response.value {
                     self.pendingPublishData = pendingData
+                    self.filterPendingPublishData = pendingData
                     if (self.pendingPublishData?.count == 0 || self.pendingPublishData?.count == nil){
                         self.showEmptyView(tableVw: self.pendingPublishTableView)
                     }else{
@@ -548,10 +628,10 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if (tableView == self.pendingPublishTableView){
-            return self.pendingPublishData?.count ?? 0
+            return self.filterPendingPublishData?.count ?? 0
             
         }else if (tableView == self.pendingApprovalTableView){
-            return self.pendingApprovalData?.count ?? 0
+            return self.filterPendingApprovalData?.count ?? 0
         }
 
         return 0
@@ -572,7 +652,7 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
         
         if (tableView == self.pendingApprovalTableView){ // pending approval
             
-            let rowModel = self.pendingApprovalData?[indexPath.row]
+            let rowModel = self.filterPendingApprovalData?[indexPath.row]
             
             cell.lblName.text = rowModel?.sjavms_name ?? ""
             cell.lblLocation.text = rowModel?.sjavms_address1name ?? ""
@@ -584,7 +664,7 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
             
         }else if (tableView == self.pendingPublishTableView){ // pending Publish
             
-            let rowModel = self.pendingPublishData?[indexPath.row]
+            let rowModel = self.filterPendingPublishData?[indexPath.row]
             cell.lblName.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
             cell.lblLocation.text = rowModel?.msnfp_location ?? ""
             cell.lblMax.text = "\(rowModel?.msnfp_maximum  ?? 0)"

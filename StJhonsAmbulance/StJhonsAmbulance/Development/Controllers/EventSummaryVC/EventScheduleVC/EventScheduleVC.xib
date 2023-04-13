@@ -383,6 +383,9 @@
                                                 <constraint firstAttribute="height" constant="15" id="SZe-FH-bkM"/>
                                             </constraints>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <connections>
+                                                <action selector="multiDayEventTapped:" destination="-1" eventType="touchUpInside" id="ybp-N2-Tpa"/>
+                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is multiday event" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFx-d1-Qcy">
                                             <rect key="frame" x="33" y="147.99999999999997" width="320" height="17"/>

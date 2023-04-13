@@ -22,6 +22,15 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     var availableEngagementData : [ScheduleModelTwo]?
     var availableData : [AvailableEventModel]?
     
+    var filterAvailableData : [AvailableEventModel]?
+    var filterScheduleData : [ScheduleModelThree]?
+    var filterPastEventData : [VolunteerEventsModel]?
+    
+    var isAvailabilityTableSearch = false
+    var isScheduleTableSearch = false
+    var isPastTableSearch = false
+    
+    
     var isAvailableEventFilterApplied = false
     var isAvailableLocationFilterApplied = false
     var isAvailableDateFilterApplied = false
@@ -56,6 +65,11 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     @IBOutlet weak var lblTabTitle: UILabel!
     @IBOutlet weak var selectedTabImg: UIImageView!
     
+    @IBOutlet weak var searchView: UIView!
+    @IBOutlet weak var searchImg: UIImageView!
+    @IBOutlet weak var textSearch: UITextField!
+    @IBOutlet weak var btnSearchClose: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         registerCells()
@@ -89,6 +103,12 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         
         selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
         selectedTabImg.tintColor = UIColor.themePrimaryColor
+        
+        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+        searchView.layer.borderWidth = 1.5
+        searchView.isHidden = true
+        
+        textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
 
     }
     
@@ -121,6 +141,19 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     func openAvailableEventDetailScreen(rowModel: AvailableEventModel?) {
         ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: rowModel, eventType : "available", callBack: nil)
     }
+    
+    @IBAction func searchCloseTapped(_ sender: Any) {
+        self.searchView.isHidden = true
+        textSearch.endEditing(true)
+        textSearch.text = ""
+        filterScheduleData = scheduleData
+        filterAvailableData = availableData
+        filterPastEventData = pastEventData
+        
+        availableTable.reloadData()
+        scheduleTable.reloadData()
+        pastTable.reloadData()
+    }
 
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -131,74 +164,29 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     }
     
     @IBAction func availableFilterTapped(_ sender: Any) {
-        if !isAvailableEventFilterApplied{
-            self.availableData = self.availableData?.sorted {
-                $0.msnfp_engagementopportunitytitle ?? "" < $1.msnfp_engagementopportunitytitle ?? ""
-            }
-            isAvailableEventFilterApplied = true
-        }else{
-            self.availableData = self.availableData?.sorted {
-                $0.msnfp_engagementopportunitytitle ?? "" > $1.msnfp_engagementopportunitytitle ?? ""
-            }
-            isAvailableEventFilterApplied = false
-        }
-
-        DispatchQueue.main.async {
-            self.availableTable.reloadData()
-        }
-        
-        isAvailableLocationFilterApplied = false
-        isAvailableDateFilterApplied = false
-        isAvailableStartFilterApplied = false
-        isAvailableEndFilterApplied = false
-        
+        isAvailabilityTableSearch = true
+        isScheduleTableSearch = false
+        isPastTableSearch = false
+        self.searchView.isHidden = false
+        self.textSearch.placeholder = "Filter Availability Event"
     }
     
     @IBAction func scheduledFilterTapped(_ sender: Any) {
-        if !isScheduleLocationFilterApplied{
-            self.scheduleData = self.scheduleData?.sorted {
-                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" < $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
-            }
-            isScheduleLocationFilterApplied = true
-        }else{
-            self.scheduleData = self.scheduleData?.sorted {
-                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" > $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
-            }
-            isScheduleLocationFilterApplied = false
-        }
-
-        DispatchQueue.main.async {
-            self.availableTable.reloadData()
-        }
-        
-        isScheduleEventFilterApplied = false
-        isScheduleDateFilterApplied = false
-        isScheduleStartFilterApplied = false
-        isScheduleEndFilterApplied = false
+        isAvailabilityTableSearch = false
+        isScheduleTableSearch = true
+        isPastTableSearch = false
+        self.searchView.isHidden = false
+        self.textSearch.placeholder = "Filter Scheduled Event"
         
     }
     
     @IBAction func pastFilterTapped(_ sender: Any) {
-        if !isPastEventFilterApplied{
-            self.pastEventData = self.pastEventData?.sorted {
-                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" < $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
-            }
-            isPastEventFilterApplied = true
-        }else{
-            self.pastEventData = self.pastEventData?.sorted {
-                $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" > $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
-            }
-            isPastEventFilterApplied = false
-        }
-
-        DispatchQueue.main.async {
-            self.pastTable.reloadData()
-        }
-      
-        isPastLocationFilterApplied = false
-        isPastDateFilterApplied = false
-        isPastStartFilterApplied = false
-        isPastEndFilterApplied = false
+        isAvailabilityTableSearch = false
+        isScheduleTableSearch = false
+        isPastTableSearch = true
+        self.searchView.isHidden = false
+        self.textSearch.placeholder = "Filter Past Event"
+        
     }
     
     // Bottom bar Action
@@ -242,17 +230,77 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        btnSearchClose.isHidden = false
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+//        btnSearchClose.isHidden = true
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        
+        if (textField.text != "" && isAvailabilityTableSearch == true ){
+            
+            filterAvailableData  =  availableData?.filter({
+                if let name = $0.msnfp_engagementopportunitytitle, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                    return true
+                }
+                return false
+            })
+            DispatchQueue.main.async {
+                self.availableTable.reloadData()
+            }
+            
+            
+        }else if(textField.text != "" && isScheduleTableSearch == true ){
+            
+            filterScheduleData  =  scheduleData?.filter({
+                if let name = $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                    return true
+                 }
+               return false
+             })
+            
+            DispatchQueue.main.async {
+                self.scheduleTable.reloadData()
+            }
+            
+        }else if(textField.text != "" && isPastTableSearch == true ){
+            
+            filterPastEventData  =  pastEventData?.filter({
+                if let name = $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                    return true
+                }
+                return false
+            })
+            DispatchQueue.main.async {
+                self.pastTable.reloadData()
+            }
+            
+        }else{
+            DispatchQueue.main.async {
+                self.filterAvailableData = self.availableData
+                self.availableTable.reloadData()
+                self.filterScheduleData = self.scheduleData
+                self.scheduleTable.reloadData()
+                self.filterPastEventData = self.pastEventData
+                self.pastTable.reloadData()
+            }
+        }
+    }
+    
     // ================ Filter ================
     
     @IBAction func availableEventFilter(_ sender: Any) {
         
         if !isAvailableEventFilterApplied{
-            self.availableData = self.availableData?.sorted {
+            self.filterAvailableData = self.filterAvailableData?.sorted {
                 $0.msnfp_engagementopportunitytitle ?? "" < $1.msnfp_engagementopportunitytitle ?? ""
             }
             isAvailableEventFilterApplied = true
         }else{
-            self.availableData = self.availableData?.sorted {
+            self.filterAvailableData = self.filterAvailableData?.sorted {
                 $0.msnfp_engagementopportunitytitle ?? "" > $1.msnfp_engagementopportunitytitle ?? ""
             }
             isAvailableEventFilterApplied = false
@@ -272,12 +320,12 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     @IBAction func availableLocationFilter(_ sender: Any) {
         
         if !isAvailableLocationFilterApplied{
-            self.availableData = self.availableData?.sorted {
+            self.filterAvailableData = self.filterAvailableData?.sorted {
                 $0.msnfp_location ?? "" < $1.msnfp_location ?? ""
             }
             isAvailableLocationFilterApplied = true
         }else{
-            self.availableData = self.availableData?.sorted {
+            self.filterAvailableData = self.filterAvailableData?.sorted {
                 $0.msnfp_location ?? "" > $1.msnfp_location ?? ""
             }
             isAvailableLocationFilterApplied = false
@@ -297,12 +345,12 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     @IBAction func availableDateFilter(_ sender: Any) {
         
         if !isAvailableDateFilterApplied{
-            self.availableData = self.availableData?.sorted {
+            self.filterAvailableData = self.filterAvailableData?.sorted {
                 $0.msnfp_startingdate ?? "" < $1.msnfp_startingdate ?? ""
             }
             isAvailableDateFilterApplied = true
         }else{
-            self.availableData = self.availableData?.sorted {
+            self.filterAvailableData = self.filterAvailableData?.sorted {
                 $0.msnfp_startingdate ?? "" > $1.msnfp_startingdate ?? ""
             }
             isAvailableDateFilterApplied = false
@@ -322,12 +370,12 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     @IBAction func availableStartFilter(_ sender: Any) {
         
         if !isAvailableStartFilterApplied{
-            self.availableData = self.availableData?.sorted {
+            self.filterAvailableData = self.filterAvailableData?.sorted {
                 $0.msnfp_startingdate ?? "" < $1.msnfp_startingdate ?? ""
             }
             isAvailableStartFilterApplied = true
         }else{
-            self.availableData = self.availableData?.sorted {
+            self.filterAvailableData = self.filterAvailableData?.sorted {
                 $0.msnfp_startingdate ?? "" > $1.msnfp_startingdate ?? ""
             }
             isAvailableStartFilterApplied = false
@@ -347,12 +395,12 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     @IBAction func availableEndFilter(_ sender: Any) {
         
         if !isAvailableEndFilterApplied{
-            self.availableData = self.availableData?.sorted {
+            self.filterAvailableData = self.filterAvailableData?.sorted {
                 $0.msnfp_endingdate ?? "" < $1.msnfp_endingdate ?? ""
             }
             isAvailableEndFilterApplied = true
         }else{
-            self.availableData = self.availableData?.sorted {
+            self.filterAvailableData = self.filterAvailableData?.sorted {
                 $0.msnfp_endingdate ?? "" > $1.msnfp_endingdate ?? ""
             }
             isAvailableEndFilterApplied = false
@@ -374,12 +422,12 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     @IBAction func scheduleEventFilter(_ sender: Any) {
         
         if !isScheduleLocationFilterApplied{
-            self.scheduleData = self.scheduleData?.sorted {
+            self.filterScheduleData = self.filterScheduleData?.sorted {
                 $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" < $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
             }
             isScheduleLocationFilterApplied = true
         }else{
-            self.scheduleData = self.scheduleData?.sorted {
+            self.filterScheduleData = self.filterScheduleData?.sorted {
                 $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" > $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
             }
             isScheduleLocationFilterApplied = false
@@ -398,12 +446,12 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     @IBAction func scheduleLocationFilter(_ sender: Any) {
         
         if !isScheduleDateFilterApplied{
-            self.scheduleData = self.scheduleData?.sorted {
+            self.filterScheduleData = self.filterScheduleData?.sorted {
                 $0.sjavms_VolunteerEvent?.msnfp_location ?? "" < $1.sjavms_VolunteerEvent?.msnfp_location ?? ""
             }
             isScheduleDateFilterApplied = true
         }else{
-            self.scheduleData = self.scheduleData?.sorted {
+            self.filterScheduleData = self.filterScheduleData?.sorted {
                 $0.sjavms_VolunteerEvent?.msnfp_location ?? "" > $1.sjavms_VolunteerEvent?.msnfp_location ?? ""
             }
             isScheduleDateFilterApplied = false
@@ -423,12 +471,12 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     @IBAction func scheduleDateFilter(_ sender: Any) {
         
         if !isScheduleDateFilterApplied{
-            self.scheduleData = self.scheduleData?.sorted {
+            self.filterScheduleData = self.filterScheduleData?.sorted {
                 $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
             }
             isScheduleDateFilterApplied = true
         }else{
-            self.scheduleData = self.scheduleData?.sorted {
+            self.filterScheduleData = self.filterScheduleData?.sorted {
                 $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
             }
             isScheduleDateFilterApplied = false
@@ -448,12 +496,12 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     @IBAction func scheduleStartFilter(_ sender: Any) {
         
         if !isScheduleStartFilterApplied{
-            self.scheduleData = self.scheduleData?.sorted {
+            self.filterScheduleData = self.filterScheduleData?.sorted {
                 $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
             }
             isScheduleStartFilterApplied = true
         }else{
-            self.scheduleData = self.scheduleData?.sorted {
+            self.filterScheduleData = self.filterScheduleData?.sorted {
                 $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
             }
             isScheduleStartFilterApplied = false
@@ -473,12 +521,12 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     @IBAction func scheduleEndFilter(_ sender: Any) {
         
         if !isScheduleEndFilterApplied{
-            self.scheduleData = self.scheduleData?.sorted {
+            self.filterScheduleData = self.filterScheduleData?.sorted {
                 $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
             }
             isScheduleEndFilterApplied = true
         }else{
-            self.scheduleData = self.scheduleData?.sorted {
+            self.filterScheduleData = self.filterScheduleData?.sorted {
                 $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
             }
             isScheduleEndFilterApplied = false
@@ -498,12 +546,12 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     @IBAction func pastEventFilter(_ sender: Any) {
         
         if !isPastEventFilterApplied{
-            self.pastEventData = self.pastEventData?.sorted {
+            self.filterPastEventData = self.filterPastEventData?.sorted {
                 $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" < $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
             }
             isPastEventFilterApplied = true
         }else{
-            self.pastEventData = self.pastEventData?.sorted {
+            self.filterPastEventData = self.filterPastEventData?.sorted {
                 $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" > $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
             }
             isPastEventFilterApplied = false
@@ -522,12 +570,12 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     @IBAction func pastLocationFilter(_ sender: Any) {
         
         if !isPastLocationFilterApplied{
-            self.pastEventData = self.pastEventData?.sorted {
+            self.filterPastEventData = self.filterPastEventData?.sorted {
                 $0.sjavms_VolunteerEvent?.msnfp_location ?? "" < $1.sjavms_VolunteerEvent?.msnfp_location ?? ""
             }
             isPastLocationFilterApplied = true
         }else{
-            self.pastEventData = self.pastEventData?.sorted {
+            self.filterPastEventData = self.filterPastEventData?.sorted {
                 $0.sjavms_VolunteerEvent?.msnfp_location ?? "" > $1.sjavms_VolunteerEvent?.msnfp_location ?? ""
             }
             isPastLocationFilterApplied = false
@@ -547,12 +595,12 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     @IBAction func pastDateFilter(_ sender: Any) {
         
         if !isPastDateFilterApplied{
-            self.pastEventData = self.pastEventData?.sorted {
+            self.filterPastEventData = self.filterPastEventData?.sorted {
                 $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
             }
             isPastDateFilterApplied = true
         }else{
-            self.pastEventData = self.pastEventData?.sorted {
+            self.filterPastEventData = self.filterPastEventData?.sorted {
                 $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
             }
             isPastDateFilterApplied = false
@@ -572,12 +620,12 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     @IBAction func pastStartFilter(_ sender: Any) {
         
         if !isPastStartFilterApplied{
-            self.pastEventData = self.pastEventData?.sorted {
+            self.filterPastEventData = self.filterPastEventData?.sorted {
                 $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
             }
             isPastStartFilterApplied = true
         }else{
-            self.pastEventData = self.pastEventData?.sorted {
+            self.filterPastEventData = self.filterPastEventData?.sorted {
                 $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
             }
             isPastStartFilterApplied = false
@@ -597,12 +645,12 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     @IBAction func pastEndFilter(_ sender: Any) {
         
         if !isPastEndFilterApplied{
-            self.pastEventData = self.pastEventData?.sorted {
+            self.filterPastEventData = self.filterPastEventData?.sorted {
                 $0.sjavms_end ?? "" < $1.sjavms_end ?? ""
             }
             isPastEndFilterApplied = true
         }else{
-            self.pastEventData = self.pastEventData?.sorted {
+            self.filterPastEventData = self.filterPastEventData?.sorted {
                 $0.sjavms_end ?? "" > $1.sjavms_end ?? ""
             }
             isPastEndFilterApplied = false
@@ -658,6 +706,7 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
                 
                 if let pastEvents = response.value {
                     self.pastEventData = pastEvents
+                    self.filterPastEventData = pastEvents
                     if (self.pastEventData?.count == 0 || self.pastEventData?.count == nil){
                         self.showEmptyView(tableVw: self.pastTable)
                     }else{
@@ -790,6 +839,7 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
                 
                 if let scheduleGroup = response.value {
                     self.scheduleData = scheduleGroup
+                    self.filterScheduleData = scheduleGroup
                     if (self.scheduleData?.count == 0 || self.scheduleData?.count == nil){
                         self.showEmptyView(tableVw: self.scheduleTable)
                         
@@ -856,6 +906,7 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
                 
                 if let availableEvent = response.value {
                     self.availableData = availableEvent
+                    self.filterAvailableData = availableEvent
                     if (self.availableData?.count == 0 || self.availableData?.count == nil){
                         self.showEmptyView(tableVw: self.availableTable)
                         
@@ -895,11 +946,11 @@ extension VolunteerEventsVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (tableView == availableTable){
-            return availableData?.count ?? 0
+            return filterAvailableData?.count ?? 0
         }else if (tableView == scheduleTable){
-            return scheduleData?.count ?? 0
+            return filterScheduleData?.count ?? 0
         }else if (tableView == pastTable){
-            return pastEventData?.count ?? 0
+            return filterPastEventData?.count ?? 0
         }
         
         return 0
@@ -909,15 +960,15 @@ extension VolunteerEventsVC : UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "VolunteerEventTVC", for: indexPath) as! VolunteerEventTVC
         
         if (tableView == availableTable){
-            let rowModel = self.availableData?[indexPath.row]
+            let rowModel = self.filterAvailableData?[indexPath.row]
             cell.setContent(cellModel: rowModel, indx : indexPath.row)
             cell.delegate = self
         }else if (tableView == scheduleTable){
-            let rowModel = self.scheduleData?[indexPath.row]
+            let rowModel = self.filterScheduleData?[indexPath.row]
             cell.setContent(cellModel: rowModel , indx : indexPath.row)
             cell.delegate = self
         }else if (tableView == pastTable){
-            let rowModel = self.pastEventData?[indexPath.row]
+            let rowModel = self.filterPastEventData?[indexPath.row]
             cell.setContent(cellModel: rowModel)
         }
         
@@ -935,15 +986,15 @@ extension VolunteerEventsVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (tableView == availableTable){
             
-            ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.availableData?[indexPath.row], eventName: "availableEvent", callBack: nil)
+            ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.filterAvailableData?[indexPath.row], eventName: "availableEvent", callBack: nil)
 
         }else if (tableView == scheduleTable){
             
-            ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.scheduleData?[indexPath.row], eventName: "scheduleEvent", callBack: nil)
+            ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.filterScheduleData?[indexPath.row], eventName: "scheduleEvent", callBack: nil)
             
         }else if (tableView == pastTable){
             
-            ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.pastEventData?[indexPath.row], eventName: "pastEvent", callBack: nil)
+            ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.filterPastEventData?[indexPath.row], eventName: "pastEvent", callBack: nil)
         }
     }
 }

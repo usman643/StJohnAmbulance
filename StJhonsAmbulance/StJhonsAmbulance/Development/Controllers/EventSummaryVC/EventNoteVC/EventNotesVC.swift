@@ -12,7 +12,9 @@ class EventNotesVC: ENTALDBaseViewController {
     var eventData : CurrentEventsModel?
     var summaryData : EventSummaryModel?
     var selectedStatus : String?
-    
+    var isDesignatedSpaceforVolunteer : Bool?
+    var isOrgnizerAdequateSupport : Bool?
+
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet var lblSectionTitle: [UILabel]!
     @IBOutlet var lblTextFieldHeadings: [UILabel]!
@@ -24,6 +26,7 @@ class EventNotesVC: ENTALDBaseViewController {
     @IBOutlet weak var txtOtherComment: UITextView!
     @IBOutlet var lblAvailables: [UILabel]!
     @IBOutlet var btnAvailables: [UIButton]!
+    
     @IBOutlet weak var btnSubmit: UIButton!
 
     @IBOutlet weak var btnFirstAidRoom: UIButton!
@@ -75,12 +78,14 @@ class EventNotesVC: ENTALDBaseViewController {
         txtOtherComment.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         txtOtherComment.layer.borderWidth = 1
         
-        txtParticipantNum.isUserInteractionEnabled = false
-        txtDonationReceived.isUserInteractionEnabled = false
-        txtSurveyComment.isUserInteractionEnabled = false
-        txtOtherComment.isUserInteractionEnabled = false
+//        txtParticipantNum.isUserInteractionEnabled = false
+//        txtDonationReceived.isUserInteractionEnabled = false
+//        txtSurveyComment.isUserInteractionEnabled = false
+//        txtOtherComment.isUserInteractionEnabled = false
         
         btnSubmit.layer.cornerRadius = btnSubmit.frame.size.height/2
+        self.txtParticipantNum.keyboardType = .numberPad
+        self.txtDonationReceived.keyboardType = .decimalPad
         
         for label in lblSectionTitle{
             label.font = UIFont.BoldFont(14)
@@ -104,9 +109,23 @@ class EventNotesVC: ENTALDBaseViewController {
         
     }
     
+    @IBAction func availableBtnTapped(_ sender: UIButton) {
+        
+        if self.btnAvailables[sender.tag].isSelected == false  {
+            self.btnAvailables[sender.tag].setImage(UIImage(named: "ic_check"), for: .normal)
+            self.btnAvailables[sender.tag].backgroundColor = UIColor.clear
+        }else{
+            self.btnAvailables[sender.tag].setImage(UIImage(named: ""), for: .normal)
+            self.btnAvailables[sender.tag].backgroundColor = UIColor.viewLightGrayColor
+            
+        }
+        
+        self.btnAvailables[sender.tag].isSelected = !sender.isSelected
+    }
+    
     
     @IBAction func submitTapped(_ sender: Any) {
-        
+        self.updatedata()
     }
     
     func setupData(){
@@ -114,20 +133,19 @@ class EventNotesVC: ENTALDBaseViewController {
         self.setBtn(btn: OrgnizerAdequateSupport, value: self.summaryData?.sjavms_eventorganizerprovidedadequatesupport ?? false)
         self.setBtn(btn: btnDesignatedSpaceforVolunteer, value: self.summaryData?.sjavms_designatedspaceforvolunteers ?? false)
         
-        self.setBtn(btn: btnFirstAidRoom, value: self.summaryData?.sjavms_onsitefirstaidroomtent ?? false)
-        self.setBtn(btn: btnBathroom, value: self.summaryData?.sjavms_bathrooms ?? false)
-        self.setBtn(btn: btnCleanWater, value: self.summaryData?.sjavms_onsitecleandrinkingwater ?? false)
-        
-        self.setBtn(btn: btnShadedArea, value: self.summaryData?.sjavms_shadedareaifoutside ?? false)
-        self.setBtn(btn: btnParking, value: self.summaryData?.sjavms_parking ?? false)
-        self.setBtn(btn: btnOtherHealthAgency, value: self.summaryData?.sjavms_willotherhealthcareagenciesbeonsite ?? false)
-        self.setBtn(btn: btnVolunteerArea, value: self.summaryData?.sjavms_onsitedesignatedvolunteerarea ?? false)
-        self.setBtn(btn: btnPhone, value: self.summaryData?.sjavms_telephone ?? false)
-        self.setBtn(btn: btnTableChair, value: self.summaryData?.sjavms_tableschairsseating ?? false)
-        self.setBtn(btn: btnFood, value: self.summaryData?.sjavms_foodforvolunteers ?? false)
-        self.setBtn(btn: btnSiteMap, value: self.summaryData?.sjavms_sitemapifapplicable ?? false)
-        self.setBtn(btn: btnRecptionPhone, value: self.summaryData?.sjavms_cellphonereception ?? false)
-        self.setBtn(btn: btnPowerSupply, value: self.summaryData?.sjavms_electricalpowersupply ?? false)
+        self.setBtn(btn: btnAvailables[0], value: self.summaryData?.sjavms_onsitefirstaidroomtent ?? false)
+        self.setBtn(btn: btnAvailables[1], value: self.summaryData?.sjavms_bathrooms ?? false)
+        self.setBtn(btn: btnAvailables[2], value: self.summaryData?.sjavms_onsitecleandrinkingwater ?? false)
+        self.setBtn(btn: btnAvailables[3], value: self.summaryData?.sjavms_shadedareaifoutside ?? false)
+        self.setBtn(btn: btnAvailables[4], value: self.summaryData?.sjavms_parking ?? false)
+        self.setBtn(btn: btnAvailables[5], value: self.summaryData?.sjavms_willotherhealthcareagenciesbeonsite ?? false)
+        self.setBtn(btn: btnAvailables[6], value: self.summaryData?.sjavms_onsitedesignatedvolunteerarea ?? false)
+        self.setBtn(btn: btnAvailables[7], value: self.summaryData?.sjavms_telephone ?? false)
+        self.setBtn(btn: btnAvailables[8], value: self.summaryData?.sjavms_tableschairsseating ?? false)
+        self.setBtn(btn: btnAvailables[9], value: self.summaryData?.sjavms_foodforvolunteers ?? false)
+        self.setBtn(btn: btnAvailables[10], value: self.summaryData?.sjavms_sitemapifapplicable ?? false)
+        self.setBtn(btn: btnAvailables[11], value: self.summaryData?.sjavms_cellphonereception ?? false)
+        self.setBtn(btn: btnAvailables[12], value: self.summaryData?.sjavms_electricalpowersupply ?? false)
         
         self.txtParticipantNum.text = "\(self.summaryData?.sjavms_numberofparticipants ?? NSNotFound)"
         self.txtDonationReceived.text = self.summaryData?.sjavms_donationreceived?.getFormattedNumber()
@@ -140,13 +158,40 @@ class EventNotesVC: ENTALDBaseViewController {
         if (value == true) {
             btn.setImage(UIImage(named: "ic_check"), for: .normal)
             btn.backgroundColor = UIColor.clear
+            btn.isSelected = true
         }else{
             btn.setImage(UIImage(named: ""), for: .normal)
             btn.backgroundColor = UIColor.viewLightGrayColor
+            btn.isSelected = false
         }
         
     }
     
+    @IBAction func designatedSpaceTapped(_ sender: Any) {
+        if (self.isDesignatedSpaceforVolunteer == true){
+            self.isDesignatedSpaceforVolunteer = false
+            self.btnDesignatedSpaceforVolunteer.setImage(UIImage(named: ""), for: .normal)
+            self.btnDesignatedSpaceforVolunteer.backgroundColor = UIColor.viewLightGrayColor
+        }else{
+            self.isDesignatedSpaceforVolunteer = true
+            self.btnDesignatedSpaceforVolunteer.setImage(UIImage(named: "ic_check"), for: .normal)
+            self.btnDesignatedSpaceforVolunteer.backgroundColor = UIColor.clear
+        }
+        
+    }
+    
+    @IBAction func AdequateSupportTapped(_ sender: Any) {
+        if (self.isOrgnizerAdequateSupport == true){
+            self.isOrgnizerAdequateSupport = false
+            self.OrgnizerAdequateSupport.setImage(UIImage(named: ""), for: .normal)
+            self.OrgnizerAdequateSupport.backgroundColor = UIColor.viewLightGrayColor
+        }else{
+            self.isOrgnizerAdequateSupport = true
+            self.OrgnizerAdequateSupport.setImage(UIImage(named: "ic_check"), for: .normal)
+            self.OrgnizerAdequateSupport.backgroundColor = UIColor.clear
+        }
+        
+    }
     
     @IBAction func eventStatusUpdate(_ sender: Any) {
         
@@ -236,6 +281,65 @@ class EventNotesVC: ENTALDBaseViewController {
                     }
                 }
             }
+    }
+    
+    fileprivate func updatedata(){
+
+        let params = [
+            
+            "sjavms_numberofparticipants" : Int(self.txtParticipantNum.text ?? "") ?? 0 as Int,
+            "sjavms_donationreceived" : Float(self.txtDonationReceived.text ?? "") ?? 0 as Float,
+            "sjavms_surveycomments": self.txtSurveyComment.text as String,
+            "sjavms_othercomments" : self.txtOtherComment.text as String,
+            
+            "sjavms_eventorganizerprovidedadequatesupport" : isOrgnizerAdequateSupport ?? self.summaryData?.sjavms_eventorganizerprovidedadequatesupport ?? false as Bool,
+            "sjavms_designatedspaceforvolunteers" : isDesignatedSpaceforVolunteer ?? self.summaryData?.sjavms_designatedspaceforvolunteers ?? false as Bool,
+            "sjavms_onsitefirstaidroomtent" : btnAvailables[0].isSelected ? true : false as? Bool,
+            "sjavms_bathrooms" : btnAvailables[1].isSelected ? true : false as? Bool,
+            "sjavms_onsitecleandrinkingwater" : btnAvailables[2].isSelected ? true : false as? Bool,
+            "sjavms_shadedareaifoutside" : btnAvailables[3].isSelected ? true : false as? Bool,
+            "sjavms_parking" : btnAvailables[4].isSelected ? true : false as? Bool,
+            "sjavms_willotherhealthcareagenciesbeonsite" : btnAvailables[5].isSelected ? true : false as? Bool,
+            "sjavms_onsitedesignatedvolunteerarea" : btnAvailables[6].isSelected ? true : false as? Bool,
+            "sjavms_telephone" : btnAvailables[6].isSelected ? true : false as? Bool,
+            "sjavms_tableschairsseating" : btnAvailables[7].isSelected ? true : false as? Bool,
+            "sjavms_foodforvolunteers" : btnAvailables[8].isSelected ? true : false as? Bool,
+            "sjavms_sitemapifapplicable" : btnAvailables[9].isSelected ? true : false as? Bool,
+            "sjavms_cellphonereception" : btnAvailables[10].isSelected ? true : false as? Bool,
+            "sjavms_electricalpowersupply" : btnAvailables[11].isSelected ? true : false as? Bool
+            
+        ] as [String : Any]
+        
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        let eventId = self.eventData?.msnfp_engagementopportunityid ?? ""
+        
+        ENTALDLibraryAPI.shared.updateSummaryData(eventId: eventId, params: params) { result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: _):
+                DispatchQueue.main.async {
+                    LoadingView.hide()
+                }
+                
+            case .error(let error, let errorResponse):
+                if error == .patchSuccess {
+                    debugPrint("Successfully Updated")
+                }else{
+                    var message = error.message
+                    if let err = errorResponse {
+                        message = err.error
+                    }
+                    DispatchQueue.main.async {
+                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                    }
+                }
+            }
+        }
     }
     
     

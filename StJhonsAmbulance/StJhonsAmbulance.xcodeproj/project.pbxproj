@@ -86,6 +86,8 @@
 		1D58BA58298CFBBB001FE5FD /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D58BA57298CFBBB001FE5FD /* EmptyView.swift */; };
 		1D5C1D1429C1D2E500608FF5 /* AchivementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5C1D1229C1D2E500608FF5 /* AchivementVC.swift */; };
 		1D5C1D1529C1D2E500608FF5 /* AchivementVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D5C1D1329C1D2E500608FF5 /* AchivementVC.xib */; };
+		1D6079C629E5F91E0038D665 /* VolunteerEngagmentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6079C429E5F91E0038D665 /* VolunteerEngagmentsVC.swift */; };
+		1D6079C729E5F91E0038D665 /* VolunteerEngagmentsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D6079C529E5F91E0038D665 /* VolunteerEngagmentsVC.xib */; };
 		1D608B33299BE82E00A03B00 /* EventManagerSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D608B32299BE82E00A03B00 /* EventManagerSectionView.xib */; };
 		1D608B35299BE83A00A03B00 /* EventManagerSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D608B34299BE83A00A03B00 /* EventManagerSectionView.swift */; };
 		1D608B37299BF47E00A03B00 /* ProgramModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D608B36299BF47E00A03B00 /* ProgramModel.swift */; };
@@ -361,6 +363,8 @@
 		1D58BA57298CFBBB001FE5FD /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		1D5C1D1229C1D2E500608FF5 /* AchivementVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchivementVC.swift; sourceTree = "<group>"; };
 		1D5C1D1329C1D2E500608FF5 /* AchivementVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AchivementVC.xib; sourceTree = "<group>"; };
+		1D6079C429E5F91E0038D665 /* VolunteerEngagmentsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerEngagmentsVC.swift; sourceTree = "<group>"; };
+		1D6079C529E5F91E0038D665 /* VolunteerEngagmentsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VolunteerEngagmentsVC.xib; sourceTree = "<group>"; };
 		1D608B32299BE82E00A03B00 /* EventManagerSectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventManagerSectionView.xib; sourceTree = "<group>"; };
 		1D608B34299BE83A00A03B00 /* EventManagerSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManagerSectionView.swift; sourceTree = "<group>"; };
 		1D608B36299BF47E00A03B00 /* ProgramModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramModel.swift; sourceTree = "<group>"; };
@@ -920,6 +924,15 @@
 			path = AchivementVC;
 			sourceTree = "<group>";
 		};
+		1D6079C329E5F8ED0038D665 /* VolunteerEngagmentsVC */ = {
+			isa = PBXGroup;
+			children = (
+				1D6079C429E5F91E0038D665 /* VolunteerEngagmentsVC.swift */,
+				1D6079C529E5F91E0038D665 /* VolunteerEngagmentsVC.xib */,
+			);
+			path = VolunteerEngagmentsVC;
+			sourceTree = "<group>";
+		};
 		1D608B31299BE80300A03B00 /* EventManagerSection */ = {
 			isa = PBXGroup;
 			children = (
@@ -1119,6 +1132,7 @@
 		1DBA5CB129C6E9E10094D16C /* VolunteerEventDetailVC */ = {
 			isa = PBXGroup;
 			children = (
+				1D6079C329E5F8ED0038D665 /* VolunteerEngagmentsVC */,
 				1D10818429DCC3EF0070AE9D /* ParticipationDetailVC */,
 				1DBA5CB229C6EABD0094D16C /* VolunteerEventDetailVC.swift */,
 				1DBA5CB329C6EABD0094D16C /* VolunteerEventDetailVC.xib */,
@@ -1942,6 +1956,7 @@
 				1D7DECB529CED93900F86A6F /* EventHourVC.xib in Resources */,
 				353C614E28140B6B00CC8B7F /* ENTALDHomeViewController.xib in Resources */,
 				1DBA5CBA29C6EF2E0094D16C /* ShiftOptionVC.xib in Resources */,
+				1D6079C729E5F91E0038D665 /* VolunteerEngagmentsVC.xib in Resources */,
 				1D0BDED4298258BB00CC2030 /* MessageVC.xib in Resources */,
 				359E9C77282EA58E001E3D73 /* ENTALDOffersViewController.xib in Resources */,
 				359E9C16282B7077001E3D73 /* ENTALDLocalizable.strings in Resources */,
@@ -2188,6 +2203,7 @@
 				1D608B3E299C2F0E00A03B00 /* AvailabilityVC.swift in Sources */,
 				1DF1770229893ED8005809C6 /* VolunteerModel.swift in Sources */,
 				353C619A2817D56500CC8B7F /* ENTALDDictionary+Extension.swift in Sources */,
+				1D6079C629E5F91E0038D665 /* VolunteerEngagmentsVC.swift in Sources */,
 				1D608B39299C22AE00A03B00 /* ContactModel.swift in Sources */,
 				1D5C1D1429C1D2E500608FF5 /* AchivementVC.swift in Sources */,
 				E48359D429811189008CBFFF /* LandingGroupsModel.swift in Sources */,
@@ -2451,7 +2467,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2487,7 +2503,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
 				GENERATE_INFOPLIST_FILE = YES;

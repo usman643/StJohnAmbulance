@@ -21,6 +21,7 @@ class ProcessUtils {
     var programsData : [ProgramModel]?
     var contactInfo : UserIdentityModel?
     var tokenTime : Date = Date()
+    var locationTypes = [844060000:"On Location", 844060001:"Virtual", 844060002:"Both", 844060003:"None"]
     var days =  [844060000 : "Monday",844060001 : "Tuesday",844060002 : "Wednesday",844060003 : "Thursday",844060004 : "Friday",844060005 : "Saturday",844060006 : "Sunday"]
     var eventStatusArr = [
         844060000 : "Draft",
@@ -194,7 +195,7 @@ class ProcessUtils {
             case .success(let response):
                 if let token = response.access_token {
                     UserDefaults.standard.authToken = token
-                    UserDefaults.standard.tokenExpireTime = response.not_before
+                    UserDefaults.standard.tokenExpireTime = response.expires_on
                     completion(true)
                 }
                 break

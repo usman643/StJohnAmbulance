@@ -18,8 +18,6 @@ class EventSummaryVC: ENTALDBaseViewController, UIScrollViewDelegate{
     @IBOutlet var containerView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         self.reloadControllers()
     }
     

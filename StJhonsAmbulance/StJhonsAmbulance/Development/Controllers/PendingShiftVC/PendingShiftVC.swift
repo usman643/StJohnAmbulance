@@ -19,6 +19,8 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     var pendingShiftDataOne : [PendingShiftModelOne]?
     var pendingShiftDataThree : [PendingShiftModelThree]?
     
+    var filterPendingShiftData : [PendingShiftModelTwo]?
+    
     var selectedShifts : [PendingShiftModelTwo] = []
     
     var isNamefilterApplied:Bool = false
@@ -50,6 +52,12 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     @IBOutlet weak var lblTabTitle: UILabel!
     
     @IBOutlet weak var selectedTabImg: UIImageView!
+    
+    @IBOutlet weak var searchView: UIView!
+    @IBOutlet weak var searchImg: UIImageView!
+    @IBOutlet weak var textSearch: UITextField!
+    @IBOutlet weak var btnSearchClose: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -108,8 +116,23 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
         selectedTabImg.tintColor = UIColor.themePrimaryColor
         
+        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+        searchView.layer.borderWidth = 1.5
+        searchView.isHidden = true
+        textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        
     }
  
+    @IBAction func closeSearch(_ sender: Any) {
+        self.searchView.isHidden = true
+        textSearch.endEditing(true)
+        textSearch.text = ""
+        filterPendingShiftData = pendingShiftData
+
+        tableView.reloadData()
+        
+    }
+    
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -117,7 +140,6 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     @IBAction func selectGroupTapped(_ sender: Any) {
         showGroupsPicker()
     }
-    
     
     @IBAction func homeTapped(_ sender: Any) {
         
@@ -158,7 +180,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     }
     
     @IBAction func filterTapped(_ sender: Any) {
-        self.pendingShiftData = self.pendingShiftData?.reversed()
+        self.filterPendingShiftData = self.filterPendingShiftData?.reversed()
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -189,12 +211,12 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     }
     func filterByName(){
         if !isNamefilterApplied{
-            self.pendingShiftData = self.pendingShiftData?.sorted {
+            self.filterPendingShiftData = self.filterPendingShiftData?.sorted {
                 $0.sjavms_Volunteer?.fullname ?? "" < $1.sjavms_Volunteer?.fullname ?? ""
             }
             isNamefilterApplied = true
         }else{
-            self.pendingShiftData = self.pendingShiftData?.sorted {
+            self.filterPendingShiftData = self.filterPendingShiftData?.sorted {
                 $0.sjavms_Volunteer?.fullname ?? "" > $1.sjavms_Volunteer?.fullname ?? ""
             }
             isNamefilterApplied = false
@@ -210,20 +232,22 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     
     
     @IBAction func nameFilterTapped(_ sender: Any) {
-        self.filterByName()
         
+        self.searchView.isHidden = false
+        self.textSearch.placeholder = "Filter PendingShifts"
+
     }
     
     
     @IBAction func eventFilterTapped(_ sender: Any) {
 
         if !isEventfilterApplied{
-            self.pendingShiftData = self.pendingShiftData?.sorted {
+            self.filterPendingShiftData = self.filterPendingShiftData?.sorted {
                 $0.event_name ?? "" < $1.event_name ?? ""
             }
             isEventfilterApplied = true
         }else{
-            self.pendingShiftData = self.pendingShiftData?.sorted {
+            self.filterPendingShiftData = self.filterPendingShiftData?.sorted {
                 $0.event_name ?? "" > $1.event_name ?? ""
             }
             isEventfilterApplied = false
@@ -242,12 +266,12 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         
         
         if !isDatefilterApplied{
-            self.pendingShiftData = self.pendingShiftData?.sorted {
+            self.filterPendingShiftData = self.filterPendingShiftData?.sorted {
                 $0.event_starttime ?? "" < $1.event_starttime ?? ""
             }
             isDatefilterApplied = true
         }else{
-            self.pendingShiftData = self.pendingShiftData?.sorted {
+            self.filterPendingShiftData = self.filterPendingShiftData?.sorted {
                 $0.event_starttime ?? "" > $1.event_starttime ?? ""
             }
             isDatefilterApplied = false
@@ -298,6 +322,33 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                 
             }
         }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        btnSearchClose.isHidden = false
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        
+        if (textField.text != "" ){
+            
+            filterPendingShiftData  =  pendingShiftData?.filter({
+                if let name = $0.event_name, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                    return true
+                }
+                return false
+            })
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }else{
+            DispatchQueue.main.async {
+                self.filterPendingShiftData = self.pendingShiftData
+                self.tableView.reloadData()
+               
+            }
+        }
+        
     }
     
 
@@ -463,6 +514,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                     }
                     DispatchQueue.main.async {
                         self.pendingShiftData = self.pendingShiftData?.filter({$0.msnfp_schedulestatus == 335940000})
+                        self.filterPendingShiftData = self.pendingShiftData
                         self.filterByName()
                         self.tableView.reloadData()
                     }
@@ -553,7 +605,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
 
 extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pendingShiftData?.count ?? 0
+        return filterPendingShiftData?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -567,8 +619,8 @@ extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
         }
         
         cell.delegate = self
-        let rowModel = pendingShiftData?[indexPath.row]
-        let eventId = self.pendingShiftData?[indexPath.row].msnfp_participationscheduleid
+        let rowModel = filterPendingShiftData?[indexPath.row]
+        let eventId = self.filterPendingShiftData?[indexPath.row].msnfp_participationscheduleid
 //        let eventId = self.getPendingShiftThreeModelBy(rowModel?._sjavms_volunteerevent_value ?? "")
         cell.eventId = eventId ?? ""
         
@@ -583,11 +635,11 @@ extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if (self.pendingShiftData?[indexPath.row].event_selected ?? false){
+        if (self.filterPendingShiftData?[indexPath.row].event_selected ?? false){
             
-            self.pendingShiftData?[indexPath.row].event_selected = false
+            self.filterPendingShiftData?[indexPath.row].event_selected = false
         }else{
-            self.pendingShiftData?[indexPath.row].event_selected = true
+            self.filterPendingShiftData?[indexPath.row].event_selected = true
         }
         
         tableView.reloadRows(at: [indexPath], with: .none)

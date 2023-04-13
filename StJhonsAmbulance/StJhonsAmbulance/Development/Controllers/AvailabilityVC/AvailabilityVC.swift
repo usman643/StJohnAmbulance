@@ -7,14 +7,21 @@
 
 import UIKit
 
-class AvailabilityVC: ENTALDBaseViewController {
+class AvailabilityVC: ENTALDBaseViewController,UITextFieldDelegate {
 
     
     var adhocData : [SideMenuHoursModel]?
     var volunteerHourData : [SideMenuHoursModel]?
     var availablityData : [AvailablityHourModel]?
+    var filterAdhocData : [SideMenuHoursModel]?
+    var filterVolunteerHourData : [SideMenuHoursModel]?
+    var filterAvailablityData : [AvailablityHourModel]?
     var programsData : [ProgramModel]?
     let contactId = UserDefaults.standard.contactIdToken ?? ""
+    
+    var isAdhocTableSearch = false
+    var isVolunteerHourTableSearch = false
+    var isAvailablityTableSearch = false
     
     var isAdhocTitle = false
     var isAdhocPrgram = false
@@ -53,6 +60,11 @@ class AvailabilityVC: ENTALDBaseViewController {
     @IBOutlet weak var lblYeartoDate: UILabel!
     @IBOutlet weak var lblLifeTime: UILabel!
     
+    @IBOutlet weak var searchView: UIView!
+    @IBOutlet weak var searchImg: UIImageView!
+    @IBOutlet weak var textSearch: UITextField!
+    @IBOutlet weak var btnSearchClose: UIButton!
+    
 //    @IBOutlet weak var lblTabTitle: UILabel!
 //    @IBOutlet weak var selectedTabImg: UIImageView!
     
@@ -62,6 +74,7 @@ class AvailabilityVC: ENTALDBaseViewController {
         decorateUI()
         setupContent()
         registerCell()
+        textSearch.delegate = self
     }
     
     func registerCell(){
@@ -129,6 +142,12 @@ class AvailabilityVC: ENTALDBaseViewController {
         lblYeartoDate.font = UIFont.BoldFont(16)
         lblLifeTime.textColor = UIColor.themePrimaryWhite
         lblLifeTime.font = UIFont.BoldFont(16)
+        
+        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+        searchView.layer.borderWidth = 1.5
+        searchView.isHidden = true
+        
+        textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
 //        lblTabTitle.textColor = UIColor.themePrimaryColor
 //        lblTabTitle.font = UIFont.BoldFont(16)
 //        
@@ -160,6 +179,7 @@ class AvailabilityVC: ENTALDBaseViewController {
     }
     
     
+    
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -167,27 +187,45 @@ class AvailabilityVC: ENTALDBaseViewController {
     @IBAction func homeTapped(_ sender: Any) {
     
     }
+    @IBAction func closeSearch(_ sender: Any) {
+        self.searchView.isHidden = true
+        textSearch.endEditing(true)
+        textSearch.text = ""
+        filterAvailablityData = availablityData
+        filterVolunteerHourData = volunteerHourData
+        filterAdhocData = adhocData
+        
+        availablityTableView.reloadData()
+        voluteerHourTableView.reloadData()
+        adhocTableView.reloadData()
+        
+    }
     
     @IBAction func adhocFilterTapped(_ sender: Any) {
-        self.adhocData = self.adhocData?.reversed()
-        DispatchQueue.main.async {
-            self.adhocTableView.reloadData()
-        }
+        isAdhocTableSearch = true
+        isVolunteerHourTableSearch = false
+        isAvailablityTableSearch = false
+        self.searchView.isHidden = false
+        self.textSearch.placeholder = "Filter Adhoc Hour"
         
     }
     
     @IBAction func volunteerFilterTapped(_ sender: Any) {
-        self.volunteerHourData = self.volunteerHourData?.reversed()
-        DispatchQueue.main.async {
-            self.voluteerHourTableView .reloadData()
-        }
+        isAdhocTableSearch = false
+        isVolunteerHourTableSearch = true
+        isAvailablityTableSearch = false
+        self.searchView.isHidden = false
+        self.textSearch.placeholder = "Filter Volunteer Hour"
+       
     }
     
     @IBAction func availablityFilterTapped(_ sender: Any) {
-        self.availablityData = self.availablityData?.reversed()
-        DispatchQueue.main.async {
-            self.availablityTableView.reloadData()
-        }
+        
+        isAdhocTableSearch = false
+        isVolunteerHourTableSearch = false
+        isAvailablityTableSearch = true
+        self.searchView.isHidden = false
+        self.textSearch.placeholder = "Filter Availability"
     }
 
     func showEmptyView(tableVw : UITableView){
@@ -198,16 +236,76 @@ class AvailabilityVC: ENTALDBaseViewController {
         }
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        btnSearchClose.isHidden = false
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+//        btnSearchClose.isHidden = true
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        
+        if (textField.text != "" && isAdhocTableSearch == true ){
+            
+            filterAdhocData  =  adhocData?.filter({
+                if let name = $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                    return true
+                }
+                return false
+            })
+            DispatchQueue.main.async {
+                self.adhocTableView.reloadData()
+            }
+            
+            
+        }else if(textField.text != "" && isVolunteerHourTableSearch == true ){
+            
+            filterVolunteerHourData  =  volunteerHourData?.filter({
+                if let name = $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle , name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                    return true
+                 }
+               return false
+             })
+            
+            DispatchQueue.main.async {
+                self.voluteerHourTableView.reloadData()
+            }
+            
+        }else if(textField.text != "" && isAvailablityTableSearch == true ){
+            
+            filterAvailablityData  =  availablityData?.filter({
+                if let name = $0.msnfp_availabilitytitle, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                    return true
+                }
+                return false
+            })
+            DispatchQueue.main.async {
+                self.availablityTableView.reloadData()
+            }
+            
+        }else{
+            DispatchQueue.main.async {
+                self.filterAdhocData = self.adhocData
+                self.adhocTableView.reloadData()
+                self.filterAvailablityData = self.availablityData
+                self.availablityTableView.reloadData()
+                self.filterVolunteerHourData = self.volunteerHourData
+                self.voluteerHourTableView.reloadData()
+            }
+        }
+    }
+    
     // ============================  Filters  ===============================
     
     @IBAction func adhocTitleFilter(_ sender: Any) {
         if !isAdhocTitle{
-            self.adhocData = self.adhocData?.sorted {
+            self.filterAdhocData = self.filterAdhocData?.sorted {
                 $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" < $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
             }
             isAdhocTitle = true
         }else{
-            self.adhocData = self.adhocData?.sorted {
+            self.filterAdhocData = self.filterAdhocData?.sorted {
                 $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" > $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
             }
             isAdhocTitle = false
@@ -223,12 +321,12 @@ class AvailabilityVC: ENTALDBaseViewController {
     
     @IBAction func adhocProgramFilter(_ sender: Any) {
         if !isAdhocPrgram{
-            self.adhocData = self.adhocData?.sorted {
+            self.filterAdhocData = self.filterAdhocData?.sorted {
                 $0.program_name ?? "" < $1.program_name ?? ""
             }
             isAdhocPrgram = true
         }else{
-            self.adhocData = self.adhocData?.sorted {
+            self.filterAdhocData = self.filterAdhocData?.sorted {
                 $0.program_name ?? "" > $1.program_name ?? ""
             }
             isAdhocPrgram = false
@@ -244,12 +342,12 @@ class AvailabilityVC: ENTALDBaseViewController {
     @IBAction func adhocHourFilter(_ sender: Any) {
         
         if !isAdhocHours{
-            self.adhocData = self.adhocData?.sorted {
+            self.filterAdhocData = self.filterAdhocData?.sorted {
                 $0.sjavms_hours ?? 0 < $1.sjavms_hours ?? 0
             }
             isAdhocHours = true
         }else{
-            self.adhocData = self.adhocData?.sorted {
+            self.filterAdhocData = self.filterAdhocData?.sorted {
                 $0.sjavms_hours ?? 0 > $1.sjavms_hours ?? 0
             }
             isAdhocHours = false
@@ -265,12 +363,12 @@ class AvailabilityVC: ENTALDBaseViewController {
     
     @IBAction func volunteerTitleFilter(_ sender: Any) {
         if !isVolunteerEvent{
-            self.volunteerHourData = self.volunteerHourData?.sorted {
+            self.filterVolunteerHourData = self.filterVolunteerHourData?.sorted {
                 $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" < $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
             }
             isVolunteerEvent = true
         }else{
-            self.volunteerHourData = self.volunteerHourData?.sorted {
+            self.filterVolunteerHourData = self.filterVolunteerHourData?.sorted {
                 $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "" > $1.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
             }
             isVolunteerEvent = false
@@ -291,12 +389,12 @@ class AvailabilityVC: ENTALDBaseViewController {
     @IBAction func volunteerProgramFilter(_ sender: Any) {
         
         if !isVolunteerProgram{
-            self.volunteerHourData = self.volunteerHourData?.sorted {
+            self.filterVolunteerHourData = self.filterVolunteerHourData?.sorted {
                 $0.program_name ?? "" < $1.program_name ?? ""
             }
             isVolunteerProgram = true
         }else{
-            self.volunteerHourData = self.volunteerHourData?.sorted {
+            self.filterVolunteerHourData = self.filterVolunteerHourData?.sorted {
                 $0.program_name ?? "" > $1.program_name ?? ""
             }
             isVolunteerProgram = false
@@ -316,12 +414,12 @@ class AvailabilityVC: ENTALDBaseViewController {
     @IBAction func volunteerScheduleFilter(_ sender: Any) {
         
         if !isVolunteerSchedule{
-            self.volunteerHourData = self.volunteerHourData?.sorted {
+            self.filterVolunteerHourData = self.filterVolunteerHourData?.sorted {
                 $0.msnfp_schedulestatus ?? 0 < $1.msnfp_schedulestatus ?? 0
             }
             isVolunteerSchedule = true
         }else{
-            self.volunteerHourData = self.volunteerHourData?.sorted {
+            self.filterVolunteerHourData = self.filterVolunteerHourData?.sorted {
                 $0.msnfp_schedulestatus ?? 0 > $1.msnfp_schedulestatus ?? 0
             }
             isVolunteerSchedule = false
@@ -340,12 +438,12 @@ class AvailabilityVC: ENTALDBaseViewController {
     @IBAction func volunteerStartFilter(_ sender: Any) {
         
         if !isVolunteerStart{
-            self.volunteerHourData = self.volunteerHourData?.sorted {
+            self.filterVolunteerHourData = self.filterVolunteerHourData?.sorted {
                 $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
             }
             isVolunteerStart = true
         }else{
-            self.volunteerHourData = self.volunteerHourData?.sorted {
+            self.filterVolunteerHourData = self.filterVolunteerHourData?.sorted {
                 $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
             }
             isVolunteerStart = false
@@ -364,12 +462,12 @@ class AvailabilityVC: ENTALDBaseViewController {
     @IBAction func volunteerEndFilter(_ sender: Any) {
         
         if !isVolunteerEnd{
-            self.volunteerHourData = self.volunteerHourData?.sorted {
+            self.filterVolunteerHourData = self.filterVolunteerHourData?.sorted {
                 $0.sjavms_end ?? "" < $1.sjavms_end ?? ""
             }
             isVolunteerEnd = true
         }else{
-            self.volunteerHourData = self.volunteerHourData?.sorted {
+            self.filterVolunteerHourData = self.filterVolunteerHourData?.sorted {
                 $0.sjavms_end ?? "" > $1.sjavms_end ?? ""
             }
             isVolunteerEnd = false
@@ -389,12 +487,12 @@ class AvailabilityVC: ENTALDBaseViewController {
     @IBAction func volunteerHourFilter(_ sender: Any) {
         
         if !isVolunteerHour{
-            self.volunteerHourData = self.volunteerHourData?.sorted {
+            self.filterVolunteerHourData = self.filterVolunteerHourData?.sorted {
                 $0.sjavms_hours ?? 0 < $1.sjavms_hours ?? 0
             }
             isVolunteerHour = true
         }else{
-            self.volunteerHourData = self.volunteerHourData?.sorted {
+            self.filterVolunteerHourData = self.filterVolunteerHourData?.sorted {
                 $0.sjavms_hours ?? 0 > $1.sjavms_hours ?? 0
             }
             isVolunteerHour = false
@@ -414,12 +512,12 @@ class AvailabilityVC: ENTALDBaseViewController {
     @IBAction func availabilityTitleFilter(_ sender: Any) {
         
         if !isAvailabilityTitle{
-            self.availablityData = self.availablityData?.sorted {
+            self.filterAvailablityData = self.filterAvailablityData?.sorted {
                 $0.msnfp_availabilitytitle ?? "" < $1.msnfp_availabilitytitle ?? ""
             }
             isAvailabilityTitle = true
         }else{
-            self.availablityData = self.availablityData?.sorted {
+            self.filterAvailablityData = self.filterAvailablityData?.sorted {
                 $0.msnfp_availabilitytitle ?? "" > $1.msnfp_availabilitytitle ?? ""
             }
             isAvailabilityTitle = false
@@ -436,12 +534,12 @@ class AvailabilityVC: ENTALDBaseViewController {
     @IBAction func availabilityEffectiveFromFilter(_ sender: Any) {
         
         if !isAvailabilityEffectiveFrom{
-            self.availablityData = self.availablityData?.sorted {
+            self.filterAvailablityData = self.filterAvailablityData?.sorted {
                 $0.msnfp_effectivefrom ?? "" < $1.msnfp_effectivefrom ?? ""
             }
             isAvailabilityEffectiveFrom = true
         }else{
-            self.availablityData = self.availablityData?.sorted {
+            self.filterAvailablityData = self.filterAvailablityData?.sorted {
                 $0.msnfp_effectivefrom ?? "" > $1.msnfp_effectivefrom ?? ""
             }
             isAvailabilityEffectiveFrom = false
@@ -458,12 +556,12 @@ class AvailabilityVC: ENTALDBaseViewController {
     @IBAction func availabilityEffectiveToFilter(_ sender: Any) {
         
         if !isAvailabilityEffectiveTo{
-            self.availablityData = self.availablityData?.sorted {
+            self.filterAvailablityData = self.filterAvailablityData?.sorted {
                 $0.msnfp_effectiveto ?? "" < $1.msnfp_effectiveto ?? ""
             }
             isAvailabilityEffectiveTo = true
         }else{
-            self.availablityData = self.availablityData?.sorted {
+            self.filterAvailablityData = self.filterAvailablityData?.sorted {
                 $0.msnfp_effectiveto ?? "" > $1.msnfp_effectiveto ?? ""
             }
             isAvailabilityEffectiveTo = false
@@ -560,6 +658,7 @@ class AvailabilityVC: ENTALDBaseViewController {
                 
                 if let availablity = response.value {
                     self.availablityData = availablity
+                    self.filterAvailablityData = availablity
                     if (self.availablityData?.count == 0 || self.availablityData?.count == nil){
                         self.showEmptyView(tableVw: self.availablityTableView)
                     }else{
@@ -619,6 +718,7 @@ class AvailabilityVC: ENTALDBaseViewController {
                 
                 if let hours = response.value {
                     self.volunteerHourData = hours
+                    self.filterVolunteerHourData = hours
                     if (self.volunteerHourData?.count == 0 || self.volunteerHourData?.count == nil){
                         self.showEmptyView(tableVw: self.voluteerHourTableView)
                     }else{
@@ -686,6 +786,7 @@ class AvailabilityVC: ENTALDBaseViewController {
                 
                 if let hours = response.value {
                     self.adhocData = hours
+                    self.filterAdhocData = hours
                     if (self.adhocData?.count == 0 || self.adhocData?.count == nil){
                         self.showEmptyView(tableVw: self.adhocTableView)
                     }else{
@@ -739,11 +840,11 @@ class AvailabilityVC: ENTALDBaseViewController {
 extension AvailabilityVC : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (tableView == self.adhocTableView){
-            return adhocData?.count ?? 0
+            return filterAdhocData?.count ?? 0
         }else if (tableView == voluteerHourTableView){
-            return volunteerHourData?.count ?? 0
+            return filterVolunteerHourData?.count ?? 0
         }else if (tableView == availablityTableView){
-            return availablityData?.count ?? 0
+            return filterAvailablityData?.count ?? 0
         }
 
         return 0
@@ -762,7 +863,7 @@ extension AvailabilityVC : UITableViewDelegate, UITableViewDataSource{
                 cell.seperatorView.backgroundColor = UIColor.gray
             }
 
-            let rowModel = self.adhocData?[indexPath.row]
+            let rowModel = self.filterAdhocData?[indexPath.row]
             let programName = self.getProgramName(rowModel?.sjavms_VolunteerEvent?._sjavms_program_value ?? "")
             cell.setContent(cellModel: rowModel , programName: programName)
             return cell
@@ -778,7 +879,7 @@ extension AvailabilityVC : UITableViewDelegate, UITableViewDataSource{
                 cell.backgroundColor = UIColor.viewLightColor
                 cell.seperaterView.backgroundColor = UIColor.gray
             }
-            let rowModel = self.volunteerHourData?[indexPath.row]
+            let rowModel = self.filterVolunteerHourData?[indexPath.row]
             let programName = self.getProgramName(rowModel?.sjavms_VolunteerEvent?._sjavms_program_value ?? "")
             cell.setContent(cellModel: rowModel , programName: programName)
             return cell
@@ -794,7 +895,7 @@ extension AvailabilityVC : UITableViewDelegate, UITableViewDataSource{
                 cell.backgroundColor = UIColor.viewLightColor
                 cell.seperaterView.backgroundColor = UIColor.gray
             }
-            let rowModel = self.availablityData?[indexPath.row]
+            let rowModel = self.filterAvailablityData?[indexPath.row]
             cell.setContent(cellModel: rowModel)
             return cell
         }else{
@@ -809,7 +910,7 @@ extension AvailabilityVC : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == availablityTableView {
-            let rowModel = self.availablityData?[indexPath.row]
+            let rowModel = self.filterAvailablityData?[indexPath.row]
             ENTALDControllers.shared.showAddAvilabilityScreen(type: .ENTALDPUSH, from: self, dataObj : rowModel, action: "edit") { params, controller in
                 if(params as? Int == 1){
                     self.getAvailability()

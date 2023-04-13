@@ -15,8 +15,10 @@ class EventSummaryScreenVC: ENTALDBaseViewController {
     var participantCount : [ParticipantsCountModel]?
     var programsData : [ProgramModel]?
     var selectedStatus : String?
-    @IBOutlet weak var lblTitle: UILabel!
+    var adhocSelected : Bool?
     
+    
+    @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblStatus: UILabel!
     @IBOutlet weak var lblEventName: UILabel!
     @IBOutlet weak var lblProgram: UILabel!
@@ -86,6 +88,7 @@ class EventSummaryScreenVC: ENTALDBaseViewController {
         txtEventDesc.textColor = UIColor.themeBlackText
         btnSelectProgram.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnSelectProgram.titleLabel?.font = UIFont.BoldFont(14)
+        btnAdhoc.layer.cornerRadius = 3
         
         for label in lblTitles{
             label.font = UIFont.BoldFont(14)
@@ -102,7 +105,7 @@ class EventSummaryScreenVC: ENTALDBaseViewController {
             label.textColor = UIColor.themePrimaryWhite
         }
         
-        self.txtEventName.isUserInteractionEnabled = false
+//        self.txtEventName.isUserInteractionEnabled = false
 //        self.lblShortDesc.isUserInteractionEnabled = false
         
     }
@@ -110,11 +113,21 @@ class EventSummaryScreenVC: ENTALDBaseViewController {
     
     @IBAction func adhocEventTapped(_ sender: Any) {
         
+        if (self.adhocSelected == true){
+            self.adhocSelected = false
+            self.btnAdhoc.setImage(UIImage(named: ""), for: .normal)
+            self.btnAdhoc.backgroundColor = UIColor.viewLightGrayColor
+        }else{
+            self.adhocSelected = true
+            self.btnAdhoc.setImage(UIImage(named: "ic_check"), for: .normal)
+            self.btnAdhoc.backgroundColor = UIColor.clear
+        }
+        
         
     }
     @IBAction func submitTapped(_ sender: Any) {
         
-        
+        self.updatedata()
     }
     
     @IBAction func volunteerFilter(_ sender: Any) {
@@ -140,9 +153,11 @@ class EventSummaryScreenVC: ENTALDBaseViewController {
         self.txtEventName.text = self.summaryData?.msnfp_engagementopportunitytitle ?? ""
         self.txtEventDesc.text = self.summaryData?.msnfp_shortdescription ?? ""
         if (self.summaryData?.sjavms_adhocevent == true) {
+            self.adhocSelected = true
             self.btnAdhoc.setImage(UIImage(named: "ic_check"), for: .normal)
             self.btnAdhoc.backgroundColor = UIColor.clear
         }else{
+            self.adhocSelected = false
             self.btnAdhoc.setImage(UIImage(named: ""), for: .normal)
             self.btnAdhoc.backgroundColor = UIColor.viewLightGrayColor
         }
@@ -393,8 +408,46 @@ class EventSummaryScreenVC: ENTALDBaseViewController {
     
     
     
-    
-    
+    fileprivate func updatedata(){
+
+        let params = [
+            "msnfp_engagementopportunitytitle": self.txtEventName.text as? String,
+            "msnfp_shortdescription": self.txtEventDesc.text as? String,
+            "sjavms_adhocevent": self.adhocSelected as? Bool
+            
+        ] as [String : Any]
+        
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        let eventId = self.eventData?.msnfp_engagementopportunityid ?? ""
+        
+        ENTALDLibraryAPI.shared.updateSummaryData(eventId: eventId, params: params) { result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: _):
+                DispatchQueue.main.async {
+                    LoadingView.hide()
+                }
+                
+            case .error(let error, let errorResponse):
+                if error == .patchSuccess {
+                    debugPrint("Successfully Updated")
+                }else{
+                    var message = error.message
+                    if let err = errorResponse {
+                        message = err.error
+                    }
+                    DispatchQueue.main.async {
+                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                    }
+                }
+            }
+        }
+    }
     
     
     

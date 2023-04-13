@@ -471,25 +471,28 @@ class SkillsVC: ENTALDBaseViewController {
             }
             
             switch result{
-            case .success(value: let response):
-                if let pastEvent = response.value {
-
-                }else{
-//                    self.showEmptyView(tableVw: self.tableView)
+            case .success(value: _):
+                DispatchQueue.main.async {
+                    LoadingView.hide()
                 }
                 
             case .error(let error, let errorResponse):
-                var message = error.message
-                if let err = errorResponse {
-                    message = err.error
-                }
                 DispatchQueue.main.async {
-                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                    LoadingView.hide()
+                }
+                var message = error.message
+                if error == .patchSuccess {
+                    
+                }else{
+                    var message = error.message
+                    if let err = errorResponse {
+                        message = err.error
+                    }
+                    DispatchQueue.main.async {
+                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                    }
                 }
             }
-        }
-        DispatchQueue.main.async {
-            LoadingView.hide()
         }
     }
     
