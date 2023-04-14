@@ -47,7 +47,7 @@ class CSDashBoardVC: ENTALDBaseViewController{
         
         collectionView.register(UINib(nibName: "CSDashBaordCVC", bundle: nil), forCellWithReuseIdentifier: "CSDashBaordCVC")
         decorateUI()
-        getDashBoardOrder()
+//        getDashBoardOrder()
 //        setSideMenu()
         
         gridData = [
@@ -58,6 +58,7 @@ class CSDashBoardVC: ENTALDBaseViewController{
                     DashBoardGridModel(title: "Pending Shifts", subTitle: "", bgColor: UIColor.lightBlueColor, icon: "ic_hour",key: "sjavms_pendingshifts"),
                     DashBoardGridModel(title: "Pending Events", subTitle: "", bgColor: UIColor.themePrimaryColor, icon: "ic_pendingEvent", key: "sjavms_pendingevents")
                 ]
+        getDashBoardOrder()
         if (ProcessUtils.shared.selectedUserGroup == nil){
             ProcessUtils.shared.selectedUserGroup = ProcessUtils.shared.userGroupsList[0]
             btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupName() ?? "", for: .normal)
@@ -74,74 +75,6 @@ class CSDashBoardVC: ENTALDBaseViewController{
         }
         
     }
-
-//    func setSideMenu(){
-//
-//        self.sideMenu = SideMenuVC()
-//        if let list = sideMenu {
-//
-//            list.delegate = self
-//            self.menu = SideMenuNavigationController(rootViewController: list)
-//            self.menu?.leftSide = false
-//            self.menu?.setNavigationBarHidden(true, animated: true)
-//            self.menu?.menuWidth = view.bounds.width * 0.8
-//            SideMenuManager.default.leftMenuNavigationController = menu
-//            SideMenuManager.default.addPanGestureToPresent(toView: self.view)
-//        }
-//    }
-//
-//    func didSelectMenuItem(named: String) {
-//
-//        if (named == "Home") {
-//            dismiss(animated: true)
-//        }else if(named == "Profile"){
-//
-//            self.navigationController?.popToRootViewController(animated: true)
-//            ENTALDControllers.shared.showContactInfoScreen(type: .ENTALDPUSH, from: self, callBack: nil)
-//
-//        }else if(named == "Qualifications/Certifications"){
-//
-//            self.navigationController?.popToRootViewController(animated: true)
-//            ENTALDControllers.shared.showSideMenuQualificationScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
-//
-//        }else if(named == "Availability"){
-//
-//            self.navigationController?.popToRootViewController(animated: true)
-//            ENTALDControllers.shared.showSideMenuAvailabilityScreen(type: .ENTALDPUSH, from: self, callBack: nil)
-//
-//        }else if(named == "Skills"){
-//
-//            self.navigationController?.popToRootViewController(animated: true)
-//            ENTALDControllers.shared.showSideMenuSkillsScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
-//
-//        }else if(named == "Language"){
-//
-//            self.navigationController?.popToRootViewController(animated: true)
-//            ENTALDControllers.shared.showLanguageScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
-//
-//        }else if(named == "Settings"){
-//
-//            self.navigationController?.popToRootViewController(animated: true)
-//            ENTALDControllers.shared.showSettingScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
-//
-//        }else if(named == "Change Password"){
-//
-//            self.navigationController?.popToRootViewController(animated: true)
-////            ENTALDControllers.shared.showChangePasswordScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
-//            ENTALDControllers.shared.showUpdatePasswordScreen(type: .ENTALDPUSH, from: self, callBack: nil)
-//        }else if(named == "Documents"){
-//
-//            ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
-//
-//        }else if(named == "Logout"){
-//
-//            UserDefaults.standard.signOut()
-//
-//        }else{
-//
-//            dismiss(animated: true)
-//        }
-//    }
 
     func decorateUI(){
         self.btnMainView.backgroundColor = UIColor.themePrimaryColor
@@ -171,21 +104,21 @@ class CSDashBoardVC: ENTALDBaseViewController{
     
     @IBAction func openVolunteerScreen(_ sender: Any) {
         
-        self.openNextScreecn(controller: 2)
+        self.openNextScreecn(controller: "sjavms_volunteers")
     }
     
     @IBAction func openEventScreen(_ sender: Any) {
-        self.openNextScreecn(controller: 3)
+        self.openNextScreecn(controller: "sjavms_events")
         
     }
     
     @IBAction func openPendingShiftsScreen(_ sender: Any) {
-        self.openNextScreecn(controller: 4)
+        self.openNextScreecn(controller: "sjavms_pendingshifts")
         
     }
     
     @IBAction func openMessagesScreen(_ sender: Any) {
-        self.openNextScreecn(controller: 5)
+        self.openNextScreecn(controller: "sjavms_messages")
         
     }
     
@@ -221,18 +154,27 @@ class CSDashBoardVC: ENTALDBaseViewController{
                 
                 if let eventData = response.value {
                     self.latestEvent = eventData
-                    DispatchQueue.main.async {
+                    
+                    var index = NSNotFound
+                        
+                        for i in (0..<(self.gridData?.count ?? 0 )){
+                            if (self.gridData?[i].key ==  "sjavms_youthcamp"){
+                                index = i
+                            }
+                        }
+                    
                         if (self.latestEvent?.count != 0){
                             let date = DateFormatManager.shared.formatDateStrToStr(date: self.latestEvent?[0].msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "MMMM dd")
-                            self.gridData?[0].title = self.latestEvent?[0].msnfp_engagementopportunitytitle ?? ""
-                            self.gridData?[0].subTitle = date
+      
+                            self.gridData?[index].title = self.latestEvent?[0].msnfp_engagementopportunitytitle ?? ""
+                            self.gridData?[index].subTitle = date
                             
                             
                         }else{
-                            self.gridData?[0].title =  "No Upcoming Event"
-                            self.gridData?[0].subTitle = ""
+                            self.gridData?[index].title =  "No Upcoming Event"
+                            self.gridData?[index].subTitle = ""
                         }
-                    
+                    DispatchQueue.main.async {
                         self.collectionView.reloadData()
                     }
                 }
@@ -272,38 +214,43 @@ class CSDashBoardVC: ENTALDBaseViewController{
             case .success(value: let response):
                 
                 if let apidata = response.value {
-                    self.dashBoardOrder = apidata[0]        
-                    var modeldata : [DashBoardGridModel] = []
-                    
-                    var _ = self.gridData?.compactMap({ model in
-                        var model = model
+                    if apidata.count > 0 {
+                        self.dashBoardOrder = apidata[0]
+                        var modeldata : [DashBoardGridModel] = []
                         
-                        if model.key == "sjavms_youthcamp" {
-                            model.order = self.dashBoardOrder?.sjavms_youthcamp
-                        }else if model.key == "sjavms_messages" {
-                            model.order = self.dashBoardOrder?.sjavms_messages
-                        }else if model.key == "sjavms_volunteers" {
-                            model.order = self.dashBoardOrder?.sjavms_volunteers
-                        }else if model.key == "sjavms_events" {
-                            model.order = self.dashBoardOrder?.sjavms_events
-                        }else if model.key == "sjavms_pendingevents" {
-                            model.order = self.dashBoardOrder?.sjavms_pendingevents
-                        }else if model.key == "sjavms_pendingshifts" {
-                            model.order = self.dashBoardOrder?.sjavms_pendingshifts
+                        var _ = self.gridData?.compactMap({ model in
+                            var model = model
+                            
+                            if model.key == "sjavms_youthcamp" {
+                                model.order = self.dashBoardOrder?.sjavms_youthcamp
+                            }else if model.key == "sjavms_messages" {
+                                model.order = self.dashBoardOrder?.sjavms_messages
+                            }else if model.key == "sjavms_volunteers" {
+                                model.order = self.dashBoardOrder?.sjavms_volunteers
+                            }else if model.key == "sjavms_events" {
+                                model.order = self.dashBoardOrder?.sjavms_events
+                            }else if model.key == "sjavms_pendingevents" {
+                                model.order = self.dashBoardOrder?.sjavms_pendingevents
+                            }else if model.key == "sjavms_pendingshifts" {
+                                model.order = self.dashBoardOrder?.sjavms_pendingshifts
+                            }
+                            
+                            modeldata.append(model)
+                            return true
+                        })
+                        
+                        self.gridData = modeldata
+                        
+                        self.gridData = self.gridData?.sorted {
+                            $0.order ?? NSNotFound < $1.order ?? NSNotFound
+                        }
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
                         }
                         
-                        modeldata.append(model)
-                        return true
-                    })
-                    
-                    self.gridData = modeldata
-     
-                    self.gridData = self.gridData?.sorted {
-                        $0.order ?? NSNotFound < $1.order ?? NSNotFound
-                    }
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                    }
+                    }else{
+                            self.saveDashboardGridOrder()
+                        }
                 }else{
                     self.saveDashboardGridOrder()
                 }
@@ -353,9 +300,7 @@ class CSDashBoardVC: ENTALDBaseViewController{
                     LoadingView.hide()
                 }
                 if error == .patchSuccess {
-//                    DispatchQueue.main.async {
-//                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: "patch sucess", actionTitle: .KOK, completion: {status in })
-//                    }
+                    self.getDashBoardOrder()
                 }else{
                     var message = error.message
                     if let err = errorResponse {
@@ -367,6 +312,31 @@ class CSDashBoardVC: ENTALDBaseViewController{
                 }
             }
         }
+        
+        var modeldata : [DashBoardGridModel] = []
+        
+        var _ = self.gridData?.compactMap({ model in
+            var model = model
+            
+            if model.key == "sjavms_youthcamp" {
+                model.order = 1
+            }else if model.key == "sjavms_messages" {
+                model.order = 2
+            }else if model.key == "sjavms_volunteers" {
+                model.order = 3
+            }else if model.key == "sjavms_events" {
+                model.order = 4
+            }else if model.key == "sjavms_pendingshifts" {
+                model.order = 5
+            }else if model.key == "sjavms_pendingevents" {
+                model.order = 6
+            }
+            
+            modeldata.append(model)
+            return true
+        })
+        
+        self.gridData = modeldata
     }
     
     
@@ -390,10 +360,9 @@ class CSDashBoardVC: ENTALDBaseViewController{
                 DispatchQueue.main.async {
                     LoadingView.hide()
                 }
+                var message = error.message
                 if error == .patchSuccess {
-//                    DispatchQueue.main.async {
-//                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: "patch sucess", actionTitle: .KOK, completion: {status in })
-//                    }
+                    
                 }else{
                     var message = error.message
                     if let err = errorResponse {
@@ -428,37 +397,39 @@ class CSDashBoardVC: ENTALDBaseViewController{
         }
     }
     
-    func openNextScreecn(controller:Int?){
-        if controller == 0 {
+    
+    
+    func openNextScreecn(controller:String?){
+        if controller == "sjavms_youthcamp" {
             if !(self.latestEvent?.isEmpty ?? false){
                 ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data: self.latestEvent?.first) { params, controller in
-                    self.openNextScreecn(controller: params as? Int)
+                    self.openNextScreecn(controller: params as? String)
                 }
             }
-        }else if controller == 1 {
+        }else if controller == "sjavms_messages" {
             
             ENTALDControllers.shared.showMessageScreen(type: .ENTALDPUSH, from: self) { params, controller in
-                self.openNextScreecn(controller: params as? Int)
+                self.openNextScreecn(controller: params as? String)
             }
-        }else if controller == 2 {
+        }else if controller == "sjavms_volunteers" {
             
             ENTALDControllers.shared.showVolunteersScreen(type: .ENTALDPUSH, from: self) { params, controller in
-                self.openNextScreecn(controller: params as? Int)
+                self.openNextScreecn(controller: params as? String)
             }
-        }else if controller == 3 {
+        }else if controller == "sjavms_events" {
             
             ENTALDControllers.shared.showEventScreen(type: .ENTALDPUSH, from: self) { params, controller in
-                self.openNextScreecn(controller: params as? Int)
+                self.openNextScreecn(controller: params as? String)
             }
-        }else if controller == 4 {
+        }else if controller == "sjavms_pendingshifts" {
             
             ENTALDControllers.shared.showPendingShiftScreen(type: .ENTALDPUSH, from: self) { params, controller in
-                self.openNextScreecn(controller: params as? Int)
+                self.openNextScreecn(controller: params as? String)
             }
-        }else if controller == 5 {
+        }else if controller == "sjavms_pendingevents" {
             
             ENTALDControllers.shared.showPendingEventScreen(type: .ENTALDPUSH, from: self) { params, controller in
-                self.openNextScreecn(controller: params as? Int)
+                self.openNextScreecn(controller: params as? String)
             }
         }
     }
@@ -506,18 +477,12 @@ extension CSDashBoardVC : UICollectionViewDelegate,UICollectionViewDataSource, U
                           duration: 0.7,
                           options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in
             if status {
-                self.openNextScreecn(controller:indexPath.row)
+                self.openNextScreecn(controller:self.gridData?[indexPath.row].key)
             }
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        
-//        let itemPrice = String(gridData?[indexPath.row].title ?? "")
-//        let itemProvider = NSItemProvider(object: (gridData?[indexPath.row].title! ?? "") as NSString)
-//        let dragItem = UIDragItem(itemProvider: itemProvider)
-//        dragItem.localObject = itemPrice
-//        return [dragItem]
         
         let item = self.gridData?[indexPath.row]
         let itemProvider = NSItemProvider(object: item?.title as! NSString )

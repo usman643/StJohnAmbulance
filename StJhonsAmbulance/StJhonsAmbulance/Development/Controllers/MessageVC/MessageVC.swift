@@ -122,33 +122,35 @@ class MessageVC: ENTALDBaseViewController {
             if(fromVolunteerController ?? false){
 //                self.callbackToController?("message", self)
             }else{
-                self.callbackToController?(2, self)
+                self.callbackToController?("sjavms_volunteers", self)
             }
         }
         @IBAction func openEventScreen(_ sender: Any) {
             self.navigationController?.popViewController(animated: false)
             if(fromVolunteerController ?? false){
-                self.callbackToController?("event", self)
+                self.callbackToController?("sjavms_events", self)
             }else{
-                self.callbackToController?(3, self)
+                self.callbackToController?("sjavms_events", self)
             }
         }
         @IBAction func openPendingEventScreen(_ sender: Any) {
             self.navigationController?.popViewController(animated: false)
             if(fromVolunteerController ?? false){
-                self.callbackToController?("checkIn", self)
+                self.callbackToController?("sjavms_checkin", self)
             }else{
-                self.callbackToController?(4, self)
+                self.callbackToController?("sjavms_pendingevents", self)
             }
         }
         @IBAction func openPendingShiftsScreen(_ sender: Any) {
             self.navigationController?.popViewController(animated: false)
             if(fromVolunteerController ?? false){
-                self.callbackToController?("hours", self)
+                self.callbackToController?("sjavms_hours", self)
             }else{
-                self.callbackToController?(5, self)
+                self.callbackToController?("sjavms_pendingshifts", self)
             }
         }
+    
+    
     
     @IBAction func openDashboardScreen(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)

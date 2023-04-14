@@ -113,19 +113,22 @@ class QualificationCertificationVC: ENTALDBaseViewController,UITextFieldDelegate
     
     @IBAction func certificationFilterTapped(_ sender: Any) {
      
-        
+        isExternalTableSearch = false
+        isSJATableSearch = true
+      
+        self.searchView.isHidden = false
+        self.textSearch.placeholder = "Filter External Qualification Event"
         
         
     }
     
     @IBAction func qualificationFilterTapped(_ sender: Any) {
         
+        isExternalTableSearch = true
+        isSJATableSearch = false
       
-        
-        
-        
-        
-        
+        self.searchView.isHidden = false
+        self.textSearch.placeholder = "Filter SJA Qualification Event"
     }
     
     
@@ -519,9 +522,12 @@ class QualificationCertificationVC: ENTALDBaseViewController,UITextFieldDelegate
                             
                         }
                     }
-                    DispatchQueue.main.async {
-                        self.externalTable.reloadData()
-                    }
+                    
+                        DispatchQueue.main.async {
+                            self.externalTable.reloadData()
+                            
+                        }
+                    
                 }else{
                     self.showEmptyView(tableVw: self.externalTable)
                 }

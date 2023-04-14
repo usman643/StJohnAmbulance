@@ -466,35 +466,35 @@ class VolunteerHoursVC: ENTALDBaseViewController,UITextFieldDelegate {
     
     @IBAction func openLatestEventScreen(_ sender: Any) {
         self.navigationController?.popViewController(animated: false)
-        self.callbackToController?("latestEvent", self)
+        self.callbackToController?("sjavms_youthcamp", self)
     }
     
     @IBAction func openCheckInScreen(_ sender: Any) {
         self.navigationController?.popViewController(animated: false)
-        self.callbackToController?("checkIn", self)
+        self.callbackToController?("sjavms_checkin", self)
     }
     
     @IBAction func openEventScreen(_ sender: Any) {
         self.navigationController?.popViewController(animated: false)
-        self.callbackToController?("event", self)
+        self.callbackToController?("sjavms_events", self)
         
     }
     
     @IBAction func openHoursScreen(_ sender: Any) {
         self.navigationController?.popViewController(animated: false)
-        self.callbackToController?("hour", self)
+        self.callbackToController?("sjavms_hours", self)
         
     }
     
     @IBAction func openMessagesScreen(_ sender: Any) {
         self.navigationController?.popViewController(animated: false)
-        self.callbackToController?("message", self)
+        self.callbackToController?("sjavms_messages", self)
         
     }
     
     @IBAction func openScheduleScreen(_ sender: Any) {
         self.navigationController?.popViewController(animated: false)
-        self.callbackToController?("schedule", self)
+        self.callbackToController?("sjavms_myschedule", self)
         
     }
     

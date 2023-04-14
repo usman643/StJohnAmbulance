@@ -161,23 +161,23 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
     
     @IBAction func openMessagesScreen(_ sender: Any) {
         self.navigationController?.popViewController(animated: false)
-        self.callbackToController?(1, self)
+        self.callbackToController?("sjavms_messages", self)
     }
     @IBAction func openVolunteerScreen(_ sender: Any) {
         self.navigationController?.popViewController(animated: false)
-        self.callbackToController?(2, self)
+        self.callbackToController?("sjavms_volunteers", self)
     }
     @IBAction func openEventScreen(_ sender: Any) {
         self.navigationController?.popViewController(animated: false)
-        self.callbackToController?(3, self)
+        self.callbackToController?("sjavms_events", self)
     }
     @IBAction func openPendingEventScreen(_ sender: Any) {
         self.navigationController?.popViewController(animated: false)
-        self.callbackToController?(4, self)
+        self.callbackToController?("sjavms_pendingevents", self)
     }
     @IBAction func openPendingShiftsScreen(_ sender: Any) {
         self.navigationController?.popViewController(animated: false)
-        self.callbackToController?(5, self)
+        self.callbackToController?("sjavms_pendingshifts", self)
     }
  
     

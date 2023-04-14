@@ -37,7 +37,7 @@ enum DashBoardRouter : Router {
         case .getVolunteersOfEvent : return "msnfp_participationschedules"
         case .getDashboardTilesOrder : return "sjavms_dashboard_orders"
         case .saveDashboardTilesOrder : return "sjavms_dashboard_orders"
-        case .updateDashboardTilesOrder(let orderId, _) : return "msnfp_participationschedules(\(orderId))"
+        case .updateDashboardTilesOrder(let orderId, _) : return "sjavms_dashboard_orders(\(orderId))"
         case .simulate401: return "simulate-401"
         }
     }
