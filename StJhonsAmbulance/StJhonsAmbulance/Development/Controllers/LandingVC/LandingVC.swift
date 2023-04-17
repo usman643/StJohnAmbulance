@@ -34,10 +34,6 @@ class LandingVC: ENTALDBaseViewController {
         decorateUI()
         
         self.getGroups()
-        self.getGender()
-        self.getPrefferedNoun()
-        self.getPrefferedMethodContact()
-        self.getPrefferedLanguage()
     }
 
     func decorateUI(){
@@ -111,6 +107,11 @@ class LandingVC: ENTALDBaseViewController {
             DispatchQueue.main.async {
                 LoadingView.hide()
             }
+            self.getGender()
+            self.getPrefferedNoun()
+            self.getPrefferedMethodContact()
+            self.getPrefferedLanguage()
+            
             switch result {
             case .success(let response):
                 if let userGroups = response.value {

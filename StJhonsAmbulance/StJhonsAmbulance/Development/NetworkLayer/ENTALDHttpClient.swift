@@ -43,14 +43,14 @@ class ENTALDHttpClient {
     
     func request<T: Codable>(_ router: Router, completion:@escaping (ApiResult<T, ApiError>) ->Void) {
         
-//        if ProcessUtils.shared.shouldRefreshToken() {
-//            ProcessUtils.shared.refreshToken { status in
-//                if status {
-//                    self.request(router, completion: completion)
-//                }
-//            }
-//            return
-//        }
+        if ProcessUtils.shared.shouldRefreshToken() {
+            ProcessUtils.shared.refreshToken { status in
+                if status {
+                    self.request(router, completion: completion)
+                }
+            }
+            return
+        }
 
         guard let request = ENTALDNetworkRequest.shared.getRequestFor(router) else{return}
         
