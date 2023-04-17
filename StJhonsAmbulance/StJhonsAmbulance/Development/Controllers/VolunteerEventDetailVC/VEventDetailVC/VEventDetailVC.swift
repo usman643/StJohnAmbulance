@@ -13,6 +13,7 @@ class VEventDetailVC: ENTALDBaseViewController {
     var eventId : String?
     var userParticipantData : VolunteerEventParticipationCheckModel?
     var qualification : String?
+    var tabDetailData : VolunteerEventClickShiftDetailModel?
     
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblQualificationTitle: UILabel!
@@ -22,7 +23,8 @@ class VEventDetailVC: ENTALDBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.decorateUI()
-        self.getEventDetail()
+//        self.getEventDetail()
+        self.setupData()
     }
 
     
@@ -43,57 +45,57 @@ class VEventDetailVC: ENTALDBaseViewController {
     
     }
  
-    func getEventDetail() {
-        
-        let params : [String:Any] = [
-            ParameterKeys.select : "msnfp_location,msnfp_engagementopportunitytitle,msnfp_shortdescription,msnfp_qualifications,msnfp_startingdate,msnfp_locationname,msnfp_shifts,msnfp_locationcitystate",
-            ParameterKeys.filter : "(_msnfp_engagementopportunityid_value eq \(self.eventId ?? ""))"
-        ]
-        
-        self.getEventDetailData(params: params)
-        
-    }
-    
-    
-    fileprivate func getEventDetailData(params : [String:Any]){
-        DispatchQueue.main.async {
-            LoadingView.show()
-        }
-        
-        ENTALDLibraryAPI.shared.requestVolunteerEventClickShiftDetail(params: params){ result in
-            DispatchQueue.main.async {
-                LoadingView.hide()
-            }
-            switch result{
-            case .success(value: let response):
-                
-                if let qualification = response.value {
-                    self.detailData = qualification
-                    
-                    DispatchQueue.main.async {
-                        self.setupData()
-                       
-                    }
-                
-                }
-                
-            case .error(let error, let errorResponse):
-                var message = error.message
-                if let err = errorResponse {
-                    message = err.error
-                }
-
-                DispatchQueue.main.async {
-                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
-                }
-            }
-        }
-    }
+//    func getEventDetail() {
+//
+//        let params : [String:Any] = [
+//            ParameterKeys.select : "msnfp_location,msnfp_engagementopportunitytitle,msnfp_shortdescription,msnfp_qualifications,msnfp_startingdate,msnfp_locationname,msnfp_shifts,msnfp_locationcitystate,msnfp_endingdate",
+//            ParameterKeys.filter : "(_msnfp_engagementopportunityid_value eq \(self.eventId ?? ""))"
+//        ]
+//
+//        self.getEventDetailData(params: params)
+//
+//    }
+//
+//
+//    fileprivate func getEventDetailData(params : [String:Any]){
+//        DispatchQueue.main.async {
+//            LoadingView.show()
+//        }
+//
+//        ENTALDLibraryAPI.shared.requestVolunteerEventClickShiftDetail(params: params){ result in
+//            DispatchQueue.main.async {
+//                LoadingView.hide()
+//            }
+//            switch result{
+//            case .success(value: let response):
+//
+//                if let qualification = response.value {
+//                    self.detailData = qualification
+//
+//                    DispatchQueue.main.async {
+//                        self.setupData()
+//
+//                    }
+//
+//                }
+//
+//            case .error(let error, let errorResponse):
+//                var message = error.message
+//                if let err = errorResponse {
+//                    message = err.error
+//                }
+//
+//                DispatchQueue.main.async {
+//                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+//                }
+//            }
+//        }
+//    }
     
     func setupData(){
-        self.lblLocation.text = self.detailData?[0].msnfp_location ?? ""
-        self.lblQualification.text = self.detailData?[0].msnfp_qualifications ?? "None"
-        self.lblTitle.text = self.detailData?[0].msnfp_shortdescription ?? ""
+        self.lblLocation.text = self.tabDetailData?.msnfp_location ?? ""
+        self.lblQualification.text = self.tabDetailData?.msnfp_qualifications ?? "None"
+        self.lblTitle.text = self.tabDetailData?.msnfp_shortdescription ?? ""
     }
 
 }

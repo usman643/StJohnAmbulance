@@ -9,8 +9,8 @@ import UIKit
 
 protocol updateShiftOptionDelegate {
     
-    func bookShift(eventId:String)
-    func cancelShift(eventId:String)
+    func bookShift(eventId:String , participationId: String)
+    func cancelShift(eventId:String, participationId: String)
 }
 
 class ShiftOptionVC: ENTALDBaseViewController {
@@ -19,6 +19,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
     var participationData : [VolunteerEventParticipationCheckModel]?
     let contactId = UserDefaults.standard.contactIdToken ?? ""
     var eventOptions : [VolunteerEventClickOptionModel]?
+    var eventOptionsMapped : [VolunteerEventClickOptionModel]?
     var eventOptionsData : [VolunteerEventClickOptionModel]?
     var eventStatus : [VolunteerStatusShift]?
     
@@ -44,7 +45,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
         super.viewDidLoad()
         self.decorateUI()
         registerCell()
-        getEventParitionCheck()
+//        getEventParitionCheck()
         self.getEventOptions()
     }
     
@@ -87,33 +88,78 @@ class ShiftOptionVC: ENTALDBaseViewController {
     
     func bookShift(){
         
+        var selectedEvents:[[String: Any]] = []
         
-        let selectedEvents = self.eventOptionsData?.filter( {$0.event_selected == true})
         
-        for i in (0..<(selectedEvents?.count ?? 0 )){
+        for i in (0..<(self.eventOptionsData?.count ?? 0)){
             
-            if let data = selectedEvents?[i] as? VolunteerEventClickOptionModel {
+            for j in (0..<(self.eventOptionsData?[i].filterdata()?.count ?? 0)){
                 
-                let startDate = data.msnfp_effectivefrom ?? ""
-                let endDate = data.msnfp_effectiveto ?? ""
-                let participationId = self.userParticipantData?.msnfp_participationid ?? ""
-                let engagementopportunityscheduleid = data.msnfp_engagementopportunityscheduleid ?? ""
-                let hour = data.msnfp_hours ?? Float(NSNotFound)
-                let eventid = self.eventId ?? ""
-                
-                let params = [
+                if(self.eventOptionsData?[i].filterdata()?[j].participation_selected == true){
                     
-                    "sjavms_start" : startDate as String,
-                    "sjavms_end" : endDate as String,
-                    "msnfp_participationId@odata.bind" : "/msnfp_participations(\(participationId))" as String,
-                    "sjavms_Volunteer@odata.bind" :  "/contacts(\(self.contactId))" as String,
-                    "msnfp_engagementOpportunityScheduleId@odata.bind" : "/msnfp_engagementopportunityschedules(\(engagementopportunityscheduleid))" as String,
-                    "sjavms_VolunteerEvent@odata.bind" : "/msnfp_engagementopportunities(\(eventid))" as String,
-                    "sjavms_hours" : hour as Float
-                ] as [String : Any]
-                self.bookEvents(params: params)
+                    
+                    let startDate = self.eventOptionsData?[i].msnfp_effectivefrom ?? ""
+                    let endDate = self.eventOptionsData?[i].msnfp_effectiveto ?? ""
+                    let participationId = self.eventOptionsData?[i].filterdata()?[j]._msnfp_participationid_value ?? ""
+                    let engagementopportunityscheduleid = self.eventOptionsData?[i].msnfp_engagementopportunityscheduleid ?? ""
+                    let hour = self.eventOptionsData?[i].msnfp_hours ?? Float(NSNotFound)
+                    let eventid = self.eventId ?? ""
+                    
+                    let params = [
+                        
+                        "sjavms_start" : startDate as String,
+                        "sjavms_end" : endDate as String,
+                        "msnfp_participationId@odata.bind" : "/msnfp_participations(\(participationId))" as String,
+                        "sjavms_Volunteer@odata.bind" :  "/contacts(\(self.contactId))" as String,
+                        "msnfp_engagementOpportunityScheduleId@odata.bind" : "/msnfp_engagementopportunityschedules(\(engagementopportunityscheduleid))" as String,
+                        "sjavms_VolunteerEvent@odata.bind" : "/msnfp_engagementopportunities(\(eventid))" as String,
+                        "sjavms_hours" : hour as Float
+                    ] as [String : Any]
+                    
+                    selectedEvents.append(params)
+                    
+//                    selectedEvents.append(self.eventOptionsData?[i].filterdata()?[j]._msnfp_participationid_value ?? "")
+                }
             }
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//        let selectedEvents = self.eventOptionsData?.filter( {$0.event_selected == true})
+//
+//        for i in (0..<(selectedEvents?.count ?? 0 )){
+//
+//            if let data = selectedEvents?[i] as? VolunteerEventClickOptionModel {
+//
+//                let startDate = data.msnfp_effectivefrom ?? ""
+//                let endDate = data.msnfp_effectiveto ?? ""
+//                let participationId = self.userParticipantData?.msnfp_participationid ?? ""
+//                let engagementopportunityscheduleid = data.msnfp_engagementopportunityscheduleid ?? ""
+//                let hour = data.msnfp_hours ?? Float(NSNotFound)
+//                let eventid = self.eventId ?? ""
+//
+//                let params = [
+//
+//                    "sjavms_start" : startDate as String,
+//                    "sjavms_end" : endDate as String,
+//                    "msnfp_participationId@odata.bind" : "/msnfp_participations(\(participationId))" as String,
+//                    "sjavms_Volunteer@odata.bind" :  "/contacts(\(self.contactId))" as String,
+//                    "msnfp_engagementOpportunityScheduleId@odata.bind" : "/msnfp_engagementopportunityschedules(\(engagementopportunityscheduleid))" as String,
+//                    "sjavms_VolunteerEvent@odata.bind" : "/msnfp_engagementopportunities(\(eventid))" as String,
+//                    "sjavms_hours" : hour as Float
+//                ] as [String : Any]
+        
+        for i in (0..<(selectedEvents.count )){
+            
+                self.bookEvents(params: selectedEvents[i])
+            }
+//        }
     }
     
     func bookEvents(params: [String : Any]) {
@@ -149,19 +195,28 @@ class ShiftOptionVC: ENTALDBaseViewController {
     
     func cancelShift(){
         
-        let selectedEvents = self.eventOptionsData?.filter( {$0.event_selected == true})
+        var selectedEvents:[String] = []
         
-        for i in (0..<(selectedEvents?.count ?? 0 )){
+        
+        for i in (0..<(self.eventOptionsData?.count ?? 0)){
             
-            if let data = selectedEvents?[i] as? VolunteerEventClickOptionModel {
-
+            for j in (0..<(self.eventOptionsData?[i].filterdata()?.count ?? 0)){
+                
+                if(self.eventOptionsData?[i].filterdata()?[j].participation_selected == true){
+                    
+                    selectedEvents.append(self.eventOptionsData?[i].filterdata()?[j]._msnfp_participationid_value ?? "")
+                }
+            }
+        }
+        
+        for i in (0..<(selectedEvents.count )){
                 let params = [
                     
                     "msnfp_engagementopportunitystatus": 335940003 as Int
                 ] as [String : Any]
                 
-                self.closeVolunteersData(params: params, eventid: data.msnfp_participationscheduleid ?? "")
-            }
+                self.closeVolunteersData(params: params, eventid: selectedEvents[i] )
+            
         }
     }
     
@@ -446,8 +501,8 @@ class ShiftOptionVC: ENTALDBaseViewController {
     func getEventOptions() {
         
         let params : [String:Any] = [
-            ParameterKeys.select : "msnfp_engagementopportunityschedule,createdon,msnfp_totalhours,msnfp_startperiod,msnfp_hoursperday,_msnfp_engagementopportunity_value,msnfp_endperiod,msnfp_effectiveto,msnfp_effectivefrom,msnfp_workingdays,msnfp_engagementopportunityscheduleid",
-            ParameterKeys.expand : "msnfp_ParticipationSchedule_engagementOpp($select=msnfp_participationscheduleid,_msnfp_participationid_value,_sjavms_volunteer_value,msnfp_name,msnfp_schedulestatus;$filter=(_sjavms_volunteer_value eq d7b36463-1b9b-ec11-b3fe-0022486dfb67 and msnfp_schedulestatus eq 335940001))",
+            ParameterKeys.select : "msnfp_engagementopportunityschedule,createdon,msnfp_totalhours,msnfp_startperiod,msnfp_hoursperday,_msnfp_engagementopportunity_value,msnfp_endperiod,msnfp_effectiveto,msnfp_effectivefrom,msnfp_workingdays,msnfp_engagementopportunityscheduleid,msnfp_hours,msnfp_maximum,msnfp_number,msnfp_minimum",
+            ParameterKeys.expand : "msnfp_ParticipationSchedule_engagementOpp($select=msnfp_participationscheduleid,_msnfp_participationid_value,_sjavms_volunteer_value,msnfp_name,msnfp_schedulestatus;$filter=(_sjavms_volunteer_value eq \(self.contactId)))",
             ParameterKeys.filter : "(statecode eq 0 and _msnfp_engagementopportunity_value eq \(self.eventId ?? ""))",
             ParameterKeys.orderby : "msnfp_engagementopportunityschedule asc"
         ]
@@ -472,7 +527,6 @@ class ShiftOptionVC: ENTALDBaseViewController {
                 if let option = response.value {
                     self.eventOptions = option
                     self.eventOptionsData = option
-                    self.eventOptionsData?.removeAll()
                     
                     if (self.eventOptions?.count == 0 || self.eventOptions?.count == nil){
                         self.showEmptyView(tableVw: self.tableView)
@@ -485,17 +539,9 @@ class ShiftOptionVC: ENTALDBaseViewController {
                         }
                     }
                     
-                        for i in (0 ..< (self.eventOptions?.count ?? 0)) {
-                            var indx = false
-                            if (i == (self.eventOptions?.count ?? 0) - 1){
-                                indx = true
-                            }
-                            self.getvolunteerShiftStatus(scheduleId : self.eventOptions?[i].msnfp_engagementopportunityscheduleid ?? "" , indx :indx )
-                            
-                        }
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                        self.tableView.reloadData()
-//                    }
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
                     
                 }else{
                     self.showEmptyView(tableVw: self.tableView)
@@ -515,93 +561,52 @@ class ShiftOptionVC: ENTALDBaseViewController {
     }
     
     
-    func getvolunteerShiftStatus(scheduleId : String, indx : Bool){
-        
-        let params : [String:Any] = [
-            ParameterKeys.select : "msnfp_schedulestatus",
-            ParameterKeys.filter : "(_sjavms_volunteer_value eq \(self.contactId) and _sjavms_volunteerevent_value eq \(self.eventId ?? "") and _msnfp_engagementopportunityscheduleid_value eq \(scheduleId))"
-        ]
-        
-        DispatchQueue.main.async {
-            LoadingView.show()
-        }
-        
-        ENTALDLibraryAPI.shared.getvolunteerShiftStatus(params: params){ result in
-            DispatchQueue.main.async {
-                LoadingView.hide()
-            }
-            switch result{
-            case .success(value: let response):
-                
-                if let optionStatus = response.value {
-                    self.eventStatus = optionStatus
-                    var eventOption = self.eventOptions?.filter({$0.msnfp_engagementopportunityscheduleid == scheduleId}).first
-                    for i in (0 ..< (optionStatus.count)) {
-                         
-                        eventOption?.msnfp_schedulestatus  = optionStatus[i].msnfp_schedulestatus
-                        eventOption?.msnfp_participationscheduleid  = optionStatus[i].msnfp_participationscheduleid
-                    
-                        self.eventOptionsData?.append(eventOption! as VolunteerEventClickOptionModel)
-                    }
-                    
-                    if (indx == true){
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
-                        }
-                        
-                    }
-                }
-                
-                
-            case .error(let error, let errorResponse):
-                var message = error.message
-                if let err = errorResponse {
-                    message = err.error
-                }
-                
-                DispatchQueue.main.async {
-                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
-                }
-            }
-        }
-    }
-    
-    
-    
 }
 
 
 
 extension ShiftOptionVC : UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return self.eventOptionsData?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.eventOptionsData?[section].filterdata()?.count ?? 0
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ShiftOptionTVC", for: indexPath) as! ShiftOptionTVC
-        if indexPath.row % 2 == 0{
-            cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-            cell.seperatorView.backgroundColor = UIColor.themePrimary
-        }else{
-            cell.mainView.backgroundColor = UIColor.viewLightColor
-            cell.seperatorView.backgroundColor = UIColor.gray
-        }
-        cell.setContent(cellModel: self.eventOptionsData?[indexPath.row])
         
+        
+         let rowModel = self.eventOptionsData?[indexPath.section].filterdata()?[indexPath.row]
+            if indexPath.row % 2 == 0{
+                cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+                cell.seperatorView.backgroundColor = UIColor.themePrimary
+            }else{
+                cell.mainView.backgroundColor = UIColor.viewLightColor
+                cell.seperatorView.backgroundColor = UIColor.gray
+            }
+            
+            cell.setContent(cellModel: self.eventOptionsData?[indexPath.section] , rowModel : rowModel)
+  
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isBottombtnEnable == true{
+            var obj = self.eventOptionsData?[indexPath.section].filterdata()?[indexPath.row]
             
-            
-            if (self.eventOptionsData?[indexPath.row].event_selected ?? false){
+            if (self.eventOptionsData?[indexPath.section].filterdata()?[indexPath.row].participation_selected ?? false){
                 
-                self.eventOptionsData?[indexPath.row].event_selected = false
+                obj?.participation_selected = false
+//                self.eventOptionsData?[indexPath.section].filterdata()?[indexPath.row].participation_selected = false
             }else{
-                self.eventOptionsData?[indexPath.row].event_selected = true
+                obj?.participation_selected = true
+                
+//                self.eventOptionsData?[indexPath.section].filterdata()?[indexPath.row].participation_selected = true
+                
             }
 //            tableView.reloadData()
             tableView.reloadRows(at: [indexPath], with: .none)

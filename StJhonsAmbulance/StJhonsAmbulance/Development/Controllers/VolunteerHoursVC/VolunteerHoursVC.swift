@@ -162,7 +162,7 @@ class VolunteerHoursVC: ENTALDBaseViewController,UITextFieldDelegate {
         if (textField.text != "" && isEventSearchFilterApplied == true ){
             
             eventFilterData  =  eventData?.filter({
-                if let name = $0.event_name, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                if let name = $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
                     return true
                 }
                 return false
@@ -175,7 +175,7 @@ class VolunteerHoursVC: ENTALDBaseViewController,UITextFieldDelegate {
         }else if(textField.text != "" && isNonEventSearchFilterApplied == true ){
             
             nonEventFilterData  =  nonEventData?.filter({
-                if let name = $0.event_name, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                if let name = $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
                     return true
                  }
                return false

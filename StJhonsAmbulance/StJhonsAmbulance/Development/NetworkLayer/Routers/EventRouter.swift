@@ -32,6 +32,7 @@ enum EventRouter : Router {
     case updateEventStatus(eventId:String, params:[String:Any])
     case updateSummaryData(eventId:String, params:[String:Any])
     case volunteerCheckIn(participationId:String, params:[String:Any])
+    case cancelResgitertoAttendEvent(participationId:String, params:[String:Any])
     case getParticipantCount(params:[String:Any])
     case getOrganizerContact(params:[String:Any])
     case bookShift(params:[String:Any])
@@ -39,6 +40,7 @@ enum EventRouter : Router {
     case getvolunteerShiftStatus(params:[String:Any])
     case getAuditHistory(params:[String:Any])
     case getOtherVoulnteerParticipation(params:[String:Any])
+    case getEventDatilTabInfo(params:[String:Any])
     
     case createEvent(params:[String:Any])
     
@@ -70,6 +72,7 @@ enum EventRouter : Router {
         case .updateEventStatus(let eventId, _) : return "msnfp_engagementopportunities(\(eventId))"
         case .updateSummaryData(let eventId, _) : return "msnfp_engagementopportunities(\(eventId))"
         case .volunteerCheckIn(let participationId, _) : return "msnfp_participationschedules(\(participationId))"
+        case .cancelResgitertoAttendEvent(let participationId, _) : return "msnfp_participations(\(participationId))"
         case .getParticipantCount : return "msnfp_participations"
         case .getOrganizerContact : return "msnfp_engagementopportunities"
         case .createEvent : return "sjavms_eventrequests"
@@ -78,6 +81,7 @@ enum EventRouter : Router {
         case .getvolunteerShiftStatus : return "msnfp_participationschedules"
         case .getAuditHistory : return "audits"
         case .getOtherVoulnteerParticipation : return "msnfp_participations"
+        case .getEventDatilTabInfo : return "msnfp_publicengagementopportunities"
             
             
         case .simulate401: return "simulate-401"
@@ -134,6 +138,8 @@ enum EventRouter : Router {
             return params
         case .updateSummaryData(_, let params):
             return params
+        case .cancelResgitertoAttendEvent(_, let params):
+            return params
         case .getParticipantCount(let params):
             return params
         case .getOrganizerContact(let params):
@@ -174,6 +180,8 @@ enum EventRouter : Router {
             return HTTPMethodType.patch.rawValue
         case .updateEventStatus(_,_):
             return HTTPMethodType.patch.rawValue
+        case .cancelResgitertoAttendEvent(_,_):
+            return HTTPMethodType.patch.rawValue
         case .updateSummaryData(_,_):
             return HTTPMethodType.patch.rawValue
         case .volunteerCheckIn(_,_):
@@ -212,6 +220,8 @@ enum EventRouter : Router {
         case .pendingShiftUpdate(_,_):
             return .ENTJSONEncoding
         case .updateContactInfo(_,_):
+            return .ENTJSONEncoding
+        case .cancelResgitertoAttendEvent(_,_):
             return .ENTJSONEncoding
         case .updateEventStatus(_,_):
             return .ENTJSONEncoding

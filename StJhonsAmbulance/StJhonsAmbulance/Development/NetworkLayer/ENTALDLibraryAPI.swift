@@ -427,5 +427,10 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
+    func cancelResgitertoAttendEvent(participationId: String ,params:[String : Any],  _ completion:@escaping((ApiResult<DashBoardGridOrderResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.cancelResgitertoAttendEvent(participationId: participationId, params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
 }
 

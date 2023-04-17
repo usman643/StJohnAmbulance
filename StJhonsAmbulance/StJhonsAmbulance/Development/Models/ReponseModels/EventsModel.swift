@@ -160,6 +160,7 @@ struct VolunteerEventClickShiftDetailModel : Codable {
     let msnfp_shifts : Bool?
     let msnfp_locationcitystate : String?
     let msnfp_publicengagementopportunityid : String?
+    let msnfp_status : Int?
     
 }
 
@@ -182,8 +183,48 @@ struct VolunteerEventClickOptionModel : Codable {
     let msnfp_participationid : String?
     let statuscode : Int?
     let msnfp_engagementopportunityschedule : String?
-    var msnfp_participationscheduleid : String?
-    var msnfp_schedulestatus : Int?
+//    var msnfp_participationscheduleid : String?
+//    var msnfp_schedulestatus : Int?
+    
+    
+    let createdon : String?
+    let msnfp_totalhours : Float?
+    let msnfp_startperiod : Float?
+    let msnfp_hoursperday : Float?
+    let _msnfp_engagementopportunity_value : String?
+    let msnfp_endperiod : String?
+    let msnfp_workingdays : String?
+    var msnfp_ParticipationSchedule_engagementOpp : [ParticipationScheduleEngagementOppModel]?
+    
+     func filterdata() -> [ParticipationScheduleEngagementOppModel]?{
+
+        let conId = UserDefaults.standard.contactIdToken ?? ""
+        var msnfp_ParticipationSchedule_engagementOppFilter : [ParticipationScheduleEngagementOppModel]? = []
+        
+        msnfp_ParticipationSchedule_engagementOppFilter = msnfp_ParticipationSchedule_engagementOpp?.filter({
+            
+            if($0._sjavms_volunteer_value == conId){
+                return true
+            }
+            return false
+        })
+        return msnfp_ParticipationSchedule_engagementOppFilter
+    }
+   
+    
+    
+}
+ 
+
+struct ParticipationScheduleEngagementOppModel: Codable {
+    
+    let msnfp_participationscheduleid : String?
+    let _msnfp_participationid_value : String?
+    let _sjavms_volunteer_value : String?
+    let msnfp_name : String?
+    let msnfp_schedulestatus : Int?
+    let _msnfp_engagementopportunityscheduleid_value : String?
+    var participation_selected : Bool?
     
 }
 

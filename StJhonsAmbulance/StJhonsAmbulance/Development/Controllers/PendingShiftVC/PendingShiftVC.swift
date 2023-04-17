@@ -182,11 +182,11 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     }
     
     @IBAction func filterTapped(_ sender: Any) {
-        self.filterPendingShiftData = self.filterPendingShiftData?.reversed()
+       
+      
+        self.searchView.isHidden = false
+        self.textSearch.placeholder = "Search Pending Shift"
         
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
         
     }
     
@@ -335,7 +335,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         if (textField.text != "" ){
             
             filterPendingShiftData  =  pendingShiftData?.filter({
-                if let name = $0.event_name, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                if let name = $0.sjavms_Volunteer?.fullname, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
                     return true
                 }
                 return false

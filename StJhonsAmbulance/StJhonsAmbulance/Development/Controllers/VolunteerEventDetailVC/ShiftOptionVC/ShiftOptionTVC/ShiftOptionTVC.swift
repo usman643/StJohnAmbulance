@@ -48,14 +48,15 @@ class ShiftOptionTVC: UITableViewCell {
 
     }
     
-    func setContent(cellModel: VolunteerEventClickOptionModel?){
+    func setContent(cellModel: VolunteerEventClickOptionModel? , rowModel:ParticipationScheduleEngagementOppModel? ){
         
         
         
         lblShift.text = cellModel?.msnfp_engagementopportunityschedule ?? ""
         lblHours.text = "\(cellModel?.msnfp_hours ?? Float())"
-        lblNeeded.text = "\(cellModel?.msnfp_maximum ?? NSNotFound)"
-        if let status = ProcessUtils.shared.getStatus(code: cellModel?.msnfp_schedulestatus ?? NSNotFound){
+        let needed = (cellModel?.msnfp_maximum ?? NSNotFound) - (cellModel?.msnfp_number ?? NSNotFound) 
+        lblNeeded.text = "\(needed)"
+        if let status = ProcessUtils.shared.getStatus(code: rowModel?.msnfp_schedulestatus ?? NSNotFound){
             lblStatus.text = status
         }
 //        lblStatus.text = "\(cellModel?.msnfp_schedulestatus ?? NSNotFound)"

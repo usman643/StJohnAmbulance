@@ -16,6 +16,7 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
     var viewControllers: [UIViewController] = []
     var availableData : AvailableEventModel?
     var scheduleData : ScheduleModelThree?
+    var tabDetailData : [VolunteerEventClickShiftDetailModel]?
     var participationData : [VolunteerEventParticipationCheckModel]?
     var userParticipantData : VolunteerEventParticipationCheckModel?
     let contactId = UserDefaults.standard.contactIdToken ?? ""
@@ -25,6 +26,7 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
     var eventId = ""
     let currentDateTime = Date()
     var isBottombtnEnable = false
+    var isApplyNowShow = false
     
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var lblEventName: UILabel!
@@ -41,17 +43,19 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.decorateUI()
-        
-       
+
         if eventType == "schedule"{
             scheduleData = dataModel as? ScheduleModelThree
-            self.setupScheduleScreenData()
+            self.eventId = self.scheduleData?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
+//            self.setupScheduleScreenData()
             
             
         }else if eventType == "available"{
             availableData = dataModel as? AvailableEventModel
-            self.setupAvailiableScreenData()
+            self.eventId = self.availableData?.msnfp_engagementopportunityid ?? ""
+//            self.setupAvailiableScreenData()
         }
+        self.getEventTabDetail()
         self.getEventParitionCheck()
         self.reloadControllers()
     }
@@ -72,60 +76,95 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         
         btnCloseEvent.isHidden = true
         self.btnCancelApprovedShift.isHidden = true
+        self.btnCancelApprovedShift.layer.cornerRadius = self.btnCancelApprovedShift.frame.size.height/2
         
     }
     
-    func setupScheduleScreenData(){
-        lblEventName.text = self.scheduleData?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
-        lblEventLocation.text = self.scheduleData?.sjavms_VolunteerEvent?.msnfp_location ?? ""
-        
-        if let date = self.scheduleData?.sjavms_start {
-            
-            let dateStr = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat:"yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
-            self.lblEventDate.text = dateStr
-        }else{
-            self.lblEventDate.text = ""
-        }
-        self.eventId = self.scheduleData?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
-        if DateFormatManager.shared.formatDate(date: Date()) < self.scheduleData?.sjavms_end ?? ""{
-            isBottombtnEnable = true
-        }else{
-            isBottombtnEnable = false
-        }
-        
-//        if self.scheduleData?.msnfp_schedulestatus == 335940003 {
-//            self.lblDesc.text = "Cancelled"
-//            self.closeImg.isHidden = false
-//            self.btnCloseEvent.isHidden = true
+//    func setupScheduleScreenData(){
+//        lblEventName.text = self.scheduleData?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+//        lblEventLocation.text = self.scheduleData?.sjavms_VolunteerEvent?.msnfp_location ?? ""
+//
+//        if let date = self.scheduleData?.sjavms_start {
+//
+//            let dateStr = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat:"yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
+//            self.lblEventDate.text = dateStr
+//        }else{
+//            self.lblEventDate.text = ""
 //        }
+//        self.eventId = self.scheduleData?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
+//        if DateFormatManager.shared.formatDate(date: Date()) < self.scheduleData?.sjavms_end ?? ""{
+//            isBottombtnEnable = true
+//        }else{
+//            isBottombtnEnable = false
+//        }
+//
+////        if self.scheduleData?.msnfp_schedulestatus == 335940003 {
+////            self.lblDesc.text = "Cancelled"
+////            self.closeImg.isHidden = false
+////            self.btnCloseEvent.isHidden = true
+////        }
+//    }
+    
+    func setupData(){
+        DispatchQueue.main.async {
+            self.lblEventName.text = self.tabDetailData?[0].msnfp_engagementopportunitytitle ?? ""
+            self.lblEventLocation.text = self.tabDetailData?[0].msnfp_location ?? ""
+            
+            if let date = self.tabDetailData?[0].msnfp_startingdate {
+                
+                let dateStr = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat:"yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd hh:mm a")
+                self.lblEventDate.text = dateStr
+            }else{
+                self.lblEventDate.text = ""
+            }
+            if (self.tabDetailData?[0].msnfp_shifts == true){
+                let str  = self.lblEventDate.text
+                self.lblEventDate.text = "\(str ?? "")\n Multi Shift"
+                
+            }
+        }
+              
+        
+        
+//              if DateFormatManager.shared.formatDate(date: Date()) < self.scheduleData?.sjavms_end ?? ""{
+//                  isBottombtnEnable = true
+//              }else{
+//                  isBottombtnEnable = false
+//              }
+      
+
+        
+        
+        
+        
     }
     
-    func setupAvailiableScreenData(){
-        
-        lblEventName.text = self.availableData?.msnfp_engagementopportunitytitle ?? ""
-        lblEventLocation.text = self.availableData?.msnfp_location ?? ""
-        
-        if let date = self.availableData?.msnfp_startingdate {
-            
-            let dateStr = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat:"yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
-            self.lblEventDate.text = dateStr
-        }else{
-            self.lblEventDate.text = ""
-        }
-        
-        self.eventId = self.availableData?.msnfp_engagementopportunityid ?? ""
-        if DateFormatManager.shared.formatDate(date: Date()) < self.availableData?.msnfp_endingdate ?? ""{
-            isBottombtnEnable = true
-        }else{
-            isBottombtnEnable = false
-        }
-        
-//        if self.availableData?.msnfp_engagementopportunitystatus == 335940003 {
-//            self.lblDesc.text = "Cancelled"
-//            self.closeImg.isHidden = false
-//            self.btnCloseEvent.isHidden = true
+//    func setupAvailiableScreenData(){
+//
+//        lblEventName.text = self.availableData?.msnfp_engagementopportunitytitle ?? ""
+//        lblEventLocation.text = self.availableData?.msnfp_location ?? ""
+//
+//        if let date = self.availableData?.msnfp_startingdate {
+//
+//            let dateStr = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat:"yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
+//            self.lblEventDate.text = dateStr
+//        }else{
+//            self.lblEventDate.text = ""
 //        }
-    }
+//
+//        self.eventId = self.availableData?.msnfp_engagementopportunityid ?? ""
+//        if DateFormatManager.shared.formatDate(date: Date()) < self.availableData?.msnfp_endingdate ?? ""{
+//            isBottombtnEnable = true
+//        }else{
+//            isBottombtnEnable = false
+//        }
+//
+////        if self.availableData?.msnfp_engagementopportunitystatus == 335940003 {
+////            self.lblDesc.text = "Cancelled"
+////            self.closeImg.isHidden = false
+////            self.btnCloseEvent.isHidden = true
+////        }
+//    }
 
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -137,7 +176,12 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
     }
     
     @IBAction func closeEventTapped(_ sender: Any) {
-        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
+        if isApplyNowShow == true{
+            self.applyShift()
+        }else{
+            self.cancelRegisterToAttendEvent()
+        }
+//        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
     }
     
     func segmentsConfigurations(){
@@ -223,6 +267,52 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         
     }
     
+    
+    
+    fileprivate func cancelRegisterToAttendEvent(){
+        let participationId = self.userParticipantData?.msnfp_participationid ?? ""
+        let params = ["msnfp_status": 844060004]
+        
+        
+        
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+
+        
+        ENTALDLibraryAPI.shared.cancelResgitertoAttendEvent(participationId: participationId, params: params) { result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: _):
+                DispatchQueue.main.async {
+                    LoadingView.hide()
+                }
+                
+            case .error(let error, let errorResponse):
+                DispatchQueue.main.async {
+                    LoadingView.hide()
+                }
+                var message = error.message
+                if error == .patchSuccess {
+                    
+                }else{
+                    var message = error.message
+                    if let err = errorResponse {
+                        message = err.error
+                    }
+                    DispatchQueue.main.async {
+                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                    }
+                }
+            }
+        }
+        
+        
+    }
+    
     fileprivate func getEventParitionCheckData(params : [String:Any]){
         DispatchQueue.main.async {
             LoadingView.show()
@@ -243,54 +333,66 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
                         if modelData != nil {
                             self.isUserParticipate = true
                             
-                            if ((DateFormatManager.shared.formatDate(date: Date()) > self.availableData?.msnfp_endingdate ?? "" || DateFormatManager.shared.formatDate(date: Date()) > self.self.scheduleData?.sjavms_end ?? "" ) ){
+                            if(!DateFormatManager.shared.isDatePassed(date: self.userParticipantData?.msnfp_enddate ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")) {
                                 
-                                self.lblDesc.text = "Cancelled"
-                                self.closeImg.isHidden = false
+                                self.lblDesc.text = ""
+                                self.closeImg.isHidden = true
                                 self.closeImg.image = UIImage(named: "xmark.circle.fill")
+                                self.btnCancelApprovedShift.setTitle(" Apply Now ", for: .normal)
+                                self.isApplyNowShow = true
+                                self.btnCancelApprovedShift.isHidden = false
                                 self.btnCloseEvent.isHidden = true
-                            
-                            }
-                            
-                            
-                            if ((DateFormatManager.shared.formatDate(date: Date()) <= self.availableData?.msnfp_endingdate ?? "" || DateFormatManager.shared.formatDate(date: Date()) <= self.self.scheduleData?.sjavms_end ?? "" ) ){
+                                self.isBottombtnEnable = true
                                 
-                                if (modelData?.statuscode == 844060000 || modelData?.statuscode ==  844060001  || modelData?.statuscode == 844060004) {
+                                if (self.userParticipantData?.msnfp_status == 844060000 || self.userParticipantData?.msnfp_status ==  844060001  || self.userParticipantData?.msnfp_status == 844060003) {
                                     self.lblDesc.text = "In Review"
-                                    self.closeImg.image = UIImage(named: "stopwatch")
-                                    //                                xmark.circle.fill  for close
-                                }else if (modelData?.statuscode == 844060002 ){
+                                    self.closeImg.image = UIImage(systemName: "stopwatch")
+                                    self.btnCloseEvent.isHidden = true
+                                    self.btnCancelApprovedShift.isHidden = true
                                     
-                                    self.lblDesc.text = "Registerd to Attend"
-                                    self.closeImg.image = UIImage(named: "checkmark.circle.fill")
+                                }else if (self.userParticipantData?.msnfp_status == 844060004){
+                                    
+                                    self.lblDesc.text = "Cancelled"
+                                    self.closeImg.isHidden = false
+                                    self.closeImg.image = UIImage(systemName:  "xmark.circle.fill")
+                                    self.btnCloseEvent.isHidden = true
+                                    self.btnCancelApprovedShift.isHidden = true
+                                    
+                                }else if (self.userParticipantData?.msnfp_status == 844060002){
+                                    
+                                    self.lblDesc.text = "Registered to Attend"
+                                    self.closeImg.isHidden = false
+                                    self.closeImg.image = UIImage(systemName:  "checkmark.circle.fill")
+                                    self.closeImg.tintColor = UIColor.themePrimaryColor
+                                    self.btnCloseEvent.isHidden = true
                                     self.btnCancelApprovedShift.isHidden = false
+                                    self.btnCancelApprovedShift.setTitle(" Cancel ", for: .normal)
+                                    self.isApplyNowShow = false
+                                    
                                 }
-   
                             }
                         }else{
-                            self.lblDesc.text = "Apply for event"
-                            self.closeImg.image = UIImage(named: "checkmark.circle.fill")
-                            self.btnCancelApprovedShift.setTitle("Apply", for: .normal)
-                            self.btnCancelApprovedShift.isHidden = false
-                        }
-                            if (DateFormatManager.shared.formatDate(date: Date()) > self.availableData?.msnfp_endingdate ?? "" && self.isUserParticipate == false){
-                                self.lblDesc.text = "Missed"
-                                self.closeImg.isHidden = false
-                                self.closeImg.image = UIImage(named: "xmark.circle.fill")
-                                self.btnCloseEvent.isHidden = true
-                                
-                            }else if (DateFormatManager.shared.formatDate(date: Date()) > self.self.scheduleData?.sjavms_end ?? "" && self.isUserParticipate == false){
-                                
-                                self.lblDesc.text = "Missed"
-                                self.closeImg.isHidden = false
-                                self.closeImg.image = UIImage(named: "xmark.circle.fill")
-                                self.btnCloseEvent.isHidden = true
-                                
+                            self.isUserParticipate = false
+                            self.isBottombtnEnable = false
+                            if(DateFormatManager.shared.isDatePassed(date: self.userParticipantData?.msnfp_enddate ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")) {
+                                self.lblDesc.text = "No longer accepting volunteer"
+                                self.closeImg.isHidden = true
+                              
+                                self.btnCloseEvent.isHidden = false
+                                self.btnCloseEvent.isEnabled = false
+                                self.btnCloseEvent.setTitle("Close", for: .normal)
                             }else{
-                                
-//                                self.closeImg.isHidden = true
-//                                self.lblDesc.text = ""
+                                self.lblDesc.text = ""
+                                self.closeImg.isHidden = true
+                               
+                                self.btnCloseEvent.isHidden = true
+                                self.btnCloseEvent.isEnabled = false
+//                                self.btnCloseEvent.setTitle(" Apply Now ", for: .normal)
+                                self.btnCancelApprovedShift.isHidden = false
+                                self.btnCancelApprovedShift.setTitle(" Apply Now ", for: .normal)
+                                self.isApplyNowShow = true
                             }
+                        }
                     }
                 }
                     
@@ -312,7 +414,7 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         
         let participationId = self.userParticipantData?.msnfp_participationid ?? ""
         let params = [
-            "[msnfp_engagementOpportunityId@odata.bind]" : "/msnfp_engagementopportunities(\(self.eventId))" as String,
+            "[msnfp_engagementOpportunityId@odata.bind]" : "/msnfp_engagementopportunities(\(participationId))" as String,
             "[msnfp_contactId@odata.bind]" : "/contacts(\(self.contactId))" as String
         ] as [String : Any]
         
@@ -349,6 +451,50 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         
         
         
+    }
+    
+    func getEventTabDetail() {
+        
+        let params : [String:Any] = [
+            ParameterKeys.select : "msnfp_location,msnfp_engagementopportunitytitle,msnfp_shortdescription,msnfp_qualifications,msnfp_startingdate,msnfp_locationname,msnfp_shifts,msnfp_locationcitystate,msnfp_endingdate",
+            ParameterKeys.filter : "(_msnfp_engagementopportunityid_value eq \(self.eventId ?? ""))"
+        ]
+        
+        self.getEventTabDetailData(params: params)
+        
+    }
+    
+    
+    fileprivate func getEventTabDetailData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestVolunteerEventClickShiftDetail(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result{
+            case .success(value: let response):
+                
+                if let qualification = response.value {
+                    self.tabDetailData = qualification
+
+                        self.setupData()
+        
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
     }
     
     
