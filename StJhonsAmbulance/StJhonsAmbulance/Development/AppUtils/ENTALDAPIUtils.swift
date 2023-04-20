@@ -43,7 +43,7 @@ class ENTALDAPIUtils {
     }
     
     private func getDocumentAuthURL()->URL?{
-        if let urlStr = ENTALDAPIConfig.shared.baseURLAPI, urlStr != "", let baseURL = URL(string: urlStr){
+        if let urlStr = ENTALDAPIConfig.shared.documentAuthURL, urlStr != "", let baseURL = URL(string: urlStr){
             return baseURL
         }
         return nil

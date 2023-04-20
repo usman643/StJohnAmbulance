@@ -350,7 +350,7 @@ class EventDetailVC: ENTALDBaseViewController {
             LoadingView.show()
         }
         
-        ENTALDLibraryAPI.shared.getContactDocumentstwoEvent(participationId: retrivalURL, params: params){ result in
+        ENTALDLibraryAPI.shared.getContactDocumentstwoEvent(participationId: retrivalURL, externalToken: ""){ result in
             DispatchQueue.main.async {
                 LoadingView.hide()
             }

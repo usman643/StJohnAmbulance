@@ -14,7 +14,8 @@ class WebViewVC: ENTALDBaseViewController {
 
     @IBOutlet weak var webview: WKWebView!
     
-    
+    var documentURL : String?
+    var documentToken : String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,11 +40,15 @@ class WebViewVC: ENTALDBaseViewController {
             let link = Foundation.URL(string:ProcessUtils.shared.changePassURL)!
             let request = URLRequest(url: link)
             webview.load(request)
+        }else if (self.urlType == "document"){
+            if let docUrlStr = self.documentURL, let token = self.documentToken {
+                let urlStr = docUrlStr.replacingOccurrences(of: " ", with: "%20")
+                guard let url = URL(string: urlStr) else { return}
+                var request = URLRequest(url: url)
+                request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+                request.method = .get
+                webview.load(request)
+            }
         }
-        
-    
-        
-        
-       
     }
 }

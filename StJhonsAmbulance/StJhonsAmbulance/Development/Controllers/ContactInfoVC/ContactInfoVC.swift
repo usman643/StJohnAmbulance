@@ -193,7 +193,7 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
     func setupData(){
         
         let userDefaultObj = UserDefaults.standard.userInfo
-        profileImg.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: userDefaultObj?.entityimage ?? "")
+        profileImg.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: userDefaultObj?.entityimage ?? "") ?? UIImage(named: "ic_profile")
         txtFirstName.text = userDefaultObj?.firstname ?? ""
         txtLastName.text = userDefaultObj?.lastname ?? ""
         txtBirthday.text = userDefaultObj?.birthdate ?? ""

@@ -14,7 +14,7 @@ enum LoginRouter: Router {
     case getExternalIdentity(subId:String)
     case getUserIdentity(conId:String)
     case updateUserIdentity(conId:String,  params:[String:Any])
-    case getDocumentToken
+    case getDocumentToken(params:DynamicAuthRequest)
     case simulate401
     
     var procedure: String { //endpoints
@@ -39,7 +39,7 @@ enum LoginRouter: Router {
                 return model
             }
             return [:]
-        case .dynamicAuthentication(let params):
+        case .dynamicAuthentication(let params), .getDocumentToken(let params):
             if let model = params.encodeModel() {
                 return model
             }

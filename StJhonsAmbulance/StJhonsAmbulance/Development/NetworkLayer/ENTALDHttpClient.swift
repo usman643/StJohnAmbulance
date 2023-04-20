@@ -29,13 +29,15 @@ class ENTALDHttpClient {
         
     }
     
-    private func getHeaders()->HTTPHeaders{
+    private func getHeaders(externalToken:String = "")->HTTPHeaders{
         var headers: HTTPHeaders = []
         
         if let token = UserDefaults.standard.authToken {
-            headers.add(HTTPHeader(name: "Authorization", value: "Bearer \(token)"))
+            if externalToken == "" {
+                headers.add(HTTPHeader(name: "Authorization", value: "Bearer \(token)"))
+                headers.add(HTTPHeader(name: "Content-Type", value: "application/json"))
+            }
             
-            headers.add(HTTPHeader(name: "Content-Type", value: "application/json"))
         }
         
         return headers
@@ -61,12 +63,12 @@ class ENTALDHttpClient {
         
         if let client = request.client, let requstUrl = request.requestURL?.absoluteString {
             print("request URL :  \(requstUrl)")
-            
+            let headers = self.getHeaders(externalToken: externalToken)
             client.request(requstUrl,
                            method: HTTPMethod(rawValue: router.method),
                            parameters:request.parameters,
                            encoding:router.encoding.getENcodingType(),
-                           headers:self.getHeaders()).validate().responseData(completionHandler: { response in
+                           headers:headers.count > 0 ? headers : nil).validate().responseData(completionHandler: { response in
                 
                 switch response.result {
                     
@@ -105,7 +107,8 @@ class ENTALDHttpClient {
         
         var request = URLRequest(url: requestUrl)
         if externalToken != "" {
-            request.addValue("Bearer \(externalToken ?? "")", forHTTPHeaderField: "Authorization")
+            request.addValue("Bearer \(externalToken)", forHTTPHeaderField: "Authorization")
+            request.addValue("application/json;odata=verbose", forHTTPHeaderField: "Accept")
         }else{
             request.addValue("Bearer \(UserDefaults.standard.authToken ?? "")", forHTTPHeaderField: "Authorization")
         }

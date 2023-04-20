@@ -10,7 +10,7 @@ import Foundation
 enum DocumentRouter: Router {
     
     case getContactDocuments(params:[String:Any])
-    case getContactDocumentstwoEvent(participationId:String, params:[String:Any])
+    case getContactDocumentstwoEvent(participationId:String)
 
     
     case simulate401
@@ -18,7 +18,7 @@ enum DocumentRouter: Router {
     var procedure: String { //endpoints
         switch self {
         case .getContactDocuments: return "sharepointdocumentlocations"
-        case .getContactDocumentstwoEvent(let participationId, _) : return "GetFolderByServerRelativePath(decodedurl='/sites/VMSSandbox/contact/\(participationId)')/files"
+        case .getContactDocumentstwoEvent(let participationId) : return "GetFolderByServerRelativePath(decodedurl='/sites/VMSSandbox/contact/\(participationId)')/files"
            
         case .simulate401: return "simulate-401"
         }
@@ -28,9 +28,6 @@ enum DocumentRouter: Router {
         switch self {
         case .getContactDocuments(let params):
             return params
-        case .getContactDocumentstwoEvent(_, let params):
-            return params
-       
         default: return [:]
         }
     }
@@ -40,12 +37,6 @@ enum DocumentRouter: Router {
     }
     
     var method: String {
-        switch self {
-        case .getContactDocumentstwoEvent(_,_):
-            return HTTPMethodType.post.rawValue
-        default:
-            break
-        }
         return HTTPMethodType.get.rawValue
     }
     
@@ -60,13 +51,6 @@ enum DocumentRouter: Router {
     }
     
     var encoding: ENTALDEncodingType {
-        switch self {
-        case .getContactDocumentstwoEvent(_,_):
-            return .ENTJSONEncoding
-        
-        default:
-            break
-        }
         return .ENTDefaultEncoding
     }
     

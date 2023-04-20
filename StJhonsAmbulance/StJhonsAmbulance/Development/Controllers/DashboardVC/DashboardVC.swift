@@ -156,7 +156,7 @@ class DashboardVC: ENTALDBaseViewController{
         lblActiveDate.text = "Active Date: \(date)"
         lblServiceYears.text = "Year of Service: \(UserDefaults.standard.userInfo?.sjavms_yearsofservice ?? 0)"
         lblTotalHours.text = "Total Hours: \(hours)"
-        profileImg.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: UserDefaults.standard.userInfo?.entityimage ?? "")
+        profileImg.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: UserDefaults.standard.userInfo?.entityimage ?? "") ?? UIImage(named: "ic_profile")
     }
     
     private func setupCollectionView(){

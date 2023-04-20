@@ -457,14 +457,14 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
         
-    func getContactDocumentstwoEvent(participationId: String, externalToken:String ,params:[String : Any],  _ completion:@escaping((ApiResult<contactDocumentResponseModelTwo, ApiError>) -> Void )){
-        let router = DocumentRouter.getContactDocumentstwoEvent(participationId: participationId, params: params)
+    func getContactDocumentstwoEvent(participationId: String, externalToken:String,  _ completion:@escaping((ApiResult<contactDocumentResponseModelTwo, ApiError>) -> Void )){
+        let router = DocumentRouter.getContactDocumentstwoEvent(participationId: participationId)
         ENTALDHttpClient.shared.request(router, externalToken: externalToken, completion: completion)
     }
         
-    func getDocumentToken(  _ completion:@escaping((ApiResult<PortalAuthModel, ApiError>) -> Void )){
-        let router = LoginRouter.getDocumentToken
-        ENTALDHttpClient.shared.request(router, completion: completion)
+    func getDocumentToken(params:DynamicAuthRequest,  _ completion:@escaping((ApiResult<PortalAuthModel, ApiError>) -> Void )){
+        let router = LoginRouter.getDocumentToken(params: params)
+        ENTALDHttpClient.shared.request(router, externalToken: "123", completion: completion)
     }
     
 }

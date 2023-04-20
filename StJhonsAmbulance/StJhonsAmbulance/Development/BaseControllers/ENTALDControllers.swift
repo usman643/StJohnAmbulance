@@ -327,6 +327,15 @@ class ENTALDControllers {
         self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
     }
     
+    func showDocument(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ documentUrl:String, _ documentToken:String, callBack:ControllerCallBackCompletion?) {
+        let vc = WebViewVC.loadFromNib()
+        vc.callbackToController = callBack
+        vc.urlType = "document"
+        vc.documentURL = documentUrl
+        vc.documentToken = documentToken
+        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+    }
+    
     func showVolunteerDetailScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
         let vc = VolunteerDetailVC.loadFromNib()
         vc.callbackToController = callBack

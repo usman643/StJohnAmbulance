@@ -116,7 +116,9 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
             LoadingView.show()
         }
         
-        ENTALDLibraryAPI.shared.getDocumentToken{ result in
+        let params : DynamicAuthRequest = DynamicAuthRequest(grant_type: "client_credentials", client_id: "69168eb4-986f-4198-92f5-7b3c796044ad@4eb3d202-86fa-4a81-b4de-47e3389ef4d0", resource: "00000003-0000-0ff1-ce00-000000000000/sjaasj.sharepoint.com@4eb3d202-86fa-4a81-b4de-47e3389ef4d0", client_secret: "/pbmvpnf9I2QefYYTbpBqPY7l8P1TleNGyUc7Tc8/g0=")
+        
+        ENTALDLibraryAPI.shared.getDocumentToken(params: params){ result in
             DispatchQueue.main.async {
                 LoadingView.hide()
             }
@@ -185,11 +187,6 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
     
     
     fileprivate func getDocumentTwo(){
-        let params : [String:Any] = [
-            ParameterKeys.select : "relativeurl",
-            ParameterKeys.filter : "(_regardingobjectid_value eq \(self.conId))"
-        ]
-        
         
         guard let retrivalURL =  self.relativeurlData?[0].relativeurl else {return }
         
@@ -198,7 +195,7 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
             LoadingView.show()
         }
         
-        ENTALDLibraryAPI.shared.getContactDocumentstwoEvent(participationId: retrivalURL, externalToken: self.access_token, params: params){ result in
+        ENTALDLibraryAPI.shared.getContactDocumentstwoEvent(participationId: retrivalURL, externalToken: self.access_token){ result in
             DispatchQueue.main.async {
                 LoadingView.hide()
             }
@@ -250,7 +247,7 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
 extension ContractDocumentVC : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return self.documents?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -260,6 +257,15 @@ extension ContractDocumentVC : UITableViewDelegate, UITableViewDataSource{
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let rowModel = self.documents?[indexPath.row]
+        if let serverUrl = rowModel?.ServerRelativeUrl {
+            let urlStr = "https://sjaasj.sharepoint.com/sites/VMSSandbox/_api/Web/GetFileByServerRelativePath(decodedurl='\(serverUrl)')/$value"
+            ENTALDControllers.shared.showDocument(type: .ENTALDPUSH, from: self, urlStr, self.access_token) { params, controller in
+                
+            }
+        }
+        
+    }
     
 }
