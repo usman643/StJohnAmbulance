@@ -9,6 +9,9 @@ import UIKit
 
 class EventDetailVC: ENTALDBaseViewController {
     
+    let conId = UserDefaults.standard.contactIdToken ?? ""
+    var relativeurlData : [ContactDocumentModel]?
+    var documents : [ContactDocumentResults]?
     var contactInfo : [ContactDataModel]?
     var eventId = ""
     
@@ -28,7 +31,8 @@ class EventDetailVC: ENTALDBaseViewController {
     @IBOutlet weak var lblDetail: UILabel!
     @IBOutlet weak var lblDetailDesc: UILabel!
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var tableView: UITableView!
+    
     
     @IBOutlet weak var btnCancel: UIButton!
     @IBOutlet weak var checkInbtnView: UIView!
@@ -42,15 +46,15 @@ class EventDetailVC: ENTALDBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupData()
+        getDocument()
         decorateUI()
         registerCell()
     }
     
     func registerCell(){
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(UINib(nibName: "EventDetailCVC", bundle: nil), forCellWithReuseIdentifier: "EventDetailCVC")
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.register(UINib(nibName: "ContactDocumentsTVC", bundle: nil), forCellReuseIdentifier: "ContactDocumentsTVC")
         
     }
     
@@ -296,42 +300,120 @@ class EventDetailVC: ENTALDBaseViewController {
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-}
-
-extension EventDetailVC : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+    fileprivate func getDocument(){
+        let params : [String:Any] = [
+            ParameterKeys.select : "relativeurl",
+            ParameterKeys.filter : "(_regardingobjectid_value eq \(self.conId))"
+        ]
+        
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.getContactDocument(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result{
+            case .success(value: let response):
+                
+                if let apiData = response.value {
+                    self.relativeurlData = apiData
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EventDetailCVC", for: indexPath) as! EventDetailCVC
+    
+    
+    
+    fileprivate func getDocumentTwo(){
+        let params : [String:Any] = [
+            ParameterKeys.select : "relativeurl",
+            ParameterKeys.filter : "(_regardingobjectid_value eq \(self.conId))"
+        ]
+        
+        
+        guard let retrivalURL =  self.relativeurlData?[0].relativeurl else {return }
+        
+        
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.getContactDocumentstwoEvent(participationId: retrivalURL, params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result{
+            case .success(value: let response):
+                
+                if let apiData = response.d {
+                    self.documents = apiData.results
+                    if (self.documents?.count == 0 || self.documents?.count == nil){
+                        self.showEmptyView(tableVw: self.tableView)
+                    }else{
+                        DispatchQueue.main.async {
+                            for subview in self.tableView.subviews {
+                                subview.removeFromSuperview()
+                            }
+                        }
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }else{
+                    self.showEmptyView(tableVw: self.tableView)
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    func showEmptyView(tableVw : UITableView){
+        DispatchQueue.main.async {
+            let view = EmptyView.instanceFromNib()
+            view.frame = tableVw.frame
+            tableVw.addSubview(view)
+        }
+    }
+    
+
+}
+
+extension EventDetailVC : UITableViewDelegate, UITableViewDataSource{
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ContactDocumentsTVC", for: indexPath) as! ContactDocumentsTVC
         
         
         return cell
     }
     
-    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    //
-    //        let width =  (collectionView.frame.size.width / 2) - 8
-    //
-    //
-    //        return collectionView.
-    //    }
     
     
 }
+    
+

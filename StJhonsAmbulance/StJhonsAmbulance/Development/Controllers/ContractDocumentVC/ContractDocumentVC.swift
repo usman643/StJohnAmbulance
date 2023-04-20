@@ -13,6 +13,7 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
     let conId = UserDefaults.standard.contactIdToken ?? ""
     var participationId = ""
     var relativeurlData : [ContactDocumentModel]?
+    var documents : [ContactDocumentResults]?
     
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblModifiedDate: UILabel!
@@ -28,7 +29,9 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.textSearch.delegate = self
-       decorateUI()
+        decorateUI()
+        registerCell()
+        
     }
     
     func decorateUI(){
@@ -44,6 +47,13 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
         searchView.layer.borderWidth = 1.5
         searchView.isHidden = true
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+    }
+    
+    func registerCell(){
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.register(UINib(nibName: "ContactDocumentsTVC", bundle: nil), forCellReuseIdentifier: "ContactDocumentsTVC")
+        
     }
     
     @IBAction func closeSearch(_ sender: Any) {
@@ -146,19 +156,38 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
             ParameterKeys.filter : "(_regardingobjectid_value eq \(self.conId))"
         ]
         
+        
+        guard let retrivalURL =  self.relativeurlData?[0].relativeurl else {return }
+        
+        
         DispatchQueue.main.async {
             LoadingView.show()
         }
         
-        ENTALDLibraryAPI.shared.getContactDocumentstwoEvent(participationId: self.participationId, params: params){ result in
+        ENTALDLibraryAPI.shared.getContactDocumentstwoEvent(participationId: retrivalURL, params: params){ result in
             DispatchQueue.main.async {
                 LoadingView.hide()
             }
             switch result{
             case .success(value: let response):
                 
-                if let apiData = response.value {
+                if let apiData = response.d {
+                    self.documents = apiData.results
+                    if (self.documents?.count == 0 || self.documents?.count == nil){
+                        self.showEmptyView(tableVw: self.tableView)
+                    }else{
+                        DispatchQueue.main.async {
+                            for subview in self.tableView.subviews {
+                                subview.removeFromSuperview()
+                            }
+                        }
+                    }
                     
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }else{
+                    self.showEmptyView(tableVw: self.tableView)
                 }
                 
             case .error(let error, let errorResponse):
@@ -173,7 +202,30 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
         }
     }
     
-    
+    func showEmptyView(tableVw : UITableView){
+        DispatchQueue.main.async {
+            let view = EmptyView.instanceFromNib()
+            view.frame = tableVw.frame
+            tableVw.addSubview(view)
+        }
+    }
     
 
+}
+
+extension ContractDocumentVC : UITableViewDelegate, UITableViewDataSource{
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ContactDocumentsTVC", for: indexPath) as! ContactDocumentsTVC
+        
+        
+        return cell
+    }
+    
+    
+    
 }
