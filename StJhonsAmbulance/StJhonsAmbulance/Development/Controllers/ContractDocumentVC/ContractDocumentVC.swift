@@ -14,7 +14,7 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
     var participationId = ""
     var relativeurlData : [ContactDocumentModel]?
     var documents : [ContactDocumentResults]?
-    var access_token = ""
+    var access_token : String = ""
     
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblModifiedDate: UILabel!
@@ -198,7 +198,7 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
             LoadingView.show()
         }
         
-        ENTALDLibraryAPI.shared.getContactDocumentstwoEvent(participationId: retrivalURL, params: params){ result in
+        ENTALDLibraryAPI.shared.getContactDocumentstwoEvent(participationId: retrivalURL, externalToken: self.access_token, params: params){ result in
             DispatchQueue.main.async {
                 LoadingView.hide()
             }

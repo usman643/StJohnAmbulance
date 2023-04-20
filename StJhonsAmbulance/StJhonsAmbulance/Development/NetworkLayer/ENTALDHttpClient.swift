@@ -41,9 +41,9 @@ class ENTALDHttpClient {
         return headers
     }
     
-    func request<T: Codable>(_ router: Router, completion:@escaping (ApiResult<T, ApiError>) ->Void) {
+    func request<T: Codable>(_ router: Router, externalToken:String = "", completion:@escaping (ApiResult<T, ApiError>) ->Void) {
         
-        if ProcessUtils.shared.shouldRefreshToken() && router.procedure != "token?p=b2c_1_ropc_auth"{
+        if ProcessUtils.shared.shouldRefreshToken() && router.procedure != "token?p=b2c_1_ropc_auth" {
             ProcessUtils.shared.refreshToken { status in
                 if status {
                     self.request(router, completion: completion)
@@ -55,7 +55,7 @@ class ENTALDHttpClient {
         guard let request = ENTALDNetworkRequest.shared.getRequestFor(router) else{return}
         
         if HTTPMethod(rawValue: router.method) == .get {
-            self.getRequest(request, completion: completion)
+            self.getRequest(request, externalToken: externalToken, completion: completion)
             return
         }
         
@@ -92,7 +92,7 @@ class ENTALDHttpClient {
         }
     }
     
-    private func getRequest<T: Codable>(_ netRequest:ENTALDNetworkRequest, completion:@escaping (ApiResult<T, ApiError>) ->Void) {
+    private func getRequest<T: Codable>(_ netRequest:ENTALDNetworkRequest, externalToken:String = "", completion:@escaping (ApiResult<T, ApiError>) ->Void) {
         
         
 //        // Refresh
@@ -104,7 +104,11 @@ class ENTALDHttpClient {
         guard let requestUrl = netRequest.requestURL else {return}
         
         var request = URLRequest(url: requestUrl)
-        request.addValue("Bearer \(UserDefaults.standard.authToken ?? "")", forHTTPHeaderField: "Authorization")
+        if externalToken != "" {
+            request.addValue("Bearer \(externalToken ?? "")", forHTTPHeaderField: "Authorization")
+        }else{
+            request.addValue("Bearer \(UserDefaults.standard.authToken ?? "")", forHTTPHeaderField: "Authorization")
+        }
         request.addValue("keep-alive", forHTTPHeaderField: "Connection")
         request.addValue("gzip, deflate, br", forHTTPHeaderField: "Accept-Encoding")
         request.addValue("odata.include-annotations=OData.Community.Display.V1.FormattedValue", forHTTPHeaderField: "Prefer")
