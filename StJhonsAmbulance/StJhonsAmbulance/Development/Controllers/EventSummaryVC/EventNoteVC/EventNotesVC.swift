@@ -24,8 +24,11 @@ class EventNotesVC: ENTALDBaseViewController {
     @IBOutlet weak var txtDonationReceived: UITextField!
     @IBOutlet weak var txtSurveyComment: UITextView!
     @IBOutlet weak var txtOtherComment: UITextView!
+    @IBOutlet weak var txtOtherTreatment: UITextView!
+    
     @IBOutlet var lblAvailables: [UILabel]!
     @IBOutlet var btnAvailables: [UIButton]!
+    @IBOutlet var btnTreatments: [UIButton]!
     
     @IBOutlet weak var btnSubmit: UIButton!
 
@@ -43,6 +46,7 @@ class EventNotesVC: ENTALDBaseViewController {
     @IBOutlet weak var btnRecptionPhone: UIButton!
     @IBOutlet weak var btnPowerSupply: UIButton!
     @IBOutlet weak var btnDesignatedSpaceforVolunteer: UIButton!
+    @IBOutlet weak var btnOther: UIButton!
     @IBOutlet weak var OrgnizerAdequateSupport: UIButton!
     
     
@@ -68,6 +72,8 @@ class EventNotesVC: ENTALDBaseViewController {
         txtSurveyComment.textColor = UIColor.themeBlackText
         txtOtherComment.font = UIFont.RegularFont(13)
         txtOtherComment.textColor = UIColor.themeBlackText
+        txtOtherTreatment.font = UIFont.RegularFont(13)
+        txtOtherTreatment.textColor = UIColor.themeBlackText
         
         txtParticipantNum.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         txtParticipantNum.layer.borderWidth = 1
@@ -77,6 +83,8 @@ class EventNotesVC: ENTALDBaseViewController {
         txtSurveyComment.layer.borderWidth = 1
         txtOtherComment.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         txtOtherComment.layer.borderWidth = 1
+        txtOtherTreatment.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+        txtOtherTreatment.layer.borderWidth = 1
         
 //        txtParticipantNum.isUserInteractionEnabled = false
 //        txtDonationReceived.isUserInteractionEnabled = false
@@ -106,6 +114,10 @@ class EventNotesVC: ENTALDBaseViewController {
             btn.layer.cornerRadius = 2
             
         }
+        for btn in btnTreatments{
+            btn.layer.cornerRadius = 2
+            
+        }
         
     }
     
@@ -123,6 +135,22 @@ class EventNotesVC: ENTALDBaseViewController {
         self.btnAvailables[sender.tag].isSelected = !sender.isSelected
     }
     
+    @IBAction func treatmentBtnTapped(_ sender: UIButton) {
+        
+        if self.btnTreatments[sender.tag].isSelected == false  {
+            self.btnTreatments[sender.tag].setImage(UIImage(named: "ic_check"), for: .normal)
+            self.btnTreatments[sender.tag].backgroundColor = UIColor.clear
+        }else{
+            self.btnTreatments[sender.tag].setImage(UIImage(named: ""), for: .normal)
+            self.btnTreatments[sender.tag].backgroundColor = UIColor.viewLightGrayColor
+            
+        }
+        
+        self.btnTreatments[sender.tag].isSelected = !sender.isSelected
+    }
+    
+    
+    
     
     @IBAction func submitTapped(_ sender: Any) {
         self.updatedata()
@@ -130,27 +158,42 @@ class EventNotesVC: ENTALDBaseViewController {
     
     func setupData(){
 
-        self.setBtn(btn: OrgnizerAdequateSupport, value: self.summaryData?.sjavms_eventorganizerprovidedadequatesupport ?? false)
-        self.setBtn(btn: btnDesignatedSpaceforVolunteer, value: self.summaryData?.sjavms_designatedspaceforvolunteers ?? false)
+        self.setBtn(btn: OrgnizerAdequateSupport, value: self.summaryData?.sjavms_adequatesupport ?? false)
+        self.setBtn(btn: btnDesignatedSpaceforVolunteer, value: self.summaryData?.sjavms_emergencyservicescalled ?? false)
         
         self.setBtn(btn: btnAvailables[0], value: self.summaryData?.sjavms_onsitefirstaidroomtent ?? false)
-        self.setBtn(btn: btnAvailables[1], value: self.summaryData?.sjavms_bathrooms ?? false)
+        self.setBtn(btn: btnAvailables[1], value: self.summaryData?.sjavms_onsitebathrooms ?? false)
         self.setBtn(btn: btnAvailables[2], value: self.summaryData?.sjavms_onsitecleandrinkingwater ?? false)
         self.setBtn(btn: btnAvailables[3], value: self.summaryData?.sjavms_shadedareaifoutside ?? false)
-        self.setBtn(btn: btnAvailables[4], value: self.summaryData?.sjavms_parking ?? false)
+        self.setBtn(btn: btnAvailables[4], value: self.summaryData?.sjavms_onsiteparking ?? false)
         self.setBtn(btn: btnAvailables[5], value: self.summaryData?.sjavms_willotherhealthcareagenciesbeonsite ?? false)
         self.setBtn(btn: btnAvailables[6], value: self.summaryData?.sjavms_onsitedesignatedvolunteerarea ?? false)
-        self.setBtn(btn: btnAvailables[7], value: self.summaryData?.sjavms_telephone ?? false)
+        self.setBtn(btn: btnAvailables[7], value: self.summaryData?.sjavms_onsitetelephone ?? false)
         self.setBtn(btn: btnAvailables[8], value: self.summaryData?.sjavms_tableschairsseating ?? false)
-        self.setBtn(btn: btnAvailables[9], value: self.summaryData?.sjavms_foodforvolunteers ?? false)
+        self.setBtn(btn: btnAvailables[9], value: self.summaryData?.sjavms_onsitefoodforvolunteers ?? false)
         self.setBtn(btn: btnAvailables[10], value: self.summaryData?.sjavms_sitemapifapplicable ?? false)
-        self.setBtn(btn: btnAvailables[11], value: self.summaryData?.sjavms_cellphonereception ?? false)
+        self.setBtn(btn: btnAvailables[11], value: self.summaryData?.sjavms_onsitecellphonereception ?? false)
         self.setBtn(btn: btnAvailables[12], value: self.summaryData?.sjavms_electricalpowersupply ?? false)
+        self.setBtn(btn: btnAvailables[13], value: self.summaryData?.sjavms_onsiteother ?? false)
         
-        self.txtParticipantNum.text = "\(self.summaryData?.sjavms_numberofparticipants ?? NSNotFound)"
+        self.setBtn(btn: btnTreatments[0], value: self.summaryData?.sjavms_bandaids ?? false)
+        self.setBtn(btn: btnTreatments[1], value: self.summaryData?.sjavms_splints ?? false)
+        self.setBtn(btn: btnTreatments[2], value: self.summaryData?.sjavms_aed ?? false)
+        self.setBtn(btn: btnTreatments[3], value: self.summaryData?.sjavms_oxygenadministration ?? false)
+        self.setBtn(btn: btnTreatments[4], value: self.summaryData?.sjavms_medicaltreatmentsother ?? false)
+        self.setBtn(btn: btnTreatments[5], value: self.summaryData?.sjavms_backboard ?? false)
+
+        self.txtParticipantNum.text = "\(self.summaryData?.sjavms_numberofparticipants ?? 0)"
         self.txtDonationReceived.text = self.summaryData?.sjavms_donationreceived?.getFormattedNumber()
         self.txtSurveyComment.text = self.summaryData?.sjavms_surveycomments ?? ""
         self.txtOtherComment.text = self.summaryData?.sjavms_othercomments ?? ""
+
+        self.txtOtherTreatment.text = self.summaryData?.sjavms_othertreatments ?? ""
+        
+        let status = ProcessUtils.shared.eventStatusArr[self.summaryData?.msnfp_engagementopportunitystatus ?? 0]
+        self.btnStatus.setTitle(status, for: .normal)
+        
+        
     }
     
     func setBtn(btn: UIButton , value : Bool){
@@ -205,7 +248,7 @@ class EventNotesVC: ENTALDBaseViewController {
         guard let eventId = self.eventData?.msnfp_engagementopportunityid else {return}
         let params : [String:Any] = [
             
-            ParameterKeys.select : "_sjavms_group_value,sjavms_onsiteparking,sjavms_tableschairsseating,msnfp_engagementopportunityid,sjavms_designatedvolunteerarea,sjavms_cleandrinkingwater,sjavms_othertreatments,sjavms_designatedspaceforvolunteers,sjavms_electricalpowersupply,msnfp_stateprovince,msnfp_shortdescription,_sjavms_program_value,sjavms_foodforvolunteers,msnfp_filledshifts,statuscode,msnfp_location,sjavms_age1860,msnfp_description,msnfp_maximum,_sjavms_branch_value,msnfp_endingdate,sjavms_onsitefoodforvolunteers,sjavms_age13under,msnfp_appliedparticipants,sjavms_age60,sjavms_eventscheduleinformation,msnfp_engagementopportunitystatus,sjavms_bathrooms,_sjavms_contact_value,msnfp_engagementopportunitytitle,msnfp_completed,sjavms_onsitecleandrinkingwater,_sjavms_council_value,msnfp_street1,msnfp_street2,sjavms_age1417,msnfp_shifts,sjavms_donationreceived,_msnfp_primarycontactid_value,sjavms_willotherhealthcareagenciesbeonsite,msnfp_number,sjavms_numberofparticipants,msnfp_cancelledshifts,sjavms_multidayevent,sjavms_firstaidroomtent,sjavms_emergencyservicescalled,sjavms_sitemapifapplicable,sjavms_onsitedesignatedvolunteerarea,_sjavms_eventcoordinator_value,sjavms_totalapproved,sjavms_onsitecellphonereception,sjavms_telephone,sjavms_onsitebathrooms,sjavms_onsiteother,sjavms_cellphonereception,_sjavms_account_value,msnfp_locationtype,sjavms_patientstreated,sjavms_onsitefirstaidroomtent,_sjavms_posteventsurvey_value,msnfp_minimum,sjavms_onsitetelephone,msnfp_city,sjavms_parking,sjavms_eventorganizerprovidedadequatesupport,msnfp_multipledays,msnfp_startingdate,sjavms_donationintended,msnfp_street3,sjavms_othercomments,sjavms_eventrequirements,sjavms_surveycomments,statecode,sjavms_adhocevent,sjavms_shadedareaifoutside,msnfp_zippostalcode,sjavms_locationcontactname,sjavms_maxparticipants",
+            ParameterKeys.select : "_sjavms_group_value,sjavms_onsiteparking,sjavms_tableschairsseating,msnfp_engagementopportunityid,sjavms_designatedvolunteerarea,sjavms_cleandrinkingwater,sjavms_othertreatments,sjavms_designatedspaceforvolunteers,sjavms_electricalpowersupply,msnfp_stateprovince,msnfp_shortdescription,_sjavms_program_value,sjavms_foodforvolunteers,msnfp_filledshifts,statuscode,msnfp_location,sjavms_age1860,msnfp_description,msnfp_maximum,_sjavms_branch_value,msnfp_endingdate,sjavms_onsitefoodforvolunteers,sjavms_age13under,msnfp_appliedparticipants,sjavms_age60,sjavms_eventscheduleinformation,msnfp_engagementopportunitystatus,sjavms_bathrooms,_sjavms_contact_value,msnfp_engagementopportunitytitle,msnfp_completed,sjavms_onsitecleandrinkingwater,_sjavms_council_value,msnfp_street1,msnfp_street2,sjavms_age1417,msnfp_shifts,sjavms_donationreceived,_msnfp_primarycontactid_value,sjavms_willotherhealthcareagenciesbeonsite,msnfp_number,sjavms_numberofparticipants,msnfp_cancelledshifts,sjavms_multidayevent,sjavms_firstaidroomtent,sjavms_emergencyservicescalled,sjavms_sitemapifapplicable,sjavms_onsitedesignatedvolunteerarea,_sjavms_eventcoordinator_value,sjavms_totalapproved,sjavms_onsitecellphonereception,sjavms_telephone,sjavms_onsitebathrooms,sjavms_onsiteother,sjavms_cellphonereception,_sjavms_account_value,msnfp_locationtype,sjavms_patientstreated,sjavms_onsitefirstaidroomtent,_sjavms_posteventsurvey_value,msnfp_minimum,sjavms_onsitetelephone,msnfp_city,sjavms_parking,sjavms_eventorganizerprovidedadequatesupport,msnfp_multipledays,msnfp_startingdate,sjavms_donationintended,msnfp_street3,sjavms_othercomments,sjavms_eventrequirements,sjavms_surveycomments,statecode,sjavms_adhocevent,sjavms_shadedareaifoutside,msnfp_zippostalcode,sjavms_locationcontactname,sjavms_maxparticipants,sjavms_bandaids,sjavms_splints,sjavms_aed,sjavms_oxygenadministration,sjavms_backboard,sjavms_medicaltreatmentsother,sjavms_adequatesupport",
             ParameterKeys.filter : "(msnfp_engagementopportunityid eq \(eventId))",
 
         ]
@@ -245,7 +288,7 @@ class EventNotesVC: ENTALDBaseViewController {
         ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.eventStatus, dataObj: ProcessUtils.shared.eventStatusArr) { params, controller in
             self.selectedStatus  = params as? String
             var status = ProcessUtils.shared.eventStatusArr.filter({$0.value == params as? String}).first?.key
-            self.updateEventStatus(statusValue : status ?? NSNotFound)
+            self.updateEventStatus(statusValue : status ?? 0000)
         }
     }
     
@@ -291,22 +334,32 @@ class EventNotesVC: ENTALDBaseViewController {
             "sjavms_donationreceived" : Float(self.txtDonationReceived.text ?? "") ?? 0 as Float,
             "sjavms_surveycomments": self.txtSurveyComment.text as String,
             "sjavms_othercomments" : self.txtOtherComment.text as String,
+            "sjavms_othertreatments" : self.txtOtherTreatment.text as String,
             
-            "sjavms_eventorganizerprovidedadequatesupport" : isOrgnizerAdequateSupport ?? self.summaryData?.sjavms_eventorganizerprovidedadequatesupport ?? false as Bool,
+            "sjavms_adequatesupport" : isOrgnizerAdequateSupport ?? self.summaryData?.sjavms_adequatesupport ?? false as Bool,
             "sjavms_designatedspaceforvolunteers" : isDesignatedSpaceforVolunteer ?? self.summaryData?.sjavms_designatedspaceforvolunteers ?? false as Bool,
             "sjavms_onsitefirstaidroomtent" : btnAvailables[0].isSelected ? true : false as? Bool,
-            "sjavms_bathrooms" : btnAvailables[1].isSelected ? true : false as? Bool,
+            "sjavms_onsitebathrooms" : btnAvailables[1].isSelected ? true : false as? Bool,
             "sjavms_onsitecleandrinkingwater" : btnAvailables[2].isSelected ? true : false as? Bool,
             "sjavms_shadedareaifoutside" : btnAvailables[3].isSelected ? true : false as? Bool,
-            "sjavms_parking" : btnAvailables[4].isSelected ? true : false as? Bool,
+            "sjavms_onsiteparking" : btnAvailables[4].isSelected ? true : false as? Bool,
             "sjavms_willotherhealthcareagenciesbeonsite" : btnAvailables[5].isSelected ? true : false as? Bool,
             "sjavms_onsitedesignatedvolunteerarea" : btnAvailables[6].isSelected ? true : false as? Bool,
-            "sjavms_telephone" : btnAvailables[6].isSelected ? true : false as? Bool,
+            "sjavms_onsitetelephone" : btnAvailables[6].isSelected ? true : false as? Bool,
             "sjavms_tableschairsseating" : btnAvailables[7].isSelected ? true : false as? Bool,
-            "sjavms_foodforvolunteers" : btnAvailables[8].isSelected ? true : false as? Bool,
+            "sjavms_onsitefoodforvolunteers" : btnAvailables[8].isSelected ? true : false as? Bool,
             "sjavms_sitemapifapplicable" : btnAvailables[9].isSelected ? true : false as? Bool,
-            "sjavms_cellphonereception" : btnAvailables[10].isSelected ? true : false as? Bool,
-            "sjavms_electricalpowersupply" : btnAvailables[11].isSelected ? true : false as? Bool
+            "sjavms_onsitecellphonereception" : btnAvailables[10].isSelected ? true : false as? Bool,
+            "sjavms_electricalpowersupply" : btnAvailables[11].isSelected ? true : false as? Bool,
+            "sjavms_onsiteother" : btnAvailables[12].isSelected ? true : false as? Bool,
+            "sjavms_emergencyservicescalled" : btnDesignatedSpaceforVolunteer.isSelected ? true : false as? Bool,
+            
+            "sjavms_bandaids" : btnTreatments[0].isSelected ? true : false as? Bool,
+            "sjavms_splints" : btnTreatments[1].isSelected ? true : false as? Bool,
+            "sjavms_aed" : btnTreatments[2].isSelected ? true : false as? Bool,
+            "sjavms_oxygenadministration" : btnTreatments[3].isSelected ? true : false as? Bool,
+            "sjavms_medicaltreatmentsother" : btnTreatments[4].isSelected ? true : false as? Bool,
+            "sjavms_backboard" : btnTreatments[5].isSelected ? true : false as? Bool
             
         ] as [String : Any]
         

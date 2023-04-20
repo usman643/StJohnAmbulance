@@ -85,8 +85,8 @@ class ENTALDBaseViewController: UIViewController, MenuControllerDelegate {
             
             ENTALDControllers.shared.showUpdatePasswordScreen(type: .ENTALDPUSH, from: self, callBack: nil)
         }else if(named == "Documents"){
-            
-            ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
+            ENTALDControllers.shared.showContactDocumentScreen(type: .ENTALDPUSH, from: self, callBack: nil)
+//            ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
         }else if(named == "Logout"){
             
             UserDefaults.standard.signOut()

@@ -58,13 +58,20 @@ class EventScheduleTVC: UITableViewCell {
     func setContent(cellModel: VolunteerEventClickOptionModel?){
         
         lblEvent.text = cellModel?.msnfp_engagementopportunityschedule ?? ""
-        lblTitle.text = "\(cellModel?.msnfp_number ?? NSNotFound)"
+        
+        let tileEventArr = cellModel?.msnfp_engagementopportunityschedule?.components(separatedBy: " - ")
+        if ((tileEventArr?.count ?? 0) > 1){
+            lblEvent.text = "\(tileEventArr?[1])"
+            lblTitle.text = "\(tileEventArr?[0])"
+        }
+        
+        
 
         
         lblHour.text = "\(cellModel?.msnfp_hours ?? Float())"
-        lblMin.text = "\(cellModel?.msnfp_minimum ?? NSNotFound)"
-        lblMax.text = "\(cellModel?.msnfp_maximum ?? NSNotFound)"
-        lblStatus.text = "\(cellModel?.statecode ?? NSNotFound)"
+        lblMin.text = "\(cellModel?.msnfp_minimum ?? 0)"
+        lblMax.text = "\(cellModel?.msnfp_maximum ?? 0)"
+        lblStatus.text = "\(cellModel?.statecode ?? 0)"
 
         if let date = cellModel?.msnfp_effectivefrom {
             let start = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")

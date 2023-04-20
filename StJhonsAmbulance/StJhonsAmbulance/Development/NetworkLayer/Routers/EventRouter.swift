@@ -37,6 +37,7 @@ enum EventRouter : Router {
     case getOrganizerContact(params:[String:Any])
     case bookShift(params:[String:Any])
     case applyShift(params:[String:Any])
+    case cancelParticipation(participationId:String, params:[String:Any])
     case getvolunteerShiftStatus(params:[String:Any])
     case getAuditHistory(params:[String:Any])
     case getOtherVoulnteerParticipation(params:[String:Any])
@@ -78,6 +79,7 @@ enum EventRouter : Router {
         case .createEvent : return "sjavms_eventrequests"
         case .bookShift : return "msnfp_participationschedules"
         case .applyShift : return "msnfp_participations"
+        case .cancelParticipation(let participationId, _) : return "msnfp_participations(\(participationId))"
         case .getvolunteerShiftStatus : return "msnfp_participationschedules"
         case .getAuditHistory : return "audits"
         case .getOtherVoulnteerParticipation : return "msnfp_participations"
@@ -140,6 +142,8 @@ enum EventRouter : Router {
             return params
         case .cancelResgitertoAttendEvent(_, let params):
             return params
+        case .cancelParticipation(_, let params):
+            return params
         case .getParticipantCount(let params):
             return params
         case .getOrganizerContact(let params):
@@ -186,6 +190,8 @@ enum EventRouter : Router {
             return HTTPMethodType.patch.rawValue
         case .volunteerCheckIn(_,_):
             return HTTPMethodType.patch.rawValue
+        case .cancelParticipation(_,_):
+            return HTTPMethodType.patch.rawValue
         case .createEvent:
             return HTTPMethodType.post.rawValue
         case .bookShift:
@@ -228,6 +234,8 @@ enum EventRouter : Router {
         case .updateSummaryData(_,_):
             return .ENTJSONEncoding
         case .volunteerCheckIn(_,_):
+            return .ENTJSONEncoding
+        case .cancelParticipation(_,_):
             return .ENTJSONEncoding
         case .createEvent:
             return .ENTJSONEncoding

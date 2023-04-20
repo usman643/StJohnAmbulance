@@ -16,6 +16,7 @@
                 <outlet property="btnBack" destination="jqy-u3-qcD" id="6GS-P5-tmZ"/>
                 <outlet property="btnCalender" destination="MJ5-Pk-zJf" id="r78-ot-S0S"/>
                 <outlet property="btnSignUp" destination="6l3-1q-ydU" id="oK8-3o-Kjs"/>
+                <outlet property="calenderView" destination="1oc-7S-Y6g" id="QB4-d5-Ena"/>
                 <outlet property="lblTabTitle" destination="gO6-bk-5sJ" id="LKx-jT-Nty"/>
                 <outlet property="lblTitle" destination="Kg3-cd-046" id="IGf-dq-ckI"/>
                 <outlet property="selectedTabImg" destination="dEn-9g-8y0" id="ehg-Y1-Wmh"/>
@@ -93,6 +94,9 @@
                             <color key="tintColor" name="PrimaryGreen"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" image="calendar" catalog="system"/>
+                            <connections>
+                                <action selector="showCalenderTapped:" destination="-1" eventType="touchUpInside" id="Bl1-UX-3mp"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -201,11 +205,16 @@
                     <rect key="frame" x="0.0" y="818" width="393" height="34"/>
                     <color key="backgroundColor" red="0.90196078430000004" green="0.94901960780000005" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1oc-7S-Y6g">
+                    <rect key="frame" x="0.0" y="147" width="393" height="631"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="mgk-Za-Kvb" secondAttribute="trailing" id="0w5-Wt-dzp"/>
+                <constraint firstItem="1oc-7S-Y6g" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="4sz-QO-W0z"/>
                 <constraint firstItem="loY-5Y-vDQ" firstAttribute="top" secondItem="pQ6-Uc-W3G" secondAttribute="bottom" id="6Tu-Kn-Io1"/>
                 <constraint firstItem="jqy-u3-qcD" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="6bO-sQ-eBY"/>
                 <constraint firstItem="Eqt-eQ-NpO" firstAttribute="top" secondItem="mgk-Za-Kvb" secondAttribute="bottom" id="Dnh-Jt-vRt"/>
@@ -216,7 +225,10 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="pQ6-Uc-W3G" secondAttribute="trailing" constant="16" id="QK2-uJ-W8j"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="loY-5Y-vDQ" secondAttribute="trailing" id="Sy8-U3-K7b"/>
                 <constraint firstItem="loY-5Y-vDQ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="bi7-0I-JZE"/>
+                <constraint firstItem="1oc-7S-Y6g" firstAttribute="top" secondItem="pQ6-Uc-W3G" secondAttribute="bottom" id="ijW-lp-gKY"/>
+                <constraint firstItem="mgk-Za-Kvb" firstAttribute="top" secondItem="1oc-7S-Y6g" secondAttribute="bottom" id="oFe-3V-2vW"/>
                 <constraint firstItem="mgk-Za-Kvb" firstAttribute="top" secondItem="loY-5Y-vDQ" secondAttribute="bottom" id="pTz-EU-bZh"/>
+                <constraint firstAttribute="trailing" secondItem="1oc-7S-Y6g" secondAttribute="trailing" id="rhz-9P-Qfu"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="mgk-Za-Kvb" secondAttribute="bottom" id="tRU-Lr-U4c"/>
                 <constraint firstAttribute="trailing" secondItem="Eqt-eQ-NpO" secondAttribute="trailing" id="ttO-TU-33q"/>
                 <constraint firstItem="pQ6-Uc-W3G" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="vOU-yw-eFr"/>

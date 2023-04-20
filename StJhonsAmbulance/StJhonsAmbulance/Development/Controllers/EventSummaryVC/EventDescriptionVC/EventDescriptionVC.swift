@@ -56,6 +56,7 @@ class EventDescriptionVC: ENTALDBaseViewController {
         super.viewDidLoad()
         decorateUI()
         getSummaryData()
+        getAllProgramesfile()
         
     }
 
@@ -130,13 +131,13 @@ class EventDescriptionVC: ENTALDBaseViewController {
         
         self.setBtn(btn: btnAdhocEvent, value: self.summaryData?.sjavms_adhocevent ?? false)
         self.adhocSelected = self.summaryData?.sjavms_adhocevent ?? false
-        self.setBtn(btn: btnAvailables[0], value: self.summaryData?.sjavms_onsitefirstaidroomtent ?? false)
+        self.setBtn(btn: btnAvailables[0], value: self.summaryData?.sjavms_firstaidroomtent ?? false)
         self.setBtn(btn: btnAvailables[1], value: self.summaryData?.sjavms_bathrooms ?? false)
-        self.setBtn(btn: btnAvailables[2], value: self.summaryData?.sjavms_onsitecleandrinkingwater ?? false)
+        self.setBtn(btn: btnAvailables[2], value: self.summaryData?.sjavms_cleandrinkingwater ?? false)
         self.setBtn(btn: btnAvailables[3], value: self.summaryData?.sjavms_shadedareaifoutside ?? false)
         self.setBtn(btn: btnAvailables[4], value: self.summaryData?.sjavms_parking ?? false)
         self.setBtn(btn: btnAvailables[5], value: self.summaryData?.sjavms_willotherhealthcareagenciesbeonsite ?? false)
-        self.setBtn(btn: btnAvailables[6], value: self.summaryData?.sjavms_onsitedesignatedvolunteerarea ?? false)
+        self.setBtn(btn: btnAvailables[6], value: self.summaryData?.sjavms_designatedvolunteerarea ?? false)
         self.setBtn(btn: btnAvailables[7], value: self.summaryData?.sjavms_telephone ?? false)
         self.setBtn(btn: btnAvailables[8], value: self.summaryData?.sjavms_tableschairsseating ?? false)
         self.setBtn(btn: btnAvailables[9], value: self.summaryData?.sjavms_foodforvolunteers ?? false)
@@ -392,13 +393,13 @@ class EventDescriptionVC: ENTALDBaseViewController {
             "sjavms_donationintended": self.txtDonation.text as? Float,
             "sjavms_adhocevent": self.adhocSelected as? Bool,
 
-            "sjavms_onsitefirstaidroomtent" : btnAvailables[0].isSelected ? true : false as? Bool,
+            "sjavms_firstaidroomtent" : btnAvailables[0].isSelected ? true : false as? Bool,
             "sjavms_bathrooms" : btnAvailables[1].isSelected ? true : false as? Bool,
-            "sjavms_onsitecleandrinkingwater" : btnAvailables[2].isSelected ? true : false as? Bool,
+            "sjavms_cleandrinkingwater" : btnAvailables[2].isSelected ? true : false as? Bool,
             "sjavms_shadedareaifoutside" : btnAvailables[3].isSelected ? true : false as? Bool,
             "sjavms_parking" : btnAvailables[4].isSelected ? true : false as? Bool,
             "sjavms_willotherhealthcareagenciesbeonsite" : btnAvailables[5].isSelected ? true : false as? Bool,
-            "sjavms_onsitedesignatedvolunteerarea" : btnAvailables[6].isSelected ? true : false as? Bool,
+            "sjavms_designatedvolunteerarea" : btnAvailables[6].isSelected ? true : false as? Bool,
             "sjavms_telephone" : btnAvailables[6].isSelected ? true : false as? Bool,
             "sjavms_tableschairsseating" : btnAvailables[7].isSelected ? true : false as? Bool,
             "sjavms_foodforvolunteers" : btnAvailables[8].isSelected ? true : false as? Bool,

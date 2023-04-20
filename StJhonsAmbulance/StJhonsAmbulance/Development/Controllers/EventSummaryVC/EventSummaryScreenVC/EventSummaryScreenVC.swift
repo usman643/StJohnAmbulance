@@ -58,6 +58,7 @@ class EventSummaryScreenVC: ENTALDBaseViewController {
         getParticipantsCount()
         getSummaryData()
         getReportedShifts()
+        getAllProgramesfile()
     }
 
     func decorateUI(){
@@ -167,8 +168,8 @@ class EventSummaryScreenVC: ENTALDBaseViewController {
 
     func setupReportedShiftData(){
         
-        self.lblCancelShiftCount.text = "\(self.reportedShifts?.filter({$0.msnfp_schedulestatus == 335940003}).count ?? NSNotFound)"
-        self.lblPendingShiftCount.text = "\(self.reportedShifts?.filter({$0.msnfp_schedulestatus == 335940000}).count  ?? NSNotFound )"
+        self.lblCancelShiftCount.text = "\(self.reportedShifts?.filter({$0.msnfp_schedulestatus == 335940003}).count ?? 00)"
+        self.lblPendingShiftCount.text = "\(self.reportedShifts?.filter({$0.msnfp_schedulestatus == 335940000}).count  ?? 00 )"
     }
     
     func setupParticipantsData(){
@@ -176,9 +177,9 @@ class EventSummaryScreenVC: ENTALDBaseViewController {
         let approved = self.participantCount?.filter({$0.msnfp_status == 844060002}).first?.Participation
         let cancelled = self.participantCount?.filter({$0.msnfp_status == 844060004}).first?.Participation
         let pending = self.participantCount?.filter({$0.msnfp_status == 844060000}).first?.Participation
-        self.lblApprovedParticipantsCount.text = "\(approved ?? NSNotFound)"
-        self.lblCancelParticipantsCount.text = "\(cancelled ?? NSNotFound)"
-        self.lblPendingParticipantsCount.text = "\(pending ?? NSNotFound)"
+        self.lblApprovedParticipantsCount.text = "\(approved ?? 00)"
+        self.lblCancelParticipantsCount.text = "\(cancelled ?? 00)"
+        self.lblPendingParticipantsCount.text = "\(pending ?? 00)"
     }
     
     func showGroupsPicker(){

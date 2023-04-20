@@ -72,7 +72,7 @@ struct EventSummaryModel : Codable {
     let sjavms_cellphonereception : Bool?
     let _sjavms_account_value : String?
     let msnfp_locationtype : Int?
-    let sjavms_patientstreated : String?
+    let sjavms_patientstreated : Int?
     let sjavms_onsitefirstaidroomtent : Bool?
     let _sjavms_posteventsurvey_value : String?
     let msnfp_minimum : Int?
@@ -94,7 +94,14 @@ struct EventSummaryModel : Codable {
     let sjavms_locationcontactname : String?
     let sjavms_maxparticipants : Int?
     let _transactioncurrencyid_value : String?
-    
+    let sjavms_bandaids : Bool?
+    let sjavms_splints : Bool?
+    let sjavms_aed : Bool?
+    let sjavms_oxygenadministration : Bool?
+    let sjavms_backboard : Bool?
+    let sjavms_medicaltreatmentsother : Bool?
+    let sjavms_adequatesupport : Bool?
+ 
 }
 
 

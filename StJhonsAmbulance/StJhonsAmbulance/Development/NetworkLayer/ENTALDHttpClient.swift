@@ -43,7 +43,7 @@ class ENTALDHttpClient {
     
     func request<T: Codable>(_ router: Router, completion:@escaping (ApiResult<T, ApiError>) ->Void) {
         
-        if ProcessUtils.shared.shouldRefreshToken() {
+        if ProcessUtils.shared.shouldRefreshToken() && router.procedure != "token?p=b2c_1_ropc_auth"{
             ProcessUtils.shared.refreshToken { status in
                 if status {
                     self.request(router, completion: completion)

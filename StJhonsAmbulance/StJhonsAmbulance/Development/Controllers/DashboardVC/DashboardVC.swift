@@ -492,15 +492,17 @@ class DashboardVC: ENTALDBaseViewController{
                 DispatchQueue.main.async {
                     if let award = response.value {
                         self.latestEventData = award
-                        
-                        self.gridData?[index].title = self.latestEventData?[0].sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
-                        if (self.latestEventData?[0].sjavms_start != nil && self.latestEventData?[0].sjavms_start != ""){
-                            let startData = DateFormatManager.shared.formatDateStrToStr(date: self.latestEventData?[0].sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
-                            self.gridData?[index].subTitle = startData
+                        if ((self.latestEventData?.count ?? 0 ) > 0){
+                            self.gridData?[index].title = self.latestEventData?[0].sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
+                            if (self.latestEventData?[0].sjavms_start != nil && self.latestEventData?[0].sjavms_start != ""){
+                                let startData = DateFormatManager.shared.formatDateStrToStr(date: self.latestEventData?[0].sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
+                                self.gridData?[index].subTitle = startData
+                            }else{
+                                self.gridData?[index].subTitle  = ""
+                            }
                         }else{
-                            self.gridData?[index].subTitle  = ""
+                            self.gridData?[index].title  = "No Upcoming Event"
                         }
-
                     }else{
                         self.gridData?[index].title  = "No Upcoming Event"
                         self.gridData?[index].subTitle  = ""

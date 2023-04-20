@@ -306,6 +306,26 @@ class ENTALDLibraryAPI {
         let router = DashBoardRouter.getDashboardTilesOrder(params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
+
+    func getContactDocument(params:[String : Any],  _ completion:@escaping((ApiResult<ContactDocumentResponseModel, ApiError>) -> Void )){
+        let router = DocumentRouter.getContactDocuments(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 
     
@@ -381,6 +401,11 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
+    func cancelParticipationShift(participationId:String ,params:[String:Any],  _ completion:@escaping((ApiResult<ContactResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.cancelParticipation(participationId: participationId , params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
     func createEventRequest(params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
         let router = EventRouter.createEvent(params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
@@ -429,6 +454,11 @@ class ENTALDLibraryAPI {
     
     func cancelResgitertoAttendEvent(participationId: String ,params:[String : Any],  _ completion:@escaping((ApiResult<DashBoardGridOrderResponseModel, ApiError>) -> Void )){
         let router = EventRouter.cancelResgitertoAttendEvent(participationId: participationId, params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+        
+    func getContactDocumentstwoEvent(participationId: String ,params:[String : Any],  _ completion:@escaping((ApiResult<DashBoardGridOrderResponseModel, ApiError>) -> Void )){
+        let router = DocumentRouter.getContactDocumentstwoEvent(participationId: participationId, params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     

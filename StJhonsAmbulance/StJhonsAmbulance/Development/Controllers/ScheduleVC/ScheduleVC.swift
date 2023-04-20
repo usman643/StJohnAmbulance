@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import FSCalendar
 
-class ScheduleVC: ENTALDBaseViewController {
+class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSource{
     
     var scheduleGroupData : [ScheduleGroupsModel]?
     var scheduleEngagementData : [ScheduleModelTwo]?
     var scheduleData : [ScheduleModelThree]?
+    var calendar : FSCalendar!
+    var formatter = DateFormatter()
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var lblTitle: UILabel!
@@ -24,11 +27,19 @@ class ScheduleVC: ENTALDBaseViewController {
     @IBOutlet weak var selectedTabImg: UIImageView!
     @IBOutlet weak var lblTabTitle: UILabel!
     
+    
+    @IBOutlet weak var calenderView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         registerCell()
         decorateUI()
         getScheduleInfo()
+        
+        calendar = FSCalendar(frame: CGRect(x:0.0,y:40.0,width: self.calenderView.frame.size.width, height: self.calenderView.frame.size.height))
+        calendar.scrollDirection = .vertical
+        self.calenderView.addSubview(calendar)
+        calendar.delegate = self
+        calendar.dataSource = self
         
     }
     
@@ -55,6 +66,7 @@ class ScheduleVC: ENTALDBaseViewController {
         
         selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
         selectedTabImg.tintColor = UIColor.themePrimaryColor
+        calenderView.isHidden = true
     }
     
     @IBAction func signUpTapped(_ sender: Any) {
@@ -64,6 +76,16 @@ class ScheduleVC: ENTALDBaseViewController {
     
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
+        
+    }
+    
+    @IBAction func showCalenderTapped(_ sender: Any) {
+        if (calenderView.isHidden){
+            calenderView.isHidden = false
+        }else{
+            calenderView.isHidden = true
+        }
+        
         
     }
     
@@ -115,6 +137,40 @@ class ScheduleVC: ENTALDBaseViewController {
         self.navigationController?.popViewController(animated: false)
         
     }
+    
+    func minimumDate(for calendar: FSCalendar) -> Date {
+        formatter.dateFormat = "yyyy-MM-dd"
+        var startDate = formatter.date(from: "2000-01-01") ?? Date()
+        return startDate
+        
+    }
+    
+    func maximumDate(for calendar: FSCalendar) -> Date {
+        formatter.dateFormat = "yyyy-MM-dd"
+        var endDate = formatter.date(from: "2060-01-01") ?? Date().addingTimeInterval((24*60*60)*40)
+        return endDate
+    }
+    
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        
+        for i in (0..<(scheduleEngagementData?.count ?? 0)) {
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+            guard let eventDateStr = formatter.date(from: scheduleEngagementData?[i].msnfp_startingdate ?? "") else {return 0}
+            if date.compare(eventDateStr) == .orderedSame{
+                return 1
+            }
+            
+        }
+        return 0
+    }
+    
+    
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+       return false
+    }
+    
+    
+  
     // ============================ API ==========================//
 
     func getScheduleInfo(){
@@ -226,6 +282,7 @@ class ScheduleVC: ENTALDBaseViewController {
                         DispatchQueue.main.async {
                             
                             self.tableView.reloadData()
+                            self.calendar.reloadData()
                             for subview in self.tableView.subviews {
                                 subview.removeFromSuperview()
                             }

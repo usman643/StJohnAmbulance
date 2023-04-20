@@ -204,7 +204,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
                 
                 if(self.eventOptionsData?[i].filterdata()?[j].participation_selected == true){
                     
-                    selectedEvents.append(self.eventOptionsData?[i].filterdata()?[j]._msnfp_participationid_value ?? "")
+                    selectedEvents.append(self.eventOptionsData?[i].filterdata()?[j].msnfp_participationscheduleid ?? "")
                 }
             }
         }

@@ -257,6 +257,8 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         
         if isUserParticipate == true{
             
+            self.requestCloseEvent()
+            
         }else{
             self.applyShift()
         }
@@ -343,7 +345,7 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
                                 self.btnCancelApprovedShift.isHidden = false
                                 self.btnCloseEvent.isHidden = true
                                 self.isBottombtnEnable = true
-                                
+                            }
                                 if (self.userParticipantData?.msnfp_status == 844060000 || self.userParticipantData?.msnfp_status ==  844060001  || self.userParticipantData?.msnfp_status == 844060003) {
                                     self.lblDesc.text = "In Review"
                                     self.closeImg.image = UIImage(systemName: "stopwatch")
@@ -370,17 +372,25 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
                                     self.isApplyNowShow = false
                                     
                                 }
-                            }
+                            
                         }else{
                             self.isUserParticipate = false
                             self.isBottombtnEnable = false
                             if(DateFormatManager.shared.isDatePassed(date: self.userParticipantData?.msnfp_enddate ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")) {
-                                self.lblDesc.text = "No longer accepting volunteer"
-                                self.closeImg.isHidden = true
-                              
-                                self.btnCloseEvent.isHidden = false
-                                self.btnCloseEvent.isEnabled = false
-                                self.btnCloseEvent.setTitle("Close", for: .normal)
+                                
+                                //missed
+                                
+                                self.lblDesc.text = "Missed"
+                                self.closeImg.isHidden = false
+                                self.closeImg.image = UIImage(systemName:  "xmark.circle.fill")
+                                self.btnCloseEvent.isHidden = true
+                                self.btnCancelApprovedShift.isHidden = true
+//                                self.lblDesc.text = "No longer accepting volunteer"
+//                                self.closeImg.isHidden = true
+//
+//                                self.btnCloseEvent.isHidden = false
+//                                self.btnCloseEvent.isEnabled = false
+//                                self.btnCloseEvent.setTitle("Close", for: .normal)
                             }else{
                                 self.lblDesc.text = ""
                                 self.closeImg.isHidden = true
@@ -392,6 +402,33 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
                                 self.btnCancelApprovedShift.setTitle(" Apply Now ", for: .normal)
                                 self.isApplyNowShow = true
                             }
+                            if (self.userParticipantData?.msnfp_status == 844060000 || self.userParticipantData?.msnfp_status ==  844060001  || self.userParticipantData?.msnfp_status == 844060003) {
+                                self.lblDesc.text = "In Review"
+                                self.closeImg.image = UIImage(systemName: "stopwatch")
+                                self.btnCloseEvent.isHidden = true
+                                self.btnCancelApprovedShift.isHidden = true
+                                
+                            }else if (self.userParticipantData?.msnfp_status == 844060004){
+                                
+                                self.lblDesc.text = "Cancelled"
+                                self.closeImg.isHidden = false
+                                self.closeImg.image = UIImage(systemName:  "xmark.circle.fill")
+                                self.btnCloseEvent.isHidden = true
+                                self.btnCancelApprovedShift.isHidden = true
+                                
+                            }else if (self.userParticipantData?.msnfp_status == 844060002){
+                                
+                                self.lblDesc.text = "Registered to Attend"
+                                self.closeImg.isHidden = false
+                                self.closeImg.image = UIImage(systemName:  "checkmark.circle.fill")
+                                self.closeImg.tintColor = UIColor.themePrimaryColor
+                                self.btnCloseEvent.isHidden = true
+                                self.btnCancelApprovedShift.isHidden = false
+                                self.btnCancelApprovedShift.setTitle(" Cancel ", for: .normal)
+                                self.isApplyNowShow = false
+                                
+                            }
+                            
                         }
                     }
                 }
@@ -414,8 +451,8 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         
         let participationId = self.userParticipantData?.msnfp_participationid ?? ""
         let params = [
-            "[msnfp_engagementOpportunityId@odata.bind]" : "/msnfp_engagementopportunities(\(participationId))" as String,
-            "[msnfp_contactId@odata.bind]" : "/contacts(\(self.contactId))" as String
+            "msnfp_engagementOpportunityId@odata.bind" : "/msnfp_engagementopportunities(\(self.eventId))" as String,
+            "msnfp_contactId@odata.bind" : "/contacts(\(self.contactId))" as String
         ] as [String : Any]
         
         self.applyforShift(params: params)
@@ -449,8 +486,37 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         
     func requestCloseEvent(){
         
-        
-        
+        let participationId = self.userParticipantData?.msnfp_participationid ?? ""
+        let params = [
+            "msnfp_status": 844060004 as Int
+        ] as [String : Any]
+     
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        ENTALDLibraryAPI.shared.cancelParticipationShift(participationId: participationId, params:  params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result{
+            case .success:
+                break
+            case .error(let error, let errorResponse):
+                
+                var message = error.message
+                if error == .patchSuccess {
+                    
+                }else{
+                    var message = error.message
+                    if let err = errorResponse {
+                        message = err.error
+                    }
+                    DispatchQueue.main.async {
+//                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                    }
+                }
+            }
+        }
     }
     
     func getEventTabDetail() {

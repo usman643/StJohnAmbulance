@@ -140,9 +140,9 @@ class EventScheduleVC: ENTALDBaseViewController {
         }else{
             txtEndTime.text = ""
         }
-        minVolunteer.text = "\(self.summaryData?.msnfp_minimum ?? NSNotFound)"
-        maxDailyAttendance.text = ""
-        maxVolunteer.text = "\(self.summaryData?.msnfp_maximum ?? NSNotFound)"
+        minVolunteer.text = "\(self.summaryData?.msnfp_minimum ?? 0)"
+        maxDailyAttendance.text = "\(self.summaryData?.sjavms_maxparticipants ?? 0)"
+        maxVolunteer.text = "\(self.summaryData?.msnfp_maximum ?? 0)"
         self.setBtn(btn: btnMultiday, value: self.summaryData?.msnfp_multipledays ?? false)
         self.setBtn(btn: btnAgeOne, value: self.summaryData?.sjavms_age13under ?? false)
         self.setBtn(btn: btnAgeTwo, value: self.summaryData?.sjavms_age1417 ?? false)
