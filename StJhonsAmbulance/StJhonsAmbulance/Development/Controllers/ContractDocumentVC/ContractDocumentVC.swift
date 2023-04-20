@@ -14,6 +14,7 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
     var participationId = ""
     var relativeurlData : [ContactDocumentModel]?
     var documents : [ContactDocumentResults]?
+    var access_token = ""
     
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblModifiedDate: UILabel!
@@ -31,6 +32,7 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
         self.textSearch.delegate = self
         decorateUI()
         registerCell()
+        getDocumentToken()
         
     }
     
@@ -108,6 +110,37 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
     }
     
     
+    fileprivate func getDocumentToken(){
+        
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.getDocumentToken{ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result{
+            case .success(let response):
+                if let sessionToken = response.access_token {
+                    self.access_token = sessionToken
+                    self.getDocument()
+                }
+                break
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+        
+        
+        
+    }
     
     
     
@@ -133,6 +166,7 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
                 
                 if let apiData = response.value {
                     self.relativeurlData = apiData
+                    self.getDocumentTwo()
                 }
                 
             case .error(let error, let errorResponse):

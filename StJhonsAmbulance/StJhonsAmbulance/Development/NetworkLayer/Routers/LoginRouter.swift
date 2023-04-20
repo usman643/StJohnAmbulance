@@ -14,6 +14,7 @@ enum LoginRouter: Router {
     case getExternalIdentity(subId:String)
     case getUserIdentity(conId:String)
     case updateUserIdentity(conId:String,  params:[String:Any])
+    case getDocumentToken
     case simulate401
     
     var procedure: String { //endpoints
@@ -21,10 +22,12 @@ enum LoginRouter: Router {
         case .portalAuthentication: return "token?p=b2c_1_ropc_auth"
         case .dynamicAuthentication: return "token"
         case .getExternalIdentity: return "adx_externalidentities"
+        case .getDocumentToken: return ""
         case .getUserIdentity(let conId):
             return "contacts(\(conId))"
         case .updateUserIdentity(let conId, _):
             return "contacts(\(conId))"
+            
         case .simulate401: return "simulate-401"
         }
     }
@@ -46,6 +49,7 @@ enum LoginRouter: Router {
             
         case .updateUserIdentity(_, let params):
             return params
+        
         default: return [:]
         }
     }
@@ -62,6 +66,8 @@ enum LoginRouter: Router {
             return HTTPMethodType.post.rawValue
         case .updateUserIdentity(_,_):
             return HTTPMethodType.patch.rawValue
+        case .getDocumentToken:
+            return HTTPMethodType.post.rawValue
         default:
             break
         }
@@ -74,6 +80,8 @@ enum LoginRouter: Router {
             return .PORTALAUTHENTICATE_BASEURL
         case .dynamicAuthentication(_):
             return .DYNAMICAUTHENTICATE_BASEURL
+        case .getDocumentToken:
+            return .SAINJOHN_DOCUMENT_AUTH_URL
         default:
             break
         }

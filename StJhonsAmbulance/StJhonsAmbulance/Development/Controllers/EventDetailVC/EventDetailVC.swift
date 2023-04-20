@@ -303,7 +303,7 @@ class EventDetailVC: ENTALDBaseViewController {
     fileprivate func getDocument(){
         let params : [String:Any] = [
             ParameterKeys.select : "relativeurl",
-            ParameterKeys.filter : "(_regardingobjectid_value eq \(self.conId))"
+            ParameterKeys.filter : "(_regardingobjectid_value eq \(self.eventId))"
         ]
         
         DispatchQueue.main.async {

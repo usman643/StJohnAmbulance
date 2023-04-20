@@ -13,6 +13,7 @@ enum ENTALDBASEURLTYPE {
     case SAINJOHN_BASEURL
     case SAINJOHN_DOCUMENT_URL
     case SAINJOHN_BASEURL_Api
+    case SAINJOHN_DOCUMENT_AUTH_URL
 }
 
 class ENTALDAPIUtils {
@@ -35,8 +36,17 @@ class ENTALDAPIUtils {
             return self.getDocumentURLAPI()
         case .SAINJOHN_BASEURL_Api:
             return self.getBaseURLAPI()
+        case .SAINJOHN_DOCUMENT_AUTH_URL:
+            return self.getDocumentAuthURL()
             
         }
+    }
+    
+    private func getDocumentAuthURL()->URL?{
+        if let urlStr = ENTALDAPIConfig.shared.baseURLAPI, urlStr != "", let baseURL = URL(string: urlStr){
+            return baseURL
+        }
+        return nil
     }
     
     private func getBaseURLAPI()->URL?{
