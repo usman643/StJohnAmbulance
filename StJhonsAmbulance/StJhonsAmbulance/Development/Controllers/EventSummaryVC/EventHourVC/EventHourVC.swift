@@ -206,10 +206,13 @@ class EventHourVC: ENTALDBaseViewController {
             case .success(value: let response):
                 
                 if let summaryData = response.value {
-                    self.summaryData = summaryData[0]
-                    DispatchQueue.main.async {
-                        self.setupData()
+                    if summaryData.count > 0 {
+                        self.summaryData = summaryData[0]
+                        DispatchQueue.main.async {
+                            self.setupData()
+                        }
                     }
+                    
                 }
             
             case .error(let error, let errorResponse):

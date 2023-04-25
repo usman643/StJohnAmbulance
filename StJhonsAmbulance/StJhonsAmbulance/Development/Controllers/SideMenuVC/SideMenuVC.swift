@@ -63,6 +63,13 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         }
         
         btnSwitch.onTintColor = UIColor.themePrimaryColor
+        
+        if ProcessUtils.shared.userGroupsList.count == 0 {
+            self.btnSwitch.isHidden = true
+            lblCSLead.isHidden = true
+            return
+            
+        }
     }
 
     
@@ -91,6 +98,11 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     }
     
     @IBAction func switchRole(_ sender: Any) {
+        
+        if ProcessUtils.shared.userGroupsList.count == 0 {
+            return
+        }
+        
         
         if (ProcessUtils.shared.currentRole == "cslead"){
             self.btnSwitch.setOn(false, animated: true)

@@ -11,9 +11,15 @@ class EventDetailVC: ENTALDBaseViewController {
     
     let conId = UserDefaults.standard.contactIdToken ?? ""
     var relativeurlData : [ContactDocumentModel]?
+    var access_token : String = ""
     var documents : [ContactDocumentResults]?
+    var filterDocuments : [ContactDocumentResults]?
     var contactInfo : [ContactDataModel]?
     var eventId = ""
+    
+    var isNameFilterApplied = false
+    var isModifiedOnFilterApplied = false
+    
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var contactBtnImg: UIImageView!
@@ -37,6 +43,11 @@ class EventDetailVC: ENTALDBaseViewController {
     @IBOutlet weak var btnCancel: UIButton!
     @IBOutlet weak var checkInbtnView: UIView!
     
+    @IBOutlet weak var tableHeaderView: UIView!
+    @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var lblModifiedOn: UILabel!
+    @IBOutlet weak var lblAction: UILabel!
+    
     @IBOutlet weak var contactbtnView: UIView!
     var availableEvent: AvailableEventModel?
     var scheduleEvent: ScheduleModelThree?
@@ -46,7 +57,7 @@ class EventDetailVC: ENTALDBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupData()
-        getDocument()
+        getDocumentToken()
         decorateUI()
         registerCell()
     }
@@ -106,6 +117,16 @@ class EventDetailVC: ENTALDBaseViewController {
             checkInBtnImg.isHidden = false
             checkInBtnImg.tintColor = UIColor.white
         }
+        tableHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+        tableHeaderView.layer.borderWidth = 1.5
+        
+        lblName.font = UIFont.BoldFont(13)
+        lblModifiedOn.font = UIFont.BoldFont(13)
+        lblAction.font = UIFont.BoldFont(13)
+        
+        lblName.textColor = UIColor.themePrimaryWhite
+        lblModifiedOn.textColor = UIColor.themePrimaryWhite
+        lblAction.textColor = UIColor.themePrimaryWhite
         
     }
     
@@ -193,6 +214,50 @@ class EventDetailVC: ENTALDBaseViewController {
         //            ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alter", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
         
         
+        
+    }
+    
+    @IBAction func nameFilterTapped(_ sender: Any) {
+        
+        if !isNameFilterApplied{
+            self.filterDocuments = self.filterDocuments?.sorted {
+                $0.Name ?? "" < $1.Name ?? ""
+            }
+            isNameFilterApplied = true
+        }else{
+            self.filterDocuments = self.filterDocuments?.sorted {
+                $0.Name ?? "" > $1.Name ?? ""
+            }
+            isNameFilterApplied = false
+        }
+        
+        isModifiedOnFilterApplied = false
+
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        
+    }
+    
+    @IBAction func modifiedDateFilterTapped(_ sender: Any) {
+        
+        if !isModifiedOnFilterApplied{
+            self.filterDocuments = self.filterDocuments?.sorted {
+                $0.TimeLastModified ?? "" < $1.TimeLastModified ?? ""
+            }
+            isModifiedOnFilterApplied = true
+        }else{
+            self.filterDocuments = self.filterDocuments?.sorted {
+                $0.TimeLastModified ?? "" > $1.TimeLastModified ?? ""
+            }
+            isModifiedOnFilterApplied = false
+        }
+        
+        isNameFilterApplied = false
+
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
         
     }
     
@@ -300,6 +365,45 @@ class EventDetailVC: ENTALDBaseViewController {
     }
     
     
+    fileprivate func getDocumentToken(){
+        
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        let params : DynamicAuthRequest = DynamicAuthRequest(grant_type: "client_credentials", client_id: "69168eb4-986f-4198-92f5-7b3c796044ad@4eb3d202-86fa-4a81-b4de-47e3389ef4d0", resource: "00000003-0000-0ff1-ce00-000000000000/sjaasj.sharepoint.com@4eb3d202-86fa-4a81-b4de-47e3389ef4d0", client_secret: "/pbmvpnf9I2QefYYTbpBqPY7l8P1TleNGyUc7Tc8/g0=")
+        
+        ENTALDLibraryAPI.shared.getDocumentToken(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result{
+            case .success(let response):
+                if let sessionToken = response.access_token {
+                    self.access_token = sessionToken
+                    self.getDocument()
+                }
+                break
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+        
+        
+        
+    }
+    
+    
+    
+
+    
+    
     fileprivate func getDocument(){
         let params : [String:Any] = [
             ParameterKeys.select : "relativeurl",
@@ -319,6 +423,10 @@ class EventDetailVC: ENTALDBaseViewController {
                 
                 if let apiData = response.value {
                     self.relativeurlData = apiData
+                    if ((self.relativeurlData?.count ?? 0 ) > 0){
+                        self.getDocumentTwo()
+                    }
+                    
                 }
                 
             case .error(let error, let errorResponse):
@@ -337,11 +445,6 @@ class EventDetailVC: ENTALDBaseViewController {
     
     
     fileprivate func getDocumentTwo(){
-        let params : [String:Any] = [
-            ParameterKeys.select : "relativeurl",
-            ParameterKeys.filter : "(_regardingobjectid_value eq \(self.conId))"
-        ]
-        
         
         guard let retrivalURL =  self.relativeurlData?[0].relativeurl else {return }
         
@@ -350,7 +453,7 @@ class EventDetailVC: ENTALDBaseViewController {
             LoadingView.show()
         }
         
-        ENTALDLibraryAPI.shared.getContactDocumentstwoEvent(participationId: retrivalURL, externalToken: ""){ result in
+        ENTALDLibraryAPI.shared.getContactDocumentstwoEvent(participationId: retrivalURL, externalToken: self.access_token){ result in
             DispatchQueue.main.async {
                 LoadingView.hide()
             }
@@ -359,6 +462,7 @@ class EventDetailVC: ENTALDBaseViewController {
                 
                 if let apiData = response.d {
                     self.documents = apiData.results
+                    self.filterDocuments = apiData.results
                     if (self.documents?.count == 0 || self.documents?.count == nil){
                         self.showEmptyView(tableVw: self.tableView)
                     }else{
@@ -402,17 +506,33 @@ class EventDetailVC: ENTALDBaseViewController {
 extension EventDetailVC : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return self.filterDocuments?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactDocumentsTVC", for: indexPath) as! ContactDocumentsTVC
-        
-        
+        let rowModel = self.filterDocuments?[indexPath.row]
+        cell.setContent(cellModel: rowModel)
+        if indexPath.row % 2 == 0{
+            cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+            cell.seperatorView.backgroundColor = UIColor.themePrimary
+        }else{
+            cell.mainView.backgroundColor = UIColor.viewLightColor
+            cell.seperatorView.backgroundColor = UIColor.gray
+        }
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let rowModel = self.filterDocuments?[indexPath.row]
+        if let serverUrl = rowModel?.ServerRelativeUrl {
+            let urlStr = "https://sjaasj.sharepoint.com/sites/VMSSandbox/_api/Web/GetFileByServerRelativePath(decodedurl='\(serverUrl)')/$value"
+            ENTALDControllers.shared.showDocument(type: .ENTALDPUSH, from: self, urlStr, self.access_token) { params, controller in
+                
+            }
+        }
+        
+    }
     
 }
     

@@ -14,12 +14,18 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
     var participationId = ""
     var relativeurlData : [ContactDocumentModel]?
     var documents : [ContactDocumentResults]?
+    var filterDocuments : [ContactDocumentResults]?
     var access_token : String = ""
+    var isModifiedOnFilterApplied = false
+    var isNameFilterApplied = false
+    
+    @IBOutlet weak var lblScreenTitle: UILabel!
     
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblModifiedDate: UILabel!
     @IBOutlet weak var lblAction: UILabel!
     
+    @IBOutlet weak var tableHeaderView: UIView!
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var searchImg: UIImageView!
     @IBOutlet weak var textSearch: UITextField!
@@ -38,12 +44,17 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
     
     func decorateUI(){
         lblTitle.textColor = UIColor.themePrimaryWhite
-        lblTitle.font = UIFont.BoldFont(12)
+        lblTitle.font = UIFont.BoldFont(13)
         lblModifiedDate.textColor = UIColor.themePrimaryWhite
-        lblModifiedDate.font = UIFont.BoldFont(12)
+        lblModifiedDate.font = UIFont.BoldFont(13)
         lblAction.textColor = UIColor.themePrimaryWhite
-        lblAction.font = UIFont.BoldFont(12)
+        lblAction.font = UIFont.BoldFont(13)
         
+        tableHeaderView.layer.borderWidth = 1.5
+        tableHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+        
+        lblScreenTitle.font = UIFont.BoldFont(22)
+        lblScreenTitle.textColor = UIColor.themePrimaryWhite
         
         searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         searchView.layer.borderWidth = 1.5
@@ -69,6 +80,9 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
     }
 
     
+    @IBAction func backTapped(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
     
     @IBAction func filterTapped(_ sender: Any) {
         self.searchView.isHidden = false
@@ -77,9 +91,47 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
     }
     
     @IBAction func nameFilterTapped(_ sender: Any) {
+        
+        if !isNameFilterApplied{
+            self.filterDocuments = self.filterDocuments?.sorted {
+                $0.Name ?? "" < $1.Name ?? ""
+            }
+            isNameFilterApplied = true
+        }else{
+            self.filterDocuments = self.filterDocuments?.sorted {
+                $0.Name ?? "" > $1.Name ?? ""
+            }
+            isNameFilterApplied = false
+        }
+        
+        isModifiedOnFilterApplied = false
+
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        
     }
     
     @IBAction func modifiedDateFilterTapped(_ sender: Any) {
+        
+        if !isModifiedOnFilterApplied{
+            self.filterDocuments = self.filterDocuments?.sorted {
+                $0.TimeLastModified ?? "" < $1.TimeLastModified ?? ""
+            }
+            isModifiedOnFilterApplied = true
+        }else{
+            self.filterDocuments = self.filterDocuments?.sorted {
+                $0.TimeLastModified ?? "" > $1.TimeLastModified ?? ""
+            }
+            isModifiedOnFilterApplied = false
+        }
+        
+        isNameFilterApplied = false
+
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -88,24 +140,24 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         
-//        if (textField.text != "" ){
-//            
-//            filterPendingShiftData  =  pendingShiftData?.filter({
-//                if let name = $0.sjavms_Volunteer?.fullname, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
-//                    return true
-//                }
-//                return false
-//            })
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-//            }
-//        }else{
-//            DispatchQueue.main.async {
-//                self.filterPendingShiftData = self.pendingShiftData
-//                self.tableView.reloadData()
-//               
-//            }
-//        }
+        if (textField.text != "" ){
+            
+            filterDocuments  =  documents?.filter({
+                if let name = $0.Name, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                    return true
+                }
+                return false
+            })
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }else{
+            DispatchQueue.main.async {
+                self.filterDocuments = self.documents
+                self.tableView.reloadData()
+               
+            }
+        }
         
     }
     
@@ -118,7 +170,7 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
         
         let params : DynamicAuthRequest = DynamicAuthRequest(grant_type: "client_credentials", client_id: "69168eb4-986f-4198-92f5-7b3c796044ad@4eb3d202-86fa-4a81-b4de-47e3389ef4d0", resource: "00000003-0000-0ff1-ce00-000000000000/sjaasj.sharepoint.com@4eb3d202-86fa-4a81-b4de-47e3389ef4d0", client_secret: "/pbmvpnf9I2QefYYTbpBqPY7l8P1TleNGyUc7Tc8/g0=")
         
-        ENTALDLibraryAPI.shared.getDocumentToken(params: params){ result in
+        ENTALDLibraryAPI.shared.getDocumentToken(params: params) { result in
             DispatchQueue.main.async {
                 LoadingView.hide()
             }
@@ -204,6 +256,7 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
                 
                 if let apiData = response.d {
                     self.documents = apiData.results
+                    self.filterDocuments = apiData.results
                     if (self.documents?.count == 0 || self.documents?.count == nil){
                         self.showEmptyView(tableVw: self.tableView)
                     }else{
@@ -247,18 +300,25 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
 extension ContractDocumentVC : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.documents?.count ?? 0
+        return self.filterDocuments?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactDocumentsTVC", for: indexPath) as! ContactDocumentsTVC
-        
-        
+        let rowModel = self.filterDocuments?[indexPath.row]
+        cell.setContent(cellModel: rowModel)
+        if indexPath.row % 2 == 0{
+            cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+            cell.seperatorView.backgroundColor = UIColor.themePrimary
+        }else{
+            cell.mainView.backgroundColor = UIColor.viewLightColor
+            cell.seperatorView.backgroundColor = UIColor.gray
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let rowModel = self.documents?[indexPath.row]
+        let rowModel = self.filterDocuments?[indexPath.row]
         if let serverUrl = rowModel?.ServerRelativeUrl {
             let urlStr = "https://sjaasj.sharepoint.com/sites/VMSSandbox/_api/Web/GetFileByServerRelativePath(decodedurl='\(serverUrl)')/$value"
             ENTALDControllers.shared.showDocument(type: .ENTALDPUSH, from: self, urlStr, self.access_token) { params, controller in

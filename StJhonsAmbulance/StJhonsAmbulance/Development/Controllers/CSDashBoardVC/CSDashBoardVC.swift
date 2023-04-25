@@ -60,8 +60,10 @@ class CSDashBoardVC: ENTALDBaseViewController{
                 ]
         getDashBoardOrder()
         if (ProcessUtils.shared.selectedUserGroup == nil){
-            ProcessUtils.shared.selectedUserGroup = ProcessUtils.shared.userGroupsList[0]
-            btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupName() ?? "", for: .normal)
+            if (ProcessUtils.shared.userGroupsList.count > 0 ){
+                ProcessUtils.shared.selectedUserGroup = ProcessUtils.shared.userGroupsList[0]
+                btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupName() ?? "", for: .normal)
+            }
         }
         
     }
