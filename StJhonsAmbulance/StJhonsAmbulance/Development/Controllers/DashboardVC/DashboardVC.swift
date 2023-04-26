@@ -71,7 +71,7 @@ class DashboardVC: ENTALDBaseViewController{
         setupCollectionView()
         
         gridData = [
-                    DashBoardGridModel(title: "", subTitle: "", bgColor: UIColor.darkBlueColor, icon: "ic_camp", key: "sjavms_youthcamp"),
+                    DashBoardGridModel(title: "No Upcoming Event", subTitle: "", bgColor: UIColor.darkBlueColor, icon: "ic_camp", key: "sjavms_youthcamp"),
                     DashBoardGridModel(title: "Messages", subTitle: "", bgColor: UIColor.orangeRedColor, icon: "ic_message", key: "sjavms_messages"),
                     DashBoardGridModel(title: "Check In", subTitle: "", bgColor: UIColor.hexString(hex: "AC41DE"), icon: "ic_checkIn", key: "sjavms_checkin"),
                     DashBoardGridModel(title: "Schedule", subTitle: "", bgColor: UIColor.hexString(hex: "2DD0DA"), icon: "ic_calender", key: "sjavms_myschedule"),
@@ -301,7 +301,7 @@ class DashboardVC: ENTALDBaseViewController{
         
             
         }else if (controller == "sjavms_messages"){
-            ENTALDControllers.shared.showMessageScreen(type: .ENTALDPUSH, from: self) { params, controller in
+            ENTALDControllers.shared.showMessageScreen(type: .ENTALDPUSH, from: self,  dataObj: true) { params, controller in
                 self.openNextScreen(controller:params as? String)
             }
             
@@ -416,9 +416,10 @@ class DashboardVC: ENTALDBaseViewController{
                         self.getIncomingEvent()
 
                     }else{
-//                        self.lblCamp.text = "No Upcoming Event"
-//                        self.lblCampNum.text = ""
-                        
+                        DispatchQueue.main.async {
+                            
+                            self.collectionview.reloadData()
+                        }
                     }
                 }
                 
@@ -497,15 +498,21 @@ class DashboardVC: ENTALDBaseViewController{
                             if (self.latestEventData?[0].sjavms_start != nil && self.latestEventData?[0].sjavms_start != ""){
                                 let startData = DateFormatManager.shared.formatDateStrToStr(date: self.latestEventData?[0].sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
                                 self.gridData?[index].subTitle = startData
+                                self.collectionview.reloadData()
                             }else{
                                 self.gridData?[index].subTitle  = ""
                             }
                         }else{
-                            self.gridData?[index].title  = "No Upcoming Event"
+                            DispatchQueue.main.async {
+                                self.gridData?[index].title  = "No Upcoming Event"
+                                self.collectionview.reloadData()
+                            }
                         }
                     }else{
-                        self.gridData?[index].title  = "No Upcoming Event"
-                        self.gridData?[index].subTitle  = ""
+                        DispatchQueue.main.async {
+                            self.gridData?[index].title  = "No Upcoming Event"
+                            self.collectionview.reloadData()
+                        }
                     }
                 }
                 
@@ -700,6 +707,7 @@ extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource,UICo
             params[key] = order
 
         }
+        
 
         self.updateDashboardGridOrder(params: params)
         params = [:]
@@ -788,7 +796,7 @@ extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource,UICo
         
         let params : [String:Any] = [
             "sjavms_user@odata.bind" : "/contacts(\(self.conId))",
-               "sjavms_csgrouplead" : true,
+               "sjavms_csgrouplead" : false,
                "sjavms_messages": 2,
                "sjavms_myschedule": 4,
                "sjavms_events": 6,

@@ -17,6 +17,8 @@ class ProcessUtils {
     }
     
     var userGroupsList : [LandingGroupsModel] = []
+    var volunteerGroupsList : [LandingGroupsModel] = []
+    var allGroupsList : [LandingGroupsModel] = []
     var selectedUserGroup : LandingGroupsModel?
     var programsData : [ProgramModel]?
     var contactInfo : UserIdentityModel?

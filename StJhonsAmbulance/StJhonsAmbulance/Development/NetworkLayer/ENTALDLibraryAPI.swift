@@ -313,7 +313,10 @@ class ENTALDLibraryAPI {
     }
     
     
-    
+    func requestScheduleData(params:[String:Any],  _ completion:@escaping((ApiResult<ScheduleEventResponseDataModel, ApiError>) -> Void )){
+        let router = VolunteerDashBoardRouter.getScheduleData(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
     
     
     

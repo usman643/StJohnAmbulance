@@ -24,6 +24,7 @@ enum VolunteerDashBoardRouter : Router {
     case getVolunteerEvent(params:[String:Any])
     case getLatestEventInfo(params:[String:Any])
     case getLatestEvents(params:[String:Any])
+    case getScheduleData(params:[String:Any])
     
     case simulate401
     
@@ -45,6 +46,7 @@ enum VolunteerDashBoardRouter : Router {
         case .getMessages : return "emails"
         case .getContact : return "contacts"
         case .getAwards : return "msnfp_awardversions"
+        case .getScheduleData : return "msnfp_awardversions"
             
             
             
@@ -82,6 +84,8 @@ enum VolunteerDashBoardRouter : Router {
             return params
         case .getLatestEvents(let params):
             return params
+        case .getScheduleData(let params):
+            return params
         default: return [:]
         }
         
@@ -97,6 +101,14 @@ enum VolunteerDashBoardRouter : Router {
     }
     
     var urlType: ENTALDBASEURLTYPE {
+        
+        switch self{
+             case .getScheduleData:
+                 return .SAINJOHN_SCHEDULE_URL
+             default:
+                 break
+             }
+        
         return .SAINJOHN_BASEURL
     }
     

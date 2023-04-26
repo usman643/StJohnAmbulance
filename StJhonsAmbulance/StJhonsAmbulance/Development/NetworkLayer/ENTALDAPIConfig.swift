@@ -22,6 +22,7 @@ class ENTALDAPIConfig {
     var baseURL : String?
     var portalAuthenticateBaseUrl : String?
     var dynamicAuthenticateBaseUrl : String?
+    var scheduleURL : String?
     
     private init(){
         
@@ -49,6 +50,7 @@ extension ENTALDAPIConfig {
         ENTALDAPIConfig.shared.baseURL = "https://sja-sandbox.crm3.dynamics.com/api/data/v9.2/"
         ENTALDAPIConfig.shared.portalAuthenticateBaseUrl = "https://sjasandbox.b2clogin.com/sjasandbox.onmicrosoft.com/oauth2/v2.0/"
         ENTALDAPIConfig.shared.dynamicAuthenticateBaseUrl = "https://login.microsoftonline.com/4eb3d202-86fa-4a81-b4de-47e3389ef4d0/oauth2/"
+        ENTALDAPIConfig.shared.scheduleURL = "https://sjavolunteers.powerappsportals.com/en-US/get-user-engagements/"
     
     }
     
@@ -60,6 +62,7 @@ extension ENTALDAPIConfig {
         ENTALDAPIConfig.shared.baseURL = "https://sja-sandbox.crm3.dynamics.com/api/data/v9.2/"
         ENTALDAPIConfig.shared.portalAuthenticateBaseUrl = "https://sjasandbox.b2clogin.com/sjasandbox.onmicrosoft.com/oauth2/v2.0/"
         ENTALDAPIConfig.shared.dynamicAuthenticateBaseUrl = "https://login.microsoftonline.com/4eb3d202-86fa-4a81-b4de-47e3389ef4d0/oauth2/"
+        ENTALDAPIConfig.shared.scheduleURL = "https://sjavolunteers.powerappsportals.com/en-US/get-user-engagements/"
     }
     
 }

@@ -410,7 +410,7 @@ class CSDashBoardVC: ENTALDBaseViewController{
             }
         }else if controller == "sjavms_messages" {
             
-            ENTALDControllers.shared.showMessageScreen(type: .ENTALDPUSH, from: self) { params, controller in
+            ENTALDControllers.shared.showMessageScreen(type: .ENTALDPUSH, from: self, dataObj: false) { params, controller in
                 self.openNextScreecn(controller: params as? String)
             }
         }else if controller == "sjavms_volunteers" {

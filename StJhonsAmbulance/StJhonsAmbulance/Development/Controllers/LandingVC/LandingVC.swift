@@ -115,7 +115,23 @@ class LandingVC: ENTALDBaseViewController {
             switch result {
             case .success(let response):
                 if let userGroups = response.value {
-                    ProcessUtils.shared.userGroupsList = userGroups
+                    
+                    ProcessUtils.shared.allGroupsList = userGroups
+                    
+                    var leadGroupArr :[LandingGroupsModel] = []
+                    var volunteerGroupArr :[LandingGroupsModel] = []
+                   
+                    
+                    for i in (0 ..< (userGroups.count )){
+                        if userGroups[i].sjavms_RoleType?.sjavms_rolecategory == 802280001 {
+                            leadGroupArr.append(userGroups[i])
+
+                        }else if userGroups[i].sjavms_RoleType?.sjavms_rolecategory == 802280000 {
+                            volunteerGroupArr.append(userGroups[i])
+                        }
+                    }
+                    ProcessUtils.shared.volunteerGroupsList = volunteerGroupArr
+                    ProcessUtils.shared.userGroupsList = leadGroupArr
                     
                     var propertyValues = ""
                     

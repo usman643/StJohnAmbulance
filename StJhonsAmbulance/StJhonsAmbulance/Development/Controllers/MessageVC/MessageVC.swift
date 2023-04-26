@@ -38,12 +38,11 @@ class MessageVC: ENTALDBaseViewController {
         tableview.dataSource = self
         tableview.register(UINib(nibName: "MessageTVC", bundle: nil), forCellReuseIdentifier: "MessageTVC")
         decorateUI()
-        if (ProcessUtils.shared.selectedUserGroup == nil){
-            if (ProcessUtils.shared.userGroupsList.count > 0 ){
-                ProcessUtils.shared.selectedUserGroup = ProcessUtils.shared.userGroupsList[0]
-                btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
-            }
-        }
+        
+        self.fromVolunteerController = self.dataModel as? Bool
+        
+        
+        
         getMessages()
         
     
@@ -55,6 +54,24 @@ class MessageVC: ENTALDBaseViewController {
     }
 
     func decorateUI(){
+        
+        if (ProcessUtils.shared.selectedUserGroup == nil){
+            if (ProcessUtils.shared.userGroupsList.count > 0 ){
+                if(fromVolunteerController ?? false){
+                    if ProcessUtils.shared.userGroupsList.count > 0{
+                        
+                        ProcessUtils.shared.selectedUserGroup = ProcessUtils.shared.volunteerGroupsList[0]
+                        btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
+                    }
+                }else{
+                    if ProcessUtils.shared.userGroupsList.count > 0{
+                        ProcessUtils.shared.selectedUserGroup = ProcessUtils.shared.userGroupsList[0]
+                        btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
+                    }
+                }
+            }
+        }
+        
         self.view.backgroundColor = UIColor.themeWhiteText
         self.tableview.backgroundColor = UIColor.themeWhiteText
         
@@ -112,12 +129,9 @@ class MessageVC: ENTALDBaseViewController {
                 
                 self.getMessages()
             }
-            
         }
     }
-    
     // bottom bar action
-        
   
         @IBAction func openVolunteerScreen(_ sender: Any) {
             self.navigationController?.popViewController(animated: false)
@@ -161,7 +175,14 @@ class MessageVC: ENTALDBaseViewController {
  
     func showGroupsPicker(list:[LandingGroupsModel] = []){
         
-        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.groups, dataObj: ProcessUtils.shared.userGroupsList) { params, controller in
+        var gdata : [LandingGroupsModel] = []
+        if(fromVolunteerController ?? false){
+            gdata = ProcessUtils.shared.volunteerGroupsList
+        }else{
+            gdata = ProcessUtils.shared.userGroupsList
+        }
+        
+        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.groups, dataObj: gdata) { params, controller in
             
             if let data = params as? LandingGroupsModel {
                 ProcessUtils.shared.selectedUserGroup = data

@@ -453,7 +453,7 @@ class QualificationCertificationVC: ENTALDBaseViewController,UITextFieldDelegate
                         self.SJAQualification?[i].bdo_type_value = data?.value
 
                     }
-                    
+                    self.filterSJAQualification = self.SJAQualification
                     
                     DispatchQueue.main.async {
                         self.SJATableview.reloadData()
@@ -522,7 +522,7 @@ class QualificationCertificationVC: ENTALDBaseViewController,UITextFieldDelegate
                             
                         }
                     }
-                    
+                    self.filterExternalQualification = self.externalQualification
                         DispatchQueue.main.async {
                             self.externalTable.reloadData()
                             
@@ -575,6 +575,10 @@ class QualificationCertificationVC: ENTALDBaseViewController,UITextFieldDelegate
                 if let qualification = response.value {
                     self.SJAQualificationTypes = qualification
                 }
+                DispatchQueue.main.async {
+                    self.externalTable.reloadData()
+                }
+               
                 completion(true)
             case .error(let error, let errorResponse):
                 var message = error.message

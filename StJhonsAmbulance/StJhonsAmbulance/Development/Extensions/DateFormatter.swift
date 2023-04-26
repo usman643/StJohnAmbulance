@@ -124,19 +124,48 @@ class DateFormatManager{
     
     
     func isDatePassed(date:String , format: String) -> Bool{
-        
+        var days = 0
  
-        
         let dateFormat = DateFormatter()
         dateFormat.timeZone = TimeZone(identifier: "America/New_York")
         let currentdate = Date()
-        dateFormat.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-        let cDate = dateFormat.string(from: currentdate)
         
-        if (date <  cDate){
+        dateFormat.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        
+        
+        
+        if let endDate = dateFormat.date(from: date) {
+            let components = Calendar.current.dateComponents([.day], from: currentdate, to: endDate)
+            days = components.day!
+        }
+        
+        if days < 0 {
+            return true
+        }else{
             return false
         }
-        return true
+        
+        
+    }
+    
+    func dayRemaining(date:String , format: String) -> Int{
+        
+       
+        let dateFormat = DateFormatter()
+        dateFormat.timeZone = TimeZone(identifier: "America/New_York")
+        let currentdate = Date()
+        
+        dateFormat.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        
+        
+        
+        if let endDate = dateFormat.date(from: date) {
+            let components = Calendar.current.dateComponents([.day], from: currentdate, to: endDate)
+            return components.day!
+        } else {
+            return 0
+        }
+ 
     }
     
     func getDateFromUnixCode(date: String) ->Date {
@@ -208,8 +237,6 @@ class DateFormatManager{
         dateFormat.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         let formatedDate = dateFormat.date(from: currentdate) ?? Date()
         return dateFormat.string(from: formatedDate)
-        
-       
     }
 }
 

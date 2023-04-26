@@ -168,10 +168,10 @@ class ENTALDControllers {
         }
     }
     
-    func showMessageScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+    func showMessageScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false,  dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
         let vc = MessageVC.loadFromNib()
+        vc.dataModel = dataObj
         vc.callbackToController = callBack
-        
         self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
     }
     

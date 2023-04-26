@@ -13,8 +13,10 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
     var scheduleGroupData : [ScheduleGroupsModel]?
     var scheduleEngagementData : [ScheduleModelTwo]?
     var scheduleData : [ScheduleModelThree]?
+    //    var scheduleData : [ScheduleEventDataModel]?
     var calendar : FSCalendar!
     var formatter = DateFormatter()
+    let contactId = UserDefaults.standard.contactIdToken ?? ""
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var lblTitle: UILabel!
@@ -153,28 +155,82 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         
-        for i in (0..<(scheduleEngagementData?.count ?? 0)) {
-            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-            guard let eventDateStr = formatter.date(from: scheduleEngagementData?[i].msnfp_startingdate ?? "") else {return 0}
-            if date.compare(eventDateStr) == .orderedSame{
-                return 1
-            }
-            
-        }
+//        for i in (0..<(scheduleData?.count ?? 0)) {
+//            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+//            guard let eventDateStr = formatter.date(from: scheduleData?[i].StartDate ?? "") else {return 0}
+//            if date.compare(eventDateStr) == .orderedSame{
+//                return 1
+//            }
+//
+//        }
         return 0
     }
     
     
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
-       return false
+        return false
     }
     
     
-  
-    // ============================ API ==========================//
-
-    func getScheduleInfo(){
     
+    // ============================ API ==========================//
+    
+    
+    
+//    
+//    func getdata(){
+//        
+//        let params : [String:Any] = [
+//            "id" : self.contactId
+//        ]
+//        
+//        DispatchQueue.main.async {
+//            LoadingView.show()
+//        }
+//        
+//        ENTALDLibraryAPI.shared.requestScheduleData(params: params){ result in
+//            DispatchQueue.main.async {
+//                LoadingView.hide()
+//            }
+//            
+//            switch result{
+//            case .success(value: let response):
+//                
+//                if let scheduleGroup = response.engagements {
+//                    self.scheduleData = scheduleGroup
+//                    if (self.scheduleData?.count == 0 || self.scheduleData?.count == nil){
+//                        self.showEmptyView(tableVw: self.tableView)
+//                        
+//                    }else{
+//                        
+//                        DispatchQueue.main.async {
+//                            
+//                            self.tableView.reloadData()
+//                            self.calendar.reloadData()
+//                            for subview in self.tableView.subviews {
+//                                subview.removeFromSuperview()
+//                            }
+//                        }
+//                    }
+//                }else{
+//                    self.showEmptyView(tableVw: self.tableView)
+//                }
+//                
+//            case .error(let error, let errorResponse):
+//                var message = error.message
+//                if let err = errorResponse {
+//                    message = err.error
+//                }
+//                self.showEmptyView(tableVw: self.tableView)
+//                DispatchQueue.main.async {
+//                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+//                }
+//            }
+//        }
+//    }
+//    
+    
+    func getScheduleInfo(){
         let params : [String:Any] = [
             
             ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_startingdate,msnfp_endingdate,msnfp_engagementopportunityid",
@@ -250,8 +306,8 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
             ParameterKeys.select : "_sjavms_volunteerevent_value,msnfp_schedulestatus,sjavms_start,msnfp_participationscheduleid,sjavms_end,sjavms_checkedin",
             ParameterKeys.expand : "sjavms_VolunteerEvent($select=msnfp_engagementopportunitytitle,msnfp_location)",
             ParameterKeys.filter : "(_sjavms_volunteer_value eq \(contactId) and msnfp_schedulestatus eq 335940000 and (\(propertyValues))) ",
-//            ParameterKeys.filter : "(_sjavms_volunteer_value eq \(contactId) and msnfp_schedulestatus eq 335940000 and (\(propertyValues))) ",
-           
+            //            ParameterKeys.filter : "(_sjavms_volunteer_value eq \(contactId) and msnfp_schedulestatus eq 335940000 and (\(propertyValues))) ",
+            
             ParameterKeys.orderby : "msnfp_name asc"
         ]
         
@@ -278,7 +334,7 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
                         self.showEmptyView(tableVw: self.tableView)
                         
                     }else{
-                       
+                        
                         DispatchQueue.main.async {
                             
                             self.tableView.reloadData()
@@ -318,7 +374,7 @@ extension ScheduleVC : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ScheduleTVC", for: indexPath) as! ScheduleTVC
         let rowModel = scheduleData?[indexPath.row]
-        cell.setContent(cellModel : rowModel)
+//        cell.setContent(cellModel : rowModel)
         
         if indexPath.row % 2 == 0{
             cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")

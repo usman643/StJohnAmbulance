@@ -69,12 +69,22 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
             if (eventData?.msnfp_startingdate != nil && eventData?.msnfp_startingdate != ""){
                 let date =  DateFormatManager.shared.formatDateStrToStr(date: eventData?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEEE, MMMM d, yyyy")
                 lblDate.text = date
+
+               let dayRemaining = DateFormatManager.shared.dayRemaining(date: eventData?.msnfp_startingdate ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")
+                if dayRemaining > 0 {
+                    
+                    self.btnProgram.isEnabled = true
+                    btnProgram.backgroundColor = UIColor.redPinkColor
+                    btnProgram.setTitle("Cance Event", for: .normal)
+                }
                 
-                if(DateFormatManager.shared.isDatePassed(date: eventData?.msnfp_startingdate ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
+                if(DateFormatManager.shared.isDatePassed(date: eventData?.msnfp_endingdate ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
                     self.btnProgram.isEnabled = false
                     btnProgram.backgroundColor = UIColor.lightGray
                     btnProgram.setTitle("Event Passed", for: .normal)
                 }
+                
+                
             }else{
                 lblDate.text = " "
             }
@@ -88,11 +98,20 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
             if (pendingShiftData?.sjavms_start != nil && pendingShiftData?.sjavms_start != ""){
                 let date =  DateFormatManager.shared.formatDateStrToStr(date: pendingShiftData?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEEE, MMMM d, yyyy")
                 lblDate.text = date
-                if(DateFormatManager.shared.isDatePassed(date: pendingShiftData?.sjavms_start ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
-                    self.btnProgram.isEnabled = false
-                    btnProgram.backgroundColor = UIColor.lightGray
-                    btnProgram.setTitle("Event Passed", for: .normal)
-                }
+                
+                let dayRemaining = DateFormatManager.shared.dayRemaining(date: pendingShiftData?.sjavms_start ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")
+                 if dayRemaining > 0 {
+                     
+                     self.btnProgram.isEnabled = true
+                     btnProgram.backgroundColor = UIColor.redPinkColor
+                     btnProgram.setTitle("Cance Event", for: .normal)
+                 }
+                 
+                 if(DateFormatManager.shared.isDatePassed(date: pendingShiftData?.sjavms_end ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
+                     self.btnProgram.isEnabled = false
+                     btnProgram.backgroundColor = UIColor.lightGray
+                     btnProgram.setTitle("Event Passed", for: .normal)
+                 }
             }else{
                 lblDate.text = " "
             }
@@ -107,6 +126,28 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
                     btnProgram.backgroundColor = UIColor.lightGray
                     btnProgram.setTitle("Event Passed", for: .normal)
                 }
+                
+                
+                let dayRemaining = DateFormatManager.shared.dayRemaining(date: unpublishEventData?.msnfp_startingdate ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")
+                 if dayRemaining > 0 {
+                     
+                     self.btnProgram.isEnabled = true
+                     btnProgram.backgroundColor = UIColor.redPinkColor
+                     btnProgram.setTitle("Cance Event", for: .normal)
+                 }
+                 
+                 if(DateFormatManager.shared.isDatePassed(date: unpublishEventData?.msnfp_endingdate ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
+                     self.btnProgram.isEnabled = false
+                     btnProgram.backgroundColor = UIColor.lightGray
+                     btnProgram.setTitle("Event Passed", for: .normal)
+                 }
+                
+                
+                
+                
+                
+                
+                
             }else{
                 lblDate.text = " "
             }
@@ -118,11 +159,19 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
             if (pendingEventApprovalData?.sjavms_eventstartdate != nil && pendingEventApprovalData?.sjavms_eventstartdate == ""){
                 let date =  DateFormatManager.shared.formatDateStrToStr(date: pendingEventApprovalData?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
                 lblDate.text = date
-                if(DateFormatManager.shared.isDatePassed(date: pendingEventApprovalData?.sjavms_eventstartdate ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
-                    self.btnProgram.isEnabled = false
-                    btnProgram.backgroundColor = UIColor.lightGray
-                    btnProgram.setTitle("Event Passed", for: .normal)
-                }
+                let dayRemaining = DateFormatManager.shared.dayRemaining(date: pendingEventApprovalData?.sjavms_eventstartdate  ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")
+                 if dayRemaining > 0 {
+                     
+                     self.btnProgram.isEnabled = true
+                     btnProgram.backgroundColor = UIColor.redPinkColor
+                     btnProgram.setTitle("Cance Event", for: .normal)
+                 }
+                 
+                 if(DateFormatManager.shared.isDatePassed(date: pendingEventApprovalData?.sjavms_eventstartdate  ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
+                     self.btnProgram.isEnabled = false
+                     btnProgram.backgroundColor = UIColor.lightGray
+                     btnProgram.setTitle("Event Passed", for: .normal)
+                 }
             }else{
                 lblDate.text = " "
             }

@@ -148,3 +148,28 @@ struct AvailableEventModel : Codable {
     let msnfp_minimum : Int?
 //    let sjavms_msnfp_engagementopportunity_msnfp_group :  [EngagementopportunityGroupModel]?
 }
+
+
+struct ScheduleEventResponseDataModel : Codable {
+    
+    let engagements : [ScheduleEventDataModel]?
+}
+
+struct ScheduleEventDataModel : Codable {
+    
+    let OppId : String?
+    let Title : String?
+    let Program : String?
+    let StatusCode : String?
+    let StartDateFull : String?
+    let StartDate : String?
+    let StartDateString : String?
+    let Desc : String?
+    let EndDateFull : String?
+    let EndDate : String?
+    let EndDateString : String?
+    let LocationTypeName : String?
+    let LocationTypeValue : Int?
+    let LocationTitle : String?
+    let City : String?
+}
