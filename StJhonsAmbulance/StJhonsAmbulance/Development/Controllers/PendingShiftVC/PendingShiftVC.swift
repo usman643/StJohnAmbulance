@@ -27,7 +27,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     var isDatefilterApplied:Bool = false
     var isEventfilterApplied:Bool = false
     
-    let groupId : String = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() ?? ""
+    let groupId : String = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupId() ?? ""
     
     
     @IBOutlet weak var btnBack: UIButton!
@@ -74,7 +74,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.btnSelectGroup.setTitle("\(ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
+        self.btnSelectGroup.setTitle("\(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "")", for: .normal)
     }
     
     func decorateUI(){
@@ -320,7 +320,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                 ProcessUtils.shared.selectedUserGroup = data
                 self.getPendingShift()
                 self.getPendingShiftThree()
-                self.btnSelectGroup.setTitle("\(data.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
+                self.btnSelectGroup.setTitle("\(data.sjavms_groupid?.getGroupName() ?? "")", for: .normal)
                 
             }
         }

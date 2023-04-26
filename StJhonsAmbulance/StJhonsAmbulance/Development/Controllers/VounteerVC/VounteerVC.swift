@@ -48,7 +48,7 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupName() ?? "", for: .normal)
+        btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
     }
     
     func decorateUI(){
@@ -209,7 +209,7 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
             if let data = params as? LandingGroupsModel {
                 ProcessUtils.shared.selectedUserGroup = data
                 
-                self.btnSelectGroup.setTitle("\(data.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
+                self.btnSelectGroup.setTitle("\(data.sjavms_groupid?.getGroupName() ?? "")", for: .normal)
                 self.getVolunteers()
             }
         }
@@ -257,7 +257,7 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
     
     func getVolunteers(){
         
-        guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
+        guard let groupId = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupId() else {return}
         
         let params : [String:Any] = [
             

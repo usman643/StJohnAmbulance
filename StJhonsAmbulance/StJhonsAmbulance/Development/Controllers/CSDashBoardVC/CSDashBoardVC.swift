@@ -61,7 +61,7 @@ class CSDashBoardVC: ENTALDBaseViewController{
         getDashBoardOrder()
         if (ProcessUtils.shared.selectedUserGroup == nil){
             ProcessUtils.shared.selectedUserGroup = ProcessUtils.shared.userGroupsList[0]
-            btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupName() ?? "", for: .normal)
+            btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
         }
         
     }
@@ -69,8 +69,8 @@ class CSDashBoardVC: ENTALDBaseViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
-        btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupName() ?? "", for: .normal)
-        if ( self.latestEvent?.count == 0 || ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() != self.latestEvent?[0].msnfp_engagementopportunityid){
+        btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
+        if ( self.latestEvent?.count == 0 || ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupId() != self.latestEvent?[0].msnfp_engagementopportunityid){
             getLatestUpcomingEvent()
         }
         
@@ -124,7 +124,7 @@ class CSDashBoardVC: ENTALDBaseViewController{
     
     
     func getLatestUpcomingEvent(){
-        guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
+        guard let groupId = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupId() else {return}
         guard let currentDate = DateFormatManager.shared.getCurrentDateWithFormat(format: "yyyy/MM/dd") else {return}
         let params : [String:Any] = [
             
@@ -391,7 +391,7 @@ class CSDashBoardVC: ENTALDBaseViewController{
             if let data = params as? LandingGroupsModel {
                 ProcessUtils.shared.selectedUserGroup = data
                 self.getLatestUpcomingEvent()
-                self.btnGroup.setTitle("\(data.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
+                self.btnGroup.setTitle("\(data.sjavms_groupid?.getGroupName() ?? "")", for: .normal)
                 
             }
         }

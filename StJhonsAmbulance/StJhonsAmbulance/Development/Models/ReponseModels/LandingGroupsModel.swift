@@ -29,12 +29,12 @@ struct LandingResponseModel : Codable {
 
 
 struct LandingGroupsModel : Codable {
-    let msnfp_groupmembershipid : String?
-    let msnfp_groupmembershipname : String?
-    let _msnfp_groupid_value : String?
-    let _msnfp_contactid_value : String?
-    let msnfp_groupId : LandingGroupIdsModel?
-    let msnfp_contactId : LandingContactIdModel?
+    let sjavms_groupmembershipid : String?
+    let sjavms_groupmembershipname : String?
+    let _sjavms_contactid_value : String?
+    let _sjavms_groupid_value : String?
+    let sjavms_groupid : LandingGroupIdsModel?
+    let sjavms_contactid : LandingContactIdModel?
     let sjavms_RoleType : LandingRoleTypeModel?
     
 }

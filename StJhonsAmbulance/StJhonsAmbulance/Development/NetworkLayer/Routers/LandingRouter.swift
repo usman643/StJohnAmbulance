@@ -14,7 +14,7 @@ enum LandingRouter: Router {
     
     var procedure: String { //endpoints
         switch self {
-        case .getAssiciatedGroups: return "msnfp_groupmemberships"
+        case .getAssiciatedGroups: return "sjavms_groupmemberships"
             
         case .simulate401: return "simulate-401"
         }

@@ -88,10 +88,10 @@ class LandingVC: ENTALDBaseViewController {
     func getGroups(){
         
         let params : [String:Any] = [
-            ParameterKeys.select : "msnfp_groupmembershipid,msnfp_groupmembershipname,_msnfp_contactid_value,_msnfp_groupid_value",
-            ParameterKeys.expand : "msnfp_groupId($select=msnfp_groupname),msnfp_contactId($select=fullname),sjavms_RoleType($select=sjavms_rolecategory)",
-            ParameterKeys.filter : "(statecode eq 0 and _msnfp_contactid_value eq \(self.conId)) and (msnfp_groupId/statecode eq 0)",
-            ParameterKeys.orderby : "_msnfp_groupid_value asc"
+            ParameterKeys.select : "sjavms_groupmembershipid,sjavms_groupmembershipname,_sjavms_contactid_value,_sjavms_groupid_value",
+            ParameterKeys.expand : "sjavms_groupid($select=msnfp_groupname),sjavms_contactid($select=fullname),sjavms_RoleType($select=sjavms_rolecategory)",
+            ParameterKeys.filter : "(statecode eq 0 and _sjavms_contactid_value eq \(self.conId)) and (sjavms_groupid/statecode eq 0)",
+            ParameterKeys.orderby : "_sjavms_groupid_value asc"
         ]
         
         self.getAssociatedGroups(params: params)
@@ -122,7 +122,7 @@ class LandingVC: ENTALDBaseViewController {
                     for i in (0 ..< (ProcessUtils.shared.userGroupsList.count )){
                         var str = ""
                         
-                        if let groupid_value = ProcessUtils.shared.userGroupsList[i]._msnfp_groupid_value {
+                        if let groupid_value = ProcessUtils.shared.userGroupsList[i]._sjavms_groupid_value {
                             
                             if ( i == (ProcessUtils.shared.userGroupsList.count) - 1){
                                 str = "'{\(groupid_value)}'"
@@ -178,7 +178,7 @@ class LandingVC: ENTALDBaseViewController {
     func setSelectedGroup(data:LandingGroupsModel){
         ProcessUtils.shared.selectedUserGroup = data
         
-        self.btn2.setTitle("\(data.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
+        self.btn2.setTitle("\(data.sjavms_groupid?.getGroupName() ?? "")", for: .normal)
 //                self.btn1.setTitle(data.sjavms_RoleType?.getRoleType() ?? "", for: .normal)
         self.nextBtn.isEnabled = true
         self.nextBtn.backgroundColor = UIColor.themePrimary
