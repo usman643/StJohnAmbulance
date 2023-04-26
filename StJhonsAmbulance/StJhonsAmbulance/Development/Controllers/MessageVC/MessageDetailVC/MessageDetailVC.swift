@@ -84,7 +84,7 @@ class MessageDetailVC: ENTALDBaseViewController , UITextViewDelegate {
     
     @IBAction func submitTapped(_ sender: Any) {
        
-        guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
+        guard let groupId = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupId() else {return}
         
         guard let subject = self.txtSubject.text else {
             self.txtSubject.showErrorWithText(errorText: "Please Enter Subject")

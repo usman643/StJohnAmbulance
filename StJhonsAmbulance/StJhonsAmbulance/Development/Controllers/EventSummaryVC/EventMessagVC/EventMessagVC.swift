@@ -90,7 +90,7 @@ class EventMessagVC: ENTALDBaseViewController {
     
     func getMessages(){
 
-        guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
+        guard let groupId = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupId() else {return}
             let params : [String:Any] = [
 
                 ParameterKeys.select : "subject,statuscode,modifiedon,description,senton,activityid",

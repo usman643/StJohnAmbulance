@@ -41,7 +41,7 @@ class MessageVC: ENTALDBaseViewController {
         if (ProcessUtils.shared.selectedUserGroup == nil){
             if (ProcessUtils.shared.userGroupsList.count > 0 ){
                 ProcessUtils.shared.selectedUserGroup = ProcessUtils.shared.userGroupsList[0]
-                btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupName() ?? "", for: .normal)
+                btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
             }
         }
         getMessages()
@@ -51,7 +51,7 @@ class MessageVC: ENTALDBaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupName() ?? "", for: .normal)
+        btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
     }
 
     func decorateUI(){
@@ -166,7 +166,7 @@ class MessageVC: ENTALDBaseViewController {
             if let data = params as? LandingGroupsModel {
                 ProcessUtils.shared.selectedUserGroup = data
                 
-                self.btnGroup.setTitle("\(data.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
+                self.btnGroup.setTitle("\(data.sjavms_groupid?.getGroupName() ?? "")", for: .normal)
                 self.getMessages()
             }
         }
@@ -184,7 +184,7 @@ class MessageVC: ENTALDBaseViewController {
     
     func getMessages(){
 
-        guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
+        guard let groupId = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupId() else {return}
             let params : [String:Any] = [
 
                 ParameterKeys.select : "subject,statuscode,modifiedon,description,senton,activityid",

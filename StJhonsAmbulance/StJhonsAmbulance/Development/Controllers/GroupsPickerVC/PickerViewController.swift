@@ -54,7 +54,7 @@ class PickerViewController: ENTALDBaseViewController, UIPickerViewDelegate, UIPi
         switch self.pickerType {
         case .groups:
             if let model = self.dataModel as? [LandingGroupsModel] {
-                return model.map({$0.msnfp_groupId?.msnfp_groupname ?? ""})
+                return model.map({$0.sjavms_groupid?.msnfp_groupname ?? ""})
             }
             break
         case .gender, .pronoun, .prefferedData:

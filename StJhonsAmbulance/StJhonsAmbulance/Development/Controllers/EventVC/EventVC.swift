@@ -101,7 +101,7 @@ class EventVC: ENTALDBaseViewController, UITextFieldDelegate,EventSummaryDelegat
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.btnSelectGroup.setTitle("\(ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
+        self.btnSelectGroup.setTitle("\(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "")", for: .normal)
     }
     
     func decorateUI(){
@@ -328,7 +328,7 @@ class EventVC: ENTALDBaseViewController, UITextFieldDelegate,EventSummaryDelegat
             if let data = params as? LandingGroupsModel {
                 ProcessUtils.shared.selectedUserGroup = data
                 self.getCurrentEvents()
-                self.btnSelectGroup.setTitle("\(data.msnfp_groupId?.getGroupName() ?? "")", for: .normal)
+                self.btnSelectGroup.setTitle("\(data.sjavms_groupid?.getGroupName() ?? "")", for: .normal)
                 
             }
         }
@@ -647,7 +647,7 @@ class EventVC: ENTALDBaseViewController, UITextFieldDelegate,EventSummaryDelegat
     
     func getCurrentEvents(){
         
-        guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
+        guard let groupId = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupId() else {return}
         
         let params : [String:Any] = [
             
@@ -716,7 +716,7 @@ class EventVC: ENTALDBaseViewController, UITextFieldDelegate,EventSummaryDelegat
     
     func getUpcomingEvents(){
         
-        guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
+        guard let groupId = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupId() else {return}
         
         let params : [String:Any] = [
             
@@ -785,7 +785,7 @@ class EventVC: ENTALDBaseViewController, UITextFieldDelegate,EventSummaryDelegat
     
     func getPastEvents(){
         
-        guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
+        guard let groupId = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupId() else {return}
         
         let params : [String:Any] = [
             

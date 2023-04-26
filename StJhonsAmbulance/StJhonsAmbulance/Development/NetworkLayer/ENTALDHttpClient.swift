@@ -61,6 +61,16 @@ class ENTALDHttpClient {
             return
         }
         
+        #if DEBUG
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: request.parameters ?? [:], options: .prettyPrinted)
+            print("Json Request")
+            print(String(data: jsonData, encoding: .utf8) ?? "")
+        } catch {
+            print(error.localizedDescription)
+        }
+        #endif
+        
         if let client = request.client, let requstUrl = request.requestURL?.absoluteString {
             print("request URL :  \(requstUrl)")
             let headers = self.getHeaders(externalToken: externalToken)
@@ -95,15 +105,10 @@ class ENTALDHttpClient {
     }
     
     private func getRequest<T: Codable>(_ netRequest:ENTALDNetworkRequest, externalToken:String = "", completion:@escaping (ApiResult<T, ApiError>) ->Void) {
-        
-        
-//        // Refresh
-//        let difference = Date().timeIntervalSince(ProcessUtils.shared.tokenTime)
-//        if difference > 200 {
-//            ProcessUtils.shared.refreshToken()
-//        }
-        
+
         guard let requestUrl = netRequest.requestURL else {return}
+        
+        print("get Request \(requestUrl)")
         
         var request = URLRequest(url: requestUrl)
         if externalToken != "" {

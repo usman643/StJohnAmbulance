@@ -72,7 +72,7 @@ class GeneralInfoFormVC: ENTALDBaseViewController {
     // ========================== API =========================
     
     fileprivate func getEventProgram(){
-        guard let groupId = ProcessUtils.shared.selectedUserGroup?.msnfp_groupId?.getGroupId() else {return}
+        guard let groupId = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupId() else {return}
         let params : [String:Any] = [
             
             ParameterKeys.select : "sjavms_Program",
@@ -231,7 +231,7 @@ class GeneralInfoFormVC: ENTALDBaseViewController {
             params["[sjavms_council@odata.bind]"] = "/sjavms_councils(\(id))"
         }
         
-        if let group = ProcessUtils.shared.selectedUserGroup, let id = group.msnfp_groupId?.msnfp_groupid {
+        if let group = ProcessUtils.shared.selectedUserGroup, let id = group.sjavms_groupid?.msnfp_groupid {
             params["[sjavms_group@odata.bind]"] = "/sjavms_group(\(id))"
         }
         
