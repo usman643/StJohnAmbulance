@@ -265,9 +265,11 @@ class EventNotesVC: ENTALDBaseViewController {
             case .success(value: let response):
                 
                 if let summaryData = response.value {
-                    self.summaryData = summaryData[0]
-                    DispatchQueue.main.async {
-                        self.setupData()
+                    if (summaryData.count > 0){
+                        self.summaryData = summaryData[0]
+                        DispatchQueue.main.async {
+                            self.setupData()
+                        }
                     }
                 }
             
@@ -287,7 +289,7 @@ class EventNotesVC: ENTALDBaseViewController {
         
         ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.eventStatus, dataObj: ProcessUtils.shared.eventStatusArr) { params, controller in
             self.selectedStatus  = params as? String
-            var status = ProcessUtils.shared.eventStatusArr.filter({$0.value == params as? String}).first?.key
+            let status = ProcessUtils.shared.eventStatusArr.filter({$0.value == params as? String}).first?.key
             self.updateEventStatus(statusValue : status ?? 0000)
         }
     }

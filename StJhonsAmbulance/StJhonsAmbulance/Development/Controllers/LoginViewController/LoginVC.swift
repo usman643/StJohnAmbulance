@@ -35,6 +35,9 @@ class LoginVC: ENTALDBaseViewController {
     // Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
+//        self.txtUserName.text = "tfoster@missioncrm.ca"
+//        self.txtPassword.text = "Samson123$"
         self.txtUserName.text = "dougsalomon@outlook.com"
         self.txtPassword.text = "qAz!2#sss"
         UserDefaults.standard.authToken = nil

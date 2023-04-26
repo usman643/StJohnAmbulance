@@ -39,8 +39,10 @@ class MessageVC: ENTALDBaseViewController {
         tableview.register(UINib(nibName: "MessageTVC", bundle: nil), forCellReuseIdentifier: "MessageTVC")
         decorateUI()
         if (ProcessUtils.shared.selectedUserGroup == nil){
-            ProcessUtils.shared.selectedUserGroup = ProcessUtils.shared.userGroupsList[0]
-            btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
+            if (ProcessUtils.shared.userGroupsList.count > 0 ){
+                ProcessUtils.shared.selectedUserGroup = ProcessUtils.shared.userGroupsList[0]
+                btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
+            }
         }
         getMessages()
         

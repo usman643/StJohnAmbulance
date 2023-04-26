@@ -120,7 +120,7 @@ class ENTALDAlertView: UIView {
                 completion(false)
             }
         }
-        alert.addButton(actionTitle.getTitleString(), backgroundColor: UIColor.themeSecondry, textColor: UIColor.white) {
+        alert.addButton("Cancel", backgroundColor: UIColor.themeSecondry, textColor: UIColor.white) {
             switch actionTitle {
             case .KCANCEL:
                 completion(false)

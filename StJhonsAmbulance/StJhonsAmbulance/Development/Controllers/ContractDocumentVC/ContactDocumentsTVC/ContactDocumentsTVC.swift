@@ -13,6 +13,8 @@ class ContactDocumentsTVC: UITableViewCell {
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblModifiedDate: UILabel!
     @IBOutlet weak var lblAction: UILabel!
+    @IBOutlet weak var seperatorView: UIView!
+    @IBOutlet weak var mainView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,10 +39,19 @@ class ContactDocumentsTVC: UITableViewCell {
     }
     
     
-//    func setContent(cellModel:){
-//
-//
-//
-//    }
+    func setContent(cellModel:ContactDocumentResults?){
+
+        lblName.text = cellModel?.Name ?? "Not Found"
+        
+        if let date = cellModel?.TimeLastModified {
+            let start = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
+            lblModifiedDate.text = start
+        }else{
+            lblModifiedDate.text = ""
+        }
+        
+        lblAction.text = ""
+
+    }
     
 }

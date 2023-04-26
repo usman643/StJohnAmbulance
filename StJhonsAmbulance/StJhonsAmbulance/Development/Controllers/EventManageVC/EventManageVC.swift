@@ -171,6 +171,9 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
         btnSearchClose.isHidden = true
         
         btnProgram.setTitle("Close Event", for: .normal)
+        lblDate.text = ""
+        lblTitle.text = ""
+        lblLocation.text = ""
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {

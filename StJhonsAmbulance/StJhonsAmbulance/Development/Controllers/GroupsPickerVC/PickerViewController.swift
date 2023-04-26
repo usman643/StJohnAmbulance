@@ -149,14 +149,24 @@ class PickerViewController: ENTALDBaseViewController, UIPickerViewDelegate, UIPi
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.selectedIndex = row
-        self.selectedKey = self.dataList[row]
+        if self.dataList.count > 0 {
+            self.selectedKey = self.dataList[row]
+        }else{
+            self.selectedKey = ""
+        }
+        
     }
     
     func getSelectedValue()->Any?{
         switch pickerType {
         case .groups:
             if let model = self.dataModel as? [LandingGroupsModel] {
-                return model[self.selectedIndex]
+                if model.count > 0 {
+                    return model[self.selectedIndex]
+                }else{
+                    return nil
+                }
+                
             }
         case .gender, .pronoun, .prefferedData:
             if let model = self.dataModel as? [LanguageModel] {
