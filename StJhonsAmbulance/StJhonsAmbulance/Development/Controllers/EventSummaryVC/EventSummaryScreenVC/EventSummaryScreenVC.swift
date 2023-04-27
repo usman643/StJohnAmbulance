@@ -149,8 +149,8 @@ class EventSummaryScreenVC: ENTALDBaseViewController {
     
     
     func setupData(){
-        let locationType = ProcessUtils.shared.getLocationType(code: self.summaryData?.msnfp_locationtype ?? 00)
-        btnSelectProgram.setTitle(locationType, for: .normal)
+//        let locationType = ProcessUtils.shared.getLocationType(code: self.summaryData?.msnfp_locationtype ?? 00)
+//        btnSelectProgram.setTitle(locationType, for: .normal)
         self.txtEventName.text = self.summaryData?.msnfp_engagementopportunitytitle ?? ""
         self.txtEventDesc.text = self.summaryData?.msnfp_shortdescription ?? ""
         if (self.summaryData?.sjavms_adhocevent == true) {

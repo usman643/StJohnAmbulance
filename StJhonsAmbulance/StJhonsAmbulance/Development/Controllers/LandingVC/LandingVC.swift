@@ -135,12 +135,12 @@ class LandingVC: ENTALDBaseViewController {
                     
                     var propertyValues = ""
                     
-                    for i in (0 ..< (ProcessUtils.shared.userGroupsList.count )){
+                    for i in (0 ..< (ProcessUtils.shared.allGroupsList.count )){
                         var str = ""
                         
-                        if let groupid_value = ProcessUtils.shared.userGroupsList[i]._sjavms_groupid_value {
+                        if let groupid_value = ProcessUtils.shared.allGroupsList[i]._sjavms_groupid_value {
                             
-                            if ( i == (ProcessUtils.shared.userGroupsList.count) - 1){
+                            if ( i == (ProcessUtils.shared.allGroupsList.count) - 1){
                                 str = "'{\(groupid_value)}'"
                             }else{
                                 str = "'{\(groupid_value)}',"

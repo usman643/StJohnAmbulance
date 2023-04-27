@@ -244,7 +244,7 @@ class EventMessagVC: ENTALDBaseViewController {
 extension EventMessagVC : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.messagesData?.count ?? 0
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -257,7 +257,7 @@ extension EventMessagVC : UITableViewDelegate, UITableViewDataSource{
         }
         
         
-        cell.lblName.text = messagesData?[indexPath.row].subject
+        cell.lblName.text = self.messagesData?[indexPath.row].subject
         cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: messagesData?[indexPath.row].modifiedon ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
         cell.lblMessage.text = messagesData?[indexPath.row].description
         

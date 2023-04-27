@@ -65,9 +65,9 @@ class DashboardVC: ENTALDBaseViewController{
 
         setupContent()
         getVolunteerAward()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.getLatestIncomingEvent()
-        }
+//        }
         setupCollectionView()
         
         gridData = [
@@ -391,6 +391,8 @@ class DashboardVC: ENTALDBaseViewController{
             
             ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_needsreviewedparticipants,msnfp_minimum,msnfp_maximum,_sjavms_group_value,msnfp_endingdate,msnfp_cancelledparticipants,msnfp_appliedparticipants,msnfp_startingdate,msnfp_engagementopportunityid",
             ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(statecode eq 0 and Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(ProcessUtils.shared.groupListValue ?? "")])))",
+                
+              //  "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(statecode eq 0 and Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(ProcessUtils.shared.groupListValue ?? "")])))",
             ParameterKeys.filter : "(statecode eq 0) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/statecode eq 0 and o1/Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(ProcessUtils.shared.groupListValue ?? "")]))))",
             ParameterKeys.orderby : "msnfp_engagementopportunitytitle asc"
         ]
@@ -410,18 +412,18 @@ class DashboardVC: ENTALDBaseViewController{
             
             switch result{
             case .success(value: let response):
-                DispatchQueue.main.async {
+                
                     if let award = response.value {
                         self.latestEventIdData = award
                         self.getIncomingEvent()
 
                     }else{
+                        
                         DispatchQueue.main.async {
-                            
                             self.collectionview.reloadData()
                         }
                     }
-                }
+                
                 
             case .error(let error, let errorResponse):
                 var message = error.message

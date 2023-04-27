@@ -374,7 +374,7 @@ extension ScheduleVC : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ScheduleTVC", for: indexPath) as! ScheduleTVC
         let rowModel = scheduleData?[indexPath.row]
-//        cell.setContent(cellModel : rowModel)
+        cell.setContent(cellModel : rowModel)
         
         if indexPath.row % 2 == 0{
             cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")

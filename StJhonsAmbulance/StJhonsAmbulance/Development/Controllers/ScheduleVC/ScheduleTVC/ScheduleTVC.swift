@@ -38,26 +38,35 @@ class ScheduleTVC: UITableViewCell {
     }
     
     
-    func setContent(cellModel : ScheduleEventDataModel?){
-        
-        
-        
-        
-        
-        
-        lblTitle.text = cellModel?.Title ?? ""
-        lblSubTitle.text = cellModel?.LocationTitle ?? "locations"
-        
-        if (cellModel?.StartDate != "" && cellModel?.StartDate != nil ){
-            let date = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.StartDate ?? "", oldFormat: "yyyy-MM-dd", newFormat: "dd/MM/yyyy")
-            let startTime = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.StartDate ?? "", oldFormat: "yyyy-MM-dd", newFormat: "hh:mm a")
+    func setContent(cellModel : ScheduleModelThree?){
+    
+//        lblTitle.text = cellModel?.Title ?? ""
+//        lblSubTitle.text = cellModel?.LocationTitle ?? "locations"
+//
+//        if (cellModel?.StartDate != "" && cellModel?.StartDate != nil ){
+//            let date = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.StartDate ?? "", oldFormat: "yyyy-MM-dd", newFormat: "dd/MM/yyyy")
+//            let startTime = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.StartDate ?? "", oldFormat: "yyyy-MM-dd", newFormat: "hh:mm a")
+//
+//            lblTime.text = date
+//            lblDate.text = startTime
+//        }else{
+//            lblTime.text = ""
+//            lblDate.text = ""
+//        }
+        lblTitle.text = cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+        lblSubTitle.text = cellModel?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found"
+        if (cellModel?.sjavms_start != "" && cellModel?.sjavms_start != nil ){
+            let date = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+            let startTime = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
-            lblTime.text = date
-            lblDate.text = startTime
-        }else{
-            lblTime.text = ""
-            lblDate.text = ""
-        }
+                        lblTime.text = date
+                        lblDate.text = startTime
+                    }else{
+                        lblTime.text = "Not Found"
+                        lblDate.text = "Not Found"
+                    }
+            
+            
         
     }
 }
