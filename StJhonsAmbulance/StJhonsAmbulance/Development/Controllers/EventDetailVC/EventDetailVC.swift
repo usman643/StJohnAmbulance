@@ -12,6 +12,7 @@ class EventDetailVC: ENTALDBaseViewController {
     let conId = UserDefaults.standard.contactIdToken ?? ""
     var relativeurlData : [ContactDocumentModel]?
     var access_token : String = ""
+    var userRetrivalURL : String = ""
     var documents : [ContactDocumentResults]?
     var filterDocuments : [ContactDocumentResults]?
     var contactInfo : [ContactDataModel]?
@@ -424,6 +425,22 @@ class EventDetailVC: ENTALDBaseViewController {
                 if let apiData = response.value {
                     self.relativeurlData = apiData
                     if ((self.relativeurlData?.count ?? 0 ) > 0){
+                        
+                        self.relativeurlData = apiData
+                        var contactId = self.conId.replacingOccurrences(of: "-", with: "")
+                        
+                        self.userRetrivalURL = self.relativeurlData?.filter({
+                            
+                            var apiContactId = $0.relativeurl?.components(separatedBy: "_")
+                            if (contactId.lowercased() == apiContactId?[1].lowercased()){
+                                
+                                return true
+                            } else{
+                                return false
+                            }
+                            
+                        }).first?.relativeurl ?? ""
+                        
                         self.getDocumentTwo()
                     }
                     
@@ -445,15 +462,12 @@ class EventDetailVC: ENTALDBaseViewController {
     
     
     fileprivate func getDocumentTwo(){
-        
-        guard let retrivalURL =  self.relativeurlData?[0].relativeurl else {return }
-        
-        
+
         DispatchQueue.main.async {
             LoadingView.show()
         }
         
-        ENTALDLibraryAPI.shared.getContactDocumentstwoEvent(participationId: retrivalURL, externalToken: self.access_token){ result in
+        ENTALDLibraryAPI.shared.getContactDocumentstwoEvent(participationId: self.userRetrivalURL, externalToken: self.access_token){ result in
             DispatchQueue.main.async {
                 LoadingView.hide()
             }

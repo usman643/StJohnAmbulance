@@ -16,6 +16,7 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
     var documents : [ContactDocumentResults]?
     var filterDocuments : [ContactDocumentResults]?
     var access_token : String = ""
+    var userRetrivalURL : String = ""
     var isModifiedOnFilterApplied = false
     var isNameFilterApplied = false
     
@@ -219,8 +220,27 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
             case .success(value: let response):
                 
                 if let apiData = response.value {
+                    
                     self.relativeurlData = apiData
-                    self.getDocumentTwo()
+                    if ((self.relativeurlData?.count ?? 0 ) > 0){
+                        var contactId = self.conId.replacingOccurrences(of: "-", with: "")
+                        
+                        self.userRetrivalURL = self.relativeurlData?.filter({
+                            
+                            var apiContactId = $0.relativeurl?.components(separatedBy: "_")
+                            if (contactId.lowercased() == apiContactId?[1].lowercased()){
+                                
+                                return true
+                            } else{
+                                return false
+                            }
+                            
+                        }).first?.relativeurl ?? ""
+                        
+                        self.getDocumentTwo()
+                    }else{
+                        self.showEmptyView(tableVw: self.tableView)
+                    }
                 }
                 
             case .error(let error, let errorResponse):
@@ -239,15 +259,11 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
     
     
     fileprivate func getDocumentTwo(){
-        
-        guard let retrivalURL =  self.relativeurlData?[0].relativeurl else {return }
-        
-        
         DispatchQueue.main.async {
             LoadingView.show()
         }
         
-        ENTALDLibraryAPI.shared.getContactDocumentstwoEvent(participationId: retrivalURL, externalToken: self.access_token){ result in
+        ENTALDLibraryAPI.shared.getContactDocumentstwoEvent(participationId: self.userRetrivalURL, externalToken: self.access_token){ result in
             DispatchQueue.main.async {
                 LoadingView.hide()
             }
