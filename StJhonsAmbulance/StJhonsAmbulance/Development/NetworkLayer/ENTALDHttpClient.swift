@@ -250,4 +250,46 @@ extension ENTALDHttpClient {
     }
     
     
+    func downloadFile (using url: URL, access_token:String? = nil, file_Name:String?, completion: @escaping(_ response : Any, _ error : Error?) -> Void) {
+        
+        let fileName = url.lastPathComponent
+        let destination: DownloadRequest.Destination = { _ , _ in
+            
+            let documentURLs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let fileURL = documentURLs.appendingPathComponent(file_Name ?? "test File")
+            return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
+        }
+        print("File Name &&&  \(fileName)")
+        
+        var request : URLRequest!
+        do {
+            request = try URLRequest(url: url, method: .get)
+        }catch(let err){
+            print("Request Not valid \(err.localizedDescription)")
+            return
+        }
+        
+        if let token = access_token {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        AF.download(request, to:destination).downloadProgress(closure: { (progress) in
+            print("Progresss -------> \(progress.totalUnitCount)")
+        }).validate()
+            .response {response in
+                
+                let statusCode = response.response?.statusCode
+                switch response.result {
+                case .success(_):
+                    if statusCode == 200{
+                        print("Successs #################")
+                        completion(statusCode as Any, nil)
+                    }
+                case .failure(let error):
+                    completion("", error)
+                    print("File Upload Error on external \(error.localizedDescription)")
+                }
+            }
+    }
+    
 }

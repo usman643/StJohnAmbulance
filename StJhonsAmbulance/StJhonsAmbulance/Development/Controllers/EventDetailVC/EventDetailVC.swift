@@ -541,11 +541,15 @@ extension EventDetailVC : UITableViewDelegate, UITableViewDataSource{
         let rowModel = self.filterDocuments?[indexPath.row]
         if let serverUrl = rowModel?.ServerRelativeUrl {
             let urlStr = "https://sjaasj.sharepoint.com/sites/VMSSandbox/_api/Web/GetFileByServerRelativePath(decodedurl='\(serverUrl)')/$value"
-            ENTALDControllers.shared.showDocument(type: .ENTALDPUSH, from: self, urlStr, self.access_token) { params, controller in
+            if let url = URL(string: urlStr.replacingOccurrences(of: " ", with: "%20")) {
                 
+                ENTALDHttpClient.shared.downloadFile(using: url, access_token : self.access_token, file_Name:rowModel?.Name) { data, error in
+                    if error == nil {
+                        ENTALDAlertView.shared.showContactAlertWithTitle(title: "File Downloaded", message: "Go to Files app in your phone, press on browse tab and select On My iPhone. You will get SJA Impact folder with downloaded files.", actionTitle: .KOK, completion: { status in })
+                    }
+                }
             }
         }
-        
     }
     
 }
