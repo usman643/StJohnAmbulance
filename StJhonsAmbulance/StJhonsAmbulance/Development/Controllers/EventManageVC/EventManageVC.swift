@@ -392,8 +392,11 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
             
             switch result{
             case .success(value: let response):
-                if let pastEvent = response.value {
-
+                if let pastEvent = response.error {
+                    DispatchQueue.main.async {
+                        
+                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: pastEvent.message, actionTitle: .KOK, completion: {status in })
+                    }
                 }
                 
             case .error(let error, let errorResponse):

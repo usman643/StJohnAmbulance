@@ -357,7 +357,7 @@ class ENTALDLibraryAPI {
     ///========================  Patch Requests ===========================
     
     
-    func requestCloseEvent(eventId:String, params:[String:Any],  _ completion:@escaping((ApiResult<ProgramResponseModel, ApiError>) -> Void )){
+    func requestCloseEvent(eventId:String, params:[String:Any],  _ completion:@escaping((ApiResult<PatchReponseModel, ApiError>) -> Void )){
         let router = EventRouter.cancelEvent(eventId:eventId, params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
@@ -468,6 +468,11 @@ class ENTALDLibraryAPI {
     func getDocumentToken(params:DynamicAuthRequest,  _ completion:@escaping((ApiResult<PortalAuthModel, ApiError>) -> Void )){
         let router = LoginRouter.getDocumentToken(params: params)
         ENTALDHttpClient.shared.request(router, externalToken: "123", completion: completion)
+    }
+    
+    func addScheduleShift(params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.addScheduleShift(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
 }

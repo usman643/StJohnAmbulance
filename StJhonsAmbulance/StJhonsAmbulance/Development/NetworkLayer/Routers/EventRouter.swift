@@ -31,6 +31,7 @@ enum EventRouter : Router {
     case updateContactInfo(contactId:String, params:[String:Any])
     case updateEventStatus(eventId:String, params:[String:Any])
     case updateSummaryData(eventId:String, params:[String:Any])
+    case addScheduleShift(params:[String:Any])
     case volunteerCheckIn(participationId:String, params:[String:Any])
     case cancelResgitertoAttendEvent(participationId:String, params:[String:Any])
     case getParticipantCount(params:[String:Any])
@@ -72,6 +73,7 @@ enum EventRouter : Router {
         case .updateContactInfo(let contactId, _) : return "contacts(\(contactId))"
         case .updateEventStatus(let eventId, _) : return "msnfp_engagementopportunities(\(eventId))"
         case .updateSummaryData(let eventId, _) : return "msnfp_engagementopportunities(\(eventId))"
+        case .addScheduleShift: return "msnfp_engagementopportunityschedules"
         case .volunteerCheckIn(let participationId, _) : return "msnfp_participationschedules(\(participationId))"
         case .cancelResgitertoAttendEvent(let participationId, _) : return "msnfp_participations(\(participationId))"
         case .getParticipantCount : return "msnfp_participations"
@@ -140,6 +142,8 @@ enum EventRouter : Router {
             return params
         case .updateSummaryData(_, let params):
             return params
+        case .addScheduleShift(let params):
+            return params
         case .cancelResgitertoAttendEvent(_, let params):
             return params
         case .cancelParticipation(_, let params):
@@ -188,6 +192,8 @@ enum EventRouter : Router {
             return HTTPMethodType.patch.rawValue
         case .updateSummaryData(_,_):
             return HTTPMethodType.patch.rawValue
+        case .addScheduleShift:
+            return HTTPMethodType.post.rawValue
         case .volunteerCheckIn(_,_):
             return HTTPMethodType.patch.rawValue
         case .cancelParticipation(_,_):
@@ -232,6 +238,8 @@ enum EventRouter : Router {
         case .updateEventStatus(_,_):
             return .ENTJSONEncoding
         case .updateSummaryData(_,_):
+            return .ENTJSONEncoding
+        case .addScheduleShift:
             return .ENTJSONEncoding
         case .volunteerCheckIn(_,_):
             return .ENTJSONEncoding

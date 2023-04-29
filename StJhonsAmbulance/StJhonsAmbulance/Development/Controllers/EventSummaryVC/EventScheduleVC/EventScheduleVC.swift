@@ -40,6 +40,7 @@ class EventScheduleVC: ENTALDBaseViewController {
     @IBOutlet weak var maxDailyAttendance: UITextField!
     @IBOutlet weak var maxVolunteer: UITextField!
     
+    @IBOutlet weak var btnAddShift: UIButton!
     
     
     @IBOutlet weak var btnSubmit: UIButton!
@@ -107,6 +108,10 @@ class EventScheduleVC: ENTALDBaseViewController {
         self.txtEndDate.inputView = datePicker
         self.txtEndTime.inputView = datePicker
         
+        btnAddShift.layer.cornerRadius = 5
+        btnAddShift.setTitleColor(UIColor.textWhiteColor , for: .normal)
+        btnAddShift.backgroundColor = UIColor.themePrimary
+        btnAddShift.titleLabel?.font = UIFont.BoldFont(14)
         datePicker.addTarget(self, action: #selector(onChangeDate(_:)), for: .valueChanged)
         
     }
@@ -274,6 +279,12 @@ class EventScheduleVC: ENTALDBaseViewController {
     @IBAction func submitTapped(_ sender: Any) {
         updatedata()
     }
+    
+    @IBAction func openAddShiftTapped(_ sender: Any) {
+        ENTALDControllers.shared.ShowAddEventScheduleShiftVC(type: .ENTALDPUSH, from: self, dataObj: self.eventData?.msnfp_engagementopportunityid, callBack: nil)
+        
+    }
+    
     
     func showEmptyView(tableVw : UITableView){
         DispatchQueue.main.async {

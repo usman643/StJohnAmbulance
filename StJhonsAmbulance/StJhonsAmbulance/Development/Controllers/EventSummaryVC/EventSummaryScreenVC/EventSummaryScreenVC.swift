@@ -356,7 +356,7 @@ class EventSummaryScreenVC: ENTALDBaseViewController {
                     
                     DispatchQueue.main.async {
                         
-                        self.btnSelectProgram.setTitle(program?.sjavms_name ?? "", for: .normal)
+                        self.btnSelectProgram.setTitle(program?.sjavms_name ?? "Not Found", for: .normal)
 //                        self.lblProgramType.text = self.eventProgramData?.sjavms_name ?? ""
                         //contact info
                     }

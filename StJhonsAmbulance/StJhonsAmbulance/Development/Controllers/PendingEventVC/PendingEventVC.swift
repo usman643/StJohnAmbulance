@@ -197,7 +197,7 @@ class PendingEventVC: ENTALDBaseViewController {
         isPublishTableSearch = false
         isPendingApprovalTableSearch = true
         self.searchView.isHidden = false
-        self.textSearch.placeholder = "Filter Pending Publish"
+        self.textSearch.placeholder = "Filter Pending Approval"
         
         
     }
@@ -206,7 +206,7 @@ class PendingEventVC: ENTALDBaseViewController {
         isPublishTableSearch = true
         isPendingApprovalTableSearch = false
         self.searchView.isHidden = false
-        self.textSearch.placeholder = "Filter Pending Approval"
+        self.textSearch.placeholder = "Filter Pending Publish"
         
         
     }

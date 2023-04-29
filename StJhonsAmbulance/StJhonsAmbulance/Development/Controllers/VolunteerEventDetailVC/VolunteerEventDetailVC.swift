@@ -66,7 +66,7 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         lblEventName.textColor = UIColor.textWhiteColor
         lblEventDate.textColor = UIColor.textWhiteColor
         lblEventLocation.textColor = UIColor.textWhiteColor
-        lblDesc.textColor = UIColor.themePrimary
+        lblDesc.textColor = UIColor.themePrimaryWhite
         
         lblEventName.font = UIFont.BoldFont(16)
         lblEventDate.font = UIFont.BoldFont(14)

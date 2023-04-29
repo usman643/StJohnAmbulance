@@ -236,7 +236,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     @IBAction func nameFilterTapped(_ sender: Any) {
         
         self.searchView.isHidden = false
-        self.textSearch.placeholder = "Filter PendingShifts"
+        self.textSearch.placeholder = "Search Pending Shifts"
 
     }
     

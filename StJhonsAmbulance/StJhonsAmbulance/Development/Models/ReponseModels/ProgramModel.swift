@@ -50,3 +50,16 @@ struct ProgramStatusModel : Codable{
         
     }
 }
+
+
+struct PatchReponseModel: Codable {
+    
+    let error : ErrorModel?
+    
+}
+
+struct ErrorModel: Codable {
+    
+    let message : String?
+    
+}

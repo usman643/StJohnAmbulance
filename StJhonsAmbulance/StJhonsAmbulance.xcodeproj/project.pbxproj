@@ -185,6 +185,8 @@
 		1DF176FE29893E52005809C6 /* EventsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF176FD29893E52005809C6 /* EventsModel.swift */; };
 		1DF1770029893ECA005809C6 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF176FF29893ECA005809C6 /* MessageModel.swift */; };
 		1DF1770229893ED8005809C6 /* VolunteerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1770129893ED8005809C6 /* VolunteerModel.swift */; };
+		1DF82FB229FD3DD900E04690 /* AddEventScheduleShiftVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF82FB029FD3DD900E04690 /* AddEventScheduleShiftVC.swift */; };
+		1DF82FB329FD3DD900E04690 /* AddEventScheduleShiftVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DF82FB129FD3DD900E04690 /* AddEventScheduleShiftVC.xib */; };
 		1DF9C12D29DE007B004744AD /* AddAvilabilityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF9C12B29DE007A004744AD /* AddAvilabilityVC.swift */; };
 		1DF9C12E29DE007B004744AD /* AddAvilabilityVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DF9C12C29DE007B004744AD /* AddAvilabilityVC.xib */; };
 		353C6107281213A500CC8B7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C6106281213A500CC8B7F /* AppDelegate.swift */; };
@@ -468,6 +470,8 @@
 		1DF176FD29893E52005809C6 /* EventsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsModel.swift; sourceTree = "<group>"; };
 		1DF176FF29893ECA005809C6 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		1DF1770129893ED8005809C6 /* VolunteerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerModel.swift; sourceTree = "<group>"; };
+		1DF82FB029FD3DD900E04690 /* AddEventScheduleShiftVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventScheduleShiftVC.swift; sourceTree = "<group>"; };
+		1DF82FB129FD3DD900E04690 /* AddEventScheduleShiftVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddEventScheduleShiftVC.xib; sourceTree = "<group>"; };
 		1DF9C12B29DE007A004744AD /* AddAvilabilityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAvilabilityVC.swift; sourceTree = "<group>"; };
 		1DF9C12C29DE007B004744AD /* AddAvilabilityVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddAvilabilityVC.xib; sourceTree = "<group>"; };
 		230A8997ED08A9DC21CB28B9 /* Pods-StJhonsAmbulance.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StJhonsAmbulance.debug.xcconfig"; path = "Target Support Files/Pods-StJhonsAmbulance/Pods-StJhonsAmbulance.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1026,6 +1030,7 @@
 			children = (
 				1DCE27BB29CEFBDC00A80B3A /* EventScheduleTVC */,
 				1D7DECA829CECFFA00F86A6F /* EventScheduleVC.swift */,
+				1DF82FAF29FD3DB100E04690 /* AddEventScheduleShiftVC */,
 				1D7DECA929CECFFA00F86A6F /* EventScheduleVC.xib */,
 			);
 			path = EventScheduleVC;
@@ -1309,6 +1314,15 @@
 				1DF176EE29852F7A005809C6 /* PastEventTVC.xib */,
 			);
 			path = PastEventTVC;
+			sourceTree = "<group>";
+		};
+		1DF82FAF29FD3DB100E04690 /* AddEventScheduleShiftVC */ = {
+			isa = PBXGroup;
+			children = (
+				1DF82FB029FD3DD900E04690 /* AddEventScheduleShiftVC.swift */,
+				1DF82FB129FD3DD900E04690 /* AddEventScheduleShiftVC.xib */,
+			);
+			path = AddEventScheduleShiftVC;
 			sourceTree = "<group>";
 		};
 		1DF9C12A29DE003D004744AD /* AddAvilabilityVC */ = {
@@ -1943,6 +1957,7 @@
 				1DA0A39229E0B73500284A4B /* VolunteerHourDetailVC.xib in Resources */,
 				1D64DC9229C1D77E0017608A /* AchivementTVC.xib in Resources */,
 				1DF176EA29852448005809C6 /* PendingEventTVC.xib in Resources */,
+				1DF82FB329FD3DD900E04690 /* AddEventScheduleShiftVC.xib in Resources */,
 				1D84797D29CD05FF00CE9F37 /* EventSummaryVC.xib in Resources */,
 				E4B2EF19297C6B9200D05014 /* LoginVC.xib in Resources */,
 				359E9C22282B8148001E3D73 /* ENTALDAlertView.xib in Resources */,
@@ -2322,6 +2337,7 @@
 				1DF176FC29893B40005809C6 /* EventRouter.swift in Sources */,
 				1D4DE859297FC4BA00246242 /* CSDashBaordCVC.swift in Sources */,
 				1D55C8E329B3F5B90035E4D4 /* PendingStatusPickerView.swift in Sources */,
+				1DF82FB229FD3DD900E04690 /* AddEventScheduleShiftVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2505,50 +2521,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = StJhonsAmbulance/StJhons_info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "SJA Impact";
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.STJohn.Ambulance;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "ST John Distribution";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "StJhonsAmbulance/StJhonsAmbulance-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug;
-		};
-		353C612F281213A600CC8B7F /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E2A3F7E87047CECA4F259EFD /* Pods-StJhonsAmbulance.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StJhonsAmbulance/StJhons_info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "SJA Impact";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -2563,6 +2544,43 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "ST John Development";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "StJhonsAmbulance/StJhonsAmbulance-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		353C612F281213A600CC8B7F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E2A3F7E87047CECA4F259EFD /* Pods-StJhonsAmbulance.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 25;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StJhonsAmbulance/StJhons_info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "SJA Impact";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.STJohn.Ambulance;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "ST John Distribution";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "StJhonsAmbulance/StJhonsAmbulance-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

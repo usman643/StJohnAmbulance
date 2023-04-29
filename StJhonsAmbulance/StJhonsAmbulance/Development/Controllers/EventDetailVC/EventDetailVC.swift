@@ -134,30 +134,30 @@ class EventDetailVC: ENTALDBaseViewController {
     func setupData(){
         if ((availableEvent) != nil){
             
-            let date = DateFormatManager.shared.formatDateStrToStr(date: availableEvent?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
-            let startTime = DateFormatManager.shared.formatDateStrToStr(date: availableEvent?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            let date = DateFormatManager.shared.formatDateStrToStr(date: availableEvent?.msnfp_startingdate ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
+            let startTime = DateFormatManager.shared.formatDateStrToStr(date: availableEvent?.msnfp_startingdate ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
-            let endTime = DateFormatManager.shared.formatDateStrToStr(date: availableEvent?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            let endTime = DateFormatManager.shared.formatDateStrToStr(date: availableEvent?.msnfp_endingdate ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
-            lblEventName.text = availableEvent?.msnfp_engagementopportunitytitle
+            lblEventName.text = availableEvent?.msnfp_engagementopportunitytitle?.uppercased() ?? "Not Found"
             lblDate.text = "Date: \(date)"
             lblShift.text = "Shift: \(startTime) - \(endTime)"
-            lblLocationDesc.text = availableEvent?.msnfp_location
-            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: availableEvent?.msnfp_engagementopportunitystatus ?? 0) ?? "")"
+            lblLocationDesc.text = availableEvent?.msnfp_location ?? "Not Found"
+            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: availableEvent?.msnfp_engagementopportunitystatus ?? 0) ?? "Not Found")"
             self.eventId = availableEvent?.msnfp_engagementopportunityid ?? ""
             
         }else if ((scheduleEvent) != nil){
             
-            let date = DateFormatManager.shared.formatDateStrToStr(date: scheduleEvent?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
-            let startTime = DateFormatManager.shared.formatDateStrToStr(date: scheduleEvent?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            let date = DateFormatManager.shared.formatDateStrToStr(date: scheduleEvent?.sjavms_start ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
+            let startTime = DateFormatManager.shared.formatDateStrToStr(date: scheduleEvent?.sjavms_start ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
-            let endTime = DateFormatManager.shared.formatDateStrToStr(date: scheduleEvent?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            let endTime = DateFormatManager.shared.formatDateStrToStr(date: scheduleEvent?.sjavms_end ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
-            lblEventName.text = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
+            lblEventName.text = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle?.uppercased() ?? "Not Found"
             lblDate.text = "Date: \(date)"
             lblShift.text = "Shift: \(startTime) - \(endTime)"
-            lblLocationDesc.text = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_location
-            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: scheduleEvent?.msnfp_schedulestatus ?? 0) ?? "")"
+            lblLocationDesc.text = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found"
+            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: scheduleEvent?.msnfp_schedulestatus ?? 0) ?? "Not Found")"
             self.eventId = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
             
             
@@ -168,31 +168,31 @@ class EventDetailVC: ENTALDBaseViewController {
         }else if ((pastEvent) != nil){
             self.checkInbtnView.isHidden = true
             self.contactbtnView.isHidden = true
-            let date = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
+            let date = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.sjavms_start ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
             
-            let startTime = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            let startTime = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.sjavms_start ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
-            let endTime = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            let endTime = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.sjavms_end ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
-            lblEventName.text = pastEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
+            lblEventName.text = pastEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle?.uppercased() ?? "Not Found"
             lblDate.text = "Date: \(date)"
             lblShift.text = "Shift: \(startTime) - \(endTime)"
-            lblLocationDesc.text = pastEvent?.sjavms_VolunteerEvent?.msnfp_location
-            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: pastEvent?.msnfp_schedulestatus ?? 0) ?? "")"
+            lblLocationDesc.text = pastEvent?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found"
+            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: pastEvent?.msnfp_schedulestatus ?? 0) ?? "Not Found")"
             self.eventId = pastEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
         }else if((latestEvent) != nil){
             
-            let date = DateFormatManager.shared.formatDateStrToStr(date: latestEvent?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
+            let date = DateFormatManager.shared.formatDateStrToStr(date: latestEvent?.sjavms_start ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
             
-            let startTime = DateFormatManager.shared.formatDateStrToStr(date: latestEvent?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            let startTime = DateFormatManager.shared.formatDateStrToStr(date: latestEvent?.sjavms_start ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
-            let endTime = DateFormatManager.shared.formatDateStrToStr(date: latestEvent?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            let endTime = DateFormatManager.shared.formatDateStrToStr(date: latestEvent?.sjavms_end ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
-            lblEventName.text = latestEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
+            lblEventName.text = latestEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle?.uppercased() ??  "Not Found"
             lblDate.text = "Date: \(date)"
             lblShift.text = "Shift: \(startTime) - \(endTime)"
-            lblLocationDesc.text = latestEvent?.sjavms_VolunteerEvent?.msnfp_location
-            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: latestEvent?.msnfp_schedulestatus ?? 0) ?? "")"
+            lblLocationDesc.text = latestEvent?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found"
+            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: latestEvent?.msnfp_schedulestatus ?? 0) ?? "Not Found")"
             self.eventId = latestEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
         }
         
@@ -269,7 +269,6 @@ class EventDetailVC: ENTALDBaseViewController {
     
     @IBAction func contactTapped(_ sender: Any) {
         self.getContact()
-        //        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alter", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
     }
     
     fileprivate func updateCheckInData(){
@@ -279,9 +278,7 @@ class EventDetailVC: ENTALDBaseViewController {
         DispatchQueue.main.async {
             LoadingView.show()
         }
-        
-        
-        
+
         ENTALDLibraryAPI.shared.updateVolunteerCheckIn(particitionId: self.latestEvent?.msnfp_participationscheduleid ?? "", params: params){ result in
             DispatchQueue.main.async {
                 LoadingView.hide()
@@ -427,11 +424,11 @@ class EventDetailVC: ENTALDBaseViewController {
                     if ((self.relativeurlData?.count ?? 0 ) > 0){
                         
                         self.relativeurlData = apiData
-                        var contactId = self.conId.replacingOccurrences(of: "-", with: "")
+                        let contactId = self.conId.replacingOccurrences(of: "-", with: "")
                         
                         self.userRetrivalURL = self.relativeurlData?.filter({
                             
-                            var apiContactId = $0.relativeurl?.components(separatedBy: "_")
+                            let apiContactId = $0.relativeurl?.components(separatedBy: "_")
                             if (contactId.lowercased() == apiContactId?[1].lowercased()){
                                 
                                 return true
@@ -442,8 +439,11 @@ class EventDetailVC: ENTALDBaseViewController {
                         }).first?.relativeurl ?? ""
                         
                         self.getDocumentTwo()
+                    }else{
+                        self.showEmptyView(tableVw: self.tableView)
                     }
-                    
+                }else{
+                    self.showEmptyView(tableVw: self.tableView)
                 }
                 
             case .error(let error, let errorResponse):
