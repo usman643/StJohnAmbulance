@@ -16,6 +16,7 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
     var viewControllers: [UIViewController] = []
     var availableData : AvailableEventModel?
     var scheduleData : ScheduleModelThree?
+    var scheduleEngagementData : ScheduleEngagementModel?
     var tabDetailData : [VolunteerEventClickShiftDetailModel]?
     var participationData : [VolunteerEventParticipationCheckModel]?
     var userParticipantData : VolunteerEventParticipationCheckModel?
@@ -54,7 +55,11 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
             availableData = dataModel as? AvailableEventModel
             self.eventId = self.availableData?.msnfp_engagementopportunityid ?? ""
 //            self.setupAvailiableScreenData()
+        }else if eventType == ""{
+            scheduleEngagementData = dataModel as? ScheduleEngagementModel
+            self.eventId = self.scheduleEngagementData?.OppId ?? ""
         }
+        
         self.getEventTabDetail()
         self.getEventParitionCheck()
         self.reloadControllers()

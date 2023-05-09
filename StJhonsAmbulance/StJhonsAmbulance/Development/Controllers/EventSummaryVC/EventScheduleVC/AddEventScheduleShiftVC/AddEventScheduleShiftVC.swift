@@ -9,7 +9,7 @@ import UIKit
 
 class AddEventScheduleShiftVC:  ENTALDBaseViewController,UITextFieldDelegate {
 
-    var eventId  : String?
+    var eventId  : String = ""
     var datePicker = UIDatePicker()
     var startDateSelected : String?
     var endDateSelected  : String?
@@ -32,7 +32,7 @@ class AddEventScheduleShiftVC:  ENTALDBaseViewController,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.eventId = self.dataModel as? String
+        self.eventId = self.dataModel as? String  ?? ""
         decorateUI()
         
     }
@@ -73,6 +73,9 @@ class AddEventScheduleShiftVC:  ENTALDBaseViewController,UITextFieldDelegate {
         txtEndDate.textColor = UIColor.textBlackColor
         txtEndTime.textColor = UIColor.textBlackColor
         
+        txtMinPaticipant.keyboardType = .numberPad
+        txtMaxPaticipant.keyboardType = .numberPad
+        
         txtScheduleTitle.isUserInteractionEnabled = true
         txtMinPaticipant.isUserInteractionEnabled = true
         txtMaxPaticipant.isUserInteractionEnabled = true
@@ -105,7 +108,7 @@ class AddEventScheduleShiftVC:  ENTALDBaseViewController,UITextFieldDelegate {
     }
 
     @IBAction func createShiftTapped(_ sender: Any) {
-        
+        self.createShift()
     }
     
     @IBAction func backTapped(_ sender: Any) {
@@ -150,15 +153,15 @@ class AddEventScheduleShiftVC:  ENTALDBaseViewController,UITextFieldDelegate {
     
     
     func createShift(){
-        
+        var event = self.eventId
         var params = [
             "msnfp_engagementOpportunity@odata.bind": "/msnfp_engagementopportunities(\(self.eventId))" as String,
             
-            "msnfp_engagementopportunityschedule": "another shift" as String,
+            "msnfp_engagementopportunityschedule": self.txtScheduleTitle.text ?? "" as String,
 
             "msnfp_minimum": Int(self.txtMinPaticipant.text ?? "0") ,
-                "msnfp_maximum":  Int(self.txtMaxPaticipant.text ?? "0") ,
-                "sjavms_therapydog": false as Bool
+            "msnfp_maximum":  Int(self.txtMaxPaticipant.text ?? "0") ,
+            "sjavms_therapydog": false as Bool
 
 
          ] as [String : Any]
@@ -190,7 +193,14 @@ class AddEventScheduleShiftVC:  ENTALDBaseViewController,UITextFieldDelegate {
                  
              case .error(let error, let errorResponse):
                  if error == .patchSuccess {
-                     debugPrint("Shift added Successfully")
+                     DispatchQueue.main.async {
+                         
+                         ENTALDAlertView.shared.showContactAlertWithTitle(title: "", message: "Shift added successfully", actionTitle: .KOK, completion: { status in
+                             
+                             self.navigationController?.popViewController(animated: true)
+                             self.callbackToController?(nil, self)
+                         })
+                     }
                  }else{
                      var message = error.message
                      if let err = errorResponse {

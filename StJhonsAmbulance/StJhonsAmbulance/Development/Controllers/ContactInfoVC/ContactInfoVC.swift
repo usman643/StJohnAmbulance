@@ -150,19 +150,19 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
         txtEmergencyContactPhone.layer.borderWidth = 1
         txtEmergencyContactPhone.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         
-        btnPrefferenNoun.backgroundColor = UIColor.themePrimaryWhite
+        btnPrefferenNoun.backgroundColor = UIColor.themePrimary
         btnPrefferenNoun.titleLabel?.font = UIFont.BoldFont(14)
         btnPrefferenNoun.layer.cornerRadius = 2
         btnPrefferenNoun.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        btnGender.backgroundColor = UIColor.themePrimaryWhite
+        btnGender.backgroundColor = UIColor.themePrimary
         btnGender.titleLabel?.font = UIFont.BoldFont(14)
         btnGender.layer.cornerRadius = 2
         btnGender.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        btnContactMethod.backgroundColor = UIColor.themePrimaryWhite
+        btnContactMethod.backgroundColor = UIColor.themePrimary
         btnContactMethod.titleLabel?.font = UIFont.BoldFont(14)
         btnContactMethod.layer.cornerRadius = 2
         btnContactMethod.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        btnOptNotofocation.backgroundColor = UIColor.themePrimaryWhite
+        btnOptNotofocation.backgroundColor = UIColor.themePrimary
         btnOptNotofocation.titleLabel?.font = UIFont.BoldFont(14)
         btnOptNotofocation.layer.cornerRadius = 2
         btnOptNotofocation.setTitleColor(UIColor.textWhiteColor, for: .normal)

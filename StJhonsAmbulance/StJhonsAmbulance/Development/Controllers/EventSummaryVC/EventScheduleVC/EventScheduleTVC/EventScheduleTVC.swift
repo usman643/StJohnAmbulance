@@ -61,8 +61,8 @@ class EventScheduleTVC: UITableViewCell {
         
         let tileEventArr = cellModel?.msnfp_engagementopportunityschedule?.components(separatedBy: " - ")
         if ((tileEventArr?.count ?? 0) > 1){
-            lblEvent.text = "\(tileEventArr?[1])"
-            lblTitle.text = "\(tileEventArr?[0])"
+            lblEvent.text = "\(tileEventArr?[1] ?? "Not Found")"
+            lblTitle.text = "\(tileEventArr?[0] ?? "Not Found")"
         }
         
         

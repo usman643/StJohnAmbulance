@@ -15,6 +15,8 @@ enum ENTALDBASEURLTYPE {
     case SAINJOHN_BASEURL_Api
     case SAINJOHN_DOCUMENT_AUTH_URL
     case SAINJOHN_SCHEDULE_URL
+    case SAINJOHN_POWERAPPSPORTALS_URL
+    
 }
 
 class ENTALDAPIUtils {
@@ -41,8 +43,17 @@ class ENTALDAPIUtils {
             return self.getDocumentAuthURL()
         case .SAINJOHN_SCHEDULE_URL:
             return self.getScheduleURL()
+        case .SAINJOHN_POWERAPPSPORTALS_URL:
+            return self.getPowerAppsPoralURL()
             
         }
+    }
+    
+    private func getPowerAppsPoralURL()->URL?{
+        if let urlStr = ENTALDAPIConfig.shared.powerAppsPortalURL, urlStr != "", let baseURL = URL(string: urlStr){
+            return baseURL
+        }
+        return nil
     }
     
     private func getScheduleURL()->URL?{

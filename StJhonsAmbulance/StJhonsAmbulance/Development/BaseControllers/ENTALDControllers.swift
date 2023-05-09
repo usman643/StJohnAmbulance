@@ -415,6 +415,13 @@ class ENTALDControllers {
         vc.callbackToController = callBack
         self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
     }
+        
+    func ShowUserEngagementsVC(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = UserEngagementsVC.loadFromNib()
+        vc.dataModel = dataObj
+        vc.callbackToController = callBack
+        self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
+    }
     
     
     

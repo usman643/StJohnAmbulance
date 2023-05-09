@@ -72,7 +72,9 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
     }
     
     @IBAction func signUpTapped(_ sender: Any) {
-        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
+        ENTALDControllers.shared.ShowUserEngagementsVC(type: .ENTALDPUSH, from: self, callBack: nil)
+        
+//        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
         
     }
     
@@ -155,14 +157,23 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         
-//        for i in (0..<(scheduleData?.count ?? 0)) {
-//            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-//            guard let eventDateStr = formatter.date(from: scheduleData?[i].StartDate ?? "") else {return 0}
-//            if date.compare(eventDateStr) == .orderedSame{
-//                return 1
-//            }
-//
-//        }
+        for i in (0..<(scheduleData?.count ?? 0)) {
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+            if let event = formatter.date(from: scheduleData?[i].sjavms_start ?? ""){
+                
+                let newFormatter = DateFormatter()
+                newFormatter.dateFormat = "yyyy-MM-dd"
+                
+                var eventDate = newFormatter.string(from: event)
+                var calenderDate = newFormatter.string(from: date)
+                
+                
+                if eventDate == calenderDate {
+                    return 1
+                }
+            }
+
+        }
         return 0
     }
     

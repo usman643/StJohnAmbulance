@@ -281,7 +281,9 @@ class EventScheduleVC: ENTALDBaseViewController {
     }
     
     @IBAction func openAddShiftTapped(_ sender: Any) {
-        ENTALDControllers.shared.ShowAddEventScheduleShiftVC(type: .ENTALDPUSH, from: self, dataObj: self.eventData?.msnfp_engagementopportunityid, callBack: nil)
+        ENTALDControllers.shared.ShowAddEventScheduleShiftVC(type: .ENTALDPUSH, from: self, dataObj: self.eventData?.msnfp_engagementopportunityid) { params, controller in
+            self.getEventOptions()
+        }
         
     }
     

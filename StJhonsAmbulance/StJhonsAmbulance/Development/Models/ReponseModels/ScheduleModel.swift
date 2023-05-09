@@ -95,6 +95,7 @@ struct ScheduleModelThree : Codable {
     let sjavms_start : String?
     let msnfp_participationscheduleid : String?
     let sjavms_end : String?
+    let sjavms_checkedin : Bool?
     let sjavms_VolunteerEvent : ScheduleDataModel?
     
     
@@ -146,6 +147,8 @@ struct AvailableEventModel : Codable {
     let _sjavms_program_value : String?
     let msnfp_maximum : Int?
     let msnfp_minimum : Int?
+    let sjavms_checkin : Bool?
+    let sjavms_checkedin : Bool?
 //    let sjavms_msnfp_engagementopportunity_msnfp_group :  [EngagementopportunityGroupModel]?
 }
 
@@ -170,6 +173,37 @@ struct ScheduleEventDataModel : Codable {
     let EndDateString : String?
     let LocationTypeName : String?
     let LocationTypeValue : Int?
+    let LocationTitle : String?
+    let City : String?
+}
+
+struct ScheduleEngagementResponseModel : Codable{
+    
+    var values : [ScheduleEngagementModel]?
+    
+    init(from decoder: Decoder) throws {
+        var container = try decoder.unkeyedContainer()
+        self.values = try container.decodeIfPresent([ScheduleEngagementModel].self)
+    }
+    
+}
+
+
+struct ScheduleEngagementModel : Codable {
+   
+    let OppId : String?
+    let Title : String?
+    let Program : String?
+    let StatusCode : String?
+    let StartDateFull : String?
+    let StartDate : String?
+    let StartDateString : String?
+    let Desc : String?
+    let EndDateFull : String?
+    let EndDate : String?
+    let EndDateString : String?
+    let LocationTypeName : String?
+    let LocationTypeValue : String?
     let LocationTitle : String?
     let City : String?
 }

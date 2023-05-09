@@ -179,6 +179,10 @@ extension ENTALDHttpClient {
                     let decodedObj = try JSONDecoder().decode(T.self, from: jsonData)
                     completion(.success(value: decodedObj))
                     print("results \(result)")
+                }else{
+                    let jsonData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+                    let decodedObj = try JSONDecoder().decode(T.self, from: jsonData)
+                    completion(.success(value: decodedObj))
                 }
                 
             }

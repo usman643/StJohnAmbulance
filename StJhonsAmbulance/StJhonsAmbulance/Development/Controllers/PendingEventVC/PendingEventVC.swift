@@ -686,8 +686,22 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if (tableView == self.pendingPublishTableView){
+            
+            let eventdata = self.filterPendingPublishData?[indexPath.row]
+            
+            ENTALDControllers.shared.showEventSummaryScreen(type: .ENTALDPUSH, from: self , dataObj: eventdata) { params, controller in
+                
+            }
+        }
+        
+        
+        
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "PendingEventTVC", for: indexPath) as! PendingEventTVC
 //        showActionSheet(pointView: cell.mainView, arrIndex:indexPath.row)
+        
+        
     }
     
     func updateSiglePendingEventStatus(eventId:String) {

@@ -43,6 +43,7 @@ struct SideMenuHoursModel : Codable {
     let sjavms_programid: String?
     var program_name: String?
     var msnfp_location: String?
+    var sjavms_checkedin: String?
     let msnfp_engagementOpportunityScheduleId: EngagementOpportunityScheduleModel?
 }
 

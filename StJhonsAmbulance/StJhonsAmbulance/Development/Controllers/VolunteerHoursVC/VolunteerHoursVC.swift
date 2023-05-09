@@ -568,7 +568,7 @@ class VolunteerHoursVC: ENTALDBaseViewController,UITextFieldDelegate {
             
         
             ParameterKeys.select :
-                "msnfp_schedulestatus,sjavms_start,sjavms_end,_sjavms_volunteerevent_value,_msnfp_engagementopportunityscheduleid_value,sjavms_hours,msnfp_participationscheduleid,statecode",
+                "msnfp_schedulestatus,sjavms_start,sjavms_end,_sjavms_volunteerevent_value,_msnfp_engagementopportunityscheduleid_value,sjavms_hours,msnfp_participationscheduleid,statecode,sjavms_checkedin",
             ParameterKeys.expand : "sjavms_VolunteerEvent($select=sjavms_eventrequirements,msnfp_street2,msnfp_zippostalcode,msnfp_city,msnfp_engagementopportunitytitle,msnfp_location,msnfp_stateprovince,msnfp_street3,_sjavms_program_value,msnfp_street1)",
             
             

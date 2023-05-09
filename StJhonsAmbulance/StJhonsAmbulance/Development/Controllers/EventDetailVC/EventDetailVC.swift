@@ -17,6 +17,8 @@ class EventDetailVC: ENTALDBaseViewController {
     var filterDocuments : [ContactDocumentResults]?
     var contactInfo : [ContactDataModel]?
     var eventId = ""
+    var isCancelEvent = false
+    var paramName = ""
     
     var isNameFilterApplied = false
     var isModifiedOnFilterApplied = false
@@ -106,18 +108,7 @@ class EventDetailVC: ENTALDBaseViewController {
         
         checkInBtnImg.image = checkInBtnImg.image?.withRenderingMode(.alwaysTemplate)
         checkInBtnImg.tintColor = UIColor.white
-        if ( self.latestEvent?.sjavms_checkedin == true ){
-            btnCheckIn.isEnabled = false
-            btnCheckIn.setTitle("Checked In", for: .normal)
-            checkInBtnImg.isHidden = true
-            checkInBtnImg.isHidden = false
-        }else{
-            btnCheckIn.isEnabled = true
-            btnCheckIn.setTitle("Check In", for: .normal)
-            checkInBtnImg.isHidden = true
-            checkInBtnImg.isHidden = false
-            checkInBtnImg.tintColor = UIColor.white
-        }
+        
         tableHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         tableHeaderView.layer.borderWidth = 1.5
         
@@ -145,6 +136,32 @@ class EventDetailVC: ENTALDBaseViewController {
             lblLocationDesc.text = availableEvent?.msnfp_location ?? "Not Found"
             lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: availableEvent?.msnfp_engagementopportunitystatus ?? 0) ?? "Not Found")"
             self.eventId = availableEvent?.msnfp_engagementopportunityid ?? ""
+            self.paramName = "sjavms_checkedin"
+            
+            if ( self.availableEvent?.sjavms_checkedin == true ){
+                btnCheckIn.isEnabled = false
+                btnCheckIn.setTitle("Checked In", for: .normal)
+                checkInBtnImg.tintColor = UIColor.white
+                checkInBtnImg.isHidden = false
+                
+            }else if (self.availableEvent?.sjavms_checkedin == false ){
+                btnCheckIn.isEnabled = true
+                btnCheckIn.setTitle("Check In", for: .normal)
+                checkInBtnImg.isHidden = true
+            }else{
+                contactbtnView.isHidden = true
+            }
+            
+            if(!DateFormatManager.shared.isDatePassed(date: self.availableEvent?.msnfp_startingdate ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")) {
+                self.isCancelEvent = true
+                self.btnCancel.isHidden = false
+                self.btnCancel.setTitle("Cancel", for: .normal)
+            }else{
+                self.isCancelEvent = false
+                self.btnCancel.isHidden = true
+                self.btnCancel.setTitle("Close", for: .normal)
+
+            }
             
         }else if ((scheduleEvent) != nil){
             
@@ -159,8 +176,32 @@ class EventDetailVC: ENTALDBaseViewController {
             lblLocationDesc.text = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found"
             lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: scheduleEvent?.msnfp_schedulestatus ?? 0) ?? "Not Found")"
             self.eventId = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
+            self.paramName = "sjavms_checkedin"
             
+            if ( self.scheduleEvent?.sjavms_checkedin == true ){
+                btnCheckIn.isEnabled = false
+                btnCheckIn.setTitle("Checked In", for: .normal)
+                checkInBtnImg.tintColor = UIColor.white
+                checkInBtnImg.isHidden = false
+                
+            }else if ( self.scheduleEvent?.sjavms_checkedin == false ){
+                btnCheckIn.isEnabled = true
+                btnCheckIn.setTitle("Check In", for: .normal)
+                checkInBtnImg.isHidden = true
+            }else{
+                contactbtnView.isHidden = true
+            }
             
+            if(!DateFormatManager.shared.isDatePassed(date: self.scheduleEvent?.sjavms_start ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")) {
+                self.isCancelEvent = true
+                self.btnCancel.isHidden = false
+                self.btnCancel.setTitle("Cancel", for: .normal)
+            }else{
+                self.isCancelEvent = false
+                self.btnCancel.isHidden = true
+                self.btnCancel.setTitle("Close", for: .normal)
+
+            }
             
             
             
@@ -180,6 +221,33 @@ class EventDetailVC: ENTALDBaseViewController {
             lblLocationDesc.text = pastEvent?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found"
             lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: pastEvent?.msnfp_schedulestatus ?? 0) ?? "Not Found")"
             self.eventId = pastEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
+            self.paramName = "sjavms_checkedin"
+            
+            if ( self.pastEvent?.sjavms_checkedin == true ){
+                btnCheckIn.isEnabled = false
+                btnCheckIn.setTitle("Checked In", for: .normal)
+                checkInBtnImg.tintColor = UIColor.white
+                checkInBtnImg.isHidden = false
+                
+            }else if (self.pastEvent?.sjavms_checkedin == false ){
+                btnCheckIn.isEnabled = true
+                btnCheckIn.setTitle("Check In", for: .normal)
+                checkInBtnImg.isHidden = true
+            }else{
+                contactbtnView.isHidden = true
+            }
+            
+            if(!DateFormatManager.shared.isDatePassed(date: self.pastEvent?.sjavms_start ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")) {
+                self.isCancelEvent = true
+                self.btnCancel.isHidden = false
+                self.btnCancel.setTitle("Cancel", for: .normal)
+            }else{
+                self.isCancelEvent = false
+                self.btnCancel.isHidden = true
+                self.btnCancel.setTitle("Close", for: .normal)
+
+            }
+            
         }else if((latestEvent) != nil){
             
             let date = DateFormatManager.shared.formatDateStrToStr(date: latestEvent?.sjavms_start ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
@@ -194,6 +262,32 @@ class EventDetailVC: ENTALDBaseViewController {
             lblLocationDesc.text = latestEvent?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found"
             lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: latestEvent?.msnfp_schedulestatus ?? 0) ?? "Not Found")"
             self.eventId = latestEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
+            self.paramName = "sjavms_checkedin"
+            
+            if ( self.latestEvent?.sjavms_checkedin == true ){
+                btnCheckIn.isEnabled = false
+                btnCheckIn.setTitle("Checked In", for: .normal)
+                checkInBtnImg.tintColor = UIColor.white
+                checkInBtnImg.isHidden = false
+                
+            }else if (self.latestEvent?.sjavms_checkedin == false ){
+                btnCheckIn.isEnabled = true
+                btnCheckIn.setTitle("Check In", for: .normal)
+                checkInBtnImg.isHidden = true
+            }else{
+                contactbtnView.isHidden = true
+            }
+            
+            if(!DateFormatManager.shared.isDatePassed(date: self.latestEvent?.sjavms_start ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")) {
+                self.isCancelEvent = true
+                self.btnCancel.isHidden = false
+                self.btnCancel.setTitle("Cancel", for: .normal)
+            }else{
+                self.isCancelEvent = false
+                self.btnCancel.isHidden = true
+                self.btnCancel.setTitle("Close", for: .normal)
+
+            }
         }
         
     }
@@ -209,7 +303,10 @@ class EventDetailVC: ENTALDBaseViewController {
     
     
     @IBAction func checkInTapped(_ sender: Any) {
-        if (self.latestEvent?.sjavms_checkedin == false){
+//        if (self.latestEvent?.sjavms_checkedin == false){
+//
+//        }
+        if btnCheckIn.isEnabled{
             updateCheckInData()
         }
         //            ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alter", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
@@ -264,7 +361,13 @@ class EventDetailVC: ENTALDBaseViewController {
     
     
     @IBAction func cancelTapped(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        
+        if (isCancelEvent == true){
+            
+        }else{
+            self.navigationController?.popViewController(animated: true)
+        }
+        
     }
     
     @IBAction func contactTapped(_ sender: Any) {
@@ -273,13 +376,13 @@ class EventDetailVC: ENTALDBaseViewController {
     
     fileprivate func updateCheckInData(){
         let params = [
-            "sjavms_checkedin": true
+            "\(self.paramName)": true
         ]
         DispatchQueue.main.async {
             LoadingView.show()
         }
 
-        ENTALDLibraryAPI.shared.updateVolunteerCheckIn(particitionId: self.latestEvent?.msnfp_participationscheduleid ?? "", params: params){ result in
+        ENTALDLibraryAPI.shared.updateVolunteerCheckIn(particitionId: self.eventId , params: params){ result in
             DispatchQueue.main.async {
                 LoadingView.hide()
             }
@@ -499,6 +602,56 @@ class EventDetailVC: ENTALDBaseViewController {
                 if let err = errorResponse {
                     message = err.error
                 }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    
+    func cancelEvent(){
+    
+        ENTALDAlertView.shared.showActionAlertWithTitle(title: "Alert", message: "Are you sure you want to Cancel Event", actionTitle: .KOK, completion: { status in
+            
+            if status == true{
+                let params = [
+                    "msnfp_engagementopportunitystatus": 844060004 as Int
+                ]
+                
+                self.closeVolunteersData(params: params)
+            }else{
+                
+            }
+            
+        })
+    }
+    
+    fileprivate func closeVolunteersData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+ 
+        ENTALDLibraryAPI.shared.requestCloseEvent(eventId:self.eventId, params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                if let pastEvent = response.error {
+                    DispatchQueue.main.async {
+                        
+                        ENTALDAlertView.shared.showContactAlertWithTitle(title: "", message: pastEvent.message, actionTitle: .KOK, completion: {status in })
+                    }
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+//                self.showEmptyView(tableVw: self.tableView)
                 DispatchQueue.main.async {
                     ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
                 }
