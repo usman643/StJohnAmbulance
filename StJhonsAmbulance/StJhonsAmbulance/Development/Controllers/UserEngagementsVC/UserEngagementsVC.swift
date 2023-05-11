@@ -119,7 +119,9 @@ extension UserEngagementsVC : UITableViewDelegate, UITableViewDataSource{
         let tag = sender.tag
         let rowModel = scheduleEngagementData?[tag]
         
-        ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: rowModel, eventType : "engagement" , callBack: nil)
+        ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: rowModel, eventType : "engagement") { params, controller in
+            self.getEngagement()
+        }
     }
     
 }

@@ -369,11 +369,11 @@ class EventDetailVC: ENTALDBaseViewController {
     
     @IBAction func cancelTapped(_ sender: Any) {
         
-        if (isCancelEvent == true){
-            
-        }else{
-            self.navigationController?.popViewController(animated: true)
-        }
+//        if (isCancelEvent == true){
+            self.cancelEvent()
+//        }else{
+//            self.navigationController?.popViewController(animated: true)
+//        }
         
     }
     
@@ -651,7 +651,11 @@ class EventDetailVC: ENTALDBaseViewController {
                 if let pastEvent = response.error {
                     DispatchQueue.main.async {
                         
-                        ENTALDAlertView.shared.showContactAlertWithTitle(title: "", message: pastEvent.message, actionTitle: .KOK, completion: {status in })
+                        ENTALDAlertView.shared.showContactAlertWithTitle(title: "", message: pastEvent.message, actionTitle: .KOK, completion: {status in
+                            
+                            self.callbackToController?("", self)
+                            self.navigationController?.popViewController(animated: true)
+                        })
                     }
                 }
                 

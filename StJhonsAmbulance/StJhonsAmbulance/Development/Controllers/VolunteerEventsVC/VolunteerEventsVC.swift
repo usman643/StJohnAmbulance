@@ -135,11 +135,17 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
 //    }
     
     func openScheduleEventDetailScreen(rowModel: ScheduleModelThree?) {
-        ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: rowModel, eventType : "schedule", callBack: nil)
+        ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: rowModel, eventType : "schedule" )  { params, controller in
+            self.getScheduleInfo()
+           
+        }
     }
     
     func openAvailableEventDetailScreen(rowModel: AvailableEventModel?) {
-        ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: rowModel, eventType : "available", callBack: nil)
+        ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: rowModel, eventType : "available" )  { params, controller in
+           
+            self.getAvailableInfo()
+        }
     }
     
     @IBAction func searchCloseTapped(_ sender: Any) {
