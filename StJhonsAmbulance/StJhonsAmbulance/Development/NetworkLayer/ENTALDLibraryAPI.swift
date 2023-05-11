@@ -323,7 +323,10 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
-    
+    func requestCheckInData(params:[String:Any],  _ completion:@escaping((ApiResult<CheckInResponseModel, ApiError>) -> Void )){
+        let router = VolunteerDashBoardRouter.getCheckInData(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
     
     
     

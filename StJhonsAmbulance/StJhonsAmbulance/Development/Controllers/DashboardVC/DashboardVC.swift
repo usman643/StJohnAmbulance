@@ -14,7 +14,9 @@ class DashboardVC: ENTALDBaseViewController{
     var awardData : [VolunteerAwardModel]?
     var latestEventIdData : [LatestEventModel]?
     var latestEventData : [LatestEventDataModel]?
+    var checkInData : [CheckInModel]?
     var dashBoardOrder : DashBoardGridOrderModel?
+    var mapArr : [CheckInModel] = []
     var params : [String:Any] = [:]
     let conId = UserDefaults.standard.contactIdToken ?? ""
     
@@ -307,7 +309,22 @@ class DashboardVC: ENTALDBaseViewController{
             
         }else if (controller == "sjavms_checkin" ){
             
-            ENTALDControllers.shared.showVolunteerMap(type: .ENTALDPUSH, from: self, isNavigationController:true, callBack: nil)
+            
+            for i in (0 ..< (self.latestEventIdData?.count ?? 0)){
+                
+                self.getCheckInData(eventOppId: self.latestEventIdData?[i].msnfp_engagementopportunityid ?? "")
+                
+                if (i == (self.latestEventIdData?.count ?? 0 )-1 ){
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+
+                            ENTALDControllers.shared.showVolunteerMap(type: .ENTALDPUSH, from: self, isNavigationController:true, dataObj: self.mapArr, callBack: nil)
+
+                    }
+                }
+            }
+            
+//            ENTALDControllers.shared.showVolunteerMap(type: .ENTALDPUSH, from: self, isNavigationController:true, dataObj: self.mapArr, callBack: nil)
+            
             
         }else if (controller == "sjavms_myschedule"){
             ENTALDControllers.shared.showVolunteerScheduleScreen(type: .ENTALDPUSH, from: self) { params, controller in
@@ -603,12 +620,7 @@ extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource,UICo
         
 //        First Section Group
         let mainAndSmallPhotoGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1/2)), subitems: [pairMainPhotoItem, stackedSmallPhotoGroup])
-        
-        
-        
-        
-        
-        
+
         let smallPhotoSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1))
         let smallPhotoItem = NSCollectionLayoutItem(layoutSize: smallPhotoSize)
         smallPhotoItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
@@ -904,7 +916,45 @@ extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource,UICo
         }
     }
     
+    fileprivate func getCheckInData(eventOppId:String){
+        
+        let params : [String:Any] = [
+            
+            ParameterKeys.select : "fullname,telephone1,_ownerid_value,emailaddress1,bdo_province,address1_postalcode,address1_city,bdo_contactid,_parentcustomerid_value,contactid,entityimage",
+            ParameterKeys.expand : "sjavms_contact_msnfp_participationschedule_Volunteer($select=sjavms_checkedin,sjavms_checkedinlatitude,sjavms_checkedinlongitude,sjavms_checkedinat,sjavms_checkedinlocation;$filter=(_sjavms_volunteerevent_value eq \(eventOppId) and msnfp_schedulestatus eq 335940000))",
+            ParameterKeys.filter : "(sjavms_contact_msnfp_participationschedule_Volunteer/any(o1:(o1/_sjavms_volunteerevent_value eq \(eventOppId) and o1/msnfp_schedulestatus eq 335940000)))",
+            ParameterKeys.orderby : "fullname asc"
+        ]
+        
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestCheckInData(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                
+                if let checkInData = response.value {
+                    self.checkInData = checkInData
+                    if ((self.checkInData?.count ?? 0) > 0){
+                        self.mapArr.append(contentsOf: (checkInData))
+                    }
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
     
 }
-    
-    

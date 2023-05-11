@@ -35,7 +35,7 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
     
     func getRecentLocation() -> MapCoordsModel {
         let coords = locationManager.location?.coordinate
-        let model = MapCoordsModel(lat: coords?.latitude ?? 0.0, lng: coords?.longitude ?? 0.0)
+        let model = MapCoordsModel(lat: coords?.latitude ?? 0.0, lng: coords?.longitude ?? 0.0, name: "", pic: "")
        return model
     }
     

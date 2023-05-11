@@ -72,6 +72,39 @@ struct ContactModel : Codable{
     let sjavms_emergencycontactphone : String?
     let sjavms_optoutofnotifications : Bool?
 
+}
 
+struct CheckInResponseModel: Codable {
+    let value: [CheckInModel]?
+}
+
+
+struct CheckInModel : Codable{
+
+    let fullname : String?
+    let telephone1 : String?
+    let _ownerid_value : String?
+    let emailaddress1 : String?
+    let bdo_province : Int?
+    let address1_postalcode : String?
+    let address1_city : String?
+    let bdo_contactid : String?
+    let _parentcustomerid_value : String?
+    let contactid : String?
+    let entityimage : String?
+    let address1_composite : String?
+    let sjavms_contact_msnfp_participationschedule_Volunteer : [CheckInModelVolunteerLocationModel]?
+
+}
+
+struct CheckInModelVolunteerLocationModel : Codable{
+    
+    let sjavms_checkedin : Bool?
+    let sjavms_checkedinlatitude : Double?
+    let sjavms_checkedinlongitude : Double?
+//    let sjavms_checkedinat : String?
+//    let sjavms_checkedinlocation : String?
+//    let _sjavms_volunteer_value : String?
+//    let msnfp_participationscheduleid : String?
     
 }

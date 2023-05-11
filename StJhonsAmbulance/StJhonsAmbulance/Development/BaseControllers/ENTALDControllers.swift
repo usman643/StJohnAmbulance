@@ -346,6 +346,7 @@ class ENTALDControllers {
     
     func showVolunteerMap(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
         let vc = MapViewController.loadFromNib()
+        vc.dataModel = dataObj
         vc.callbackToController = callBack
         self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
     }
