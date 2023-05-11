@@ -308,24 +308,32 @@ class DashboardVC: ENTALDBaseViewController{
             }
             
         }else if (controller == "sjavms_checkin" ){
+            let dispatchQueue = DispatchQueue(label: "myQueu", qos: .background)
+            //Create a semaphore
+            let semaphore = DispatchSemaphore(value: 0)
             
-            
-            for i in (0 ..< (self.latestEventIdData?.count ?? 0)){
-                
-                self.getCheckInData(eventOppId: self.latestEventIdData?[i].msnfp_engagementopportunityid ?? "")
-                
-                if (i == (self.latestEventIdData?.count ?? 0 )-1 ){
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-
-                            ENTALDControllers.shared.showVolunteerMap(type: .ENTALDPUSH, from: self, isNavigationController:true, dataObj: self.mapArr, callBack: nil)
-
-                    }
+            dispatchQueue.async {
+                for i in (0 ..< (self.latestEventIdData?.count ?? 0)){
+                    self.getCheckInData(eventOppId: self.latestEventIdData?[i].msnfp_engagementopportunityid ?? "", completion:{ [weak self] model in
+                        semaphore.signal()
+                        guard let self = self else {return}
+                        if let checkInData = model?.value {
+                            self.checkInData = checkInData
+                            if ((self.checkInData?.count ?? 0) > 0){
+                                self.mapArr.append(contentsOf: (checkInData))
+                            }
+                        }
+                        
+                    })
+                    semaphore.wait()
                 }
+                
+                DispatchQueue.main.async(execute: {
+                    ENTALDControllers.shared.showVolunteerMap(type: .ENTALDPUSH, from: self, isNavigationController:true, dataObj: self.mapArr, callBack: nil)
+                
+                })
             }
-            
-//            ENTALDControllers.shared.showVolunteerMap(type: .ENTALDPUSH, from: self, isNavigationController:true, dataObj: self.mapArr, callBack: nil)
-            
-            
+    
         }else if (controller == "sjavms_myschedule"){
             ENTALDControllers.shared.showVolunteerScheduleScreen(type: .ENTALDPUSH, from: self) { params, controller in
                 self.openNextScreen(controller:params as? String)
@@ -916,7 +924,7 @@ extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource,UICo
         }
     }
     
-    fileprivate func getCheckInData(eventOppId:String){
+    fileprivate func getCheckInData(eventOppId:String, completion:@escaping((_ model : CheckInResponseModel?) -> Void )){
         
         let params : [String:Any] = [
             
@@ -937,22 +945,15 @@ extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource,UICo
             
             switch result{
             case .success(value: let response):
-                
-                if let checkInData = response.value {
-                    self.checkInData = checkInData
-                    if ((self.checkInData?.count ?? 0) > 0){
-                        self.mapArr.append(contentsOf: (checkInData))
-                    }
-                }
+                completion(response)
                 
             case .error(let error, let errorResponse):
+                completion(nil)
                 var message = error.message
                 if let err = errorResponse {
                     message = err.error
                 }
-                DispatchQueue.main.async {
-                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
-                }
+                print("Error Message \(message)")
             }
         }
     }

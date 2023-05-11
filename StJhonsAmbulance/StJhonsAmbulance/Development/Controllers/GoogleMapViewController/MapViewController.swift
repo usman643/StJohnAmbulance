@@ -41,18 +41,17 @@ class MapViewController: ENTALDBaseViewController {
     
     fileprivate func setupLocationPins(){
         for coords in self.mapCoords {
-            let markerpic = UIImageView(image: ProcessUtils.shared.convertBase64StringToImage(imageBase64String: coords.pic ?? ""))
-//            markerpic.layer.cornerRadius =  markerpic.layer.preferredFrameSize().height/2
-//            markerpic.borderWidth = 0.5
-//            markerpic.borderColor = UIColor.themePrimaryColor
+            let markerpic = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: coords.pic ?? "")
             let marker = GMSMarker()
             marker.position = CLLocationCoordinate2D(latitude: coords.lat, longitude: coords.lng)
-            marker.title = coords.name
-            marker.snippet = "Canada"
             marker.map = mapView
-            marker.iconView = markerpic
-            marker.iconView?.fs_width = 30
-            marker.iconView?.fs_height = 30
+            
+            let mapView : MapPinView = MapPinView.fromNib()
+            mapView.frame = CGRect(x: 0, y: 0, width: 105, height: 105)
+//            MapPinView(frame: )
+            mapView.pinTitle.text = coords.name
+            mapView.pinIcon.image = markerpic
+            marker.iconView = mapView
         }
     }
     

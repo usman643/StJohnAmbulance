@@ -274,6 +274,8 @@
 		E4CF50402A0BA7290033903A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CF503E2A0BA7290033903A /* MapViewController.swift */; };
 		E4CF50412A0BA7290033903A /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4CF503F2A0BA7290033903A /* MapViewController.xib */; };
 		E4CF50432A0BBC1D0033903A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CF50422A0BBC1D0033903A /* LocationManager.swift */; };
+		E4CF50482A0D368C0033903A /* MapPinView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4CF50472A0D368C0033903A /* MapPinView.xib */; };
+		E4CF504A2A0D3A2A0033903A /* MapPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CF50492A0D3A2A0033903A /* MapPinView.swift */; };
 		E4F7CB0F297E121000428A4E /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F7CB0A297E121000428A4E /* SideMenuVC.swift */; };
 		E4F7CB10297E121000428A4E /* SideMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4F7CB0B297E121000428A4E /* SideMenuVC.xib */; };
 		E4F7CB11297E121000428A4E /* SideMenuTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4F7CB0D297E121000428A4E /* SideMenuTVC.xib */; };
@@ -578,6 +580,8 @@
 		E4CF503E2A0BA7290033903A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		E4CF503F2A0BA7290033903A /* MapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
 		E4CF50422A0BBC1D0033903A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		E4CF50472A0D368C0033903A /* MapPinView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapPinView.xib; sourceTree = "<group>"; };
+		E4CF50492A0D3A2A0033903A /* MapPinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPinView.swift; sourceTree = "<group>"; };
 		E4F7CB0A297E121000428A4E /* SideMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
 		E4F7CB0B297E121000428A4E /* SideMenuVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SideMenuVC.xib; sourceTree = "<group>"; };
 		E4F7CB0D297E121000428A4E /* SideMenuTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SideMenuTVC.xib; sourceTree = "<group>"; };
@@ -1861,10 +1865,20 @@
 		E4CF503D2A0BA7010033903A /* GoogleMapViewController */ = {
 			isa = PBXGroup;
 			children = (
+				E4CF50442A0D36580033903A /* MapPinView */,
 				E4CF503E2A0BA7290033903A /* MapViewController.swift */,
 				E4CF503F2A0BA7290033903A /* MapViewController.xib */,
 			);
 			path = GoogleMapViewController;
+			sourceTree = "<group>";
+		};
+		E4CF50442A0D36580033903A /* MapPinView */ = {
+			isa = PBXGroup;
+			children = (
+				E4CF50472A0D368C0033903A /* MapPinView.xib */,
+				E4CF50492A0D3A2A0033903A /* MapPinView.swift */,
+			);
+			path = MapPinView;
 			sourceTree = "<group>";
 		};
 		E4F7CB09297E121000428A4E /* SideMenuVC */ = {
@@ -2023,6 +2037,7 @@
 				1D1D1A3329918ED900B5454E /* VolunteerHoursVC.xib in Resources */,
 				E4B2EF0F297C57EB00D05014 /* Quicksand-Medium.ttf in Resources */,
 				18BC50AD29B60F11007BF382 /* GeneralInfoFormVC.xib in Resources */,
+				E4CF50482A0D368C0033903A /* MapPinView.xib in Resources */,
 				1D3E20FB298BF33000A97264 /* EmptyEventTableCell.xib in Resources */,
 				1D3BD161299D9541008F4178 /* LanguageVC.xib in Resources */,
 				1DEFC0F029B23055002276B2 /* MessagedetailAlertVC.xib in Resources */,
@@ -2418,6 +2433,7 @@
 				1D10818729DCC41F0070AE9D /* ParticipationDetailVC.swift in Sources */,
 				1D10818C29DCD84C0070AE9D /* ParticipationDetailTVC.swift in Sources */,
 				E4B2EF06297C50AC00D05014 /* LoginRouter.swift in Sources */,
+				E4CF504A2A0D3A2A0033903A /* MapPinView.swift in Sources */,
 				359E9C1C282B7598001E3D73 /* ENTALDUIFont+Extension.swift in Sources */,
 				1D92A48A29B22A4A00D5C8E3 /* MessageDetailVC.swift in Sources */,
 				1DF176FC29893B40005809C6 /* EventRouter.swift in Sources */,
