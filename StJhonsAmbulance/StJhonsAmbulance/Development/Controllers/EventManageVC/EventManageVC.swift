@@ -114,7 +114,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
                      
                      self.btnProgram.isEnabled = true
                      btnProgram.backgroundColor = UIColor.redPinkColor
-                     btnProgram.setTitle("Cance Event", for: .normal)
+                     btnProgram.setTitle("Cancel Event", for: .normal)
                  }
                  
                  if(DateFormatManager.shared.isDatePassed(date: pendingShiftData?.sjavms_end ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){

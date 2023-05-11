@@ -63,6 +63,8 @@ class EventDetailVC: ENTALDBaseViewController {
         getDocumentToken()
         decorateUI()
         registerCell()
+        
+        LocationManager.defualt.startLocationUpdates()
     }
     
     func registerCell(){
@@ -292,6 +294,11 @@ class EventDetailVC: ENTALDBaseViewController {
         
     }
     
+    override func viewWillDisappear(_ animated: Bool){
+        super.viewWillDisappear(animated)
+        LocationManager.defualt.stopLocationUpdates()
+    }
+    
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -376,8 +383,10 @@ class EventDetailVC: ENTALDBaseViewController {
     
     fileprivate func updateCheckInData(){
         let params = [
-            "\(self.paramName)": true
-        ]
+            "\(self.paramName)": true,
+            "sjavms_checkedinlatitude": LocationManager.defualt.getRecentLocation().lat,
+            "sjavms_checkedinlongitude" : LocationManager.defualt.getRecentLocation().lng
+        ] as [String : Any]
         DispatchQueue.main.async {
             LoadingView.show()
         }

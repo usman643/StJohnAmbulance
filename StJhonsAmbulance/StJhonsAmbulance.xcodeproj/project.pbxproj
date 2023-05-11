@@ -271,6 +271,9 @@
 		E4B2EF10297C57EB00D05014 /* Quicksand-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4B2EF0B297C57EB00D05014 /* Quicksand-Light.ttf */; };
 		E4B2EF16297C633C00D05014 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B2EF14297C633C00D05014 /* LoginVC.swift */; };
 		E4B2EF19297C6B9200D05014 /* LoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4B2EF15297C633C00D05014 /* LoginVC.xib */; };
+		E4CF50402A0BA7290033903A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CF503E2A0BA7290033903A /* MapViewController.swift */; };
+		E4CF50412A0BA7290033903A /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4CF503F2A0BA7290033903A /* MapViewController.xib */; };
+		E4CF50432A0BBC1D0033903A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CF50422A0BBC1D0033903A /* LocationManager.swift */; };
 		E4F7CB0F297E121000428A4E /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F7CB0A297E121000428A4E /* SideMenuVC.swift */; };
 		E4F7CB10297E121000428A4E /* SideMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4F7CB0B297E121000428A4E /* SideMenuVC.xib */; };
 		E4F7CB11297E121000428A4E /* SideMenuTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4F7CB0D297E121000428A4E /* SideMenuTVC.xib */; };
@@ -572,6 +575,9 @@
 		E4B2EF0B297C57EB00D05014 /* Quicksand-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Light.ttf"; sourceTree = "<group>"; };
 		E4B2EF14297C633C00D05014 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		E4B2EF15297C633C00D05014 /* LoginVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginVC.xib; sourceTree = "<group>"; };
+		E4CF503E2A0BA7290033903A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		E4CF503F2A0BA7290033903A /* MapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
+		E4CF50422A0BBC1D0033903A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		E4F7CB0A297E121000428A4E /* SideMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
 		E4F7CB0B297E121000428A4E /* SideMenuVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SideMenuVC.xib; sourceTree = "<group>"; };
 		E4F7CB0D297E121000428A4E /* SideMenuTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SideMenuTVC.xib; sourceTree = "<group>"; };
@@ -1438,6 +1444,7 @@
 		353C61392813ECF400CC8B7F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E4CF503D2A0BA7010033903A /* GoogleMapViewController */,
 				1DD191992A004E0100EEFC5D /* UserEngagementsVC */,
 				1DD877E429EDEBFF00863ADC /* ContractDocumentVC */,
 				1D0C847129E1EAC30085177D /* CreateAdhocHourVC */,
@@ -1590,6 +1597,7 @@
 			children = (
 				353C6106281213A500CC8B7F /* AppDelegate.swift */,
 				353C6108281213A500CC8B7F /* SceneDelegate.swift */,
+				E4CF50422A0BBC1D0033903A /* LocationManager.swift */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -1850,6 +1858,15 @@
 			path = LoginViewController;
 			sourceTree = "<group>";
 		};
+		E4CF503D2A0BA7010033903A /* GoogleMapViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E4CF503E2A0BA7290033903A /* MapViewController.swift */,
+				E4CF503F2A0BA7290033903A /* MapViewController.xib */,
+			);
+			path = GoogleMapViewController;
+			sourceTree = "<group>";
+		};
 		E4F7CB09297E121000428A4E /* SideMenuVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -1881,6 +1898,7 @@
 				353C6100281213A500CC8B7F /* Frameworks */,
 				353C6101281213A500CC8B7F /* Resources */,
 				97013DD7CB49596A8E090C2B /* [CP] Embed Pods Frameworks */,
+				D57F346F43D25CF61A8989B4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1919,6 +1937,7 @@
 				353C6120281213A600CC8B7F /* Frameworks */,
 				353C6121281213A600CC8B7F /* Resources */,
 				16F58CB031FFADB5F8031C16 /* [CP] Embed Pods Frameworks */,
+				16B820B9B5ED2BE0A02C09DF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2041,6 +2060,7 @@
 				359E9C16282B7077001E3D73 /* ENTALDLocalizable.strings in Resources */,
 				1DC2711029CF0E3E00B2D762 /* EventNotesVC.xib in Resources */,
 				E4B2EF0C297C57EB00D05014 /* Quicksand-Bold.ttf in Resources */,
+				E4CF50412A0BA7290033903A /* MapViewController.xib in Resources */,
 				1D0BDEDE29826EC700CC2030 /* VounteerVC.xib in Resources */,
 				E4B2EF10297C57EB00D05014 /* Quicksand-Light.ttf in Resources */,
 				1D5C1D1529C1D2E500608FF5 /* AchivementVC.xib in Resources */,
@@ -2119,6 +2139,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		16B820B9B5ED2BE0A02C09DF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-StJhonsAmbulance-StJhonsAmbulanceUITests/Pods-StJhonsAmbulance-StJhonsAmbulanceUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-StJhonsAmbulance-StJhonsAmbulanceUITests/Pods-StJhonsAmbulance-StJhonsAmbulanceUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-StJhonsAmbulance-StJhonsAmbulanceUITests/Pods-StJhonsAmbulance-StJhonsAmbulanceUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		16F58CB031FFADB5F8031C16 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2195,6 +2232,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-StJhonsAmbulance/Pods-StJhonsAmbulance-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D57F346F43D25CF61A8989B4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-StJhonsAmbulance/Pods-StJhonsAmbulance-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-StJhonsAmbulance/Pods-StJhonsAmbulance-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-StJhonsAmbulance/Pods-StJhonsAmbulance-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2302,6 +2356,7 @@
 				E48359DB29813459008CBFFF /* ProcessUtils.swift in Sources */,
 				353C618E2816B07900CC8B7F /* ENTALDNetworkRequest.swift in Sources */,
 				1DB25AE32993D31F0049CE22 /* VolunteerAwardModel.swift in Sources */,
+				E4CF50402A0BA7290033903A /* MapViewController.swift in Sources */,
 				353C61882816A2EF00CC8B7F /* ENTALDAPIErrorUtil.swift in Sources */,
 				359E9C70282EA32F001E3D73 /* ENTALDTabbarViewController.swift in Sources */,
 				E47F99BC297DC8F900BF793B /* DashboardVC.swift in Sources */,
@@ -2367,6 +2422,7 @@
 				1D92A48A29B22A4A00D5C8E3 /* MessageDetailVC.swift in Sources */,
 				1DF176FC29893B40005809C6 /* EventRouter.swift in Sources */,
 				1D4DE859297FC4BA00246242 /* CSDashBaordCVC.swift in Sources */,
+				E4CF50432A0BBC1D0033903A /* LocationManager.swift in Sources */,
 				1D55C8E329B3F5B90035E4D4 /* PendingStatusPickerView.swift in Sources */,
 				1DF82FB229FD3DD900E04690 /* AddEventScheduleShiftVC.swift in Sources */,
 				1DD1919C2A004E4100EEFC5D /* UserEngagementsVC.swift in Sources */,
@@ -2555,13 +2611,16 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StJhonsAmbulance/StJhons_info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "SJA Impact";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = Description;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = Description;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Need your location updates to send";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -2592,13 +2651,16 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StJhonsAmbulance/StJhons_info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "SJA Impact";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = Description;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = Description;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Need your location updates to send";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

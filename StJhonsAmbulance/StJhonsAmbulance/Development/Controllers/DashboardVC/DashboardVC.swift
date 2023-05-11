@@ -307,7 +307,7 @@ class DashboardVC: ENTALDBaseViewController{
             
         }else if (controller == "sjavms_checkin" ){
             
-            ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
+            ENTALDControllers.shared.showVolunteerMap(type: .ENTALDPUSH, from: self, isNavigationController:true, callBack: nil)
             
         }else if (controller == "sjavms_myschedule"){
             ENTALDControllers.shared.showVolunteerScheduleScreen(type: .ENTALDPUSH, from: self) { params, controller in

@@ -7,6 +7,7 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import GoogleMaps
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         ENTALDAPIConfig.shared.environment = .DEV
         ENTALDAPIConfig.shared.setEnvironmentVariable()
-        
+        GMSServices.provideAPIKey("AIzaSyAN5k871rhjCC-IVjvV9T6TlUuHbP2pcGE")
         self.enableIQKeyBoard()
         
         
