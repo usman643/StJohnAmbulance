@@ -17,6 +17,7 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
     var availableData : AvailableEventModel?
     var scheduleData : ScheduleModelThree?
     var scheduleEngagementData : ScheduleEngagementModel?
+    var scheduleCalenderData : ScheduleModelThree?
     var tabDetailData : [VolunteerEventClickShiftDetailModel]?
     var participationData : [VolunteerEventParticipationCheckModel]?
     var userParticipantData : VolunteerEventParticipationCheckModel?
@@ -58,6 +59,9 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         }else if eventType == ""{
             scheduleEngagementData = dataModel as? ScheduleEngagementModel
             self.eventId = self.scheduleEngagementData?.OppId ?? ""
+        }else if eventType == "calender"{
+            scheduleCalenderData = dataModel as? ScheduleModelThree
+            self.eventId = self.scheduleCalenderData?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
         }
         
         self.getEventTabDetail()
@@ -310,9 +314,9 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
                     if let err = errorResponse {
                         message = err.error
                     }
-                    DispatchQueue.main.async {
-                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
-                    }
+//                    DispatchQueue.main.async {
+//                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+//                    }
                 }
             }
         }
@@ -480,11 +484,11 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
                 if let err = errorResponse {
                     message = err.error
                 }
-                DispatchQueue.main.async {
-                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in
-                        
-                    })
-                }
+//                DispatchQueue.main.async {
+//                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in
+//                        
+//                    })
+//                }
             }
         }
     }

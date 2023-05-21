@@ -364,9 +364,10 @@ class ENTALDControllers {
         self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
     }
     
-    func showAchivementScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+    func showAchivementScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil, engagementType : EngagementType = .Engagement , callBack:ControllerCallBackCompletion?) {
         let vc = AchivementVC.loadFromNib()
         vc.dataModel = dataObj
+        vc.engagementType = engagementType
         vc.callbackToController = callBack
         self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
     }
@@ -425,6 +426,15 @@ class ENTALDControllers {
         
     func ShowUserEngagementsVC(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
         let vc = UserEngagementsVC.loadFromNib()
+        vc.dataModel = dataObj
+        vc.callbackToController = callBack
+        self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
+    }
+    
+    
+        
+    func showCalenderHourVC(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = CalenderHourVC.loadFromNib()
         vc.dataModel = dataObj
         vc.callbackToController = callBack
         self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)

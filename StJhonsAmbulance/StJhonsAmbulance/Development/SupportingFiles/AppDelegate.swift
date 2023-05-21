@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         ENTALDAPIConfig.shared.environment = .DEV
         ENTALDAPIConfig.shared.setEnvironmentVariable()
-        GMSServices.provideAPIKey("AIzaSyAN5k871rhjCC-IVjvV9T6TlUuHbP2pcGE")
+        GMSServices.provideAPIKey("AIzaSyAZhAb6fmrfkVYHj-IobponaV8zq0sisBY")
         self.enableIQKeyBoard()
         
         

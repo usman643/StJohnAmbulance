@@ -89,7 +89,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
                     DispatchQueue.main.async {
                         self.btnProgram.isEnabled = true
                         self.btnProgram.backgroundColor = UIColor.redPinkColor
-                        self.btnProgram.setTitle("Close", for: .normal)
+                        self.btnProgram.setTitle("Close Event", for: .normal)
                     }
                     
                 }
@@ -120,7 +120,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
                  if(DateFormatManager.shared.isDatePassed(date: pendingShiftData?.sjavms_end ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
                      self.btnProgram.isEnabled = true
                      self.btnProgram.backgroundColor = UIColor.redPinkColor
-                     self.btnProgram.setTitle("Close", for: .normal)
+                     self.btnProgram.setTitle("Close Event", for: .normal)
                  }
             }else{
                 lblDate.text = " "
@@ -149,7 +149,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
                  if(DateFormatManager.shared.isDatePassed(date: unpublishEventData?.msnfp_endingdate ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
                      self.btnProgram.isEnabled = true
                      self.btnProgram.backgroundColor = UIColor.redPinkColor
-                     self.btnProgram.setTitle("Close", for: .normal)
+                     self.btnProgram.setTitle("Close Event", for: .normal)
                  }
                 
                 
@@ -180,7 +180,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
                  if(DateFormatManager.shared.isDatePassed(date: pendingEventApprovalData?.sjavms_eventstartdate  ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
                      self.btnProgram.isEnabled = true
                      self.btnProgram.backgroundColor = UIColor.redPinkColor
-                     self.btnProgram.setTitle("Close", for: .normal)
+                     self.btnProgram.setTitle("Close Event", for: .normal)
                  }
             }else{
                 lblDate.text = " "
@@ -284,7 +284,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
     @IBAction func btnProgramAction(_ sender: Any) {
         
         var statusValue = NSNotFound
-        if (self.btnProgram.titleLabel?.text ==  "Close"){
+        if (self.btnProgram.titleLabel?.text ==  "Close Event"){
             statusValue = 844060005
         }else{
             statusValue = 844060004

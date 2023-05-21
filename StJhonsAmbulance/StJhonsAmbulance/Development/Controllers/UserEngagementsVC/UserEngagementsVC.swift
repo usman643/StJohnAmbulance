@@ -7,19 +7,25 @@
 
 import UIKit
 
+
+
 class UserEngagementsVC: ENTALDBaseViewController {
     
     var scheduleEngagementData : [ScheduleEngagementModel]?
     
+  
+    
     let conId = UserDefaults.standard.contactIdToken ?? ""
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "UserEngagementsTVC", bundle: nil), forCellReuseIdentifier: "UserEngagementsTVC")
+        
         decorateUI()
         getEngagement()
     }

@@ -155,8 +155,36 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
         return endDate
     }
     
-    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        
+//    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+//
+//        for i in (0..<(scheduleData?.count ?? 0)) {
+//            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+//            if let event = formatter.date(from: scheduleData?[i].sjavms_start ?? ""){
+//
+//                let newFormatter = DateFormatter()
+//                newFormatter.dateFormat = "yyyy-MM-dd"
+//
+//                var eventDate = newFormatter.string(from: event)
+//                var calenderDate = newFormatter.string(from: date)
+//
+//
+//                if eventDate == calenderDate {
+//                    return 1
+//                }
+//            }
+//
+//        }
+//        return 0
+//    }
+    
+    
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        return true
+    }
+    
+    
+    func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
+        var eventCount = 0;
         for i in (0..<(scheduleData?.count ?? 0)) {
             formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
             if let event = formatter.date(from: scheduleData?[i].sjavms_start ?? ""){
@@ -169,19 +197,63 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
                 
                 
                 if eventDate == calenderDate {
-                    return 1
+                    eventCount += 1
+                    
+                }
+            }
+            
+
+        }
+        
+        if  (eventCount > 0){
+            return "\(eventCount) event(s)"
+        }
+        
+        return ""
+    }
+    
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        
+        var selectedEvent : [ScheduleModelThree] = []
+        for i in (0..<(scheduleData?.count ?? 0)) {
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+            if let event = formatter.date(from: scheduleData?[i].sjavms_start ?? ""){
+                
+                let newFormatter = DateFormatter()
+                newFormatter.dateFormat = "yyyy-MM-dd"
+                
+                var eventDate = newFormatter.string(from: event)
+                var calenderDate = newFormatter.string(from: date)
+                
+                
+                if let evetData = self.scheduleData?[i], eventDate == calenderDate {
+                    selectedEvent.append(evetData)
                 }
             }
 
         }
-        return 0
+        
+        ENTALDControllers.shared.showAchivementScreen(type: .ENTALDPRESENT_POPOVER, from: self, dataObj: selectedEvent, engagementType: .Calender, callBack: {params,controller in
+            controller?.dismiss(animated: false)
+            
+            if let model = params as? ScheduleModelThree {
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.3, execute: {
+                    ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: model, eventType: "calender", callBack: nil)
+            
+           
+                })
+            }
+            
+//            if let model = params as? [ScheduleModelThree] {
+//                DispatchQueue.main.asyncAfter(deadline: .now()+0.3, execute: {
+//                    
+//                    ENTALDControllers.shared.showCalenderHourVC(type: .ENTALDPUSH, from: self, dataObj: model, callBack: nil)
+//                })
+//            }
+             
+        })
     }
-    
-    
-    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
-        return false
-    }
-    
     
     
     // ============================ API ==========================//
