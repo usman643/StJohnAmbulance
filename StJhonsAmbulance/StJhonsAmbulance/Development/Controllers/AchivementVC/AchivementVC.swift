@@ -27,8 +27,6 @@ class AchivementVC: ENTALDBaseViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet weak var btnHourCalender: UIButton!
-    
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,11 +34,9 @@ class AchivementVC: ENTALDBaseViewController {
             self.engagementData = self.dataModel as? [ScheduleModelThree]
             lblName.isHidden = true
             lblDate.isHidden = true
-            btnHourCalender.isHidden = false
             lblTitle.text = "Events"
             
         }else{
-            btnHourCalender.isHidden = true
             self.awardData = self.dataModel as? [VolunteerAwardModel]
         }
         
@@ -73,10 +69,6 @@ class AchivementVC: ENTALDBaseViewController {
         
         tableHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         tableHeaderView.layer.borderWidth = 1.5
-        
-        btnHourCalender .setTitleColor(UIColor.themePrimaryColor, for: .normal)
-        btnHourCalender.titleLabel?.font = UIFont.BoldFont(16)
-        
         
     }
 

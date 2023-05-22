@@ -215,44 +215,22 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         
-        var selectedEvent : [ScheduleModelThree] = []
-        for i in (0..<(scheduleData?.count ?? 0)) {
-            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-            if let event = formatter.date(from: scheduleData?[i].sjavms_start ?? ""){
-                
-                let newFormatter = DateFormatter()
-                newFormatter.dateFormat = "yyyy-MM-dd"
-                
-                var eventDate = newFormatter.string(from: event)
-                var calenderDate = newFormatter.string(from: date)
-                
-                
-                if let evetData = self.scheduleData?[i], eventDate == calenderDate {
-                    selectedEvent.append(evetData)
-                }
-            }
-
-        }
+        ENTALDControllers.shared.showCalenderHourVC(type: .ENTALDPUSH, from: self, selectedDate: date, dataObj: self.scheduleData, callBack: nil)
         
-        ENTALDControllers.shared.showAchivementScreen(type: .ENTALDPRESENT_POPOVER, from: self, dataObj: selectedEvent, engagementType: .Calender, callBack: {params,controller in
-            controller?.dismiss(animated: false)
-            
-            if let model = params as? ScheduleModelThree {
-                DispatchQueue.main.asyncAfter(deadline: .now()+0.3, execute: {
-                    ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: model, eventType: "calender", callBack: nil)
-            
-           
-                })
-            }
-            
-//            if let model = params as? [ScheduleModelThree] {
+//        ENTALDControllers.shared.showAchivementScreen(type: .ENTALDPRESENT_POPOVER, from: self, dataObj: selectedEvent, engagementType: .Calender, callBack: {params,controller in
+//            controller?.dismiss(animated: false)
+//
+//            if let model = params as? ScheduleModelThree {
 //                DispatchQueue.main.asyncAfter(deadline: .now()+0.3, execute: {
-//                    
-//                    ENTALDControllers.shared.showCalenderHourVC(type: .ENTALDPUSH, from: self, dataObj: model, callBack: nil)
+//                    ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: model, eventType: "calender", callBack: nil)
+//
+//
 //                })
 //            }
-             
-        })
+//
+//
+//
+//        })
     }
     
     

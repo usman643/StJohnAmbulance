@@ -625,7 +625,7 @@ class EventDetailVC: ENTALDBaseViewController {
             
             if status == true{
                 let params = [
-                    "msnfp_engagementopportunitystatus": 844060004 as Int
+                    "msnfp_schedulestatus": 844060003 as Int
                 ]
                 
                 self.closeVolunteersData(params: params)

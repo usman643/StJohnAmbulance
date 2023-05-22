@@ -433,10 +433,11 @@ class ENTALDControllers {
     
     
         
-    func showCalenderHourVC(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+    func showCalenderHourVC(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, selectedDate:Date, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
         let vc = CalenderHourVC.loadFromNib()
         vc.dataModel = dataObj
         vc.callbackToController = callBack
+        vc.selectDate = selectedDate
         self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
     }
     
