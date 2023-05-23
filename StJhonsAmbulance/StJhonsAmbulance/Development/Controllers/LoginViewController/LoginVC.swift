@@ -116,7 +116,11 @@ class LoginVC: ENTALDBaseViewController {
     
     @IBAction func forgotTapped(_ sender: Any) {
         
-        ENTALDControllers.shared.showForgetPasswordScreen(type: .ENTALDPUSH, from: self, callBack: nil)
+        ENTALDControllers.shared.showForgetScreen(type: .ENTALDPUSH, from: self) { params, controller in
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+//        ENTALDControllers.shared.showForgetPasswordScreen(type: .ENTALDPUSH, from: self, callBack: nil)
         
     }
     

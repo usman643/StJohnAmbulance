@@ -73,11 +73,11 @@ class ForgetVC: ENTALDBaseViewController {
             return
         }
         
-                ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
+//                ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
         
-//        ENTALDControllers.shared.showForgetScreen(type: .ENTALDPUSH, from: self) { params, controller in
-//            self.navigationController?.popViewController(animated: true)
-//        }
+        ENTALDControllers.shared.showForgetScreen(type: .ENTALDPUSH, from: self) { params, controller in
+            self.navigationController?.popViewController(animated: true)
+        }
         
         
 

@@ -33,7 +33,7 @@ class WebViewVC: ENTALDBaseViewController {
             let request = URLRequest(url: link)
             webview.load(request)
         }else if (self.urlType == "forgot"){
-            let link = Foundation.URL(string:ProcessUtils.shared.registerURL)!
+            let link = Foundation.URL(string:"https://sjasandbox.b2clogin.com/sjasandbox.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_VolunteerEngagementpasswordreset_1&client_id=86d0acb3-3740-41ef-b0e2-cf2e9f77fdb7&nonce=defaultNonce&redirect_uri=https%3A%2F%2Foauth.pstmn.io%2Fv1%2Fcallback&scope=openid&response_type=id_token&prompt=login")!
             let request = URLRequest(url: link)
             webview.load(request)
         }else if (self.urlType == "updatepass"){
