@@ -284,15 +284,16 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
     @IBAction func btnProgramAction(_ sender: Any) {
         
         var statusValue = NSNotFound
+        var message = ""
         if (self.btnProgram.titleLabel?.text ==  "Close Event"){
-            statusValue = 844060005
-        }else{
             statusValue = 844060004
+            message = "Are you sure you want to Close Event"
+        }else{
+            statusValue = 844060005
+            message = "Are you sure you want to Cancel Event"
         }
         
-        
-        
-        ENTALDAlertView.shared.showActionAlertWithTitle(title: "Alert", message: "Are you sure you want to Cancel Event", actionTitle: .KOK, completion: { status in
+        ENTALDAlertView.shared.showActionAlertWithTitle(title: "Alert", message: message, actionTitle: .KOK, completion: { status in
             
             if status == true{
                 let params = [
