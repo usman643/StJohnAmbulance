@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import GoogleMaps
 protocol updateVolunteerCheckInDelegate {
     
     func updateVolunteerCheckIn(participationId:String , param : [String:Bool])
@@ -23,12 +23,22 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
     var pendingEventApprovalData : PendingApprovalEventsModel?
     var unpublishEventData : CurrentEventsModel?
     
+    @IBOutlet weak var mapContainerVu: UIView!
+    @IBOutlet weak var v_ContainerVU: UIView!
+    @IBOutlet weak var C_Segments: UISegmentedControl!
     var dataVol : [String:Any] = [:]
     var volentierResultData : [String:Any] = [:]
     var filteredData : [String:Any] = [:]
     var programsData : [ProgramModel]?
     var eventProgramData : ProgramModel?
     var contactInfo : [ContactDataModel]?
+    
+    private lazy var mapView: GMSMapView = {
+        let map = GMSMapView()
+        return map
+    }()
+    
+    var mapCoords : [MapCoordsModel] = []
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var lblEventName: UILabel!
@@ -47,7 +57,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.setupMapView()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "EventManagerSectionView", bundle: nil), forHeaderFooterViewReuseIdentifier: "EventManagerSectionView")
@@ -235,6 +245,34 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
         lblLocation.text = ""
     }
     
+    fileprivate func setupLocationPins(){
+        for coords in self.mapCoords {
+            let markerpic = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: coords.pic ?? "")
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2D(latitude: coords.lat, longitude: coords.lng)
+            marker.map = mapView
+            
+            let mapView : MapPinView = MapPinView.fromNib()
+            mapView.frame = CGRect(x: 0, y: 0, width: 105, height: 105)
+//            MapPinView(frame: )
+            mapView.pinTitle.text = coords.name
+            mapView.pinIcon.image = markerpic
+            marker.iconView = mapView
+        }
+    }
+    
+    fileprivate func setupMapView() {
+        mapContainerVu.addSubview(mapView)
+        mapContainerVu.addConstraintsWithFormat("H:|[v0]|", views: mapView)
+        mapContainerVu.addConstraintsWithFormat("V:|[v0]|", views: mapView)
+        
+        let camera = GMSCameraPosition.camera(withLatitude: 45.27996209121132, longitude: -66.06639728779841, zoom: 6.0)
+        mapView.camera = camera
+    }
+    
+    
+    
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         btnSearchClose.isHidden = false
     }
@@ -267,6 +305,19 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
         //            tableView.reloadData()
         //        }
     }
+    
+    
+    @IBAction func segmentsTapped(_ sender: Any) {
+        if self.C_Segments.selectedSegmentIndex == 0 {
+            self.v_ContainerVU.isHidden = false
+            self.mapContainerVu.isHidden = true
+        }else{
+            self.v_ContainerVU.isHidden = true
+            self.mapContainerVu.isHidden = false
+        }
+    }
+    
+    
     
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -326,13 +377,30 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
         
     }
     
+    func setMapData(){
+        
+        if let data = self.volunteerData {
+            for i in (0..<data.count){
+                
+                if let lat = data[i].sjavms_checkedinlatitude, let lng = data[i].sjavms_checkedinlongitude {
+                    
+                    self.mapCoords.append(MapCoordsModel(lat: lat, lng: lng, name: "\(data[i].sjavms_Volunteer?.fullname ?? "")", pic: "\(data[i].sjavms_Volunteer?.entityimage ?? "")"))
+                    break
+                }
+            }
+        }
+        
+        self.setupLocationPins()
+        
+    }
+    
     func getVolunteers(){
         
         let eventId = self.eventData?.msnfp_engagementopportunityid ?? ""
         
         let params : [String:Any] = [
             
-            ParameterKeys.select : "msnfp_schedulestatus,sjavms_start,sjavms_hours,_sjavms_volunteerevent_value,_sjavms_volunteer_value,msnfp_participationscheduleid,sjavms_start,sjavms_end,sjavms_checkedin",
+            ParameterKeys.select : "msnfp_schedulestatus,sjavms_start,sjavms_hours,_sjavms_volunteerevent_value,_sjavms_volunteer_value,msnfp_participationscheduleid,sjavms_start,sjavms_end,sjavms_checkedin,sjavms_checkedinlatitude,sjavms_checkedinlongitude",
             
             ParameterKeys.expand : "sjavms_Volunteer($select=fullname)",
             ParameterKeys.filter : "(_sjavms_volunteerevent_value eq \(eventId))",
@@ -379,6 +447,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
                     }
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
+                        self.setMapData()
                     }
                 }else{
                     self.showEmptyView(tableVw: self.tableView)

@@ -85,8 +85,8 @@ struct VolunteerOfEventDataModel : Codable {
     let msnfp_participationscheduleid : String?
     var sjavms_checkedin : Bool?
     let sjavms_Volunteer : VolunteerOfEventVolunteerModel?
-    
-    
+    let sjavms_checkedinlatitude : Double?
+    let sjavms_checkedinlongitude : Double?
 //
 //    let msnfp_name : String?
 //    let createdon : String?
@@ -101,8 +101,8 @@ struct VolunteerOfEventVolunteerModel : Codable {
     
     let fullname : String?
     let contactid : String?
+    let entityimage : String?
    
-    
 }
 
 struct VounteerEventDataByDate : Codable {

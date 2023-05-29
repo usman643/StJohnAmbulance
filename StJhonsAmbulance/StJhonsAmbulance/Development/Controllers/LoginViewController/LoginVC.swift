@@ -152,7 +152,8 @@ class LoginVC: ENTALDBaseViewController {
         
         let params : PortalAuthRequest = PortalAuthRequest(username: email, password: password, grant_type: "password", scope: "openid 86d0acb3-3740-41ef-b0e2-cf2e9f77fdb7 offline_access", client_id: "86d0acb3-3740-41ef-b0e2-cf2e9f77fdb7", response_type: "token id_token")
         
-        self.portalAuthentication(params: params)
+//        self.portalAuthentication(params: params)
+        self.dynamicAuthentication(subId: "da160d30-8040-4e07-8b72-ebec72e3616d")
     }
     
     @IBAction func staySignin(_ sender: Any) {
