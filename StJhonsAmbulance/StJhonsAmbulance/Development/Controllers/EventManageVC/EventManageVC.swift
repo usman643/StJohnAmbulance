@@ -248,6 +248,10 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
     fileprivate func setupLocationPins(){
         for coords in self.mapCoords {
             let markerpic = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: coords.pic ?? "")
+            
+            let camera = GMSCameraPosition.camera(withLatitude: coords.lat, longitude: coords.lng, zoom: 6.0)
+            mapView.camera = camera
+            
             let marker = GMSMarker()
             marker.position = CLLocationCoordinate2D(latitude: coords.lat, longitude: coords.lng)
             marker.map = mapView
