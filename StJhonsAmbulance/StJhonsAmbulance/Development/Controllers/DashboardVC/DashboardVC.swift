@@ -68,19 +68,21 @@ class DashboardVC: ENTALDBaseViewController{
         setupContent()
         getVolunteerAward()
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.getLatestIncomingEvent()
+        // for latest event 
+//            self.getLatestIncomingEvent()
 //        }
         setupCollectionView()
         
         gridData = [
-                    DashBoardGridModel(title: "No Upcoming Event", subTitle: "", bgColor: UIColor.darkBlueColor, icon: "ic_camp", key: "sjavms_youthcamp"),
-                    DashBoardGridModel(title: "Messages", subTitle: "", bgColor: UIColor.orangeRedColor, icon: "ic_message", key: "sjavms_messages"),
-                    DashBoardGridModel(title: "Check In", subTitle: "", bgColor: UIColor.hexString(hex: "AC41DE"), icon: "ic_checkIn", key: "sjavms_checkin"),
+//                    DashBoardGridModel(title: "No Upcoming Event", subTitle: "", bgColor: UIColor.darkBlueColor, icon: "ic_camp", key: "sjavms_youthcamp"),
+                    
+//                    DashBoardGridModel(title: "Check In", subTitle: "", bgColor: UIColor.hexString(hex: "AC41DE"), icon: "ic_checkIn", key: "sjavms_checkin"),
                     DashBoardGridModel(title: "Schedule", subTitle: "", bgColor: UIColor.hexString(hex: "2DD0DA"), icon: "ic_calender", key: "sjavms_myschedule"),
+                    DashBoardGridModel(title: "Messages", subTitle: "", bgColor: UIColor.orangeRedColor, icon: "ic_message", key: "sjavms_messages"),
                     DashBoardGridModel(title: "Hours", subTitle: "", bgColor: UIColor.hexString(hex: "4151DE"), icon: "ic_hour", key: "sjavms_hours"),
                     DashBoardGridModel(title: "Events", subTitle: "", bgColor: UIColor.hexString(hex: "41B8DE"), icon: "ic_event", key: "sjavms_events")
                 ]
-        getDashBoardOrder()
+//        getDashBoardOrder()
         
     }
 
@@ -166,8 +168,8 @@ class DashboardVC: ENTALDBaseViewController{
         collectionview.dataSource = self
         collectionview.delegate = self
         collectionview.collectionViewLayout = generateLayout()
-        collectionview.dragDelegate = self
-        collectionview.dropDelegate = self
+//        collectionview.dragDelegate = self
+//        collectionview.dropDelegate = self
         collectionview.dragInteractionEnabled = true
     }
 
@@ -558,7 +560,8 @@ class DashboardVC: ENTALDBaseViewController{
 }
 
 
-extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDragDelegate,UICollectionViewDropDelegate {
+extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource{
+//,UICollectionViewDragDelegate,UICollectionViewDropDelegate {
     
     
     
@@ -666,74 +669,83 @@ extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource,UICo
         let section = NSCollectionLayoutSection(group: allGroup)
         return UICollectionViewCompositionalLayout(section: section)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        
-        let item = self.gridData?[indexPath.row]
-        let itemProvider = NSItemProvider(object: item?.title as! NSString )
-        let dragItem = UIDragItem(itemProvider: itemProvider)
-        dragItem.localObject = item
-        return [dragItem]
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
-        if collectionView.hasActiveDrag{
-            return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
-        }
-        return UICollectionViewDropProposal(operation: .forbidden)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator)  {
-        
-        var destinationIndexPath : IndexPath
-        if let indexPath = coordinator.destinationIndexPath{
-            destinationIndexPath = indexPath
-        }else{
-            let row = collectionView.numberOfItems(inSection: 0)
-            destinationIndexPath = IndexPath(item: row - 1 , section: 0)
-        }
-        
-        if coordinator.proposal.operation == .move {
-            self.reorderItems(coordinator: coordinator, destinationIndexPath: destinationIndexPath, collectionView: collectionView)
-        }
-        
-        
-    }
-    
-    fileprivate func reorderItems (coordinator: UICollectionViewDropCoordinator, destinationIndexPath: IndexPath, collectionView:UICollectionView){
-        
-        
-        if let item = coordinator.items.first,
-           let sourceIndexPath = item.sourceIndexPath {
-            collectionView.performBatchUpdates({
-                self.gridData?.remove(at: sourceIndexPath.item)
-                self.gridData?.insert(item.dragItem.localObject as! DashBoardGridModel, at: destinationIndexPath.item)
-                
-                collectionView.deleteItems (at: [sourceIndexPath])
-                collectionView.insertItems (at: [destinationIndexPath])}, completion: nil)
-                
-            
-            
-            coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
-        }
-        
-        params = [
-            "sjavms_user@odata.bind" : "/contacts(\(self.conId))",
-            "sjavms_csgrouplead" : false,
-            ]
-        for i in (0..<(self.gridData?.count ?? 0 )){
-            self.gridData?[i].order = i + 1
-            
-            var key = (self.gridData?[i].key ?? "") as String
-            var order = (self.gridData?[i].order ?? NSNotFound) as Int
-            params[key] = order
-
-        }
-        
-
-        self.updateDashboardGridOrder(params: params)
-        params = [:]
-    }
+//  drag drop delegate
+//    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+//        //to lock first 2 items
+////        if (indexPath.item  < 2){
+////            return []
+////        }
+//
+//        let item = self.gridData?[indexPath.row]
+//        let itemProvider = NSItemProvider(object: item?.title as! NSString )
+//        let dragItem = UIDragItem(itemProvider: itemProvider)
+//        dragItem.localObject = item
+//        return [dragItem]
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+//        // to lock first 2 items
+////        if (destinationIndexPath?.item ?? 0 < 2){
+////            return UICollectionViewDropProposal(operation: .forbidden)
+////        }
+//        if collectionView.hasActiveDrag{
+//            return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+//        }
+//
+//        return UICollectionViewDropProposal(operation: .forbidden)
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator)  {
+//
+//        var destinationIndexPath : IndexPath
+//        if let indexPath = coordinator.destinationIndexPath{
+//            destinationIndexPath = indexPath
+//        }else{
+//            let row = collectionView.numberOfItems(inSection: 0)
+//            destinationIndexPath = IndexPath(item: row - 1 , section: 0)
+//        }
+//
+//        if coordinator.proposal.operation == .move {
+//            self.reorderItems(coordinator: coordinator, destinationIndexPath: destinationIndexPath, collectionView: collectionView)
+//        }
+//
+//
+//    }
+//
+//    fileprivate func reorderItems (coordinator: UICollectionViewDropCoordinator, destinationIndexPath: IndexPath, collectionView:UICollectionView){
+//
+//
+//        if let item = coordinator.items.first,
+//           let sourceIndexPath = item.sourceIndexPath {
+//            collectionView.performBatchUpdates({
+//                self.gridData?.remove(at: sourceIndexPath.item)
+//                self.gridData?.insert(item.dragItem.localObject as! DashBoardGridModel, at: destinationIndexPath.item)
+//
+//                collectionView.deleteItems (at: [sourceIndexPath])
+//                collectionView.insertItems (at: [destinationIndexPath])}, completion: nil)
+//
+//
+//
+//            coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
+//        }
+//
+//        params = [
+//            "sjavms_user@odata.bind" : "/contacts(\(self.conId))",
+//            "sjavms_csgrouplead" : false,
+//            ]
+//        for i in (0..<(self.gridData?.count ?? 0 )){
+//            self.gridData?[i].order = i + 1
+//
+//            var key = (self.gridData?[i].key ?? "") as String
+//            var order = (self.gridData?[i].order ?? NSNotFound) as Int
+//            params[key] = order
+//
+//        }
+//
+//
+//        self.updateDashboardGridOrder(params: params)
+//        params = [:]
+//    }
     
     
     
@@ -820,11 +832,11 @@ extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource,UICo
             "sjavms_user@odata.bind" : "/contacts(\(self.conId))",
                "sjavms_csgrouplead" : false,
                "sjavms_messages": 2,
-               "sjavms_myschedule": 4,
-               "sjavms_events": 6,
-               "sjavms_checkin": 3,
-               "sjavms_youthcamp": 1,
-               "sjavms_hours": 5
+               "sjavms_myschedule": 1,
+               "sjavms_events": 4,
+//               "sjavms_checkin": 3,
+//               "sjavms_youthcamp": 1,
+               "sjavms_hours": 3
         ]
 
         DispatchQueue.main.async {
@@ -865,19 +877,37 @@ extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource,UICo
         var _ = self.gridData?.compactMap({ model in
             var model = model
             
-            if model.key == "sjavms_youthcamp" {
-                model.order = 1
-            }else if model.key == "sjavms_messages" {
+//            if model.key == "sjavms_youthcamp" {
+//                model.order = 1
+//            }else
+            if model.key == "sjavms_messages" {
                 model.order = 2
-            }else if model.key == "sjavms_checkin" {
-                model.order = 3
+//            }else if model.key == "sjavms_checkin" {
+//                model.order = 3
             }else if model.key == "sjavms_myschedule" {
-                model.order = 4
+                model.order = 1
             }else if model.key == "sjavms_hours" {
-                model.order = 5
+                model.order = 3
             }else if model.key == "sjavms_events" {
-                model.order = 6
+                model.order = 4
             }
+            
+//            if model.key == "sjavms_youthcamp" {
+//                model.order = 1
+//            }else if model.key == "sjavms_messages" {
+//                model.order = 2
+//            }else if model.key == "sjavms_checkin" {
+//                model.order = 3
+//            }else if model.key == "sjavms_myschedule" {
+//                model.order = 4
+//            }else if model.key == "sjavms_hours" {
+//                model.order = 5
+//            }else if model.key == "sjavms_events" {
+//                model.order = 6
+//            }
+            
+            
+            
             
             modeldata.append(model)
             return true

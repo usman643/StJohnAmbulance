@@ -152,7 +152,7 @@ class MessageVC: ENTALDBaseViewController {
         @IBAction func openPendingEventScreen(_ sender: Any) {
             self.navigationController?.popViewController(animated: false)
             if(fromVolunteerController ?? false){
-                self.callbackToController?("sjavms_checkin", self)
+//                self.callbackToController?("sjavms_checkin", self)
             }else{
                 self.callbackToController?("sjavms_pendingevents", self)
             }
@@ -160,7 +160,7 @@ class MessageVC: ENTALDBaseViewController {
         @IBAction func openPendingShiftsScreen(_ sender: Any) {
             self.navigationController?.popViewController(animated: false)
             if(fromVolunteerController ?? false){
-                self.callbackToController?("sjavms_hours", self)
+                self.callbackToController?("sjavms_myschedule", self)
             }else{
                 self.callbackToController?("sjavms_pendingshifts", self)
             }

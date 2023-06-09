@@ -44,7 +44,8 @@ class ProcessUtils {
     var tabbarHeight : CGFloat?
     var groupListValue : String?
     var currentRole : String?
-    var registerURL = "https://sjavolunteers.powerappsportals.com/en-US/volunteer-application/"
+    var registerURL = "https://volunteer-sja.powerappsportals.com/en-US/volunteer-application/"
+//    var registerURL = "https://sjavolunteers.powerappsportals.com/en-US/volunteer-application/"
     var forgetURL = "https://sjavolunteers.powerappsportals.com/en-US/SignIn?returnUrl=/en-US/volunteer-application/"
     var changePassURL = "https://sjasandbox.b2clogin.com/sjasandbox.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_VolunteerEngagementpasswordreset_1&client_id=86d0acb3-3740-41ef-b0e2-cf2e9f77fdb7&nonce=defaultNonce&redirect_uri=https%3A%2F%2Foauth.pstmn.io%2Fv1%2Fcallback&scope=openid&response_type=id_token&prompt=login"
     

@@ -111,7 +111,7 @@ class LoginVC: ENTALDBaseViewController {
     
         ENTALDControllers.shared.showRegisterScreen(type: .ENTALDPUSH, from: self, callBack: nil)
         
-        
+//        "https://volunteer-sja.powerappsportals.com/en-US/volunteer-application/"
     }
     
     @IBAction func forgotTapped(_ sender: Any) {

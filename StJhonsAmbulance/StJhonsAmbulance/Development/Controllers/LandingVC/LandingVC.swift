@@ -40,7 +40,7 @@ class LandingVC: ENTALDBaseViewController {
         self.navigationController?.navigationBar.isHidden = true
         self.view.backgroundColor = UIColor.themeSecondry
         headerLogoView.layer.cornerRadius =  headerLogoView.frame.size.height/2
-        headerLogoView.backgroundColor = UIColor.themePrimary
+//        headerLogoView.backgroundColor = UIColor.themePrimary
         MainVw.layer.cornerRadius = 40
         MainVw.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
 

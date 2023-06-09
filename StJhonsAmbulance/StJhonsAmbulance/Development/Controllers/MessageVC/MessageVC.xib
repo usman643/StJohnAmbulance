@@ -139,19 +139,27 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="BOz-r0-i1j">
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="BOz-r0-i1j">
                             <rect key="frame" x="168.66666666666663" y="0.0" width="219.33333333333337" height="40"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YOL-VJ-zmV">
-                                    <rect key="frame" x="0.0" y="0.0" width="49" height="40"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="40.666666666666664" height="40"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="tabHome"/>
                                     <connections>
                                         <action selector="openDashboardScreen:" destination="-1" eventType="touchUpInside" id="T8c-dy-tc1"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X4U-lV-LIH">
+                                    <rect key="frame" x="44.666666666666686" y="0.0" width="40.666666666666657" height="40"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="tabEventsCheck"/>
+                                    <connections>
+                                        <action selector="openEventScreen:" destination="-1" eventType="touchUpInside" id="rTL-vu-8jd"/>
+                                    </connections>
+                                </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9mq-pg-to7">
-                                    <rect key="frame" x="57" y="0.0" width="48.666666666666657" height="40"/>
+                                    <rect key="frame" x="89.333333333333343" y="0.0" width="40.666666666666657" height="40"/>
                                     <color key="tintColor" systemColor="separatorColor"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="hourglass" catalog="system"/>
@@ -160,21 +168,18 @@
                                         <action selector="openVolunteerScreen:" destination="-1" eventType="touchUpInside" id="ziE-90-EMw"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X4U-lV-LIH">
-                                    <rect key="frame" x="113.66666666666666" y="0.0" width="49" height="40"/>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" image="tabEventsCheck"/>
-                                    <connections>
-                                        <action selector="openEventScreen:" destination="-1" eventType="touchUpInside" id="rTL-vu-8jd"/>
-                                    </connections>
-                                </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3g2-UQ-BUh">
-                                    <rect key="frame" x="170.66666666666666" y="0.0" width="48.666666666666657" height="40"/>
+                                    <rect key="frame" x="134.00000000000003" y="0.0" width="40.666666666666657" height="40"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="tabLocation"/>
                                     <connections>
                                         <action selector="openPendingEventScreen:" destination="-1" eventType="touchUpInside" id="Ka9-ep-KeB"/>
                                     </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bG0-ER-jf3">
+                                    <rect key="frame" x="178.66666666666666" y="0.0" width="40.666666666666657" height="40"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="tabMessage"/>
                                 </button>
                             </subviews>
                             <constraints>
