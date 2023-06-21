@@ -125,7 +125,7 @@ class PendingEventVC: ENTALDBaseViewController {
         lblApprovalMax.font = UIFont.BoldFont(12)
         lblApprovalDate.font = UIFont.BoldFont(12)
         lblApprovalStatus.font = UIFont.BoldFont(12)
-        lblTabTitle.font = UIFont.BoldFont(14)
+//        lblTabTitle.font = UIFont.BoldFont(14)
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
         
         btnSelectGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
@@ -139,7 +139,7 @@ class PendingEventVC: ENTALDBaseViewController {
         lblApprovalMax.textColor = UIColor.themePrimaryWhite
         lblApprovalDate.textColor = UIColor.themePrimaryWhite
         lblApprovalStatus.textColor = UIColor.themePrimaryWhite
-        lblTabTitle.textColor = UIColor.themePrimaryColor
+//        lblTabTitle.textColor = UIColor.themePrimaryColor
         
         pendingApprovalTableView.clipsToBounds = false
         pendingApprovalTableView.layer.masksToBounds = false
@@ -155,8 +155,8 @@ class PendingEventVC: ENTALDBaseViewController {
         pendingPublishTableView.layer.shadowRadius = 0.0
         pendingPublishTableView.layer.shadowOpacity = 1.0
         
-        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
-        selectedTabImg.tintColor = UIColor.themePrimaryColor
+//        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
+//        selectedTabImg.tintColor = UIColor.themePrimaryColor
         
         searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         searchView.layer.borderWidth = 1.5

@@ -24,7 +24,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="feF-wi-i2J">
                     <rect key="frame" x="0.0" y="59" width="393" height="50"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kWs-WI-hCb">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kWs-WI-hCb">
                             <rect key="frame" x="15" y="10" width="30" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="30" id="GNw-Jv-fFH"/>
@@ -86,7 +86,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lg8-PG-8wV">
-                    <rect key="frame" x="0.0" y="109" width="393" height="709"/>
+                    <rect key="frame" x="0.0" y="109" width="393" height="689"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
             </subviews>
@@ -94,9 +94,9 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="feF-wi-i2J" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="2jh-Ig-Wk9"/>
-                <constraint firstItem="lg8-PG-8wV" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="7bj-PD-Foe"/>
                 <constraint firstItem="lg8-PG-8wV" firstAttribute="top" secondItem="feF-wi-i2J" secondAttribute="bottom" id="GtV-QC-5bB"/>
                 <constraint firstItem="feF-wi-i2J" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="P7b-BO-IPJ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="lg8-PG-8wV" secondAttribute="bottom" constant="20" id="bQF-Oj-De0"/>
                 <constraint firstItem="feF-wi-i2J" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="lMv-Oi-w6U"/>
                 <constraint firstItem="lg8-PG-8wV" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="no7-to-Xee"/>
                 <constraint firstItem="lg8-PG-8wV" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="rYO-tX-UfZ"/>

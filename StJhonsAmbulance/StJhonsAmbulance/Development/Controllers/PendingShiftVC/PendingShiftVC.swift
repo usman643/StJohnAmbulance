@@ -77,6 +77,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         self.btnSelectGroup.setTitle("\(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "")", for: .normal)
     }
     
+    /// <#Description#>
     func decorateUI(){
         
         lblTitle.font = UIFont.BoldFont(20)
@@ -88,7 +89,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         lblHours.font = UIFont.BoldFont(12)
         lblShift.font = UIFont.BoldFont(12)
         lblAction.font = UIFont.BoldFont(12)
-        lblTabTitle.font = UIFont.BoldFont(14)
+//        lblTabTitle.font = UIFont.BoldFont(14)
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
         btnSelectGroup.backgroundColor = UIColor.themePrimary
         btnSelectGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
@@ -106,10 +107,10 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         lblHours.textColor = UIColor.themePrimaryWhite
         lblShift.textColor = UIColor.themePrimaryWhite
         lblAction.textColor = UIColor.themePrimaryWhite
-        lblTabTitle.textColor = UIColor.themePrimaryColor
+//        lblTabTitle.textColor = UIColor.themePrimaryColor
         
-        tableHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        tableHeaderView.layer.borderWidth = 1.5
+//        tableHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+//        tableHeaderView.layer.borderWidth = 1.5
         
         btnGroupView.layer.cornerRadius = 3
         

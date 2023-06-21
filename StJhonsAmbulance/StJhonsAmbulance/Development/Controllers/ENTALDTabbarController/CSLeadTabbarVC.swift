@@ -1,13 +1,13 @@
 //
-//  ENTALDTabbarViewController.swift
-//  Aldar-Entertainer
+//  CSLeadTabbarVC.swift
+//  StJhonsAmbulance
 //
-//  Created by M.Usman on 13/05/2022.
+//  Created by Umair Yousaf on 18/06/2023.
 //
 
 import UIKit
 
-class ENTALDTabbarViewController: UITabBarController {
+class CSLeadTabbarVC: UITabBarController {
     
     fileprivate lazy var defaultTabBarHeight = { tabBar.frame.size.height }()
 
@@ -21,7 +21,7 @@ class ENTALDTabbarViewController: UITabBarController {
         self.tabBar.barTintColor = .themeWhiteText
         UITabBar.appearance().barTintColor = .white
         UITabBar.appearance().selectionIndicatorImage = Bundle.loadImageFromResourceAFBundlePNG(imageName: "tab_bg")
-//        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.navigationBar.isHidden = true
         self.setupTabbarshadow()
         
         self.loadTabbarControllers()
@@ -63,34 +63,22 @@ class ENTALDTabbarViewController: UITabBarController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
-    
     
     fileprivate func createNavController(for rootViewController: UIViewController, title: String, image: UIImage) -> UIViewController {
-        
+//        let navController = ENTALDBaseNavigationController(rootViewController: rootViewController)
         rootViewController.tabBarItem.title = title
         rootViewController.tabBarItem.image = image
         rootViewController.tabBarItem.selectedImage = image
         rootViewController.navigationItem.title = title
-        let navController = ENTALDBaseNavigationController(rootViewController: rootViewController)
-        
-        return navController
+        return rootViewController
     }
     
     private func loadTabbarControllers(){
         
-        let homeVC = DashboardVC.loadFromNib()
+        let homeVC = CSDashBoardVC.loadFromNib()
         let homeImg = "tabHome".templatedImage
         
-        let eventVC = VolunteerEventsVC.loadFromNib()
+        let eventVC = EventVC.loadFromNib()
         let eventImg = "tabEvent".templatedImage
         
         let checkinVC = MapViewController.loadFromNib()

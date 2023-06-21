@@ -63,11 +63,11 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
         addImg.image = image
         addImg.tintColor = .white
         
-        lblTabTitle.textColor = UIColor.themePrimaryColor
-        lblTabTitle.font = UIFont.BoldFont(16)
-        
-        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
-        selectedTabImg.tintColor = UIColor.themePrimaryColor
+//        lblTabTitle.textColor = UIColor.themePrimaryColor
+//        lblTabTitle.font = UIFont.BoldFont(16)
+//
+//        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
+//        selectedTabImg.tintColor = UIColor.themePrimaryColor
         calenderView.isHidden = true
     }
     

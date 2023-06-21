@@ -71,6 +71,7 @@ struct UserIdentityModel : Codable {
     let address1_line3 : String?
     let sjavms_totalhourscompletedthisyear : Float?
     let sjavms_totalhourscompletedpreviousyear : Float?
+    let sjavms_qualifiedyearsofservice : Float?
     let msnfp_totalengagementhours : Float?
     let sjavms_employmentstatus : Int?
     let bdo_preferredlanguage : Int?

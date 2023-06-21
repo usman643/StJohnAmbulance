@@ -56,21 +56,28 @@ class ENTALDControllers {
     func startFlowfromLandingScreen(from:UIViewController?, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?){
         DispatchQueue.main.async {
             
-            self.showLandingScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
+            self.showTabbarViewController(type: .ENTALDPUSH, from: from) { params, controller in
                 
-                if(params as? String == "volunteer"){
-                    ProcessUtils.shared.currentRole = "volunteer"
-                    self.showVolunteerDashBoardScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
-
-                    }
-
-                }else if(params as? String == "cslead"){
-                    ProcessUtils.shared.currentRole = "cslead"
-                    self.showCSDashBoardScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
-
-                    }
-                }
             }
+//            self.showVolunteerDashBoardScreen(type: .ENTALDPUSH, from: from) { params, controller in
+//
+//            }
+            
+//            self.showLandingScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
+//
+//                if(params as? String == "volunteer"){
+//                    ProcessUtils.shared.currentRole = "volunteer"
+//                    self.showVolunteerDashBoardScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
+//
+//                    }
+//
+//                }else if(params as? String == "cslead"){
+//                    ProcessUtils.shared.currentRole = "cslead"
+//                    self.showCSDashBoardScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
+//
+//                    }
+//                }
+//            }
         }
     }
     
@@ -143,16 +150,42 @@ class ENTALDControllers {
         }
     }
     
-    func showCSDashBoardScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
-        let vc = CSDashBoardVC.loadFromNib()
-        vc.callbackToController = callBack
-        let nav = ENTALDBaseNavigationController(rootViewController: vc)
+    func showCSTabbarViewController(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?){
+        
+        let tabbar = CSLeadTabbarVC()
+        tabbar.callbackToController = callBack
+        
+        let nav = ENTALDBaseNavigationController(rootViewController: tabbar)
+        
+//        let rootVC = UIApplication.shared.windows.first?.rootViewController as? UITabBarController
+//        let navigationController = rootVC?.children[0] as? UINavigationController
+//        rootVC?.selectedIndex = 0
         
         if let window = sceneDelegate?.window{
-            window.rootViewController = nav
+            window.rootViewController = tabbar
+//            window.rootViewController?.navigationController = navigationController
             window.makeKeyAndVisible()
             window.windowLevel = .normal
         }
+        
+    }
+    
+    func showCSDashBoardScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        
+        
+//        self.showCSTabbarViewController(type: .ENTALDTABBARVC, from: UIApplication.getTopViewController()) { params, controller in
+//
+//        }
+        let vc = CSDashBoardVC.loadFromNib()
+        vc.callbackToController = callBack
+        let nav = ENTALDBaseNavigationController(rootViewController: vc)
+
+//        if let window = sceneDelegate?.window{
+//            window.rootViewController = nav
+//            window.makeKeyAndVisible()
+//            window.windowLevel = .normal
+//        }
+        self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
     }
     
     
@@ -172,7 +205,7 @@ class ENTALDControllers {
         let vc = MessageVC.loadFromNib()
         vc.dataModel = dataObj
         vc.callbackToController = callBack
-        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+        self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
     }
     
     func showVolunteerScheduleScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
@@ -247,7 +280,7 @@ class ENTALDControllers {
         
         vc.callbackToController = callBack
         
-        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+        self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
     }
     
     func showForgetPasswordScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {

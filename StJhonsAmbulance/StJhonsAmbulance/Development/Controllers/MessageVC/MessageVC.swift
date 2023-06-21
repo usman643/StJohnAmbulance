@@ -37,19 +37,23 @@ class MessageVC: ENTALDBaseViewController {
         tableview.delegate = self
         tableview.dataSource = self
         tableview.register(UINib(nibName: "MessageTVC", bundle: nil), forCellReuseIdentifier: "MessageTVC")
-        decorateUI()
+        
         
         self.fromVolunteerController = self.dataModel as? Bool
         
         
         
-        getMessages()
+       
         
     
     }
     
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        decorateUI()
+        getMessages()
         btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
     }
 
@@ -92,11 +96,11 @@ class MessageVC: ENTALDBaseViewController {
         lblInbox.font = UIFont.BoldFont(16)
         lblInbox.textColor = UIColor.themePrimaryWhite
         
-        lblTabTitle.textColor = UIColor.themePrimaryColor
-        lblTabTitle.font = UIFont.BoldFont(16)
-        
-        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
-        selectedTabImg.tintColor = UIColor.themePrimaryColor
+//        lblTabTitle.textColor = UIColor.themePrimaryColor
+//        lblTabTitle.font = UIFont.BoldFont(16)
+//        
+//        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
+//        selectedTabImg.tintColor = UIColor.themePrimaryColor
     }
 
     @IBAction func backTapped(_ sender: Any) {

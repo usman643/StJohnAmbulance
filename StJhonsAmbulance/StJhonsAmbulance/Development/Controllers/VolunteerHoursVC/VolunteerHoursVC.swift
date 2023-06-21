@@ -103,11 +103,11 @@ class VolunteerHoursVC: ENTALDBaseViewController,UITextFieldDelegate {
         lblNonEventHeading.font = UIFont.BoldFont(18)
         lblNonEventHeading.textColor = UIColor.themePrimaryWhite
         
-        lblTabTitle.textColor = UIColor.themePrimaryColor
-        lblTabTitle.font = UIFont.BoldFont(16)
+//        lblTabTitle.textColor = UIColor.themePrimaryColor
+//        lblTabTitle.font = UIFont.BoldFont(16)
         
-        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
-        selectedTabImg.tintColor = UIColor.themePrimaryColor
+//        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
+//        selectedTabImg.tintColor = UIColor.themePrimaryColor
         btnCreateAdhocHour.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnCreateAdhocHour.titleLabel?.font = UIFont.BoldFont(13)
         btnCreateAdhocHour.layer.cornerRadius = 5

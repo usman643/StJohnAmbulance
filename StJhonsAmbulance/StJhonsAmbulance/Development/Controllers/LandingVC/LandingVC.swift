@@ -156,9 +156,10 @@ class LandingVC: ENTALDBaseViewController {
                             self.volunteerTapped(button)
                         }
                     }else if let data = ProcessUtils.shared.userGroupsList.first, ProcessUtils.shared.userGroupsList.count == 1 {
-                        DispatchQueue.main.async {
-                            self.setSelectedGroup(data: data)
-                        }
+                        ProcessUtils.shared.selectedUserGroup = data
+//                        DispatchQueue.main.async {
+//                            self.setSelectedGroup(data: data)
+//                        }
                     }
                     
                     

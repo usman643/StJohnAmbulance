@@ -18,6 +18,7 @@ class AchivementVC: ENTALDBaseViewController {
     var awardData : [VolunteerAwardModel]?
     var engagementData : [ScheduleModelThree]?
     var engagementType : EngagementType = .Engagement
+    let contactId = UserDefaults.standard.contactIdToken ?? ""
     
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var tableHeaderView: UIView!
@@ -37,7 +38,9 @@ class AchivementVC: ENTALDBaseViewController {
             lblTitle.text = "Events"
             
         }else{
+            
             self.awardData = self.dataModel as? [VolunteerAwardModel]
+            self.getVolunteerAward()
         }
         
         
@@ -56,6 +59,15 @@ class AchivementVC: ENTALDBaseViewController {
                 }
             }
         }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     func decorateUI(){
@@ -169,6 +181,61 @@ extension AchivementVC : UITableViewDelegate,UITableViewDataSource {
         let index = sender.tag
         let cellModel = self.engagementData
         callbackToController?(cellModel, self)
+    }
+    
+    func getVolunteerAward(){
+        
+        guard let contactId = UserDefaults.standard.contactIdToken  else {return}
+        let params : [String:Any] = [
+            
+            ParameterKeys.select : "_msnfp_awardid_value,msnfp_awarddate,msnfp_awardversionid,msnfp_name",
+//            ParameterKeys.expand : "msnfp_groupId",
+            ParameterKeys.filter : "(msnfp_status eq 844060003 and _msnfp_primarycontactid_value eq \(contactId))",
+            ParameterKeys.orderby : "_msnfp_awardid_value asc"
+        ]
+        
+        self.getVolunteerAwardData(params: params)
+    }
+    
+    fileprivate func getVolunteerAwardData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestVolunteerAward(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                DispatchQueue.main.async {
+                    if let award = response.value {
+                        self.awardData = award
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                        }
+//                        self.lblAward.text = "\(award.count)"
+//                        self.awardNumView.isHidden = false
+//                        self.lblAward.isHidden = false
+                        
+                    }
+//                    else{
+//                        self.awardNumView.isHidden = true
+//                        self.lblAward.isHidden = true
+//                    }
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
     }
     
 }

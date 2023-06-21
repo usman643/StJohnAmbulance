@@ -73,6 +73,10 @@ class ENTALDBaseViewController: UIViewController, MenuControllerDelegate {
             
             ENTALDControllers.shared.showSideMenuSkillsScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
                         
+        }else if(named == "Honours & Awards"){
+            
+            ENTALDControllers.shared.showAchivementScreen(type: .ENTALDPRESENT_POPOVER, from: self, dataObj: nil, callBack: nil)
+                        
         }else if(named == "Language"){
             
             ENTALDControllers.shared.showLanguageScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
@@ -104,7 +108,7 @@ class ENTALDBaseViewController: UIViewController, MenuControllerDelegate {
             
             list.delegate = self
             self.menu = SideMenuNavigationController(rootViewController: list)
-            self.menu?.leftSide = false
+            self.menu?.leftSide = true
             self.menu?.setNavigationBarHidden(true, animated: true)
             self.menu?.menuWidth = view.bounds.width * 0.8
             SideMenuManager.default.leftMenuNavigationController = menu

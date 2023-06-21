@@ -21,6 +21,16 @@ class SettingVC: ENTALDBaseViewController {
 
         decorateUI()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
 
     func decorateUI(){
         lblTitle.textColor = UIColor.themePrimaryWhite
@@ -29,6 +39,7 @@ class SettingVC: ENTALDBaseViewController {
         lblTheme.font = UIFont.BoldFont(16)
         
     }
+    
 
     @IBAction func backTapped(_ sender: Any) {
         

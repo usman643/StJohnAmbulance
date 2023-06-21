@@ -116,20 +116,23 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
     
     func setupData(){
         DispatchQueue.main.async {
-            self.lblEventName.text = self.tabDetailData?[0].msnfp_engagementopportunitytitle ?? ""
-            self.lblEventLocation.text = self.tabDetailData?[0].msnfp_location ?? ""
-            
-            if let date = self.tabDetailData?[0].msnfp_startingdate {
+            if (self.tabDetailData?[0].msnfp_engagementopportunitytitle != nil){
                 
-                let dateStr = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat:"yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd hh:mm a")
-                self.lblEventDate.text = dateStr
-            }else{
-                self.lblEventDate.text = ""
-            }
-            if (self.tabDetailData?[0].msnfp_shifts == true){
-                let str  = self.lblEventDate.text
-                self.lblEventDate.text = "\(str ?? "")\n Multi Shift"
+                self.lblEventName.text = self.tabDetailData?[0].msnfp_engagementopportunitytitle ?? ""
+                self.lblEventLocation.text = self.tabDetailData?[0].msnfp_location ?? ""
                 
+                if let date = self.tabDetailData?[0].msnfp_startingdate {
+                    
+                    let dateStr = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat:"yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd hh:mm a")
+                    self.lblEventDate.text = dateStr
+                }else{
+                    self.lblEventDate.text = ""
+                }
+                if (self.tabDetailData?[0].msnfp_shifts == true){
+                    let str  = self.lblEventDate.text
+                    self.lblEventDate.text = "\(str ?? "")\n Multi Shift"
+                    
+                }
             }
         }
               
@@ -553,10 +556,11 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
             case .success(value: let response):
                 
                 if let qualification = response.value {
-                    self.tabDetailData = qualification
+                    if ((self.tabDetailData?.count ?? 0) > 0){
+                        self.tabDetailData = qualification
 
-                        self.setupData()
-        
+                            self.setupData()
+                    }
                 }
                 
             case .error(let error, let errorResponse):

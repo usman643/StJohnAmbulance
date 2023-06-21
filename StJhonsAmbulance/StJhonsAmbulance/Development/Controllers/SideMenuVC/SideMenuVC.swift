@@ -23,8 +23,16 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     @IBOutlet weak var lblRole: UILabel!
     @IBOutlet weak var lblCSLead: UILabel!
     @IBOutlet weak var btnSwitch: UISwitch!
+    @IBOutlet weak var lblYearsOfService: UILabel!
+    @IBOutlet weak var lblCurrentYearHours: UILabel!
+    @IBOutlet weak var lblLastYearHours: UILabel!
+    @IBOutlet weak var lblLifetimeHours: UILabel!
+    
+    
     var navigation:SideMenuVC?
-    var arrMenuList = ["Profile","Availability","Skills","Qualifications/Certifications","Documents","Language","Change Password","Settings","Logout"]
+//    var arrMenuList = ["Profile","Availability","Skills","Qualifications/Certifications","Documents","Language","Change Password","Settings","Logout"]
+    var arrMenuList = ["Profile","Availability","Honours & Awards","Qualifications/Certifications","Documents","Language","Change Password","Settings","Logout"]
+//    var arrMenuIconList = ["ic_profile","ic_availability","ic_skill","ic_Qualification","ic_document","ic_language","ic_passKey","ic_setting","ic_logout"]
     var arrMenuIconList = ["ic_profile","ic_availability","ic_skill","ic_Qualification","ic_document","ic_language","ic_passKey","ic_setting","ic_logout"]
     public var delegate: MenuControllerDelegate?
     
@@ -39,14 +47,33 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     func decorateUI(){
         
         lblName.font = UIFont.BoldFont(14)
         lblEmail.font = UIFont.BoldFont(14)
+        lblYearsOfService.font = UIFont.BoldFont(14)
+        lblCurrentYearHours.font = UIFont.BoldFont(14)
+        lblLastYearHours.font = UIFont.BoldFont(14)
+        lblLifetimeHours.font = UIFont.BoldFont(14)
         lblName.textColor = UIColor.textWhiteColor
         lblEmail.textColor = UIColor.textWhiteColor
+        lblYearsOfService.textColor = UIColor.textWhiteColor
+        lblCurrentYearHours.textColor = UIColor.textWhiteColor
+        lblLastYearHours.textColor = UIColor.textWhiteColor
+        lblLifetimeHours.textColor = UIColor.textWhiteColor
+        
         lblName.text = UserDefaults.standard.userInfo?.fullname
         lblEmail.text = UserDefaults.standard.userInfo?.emailaddress1
+        
+        lblYearsOfService.text = "Years of Service : \(UserDefaults.standard.userInfo?.sjavms_qualifiedyearsofservice?.getFormattedNumber() ?? "")"
+        lblCurrentYearHours.text = "Hours Current Year : \(UserDefaults.standard.userInfo?.sjavms_totalhourscompletedthisyear?.getFormattedNumber() ?? "")"
+        lblLastYearHours.text = "Last Year Hours : \(UserDefaults.standard.userInfo?.sjavms_totalhourscompletedpreviousyear?.getFormattedNumber() ?? "")"
+        lblLifetimeHours.text = "Lifetime Hours : \(UserDefaults.standard.userInfo?.msnfp_totalengagementhours?.getFormattedNumber() ?? "")"
+        
         imgMainVw.layer.cornerRadius = imgMainVw.frame.size.height/2
         profileImage.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: UserDefaults.standard.userInfo?.entityimage ?? "") ?? UIImage(named: "ic_profile")
         lblRole.font = UIFont.RegularFont(14)
@@ -68,8 +95,8 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             self.btnSwitch.isHidden = true
             lblCSLead.isHidden = true
             return
-            
         }
+        
     }
 
     
@@ -108,20 +135,33 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             self.btnSwitch.setOn(false, animated: true)
             ProcessUtils.shared.currentRole = "volunteer"
 //            self.lblRole.text = "Volunteer"
-            ENTALDControllers.shared.showVolunteerDashBoardScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
+//            ENTALDControllers.shared.showVolunteerDashBoardScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
+//            }
+//            self.navigationController?.popViewController(animated: true)
+            ENTALDControllers.shared.startFlowfromLandingScreen(from: UIApplication.getTopViewController()) { params, controller in
+                
             }
+            
+            
+            
         }else{
-            self.btnSwitch.setOn(false, animated: true)
+            self.btnSwitch.setOn(true, animated: true)
             ProcessUtils.shared.currentRole = "cslead"
 //            self.lblRole.text = "CS Lead"
-            ENTALDControllers.shared.showCSDashBoardScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
+//            self.navigationController?.popViewController(animated: false)
+            self.dismiss(animated: true, completion: nil)
+            if let vc = UIApplication.shared.windows.first?.rootViewController as? ENTALDBaseNavigationController, let child = vc.children.first as? ENTALDTabbarViewController, let nvc = child.viewControllers?[child.selectedIndex] as? ENTALDBaseNavigationController, let avc = nvc.children.first  {
+                ENTALDControllers.shared.showCSDashBoardScreen(type: .ENTALDPUSH, from: avc) { params, controller in
+                    
+                    
+                }
+                
             }
         }
-        
-        
     }
-    
 }
+
+
 
 protocol MenuControllerDelegate {
     func didSelectMenuItem(named: String)

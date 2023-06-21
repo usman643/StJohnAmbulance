@@ -66,6 +66,7 @@ struct ContactModel : Codable{
     let sjavms_emergencycontactname : String?
     let sjavms_totalhourscompletedthisyear : Float?
     let sjavms_totalhourscompletedpreviousyear : Float?
+    let sjavms_qualifiedyearsofservice : Float?
     let msnfp_totalengagementhours : Float?
     let sjavms_employmentstatus : Int?
     let preferredcontactmethodcode : Int?

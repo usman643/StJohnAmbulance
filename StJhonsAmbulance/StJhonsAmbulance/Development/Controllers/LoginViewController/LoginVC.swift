@@ -40,7 +40,7 @@ class LoginVC: ENTALDBaseViewController {
 //        self.txtPassword.text = "Cleo789$$"
         
         self.txtUserName.text = "tfoster@missioncrm.ca"
-        self.txtPassword.text = "Samson123$"
+        self.txtPassword.text = "Samson987$"
         
 //        self.txtUserName.text = "dougsalomon@outlook.com"
 //        self.txtPassword.text = "qAz!2#sss"
@@ -52,8 +52,8 @@ class LoginVC: ENTALDBaseViewController {
 
     func decorateUI(){
         self.navigationController?.navigationBar.isHidden = true
-        headerLogoView.layer.cornerRadius =  headerLogoView.frame.size.height/2
-        headerLogoView.backgroundColor = UIColor.themePrimary
+//        headerLogoView.layer.cornerRadius =  headerLogoView.frame.size.height/2
+//        headerLogoView.backgroundColor = UIColor.themePrimary
         txtUserName.addDoneOnKeyboardWithTarget(self, action: #selector(nextButtonClicked), titleText: "Email")
         txtPassword.addDoneOnKeyboardWithTarget(self, action: #selector(doneButtonClicked), titleText: "Password")
         
@@ -119,6 +119,12 @@ class LoginVC: ENTALDBaseViewController {
         ENTALDControllers.shared.showForgetScreen(type: .ENTALDPUSH, from: self) { params, controller in
             self.navigationController?.popViewController(animated: true)
         }
+        
+        
+//        let vc = SignalRVC()
+//        self.navigationController?.pushViewController(vc, animated: true)
+        
+        
         
 //        ENTALDControllers.shared.showForgetPasswordScreen(type: .ENTALDPUSH, from: self, callBack: nil)
         
@@ -331,6 +337,7 @@ extension LoginVC {
             }
         }
     }
+    
     
     
     

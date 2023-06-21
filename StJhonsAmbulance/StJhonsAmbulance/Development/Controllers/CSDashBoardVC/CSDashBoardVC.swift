@@ -82,8 +82,8 @@ class CSDashBoardVC: ENTALDBaseViewController{
         self.btnMainView.backgroundColor = UIColor.themePrimaryColor
         self.btnMainView.layer.cornerRadius = 3
         lblLogoTitle.textColor = UIColor.themePrimaryColor
-        lblTabTitle.textColor = UIColor.themePrimaryColor
-        lblTabTitle.font = UIFont.BoldFont(14)
+//        lblTabTitle.textColor = UIColor.themePrimaryColor
+//        lblTabTitle.font = UIFont.BoldFont(14)
         
         btnGroupSelectView.layer.cornerRadius = 3
         btnGroup.setTitleColor(UIColor.white, for: .normal)

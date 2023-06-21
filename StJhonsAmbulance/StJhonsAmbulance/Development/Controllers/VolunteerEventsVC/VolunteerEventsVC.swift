@@ -98,11 +98,11 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         
         pastHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         pastHeaderView.layer.borderWidth = 1
-        lblTabTitle.textColor = UIColor.themePrimaryColor
-        lblTabTitle.font = UIFont.BoldFont(16)
+//        lblTabTitle.textColor = UIColor.themePrimaryColor
+//        lblTabTitle.font = UIFont.BoldFont(16)
         
-        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
-        selectedTabImg.tintColor = UIColor.themePrimaryColor
+//        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
+//        selectedTabImg.tintColor = UIColor.themePrimaryColor
         
         searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         searchView.layer.borderWidth = 1.5

@@ -59,12 +59,12 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
         lblRole.font = UIFont.BoldFont(12)
         lblCity.font = UIFont.BoldFont(12)
         lblState.font = UIFont.BoldFont(12)
-        lblTabTitle.font = UIFont.BoldFont(16)
+//        lblTabTitle.font = UIFont.BoldFont(16)
         lblName.textColor = UIColor.themePrimaryWhite
         lblRole.textColor = UIColor.themePrimaryWhite
         lblCity.textColor = UIColor.themePrimaryWhite
         lblState.textColor = UIColor.themePrimaryWhite
-        lblTabTitle.textColor = UIColor.themePrimaryColor
+//        lblTabTitle.textColor = UIColor.themePrimaryColor
         stackView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         stackView.layer.borderWidth = 1.5
@@ -75,8 +75,8 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
         btnSelectGroup.backgroundColor = UIColor.themePrimary
         
         
-        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
-        selectedTabImg.tintColor = UIColor.themePrimaryColor
+//        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
+//        selectedTabImg.tintColor = UIColor.themePrimaryColor
         
         
     }

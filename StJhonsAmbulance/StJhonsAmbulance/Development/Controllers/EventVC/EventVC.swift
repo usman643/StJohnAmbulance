@@ -186,11 +186,11 @@ class EventVC: ENTALDBaseViewController, UITextFieldDelegate,EventSummaryDelegat
         searchView.layer.borderWidth = 1.5
 //        btnSearchClose.isHidden = true
         
-        lblTabTitle.textColor = UIColor.themePrimaryColor
-        lblTabTitle.font = UIFont.BoldFont(16)
-        
-        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
-        selectedTabImg.tintColor = UIColor.themePrimaryColor
+//        lblTabTitle.textColor = UIColor.themePrimaryColor
+//        lblTabTitle.font = UIFont.BoldFont(16)
+//
+//        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
+//        selectedTabImg.tintColor = UIColor.themePrimaryColor
         searchView.isHidden = true
         
     }

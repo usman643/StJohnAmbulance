@@ -19,6 +19,14 @@ class DashboardVC: ENTALDBaseViewController{
     var mapArr : [CheckInModel] = []
     var params : [String:Any] = [:]
     let conId = UserDefaults.standard.contactIdToken ?? ""
+//    let tabbar = ENTALDTabbarViewController()
+    
+    var selectedUserGroup : LandingGroupsModel?
+    var genderData : [LanguageModel] = []
+//    var prefferedLanguageData : [LanguageModel] = []
+    var prefferedPronounData : [LanguageModel] = []
+    var prefferedMethodContactData : [LanguageModel] = []
+    var languageData : [LanguageModel] = []
     
     @IBOutlet weak var headerView: UIView!
     
@@ -77,17 +85,34 @@ class DashboardVC: ENTALDBaseViewController{
 //                    DashBoardGridModel(title: "No Upcoming Event", subTitle: "", bgColor: UIColor.darkBlueColor, icon: "ic_camp", key: "sjavms_youthcamp"),
                     
 //                    DashBoardGridModel(title: "Check In", subTitle: "", bgColor: UIColor.hexString(hex: "AC41DE"), icon: "ic_checkIn", key: "sjavms_checkin"),
-                    DashBoardGridModel(title: "Schedule", subTitle: "", bgColor: UIColor.hexString(hex: "2DD0DA"), icon: "ic_calender", key: "sjavms_myschedule"),
+                    DashBoardGridModel(title: "My Schedule", subTitle: "", bgColor: UIColor.hexString(hex: "2DD0DA"), icon: "ic_calender", key: "sjavms_myschedule"),
                     DashBoardGridModel(title: "Messages", subTitle: "", bgColor: UIColor.orangeRedColor, icon: "ic_message", key: "sjavms_messages"),
                     DashBoardGridModel(title: "Hours", subTitle: "", bgColor: UIColor.hexString(hex: "4151DE"), icon: "ic_hour", key: "sjavms_hours"),
                     DashBoardGridModel(title: "Events", subTitle: "", bgColor: UIColor.hexString(hex: "41B8DE"), icon: "ic_event", key: "sjavms_events")
                 ]
 //        getDashBoardOrder()
         
+        getGroups()
+        getGender()
+        getPrefferedNoun()
+        getPrefferedMethodContact()
+        getPrefferedLanguage()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 
     func decorateUI(){
-        
+//        self.navigationController?.setNavigationBarHidden(true, animated: false)
+//        self.navigationController?.navigationBar.isHidden = true
         profileImg.layer.cornerRadius = profileImg.frame.size.height/2
 //        campImgView.layer.cornerRadius = campImgView.frame.size.height/2
 //        messageImgView.layer.cornerRadius = messageImgView.frame.size.height/2
@@ -148,8 +173,8 @@ class DashboardVC: ENTALDBaseViewController{
         lblTotalHours.isHidden = true
         lblServiceYears.isHidden = true
 
-        lblTabTitle.font = UIFont.BoldFont(16)
-        lblTabTitle.textColor = UIColor.themePrimary
+//        lblTabTitle.font = UIFont.BoldFont(16)
+//        lblTabTitle.textColor = UIColor.themePrimary
     }
     
     func setupContent(){
@@ -167,10 +192,10 @@ class DashboardVC: ENTALDBaseViewController{
         collectionview.register(UINib(nibName: "CSDashBaordCVC", bundle: nil), forCellWithReuseIdentifier: "CSDashBaordCVC")
         collectionview.dataSource = self
         collectionview.delegate = self
-        collectionview.collectionViewLayout = generateLayout()
+//        collectionview.collectionViewLayout = generateLayout()
 //        collectionview.dragDelegate = self
 //        collectionview.dropDelegate = self
-        collectionview.dragInteractionEnabled = true
+//        collectionview.dragInteractionEnabled = true
     }
 
     
@@ -305,49 +330,54 @@ class DashboardVC: ENTALDBaseViewController{
         
             
         }else if (controller == "sjavms_messages"){
-            ENTALDControllers.shared.showMessageScreen(type: .ENTALDPUSH, from: self,  dataObj: true) { params, controller in
-                self.openNextScreen(controller:params as? String)
-            }
+//            self.tabbar.selectedIndex = 4
+            self.tabBarController?.selectedIndex = 4
+//            ENTALDControllers.shared.showMessageScreen(type: .ENTALDPUSH, from: self,  dataObj: true) { params, controller in
+//                self.openNextScreen(controller:params as? String)
+//            }
             
         }else if (controller == "sjavms_checkin" ){
-            let dispatchQueue = DispatchQueue(label: "myQueu", qos: .background)
-            //Create a semaphore
-            let semaphore = DispatchSemaphore(value: 0)
-            
-            dispatchQueue.async {
-                for i in (0 ..< (self.latestEventIdData?.count ?? 0)){
-                    self.getCheckInData(eventOppId: self.latestEventIdData?[i].msnfp_engagementopportunityid ?? "", completion:{ [weak self] model in
-                        semaphore.signal()
-                        guard let self = self else {return}
-                        if let checkInData = model?.value {
-                            self.checkInData = checkInData
-                            if ((self.checkInData?.count ?? 0) > 0){
-                                self.mapArr.append(contentsOf: (checkInData))
-                            }
-                        }
-                        
-                    })
-                    semaphore.wait()
-                }
-                
-                DispatchQueue.main.async(execute: {
-                    ENTALDControllers.shared.showVolunteerMap(type: .ENTALDPUSH, from: self, isNavigationController:true, dataObj: self.mapArr, callBack: nil)
-                
-                })
-            }
+//            let dispatchQueue = DispatchQueue(label: "myQueu", qos: .background)
+//            //Create a semaphore
+//            let semaphore = DispatchSemaphore(value: 0)
+//
+//            dispatchQueue.async {
+//                for i in (0 ..< (self.latestEventIdData?.count ?? 0)){
+//                    self.getCheckInData(eventOppId: self.latestEventIdData?[i].msnfp_engagementopportunityid ?? "", completion:{ [weak self] model in
+//                        semaphore.signal()
+//                        guard let self = self else {return}
+//                        if let checkInData = model?.value {
+//                            self.checkInData = checkInData
+//                            if ((self.checkInData?.count ?? 0) > 0){
+//                                self.mapArr.append(contentsOf: (checkInData))
+//                            }
+//                        }
+//
+//                    })
+//                    semaphore.wait()
+//                }
+//
+//                DispatchQueue.main.async(execute: {
+//                    ENTALDControllers.shared.showVolunteerMap(type: .ENTALDPUSH, from: self, isNavigationController:true, dataObj: self.mapArr, callBack: nil)
+//
+//                })
+//            }
+            self.tabBarController?.selectedIndex = 2
     
         }else if (controller == "sjavms_myschedule"){
-            ENTALDControllers.shared.showVolunteerScheduleScreen(type: .ENTALDPUSH, from: self) { params, controller in
-                self.openNextScreen(controller:params as? String)
-            }
+//            ENTALDControllers.shared.showVolunteerScheduleScreen(type: .ENTALDPUSH, from: self) { params, controller in
+//                self.openNextScreen(controller:params as? String)
+//            }
+            self.tabBarController?.selectedIndex = 3
         }else if (controller == "sjavms_hours"){
             ENTALDControllers.shared.showVolunteerHourScreen(type: .ENTALDPUSH, from: self) { params, controller in
                 self.openNextScreen(controller:params as? String)
             }
         }else if (controller == "sjavms_events"){
-            ENTALDControllers.shared.showVolunteerEventScreen(type: .ENTALDPUSH, from: self) { params, controller in
-                self.openNextScreen(controller:params as? String)
-            }
+//            ENTALDControllers.shared.showVolunteerEventScreen(type: .ENTALDPUSH, from: self) { params, controller in
+//                self.openNextScreen(controller:params as? String)
+//            }
+            self.tabBarController?.selectedIndex = 1
         }
         
         
@@ -560,7 +590,7 @@ class DashboardVC: ENTALDBaseViewController{
 }
 
 
-extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource{
+extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
 //,UICollectionViewDragDelegate,UICollectionViewDropDelegate {
     
     
@@ -596,6 +626,16 @@ extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource{
 //        self.openNextScreen(controller:self.gridData?[indexPath.row].key)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+         let cellWidth = (UIScreen.main.bounds.size.width - 6)/2
+
+        let height = (self.collectionview.frame.size.height - 100 ) / 3
+        
+        return CGSize(width: cellWidth, height: height )
+    
+    }
+    
 //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        self.view.endEditing(true)
 //
@@ -610,65 +650,65 @@ extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource{
 //            }
 //        }
 //    }
-    
-    private func generateLayout() -> UICollectionViewLayout {
-        
-        // First Section
-        let pairMainPhotoSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1/2),
-            heightDimension: .fractionalHeight(1.0))
-        let pairMainPhotoItem = NSCollectionLayoutItem(layoutSize: pairMainPhotoSize)
-        
-        pairMainPhotoItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-        
-        let pairSmallPhotoSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(2),
-            heightDimension: .fractionalHeight(1/2))
-        let pairSmallPhotoItem = NSCollectionLayoutItem(layoutSize: pairSmallPhotoSize)
-        pairSmallPhotoItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-        
-        let stackedSmallPhotoGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/4), heightDimension: .fractionalHeight(1.0)), subitem: pairSmallPhotoItem, count: 2)
-        
-//        First Section Group
-        let mainAndSmallPhotoGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1/2)), subitems: [pairMainPhotoItem, stackedSmallPhotoGroup])
-
-        let smallPhotoSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1))
-        let smallPhotoItem = NSCollectionLayoutItem(layoutSize: smallPhotoSize)
-        smallPhotoItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
+    // old alyout
+//    private func generateLayout() -> UICollectionViewLayout {
 //
-        let tripleSmallPhotoGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1)), subitem: smallPhotoItem, count: 1)
-        
-        let stackedTripleSmallPhotoGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1/4)), subitems: [smallPhotoItem, tripleSmallPhotoGroup])
-        
-        
-        
-        
-        
-        let smallPhotoSize2 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/2), heightDimension: .fractionalHeight(1))
-        let smallPhotoItem2 = NSCollectionLayoutItem(layoutSize: smallPhotoSize2)
-        smallPhotoItem2.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
+//        // First Section
+//        let pairMainPhotoSize = NSCollectionLayoutSize(
+//            widthDimension: .fractionalWidth(1/2),
+//            heightDimension: .fractionalHeight(1.0))
+//        let pairMainPhotoItem = NSCollectionLayoutItem(layoutSize: pairMainPhotoSize)
 //
-        
-        let tripleSmallPhotoGroup2 = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)), subitem: smallPhotoItem2, count: 2)
-        
-        let stackedTripleSmallPhotoGroup2 = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1/4)), subitems: [tripleSmallPhotoGroup2])
-      
-        
-        
-    
-        let allGroup = NSCollectionLayoutGroup.vertical(
-            layoutSize: NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: .fractionalHeight(1.0)),
-            subitems: [
-                mainAndSmallPhotoGroup,
-                stackedTripleSmallPhotoGroup,
-                stackedTripleSmallPhotoGroup2
-                
-            ])
-        let section = NSCollectionLayoutSection(group: allGroup)
-        return UICollectionViewCompositionalLayout(section: section)
-    }
+//        pairMainPhotoItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
+//
+//        let pairSmallPhotoSize = NSCollectionLayoutSize(
+//            widthDimension: .fractionalWidth(2),
+//            heightDimension: .fractionalHeight(1/2))
+//        let pairSmallPhotoItem = NSCollectionLayoutItem(layoutSize: pairSmallPhotoSize)
+//        pairSmallPhotoItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
+//
+//        let stackedSmallPhotoGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/4), heightDimension: .fractionalHeight(1.0)), subitem: pairSmallPhotoItem, count: 2)
+//
+////        First Section Group
+//        let mainAndSmallPhotoGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1/2)), subitems: [pairMainPhotoItem, stackedSmallPhotoGroup])
+//
+//        let smallPhotoSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1))
+//        let smallPhotoItem = NSCollectionLayoutItem(layoutSize: smallPhotoSize)
+//        smallPhotoItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
+////
+//        let tripleSmallPhotoGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1)), subitem: smallPhotoItem, count: 1)
+//
+//        let stackedTripleSmallPhotoGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1/4)), subitems: [smallPhotoItem, tripleSmallPhotoGroup])
+//
+//
+//
+//
+//
+//        let smallPhotoSize2 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/2), heightDimension: .fractionalHeight(1))
+//        let smallPhotoItem2 = NSCollectionLayoutItem(layoutSize: smallPhotoSize2)
+//        smallPhotoItem2.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
+////
+//
+//        let tripleSmallPhotoGroup2 = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)), subitem: smallPhotoItem2, count: 2)
+//
+//        let stackedTripleSmallPhotoGroup2 = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1/4)), subitems: [tripleSmallPhotoGroup2])
+//
+//
+//
+//
+//        let allGroup = NSCollectionLayoutGroup.vertical(
+//            layoutSize: NSCollectionLayoutSize(
+//                widthDimension: .fractionalWidth(1.0),
+//                heightDimension: .fractionalHeight(1.0)),
+//            subitems: [
+//                mainAndSmallPhotoGroup,
+//                stackedTripleSmallPhotoGroup,
+//                stackedTripleSmallPhotoGroup2
+//
+//            ])
+//        let section = NSCollectionLayoutSection(group: allGroup)
+//        return UICollectionViewCompositionalLayout(section: section)
+//    }
 //  drag drop delegate
 //    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
 //        //to lock first 2 items
@@ -987,5 +1027,244 @@ extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource{
             }
         }
     }
+    
+    
+    
+    //MARK:  Landing screen APIs
+    
+    fileprivate func getGender() {
+        
+        let params : [String:Any] = [
+            ParameterKeys.filter : "objecttypecode eq 'contact' and attributename eq 'sjavms_gender' and langid eq 1033"
+        ]
+    
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestProfileInfoDetail(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result{
+            case .success(value: let response):
+                
+                if let genderData = response.value {
+                    ProcessUtils.shared.genderData = genderData
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+
+//                DispatchQueue.main.async {
+//                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+//                }
+            }
+        }
+    }
+    
+    
+    fileprivate func getPrefferedNoun() {
+        
+        let params : [String:Any] = [
+            ParameterKeys.filter : "objecttypecode eq 'contact' and attributename eq 'sjavms_preferredpronouns' and langid eq 1033"
+        ]
+    
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestProfileInfoDetail(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result{
+            case .success(value: let response):
+                
+                if let genderData = response.value {
+                    ProcessUtils.shared.prefferedPronounData = genderData
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+
+//                DispatchQueue.main.async {
+//                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+//                }
+            }
+        }
+    }
+    
+    fileprivate func getPrefferedMethodContact() {
+        
+        let params : [String:Any] = [
+            ParameterKeys.filter : "objecttypecode eq 'contact' and attributename eq 'preferredcontactmethodcode' and langid eq 1033"
+        ]
+    
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestProfileInfoDetail(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result{
+            case .success(value: let response):
+                
+                if let genderData = response.value {
+                    ProcessUtils.shared.prefferedMethodContactData = genderData
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+
+//                DispatchQueue.main.async {
+//                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+//                }
+            }
+        }
+    }
+    
+    fileprivate func getPrefferedLanguage() {
+        
+        let params : [String:Any] = [
+            ParameterKeys.select : "adx_portallanguageid,adx_name,createdon",
+            ParameterKeys.expand : "adx_adx_portallanguage_adx_websitelanguage($filter=(_adx_websiteid_value eq 24684e99-f092-4556-8b54-060fd532e73b))",
+            ParameterKeys.filter : "(adx_adx_portallanguage_adx_websitelanguage/any(o1:(o1/_adx_websiteid_value eq 24684e99-f092-4556-8b54-060fd532e73b)))",
+            
+            ParameterKeys.orderby : "adx_name asc"
+            
+        ]
+    
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestPreferedLanguage(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result{
+            case .success(value: let response):
+                
+                if let language = response.value {
+                    ProcessUtils.shared.prefferedLanguageData = language
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+
+//                DispatchQueue.main.async {
+//                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+//                }
+            }
+        }
+    }
+ 
+    func getGroups(){
+        
+        let params : [String:Any] = [
+            ParameterKeys.select : "sjavms_groupmembershipid,sjavms_groupmembershipname,_sjavms_contactid_value,_sjavms_groupid_value",
+            ParameterKeys.expand : "sjavms_groupid($select=msnfp_groupname),sjavms_contactid($select=fullname),sjavms_RoleType($select=sjavms_rolecategory)",
+            ParameterKeys.filter : "(statecode eq 0 and _sjavms_contactid_value eq \(self.conId)) and (sjavms_groupid/statecode eq 0)",
+            ParameterKeys.orderby : "_sjavms_groupid_value asc"
+        ]
+        
+        self.getAssociatedGroups(params: params)
+    }
+    
+    
+    fileprivate func getAssociatedGroups(params:[String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestAssociatedGroups(params: params) { result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            self.getGender()
+            self.getPrefferedNoun()
+            self.getPrefferedMethodContact()
+            self.getPrefferedLanguage()
+            
+            switch result {
+            case .success(let response):
+                if let userGroups = response.value {
+                    
+                    ProcessUtils.shared.allGroupsList = userGroups
+                    
+                    var leadGroupArr :[LandingGroupsModel] = []
+                    var volunteerGroupArr :[LandingGroupsModel] = []
+                   
+                    
+                    for i in (0 ..< (userGroups.count )){
+                        if userGroups[i].sjavms_RoleType?.sjavms_rolecategory == 802280001 {
+                            leadGroupArr.append(userGroups[i])
+
+                        }else if userGroups[i].sjavms_RoleType?.sjavms_rolecategory == 802280000 {
+                            volunteerGroupArr.append(userGroups[i])
+                        }
+                    }
+                    ProcessUtils.shared.volunteerGroupsList = volunteerGroupArr
+                    ProcessUtils.shared.userGroupsList = leadGroupArr
+                    
+                    var propertyValues = ""
+                    
+                    for i in (0 ..< (ProcessUtils.shared.allGroupsList.count )){
+                        var str = ""
+                        
+                        if let groupid_value = ProcessUtils.shared.allGroupsList[i]._sjavms_groupid_value {
+                            
+                            if ( i == (ProcessUtils.shared.allGroupsList.count) - 1){
+                                str = "'{\(groupid_value)}'"
+                            }else{
+                                str = "'{\(groupid_value)}',"
+                            }
+                            propertyValues += str
+                        }
+                    }
+                    ProcessUtils.shared.groupListValue = propertyValues
+                    
+                    if ProcessUtils.shared.userGroupsList.count == 0 {
+                        DispatchQueue.main.async {
+                            let button = UIButton()
+//                            self.volunteerTapped(button)
+                        }
+                    }else if let data = ProcessUtils.shared.userGroupsList.first, ProcessUtils.shared.userGroupsList.count == 1 {
+                        ProcessUtils.shared.selectedUserGroup = data
+//                        DispatchQueue.main.async {
+//                            self.setSelectedGroup(data: data)
+//                        }
+                    }
+                    
+                    
+                }
+                break
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
     
 }
