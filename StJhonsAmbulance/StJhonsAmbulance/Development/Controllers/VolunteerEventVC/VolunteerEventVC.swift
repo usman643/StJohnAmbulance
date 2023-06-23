@@ -14,6 +14,8 @@ class VolunteerEventVC: ENTALDBaseViewController {
     var eventFilterData : [PendingShiftModelTwo]?
     var nonEventFilterData : [PendingShiftModelTwo]?
     
+    @IBOutlet weak var lblScreenTitle: UILabel!
+    
     @IBOutlet weak var pendingImgMainView1: UIView!
     @IBOutlet weak var pendingImgView: UIImageView!
     @IBOutlet weak var lblPendingValue: UILabel!
@@ -37,6 +39,10 @@ class VolunteerEventVC: ENTALDBaseViewController {
     @IBOutlet weak var eventBtnBottomView: UIView!
     @IBOutlet weak var nonEventBtnBottomView: UIView!
     
+    @IBOutlet weak var searchView: UIView!
+    @IBOutlet weak var searchImg: UIImageView!
+    @IBOutlet weak var textSearch: UITextField!
+    @IBOutlet weak var btnSearchClose: UIButton!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -62,7 +68,7 @@ class VolunteerEventVC: ENTALDBaseViewController {
     func decorateUI(){
         
         self.selectEvent()
-        
+        lblScreenTitle.font = UIFont.BoldFont(18)
         pendingImgMainView1.layer.cornerRadius = 15
         yearImgMainView.layer.cornerRadius = 15
         lifetimeImgMainView.layer.cornerRadius = 15
@@ -80,7 +86,47 @@ class VolunteerEventVC: ENTALDBaseViewController {
         btnEvent.titleLabel?.font = UIFont.BoldFont(14)
         btnNonEvent.titleLabel?.font = UIFont.BoldFont(14)
         
+        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+        searchView.layer.borderWidth = 1.5
+        searchView.layer.cornerRadius = 8
+//        searchView.isHidden = true
+        textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         
+        
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        btnSearchClose.isHidden = false
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        
+        if (textField.text != ""){
+            
+            eventFilterData  =  eventData?.filter({
+                if let name = $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                    return true
+                }
+                return false
+            })
+            
+            nonEventFilterData  =  nonEventData?.filter({
+                if let name = $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                    return true
+                 }
+               return false
+             })
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }else{
+            DispatchQueue.main.async {
+                self.eventFilterData = self.eventData
+                self.nonEventFilterData = self.nonEventData
+                self.tableView.reloadData()
+            }
+        }
     }
     
     func setContent(){
@@ -89,6 +135,15 @@ class VolunteerEventVC: ENTALDBaseViewController {
         lblYearValue.text = UserDefaults.standard.userInfo?.sjavms_totalhourscompletedthisyear?.getFormattedNumber()
         lblLifetimeValue.text = UserDefaults.standard.userInfo?.msnfp_totalengagementhours?.getFormattedNumber()
     }
+    
+    @IBAction func searchCloseTapped(_ sender: Any) {
+        textSearch.endEditing(true)
+        textSearch.text = ""
+        eventFilterData = eventData
+        nonEventFilterData = nonEventData
+        tableView.reloadData()
+    }
+    
 
     func selectEvent(){
         
@@ -96,7 +151,7 @@ class VolunteerEventVC: ENTALDBaseViewController {
         btnNonEvent.isSelected = false
         eventBtnBottomView.isHidden = false
         nonEventBtnBottomView.isHidden = true
-        btnEvent.setTitleColor(UIColor.textBlackColor, for: .normal)
+        btnEvent.setTitleColor(UIColor.themeColorSecondry, for: .normal)
         btnNonEvent.setTitleColor(UIColor.textLightGrayColor, for: .normal)
 //        btnEvent.titleLabel?.textColor = UIColor.textBlackColor
 //        btnNonEvent.titleLabel?.textColor = UIColor.textLightGrayColor
@@ -112,7 +167,7 @@ class VolunteerEventVC: ENTALDBaseViewController {
         eventBtnBottomView.isHidden = true
         nonEventBtnBottomView.isHidden = false
         btnEvent.setTitleColor(UIColor.textLightGrayColor, for: .normal)
-        btnNonEvent.setTitleColor(UIColor.textBlackColor, for: .normal)
+        btnNonEvent.setTitleColor(UIColor.themeColorSecondry, for: .normal)
         DispatchQueue.main.async {
             self.tableView.reloadData()
             let indexPath = IndexPath(row: 0, section: 0)
@@ -299,9 +354,9 @@ extension VolunteerEventVC : UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if (btnEvent.isSelected){
-            return self.eventData?.count ?? 0
+            return self.eventFilterData?.count ?? 0
         }else if (btnNonEvent.isSelected){
-            return self.nonEventData?.count ?? 0
+            return self.nonEventFilterData?.count ?? 0
         }
         
         
