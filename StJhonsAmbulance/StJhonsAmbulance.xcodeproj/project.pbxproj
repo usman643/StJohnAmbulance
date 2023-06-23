@@ -63,6 +63,10 @@
 		1D3E20F6298BCE4B00A97264 /* PendingEventResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E20F5298BCE4B00A97264 /* PendingEventResponseModel.swift */; };
 		1D3E20FA298BF33000A97264 /* EmptyEventTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E20F8298BF33000A97264 /* EmptyEventTableCell.swift */; };
 		1D3E20FB298BF33000A97264 /* EmptyEventTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D3E20F9298BF33000A97264 /* EmptyEventTableCell.xib */; };
+		1D4483EE2A44BA780077BD95 /* VolunteerEventVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4483EC2A44BA780077BD95 /* VolunteerEventVC.swift */; };
+		1D4483EF2A44BA780077BD95 /* VolunteerEventVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D4483ED2A44BA780077BD95 /* VolunteerEventVC.xib */; };
+		1D4483FB2A44C3270077BD95 /* VolunterEventTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4483F92A44C3270077BD95 /* VolunterEventTVC.swift */; };
+		1D4483FC2A44C3270077BD95 /* VolunterEventTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D4483FA2A44C3270077BD95 /* VolunterEventTVC.xib */; };
 		1D4DE841297FB4C600246242 /* ForgetVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D4DE83C297FB4C600246242 /* ForgetVC.xib */; };
 		1D4DE842297FB4C600246242 /* ForgetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4DE83D297FB4C600246242 /* ForgetVC.swift */; };
 		1D4DE843297FB4C600246242 /* LandingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D4DE83F297FB4C600246242 /* LandingVC.xib */; };
@@ -425,6 +429,10 @@
 		1D3E20F5298BCE4B00A97264 /* PendingEventResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingEventResponseModel.swift; sourceTree = "<group>"; };
 		1D3E20F8298BF33000A97264 /* EmptyEventTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyEventTableCell.swift; sourceTree = "<group>"; };
 		1D3E20F9298BF33000A97264 /* EmptyEventTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyEventTableCell.xib; sourceTree = "<group>"; };
+		1D4483EC2A44BA780077BD95 /* VolunteerEventVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerEventVC.swift; sourceTree = "<group>"; };
+		1D4483ED2A44BA780077BD95 /* VolunteerEventVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VolunteerEventVC.xib; sourceTree = "<group>"; };
+		1D4483F92A44C3270077BD95 /* VolunterEventTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunterEventTVC.swift; sourceTree = "<group>"; };
+		1D4483FA2A44C3270077BD95 /* VolunterEventTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VolunterEventTVC.xib; sourceTree = "<group>"; };
 		1D4DE83C297FB4C600246242 /* ForgetVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgetVC.xib; sourceTree = "<group>"; };
 		1D4DE83D297FB4C600246242 /* ForgetVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgetVC.swift; sourceTree = "<group>"; };
 		1D4DE83F297FB4C600246242 /* LandingVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LandingVC.xib; sourceTree = "<group>"; };
@@ -1001,6 +1009,25 @@
 				1D3E20F9298BF33000A97264 /* EmptyEventTableCell.xib */,
 			);
 			path = EmptyEventTableCell;
+			sourceTree = "<group>";
+		};
+		1D4483EB2A44BA2D0077BD95 /* VolunteerEventVC */ = {
+			isa = PBXGroup;
+			children = (
+				1D4483F02A44BA7E0077BD95 /* VolunteerEventTVC */,
+				1D4483EC2A44BA780077BD95 /* VolunteerEventVC.swift */,
+				1D4483ED2A44BA780077BD95 /* VolunteerEventVC.xib */,
+			);
+			path = VolunteerEventVC;
+			sourceTree = "<group>";
+		};
+		1D4483F02A44BA7E0077BD95 /* VolunteerEventTVC */ = {
+			isa = PBXGroup;
+			children = (
+				1D4483F92A44C3270077BD95 /* VolunterEventTVC.swift */,
+				1D4483FA2A44C3270077BD95 /* VolunterEventTVC.xib */,
+			);
+			path = VolunteerEventTVC;
 			sourceTree = "<group>";
 		};
 		1D4DE83B297FB4C600246242 /* ForgetVC */ = {
@@ -1625,6 +1652,7 @@
 		353C61392813ECF400CC8B7F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1D4483EB2A44BA2D0077BD95 /* VolunteerEventVC */,
 				1D9573992A362EBB00FFAF6E /* SignalRVC */,
 				1DEBF86C2A196744000070C1 /* CalenderHourVC */,
 				1DD7CF782A1285870043C2F1 /* CalenderEventTVC */,
@@ -2331,12 +2359,14 @@
 				1D0BDEDE29826EC700CC2030 /* VounteerVC.xib in Resources */,
 				E4B2EF10297C57EB00D05014 /* Quicksand-Light.ttf in Resources */,
 				1D5C1D1529C1D2E500608FF5 /* AchivementVC.xib in Resources */,
+				1D4483EF2A44BA780077BD95 /* VolunteerEventVC.xib in Resources */,
 				1DE52A292991B87B0087DC85 /* VolunteerEventTVC.xib in Resources */,
 				1D3BD166299D955D008F4178 /* ChangePasswordVC.xib in Resources */,
 				1D608B3F299C2F0E00A03B00 /* AvailabilityVC.xib in Resources */,
 				1DD1919D2A004E4100EEFC5D /* UserEngagementsVC.xib in Resources */,
 				1D0BDED92982645400CC2030 /* MessageTVC.xib in Resources */,
 				1D762828299E98F200609DED /* SJAQualificationTVC.xib in Resources */,
+				1D4483FC2A44C3270077BD95 /* VolunterEventTVC.xib in Resources */,
 				1D7DECB029CED55600F86A6F /* EventMessagVC.xib in Resources */,
 				1D10818D29DCD84C0070AE9D /* ParticipationDetailTVC.xib in Resources */,
 				1D2E243E298F727B006AB56A /* EventManageVC.xib in Resources */,
@@ -2572,6 +2602,7 @@
 				E4B2EF04297C4D9C00D05014 /* Router.swift in Sources */,
 				1D64DC9129C1D77E0017608A /* AchivementTVC.swift in Sources */,
 				1DC2710F29CF0E3E00B2D762 /* EventNotesVC.swift in Sources */,
+				1D4483EE2A44BA780077BD95 /* VolunteerEventVC.swift in Sources */,
 				1D3E20FA298BF33000A97264 /* EmptyEventTableCell.swift in Sources */,
 				359E9C5F282E455F001E3D73 /* CoreCollectionView.swift in Sources */,
 				1DF176E32985241D005809C6 /* PendingEventVC.swift in Sources */,
@@ -2582,6 +2613,7 @@
 				1D84798129CD076300CE9F37 /* EventSummaryScreenVC.swift in Sources */,
 				E4E697262A1B8CB30045D212 /* StubEventView.swift in Sources */,
 				1D76282A299EAEFB00609DED /* SideMenuRouter.swift in Sources */,
+				1D4483FB2A44C3270077BD95 /* VolunterEventTVC.swift in Sources */,
 				E48359A8297D6527008CBFFF /* LoadingView.swift in Sources */,
 				E4E6973B2A1B8CB30045D212 /* WeekData.swift in Sources */,
 				359E9C62282E455F001E3D73 /* CoreRefreshControl.swift in Sources */,
@@ -2943,7 +2975,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2984,7 +3016,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
 				GENERATE_INFOPLIST_FILE = YES;
