@@ -99,7 +99,7 @@ class ENTALDTabbarViewController: UITabBarController {
         let scheduleVC = ScheduleVC.loadFromNib()
         let scheduleImg = "tabCalender".templatedImage
         
-        let messageVC = MessageVC.loadFromNib()
+        let messageVC = SignalRVC.loadFromNib()
         let messageImg = "tabMessage".templatedImage
        
         viewControllers = [

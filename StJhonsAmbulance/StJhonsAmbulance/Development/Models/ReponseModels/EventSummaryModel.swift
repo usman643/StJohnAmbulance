@@ -204,5 +204,11 @@ struct ChangeModel :Codable {
 
 struct ChatMessage :Codable {
     var target : String?
-    var arguments : [String]?
+    var arguments : [MessageArguments]?
+}
+
+
+struct MessageArguments :Codable {
+    var name : String?
+    var message : String?
 }

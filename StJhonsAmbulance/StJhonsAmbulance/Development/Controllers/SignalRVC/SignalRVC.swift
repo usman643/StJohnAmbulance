@@ -35,12 +35,13 @@ class SignalRVC: ENTALDBaseViewController, UITableViewDelegate, UITableViewDataS
     var isConnected = false
 //    var socket : WebSocket!
     
-    @IBOutlet weak var lblMessage: UILabel!
+    
     @IBOutlet weak var txtMessage: UITextField!
     
     @IBOutlet weak var btnSend: UIButton!
     // Update the Url accordingly
-    private let serverUrl = "https://4c6f-39-41-237-112.ngrok-free.app/chathub"  // /chat or /chatLongPolling or /chatWebSockets
+//    private let serverUrl = "https://4c6f-39-41-237-112.ngrok-free.app/chathub"  // /chat or /chatLongPolling or /chatWebSockets
+    private let serverUrl = "https://sjasignalr.azurewebsites.net/chathub"
     private let dispatchQueue = DispatchQueue(label: "hubsamplephone.queue.dispatcheueuq")
 
     private var chatHubConnection: HubConnection?
@@ -56,7 +57,7 @@ class SignalRVC: ENTALDBaseViewController, UITableViewDelegate, UITableViewDataS
         super.viewDidLoad()
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        tableView.register(UINib(nibName: "SignalRTVC", bundle: nil), forCellReuseIdentifier: "SignalRTVC")
+        tableView.register(UINib(nibName: "MessagesCell", bundle: nil), forCellReuseIdentifier: "MessagesCell")
         
         
     }
@@ -76,9 +77,7 @@ class SignalRVC: ENTALDBaseViewController, UITableViewDelegate, UITableViewDataS
 
  
 override func viewDidAppear(_ animated: Bool) {
-    let alert = UIAlertController(title: "Enter your Name", message:"", preferredStyle: UIAlertController.Style.alert)
-    alert.addTextField() { textField in textField.placeholder = "Name"}
-    let OKAction = UIAlertAction(title: "OK", style: .default) { action in
+   
         self.name = "\(UserDefaults.standard.contactIdToken ?? "")"
 
         self.chatHubConnectionDelegate = ChatHubConnectionDelegate(controller: self)
@@ -98,6 +97,10 @@ override func viewDidAppear(_ animated: Bool) {
             hub.on(method: "receiveBroadCastMessage") { argumentExtractor in
                 do {
                     let message = try argumentExtractor.getArgument(type: ChatMessage.self)
+                    
+//                    let data = Data((message?.arguments?.utf8)!)
+//                    let str = try JSONDecoder().decode(MessageArguments.self, from: data)
+                    
                     print("message \(message.arguments?.first)")
                     
                 }catch(let err){
@@ -117,9 +120,8 @@ override func viewDidAppear(_ animated: Bool) {
 //
 //
 //        self.chatHubConnection!.start()
-    }
-    alert.addAction(OKAction)
-    self.present(alert, animated: true)
+
+   
 }
 
 override func viewWillDisappear(_ animated: Bool) {
@@ -129,7 +131,13 @@ override func viewWillDisappear(_ animated: Bool) {
 override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
 }
-
+    
+    
+    @IBAction func baskTapped(_ sender: Any) {
+        
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 @IBAction func btnSend(_ sender: Any) {
     let message = txtMessage.text
     if message != "" {
@@ -146,6 +154,7 @@ override func didReceiveMemoryWarning() {
         
         txtMessage.text = ""
     }
+    tableView.reloadData()
 }
 
 private func appendMessage(message: String) {
@@ -212,8 +221,10 @@ func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> 
 }
 
 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "SignalRTVC", for: indexPath) as! SignalRTVC
+    let cell = tableView.dequeueReusableCell(withIdentifier: "MessagesCell", for: indexPath) as! MessagesCell
     let row = indexPath.row
+    
+//    cell.lblName.text =
     cell.lblMessage?.text = messages[row]
     return cell
 }
