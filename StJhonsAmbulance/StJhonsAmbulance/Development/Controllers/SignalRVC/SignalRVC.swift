@@ -10,7 +10,27 @@ import UIKit
 import SwiftSignalRClient
 
 
-class SignalRVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
+class SignalRVC: ENTALDBaseViewController, UITableViewDelegate, UITableViewDataSource, HubConnectionDelegate  {
+    func connectionDidOpen(hubConnection: SwiftSignalRClient.HubConnection) {
+        
+    }
+    
+    func connectionDidFailToOpen(error: Error) {
+        
+    }
+    
+    func connectionDidClose(error: Error?) {
+        
+    }
+    
+    func connectionDidOpen(connection: SwiftSignalRClient.Connection) {
+        
+    }
+    
+    func connectionDidReceiveData(connection: SwiftSignalRClient.Connection, data: Data) {
+        print("Received Data")
+    }
+    
     
     var isConnected = false
 //    var socket : WebSocket!
@@ -20,7 +40,7 @@ class SignalRVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     
     @IBOutlet weak var btnSend: UIButton!
     // Update the Url accordingly
-    private let serverUrl = "https://sjasignalr.azurewebsites.net/chathub"  // /chat or /chatLongPolling or /chatWebSockets
+    private let serverUrl = "https://4c6f-39-41-237-112.ngrok-free.app/chathub"  // /chat or /chatLongPolling or /chatWebSockets
     private let dispatchQueue = DispatchQueue(label: "hubsamplephone.queue.dispatcheueuq")
 
     private var chatHubConnection: HubConnection?
@@ -37,8 +57,7 @@ class SignalRVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         tableView.register(UINib(nibName: "SignalRTVC", bundle: nil), forCellReuseIdentifier: "SignalRTVC")
-//        let client = SwiftSignalRClient.HttpConnectionOptions()
-//        client.skipNegotiation = true
+        
         
     }
     
@@ -60,7 +79,7 @@ override func viewDidAppear(_ animated: Bool) {
     let alert = UIAlertController(title: "Enter your Name", message:"", preferredStyle: UIAlertController.Style.alert)
     alert.addTextField() { textField in textField.placeholder = "Name"}
     let OKAction = UIAlertAction(title: "OK", style: .default) { action in
-        self.name = alert.textFields?.first?.text ?? "John Doe"
+        self.name = "\(UserDefaults.standard.contactIdToken ?? "")"
 
         self.chatHubConnectionDelegate = ChatHubConnectionDelegate(controller: self)
         self.chatHubConnection = HubConnectionBuilder(url: URL(string: self.serverUrl)!)
@@ -69,16 +88,35 @@ override func viewDidAppear(_ animated: Bool) {
             .withHubConnectionDelegate(delegate: self.chatHubConnectionDelegate!)
             .withHttpConnectionOptions(configureHttpOptions: { httpConnectionOptions in
                 httpConnectionOptions.skipNegotiation = true
-                
-                
-                
+                httpConnectionOptions.accessTokenProvider = {"\(UserDefaults.standard.contactIdToken ?? "")"}
             })
             .build()
-
-        self.chatHubConnection!.on(method: "NewMessage", callback: {(user: String, message: String) in
-            self.appendMessage(message: "\(user): \(message)")
-        })
-        self.chatHubConnection!.start()
+        
+        if let hub = self.chatHubConnection {
+            hub.delegate = self
+            // Set our callbacks for the messages we expect from the SignalR hub.
+            hub.on(method: "receiveBroadCastMessage") { argumentExtractor in
+                do {
+                    let message = try argumentExtractor.getArgument(type: ChatMessage.self)
+                    print("message \(message.arguments?.first)")
+                    
+                }catch(let err){
+                    print("Hi received a message \(err.localizedDescription)")
+                }
+                
+            }
+            // Start the hub connection.
+            hub.start()
+        }
+        
+        
+        
+//        self.chatHubConnection?.on(method: "receiveBroadCastMessage", callback: {(user: String, message: String) in
+//            self.appendMessage(message: "\(user): \(message)")
+//        })
+//
+//
+//        self.chatHubConnection!.start()
     }
     alert.addAction(OKAction)
     self.present(alert, animated: true)
@@ -95,11 +133,17 @@ override func didReceiveMemoryWarning() {
 @IBAction func btnSend(_ sender: Any) {
     let message = txtMessage.text
     if message != "" {
-        chatHubConnection?.invoke(method: "Broadcast", name, message) { error in
+        
+        chatHubConnection?.send(method: "sendBroadCastMessage", message,"\(UserDefaults.standard.contactIdToken ?? "")" ,"Usman Muhammad", "test.jpg", sendDidComplete: { error in
             if let e = error {
                 self.appendMessage(message: "Error: \(e)")
             }
-        }
+        })
+        
+//        self.chatHubConnection!.on(method: "receiveBroadCastMessage", callback: {(user: String, message: String) in
+//            self.appendMessage(message: "\(user): \(message)")
+//        })
+        
         txtMessage.text = ""
     }
 }
@@ -119,31 +163,31 @@ fileprivate func connectionDidOpen() {
     toggleUI(isEnabled: true)
 }
 
-fileprivate func connectionDidFailToOpen(error: Error) {
-    blockUI(message: "Connection failed to start.", error: error)
-}
-
-fileprivate func connectionDidClose(error: Error?) {
-    if let alert = reconnectAlert {
-        alert.dismiss(animated: true, completion: nil)
-    }
-    blockUI(message: "Connection is closed.", error: error)
-}
-
-fileprivate func connectionWillReconnect(error: Error?) {
-    guard reconnectAlert == nil else {
-        print("Alert already present. This is unexpected.")
-        return
-    }
-
-    reconnectAlert = UIAlertController(title: "Reconnecting...", message: "Please wait", preferredStyle: .alert)
-    self.present(reconnectAlert!, animated: true, completion: nil)
-}
-
-fileprivate func connectionDidReconnect() {
-    reconnectAlert?.dismiss(animated: true, completion: nil)
-    reconnectAlert = nil
-}
+//fileprivate func connectionDidFailToOpen(error: Error) {
+//    blockUI(message: "Connection failed to start.", error: error)
+//}
+//
+//fileprivate func connectionDidClose(error: Error?) {
+//    if let alert = reconnectAlert {
+//        alert.dismiss(animated: true, completion: nil)
+//    }
+//    blockUI(message: "Connection is closed.", error: error)
+//}
+//
+//fileprivate func connectionWillReconnect(error: Error?) {
+//    guard reconnectAlert == nil else {
+//        print("Alert already present. This is unexpected.")
+//        return
+//    }
+//
+//    reconnectAlert = UIAlertController(title: "Reconnecting...", message: "Please wait", preferredStyle: .alert)
+//    self.present(reconnectAlert!, animated: true, completion: nil)
+//}
+//
+//fileprivate func connectionDidReconnect() {
+//    reconnectAlert?.dismiss(animated: true, completion: nil)
+//    reconnectAlert = nil
+//}
 
 func blockUI(message: String, error: Error?) {
     var message = message

@@ -200,3 +200,9 @@ struct ChangeModel :Codable {
     var oldValue : String?
     var newValue : String?
 }
+
+
+struct ChatMessage :Codable {
+    var target : String?
+    var arguments : [String]?
+}

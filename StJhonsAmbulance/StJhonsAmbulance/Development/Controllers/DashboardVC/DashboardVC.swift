@@ -331,7 +331,9 @@ class DashboardVC: ENTALDBaseViewController{
             
         }else if (controller == "sjavms_messages"){
 //            self.tabbar.selectedIndex = 4
-            self.tabBarController?.selectedIndex = 4
+            let vc = SignalRVC()
+            self.navigationController?.pushViewController(vc, animated: true)
+//            self.tabBarController?.selectedIndex = 4
 //            ENTALDControllers.shared.showMessageScreen(type: .ENTALDPUSH, from: self,  dataObj: true) { params, controller in
 //                self.openNextScreen(controller:params as? String)
 //            }
