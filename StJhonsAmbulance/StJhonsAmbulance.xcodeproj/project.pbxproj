@@ -135,6 +135,10 @@
 		1D92A48B29B22A4A00D5C8E3 /* MessageDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D92A48929B22A4A00D5C8E3 /* MessageDetailVC.xib */; };
 		1D9573A12A362F3600FFAF6E /* SignalRVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D95739F2A362F3600FFAF6E /* SignalRVC.swift */; };
 		1D9573A22A362F3600FFAF6E /* SignalRVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D9573A02A362F3600FFAF6E /* SignalRVC.xib */; };
+		1D9AF7D12A481BB40071A02C /* SignalRTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9AF7CF2A481BB40071A02C /* SignalRTVC.swift */; };
+		1D9AF7D22A481BB40071A02C /* SignalRTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D9AF7D02A481BB40071A02C /* SignalRTVC.xib */; };
+		1D9AF7DA2A4983B50071A02C /* MessagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9AF7D82A4983B50071A02C /* MessagesCell.swift */; };
+		1D9AF7DB2A4983B50071A02C /* MessagesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D9AF7D92A4983B50071A02C /* MessagesCell.xib */; };
 		1DA0A39129E0B73500284A4B /* VolunteerHourDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA0A38F29E0B73500284A4B /* VolunteerHourDetailVC.swift */; };
 		1DA0A39229E0B73500284A4B /* VolunteerHourDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DA0A39029E0B73500284A4B /* VolunteerHourDetailVC.xib */; };
 		1DA8F1A7299F512200640242 /* EventDetailCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA8F1A5299F512200640242 /* EventDetailCVC.swift */; };
@@ -501,6 +505,10 @@
 		1D92A48929B22A4A00D5C8E3 /* MessageDetailVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageDetailVC.xib; sourceTree = "<group>"; };
 		1D95739F2A362F3600FFAF6E /* SignalRVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalRVC.swift; sourceTree = "<group>"; };
 		1D9573A02A362F3600FFAF6E /* SignalRVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignalRVC.xib; sourceTree = "<group>"; };
+		1D9AF7CF2A481BB40071A02C /* SignalRTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalRTVC.swift; sourceTree = "<group>"; };
+		1D9AF7D02A481BB40071A02C /* SignalRTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignalRTVC.xib; sourceTree = "<group>"; };
+		1D9AF7D82A4983B50071A02C /* MessagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesCell.swift; sourceTree = "<group>"; };
+		1D9AF7D92A4983B50071A02C /* MessagesCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessagesCell.xib; sourceTree = "<group>"; };
 		1DA0A38F29E0B73500284A4B /* VolunteerHourDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerHourDetailVC.swift; sourceTree = "<group>"; };
 		1DA0A39029E0B73500284A4B /* VolunteerHourDetailVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VolunteerHourDetailVC.xib; sourceTree = "<group>"; };
 		1DA8F1A5299F512200640242 /* EventDetailCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailCVC.swift; sourceTree = "<group>"; };
@@ -1303,10 +1311,29 @@
 		1D9573992A362EBB00FFAF6E /* SignalRVC */ = {
 			isa = PBXGroup;
 			children = (
+				1D9AF7CE2A481B990071A02C /* SignalRTVC */,
 				1D95739F2A362F3600FFAF6E /* SignalRVC.swift */,
 				1D9573A02A362F3600FFAF6E /* SignalRVC.xib */,
 			);
 			path = SignalRVC;
+			sourceTree = "<group>";
+		};
+		1D9AF7CE2A481B990071A02C /* SignalRTVC */ = {
+			isa = PBXGroup;
+			children = (
+				1D9AF7CF2A481BB40071A02C /* SignalRTVC.swift */,
+				1D9AF7D02A481BB40071A02C /* SignalRTVC.xib */,
+			);
+			path = SignalRTVC;
+			sourceTree = "<group>";
+		};
+		1D9AF7D32A4983720071A02C /* MessagesCell */ = {
+			isa = PBXGroup;
+			children = (
+				1D9AF7D82A4983B50071A02C /* MessagesCell.swift */,
+				1D9AF7D92A4983B50071A02C /* MessagesCell.xib */,
+			);
+			path = MessagesCell;
 			sourceTree = "<group>";
 		};
 		1DA0A38E29E0B71100284A4B /* VolunteerHourDetailVC */ = {
@@ -1652,6 +1679,7 @@
 		353C61392813ECF400CC8B7F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1D9AF7D32A4983720071A02C /* MessagesCell */,
 				1D4483EB2A44BA2D0077BD95 /* VolunteerEventVC */,
 				1D9573992A362EBB00FFAF6E /* SignalRVC */,
 				1DEBF86C2A196744000070C1 /* CalenderHourVC */,
@@ -2374,6 +2402,7 @@
 				E47F99BD297DC8F900BF793B /* DashboardVC.xib in Resources */,
 				1D58BA56298CFBB0001FE5FD /* EmptyView.xib in Resources */,
 				1D10818829DCC41F0070AE9D /* ParticipationDetailVC.xib in Resources */,
+				1D9AF7DB2A4983B50071A02C /* MessagesCell.xib in Resources */,
 				E43FFCC529B5CD19008814C2 /* CreateEventFormVC.xib in Resources */,
 				1D1442FC2983E69B001F3B15 /* PendingShiftTVC.xib in Resources */,
 				1D9573A22A362F3600FFAF6E /* SignalRVC.xib in Resources */,
@@ -2395,6 +2424,7 @@
 				1D1D1A4229919D0A00B5454E /* ScheduleVC.xib in Resources */,
 				353C6180281678F900CC8B7F /* splash_loading2.gif in Resources */,
 				E4B2EF0E297C57EB00D05014 /* Quicksand-Regular.ttf in Resources */,
+				1D9AF7D22A481BB40071A02C /* SignalRTVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2708,10 +2738,12 @@
 				353C618A2816A7F500CC8B7F /* ENTALDHttpClient.swift in Sources */,
 				359E9C20282B812D001E3D73 /* ENTALDAlertView.swift in Sources */,
 				1DAAF30229F0A02100D8D846 /* ContactDocumentsTVC.swift in Sources */,
+				1D9AF7D12A481BB40071A02C /* SignalRTVC.swift in Sources */,
 				E4E697342A1B8CB30045D212 /* EventViewList.swift in Sources */,
 				1DAA75D12995A06600C85807 /* LatestEventModel.swift in Sources */,
 				359E9C65282E455F001E3D73 /* CoreLabel.swift in Sources */,
 				353C61822816931000CC8B7F /* ENTALDLibraryAPI.swift in Sources */,
+				1D9AF7DA2A4983B50071A02C /* MessagesCell.swift in Sources */,
 				1DF176FE29893E52005809C6 /* EventsModel.swift in Sources */,
 				1D2AF04229A2520200ACE141 /* WebViewVC.swift in Sources */,
 				E4E697392A1B8CB30045D212 /* ListViewData.swift in Sources */,
