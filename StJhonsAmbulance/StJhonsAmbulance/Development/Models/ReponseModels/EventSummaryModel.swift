@@ -202,13 +202,14 @@ struct ChangeModel :Codable {
 }
 
 
-struct ChatMessage :Codable {
-    var target : String?
-    var arguments : [MessageArguments]?
+struct ChatMessage : Decodable {
+    var data : MessageArguments?
 }
 
 
 struct MessageArguments :Codable {
     var name : String?
+    var image : String?
     var message : String?
+    
 }

@@ -94,21 +94,16 @@ override func viewDidAppear(_ animated: Bool) {
         if let hub = self.chatHubConnection {
             hub.delegate = self
             // Set our callbacks for the messages we expect from the SignalR hub.
-            hub.on(method: "receiveBroadCastMessage") { argumentExtractor in
+            hub.on(method: "receiveBroadCastMessage", callback: { argumentExtractor in
                 do {
-                    let message = try argumentExtractor.getArgument(type: ChatMessage.self)
-                    
-//                    let data = Data((message?.arguments?.utf8)!)
-//                    let str = try JSONDecoder().decode(MessageArguments.self, from: data)
-                    
-                    print("message \(message.arguments?.first)")
-                    
-                }catch(let err){
-                    print("Hi received a message \(err.localizedDescription)")
+                    let response = try argumentExtractor.getArgument(type: String.self)
+                    let model = response.parse(to: ChatMessage.self)
+                    self.appendMessage(message: model?.data?.message ?? "")
+                    print("Response: \(model?.data?.message ?? "")")
+                }catch(let error){
+                    print(error)
                 }
-                
-            }
-            // Start the hub connection.
+            })
             hub.start()
         }
         
@@ -142,7 +137,7 @@ override func didReceiveMemoryWarning() {
     let message = txtMessage.text
     if message != "" {
         
-        chatHubConnection?.send(method: "sendBroadCastMessage", message,"\(UserDefaults.standard.contactIdToken ?? "")" ,"Usman Muhammad", "test.jpg", sendDidComplete: { error in
+        chatHubConnection?.send(method: "sendBroadCastMessage", message,"\(UserDefaults.standard.contactIdToken ?? "")" ,"\(UserDefaults.standard.userInfo?.fullname ?? "")", "test.jpg", sendDidComplete: { error in
             if let e = error {
                 self.appendMessage(message: "Error: \(e)")
             }
