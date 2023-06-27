@@ -47,7 +47,7 @@ class SignalRVC: ENTALDBaseViewController, UITableViewDelegate, UITableViewDataS
     private var chatHubConnection: HubConnection?
     private var chatHubConnectionDelegate: HubConnectionDelegate?
     private var name = ""
-    private var messages: [String] = []
+    private var messages: [MessageArguments] = []
     private var reconnectAlert: UIAlertController?
     
     @IBOutlet weak var tableView: UITableView!
@@ -94,12 +94,16 @@ override func viewDidAppear(_ animated: Bool) {
         if let hub = self.chatHubConnection {
             hub.delegate = self
             // Set our callbacks for the messages we expect from the SignalR hub.
-            hub.on(method: "receiveBroadCastMessage", callback: { argumentExtractor in
+            hub.on(method: "receiveBroadCastMessage", callback: {[weak self] argumentExtractor in
+                guard let self = self else {return}
                 do {
                     let response = try argumentExtractor.getArgument(type: String.self)
-                    let model = response.parse(to: ChatMessage.self)
-                    self.appendMessage(message: model?.data?.message ?? "")
-                    print("Response: \(model?.data?.message ?? "")")
+                    if let model = response.parse(to: ChatMessage.self), let message = model.data {
+                        self.appendMessage(model: message)
+                        print("Response: \(message.message ?? "")")
+                    }
+                    
+                    
                 }catch(let error){
                     print(error)
                 }
@@ -139,7 +143,7 @@ override func didReceiveMemoryWarning() {
         
         chatHubConnection?.send(method: "sendBroadCastMessage", message,"\(UserDefaults.standard.contactIdToken ?? "")" ,"\(UserDefaults.standard.userInfo?.fullname ?? "")", "test.jpg", sendDidComplete: { error in
             if let e = error {
-                self.appendMessage(message: "Error: \(e)")
+                print("Sending Error \(e)")
             }
         })
         
@@ -152,9 +156,9 @@ override func didReceiveMemoryWarning() {
     tableView.reloadData()
 }
 
-private func appendMessage(message: String) {
+private func appendMessage(model: MessageArguments) {
     self.dispatchQueue.sync {
-        self.messages.append(message)
+        self.messages.append(model)
     }
 
     self.tableView.beginUpdates()
@@ -196,9 +200,8 @@ fileprivate func connectionDidOpen() {
 func blockUI(message: String, error: Error?) {
     var message = message
     if let e = error {
-        message.append(" Error: \(e)")
+       print("Error \(e)")
     }
-    appendMessage(message: message)
     toggleUI(isEnabled: false)
 }
 
@@ -219,8 +222,9 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
     let cell = tableView.dequeueReusableCell(withIdentifier: "MessagesCell", for: indexPath) as! MessagesCell
     let row = indexPath.row
     
-//    cell.lblName.text =
-    cell.lblMessage?.text = messages[row]
+    cell.lblName.text = messages[row].name ?? ""
+    cell.lblMessage?.text = messages[row].message ?? ""
+    
     return cell
 }
 }
