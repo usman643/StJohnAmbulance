@@ -30,6 +30,7 @@ class DashboardVC: ENTALDBaseViewController{
     
     @IBOutlet weak var headerView: UIView!
     
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var awardNumView: UIView!
     @IBOutlet weak var lblAward: UILabel!
     @IBOutlet weak var btnSideMenu: UIButton!
@@ -68,17 +69,17 @@ class DashboardVC: ENTALDBaseViewController{
     @IBOutlet weak var lblEvent: UILabel!
     @IBOutlet weak var lblTabTitle: UILabel!
     
+    @IBOutlet weak var lblIncomingTitle: UILabel!
     @IBOutlet weak var collectionview: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        tableView.register(UINib(nibName: "VolunteerIncomingCell", bundle: nil), forCellReuseIdentifier: "VolunteerIncomingCellex")
         decorateUI()
-
+        getGroups()
         setupContent()
         getVolunteerAward()
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-        // for latest event 
-//            self.getLatestIncomingEvent()
-//        }
+        setupTableView()
         setupCollectionView()
         
         gridData = [
@@ -92,7 +93,7 @@ class DashboardVC: ENTALDBaseViewController{
                 ]
 //        getDashBoardOrder()
         
-        getGroups()
+        
         getGender()
         getPrefferedNoun()
         getPrefferedMethodContact()
@@ -113,6 +114,8 @@ class DashboardVC: ENTALDBaseViewController{
     func decorateUI(){
 //        self.navigationController?.setNavigationBarHidden(true, animated: false)
 //        self.navigationController?.navigationBar.isHidden = true
+        lblIncomingTitle.font = UIFont.BoldFont(20)
+        lblIncomingTitle.textColor = UIColor.themeBlackText
         profileImg.layer.cornerRadius = profileImg.frame.size.height/2
 //        campImgView.layer.cornerRadius = campImgView.frame.size.height/2
 //        messageImgView.layer.cornerRadius = messageImgView.frame.size.height/2
@@ -196,6 +199,13 @@ class DashboardVC: ENTALDBaseViewController{
 //        collectionview.dragDelegate = self
 //        collectionview.dropDelegate = self
 //        collectionview.dragInteractionEnabled = true
+    }
+    
+    private func setupTableView(){
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UINib(nibName: "VolunteerIncomingCell", bundle: nil), forCellReuseIdentifier: "VolunteerIncomingCell")
     }
 
     
@@ -545,98 +555,93 @@ class DashboardVC: ENTALDBaseViewController{
             case .success(value: let response):
                
                     
-                    var index = NSNotFound
-                    for i in (0..<(self.gridData?.count ?? 0 )){
-                        if (self.gridData?[i].key ==  "sjavms_youthcamp"){
-                            index = i
-                        }
-                    }
-                DispatchQueue.main.async {
-                    if let award = response.value {
-                        self.latestEventData = award
-                        if ((self.latestEventData?.count ?? 0 ) > 0){
-                            self.gridData?[index].title = self.latestEventData?[0].sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
-                            if (self.latestEventData?[0].sjavms_start != nil && self.latestEventData?[0].sjavms_start != ""){
-                                let startData = DateFormatManager.shared.formatDateStrToStr(date: self.latestEventData?[0].sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
-                                self.gridData?[index].subTitle = startData
-                                self.collectionview.reloadData()
-                            }else{
-                                self.gridData?[index].subTitle  = ""
-                            }
-                        }else{
-                            DispatchQueue.main.async {
-                                self.gridData?[index].title  = "No Upcoming Event"
-                                self.collectionview.reloadData()
-                            }
-                        }
+//                    var index = NSNotFound
+//                    for i in (0..<(self.gridData?.count ?? 0 )){
+//                        if (self.gridData?[i].key ==  "sjavms_youthcamp"){
+//                            index = i
+//                        }
+//                    }
+//                DispatchQueue.main.async {
+//                    if let award = response.value {
+//                        self.latestEventData = award
+//                        if ((self.latestEventData?.count ?? 0 ) > 0){
+//                            self.gridData?[index].title = self.latestEventData?[0].sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
+//                            if (self.latestEventData?[0].sjavms_start != nil && self.latestEventData?[0].sjavms_start != ""){
+//                                let startData = DateFormatManager.shared.formatDateStrToStr(date: self.latestEventData?[0].sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
+//                                self.gridData?[index].subTitle = startData
+//                                self.collectionview.reloadData()
+//                            }else{
+//                                self.gridData?[index].subTitle  = ""
+//                            }
+//                        }else{
+//                            DispatchQueue.main.async {
+//                                self.gridData?[index].title  = "No Upcoming Event"
+//                                self.collectionview.reloadData()
+//                            }
+//                        }
+//                    }else{
+//                        DispatchQueue.main.async {
+//                            self.gridData?[index].title  = "No Upcoming Event"
+//                            self.collectionview.reloadData()
+//                        }
+//                    }
+//                }
+                
+                
+                if let apiData = response.value {
+                    self.latestEventData = apiData
+                    
+                    if (self.latestEventData?.count == 0 || self.latestEventData?.count == nil){
+                        self.showEmptyView(tableVw: self.tableView)
                     }else{
                         DispatchQueue.main.async {
-                            self.gridData?[index].title  = "No Upcoming Event"
-                            self.collectionview.reloadData()
+                            for subview in self.tableView.subviews {
+                                subview.removeFromSuperview()
+                            }
                         }
                     }
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }else{
+                    self.showEmptyView(tableVw: self.tableView)
                 }
+            
+                
+                
+                
+                
                 
             case .error(let error, let errorResponse):
                 var message = error.message
                 if let err = errorResponse {
                     message = err.error
                 }
-//                DispatchQueue.main.async {
-//                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
-//                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
             }
+        }
+    }
+    
+    func showEmptyView(tableVw : UITableView){
+        DispatchQueue.main.async {
+            let view = EmptyView.instanceFromNib()
+            view.frame = tableVw.frame
+            tableVw.addSubview(view)
         }
     }
  
 }
 
 
-extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
+extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, UITableViewDelegate,UITableViewDataSource{
 //,UICollectionViewDragDelegate,UICollectionViewDropDelegate {
     
     
     
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return gridData?.count ?? 0
-    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CSDashBaordCVC", for: indexPath) as! CSDashBaordCVC
-        
-        cell.lblTitle.text = gridData?[indexPath.item].title
-        cell.lblCount.text = gridData?[indexPath.item].subTitle
-        cell.imgView.image = UIImage(named: gridData?[indexPath.item].icon ?? "")
-        cell.mainView.backgroundColor = gridData?[indexPath.item].bgColor
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! CSDashBaordCVC
-        
-                UIView.transition(from: cell.mainView,
-                                  to: cell.mainView,
-                                  duration: 0.7,
-                                  options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in
-                    if status {
-                        self.openNextScreen(controller:self.gridData?[indexPath.row].key)
-                    }
-                }
-//        self.openNextScreen(controller:self.gridData?[indexPath.row].key)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-         let cellWidth = (UIScreen.main.bounds.size.width - 6)/2
 
-        let height = (self.collectionview.frame.size.height - 100 ) / 3
-        
-        return CGSize(width: cellWidth, height: height )
-    
-    }
     
 //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        self.view.endEditing(true)
@@ -1252,7 +1257,7 @@ extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource,UICo
 //                            self.setSelectedGroup(data: data)
 //                        }
                     }
-                    
+                    self.getLatestIncomingEvent()
                     
                 }
                 break
@@ -1266,6 +1271,86 @@ extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource,UICo
                 }
             }
         }
+    }
+    
+//MARK: CollectionView Deletegate
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return gridData?.count ?? 0
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CSDashBaordCVC", for: indexPath) as! CSDashBaordCVC
+        
+        cell.lblTitle.text = gridData?[indexPath.item].title
+        cell.lblCount.text = gridData?[indexPath.item].subTitle
+        cell.imgView.image = UIImage(named: gridData?[indexPath.item].icon ?? "")
+        cell.mainView.backgroundColor = gridData?[indexPath.item].bgColor
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! CSDashBaordCVC
+        
+                UIView.transition(from: cell.mainView,
+                                  to: cell.mainView,
+                                  duration: 0.7,
+                                  options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in
+                    if status {
+                        self.openNextScreen(controller:self.gridData?[indexPath.row].key)
+                    }
+                }
+//        self.openNextScreen(controller:self.gridData?[indexPath.row].key)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+         let cellWidth = (UIScreen.main.bounds.size.width - 6)/2
+
+        let height = (self.collectionview.frame.size.height - 20) / 2
+        
+        return CGSize(width: cellWidth, height: height )
+    
+    }
+    
+    
+    //MARK: TableView Deletegates
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.latestEventData?.count ?? 0
+    }
+    
+    
+    
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "VolunteerIncomingCell") as! VolunteerIncomingCell
+        
+        let rowModel = self.latestEventData?[indexPath.row]
+        cell.setupContent(cellModel: rowModel)
+        
+        
+        cell.btnView.tag = indexPath.row
+        cell.btnView.addTarget(self, action: #selector(self.viewDetail(_:)), for: .touchUpInside)
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+   
+    
+    @objc func viewDetail(_ sender:UIButton){
+        let tag = sender.tag
+        let rowModel = self.latestEventData?[tag]
+
+//        ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: rowModel, eventType : "schedule" )  { params, controller in
+//            self.getScheduleInfo()
+//        }
     }
     
     

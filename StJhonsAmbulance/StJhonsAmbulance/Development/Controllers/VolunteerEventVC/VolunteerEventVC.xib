@@ -263,7 +263,7 @@
                                             </constraints>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" title="Event">
-                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="titleColor" name="themeBlackText"/>
                                             </state>
                                             <connections>
                                                 <action selector="eventTableShow:" destination="-1" eventType="touchUpInside" id="Yqs-fB-Z4Y"/>
@@ -276,7 +276,7 @@
                                             </constraints>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" title="Non Event">
-                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="titleColor" name="themeBlackText"/>
                                             </state>
                                             <connections>
                                                 <action selector="nonEventTableShow:" destination="-1" eventType="touchUpInside" id="jbL-pY-QOS"/>
@@ -419,6 +419,9 @@
         </namedColor>
         <namedColor name="secondryGreen">
             <color red="0.0" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="themeBlackText">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="themeLight">
             <color red="0.93725490196078431" green="1" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

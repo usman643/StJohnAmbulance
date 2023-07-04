@@ -48,7 +48,7 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
     func registerCell(){
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UINib(nibName: "ScheduleTVC", bundle: nil), forCellReuseIdentifier: "ScheduleTVC")
+        tableView.register(UINib(nibName: "ScheduleCell", bundle: nil), forCellReuseIdentifier: "ScheduleCell")
     }
     
     func decorateUI(){
@@ -433,27 +433,45 @@ extension ScheduleVC : UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ScheduleTVC", for: indexPath) as! ScheduleTVC
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ScheduleCell", for: indexPath) as! ScheduleCell
         let rowModel = scheduleData?[indexPath.row]
         cell.setContent(cellModel : rowModel)
         
-        if indexPath.row % 2 == 0{
-            cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-        }else{
-            cell.backgroundColor = UIColor.viewLightColor
-//            cell.seperatorView.backgroundColor = UIColor.gray
-        }
+        cell.btnView.tag = indexPath.row
+        cell.btnView.addTarget(self, action: #selector(self.viewDetail(_:)), for: .touchUpInside)
+        
+        
+        
+//        if indexPath.row % 2 == 0{
+//            cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+//        }else{
+//            cell.backgroundColor = UIColor.viewLightColor
+////            cell.seperatorView.backgroundColor = UIColor.gray
+//        }
         
         return cell
     }
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let rowModel = scheduleData?[indexPath.row]
+//
+//        ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: rowModel, eventType : "schedule" )  { params, controller in
+//            self.getScheduleInfo()
+//        }
+//    }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let rowModel = scheduleData?[indexPath.row]
+    @objc func viewDetail(_ sender:UIButton){
+        let tag = sender.tag
+        let rowModel = scheduleData?[tag]
         
         ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: rowModel, eventType : "schedule" )  { params, controller in
             self.getScheduleInfo()
         }
     }
+    
+    
+    
+    
 }
 
 

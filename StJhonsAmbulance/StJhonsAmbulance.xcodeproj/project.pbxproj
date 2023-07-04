@@ -186,6 +186,10 @@
 		1DD877E329EDE7F500863ADC /* DocumentResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD877E229EDE7F500863ADC /* DocumentResponseModel.swift */; };
 		1DD877EB29EDEC4F00863ADC /* ContractDocumentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD877E929EDEC4F00863ADC /* ContractDocumentVC.swift */; };
 		1DD877EC29EDEC4F00863ADC /* ContractDocumentVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DD877EA29EDEC4F00863ADC /* ContractDocumentVC.xib */; };
+		1DDA4F9C2A53541B00D46136 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDA4F9A2A53541B00D46136 /* ScheduleCell.swift */; };
+		1DDA4F9D2A53541B00D46136 /* ScheduleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDA4F9B2A53541B00D46136 /* ScheduleCell.xib */; };
+		1DDA4FA12A535BAD00D46136 /* VolunteerIncomingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDA4F9F2A535BAD00D46136 /* VolunteerIncomingCell.swift */; };
+		1DDA4FA22A535BAD00D46136 /* VolunteerIncomingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDA4FA02A535BAD00D46136 /* VolunteerIncomingCell.xib */; };
 		1DE52A282991B87B0087DC85 /* VolunteerEventTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE52A262991B87B0087DC85 /* VolunteerEventTVC.swift */; };
 		1DE52A292991B87B0087DC85 /* VolunteerEventTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DE52A272991B87B0087DC85 /* VolunteerEventTVC.xib */; };
 		1DEBF86F2A196771000070C1 /* CalenderHourVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DEBF86D2A196771000070C1 /* CalenderHourVC.swift */; };
@@ -556,6 +560,10 @@
 		1DD877E229EDE7F500863ADC /* DocumentResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentResponseModel.swift; sourceTree = "<group>"; };
 		1DD877E929EDEC4F00863ADC /* ContractDocumentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractDocumentVC.swift; sourceTree = "<group>"; };
 		1DD877EA29EDEC4F00863ADC /* ContractDocumentVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContractDocumentVC.xib; sourceTree = "<group>"; };
+		1DDA4F9A2A53541B00D46136 /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
+		1DDA4F9B2A53541B00D46136 /* ScheduleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleCell.xib; sourceTree = "<group>"; };
+		1DDA4F9F2A535BAD00D46136 /* VolunteerIncomingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerIncomingCell.swift; sourceTree = "<group>"; };
+		1DDA4FA02A535BAD00D46136 /* VolunteerIncomingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VolunteerIncomingCell.xib; sourceTree = "<group>"; };
 		1DE52A262991B87B0087DC85 /* VolunteerEventTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerEventTVC.swift; sourceTree = "<group>"; };
 		1DE52A272991B87B0087DC85 /* VolunteerEventTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VolunteerEventTVC.xib; sourceTree = "<group>"; };
 		1DEBF86D2A196771000070C1 /* CalenderHourVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderHourVC.swift; sourceTree = "<group>"; };
@@ -907,6 +915,7 @@
 		1D1D1A3E29919CDE00B5454E /* ScheduleVC */ = {
 			isa = PBXGroup;
 			children = (
+				1DDA4F992A5353FD00D46136 /* ScheduleCell */,
 				1D1D1A4329919D0E00B5454E /* ScheduleTVC */,
 				1D1D1A3F29919D0A00B5454E /* ScheduleVC.swift */,
 				1D1D1A4029919D0A00B5454E /* ScheduleVC.xib */,
@@ -1524,6 +1533,24 @@
 			path = ContractDocumentVC;
 			sourceTree = "<group>";
 		};
+		1DDA4F992A5353FD00D46136 /* ScheduleCell */ = {
+			isa = PBXGroup;
+			children = (
+				1DDA4F9A2A53541B00D46136 /* ScheduleCell.swift */,
+				1DDA4F9B2A53541B00D46136 /* ScheduleCell.xib */,
+			);
+			path = ScheduleCell;
+			sourceTree = "<group>";
+		};
+		1DDA4F9E2A535B6000D46136 /* VolunteerIncomingEventCell */ = {
+			isa = PBXGroup;
+			children = (
+				1DDA4F9F2A535BAD00D46136 /* VolunteerIncomingCell.swift */,
+				1DDA4FA02A535BAD00D46136 /* VolunteerIncomingCell.xib */,
+			);
+			path = VolunteerIncomingEventCell;
+			sourceTree = "<group>";
+		};
 		1DEBF86C2A196744000070C1 /* CalenderHourVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -1679,6 +1706,7 @@
 		353C61392813ECF400CC8B7F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1DDA4F9E2A535B6000D46136 /* VolunteerIncomingEventCell */,
 				1D9AF7D32A4983720071A02C /* MessagesCell */,
 				1D4483EB2A44BA2D0077BD95 /* VolunteerEventVC */,
 				1D9573992A362EBB00FFAF6E /* SignalRVC */,
@@ -2383,6 +2411,7 @@
 				359E9C16282B7077001E3D73 /* ENTALDLocalizable.strings in Resources */,
 				1DC2711029CF0E3E00B2D762 /* EventNotesVC.xib in Resources */,
 				E4B2EF0C297C57EB00D05014 /* Quicksand-Bold.ttf in Resources */,
+				1DDA4F9D2A53541B00D46136 /* ScheduleCell.xib in Resources */,
 				E4CF50412A0BA7290033903A /* MapViewController.xib in Resources */,
 				1D0BDEDE29826EC700CC2030 /* VounteerVC.xib in Resources */,
 				E4B2EF10297C57EB00D05014 /* Quicksand-Light.ttf in Resources */,
@@ -2396,6 +2425,7 @@
 				1D762828299E98F200609DED /* SJAQualificationTVC.xib in Resources */,
 				1D4483FC2A44C3270077BD95 /* VolunterEventTVC.xib in Resources */,
 				1D7DECB029CED55600F86A6F /* EventMessagVC.xib in Resources */,
+				1DDA4FA22A535BAD00D46136 /* VolunteerIncomingCell.xib in Resources */,
 				1D10818D29DCD84C0070AE9D /* ParticipationDetailTVC.xib in Resources */,
 				1D2E243E298F727B006AB56A /* EventManageVC.xib in Resources */,
 				1DADA06D29CD9D8600270A70 /* EventLocationVC.xib in Resources */,
@@ -2746,6 +2776,7 @@
 				1D9AF7DA2A4983B50071A02C /* MessagesCell.swift in Sources */,
 				1DF176FE29893E52005809C6 /* EventsModel.swift in Sources */,
 				1D2AF04229A2520200ACE141 /* WebViewVC.swift in Sources */,
+				1DDA4FA12A535BAD00D46136 /* VolunteerIncomingCell.swift in Sources */,
 				E4E697392A1B8CB30045D212 /* ListViewData.swift in Sources */,
 				1D58BA58298CFBBB001FE5FD /* EmptyView.swift in Sources */,
 				E4B2EF16297C633C00D05014 /* LoginVC.swift in Sources */,
@@ -2785,6 +2816,7 @@
 				1DA8F1A7299F512200640242 /* EventDetailCVC.swift in Sources */,
 				1D1442FB2983E69B001F3B15 /* PendingShiftTVC.swift in Sources */,
 				E4E6971E2A1B8CB30045D212 /* CalendarData.swift in Sources */,
+				1DDA4F9C2A53541B00D46136 /* ScheduleCell.swift in Sources */,
 				1D3BD156299D9460008F4178 /* QualificationCertificationVC.swift in Sources */,
 				E4E697302A1B8CB30045D212 /* YearView.swift in Sources */,
 				353C61642814810700CC8B7F /* UIApplication+Extension.swift in Sources */,
@@ -3007,7 +3039,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 46;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3048,7 +3080,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 46;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
 				GENERATE_INFOPLIST_FILE = YES;
