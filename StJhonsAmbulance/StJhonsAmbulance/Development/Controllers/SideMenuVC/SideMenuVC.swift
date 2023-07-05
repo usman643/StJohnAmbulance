@@ -55,10 +55,10 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         lblName.font = UIFont.BoldFont(14)
         lblEmail.font = UIFont.BoldFont(14)
-        lblYearsOfService.font = UIFont.BoldFont(14)
-        lblCurrentYearHours.font = UIFont.BoldFont(14)
-        lblLastYearHours.font = UIFont.BoldFont(14)
-        lblLifetimeHours.font = UIFont.BoldFont(14)
+        lblYearsOfService.font = UIFont.MediumFont(13)
+        lblCurrentYearHours.font = UIFont.MediumFont(13)
+        lblLastYearHours.font = UIFont.MediumFont(13)
+        lblLifetimeHours.font = UIFont.MediumFont(13)
         lblName.textColor = UIColor.textWhiteColor
         lblEmail.textColor = UIColor.textWhiteColor
         lblYearsOfService.textColor = UIColor.textWhiteColor

@@ -142,7 +142,7 @@ extension AchivementVC : UITableViewDelegate,UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AchivementTVC", for: indexPath) as! AchivementTVC
         
         let cellModel = self.awardData?[indexPath.row]
-        cell.lblName.text = cellModel?.msnfp_name
+        cell.lblName.text = cellModel?.name
         if let date = cellModel?.msnfp_awarddate {
             
             let dateStr = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat:"yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
@@ -168,7 +168,7 @@ extension AchivementVC : UITableViewDelegate,UITableViewDataSource {
         if(engagementType == .Calender){
             return 100
         }
-        return 30
+        return UITableView.automaticDimension
     }
     
     @objc func showCalenderEventDetail(_ sender:UIButton){

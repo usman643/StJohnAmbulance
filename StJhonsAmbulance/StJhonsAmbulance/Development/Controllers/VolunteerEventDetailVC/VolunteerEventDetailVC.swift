@@ -556,11 +556,9 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
             case .success(value: let response):
                 
                 if let qualification = response.value {
-                    if ((self.tabDetailData?.count ?? 0) > 0){
+                    
                         self.tabDetailData = qualification
-
-                            self.setupData()
-                    }
+                        self.setupData()
                 }
                 
             case .error(let error, let errorResponse):

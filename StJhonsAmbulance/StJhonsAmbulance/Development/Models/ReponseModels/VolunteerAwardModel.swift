@@ -32,4 +32,13 @@ struct VolunteerAwardModel: Codable{
     let _msnfp_awardid_value : String?
     let msnfp_awarddate : String?
     let msnfp_awardversionid : String?
+    let name : String?
+    
+    enum CodingKeys: String, CodingKey {
+        case msnfp_name
+        case _msnfp_awardid_value
+        case msnfp_awarddate
+        case msnfp_awardversionid
+        case name = "_msnfp_awardid_value@OData.Community.Display.V1.FormattedValue"
+    }
 }
