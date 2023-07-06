@@ -270,7 +270,8 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
         mapContainerVu.addConstraintsWithFormat("H:|[v0]|", views: mapView)
         mapContainerVu.addConstraintsWithFormat("V:|[v0]|", views: mapView)
         
-        let camera = GMSCameraPosition.camera(withLatitude: 45.27996209121132, longitude: -66.06639728779841, zoom: 6.0)
+        let camera = GMSCameraPosition.camera(withLatitude: 61.602682, longitude: -115.154127, zoom: 3.0)
+        
         mapView.camera = camera
     }
     
