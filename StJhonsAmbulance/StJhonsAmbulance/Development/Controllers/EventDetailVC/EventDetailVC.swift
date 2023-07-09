@@ -67,6 +67,11 @@ class EventDetailVC: ENTALDBaseViewController {
         LocationManager.defualt.startLocationUpdates()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
     func registerCell(){
         self.tableView.delegate = self
         self.tableView.dataSource = self

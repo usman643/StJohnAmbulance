@@ -114,8 +114,8 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         
         btnGroupView.layer.cornerRadius = 3
         
-        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
-        selectedTabImg.tintColor = UIColor.themePrimaryColor
+//        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
+//        selectedTabImg.tintColor = UIColor.themePrimaryColor
         
         searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         searchView.layer.borderWidth = 1.5

@@ -79,7 +79,7 @@ class CSLeadTabbarVC: UITabBarController {
         let homeImg = "tabHome".templatedImage
         
         let eventVC = EventVC.loadFromNib()
-        let eventImg = "tabEvent".templatedImage
+        let eventImg = "eventLogo".templatedImage
         
         let checkinVC = MapViewController.loadFromNib()
         let checkinImg = "tabLocation".templatedImage

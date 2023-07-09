@@ -104,6 +104,8 @@
 		1D608B49299C30C400A03B00 /* AdhocHourTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D608B47299C30C400A03B00 /* AdhocHourTVC.xib */; };
 		1D608B4D299C30FF00A03B00 /* VolunteerHourAvailabilityTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D608B4B299C30FF00A03B00 /* VolunteerHourAvailabilityTVC.swift */; };
 		1D608B4E299C30FF00A03B00 /* VolunteerHourAvailabilityTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D608B4C299C30FF00A03B00 /* VolunteerHourAvailabilityTVC.xib */; };
+		1D61B6C12A5B45150044BD26 /* AwardsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D61B6BF2A5B45150044BD26 /* AwardsVC.swift */; };
+		1D61B6C22A5B45150044BD26 /* AwardsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D61B6C02A5B45150044BD26 /* AwardsVC.xib */; };
 		1D64DC9129C1D77E0017608A /* AchivementTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D64DC8F29C1D77E0017608A /* AchivementTVC.swift */; };
 		1D64DC9229C1D77E0017608A /* AchivementTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D64DC9029C1D77E0017608A /* AchivementTVC.xib */; };
 		1D6C772E2A3F8A8D00FD8DD3 /* CSLeadTabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6C772D2A3F8A8D00FD8DD3 /* CSLeadTabbarVC.swift */; };
@@ -478,6 +480,8 @@
 		1D608B47299C30C400A03B00 /* AdhocHourTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdhocHourTVC.xib; sourceTree = "<group>"; };
 		1D608B4B299C30FF00A03B00 /* VolunteerHourAvailabilityTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerHourAvailabilityTVC.swift; sourceTree = "<group>"; };
 		1D608B4C299C30FF00A03B00 /* VolunteerHourAvailabilityTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VolunteerHourAvailabilityTVC.xib; sourceTree = "<group>"; };
+		1D61B6BF2A5B45150044BD26 /* AwardsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsVC.swift; sourceTree = "<group>"; };
+		1D61B6C02A5B45150044BD26 /* AwardsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AwardsVC.xib; sourceTree = "<group>"; };
 		1D64DC8F29C1D77E0017608A /* AchivementTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchivementTVC.swift; sourceTree = "<group>"; };
 		1D64DC9029C1D77E0017608A /* AchivementTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AchivementTVC.xib; sourceTree = "<group>"; };
 		1D6C772D2A3F8A8D00FD8DD3 /* CSLeadTabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSLeadTabbarVC.swift; sourceTree = "<group>"; };
@@ -1196,6 +1200,15 @@
 			path = VolunteerHourAvailabilityTVC;
 			sourceTree = "<group>";
 		};
+		1D61B6BE2A5B44FD0044BD26 /* AwardsVC */ = {
+			isa = PBXGroup;
+			children = (
+				1D61B6BF2A5B45150044BD26 /* AwardsVC.swift */,
+				1D61B6C02A5B45150044BD26 /* AwardsVC.xib */,
+			);
+			path = AwardsVC;
+			sourceTree = "<group>";
+		};
 		1D64DC8E29C1D7650017608A /* AchivementTVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -1662,6 +1675,7 @@
 		353C61362813ECB000CC8B7F /* Development */ = {
 			isa = PBXGroup;
 			children = (
+				1D61B6BE2A5B44FD0044BD26 /* AwardsVC */,
 				353C613D2813ED2B00CC8B7F /* Configurations */,
 				353C61372813ECDE00CC8B7F /* Fonts */,
 				353C613B2813ED0C00CC8B7F /* AppUtils */,
@@ -2439,6 +2453,7 @@
 				1D8A424929CD869800C3FC84 /* EventDescriptionVC.xib in Resources */,
 				1D8A424429CD829600C3FC84 /* EventSummaryScreenTVC.xib in Resources */,
 				359E9C35282D47C2001E3D73 /* onBoardingJson.json in Resources */,
+				1D61B6C22A5B45150044BD26 /* AwardsVC.xib in Resources */,
 				1D4DE855297FBC4000246242 /* CSDashBoardVC.xib in Resources */,
 				E4B2EF0D297C57EB00D05014 /* Quicksand-SemiBold.ttf in Resources */,
 				1DAAF30329F0A02100D8D846 /* ContactDocumentsTVC.xib in Resources */,
@@ -2735,6 +2750,7 @@
 				E48359B6297D7887008CBFFF /* Jwt.m in Sources */,
 				359E9C1A282B71AC001E3D73 /* ENTALDString+Extension.swift in Sources */,
 				353C615A28140D5800CC8B7F /* ENTALDBaseViewController.swift in Sources */,
+				1D61B6C12A5B45150044BD26 /* AwardsVC.swift in Sources */,
 				E4E697522A1B8CB30045D212 /* AllDayEventModel.swift in Sources */,
 				E4E697212A1B8CB30045D212 /* DayPadCell.swift in Sources */,
 				1D608B3E299C2F0E00A03B00 /* AvailabilityVC.swift in Sources */,
@@ -3039,7 +3055,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 46;
+				CURRENT_PROJECT_VERSION = 47;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3080,7 +3096,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 46;
+				CURRENT_PROJECT_VERSION = 47;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
 				GENERATE_INFOPLIST_FILE = YES;

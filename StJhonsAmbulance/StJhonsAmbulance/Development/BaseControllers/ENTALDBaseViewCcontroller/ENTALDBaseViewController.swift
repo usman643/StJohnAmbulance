@@ -75,7 +75,7 @@ class ENTALDBaseViewController: UIViewController, MenuControllerDelegate {
                         
         }else if(named == "Honours & Awards"){
             
-            ENTALDControllers.shared.showAchivementScreen(type: .ENTALDPRESENT_POPOVER, from: self, dataObj: nil, callBack: nil)
+            ENTALDControllers.shared.showAwardScreen(type: .ENTALDPUSH, from: self, dataObj: nil, callBack: nil)
                         
         }else if(named == "Language"){
             

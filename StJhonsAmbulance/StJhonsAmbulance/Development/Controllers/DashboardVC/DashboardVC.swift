@@ -215,7 +215,7 @@ class DashboardVC: ENTALDBaseViewController{
     }
     
     @IBAction func achivementTapped(_ sender: Any) {
-        ENTALDControllers.shared.showAchivementScreen(type: .ENTALDPRESENT_POPOVER, from: self, dataObj: self.awardData, callBack: nil)
+        ENTALDControllers.shared.showAwardScreen(type: .ENTALDPUSH, from: self, dataObj: self.awardData, callBack: nil)
     }
     
     
@@ -1342,11 +1342,30 @@ extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource,UICo
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
+        
+        
+        
+        
+    }
    
     
     @objc func viewDetail(_ sender:UIButton){
         let tag = sender.tag
         let rowModel = self.latestEventData?[tag]
+        
+        ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: rowModel, eventName: "latestEvent") { params, controller in
+           
+
+        }
+        
+        
+        
+        
+        
 
 //        ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: rowModel, eventType : "schedule" )  { params, controller in
 //            self.getScheduleInfo()
