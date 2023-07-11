@@ -46,6 +46,8 @@ class MapViewController: ENTALDBaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        self.getLatestIncomingEvent()
     }
     
     fileprivate func setupLocationPins(){
@@ -73,7 +75,9 @@ class MapViewController: ENTALDBaseViewController {
         mapViewContainer.addConstraintsWithFormat("H:|[v0]|", views: mapView)
         mapViewContainer.addConstraintsWithFormat("V:|[v0]|", views: mapView)
         
-        let camera = GMSCameraPosition.camera(withLatitude: 45.27996209121132, longitude: -66.06639728779841, zoom: 6.0)
+        let camera = GMSCameraPosition.camera(withLatitude: 61.602682, longitude: -115.154127, zoom: 3.0)
+
+//        let camera = GMSCameraPosition.camera(withLatitude: 45.27996209121132, longitude: -66.06639728779841, zoom: 6.0)
         mapView.camera = camera
     }
     
@@ -146,7 +150,7 @@ class MapViewController: ENTALDBaseViewController {
                                 if let checkInData = model?.value {
                                     self.checkInData = checkInData
                                     if ((self.checkInData?.count ?? 0) > 0){
-                                        self.mapArr.append(contentsOf: (checkInData))
+                                        self.mapData.append(contentsOf: (checkInData))
                                     }
                                 }
                                 
