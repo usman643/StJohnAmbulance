@@ -67,7 +67,7 @@ class VolunteerEventVC: ENTALDBaseViewController {
 
     func decorateUI(){
         
-        self.selectEvent()
+        self.selectNonEvent()
         lblScreenTitle.font = UIFont.BoldFont(18)
         pendingImgMainView1.layer.cornerRadius = 15
         yearImgMainView.layer.cornerRadius = 15
@@ -184,12 +184,13 @@ class VolunteerEventVC: ENTALDBaseViewController {
     
    
     @IBAction func eventTableShow(_ sender: Any) {
-        selectEvent()
+        
+        selectNonEvent()
     }
     
     
     @IBAction func nonEventTableShow(_ sender: Any) {
-        selectNonEvent()
+        selectEvent()
     }
     
     
@@ -225,7 +226,12 @@ class VolunteerEventVC: ENTALDBaseViewController {
                 
                 if let apiData = response.value {
                     self.eventData = apiData
-                    self.eventFilterData = apiData
+                    
+                    self.eventData = self.eventData?.sorted {
+                        $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
+                    }
+
+                    self.eventFilterData = self.eventData
                     if (self.eventData?.count == 0 || self.eventData?.count == nil){
                         self.showEmptyView(tableVw: self.tableView)
                     }else{
@@ -287,7 +293,13 @@ class VolunteerEventVC: ENTALDBaseViewController {
                 
                 if let apiData = response.value {
                     self.nonEventData = apiData
-                    self.nonEventFilterData = apiData
+                   
+                    
+                    self.nonEventData = self.nonEventData?.sorted {
+                        $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
+                    }
+                    self.nonEventFilterData = self.nonEventData
+                    
 //                    if (self.nonEventData?.count == 0 || self.nonEventData?.count == nil){
 //                        self.showEmptyView(tableVw: self.nonEventTableView)
 //                    }

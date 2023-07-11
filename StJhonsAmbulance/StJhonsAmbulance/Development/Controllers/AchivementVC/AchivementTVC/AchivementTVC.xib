@@ -29,28 +29,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MbE-v6-bRe">
-                                <rect key="frame" x="94" y="11.999999999999998" width="190" height="20.333333333333329"/>
+                                <rect key="frame" x="46" y="11.999999999999998" width="238" height="20.333333333333329"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PxF-2o-hPO">
-                                <rect key="frame" x="94" y="40.333333333333336" width="190" height="31.666666666666664"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dni-Wg-7jZ">
-                                <rect key="frame" x="44" y="12" width="50" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="ovP-NZ-tAQ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Spv-B5-h8D">
-                                <rect key="frame" x="44" y="40.333333333333336" width="50" height="21"/>
+                                <rect key="frame" x="46" y="40.333333333333336" width="238" height="31.666666666666664"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -60,19 +45,14 @@
                         <constraints>
                             <constraint firstItem="Kdl-zY-aO1" firstAttribute="leading" secondItem="Txm-My-rPx" secondAttribute="leading" constant="12" id="2U1-9l-TrQ"/>
                             <constraint firstItem="PxF-2o-hPO" firstAttribute="trailing" secondItem="MbE-v6-bRe" secondAttribute="trailing" id="5kp-CM-jaI"/>
-                            <constraint firstItem="Dni-Wg-7jZ" firstAttribute="leading" secondItem="Kdl-zY-aO1" secondAttribute="trailing" constant="8" id="7XD-lR-o90"/>
                             <constraint firstAttribute="bottom" secondItem="PxF-2o-hPO" secondAttribute="bottom" constant="12" id="8r4-kt-N12"/>
-                            <constraint firstItem="MbE-v6-bRe" firstAttribute="leading" secondItem="Dni-Wg-7jZ" secondAttribute="trailing" id="A5l-IG-JZ6"/>
                             <constraint firstItem="PxF-2o-hPO" firstAttribute="top" secondItem="MbE-v6-bRe" secondAttribute="bottom" constant="8" id="Adj-MI-8eX"/>
                             <constraint firstItem="PxF-2o-hPO" firstAttribute="leading" secondItem="MbE-v6-bRe" secondAttribute="leading" id="B9G-la-QSy"/>
-                            <constraint firstItem="Spv-B5-h8D" firstAttribute="top" secondItem="PxF-2o-hPO" secondAttribute="top" id="EJ3-Dj-PPs"/>
                             <constraint firstItem="MbE-v6-bRe" firstAttribute="top" secondItem="Txm-My-rPx" secondAttribute="top" constant="12" id="MFk-pP-ccZ"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Kdl-zY-aO1" secondAttribute="bottom" constant="12" id="MQZ-2J-enH"/>
-                            <constraint firstItem="Spv-B5-h8D" firstAttribute="leading" secondItem="Dni-Wg-7jZ" secondAttribute="leading" id="P86-Wh-nck"/>
                             <constraint firstItem="Kdl-zY-aO1" firstAttribute="top" secondItem="Txm-My-rPx" secondAttribute="top" constant="12" id="ZaC-Rm-vh6"/>
-                            <constraint firstItem="Spv-B5-h8D" firstAttribute="width" secondItem="Dni-Wg-7jZ" secondAttribute="width" id="a4p-ba-WH7"/>
                             <constraint firstAttribute="trailing" secondItem="MbE-v6-bRe" secondAttribute="trailing" constant="8" id="mJL-pj-0Yz"/>
-                            <constraint firstItem="Dni-Wg-7jZ" firstAttribute="top" secondItem="Txm-My-rPx" secondAttribute="top" constant="12" id="znR-oS-9kE"/>
+                            <constraint firstItem="MbE-v6-bRe" firstAttribute="leading" secondItem="Kdl-zY-aO1" secondAttribute="trailing" constant="10" id="yqW-Y8-LsD"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -86,9 +66,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="lblDate" destination="PxF-2o-hPO" id="7FD-Kc-kUI"/>
-                <outlet property="lblDateTitle" destination="Spv-B5-h8D" id="MAW-Ca-Mw3"/>
                 <outlet property="lblName" destination="MbE-v6-bRe" id="xoz-zc-jmi"/>
-                <outlet property="lblNameTitle" destination="Dni-Wg-7jZ" id="EEV-Yb-bJR"/>
                 <outlet property="mainView" destination="Txm-My-rPx" id="rRF-3R-9Na"/>
             </connections>
             <point key="canvasLocation" x="166.41221374045801" y="39.436619718309863"/>
