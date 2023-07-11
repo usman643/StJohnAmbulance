@@ -67,7 +67,7 @@ class VolunteerEventVC: ENTALDBaseViewController {
 
     func decorateUI(){
         
-        self.selectNonEvent()
+        self.selectEvent()
         lblScreenTitle.font = UIFont.BoldFont(18)
         pendingImgMainView1.layer.cornerRadius = 15
         yearImgMainView.layer.cornerRadius = 15
@@ -184,13 +184,13 @@ class VolunteerEventVC: ENTALDBaseViewController {
     
    
     @IBAction func eventTableShow(_ sender: Any) {
+        selectEvent()
         
-        selectNonEvent()
     }
     
     
     @IBAction func nonEventTableShow(_ sender: Any) {
-        selectEvent()
+        selectNonEvent()
     }
     
     
@@ -339,23 +339,6 @@ class VolunteerEventVC: ENTALDBaseViewController {
             tableVw.addSubview(view)
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
 }
 

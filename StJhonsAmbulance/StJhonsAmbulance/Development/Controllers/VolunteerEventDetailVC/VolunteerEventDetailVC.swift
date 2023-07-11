@@ -123,16 +123,24 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
                 
                 if let date = self.tabDetailData?[0].msnfp_startingdate {
                     
-                    let dateStr = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat:"yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd hh:mm a")
-                    self.lblEventDate.text = dateStr
+                    let dateStr = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat:"yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
+                    var enddateStr = ""
+                    if let endDate = self.tabDetailData?[0].msnfp_endingdate {
+                        
+                        enddateStr = DateFormatManager.shared.formatDateStrToStr(date: endDate, oldFormat:"yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
+                    }
+                    
+                    
+                    
+                    self.lblEventDate.text = "\(dateStr)\n\(enddateStr)"
                 }else{
                     self.lblEventDate.text = ""
                 }
-                if (self.tabDetailData?[0].msnfp_shifts == true){
-                    let str  = self.lblEventDate.text
-                    self.lblEventDate.text = "\(str ?? "")\n Multi Shift"
-                    
-                }
+//                if (self.tabDetailData?[0].msnfp_shifts == true){
+//                    let str  = self.lblEventDate.text
+//                    self.lblEventDate.text = "\(str ?? "")\n Multi Shift"
+//
+//                }
             }
         }
               

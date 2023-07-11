@@ -63,8 +63,8 @@ class VolunterEventTVC: UITableViewCell {
         
         lblDateTime.text = startTime
         lblStatus.text = ProcessUtils.shared.getStatus(code: cellModel?.msnfp_schedulestatus ?? 0)
-        lblTitle.text = "Title: \(cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "")"
-        lblTotalHours.text = "Total: \(cellModel?.sjavms_hours?.getFormattedNumber() ?? "")"
+        lblTitle.text = "\(cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "")"
+        lblTotalHours.text = "\(cellModel?.sjavms_hours?.getFormattedNumber() ?? "") hour(s)"
         
 //        lblEvent.text =
         

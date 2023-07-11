@@ -9,8 +9,16 @@ import UIKit
 
 class VolunteerHourDetailVC: ENTALDBaseViewController, UISearchTextFieldDelegate {
 
+    
+    var startDateUpdate = false
+    var startTimeUpdate  = false
+    var endDateUpdate   = false
+    var endTimeUpdate = false
+    
+    
     var shiftData :  PendingShiftModelTwo?
     var datePicker = UIDatePicker()
+    var timePicker = UIDatePicker()
     var startDateSelected : String?
     var startTimeSelected : String?
     var endDateSelected  : String?
@@ -42,8 +50,10 @@ class VolunteerHourDetailVC: ENTALDBaseViewController, UISearchTextFieldDelegate
         self.shiftData = self.dataModel as? PendingShiftModelTwo
         
         if #available(iOS 13.4, *) {
-            datePicker.datePickerMode = .dateAndTime
+            datePicker.datePickerMode = .date
             datePicker.preferredDatePickerStyle = .wheels
+            timePicker.datePickerMode = .time
+            timePicker.preferredDatePickerStyle = .wheels
         } else {
             // Fallback on earlier versions
         }
@@ -54,10 +64,11 @@ class VolunteerHourDetailVC: ENTALDBaseViewController, UISearchTextFieldDelegate
         self.txtendTime.tag = 1004
         self.txtstartDate.inputView = datePicker
         self.txtendDate.inputView = datePicker
-        self.txtstartTime.inputView = datePicker
-        self.txtendTime.inputView = datePicker
+        self.txtstartTime.inputView = timePicker
+        self.txtendTime.inputView = timePicker
         
         datePicker.addTarget(self, action: #selector(onChangeDate(_:)), for: .valueChanged)
+        timePicker.addTarget(self, action: #selector(onChangeDate(_:)), for: .valueChanged)
 
         decorateUI()
         setupData()
@@ -66,33 +77,74 @@ class VolunteerHourDetailVC: ENTALDBaseViewController, UISearchTextFieldDelegate
     @objc func onChangeDate(_ sender: UIDatePicker){
         
         let date = datePicker.date
+        let time = timePicker.date
         let dateFormater = DateFormatter()
         let timeFormater = DateFormatter()
         dateFormater.dateFormat = "yyyy/MM/dd"
         timeFormater.dateFormat = "HH:mm"
 
-        if (self.txtstartDate.isFirstResponder || self.txtstartTime.isFirstResponder ){
+        if (self.txtstartDate.isFirstResponder){
             //start date
-            
-            if #available(iOS 15.0, *) {
-                self.txtstartDate.text = dateFormater.string(from: date)
-                self.txtstartTime.text = timeFormater.string(from: date)
-                self.startDateSelected = date.ISO8601Format()
-            } else {
-                // Fallback on earlier versions
-            }
-        }else if (self.txtendDate.isFirstResponder || self.txtendTime.isFirstResponder){
+ 
+            self.txtstartDate.text = dateFormater.string(from: date)
+            startDateUpdate = true
+
+        }else if (self.txtstartTime.isFirstResponder){
+    
+            self.txtstartTime.text = timeFormater.string(from: time)
+            startTimeUpdate = true
+        }else if (self.txtendDate.isFirstResponder){
             //End date
-           
-            if #available(iOS 15.0, *) {
                 self.txtendDate.text = dateFormater.string(from: date)
-                self.txtendTime.text = timeFormater.string(from: date)
-                self.endDateSelected = date.ISO8601Format()
-            } else {
-                // Fallback on earlier versions
-            }
+            endDateUpdate = true
+        }else if (self.txtendTime.isFirstResponder){
+            
+            self.txtendTime.text = timeFormater.string(from: time)
+            endTimeUpdate = true
         }
     }
+    
+    
+//    @objc func onChangeTime(_ sender: UIDatePicker){
+//
+//        let date = datePicker.date
+//
+//        let timeFormater = DateFormatter()
+//
+//        timeFormater.dateFormat = "HH:mm"
+//
+//        if (self.txtstartDate.isFirstResponder){
+//            //start date
+//
+//            if #available(iOS 15.0, *) {
+//
+//                self.txtstartTime.text = timeFormater.string(from: date)
+//                self.startDateSelected = date.ISO8601Format()
+//            } else {
+//                // Fallback on earlier versions
+//            }
+//
+//        }else if (self.txtstartTime.isFirstResponder){
+//
+//
+//
+//
+//
+//
+//
+//
+//        }else if (self.txtendDate.isFirstResponder || self.txtendTime.isFirstResponder){
+//            //End date
+//
+//            if #available(iOS 15.0, *) {
+//                self.txtendDate.text = dateFormater.string(from: date)
+//                self.txtendTime.text = timeFormater.string(from: date)
+//                self.endDateSelected = date.ISO8601Format()
+//            } else {
+//                // Fallback on earlier versions
+//            }
+//        }
+//    }
 
     func decorateUI(){
         lblTitle.font = UIFont.BoldFont(22)
@@ -102,6 +154,12 @@ class VolunteerHourDetailVC: ENTALDBaseViewController, UISearchTextFieldDelegate
             label.font = UIFont.BoldFont(14)
             label.textColor = UIColor.textBlackColor
         }
+        
+        txtstartDate.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0);
+        txtstartTime.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0);
+        txtendDate.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0);
+        txtendTime.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0);
+        
         
         txtstartDate.font = UIFont.RegularFont(13)
         txtstartTime.font = UIFont.RegularFont(13)
@@ -205,7 +263,26 @@ class VolunteerHourDetailVC: ENTALDBaseViewController, UISearchTextFieldDelegate
     }
     
     @IBAction func submitTapped(_ sender: Any) {
+        
+//        let startDate = txtstartDate.text ?? ""
+//        let startTime = txtstartTime.text ?? ""
+//        let endDate = txtendDate.text ?? ""
+//        let endTime = txtendTime.text ?? ""
 
+        if let startDate = txtstartDate.text , let startTime = txtstartTime.text{
+            
+            self.startDateSelected  =   DateFormatManager.shared.formatDateStrToStr(date: "\(startDate) \(startTime)", oldFormat:"yyyy/MM/dd HH:mm", newFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'")
+            
+            
+        }
+        
+        if let endDate = txtstartDate.text , let endTime = txtstartTime.text{
+            
+            self.endDateSelected  =   DateFormatManager.shared.formatDateStrToStr(date: "\(endDate) \(endTime)", oldFormat:"yyyy/MM/dd HH:mm", newFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'")
+            
+            
+        }
+  
         self.updateShiftTime(params: [
             "sjavms_start": self.startDateSelected as? String ?? self.shiftData?.sjavms_start,
             "sjavms_end": self.endDateSelected as? String ?? self.shiftData?.sjavms_end
