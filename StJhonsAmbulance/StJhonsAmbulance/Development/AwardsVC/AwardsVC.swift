@@ -51,7 +51,7 @@ class AwardsVC: ENTALDBaseViewController {
     
     @IBAction func backTapped(_ sender: Any) {
         
-        self.dismiss(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     
