@@ -51,12 +51,11 @@ class MapViewController: ENTALDBaseViewController {
     }
     
     fileprivate func setupLocationPins(){
+        let camera = GMSCameraPosition.camera(withLatitude: 45.27996209121132, longitude: -66.06639728779841, zoom: 3.0)
+        mapView.camera = camera
+        
         for coords in self.mapCoords {
             let markerpic = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: coords.pic ?? "")
-            
-            let camera = GMSCameraPosition.camera(withLatitude: coords.lat, longitude: coords.lng, zoom: 6.0)
-            mapView.camera = camera
-            
             let marker = GMSMarker()
             marker.position = CLLocationCoordinate2D(latitude: coords.lat, longitude: coords.lng)
             marker.map = mapView
@@ -75,7 +74,7 @@ class MapViewController: ENTALDBaseViewController {
         mapViewContainer.addConstraintsWithFormat("H:|[v0]|", views: mapView)
         mapViewContainer.addConstraintsWithFormat("V:|[v0]|", views: mapView)
         
-        let camera = GMSCameraPosition.camera(withLatitude: 61.602682, longitude: -115.154127, zoom: 3.0)
+        let camera = GMSCameraPosition.camera(withLatitude: 45.27996209121132, longitude: -66.06639728779841, zoom: 3.0)
 
 //        let camera = GMSCameraPosition.camera(withLatitude: 45.27996209121132, longitude: -66.06639728779841, zoom: 6.0)
         mapView.camera = camera
@@ -87,7 +86,7 @@ class MapViewController: ENTALDBaseViewController {
     }
     
     func getMapData(){
-        
+        self.mapCoords.removeAll()
         for i in (0..<self.mapData.count){
             
             for j in (0..<(self.mapData[i].sjavms_contact_msnfp_participationschedule_Volunteer?.count ?? 0)){
