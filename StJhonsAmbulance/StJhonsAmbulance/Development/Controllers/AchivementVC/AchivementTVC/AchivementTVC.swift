@@ -14,8 +14,7 @@ class AchivementTVC: UITableViewCell {
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblDate: UILabel!
     
-    @IBOutlet weak var lblNameTitle: UILabel!
-    @IBOutlet weak var lblDateTitle: UILabel!
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -42,10 +41,6 @@ class AchivementTVC: UITableViewCell {
         lblDate.textColor = UIColor.themePrimary
         lblDate.font = UIFont.RegularFont(14)
         
-        lblNameTitle.font = UIFont.BoldFont(14)
-        lblDateTitle.font = UIFont.BoldFont(14)
-        lblNameTitle.textColor = UIColor.themePrimary
-        lblDateTitle.textColor = UIColor.themePrimary
         
     }
     
