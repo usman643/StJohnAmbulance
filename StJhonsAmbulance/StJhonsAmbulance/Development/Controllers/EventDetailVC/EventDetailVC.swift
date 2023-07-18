@@ -389,8 +389,8 @@ class EventDetailVC: ENTALDBaseViewController {
     fileprivate func updateCheckInData(){
         let params = [
             "\(self.paramName)": true,
-            "sjavms_checkedinlatitude": LocationManager.defualt.getRecentLocation().lat,
-            "sjavms_checkedinlongitude" : LocationManager.defualt.getRecentLocation().lng
+            "sjavms_checkedinlatitudevalue": LocationManager.defualt.getRecentLocation().lat,
+            "sjavms_checkedinlongitudevalue" : LocationManager.defualt.getRecentLocation().lng
         ] as [String : Any]
         DispatchQueue.main.async {
             LoadingView.show()

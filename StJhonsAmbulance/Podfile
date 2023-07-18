@@ -16,7 +16,6 @@ target 'StJhonsAmbulance' do
   pod 'Parchment', '~> 3.2'
   pod 'GoogleMaps'
   pod 'FSCalendar'
-  pod 'Starscream'
   pod 'SwiftSignalRClient'
 #  pod 'KVKCalendar'
   
@@ -29,4 +28,15 @@ target 'StJhonsAmbulance' do
     # Pods for testing
   end
 
+end
+
+
+post_install do |installer|
+    installer.generated_projects.each do |project|
+          project.targets.each do |target|
+              target.build_configurations.each do |config|
+                  config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+               end
+          end
+   end
 end

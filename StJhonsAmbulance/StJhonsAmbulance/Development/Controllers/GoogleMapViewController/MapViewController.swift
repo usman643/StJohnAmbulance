@@ -91,7 +91,7 @@ class MapViewController: ENTALDBaseViewController {
             
             for j in (0..<(self.mapData[i].sjavms_contact_msnfp_participationschedule_Volunteer?.count ?? 0)){
                 
-                if let lat = self.mapData[i].sjavms_contact_msnfp_participationschedule_Volunteer?[j].sjavms_checkedinlatitude, let lng = self.mapData[i].sjavms_contact_msnfp_participationschedule_Volunteer?[j].sjavms_checkedinlongitude{
+                if let lat = self.mapData[i].sjavms_contact_msnfp_participationschedule_Volunteer?[j].sjavms_checkedinlatitudevalue, let lng = self.mapData[i].sjavms_contact_msnfp_participationschedule_Volunteer?[j].sjavms_checkedinlongitudevalue{
                     
                     self.mapCoords.append(MapCoordsModel(lat: lat, lng: lng, name: "\(self.mapData[i].fullname ?? "")", pic: "\(self.mapData[i].entityimage ?? "")"))
                     break
@@ -291,7 +291,7 @@ class MapViewController: ENTALDBaseViewController {
         let params : [String:Any] = [
             
             ParameterKeys.select : "fullname,telephone1,_ownerid_value,emailaddress1,bdo_province,address1_postalcode,address1_city,bdo_contactid,_parentcustomerid_value,contactid,entityimage",
-            ParameterKeys.expand : "sjavms_contact_msnfp_participationschedule_Volunteer($select=sjavms_checkedin,sjavms_checkedinlatitude,sjavms_checkedinlongitude,sjavms_checkedinat,sjavms_checkedinlocation;$filter=(_sjavms_volunteerevent_value eq \(eventOppId) and msnfp_schedulestatus eq 335940000))",
+            ParameterKeys.expand : "sjavms_contact_msnfp_participationschedule_Volunteer($select=sjavms_checkedin,sjavms_checkedinlatitude,sjavms_checkedinlongitude,sjavms_checkedinlatitudevalue,sjavms_checkedinlongitudevalue,sjavms_checkedinat,sjavms_checkedinlocation;$filter=(_sjavms_volunteerevent_value eq \(eventOppId) and msnfp_schedulestatus eq 335940000))",
             ParameterKeys.filter : "(sjavms_contact_msnfp_participationschedule_Volunteer/any(o1:(o1/_sjavms_volunteerevent_value eq \(eventOppId) and o1/msnfp_schedulestatus eq 335940000)))",
             ParameterKeys.orderby : "fullname asc"
         ]
