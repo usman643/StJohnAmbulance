@@ -386,7 +386,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
         if let data = self.volunteerData {
             for i in (0..<data.count){
                 
-                if let lat = data[i].sjavms_checkedinlatitude, let lng = data[i].sjavms_checkedinlongitude {
+                if let lat = data[i].sjavms_checkedinlatitudevalue, let lng = data[i].sjavms_checkedinlongitudevalue {
                     
                     self.mapCoords.append(MapCoordsModel(lat: lat, lng: lng, name: "\(data[i].sjavms_Volunteer?.fullname ?? "")", pic: "\(data[i].sjavms_Volunteer?.entityimage ?? "")"))
                     break

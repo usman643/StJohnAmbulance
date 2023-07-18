@@ -87,6 +87,8 @@ struct VolunteerOfEventDataModel : Codable {
     let sjavms_Volunteer : VolunteerOfEventVolunteerModel?
     let sjavms_checkedinlatitude : Double?
     let sjavms_checkedinlongitude : Double?
+    let sjavms_checkedinlatitudevalue : Double?
+    let sjavms_checkedinlongitudevalue : Double?
 //
 //    let msnfp_name : String?
 //    let createdon : String?

@@ -39,8 +39,8 @@ class LoginVC: ENTALDBaseViewController {
 //        self.txtUserName.text = "fostertorihayes@gmail.com"
 //        self.txtPassword.text = "Cleo789$$"
         
-//        self.txtUserName.text = "tfoster@missioncrm.ca"
-//        self.txtPassword.text = "Samson987$"
+        self.txtUserName.text = "tfoster@missioncrm.ca"
+        self.txtPassword.text = "Samson987$"
         
 //        self.txtUserName.text = "dougsalomon@outlook.com"
 //        self.txtPassword.text = "qAz!2#sss"

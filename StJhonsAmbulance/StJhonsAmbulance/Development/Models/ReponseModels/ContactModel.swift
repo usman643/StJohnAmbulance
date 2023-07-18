@@ -101,8 +101,10 @@ struct CheckInModel : Codable{
 struct CheckInModelVolunteerLocationModel : Codable{
     
     let sjavms_checkedin : Bool?
-    let sjavms_checkedinlatitude : Double?
-    let sjavms_checkedinlongitude : Double?
+//    let sjavms_checkedinlatitude : Double?
+//    let sjavms_checkedinlongitude : Double?
+    let sjavms_checkedinlatitudevalue : Double?
+    let sjavms_checkedinlongitudevalue : Double?
 //    let sjavms_checkedinat : String?
 //    let sjavms_checkedinlocation : String?
 //    let _sjavms_volunteer_value : String?
