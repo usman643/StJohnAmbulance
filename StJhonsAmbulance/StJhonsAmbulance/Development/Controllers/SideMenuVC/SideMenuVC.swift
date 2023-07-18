@@ -55,24 +55,25 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         lblName.font = UIFont.BoldFont(14)
         lblEmail.font = UIFont.BoldFont(14)
-        lblYearsOfService.font = UIFont.MediumFont(13)
-        lblCurrentYearHours.font = UIFont.MediumFont(13)
-        lblLastYearHours.font = UIFont.MediumFont(13)
-        lblLifetimeHours.font = UIFont.MediumFont(13)
         lblName.textColor = UIColor.textWhiteColor
         lblEmail.textColor = UIColor.textWhiteColor
-        lblYearsOfService.textColor = UIColor.textWhiteColor
-        lblCurrentYearHours.textColor = UIColor.textWhiteColor
-        lblLastYearHours.textColor = UIColor.textWhiteColor
-        lblLifetimeHours.textColor = UIColor.textWhiteColor
-        
+//        lblYearsOfService.font = UIFont.MediumFont(13)
+//        lblCurrentYearHours.font = UIFont.MediumFont(13)
+//        lblLastYearHours.font = UIFont.MediumFont(13)
+//        lblLifetimeHours.font = UIFont.MediumFont(13)
+//        
+//        lblYearsOfService.textColor = UIColor.textWhiteColor
+//        lblCurrentYearHours.textColor = UIColor.textWhiteColor
+//        lblLastYearHours.textColor = UIColor.textWhiteColor
+//        lblLifetimeHours.textColor = UIColor.textWhiteColor
+//        
         lblName.text = UserDefaults.standard.userInfo?.fullname
         lblEmail.text = UserDefaults.standard.userInfo?.emailaddress1
-        
-        lblYearsOfService.text = "Years of Service : \(UserDefaults.standard.userInfo?.sjavms_qualifiedyearsofservice?.getFormattedNumber() ?? "")"
-        lblCurrentYearHours.text = "Hours Current Year : \(UserDefaults.standard.userInfo?.sjavms_totalhourscompletedthisyear?.getFormattedNumber() ?? "")"
-        lblLastYearHours.text = "Last Year Hours : \(UserDefaults.standard.userInfo?.sjavms_totalhourscompletedpreviousyear?.getFormattedNumber() ?? "")"
-        lblLifetimeHours.text = "Lifetime Hours : \(UserDefaults.standard.userInfo?.msnfp_totalengagementhours?.getFormattedNumber() ?? "")"
+//        
+//        lblYearsOfService.text = "Years of Service : \(UserDefaults.standard.userInfo?.sjavms_qualifiedyearsofservice?.getFormattedNumber() ?? "")"
+//        lblCurrentYearHours.text = "Hours Current Year : \(UserDefaults.standard.userInfo?.sjavms_totalhourscompletedthisyear?.getFormattedNumber() ?? "")"
+//        lblLastYearHours.text = "Last Year Hours : \(UserDefaults.standard.userInfo?.sjavms_totalhourscompletedpreviousyear?.getFormattedNumber() ?? "")"
+//        lblLifetimeHours.text = "Lifetime Hours : \(UserDefaults.standard.userInfo?.msnfp_totalengagementhours?.getFormattedNumber() ?? "")"
         
         imgMainVw.layer.cornerRadius = imgMainVw.frame.size.height/2
         profileImage.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: UserDefaults.standard.userInfo?.entityimage ?? "") ?? UIImage(named: "ic_profile")

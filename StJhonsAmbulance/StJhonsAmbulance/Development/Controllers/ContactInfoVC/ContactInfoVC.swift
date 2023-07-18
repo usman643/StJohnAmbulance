@@ -64,6 +64,11 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
     @IBOutlet weak var btnSubmit: UIButton!
     @IBOutlet weak var profileImg: UIImageView!
     
+    @IBOutlet weak var lblYearsOfService: UILabel!
+    @IBOutlet weak var lblCurrentYearHours: UILabel!
+    @IBOutlet weak var lblLastYearHours: UILabel!
+    @IBOutlet weak var lblLifetimeHours: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -180,8 +185,22 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
         btnSubmit.backgroundColor = UIColor.themePrimaryColor
         btnSubmit.titleLabel?.font = UIFont.BoldFont(16.0)
 //        self.btnSubmit.isEnabled = false
-        
         profileImg.layer.cornerRadius = profileImg.frame.size.height/2
+    
+        lblYearsOfService.font = UIFont.BoldFont(16)
+        lblCurrentYearHours.font = UIFont.BoldFont(16)
+        lblLastYearHours.font = UIFont.BoldFont(16)
+        lblLifetimeHours.font = UIFont.BoldFont(16)
+        
+        lblYearsOfService.textColor = UIColor.themeBlackText
+        lblCurrentYearHours.textColor = UIColor.themeBlackText
+        lblLastYearHours.textColor = UIColor.themeBlackText
+        lblLifetimeHours.textColor = UIColor.themeBlackText
+        
+        lblYearsOfService.text = "Years of Service : \(UserDefaults.standard.userInfo?.sjavms_qualifiedyearsofservice?.getFormattedNumber() ?? "")"
+        lblCurrentYearHours.text = "Hours Current Year : \(UserDefaults.standard.userInfo?.sjavms_totalhourscompletedthisyear?.getFormattedNumber() ?? "")"
+        lblLastYearHours.text = "Last Year Hours : \(UserDefaults.standard.userInfo?.sjavms_totalhourscompletedpreviousyear?.getFormattedNumber() ?? "")"
+        lblLifetimeHours.text = "Lifetime Hours : \(UserDefaults.standard.userInfo?.msnfp_totalengagementhours?.getFormattedNumber() ?? "")"
         
 //        txtFirstName.isUserInteractionEnabled = false
 //        txtLastName.isUserInteractionEnabled = false
@@ -216,8 +235,15 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
         txtPostalCode.text = userDefaultObj?.address1_postalcode ?? ""
         txtEmergencyContactName.text = userDefaultObj?.sjavms_emergencycontactname ?? ""
         txtEmergencyContactPhone.text = userDefaultObj?.sjavms_emergencycontactphone ?? ""
+        var gender = ""
+        if userDefaultObj?.gendercode == 1 {
+            gender = "Male"
+        }else if userDefaultObj?.gendercode ==  0 {
+            gender = "Female"
+        }
+
         
-        let gender = self.getGender(userDefaultObj?.gendercode ?? 0)
+//         = self.getGender(userDefaultObj?.gendercode ?? 0)
         let noun = self.getPreferedNoun(userDefaultObj?.sjavms_preferredpronouns ?? 0)
         let contactMethod = self.getPreferedContactMethod(userDefaultObj?.preferredcontactmethodcode ?? 0)
         

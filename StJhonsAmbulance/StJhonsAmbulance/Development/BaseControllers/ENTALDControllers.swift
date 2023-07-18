@@ -237,10 +237,10 @@ class ENTALDControllers {
     }
     
     func showEventScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
-        let vc = EventVC.loadFromNib()
+        let vc = CSEventVC.loadFromNib()
         vc.callbackToController = callBack
         
-        self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
+        self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
     }
     
     func showPendingShiftScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {

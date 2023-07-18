@@ -51,19 +51,17 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnHome: UIButton!
-    @IBOutlet var allHeadingLabels: [UILabel]!
-    @IBOutlet var allLabels: [UILabel]!
-    
-    @IBOutlet weak var availableHeaderView: UIView!
-    @IBOutlet weak var scheduleHeaderView: UIView!
-    @IBOutlet weak var pastHeaderView: UIView!
+
+    @IBOutlet weak var segment: UISegmentedControl!
     
     @IBOutlet weak var availableTable: UITableView!
     @IBOutlet weak var scheduleTable: UITableView!
     @IBOutlet weak var pastTable: UITableView!
     
-    @IBOutlet weak var lblTabTitle: UILabel!
-    @IBOutlet weak var selectedTabImg: UIImageView!
+    @IBOutlet weak var availableView: UIView!
+    @IBOutlet weak var scheduleView: UIView!
+    @IBOutlet weak var pastView: UIView!
+    
     
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var searchImg: UIImageView!
@@ -81,34 +79,15 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
 
     func decorateUI(){
         
-        for lbltext in allLabels{
-            lbltext.font = UIFont.BoldFont(12)
-            lbltext.textColor = UIColor.themePrimaryWhite
-        }
-        for lbltext in allHeadingLabels{
-            lbltext.font = UIFont.BoldFont(18)
-            lbltext.textColor = UIColor.themePrimaryWhite
-        }
-        
-        availableHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        availableHeaderView.layer.borderWidth = 1
-        
-        scheduleHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        scheduleHeaderView.layer.borderWidth = 1
-        
-        pastHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        pastHeaderView.layer.borderWidth = 1
-//        lblTabTitle.textColor = UIColor.themePrimaryColor
-//        lblTabTitle.font = UIFont.BoldFont(16)
-        
-//        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
-//        selectedTabImg.tintColor = UIColor.themePrimaryColor
-        
         searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         searchView.layer.borderWidth = 1.5
-        searchView.isHidden = true
+        searchView.isHidden = false
         
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        
+        self.availableView.isHidden = false
+        self.scheduleView.isHidden = true
+        self.pastView.isHidden = true
 
     }
     
@@ -116,17 +95,38 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         
         availableTable.delegate = self
         availableTable.dataSource = self
-        availableTable.register(UINib(nibName: "VolunteerEventTVC", bundle: nil), forCellReuseIdentifier: "VolunteerEventTVC")
+        availableTable.register(UINib(nibName: "VolunteersEventsTVC", bundle: nil), forCellReuseIdentifier: "VolunteersEventsTVC")
         
         scheduleTable.delegate = self
         scheduleTable.dataSource = self
-        scheduleTable.register(UINib(nibName: "VolunteerEventTVC", bundle: nil), forCellReuseIdentifier: "VolunteerEventTVC")
+        scheduleTable.register(UINib(nibName: "VolunteersEventsTVC", bundle: nil), forCellReuseIdentifier: "VolunteersEventsTVC")
         
         pastTable.delegate = self
         pastTable.dataSource = self
-        pastTable.register(UINib(nibName: "VolunteerEventTVC", bundle: nil), forCellReuseIdentifier: "VolunteerEventTVC")
+        pastTable.register(UINib(nibName: "VolunteersEventsTVC", bundle: nil), forCellReuseIdentifier: "VolunteersEventsTVC")
 
     }
+    
+    @IBAction func segmenTapped(_ sender: Any) {
+        if self.segment.selectedSegmentIndex == 0 {
+            self.availableView.isHidden = false
+            self.scheduleView.isHidden = true
+            self.pastView.isHidden = true
+           
+        }else if (self.segment.selectedSegmentIndex == 1 ){
+            self.availableView.isHidden = true
+            self.scheduleView.isHidden = false
+            self.pastView.isHidden = true
+        }else if (self.segment.selectedSegmentIndex == 2 ){
+            self.availableView.isHidden = true
+            self.scheduleView.isHidden = true
+            self.pastView.isHidden = false
+        }
+        self.textSearch.text = ""
+        
+        
+    }
+    
     
 //    func openEventDetailScreen(eventId:String){
 //
@@ -149,7 +149,7 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     }
     
     @IBAction func searchCloseTapped(_ sender: Any) {
-        self.searchView.isHidden = true
+//        self.searchView.isHidden = true
         textSearch.endEditing(true)
         textSearch.text = ""
         filterScheduleData = scheduleData
@@ -965,7 +965,7 @@ extension VolunteerEventsVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "VolunteerEventTVC", for: indexPath) as! VolunteerEventTVC
+        let cell = tableView.dequeueReusableCell(withIdentifier: "VolunteersEventsTVC", for: indexPath) as! VolunteersEventsTVC
         
         if (tableView == availableTable){
             let rowModel = self.filterAvailableData?[indexPath.row]
@@ -978,14 +978,6 @@ extension VolunteerEventsVC : UITableViewDelegate, UITableViewDataSource {
         }else if (tableView == pastTable){
             let rowModel = self.filterPastEventData?[indexPath.row]
             cell.setContent(cellModel: rowModel)
-        }
-        
-        if indexPath.row % 2 == 0{
-            cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-            cell.seperatorView.backgroundColor = UIColor.themePrimaryColor
-        }else{
-            cell.backgroundColor = UIColor.viewLightColor
-            cell.seperatorView.backgroundColor = UIColor.gray
         }
         
         return cell

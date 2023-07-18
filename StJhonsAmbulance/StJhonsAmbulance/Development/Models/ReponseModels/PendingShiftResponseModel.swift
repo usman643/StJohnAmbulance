@@ -110,6 +110,7 @@ struct PendingShiftModelTwo : Codable {
     
     let msnfp_name : String?
     let createdon : String?
+    let sjavms_program : String?
     let msnfp_participationscheduleid : String?
     let msnfp_schedulestatus : Int?
     let sjavms_start : String?
@@ -144,8 +145,22 @@ struct VolunteerEventModel : Codable {
     let _sjavms_program_value : String?
     let msnfp_street1 : String?
     let msnfp_engagementopportunityid : String?
+    let program : String?
     
-    
+    enum CodingKeys: String, CodingKey {
+        case sjavms_eventrequirements
+        case msnfp_street2
+        case msnfp_zippostalcode
+        case msnfp_city
+        case msnfp_engagementopportunitytitle
+        case msnfp_location
+        case msnfp_stateprovince
+        case msnfp_street3
+        case _sjavms_program_value
+        case msnfp_street1
+        case msnfp_engagementopportunityid
+        case program = "_sjavms_program_value@OData.Community.Display.V1.FormattedValue"
+    }
     
 }
 

@@ -54,6 +54,7 @@ class VolunteerHourDetailVC: ENTALDBaseViewController, UISearchTextFieldDelegate
             datePicker.preferredDatePickerStyle = .wheels
             timePicker.datePickerMode = .time
             timePicker.preferredDatePickerStyle = .wheels
+            timePicker.minuteInterval = 30;
         } else {
             // Fallback on earlier versions
         }
@@ -246,7 +247,7 @@ class VolunteerHourDetailVC: ENTALDBaseViewController, UISearchTextFieldDelegate
         }
         
         txteventName.text = self.shiftData?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "Not Found"
-        txtprogramName.text = self.shiftData?.event_name ?? "Not Found"
+        txtprogramName.text = self.shiftData?.sjavms_VolunteerEvent?.program ?? "Not Found"
         txteventRequirement.text = self.shiftData?.sjavms_VolunteerEvent?.sjavms_eventrequirements ?? "Not Found"
         txtlocation.text = self.shiftData?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found"
         txtstreetOne.text = self.shiftData?.sjavms_VolunteerEvent?.msnfp_street1 ?? "Not Found"

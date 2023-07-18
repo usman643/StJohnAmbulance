@@ -87,9 +87,9 @@ class DashboardVC: ENTALDBaseViewController{
                     
 //                    DashBoardGridModel(title: "Check In", subTitle: "", bgColor: UIColor.hexString(hex: "AC41DE"), icon: "ic_checkIn", key: "sjavms_checkin"),
                     DashBoardGridModel(title: "My Schedule", subTitle: "", bgColor: UIColor.hexString(hex: "2DD0DA"), icon: "ic_calender", key: "sjavms_myschedule"),
-                    DashBoardGridModel(title: "Messages", subTitle: "", bgColor: UIColor.orangeRedColor, icon: "ic_message", key: "sjavms_messages"),
+                    DashBoardGridModel(title: "Events", subTitle: "", bgColor: UIColor.hexString(hex: "41B8DE"), icon: "ic_event", key: "sjavms_events"),
                     DashBoardGridModel(title: "Hours", subTitle: "", bgColor: UIColor.hexString(hex: "4151DE"), icon: "ic_hour", key: "sjavms_hours"),
-                    DashBoardGridModel(title: "Events", subTitle: "", bgColor: UIColor.hexString(hex: "41B8DE"), icon: "ic_event", key: "sjavms_events")
+                    DashBoardGridModel(title: "Messages", subTitle: "", bgColor: UIColor.orangeRedColor, icon: "ic_message", key: "sjavms_messages")
                 ]
 //        getDashBoardOrder()
         
@@ -374,13 +374,13 @@ class DashboardVC: ENTALDBaseViewController{
 //
 //                })
 //            }
-            self.tabBarController?.selectedIndex = 2
+            self.tabBarController?.selectedIndex = 3
     
         }else if (controller == "sjavms_myschedule"){
 //            ENTALDControllers.shared.showVolunteerScheduleScreen(type: .ENTALDPUSH, from: self) { params, controller in
 //                self.openNextScreen(controller:params as? String)
 //            }
-            self.tabBarController?.selectedIndex = 3
+            self.tabBarController?.selectedIndex = 1
         }else if (controller == "sjavms_hours"){
             ENTALDControllers.shared.showVolunteerHourScreen(type: .ENTALDPUSH, from: self) { params, controller in
                 self.openNextScreen(controller:params as? String)
@@ -389,7 +389,7 @@ class DashboardVC: ENTALDBaseViewController{
 //            ENTALDControllers.shared.showVolunteerEventScreen(type: .ENTALDPUSH, from: self) { params, controller in
 //                self.openNextScreen(controller:params as? String)
 //            }
-            self.tabBarController?.selectedIndex = 1
+            self.tabBarController?.selectedIndex = 2
         }
         
         
@@ -1344,12 +1344,7 @@ extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource,UICo
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        
-        
-        
-        
-        
+    
     }
    
     

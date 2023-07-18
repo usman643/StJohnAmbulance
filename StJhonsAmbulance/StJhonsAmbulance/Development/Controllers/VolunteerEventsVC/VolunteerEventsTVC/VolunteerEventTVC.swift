@@ -140,11 +140,6 @@ class VolunteerEventTVC: UITableViewCell {
             
             delegate?.openAvailableEventDetailScreen(rowModel: self.availableEventdata)
         }
-        
-        
-        
     }
-    
-    
-    
+
 }

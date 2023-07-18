@@ -17,7 +17,7 @@ class ENTALDTabbarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        self.tabBar.tintColor = .themePrimary
+        self.tabBar.tintColor = .themePrimaryColor
         self.tabBar.barTintColor = .themeWhiteText
         UITabBar.appearance().barTintColor = .white
         UITabBar.appearance().selectionIndicatorImage = Bundle.loadImageFromResourceAFBundlePNG(imageName: "tab_bg")
@@ -104,9 +104,9 @@ class ENTALDTabbarViewController: UITabBarController {
        
         viewControllers = [
             self.createNavController(for: homeVC, title: "", image: homeImg),
+            self.createNavController(for: scheduleVC, title: "", image: scheduleImg),
             self.createNavController(for: eventVC, title: "", image: eventImg),
             self.createNavController(for: checkinVC, title: "", image: checkinImg),
-            self.createNavController(for: scheduleVC, title: "", image: scheduleImg),
             self.createNavController(for: messageVC, title: "", image: messageImg)
         ]
     }
