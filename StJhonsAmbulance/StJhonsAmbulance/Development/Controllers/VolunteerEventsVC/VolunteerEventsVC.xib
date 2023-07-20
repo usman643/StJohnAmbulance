@@ -128,6 +128,11 @@
                         <constraint firstItem="0I4-48-c92" firstAttribute="leading" secondItem="GFL-vi-uwZ" secondAttribute="leading" constant="12" id="wvT-fz-cVr"/>
                         <constraint firstAttribute="trailing" secondItem="5fn-9n-uhl" secondAttribute="trailing" constant="8" id="xwl-KC-cQI"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </view>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dks-EE-Yt5">
                     <rect key="frame" x="80" y="157" width="233" height="32"/>

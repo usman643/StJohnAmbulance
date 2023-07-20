@@ -33,6 +33,7 @@ class SignalRVC: ENTALDBaseViewController, UITableViewDelegate, UITableViewDataS
     
     
     var isConnected = false
+    var eventId : String?
 //    var socket : WebSocket!
     
     
@@ -141,7 +142,7 @@ override func didReceiveMemoryWarning() {
     let message = txtMessage.text
     if message != "" {
         
-        chatHubConnection?.send(method: "sendBroadCastMessage", message,"\(UserDefaults.standard.contactIdToken ?? "")" ,"\(UserDefaults.standard.userInfo?.fullname ?? "")", "test.jpg", sendDidComplete: { error in
+        chatHubConnection?.send(method: "sendBroadCastMessage", message,"\(UserDefaults.standard.contactIdToken ?? "")" ,"\(UserDefaults.standard.userInfo?.fullname ?? "")", "test.jpg" , eventId, sendDidComplete: { error in
             if let e = error {
                 print("Sending Error \(e)")
             }

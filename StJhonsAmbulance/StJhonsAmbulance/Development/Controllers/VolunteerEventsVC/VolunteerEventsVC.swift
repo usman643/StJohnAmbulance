@@ -72,6 +72,13 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         super.viewDidLoad()
         registerCells()
         decorateUI()
+//        getScheduleInfo()
+//        getVolunteerPastEvent()
+//        getAvailableInfo()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         getScheduleInfo()
         getVolunteerPastEvent()
         getAvailableInfo()
@@ -88,6 +95,9 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         self.availableView.isHidden = false
         self.scheduleView.isHidden = true
         self.pastView.isHidden = true
+        isAvailabilityTableSearch = true
+        isScheduleTableSearch = false
+        isPastTableSearch = false
 
     }
     
@@ -112,15 +122,27 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
             self.availableView.isHidden = false
             self.scheduleView.isHidden = true
             self.pastView.isHidden = true
+            isAvailabilityTableSearch = true
+            isScheduleTableSearch = false
+            isPastTableSearch = false
            
         }else if (self.segment.selectedSegmentIndex == 1 ){
             self.availableView.isHidden = true
             self.scheduleView.isHidden = false
             self.pastView.isHidden = true
+            isAvailabilityTableSearch = false
+            isScheduleTableSearch = true
+            isPastTableSearch = false
+            
+            
+            
         }else if (self.segment.selectedSegmentIndex == 2 ){
             self.availableView.isHidden = true
             self.scheduleView.isHidden = true
             self.pastView.isHidden = false
+            isAvailabilityTableSearch = false
+            isScheduleTableSearch = false
+            isPastTableSearch = true
         }
         self.textSearch.text = ""
         

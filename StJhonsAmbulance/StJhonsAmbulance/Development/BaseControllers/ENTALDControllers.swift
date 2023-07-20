@@ -482,6 +482,22 @@ class ENTALDControllers {
         self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
     }
     
+    func showSignalRVC(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, eventId:String, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = SignalRVC.loadFromNib()
+        vc.dataModel = dataObj
+        vc.callbackToController = callBack
+        vc.eventId = eventId
+        self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
+    }
+      
+    func showGroupMessageVC(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = InAppMsgVC.loadFromNib()
+        vc.dataModel = dataObj
+        vc.callbackToController = callBack
+        
+        self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
+    }
+    
     
     
     

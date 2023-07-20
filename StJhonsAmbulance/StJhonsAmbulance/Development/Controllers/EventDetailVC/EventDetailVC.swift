@@ -403,8 +403,8 @@ class EventDetailVC: ENTALDBaseViewController {
             
             switch result{
             case .success(value: let response):
-                if let pastEvent = response.value {
-                    
+                if response.value != nil {
+                    self.btnCheckIn.setTitle("Checked In", for: .normal)
                 }
                 
             case .error(let error, let errorResponse):
@@ -414,7 +414,7 @@ class EventDetailVC: ENTALDBaseViewController {
                 }
                 //                self.showEmptyView(tableVw: self.tableView)
                 DispatchQueue.main.async {
-                    //                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
                 }
             }
         }

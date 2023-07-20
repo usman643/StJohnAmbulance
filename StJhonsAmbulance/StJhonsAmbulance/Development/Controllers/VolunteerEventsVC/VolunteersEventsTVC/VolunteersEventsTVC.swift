@@ -21,7 +21,7 @@ class VolunteersEventsTVC: UITableViewCell {
     @IBOutlet weak var lblDateTime: UILabel!
     @IBOutlet weak var btnView: UIButton!
     @IBOutlet weak var lblTitle: UILabel!
-    @IBOutlet weak var lblTotalHours: UILabel!
+    
     @IBOutlet weak var lblLocation: UILabel!
     @IBOutlet weak var seperatorView: UIView!
     @IBOutlet weak var btnDetail: UIButton!
@@ -54,13 +54,13 @@ class VolunteersEventsTVC: UITableViewCell {
         
         btnView.setTitleColor(UIColor.textWhiteColor, for: .normal)
         lblTitle.textColor = UIColor.themeSecondry
-        lblTotalHours.textColor = UIColor.themeSecondry
+        
         lblLocation.textColor = UIColor.themeSecondry
         
         lblDateTime.font =  UIFont.MediumFont(11)
         btnView.titleLabel?.font = UIFont.BoldFont(13)
         lblTitle.font =  UIFont.BoldFont(14)
-        lblTotalHours.font =  UIFont.RegularFont(13)
+        
         lblLocation.font =  UIFont.RegularFont(13)
         
     }

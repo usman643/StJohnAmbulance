@@ -97,10 +97,15 @@ class CSEventVC:ENTALDBaseViewController, UITextFieldDelegate {
 //
 //        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
 //        selectedTabImg.tintColor = UIColor.themePrimaryColor
-        searchView.isHidden = true
+        searchView.isHidden = false
         self.currentView.isHidden = false
         self.upcomingView.isHidden = true
         self.pastView.isHidden = true
+        
+        isCurrentEventTableSearch = true
+        isUpcomingEventTableSearch = false
+        isPastEventTableSearch = false
+        
         
     }
     
@@ -120,7 +125,7 @@ class CSEventVC:ENTALDBaseViewController, UITextFieldDelegate {
     }
     
     @IBAction func searchCloseTapped(_ sender: Any) {
-        self.searchView.isHidden = true
+//        self.searchView.isHidden = true
         textSearch.endEditing(true)
         textSearch.text = ""
         filterCurrentEventData = currentEventData
@@ -184,15 +189,28 @@ class CSEventVC:ENTALDBaseViewController, UITextFieldDelegate {
             self.currentView.isHidden = false
             self.upcomingView.isHidden = true
             self.pastView.isHidden = true
+            
+            isCurrentEventTableSearch = true
+            isUpcomingEventTableSearch = false
+            isPastEventTableSearch = false
            
         }else if (self.segment.selectedSegmentIndex == 1 ){
             self.currentView.isHidden = true
             self.upcomingView.isHidden = false
             self.pastView.isHidden = true
+            
+            isCurrentEventTableSearch = false
+            isUpcomingEventTableSearch = true
+            isPastEventTableSearch = false
+            
         }else if (self.segment.selectedSegmentIndex == 2 ){
             self.currentView.isHidden = true
             self.upcomingView.isHidden = true
             self.pastView.isHidden = false
+            
+            isCurrentEventTableSearch = false
+            isUpcomingEventTableSearch = false
+            isPastEventTableSearch = true
         }
         self.textSearch.text = ""
     }
