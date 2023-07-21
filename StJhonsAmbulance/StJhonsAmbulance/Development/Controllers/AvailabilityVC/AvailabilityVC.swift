@@ -42,15 +42,15 @@ class AvailabilityVC: ENTALDBaseViewController,UITextFieldDelegate {
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var headerLabelView: UIView!
     @IBOutlet var allHeadingLabel: [UILabel]!
+    @IBOutlet weak var segment: UISegmentedControl!
     
    
-    @IBOutlet var allTableLabels: [UILabel]!
-    
-    @IBOutlet weak var adhocHeaderView: UIView!
-    @IBOutlet weak var voluteerHourHeaderView: UIView!
-    @IBOutlet weak var availablityHeaderView: UIView!
-    @IBOutlet var allTableHeadingLabel: [UILabel]!
   
+    @IBOutlet weak var adhocView: UIView!
+    @IBOutlet weak var volunteerHourView: UIView!
+    @IBOutlet weak var availablityView: UIView!
+    
+    
     
     @IBOutlet weak var adhocTableView: UITableView!
     @IBOutlet weak var voluteerHourTableView: UITableView!
@@ -93,10 +93,11 @@ class AvailabilityVC: ENTALDBaseViewController,UITextFieldDelegate {
         adhocTableView.dataSource = self
         voluteerHourTableView.dataSource = self
         availablityTableView.dataSource = self
-        adhocTableView.register(UINib(nibName: "AdhocHourTVC", bundle: nil), forCellReuseIdentifier: "AdhocHourTVC")
-        voluteerHourTableView.register(UINib(nibName: "VolunteerHourAvailabilityTVC", bundle: nil), forCellReuseIdentifier: "VolunteerHourAvailabilityTVC")
+        adhocTableView.register(UINib(nibName: "AdhocHourCell", bundle: nil), forCellReuseIdentifier: "AdhocHourCell")
+        voluteerHourTableView.register(UINib(nibName: "VolunteerHourCell", bundle: nil), forCellReuseIdentifier: "VolunteerHourCell")
         
-        availablityTableView.register(UINib(nibName: "AvailabilityTVC", bundle: nil), forCellReuseIdentifier: "AvailabilityTVC")
+        availablityTableView.register(UINib(nibName: "AvailablityCell", bundle: nil), forCellReuseIdentifier: "AvailablityCell")
+    
     }
     
     func setupContent(){
@@ -121,27 +122,9 @@ class AvailabilityVC: ENTALDBaseViewController,UITextFieldDelegate {
         
         headerLabelView.layer.borderWidth = 1
         headerLabelView.layer.borderColor = UIColor.themePrimaryColor.cgColor
-        
-        adhocHeaderView.layer.borderWidth = 1
-        adhocHeaderView.layer.borderColor = UIColor.themePrimaryColor.cgColor
-        availablityHeaderView.layer.borderWidth = 1
-        availablityHeaderView.layer.borderColor = UIColor.themePrimaryColor.cgColor
-        voluteerHourHeaderView.layer.borderWidth = 1
-        voluteerHourHeaderView.layer.borderColor = UIColor.themePrimaryColor.cgColor
-        
-        
-        for lbltext in allTableHeadingLabel{
-            lbltext.font = UIFont.BoldFont(12)
-            lbltext.textColor = UIColor.themePrimaryColor
-        }
-        
+
         for lbltext in allHeadingLabel{
             lbltext.font = UIFont.BoldFont(14)
-            lbltext.textColor = UIColor.themePrimaryWhite
-        }
-        
-        for lbltext in allTableLabels{
-            lbltext.font = UIFont.BoldFont(10)
             lbltext.textColor = UIColor.themePrimaryWhite
         }
         
@@ -154,7 +137,6 @@ class AvailabilityVC: ENTALDBaseViewController,UITextFieldDelegate {
         
         searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         searchView.layer.borderWidth = 1.5
-        searchView.isHidden = true
         
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
 //        lblTabTitle.textColor = UIColor.themePrimaryColor
@@ -162,7 +144,8 @@ class AvailabilityVC: ENTALDBaseViewController,UITextFieldDelegate {
 //        
 //        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
 //        selectedTabImg.tintColor = UIColor.themePrimaryColor
-        
+        isAdhocTableSearch = true
+        searchView.isHidden = false
     }
     
     @IBAction func addAdhocHourTapped(_ sender: Any) {
@@ -197,7 +180,7 @@ class AvailabilityVC: ENTALDBaseViewController,UITextFieldDelegate {
     
     }
     @IBAction func closeSearch(_ sender: Any) {
-        self.searchView.isHidden = true
+
         textSearch.endEditing(true)
         textSearch.text = ""
         filterAvailablityData = availablityData
@@ -209,6 +192,40 @@ class AvailabilityVC: ENTALDBaseViewController,UITextFieldDelegate {
         adhocTableView.reloadData()
         
     }
+    
+    @IBAction func segmentAction(_ sender: Any) {
+        
+        if self.segment.selectedSegmentIndex == 0 {
+            self.adhocView.isHidden = false
+            self.volunteerHourView.isHidden = true
+            self.availablityView.isHidden = true
+            
+            isAdhocTableSearch = true
+            isVolunteerHourTableSearch = false
+            isAvailablityTableSearch = false
+           
+        }else if (self.segment.selectedSegmentIndex == 1 ){
+            self.adhocView.isHidden = true
+            self.volunteerHourView.isHidden = false
+            self.availablityView.isHidden = true
+            
+            isAdhocTableSearch = false
+            isVolunteerHourTableSearch = true
+            isAvailablityTableSearch = false
+            
+        }else if (self.segment.selectedSegmentIndex == 2 ){
+            self.adhocView.isHidden = true
+            self.volunteerHourView.isHidden = true
+            self.availablityView.isHidden = false
+            
+            isAdhocTableSearch = false
+            isVolunteerHourTableSearch = false
+            isAvailablityTableSearch = true
+        }
+        self.textSearch.text = ""
+    }
+    
+    
     
     @IBAction func adhocFilterTapped(_ sender: Any) {
         isAdhocTableSearch = true
@@ -862,15 +879,8 @@ extension AvailabilityVC : UITableViewDelegate, UITableViewDataSource{
 
 
         if (tableView == self.adhocTableView){
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AdhocHourTVC", for: indexPath) as! AdhocHourTVC
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AdhocHourCell", for: indexPath) as! AdhocHourCell
 
-            if indexPath.row % 2 == 0{
-                cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-                cell.seperatorView.backgroundColor = UIColor.themePrimaryColor
-            }else{
-                cell.backgroundColor = UIColor.viewLightColor
-                cell.seperatorView.backgroundColor = UIColor.gray
-            }
 
             let rowModel = self.filterAdhocData?[indexPath.row]
             let programName = self.getProgramName(rowModel?.sjavms_VolunteerEvent?._sjavms_program_value ?? "")
@@ -879,15 +889,8 @@ extension AvailabilityVC : UITableViewDelegate, UITableViewDataSource{
 
         }else if (tableView == voluteerHourTableView){
 
-            let cell = tableView.dequeueReusableCell(withIdentifier: "VolunteerHourAvailabilityTVC", for: indexPath) as! VolunteerHourAvailabilityTVC
-
-            if indexPath.row % 2 == 0{
-                cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-                cell.seperaterView.backgroundColor = UIColor.themePrimaryColor
-            }else{
-                cell.backgroundColor = UIColor.viewLightColor
-                cell.seperaterView.backgroundColor = UIColor.gray
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: "VolunteerHourCell", for: indexPath) as! VolunteerHourCell
+            
             let rowModel = self.filterVolunteerHourData?[indexPath.row]
             let programName = self.getProgramName(rowModel?.sjavms_VolunteerEvent?._sjavms_program_value ?? "")
             cell.setContent(cellModel: rowModel , programName: programName)
@@ -895,26 +898,19 @@ extension AvailabilityVC : UITableViewDelegate, UITableViewDataSource{
 
         }else if (tableView == availablityTableView){
 
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AvailabilityTVC", for: indexPath) as! AvailabilityTVC
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AvailablityCell", for: indexPath) as! AvailablityCell
 
-            if indexPath.row % 2 == 0{
-                cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-                cell.seperaterView.backgroundColor = UIColor.themePrimaryColor
-            }else{
-                cell.backgroundColor = UIColor.viewLightColor
-                cell.seperaterView.backgroundColor = UIColor.gray
-            }
             let rowModel = self.filterAvailablityData?[indexPath.row]
             cell.setContent(cellModel: rowModel)
             return cell
         }else{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AvailabilityTVC", for: indexPath) as! AvailabilityTVC
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AvailablityCell", for: indexPath) as! AvailablityCell
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 30
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -175,6 +175,12 @@
 		1DC2711529CF206B00B2D762 /* EventAuditVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DC2711329CF206B00B2D762 /* EventAuditVC.xib */; };
 		1DC2711D29CF224C00B2D762 /* EventAuditTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC2711B29CF224C00B2D762 /* EventAuditTVC.swift */; };
 		1DC2711E29CF224C00B2D762 /* EventAuditTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DC2711C29CF224C00B2D762 /* EventAuditTVC.xib */; };
+		1DC6F7802A6A989A00FAA561 /* AvailablityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6F77E2A6A989A00FAA561 /* AvailablityCell.swift */; };
+		1DC6F7812A6A989A00FAA561 /* AvailablityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DC6F77F2A6A989A00FAA561 /* AvailablityCell.xib */; };
+		1DC6F7852A6A999000FAA561 /* AdhocHourCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6F7832A6A999000FAA561 /* AdhocHourCell.swift */; };
+		1DC6F7862A6A999000FAA561 /* AdhocHourCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DC6F7842A6A999000FAA561 /* AdhocHourCell.xib */; };
+		1DC6F78A2A6A99AF00FAA561 /* VolunteerHourCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6F7882A6A99AF00FAA561 /* VolunteerHourCell.swift */; };
+		1DC6F78B2A6A99AF00FAA561 /* VolunteerHourCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DC6F7892A6A99AF00FAA561 /* VolunteerHourCell.xib */; };
 		1DCD2F9F299CBABA00B16CA2 /* ContactInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCD2F9D299CBABA00B16CA2 /* ContactInfoVC.swift */; };
 		1DCD2FA0299CBABA00B16CA2 /* ContactInfoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DCD2F9E299CBABA00B16CA2 /* ContactInfoVC.xib */; };
 		1DCE27B029CEDB6F00A80B3A /* EventMessageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCE27AE29CEDB6F00A80B3A /* EventMessageTVC.swift */; };
@@ -563,6 +569,12 @@
 		1DC2711329CF206B00B2D762 /* EventAuditVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventAuditVC.xib; sourceTree = "<group>"; };
 		1DC2711B29CF224C00B2D762 /* EventAuditTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAuditTVC.swift; sourceTree = "<group>"; };
 		1DC2711C29CF224C00B2D762 /* EventAuditTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventAuditTVC.xib; sourceTree = "<group>"; };
+		1DC6F77E2A6A989A00FAA561 /* AvailablityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailablityCell.swift; sourceTree = "<group>"; };
+		1DC6F77F2A6A989A00FAA561 /* AvailablityCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AvailablityCell.xib; sourceTree = "<group>"; };
+		1DC6F7832A6A999000FAA561 /* AdhocHourCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdhocHourCell.swift; sourceTree = "<group>"; };
+		1DC6F7842A6A999000FAA561 /* AdhocHourCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdhocHourCell.xib; sourceTree = "<group>"; };
+		1DC6F7882A6A99AF00FAA561 /* VolunteerHourCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerHourCell.swift; sourceTree = "<group>"; };
+		1DC6F7892A6A99AF00FAA561 /* VolunteerHourCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VolunteerHourCell.xib; sourceTree = "<group>"; };
 		1DCD2F9D299CBABA00B16CA2 /* ContactInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactInfoVC.swift; sourceTree = "<group>"; };
 		1DCD2F9E299CBABA00B16CA2 /* ContactInfoVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactInfoVC.xib; sourceTree = "<group>"; };
 		1DCE27AE29CEDB6F00A80B3A /* EventMessageTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMessageTVC.swift; sourceTree = "<group>"; };
@@ -1191,6 +1203,9 @@
 		1D608B3B299C2E5700A03B00 /* AvailabilityVC */ = {
 			isa = PBXGroup;
 			children = (
+				1DC6F7872A6A999700FAA561 /* VolunteerHourCell */,
+				1DC6F7822A6A997400FAA561 /* AdhocHourCell */,
+				1DC6F77D2A6A987300FAA561 /* AvailablityCell */,
 				1DF9C12A29DE003D004744AD /* AddAvilabilityVC */,
 				1D608B4A299C30CD00A03B00 /* VolunteerHourAvailabilityTVC */,
 				1D608B45299C30A400A03B00 /* AdhocHourTVC */,
@@ -1535,6 +1550,33 @@
 				1DC2711C29CF224C00B2D762 /* EventAuditTVC.xib */,
 			);
 			path = EventAuditTVC;
+			sourceTree = "<group>";
+		};
+		1DC6F77D2A6A987300FAA561 /* AvailablityCell */ = {
+			isa = PBXGroup;
+			children = (
+				1DC6F77E2A6A989A00FAA561 /* AvailablityCell.swift */,
+				1DC6F77F2A6A989A00FAA561 /* AvailablityCell.xib */,
+			);
+			path = AvailablityCell;
+			sourceTree = "<group>";
+		};
+		1DC6F7822A6A997400FAA561 /* AdhocHourCell */ = {
+			isa = PBXGroup;
+			children = (
+				1DC6F7832A6A999000FAA561 /* AdhocHourCell.swift */,
+				1DC6F7842A6A999000FAA561 /* AdhocHourCell.xib */,
+			);
+			path = AdhocHourCell;
+			sourceTree = "<group>";
+		};
+		1DC6F7872A6A999700FAA561 /* VolunteerHourCell */ = {
+			isa = PBXGroup;
+			children = (
+				1DC6F7882A6A99AF00FAA561 /* VolunteerHourCell.swift */,
+				1DC6F7892A6A99AF00FAA561 /* VolunteerHourCell.xib */,
+			);
+			path = VolunteerHourCell;
 			sourceTree = "<group>";
 		};
 		1DCD2F98299CB9D300B16CA2 /* ContactInfoVC */ = {
@@ -2455,6 +2497,7 @@
 				1D608B33299BE82E00A03B00 /* EventManagerSectionView.xib in Resources */,
 				1D608B4E299C30FF00A03B00 /* VolunteerHourAvailabilityTVC.xib in Resources */,
 				1DCE27BF29CEFBF800A80B3A /* EventScheduleTVC.xib in Resources */,
+				1DC6F7862A6A999000FAA561 /* AdhocHourCell.xib in Resources */,
 				E48359D929812AAF008CBFFF /* PickerViewController.xib in Resources */,
 				1D1442F72983E67C001F3B15 /* PendingShiftVC.xib in Resources */,
 				1D55C8E429B3F5B90035E4D4 /* PendingStatusPickerView.xib in Resources */,
@@ -2503,12 +2546,14 @@
 				359E9C77282EA58E001E3D73 /* ENTALDOffersViewController.xib in Resources */,
 				359E9C16282B7077001E3D73 /* ENTALDLocalizable.strings in Resources */,
 				1DC2711029CF0E3E00B2D762 /* EventNotesVC.xib in Resources */,
+				1DC6F7812A6A989A00FAA561 /* AvailablityCell.xib in Resources */,
 				E4B2EF0C297C57EB00D05014 /* Quicksand-Bold.ttf in Resources */,
 				1DDA4F9D2A53541B00D46136 /* ScheduleCell.xib in Resources */,
 				E4CF50412A0BA7290033903A /* MapViewController.xib in Resources */,
 				1D0BDEDE29826EC700CC2030 /* VounteerVC.xib in Resources */,
 				E4B2EF10297C57EB00D05014 /* Quicksand-Light.ttf in Resources */,
 				1D5C1D1529C1D2E500608FF5 /* AchivementVC.xib in Resources */,
+				1DC6F78B2A6A99AF00FAA561 /* VolunteerHourCell.xib in Resources */,
 				1D4483EF2A44BA780077BD95 /* VolunteerEventVC.xib in Resources */,
 				1DE52A292991B87B0087DC85 /* VolunteerEventTVC.xib in Resources */,
 				1D3BD166299D955D008F4178 /* ChangePasswordVC.xib in Resources */,
@@ -2737,6 +2782,7 @@
 				E4E6971C2A1B8CB30045D212 /* TimelineEventLayout.swift in Sources */,
 				E4E6972B2A1B8CB30045D212 /* DayCell.swift in Sources */,
 				1DF176E929852448005809C6 /* PendingEventTVC.swift in Sources */,
+				1DC6F7852A6A999000FAA561 /* AdhocHourCell.swift in Sources */,
 				E4E697402A1B8CB30045D212 /* MonthView.swift in Sources */,
 				1D1D1A4629919D2900B5454E /* ScheduleTVC.swift in Sources */,
 				353C61452813EF9600CC8B7F /* ENTALDAppConfig.swift in Sources */,
@@ -2788,7 +2834,9 @@
 				E4E6974C2A1B8CB30045D212 /* WeekHeaderView.swift in Sources */,
 				E4E6973D2A1B8CB30045D212 /* DayView.swift in Sources */,
 				E4E697252A1B8CB30045D212 /* ShadowDayView.swift in Sources */,
+				1DC6F78A2A6A99AF00FAA561 /* VolunteerHourCell.swift in Sources */,
 				1D2E2441298FD241006AB56A /* EventManagerTVC.swift in Sources */,
+				1DC6F7802A6A989A00FAA561 /* AvailablityCell.swift in Sources */,
 				1DB224D32A6712DB003F6E76 /* InAppMsgVC.swift in Sources */,
 				1D76282E299EB07E00609DED /* QualificationResponseModel.swift in Sources */,
 				E48359B7297D7887008CBFFF /* Algorithm.m in Sources */,
