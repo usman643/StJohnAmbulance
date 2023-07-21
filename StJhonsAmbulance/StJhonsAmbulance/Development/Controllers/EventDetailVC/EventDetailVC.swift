@@ -143,6 +143,10 @@ class EventDetailVC: ENTALDBaseViewController {
             lblLocationDesc.text = availableEvent?.msnfp_location ?? "Not Found"
             lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: availableEvent?.msnfp_engagementopportunitystatus ?? 0) ?? "Not Found")"
             self.eventId = availableEvent?.msnfp_engagementopportunityid ?? ""
+
+                self.checkInbtnView.isHidden = true
+            
+            
             self.paramName = "sjavms_checkedin"
             
             if ( self.availableEvent?.sjavms_checkedin == true ){
@@ -183,6 +187,9 @@ class EventDetailVC: ENTALDBaseViewController {
             lblLocationDesc.text = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found"
             lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: scheduleEvent?.msnfp_schedulestatus ?? 0) ?? "Not Found")"
             self.eventId = scheduleEvent?.msnfp_participationscheduleid ?? ""
+            if (scheduleEvent?.msnfp_participationscheduleid == nil || scheduleEvent?.msnfp_participationscheduleid == ""){
+                self.checkInbtnView.isHidden = true
+            }
             self.paramName = "sjavms_checkedin"
             
             if ( self.scheduleEvent?.sjavms_checkedin == true ){
@@ -228,6 +235,10 @@ class EventDetailVC: ENTALDBaseViewController {
             lblLocationDesc.text = pastEvent?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found"
             lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: pastEvent?.msnfp_schedulestatus ?? 0) ?? "Not Found")"
             self.eventId = pastEvent?.msnfp_participationscheduleid ?? ""
+            if (pastEvent?.msnfp_participationscheduleid == nil || pastEvent?.msnfp_participationscheduleid == ""){
+                self.checkInbtnView.isHidden = true
+            }
+            
             self.paramName = "sjavms_checkedin"
             
             if ( self.pastEvent?.sjavms_checkedin == true ){
@@ -268,7 +279,8 @@ class EventDetailVC: ENTALDBaseViewController {
             lblShift.text = "Shift: \(startTime) - \(endTime)"
             lblLocationDesc.text = latestEvent?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found"
             lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: latestEvent?.msnfp_schedulestatus ?? 0) ?? "Not Found")"
-            self.eventId = latestEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
+            self.eventId = latestEvent?.msnfp_participationscheduleid ?? ""
+            self.checkInbtnView.isHidden = true
             self.paramName = "sjavms_checkedin"
             
             if ( self.latestEvent?.sjavms_checkedin == true ){
@@ -297,6 +309,9 @@ class EventDetailVC: ENTALDBaseViewController {
             }
         }
         
+        if (self.eventId == ""){
+            self.checkInbtnView.isHidden = true
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool){

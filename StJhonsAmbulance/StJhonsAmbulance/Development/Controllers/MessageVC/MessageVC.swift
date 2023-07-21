@@ -41,17 +41,11 @@ class MessageVC: ENTALDBaseViewController {
         
         self.fromVolunteerController = self.dataModel as? Bool
         
-        
-        
-       
-        
-    
     }
-    
-    
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
         decorateUI()
         getMessages()
         btnGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)

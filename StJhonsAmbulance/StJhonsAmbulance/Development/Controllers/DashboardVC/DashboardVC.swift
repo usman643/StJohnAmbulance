@@ -341,12 +341,12 @@ class DashboardVC: ENTALDBaseViewController{
             
         }else if (controller == "sjavms_messages"){
 //            self.tabbar.selectedIndex = 4
-            let vc = SignalRVC()
-            self.navigationController?.pushViewController(vc, animated: true)
+//            let vc = SignalRVC()
+//            self.navigationController?.pushViewController(vc, animated: true)
 //            self.tabBarController?.selectedIndex = 4
-//            ENTALDControllers.shared.showMessageScreen(type: .ENTALDPUSH, from: self,  dataObj: true) { params, controller in
-//                self.openNextScreen(controller:params as? String)
-//            }
+            ENTALDControllers.shared.showMessageScreen(type: .ENTALDPUSH, from: self,  dataObj: true) { params, controller in
+                self.openNextScreen(controller:params as? String)
+            }
             
         }else if (controller == "sjavms_checkin" ){
 //            let dispatchQueue = DispatchQueue(label: "myQueu", qos: .background)
