@@ -43,10 +43,10 @@ class VolunterEventTVC: UITableViewCell {
         statusView.layer.cornerRadius = 16
         statusView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
         
-        lblDateTime.textColor = UIColor.themeSecondry
+        lblDateTime.textColor = UIColor.themeSecondryWhite
         lblStatus.textColor = UIColor.textWhiteColor
-        lblTitle.textColor = UIColor.themeSecondry
-        lblTotalHours.textColor = UIColor.themeSecondry
+        lblTitle.textColor = UIColor.themeSecondryWhite
+        lblTotalHours.textColor = UIColor.themeSecondryWhite
         
         lblDateTime.font =  UIFont.MediumFont(11)
         lblStatus.font =  UIFont.BoldFont(13)

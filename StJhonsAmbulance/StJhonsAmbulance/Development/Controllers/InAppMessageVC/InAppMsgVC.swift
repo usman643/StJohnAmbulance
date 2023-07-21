@@ -252,7 +252,7 @@ extension InAppMsgVC : UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: scheduleData?[indexPath.row].sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "", callBack: nil)
+        ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: scheduleData?[indexPath.row].sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? "", callBack: nil)
         
     }
     

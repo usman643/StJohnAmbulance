@@ -43,11 +43,11 @@ class VolunteerIncomingCell: UITableViewCell {
         statusView.layer.cornerRadius = 16
         statusView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
         
-        lblDateTime.textColor = UIColor.themeSecondry
+        lblDateTime.textColor = UIColor.themeSecondryWhite
 
         btnView.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        lblTitle.textColor = UIColor.themeSecondry
-        lblTotalHours.textColor = UIColor.themeSecondry
+        lblTitle.textColor = UIColor.themeSecondryWhite
+        lblTotalHours.textColor = UIColor.themeSecondryWhite
         
         lblDateTime.font =  UIFont.MediumFont(11)
         btnView.titleLabel?.font = UIFont.BoldFont(13)

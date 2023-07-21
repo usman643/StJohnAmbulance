@@ -182,7 +182,7 @@ class EventDetailVC: ENTALDBaseViewController {
             lblShift.text = "Shift: \(startTime) - \(endTime)"
             lblLocationDesc.text = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found"
             lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: scheduleEvent?.msnfp_schedulestatus ?? 0) ?? "Not Found")"
-            self.eventId = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
+            self.eventId = scheduleEvent?.msnfp_participationscheduleid ?? ""
             self.paramName = "sjavms_checkedin"
             
             if ( self.scheduleEvent?.sjavms_checkedin == true ){
@@ -227,7 +227,7 @@ class EventDetailVC: ENTALDBaseViewController {
             lblShift.text = "Shift: \(startTime) - \(endTime)"
             lblLocationDesc.text = pastEvent?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found"
             lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: pastEvent?.msnfp_schedulestatus ?? 0) ?? "Not Found")"
-            self.eventId = pastEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
+            self.eventId = pastEvent?.msnfp_participationscheduleid ?? ""
             self.paramName = "sjavms_checkedin"
             
             if ( self.pastEvent?.sjavms_checkedin == true ){
