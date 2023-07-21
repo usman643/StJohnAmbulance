@@ -95,7 +95,7 @@ override func viewDidAppear(_ animated: Bool) {
         if let hub = self.chatHubConnection {
             hub.delegate = self
             // Set our callbacks for the messages we expect from the SignalR hub.
-            hub.on(method: "receiveBroadCastMessage", callback: {[weak self] argumentExtractor in
+            hub.on(method: "onGroupMessageRecieved", callback: {[weak self] argumentExtractor in
                 guard let self = self else {return}
                 do {
                     let response = try argumentExtractor.getArgument(type: String.self)
@@ -109,6 +109,14 @@ override func viewDidAppear(_ animated: Bool) {
                     print(error)
                 }
             })
+            DispatchQueue.main.asyncAfter(deadline: .now()+5.0, execute: {
+                hub.send(method: "addUserToGroups", [self.eventId]) { error in
+                    if let err = error {
+                        print("Invoke error \(err.localizedDescription)")
+                    }
+                }
+            })
+            
             hub.start()
         }
         
@@ -142,9 +150,12 @@ override func didReceiveMemoryWarning() {
     let message = txtMessage.text
     if message != "" {
         
-        chatHubConnection?.send(method: "sendBroadCastMessage", message,"\(UserDefaults.standard.contactIdToken ?? "")" ,"\(UserDefaults.standard.userInfo?.fullname ?? "")", "test.jpg" , eventId, sendDidComplete: { error in
+        chatHubConnection?.send(method: "groupMessage", message,"\(UserDefaults.standard.contactIdToken ?? "")" ,"\(UserDefaults.standard.userInfo?.fullname ?? "")", "test.jpg" , eventId, sendDidComplete: { error in
             if let e = error {
                 print("Sending Error \(e)")
+            }else{
+                let mess = MessageArguments(name: "\(UserDefaults.standard.userInfo?.fullname ?? "")", image: "test.jpg", message: message)
+                self.appendMessage(model: mess)
             }
         })
         

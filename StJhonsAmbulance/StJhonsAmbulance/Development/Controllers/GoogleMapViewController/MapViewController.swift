@@ -33,7 +33,7 @@ class MapViewController: ENTALDBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupMapView()
+        
         
 //        self.mapData = self.dataModel as! [CheckInModel]
         
@@ -46,13 +46,13 @@ class MapViewController: ENTALDBaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
-        
+        self.setupMapView()
         self.getLatestIncomingEvent()
     }
     
     fileprivate func setupLocationPins(){
-        let camera = GMSCameraPosition.camera(withLatitude: 45.27996209121132, longitude: -66.06639728779841, zoom: 3.0)
-        mapView.camera = camera
+//        let camera = GMSCameraPosition.camera(withLatitude: 45.27996209121132, longitude: -66.06639728779841, zoom: 3.0)
+//        mapView.camera = camera
         
         for coords in self.mapCoords {
             let markerpic = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: coords.pic ?? "")
@@ -73,11 +73,28 @@ class MapViewController: ENTALDBaseViewController {
         mapViewContainer.addSubview(mapView)
         mapViewContainer.addConstraintsWithFormat("H:|[v0]|", views: mapView)
         mapViewContainer.addConstraintsWithFormat("V:|[v0]|", views: mapView)
+        var lat = LocationManager.defualt.getRecentLocation().lat == 0 ? 45.27996209121132 : LocationManager.defualt.getRecentLocation().lat
         
-        let camera = GMSCameraPosition.camera(withLatitude: 45.27996209121132, longitude: -66.06639728779841, zoom: 3.0)
+        var lng = LocationManager.defualt.getRecentLocation().lng == 0 ? -66.06639728779841 : LocationManager.defualt.getRecentLocation().lng
+        
+        let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lng, zoom: 8.0)
 
 //        let camera = GMSCameraPosition.camera(withLatitude: 45.27996209121132, longitude: -66.06639728779841, zoom: 6.0)
         mapView.camera = camera
+        
+        let userImage = UserDefaults.standard.userInfo?.entityimage ?? ""
+        let userName = UserDefaults.standard.userInfo?.fullname ?? ""
+        let markerpic = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: userImage)
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+        marker.map = mapView
+        
+        let mapView : MapPinView = MapPinView.fromNib()
+        mapView.frame = CGRect(x: 0, y: 0, width: 105, height: 105)
+//            MapPinView(frame: )
+        mapView.pinTitle.text = userName
+        mapView.pinIcon.image = markerpic
+        marker.iconView = mapView
     }
     
 
