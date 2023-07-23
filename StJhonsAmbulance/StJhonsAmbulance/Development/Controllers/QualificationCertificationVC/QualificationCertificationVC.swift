@@ -35,24 +35,18 @@ class QualificationCertificationVC: ENTALDBaseViewController,UITextFieldDelegate
     
     
     @IBOutlet weak var btnBack: UIButton!
-    @IBOutlet var allTableHeadingLabel: [UILabel]!
-    
-    @IBOutlet weak var externalQualificationTitle: UILabel!
-    @IBOutlet weak var SJAQualificationTitle: UILabel!
-//    @IBOutlet weak var lblTabTitle: UILabel!
-//    @IBOutlet weak var selectedTabImg: UIImageView!
-  
-    @IBOutlet weak var qualificationHeaderView: UIView!
-    @IBOutlet weak var certificationHeaderView: UIView!
-    
     @IBOutlet weak var externalTable: UITableView!
     @IBOutlet weak var SJATableview: UITableView!
+    
+    @IBOutlet weak var externalView: UIView!
+    @IBOutlet weak var SJAView: UIView!
     
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var searchImg: UIImageView!
     @IBOutlet weak var textSearch: UITextField!
     @IBOutlet weak var btnSearchClose: UIButton!
     
+    @IBOutlet weak var segment: UISegmentedControl!
     
     
     override func viewDidLoad() {
@@ -79,27 +73,13 @@ class QualificationCertificationVC: ENTALDBaseViewController,UITextFieldDelegate
 
     func decorateUI(){
         
-        qualificationHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        qualificationHeaderView.layer.borderWidth = 1
-        certificationHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        certificationHeaderView.layer.borderWidth = 1
-        
-        externalQualificationTitle.textColor = UIColor.themePrimaryWhite
-        externalQualificationTitle.font = UIFont.BoldFont(16)
-        SJAQualificationTitle.textColor = UIColor.themePrimaryWhite
-        SJAQualificationTitle.font = UIFont.BoldFont(16)
-//        lblTabTitle.textColor = UIColor.themePrimary
-//        lblTabTitle.font = UIFont.BoldFont(16)
-        
-        for lbltext in allTableHeadingLabel{
-            lbltext.font = UIFont.BoldFont(10)
-            lbltext.textColor = UIColor.themePrimaryColor
-        }
-        
+        isSJATableSearch = true
+        isExternalTableSearch = false
         
         searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         searchView.layer.borderWidth = 1.5
         searchView.isHidden = true
+        searchView.layer.cornerRadius = 8
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         
     }
@@ -108,18 +88,40 @@ class QualificationCertificationVC: ENTALDBaseViewController,UITextFieldDelegate
         
         externalTable.delegate = self
         externalTable.dataSource = self
-        externalTable.register(UINib(nibName: "ExternalQualificationTVC", bundle: nil), forCellReuseIdentifier: "ExternalQualificationTVC")
+        externalTable.register(UINib(nibName: "ExternalQualificationCell", bundle: nil), forCellReuseIdentifier: "ExternalQualificationCell")
         
         
         SJATableview.delegate = self
         SJATableview.dataSource = self
-        SJATableview.register(UINib(nibName: "SJAQualificationTVC", bundle: nil), forCellReuseIdentifier: "SJAQualificationTVC")
+        SJATableview.register(UINib(nibName: "SJAQualificationCell", bundle: nil), forCellReuseIdentifier: "SJAQualificationCell")
         
     }
 
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    @IBAction func segmentAction(_ sender: Any) {
+        
+        if self.segment.selectedSegmentIndex == 0 {
+            self.SJAView.isHidden = false
+            self.externalView.isHidden = true
+            
+            isSJATableSearch = true
+            isExternalTableSearch = false
+           
+        }else if (self.segment.selectedSegmentIndex == 1 ){
+            self.SJAView.isHidden = true
+            self.externalView.isHidden = false
+            
+            isSJATableSearch = false
+            isExternalTableSearch = true
+            
+        }
+    }
+    
+    
+    
     
     @IBAction func certificationFilterTapped(_ sender: Any) {
      
@@ -143,7 +145,7 @@ class QualificationCertificationVC: ENTALDBaseViewController,UITextFieldDelegate
     
     
     @IBAction func closeSearch(_ sender: Any) {
-        self.searchView.isHidden = true
+//        self.searchView.isHidden = true
         textSearch.endEditing(true)
         textSearch.text = ""
         filterSJAQualification = SJAQualification
@@ -642,26 +644,14 @@ extension QualificationCertificationVC : UITableViewDataSource, UITableViewDeleg
         
         if (tableView == SJATableview){
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SJAQualificationTVC", for: indexPath) as! SJAQualificationTVC
-            if indexPath.row % 2 == 0{
-                cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-                cell.seperaterView.backgroundColor = UIColor.themePrimaryColor
-            }else{
-                cell.backgroundColor = UIColor.viewLightColor
-                cell.seperaterView.backgroundColor = UIColor.gray
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SJAQualificationCell", for: indexPath) as! SJAQualificationCell
+            
             cell.setContent(cellModel: filterSJAQualification?[indexPath.row] )
             return cell
             
         }else{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ExternalQualificationTVC", for: indexPath) as! ExternalQualificationTVC
-            if indexPath.row % 2 == 0{
-                cell.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-                cell.seperaterView.backgroundColor = UIColor.themePrimaryColor
-            }else{
-                cell.backgroundColor = UIColor.viewLightColor
-                cell.seperaterView.backgroundColor = UIColor.gray
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ExternalQualificationCell", for: indexPath) as! ExternalQualificationCell
+            
             
             cell.setContent(cellModel: filterExternalQualification?[indexPath.row] )
             return cell
@@ -673,7 +663,7 @@ extension QualificationCertificationVC : UITableViewDataSource, UITableViewDeleg
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 30
+        return UITableView.automaticDimension
     }
     
     

@@ -57,7 +57,6 @@ class VolunteerHourCell: UITableViewCell {
         lblProgram.font = UIFont.RegularFont(13)
         lblSchedule.textColor = UIColor.themeSecondryWhite
         lblSchedule.font = UIFont.RegularFont(13)
-
         lblHours.textColor = UIColor.themeSecondryWhite
         lblHours.font = UIFont.RegularFont(13)
         

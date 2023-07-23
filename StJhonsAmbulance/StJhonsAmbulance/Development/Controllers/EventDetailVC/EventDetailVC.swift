@@ -429,7 +429,10 @@ class EventDetailVC: ENTALDBaseViewController {
                 }
                 //                self.showEmptyView(tableVw: self.tableView)
                 DispatchQueue.main.async {
-                                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in
+                                            
+                                            self.btnCheckIn.setTitle("Checked In", for: .normal)
+                                        })
                 }
             }
         }

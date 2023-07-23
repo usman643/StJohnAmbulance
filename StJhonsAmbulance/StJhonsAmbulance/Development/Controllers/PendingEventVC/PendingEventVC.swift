@@ -35,60 +35,33 @@ class PendingEventVC: ENTALDBaseViewController {
     var isPublishDataFilterApplied = false
     
 
+    @IBOutlet weak var segment: UISegmentedControl!
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnHome: UIButton!
     @IBOutlet weak var selectGroupView: UIView!
     @IBOutlet weak var btnSelectGroup: UIButton!
-    
-    @IBOutlet weak var lblPending: UILabel!
-    @IBOutlet weak var btnPendingFilter: UIButton!
-    @IBOutlet weak var btnApprovalFilter: UIButton!
-    @IBOutlet weak var lblApproval: UILabel!
-   
-    
-    @IBOutlet weak var pendingStackView: UIStackView!
-    @IBOutlet weak var approvalStackView: UIStackView!
-   
-    
-    @IBOutlet weak var pendingHeaderView: UIView!
-    @IBOutlet weak var approvalHeaderView: UIView!
-   
+    @IBOutlet weak var pendingApprovalView: UIView!
+    @IBOutlet weak var pendingPublishView: UIView!
     
     @IBOutlet weak var pendingApprovalTableView: UITableView!
     @IBOutlet weak var pendingPublishTableView: UITableView!
-  
-    
-    @IBOutlet weak var lblPendingName: UILabel!
-    @IBOutlet weak var lblPendingLocation: UILabel!
-    @IBOutlet weak var lblPendingMax: UILabel!
-    @IBOutlet weak var lblPendingDate: UILabel!
-    @IBOutlet weak var lblPendingStatus: UILabel!
-    @IBOutlet weak var lblApprovalName: UILabel!
-    @IBOutlet weak var lblApprovalLocation: UILabel!
-    @IBOutlet weak var lblApprovalMax: UILabel!
-    @IBOutlet weak var lblApprovalDate: UILabel!
-    @IBOutlet weak var lblApprovalStatus: UILabel!
-    @IBOutlet weak var lblTabTitle: UILabel!
-    @IBOutlet weak var selectedTabImg: UIImageView!
-    
+
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var searchImg: UIImageView!
     @IBOutlet weak var textSearch: UITextField!
     @IBOutlet weak var btnSearchClose: UIButton!
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         pendingApprovalTableView.delegate = self
         pendingApprovalTableView.dataSource = self
-        pendingApprovalTableView.register(UINib(nibName: "PendingEventTVC", bundle: nil), forCellReuseIdentifier: "PendingEventTVC")
+        pendingApprovalTableView.register(UINib(nibName: "PendingEventCell", bundle: nil), forCellReuseIdentifier: "PendingEventCell")
         pendingApprovalTableView.register(UINib(nibName: "EmptyEventTableCell", bundle: nil), forCellReuseIdentifier: "EmptyEventTableCell")
     
         pendingPublishTableView.delegate = self
         pendingPublishTableView.dataSource = self
-        pendingPublishTableView.register(UINib(nibName: "PendingEventTVC", bundle: nil), forCellReuseIdentifier: "PendingEventTVC")
+        pendingPublishTableView.register(UINib(nibName: "PendingEventCell", bundle: nil), forCellReuseIdentifier: "PendingEventCell")
         pendingPublishTableView.register(UINib(nibName: "EmptyEventTableCell", bundle: nil), forCellReuseIdentifier: "EmptyEventTableCell")
         decorateUI()
         getPendingApproval()
@@ -103,43 +76,8 @@ class PendingEventVC: ENTALDBaseViewController {
     func decorateUI(){
         selectGroupView.layer.cornerRadius = 3
         btnSelectGroup.backgroundColor = UIColor.themePrimary
- 
-        pendingHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        approvalHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-     
-        pendingHeaderView.layer.borderWidth = 1.5
-        approvalHeaderView.layer.borderWidth = 1.5
-      
-        lblApproval.font = UIFont.BoldFont(20)
-        lblApproval.textColor = UIColor.themePrimaryWhite
-        lblPending.font = UIFont.BoldFont(20)
-        lblPending.textColor = UIColor.themePrimaryWhite
-        
-        lblPendingName.font = UIFont.BoldFont(12)
-        lblPendingLocation.font = UIFont.BoldFont(12)
-        lblPendingMax.font = UIFont.BoldFont(12)
-        lblPendingDate.font = UIFont.BoldFont(12)
-        lblPendingStatus.font = UIFont.BoldFont(12)
-        lblApprovalName.font = UIFont.BoldFont(12)
-        lblApprovalLocation.font = UIFont.BoldFont(12)
-        lblApprovalMax.font = UIFont.BoldFont(12)
-        lblApprovalDate.font = UIFont.BoldFont(12)
-        lblApprovalStatus.font = UIFont.BoldFont(12)
-//        lblTabTitle.font = UIFont.BoldFont(14)
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
-        
         btnSelectGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        lblPendingName.textColor = UIColor.themePrimaryWhite
-        lblPendingLocation.textColor = UIColor.themePrimaryWhite
-        lblPendingMax.textColor = UIColor.themePrimaryWhite
-        lblPendingDate.textColor = UIColor.themePrimaryWhite
-        lblPendingStatus.textColor = UIColor.themePrimaryWhite
-        lblApprovalName.textColor = UIColor.themePrimaryWhite
-        lblApprovalLocation.textColor = UIColor.themePrimaryWhite
-        lblApprovalMax.textColor = UIColor.themePrimaryWhite
-        lblApprovalDate.textColor = UIColor.themePrimaryWhite
-        lblApprovalStatus.textColor = UIColor.themePrimaryWhite
-//        lblTabTitle.textColor = UIColor.themePrimaryColor
         
         pendingApprovalTableView.clipsToBounds = false
         pendingApprovalTableView.layer.masksToBounds = false
@@ -155,20 +93,43 @@ class PendingEventVC: ENTALDBaseViewController {
         pendingPublishTableView.layer.shadowRadius = 0.0
         pendingPublishTableView.layer.shadowOpacity = 1.0
         
-//        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
-//        selectedTabImg.tintColor = UIColor.themePrimaryColor
-        
         searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         searchView.layer.borderWidth = 1.5
-        searchView.isHidden = true
+        searchView.isHidden = false
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        
+        self.pendingApprovalView.isHidden = false
+        self.pendingPublishView.isHidden = true
+        
+        isPendingApprovalTableSearch = true
+        isPublishTableSearch = false
+
+    }
+    
+    @IBAction func segmentAction(_ sender: Any) {
+        if self.segment.selectedSegmentIndex == 0 {
+            self.pendingApprovalView.isHidden = false
+            self.pendingPublishView.isHidden = true
+            
+            isPendingApprovalTableSearch = true
+            isPublishTableSearch = false
+           
+        }else if (self.segment.selectedSegmentIndex == 1 ){
+            self.pendingApprovalView.isHidden = true
+            self.pendingPublishView.isHidden  = false
+            
+            isPendingApprovalTableSearch = false
+            isPublishTableSearch = true
+        }
+        
+        
         
         
     }
     
+    
     @IBAction func closeSearch(_ sender: Any) {
         
-        self.searchView.isHidden = true
         textSearch.endEditing(true)
         textSearch.text = ""
         filterPendingPublishData = pendingPublishData
@@ -641,14 +602,7 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
         
         
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PendingEventTVC", for: indexPath) as! PendingEventTVC
-        if indexPath.row % 2 == 0{
-            cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-            cell.seperaterView.backgroundColor = UIColor.themePrimaryColor
-        }else{
-            cell.mainView.backgroundColor = UIColor.viewLightColor
-            cell.seperaterView.backgroundColor = UIColor.gray
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PendingEventCell", for: indexPath) as! PendingEventCell
         
         if (tableView == self.pendingApprovalTableView){ // pending approval
             
@@ -658,7 +612,7 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
             cell.lblLocation.text = rowModel?.sjavms_address1name ?? ""
             cell.lblMax.text = "\(rowModel?.sjavms_maxvolunteers ?? 0)"
             cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
-            cell.lblStatus.text = rowModel?.sjavms_msnfp_group_sjavms_eventrequest?[0].getStatus()
+            cell.btnStatus.setTitle(rowModel?.sjavms_msnfp_group_sjavms_eventrequest?[0].getStatus(), for: .normal)
             
             
             
@@ -669,7 +623,10 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
             cell.lblLocation.text = rowModel?.msnfp_location ?? ""
             cell.lblMax.text = "\(rowModel?.msnfp_maximum  ?? 0)"
             cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
-            cell.lblStatus.text = rowModel?.getStatus()
+            
+//            cell.lblStatus.text = rowModel?.getStatus()
+            
+            cell.btnStatus.setTitle(rowModel?.getStatus(), for: .normal)
             cell.delegate = self
             cell.eventId = rowModel?.msnfp_engagementopportunityid
             cell.delegate = self
@@ -682,7 +639,7 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 30
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

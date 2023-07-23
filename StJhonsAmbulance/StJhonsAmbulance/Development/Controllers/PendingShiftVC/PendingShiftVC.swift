@@ -63,7 +63,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UINib(nibName: "PendingShiftTVC", bundle: nil), forCellReuseIdentifier: "PendingShiftTVC")
+        tableView.register(UINib(nibName: "PendingShiftCell", bundle: nil), forCellReuseIdentifier: "PendingShiftCell")
         tableView.register(UINib(nibName: "EmptyEventTableCell", bundle: nil), forCellReuseIdentifier: "EmptyEventTableCell")
     
         decorateUI()
@@ -612,14 +612,8 @@ extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PendingShiftTVC", for: indexPath) as! PendingShiftTVC
-        if indexPath.row % 2 == 0{
-            cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-            cell.dividerView.backgroundColor = UIColor.themePrimaryColor
-        }else{
-            cell.mainView.backgroundColor = UIColor.viewLightColor
-            cell.dividerView.backgroundColor = UIColor.gray
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PendingShiftCell", for: indexPath) as! PendingShiftCell
+        
         
         cell.delegate = self
         let rowModel = filterPendingShiftData?[indexPath.row]
@@ -633,7 +627,7 @@ extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 30
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
