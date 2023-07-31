@@ -91,7 +91,7 @@ class ENTALDTabbarViewController: UITabBarController {
         let homeImg = "tabHome".templatedImage
         
         let eventVC = VolunteerEventsVC.loadFromNib()
-        let eventImg = "eventLogo".templatedImage
+        let eventImg = "icVolunteerTab".templatedImage
         
         let checkinVC = MapViewController.loadFromNib()
         let checkinImg = "tabLocation".templatedImage

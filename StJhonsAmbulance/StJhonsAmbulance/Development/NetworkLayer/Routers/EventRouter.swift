@@ -43,6 +43,7 @@ enum EventRouter : Router {
     case getAuditHistory(params:[String:Any])
     case getOtherVoulnteerParticipation(params:[String:Any])
     case getEventDatilTabInfo(params:[String:Any])
+    case approvePendingEvent(eventId:String, params:[String:Any])
     
     case createEvent(params:[String:Any])
     
@@ -86,6 +87,7 @@ enum EventRouter : Router {
         case .getAuditHistory : return "audits"
         case .getOtherVoulnteerParticipation : return "msnfp_participations"
         case .getEventDatilTabInfo : return "msnfp_publicengagementopportunities"
+        case .approvePendingEvent(let eventID, _) : return "msnfp_engagementopportunities(\(eventID))"
             
             
         case .simulate401: return "simulate-401"
@@ -164,6 +166,10 @@ enum EventRouter : Router {
             return params
         case .getOtherVoulnteerParticipation(let params):
             return params
+        case .approvePendingEvent(_, let params):
+            return params
+            
+            
         default: return [:]
         }
         
@@ -204,6 +210,9 @@ enum EventRouter : Router {
             return HTTPMethodType.post.rawValue
         case .applyShift:
             return HTTPMethodType.post.rawValue
+        case .approvePendingEvent(_,_):
+            return HTTPMethodType.patch.rawValue
+            
         default:
             break
         }
@@ -250,6 +259,8 @@ enum EventRouter : Router {
         case .bookShift:
             return .ENTJSONEncoding
         case .applyShift:
+            return .ENTJSONEncoding
+        case .approvePendingEvent(_,_):
             return .ENTJSONEncoding
         default:
             break

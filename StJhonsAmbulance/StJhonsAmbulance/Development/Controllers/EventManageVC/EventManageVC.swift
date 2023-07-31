@@ -7,7 +7,7 @@
 
 import UIKit
 import GoogleMaps
-protocol updateVolunteerCheckInDelegate {
+protocol updateVolunteerCheckInDelegates {
     
     func updateVolunteerCheckIn(participationId:String , param : [String:Bool])
    

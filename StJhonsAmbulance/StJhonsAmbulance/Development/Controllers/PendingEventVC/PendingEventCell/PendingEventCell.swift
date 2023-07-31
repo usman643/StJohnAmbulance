@@ -22,6 +22,7 @@ class PendingEventCell: UITableViewCell {
     @IBOutlet weak var statusView: UIView!
     @IBOutlet weak var btnStatus: UIButton!
     
+    @IBOutlet weak var lblStatus: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         deocrateUI()
@@ -43,17 +44,21 @@ class PendingEventCell: UITableViewCell {
        
         btnStatus.titleLabel?.font = UIFont.BoldFont(13)
         
+     
+        
         
         
         lblName.font = UIFont.BoldFont(14)
         lblLocation.font = UIFont.RegularFont(13)
         lblMax.font = UIFont.RegularFont(13)
+        lblStatus.font = UIFont.RegularFont(13)
         lblDate.font = UIFont.RegularFont(11)
         
         
         lblName.textColor = UIColor.themePrimaryWhite
         lblLocation.textColor = UIColor.themePrimaryWhite
         lblMax.textColor = UIColor.themePrimaryWhite
+        lblStatus.textColor = UIColor.themePrimaryWhite
         lblDate.textColor = UIColor.themePrimaryWhite
       
         

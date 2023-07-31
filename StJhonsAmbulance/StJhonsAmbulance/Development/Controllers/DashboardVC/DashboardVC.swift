@@ -104,6 +104,8 @@ class DashboardVC: ENTALDBaseViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false // or true
+
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -590,6 +592,9 @@ class DashboardVC: ENTALDBaseViewController{
                 
                 if let apiData = response.value {
                     self.latestEventData = apiData
+                    
+                    self.latestEventData = self.latestEventData?.sorted(by: { $0.sjavms_start ?? "" < $1.sjavms_start ?? "" })
+
                     
                     if (self.latestEventData?.count == 0 || self.latestEventData?.count == nil){
                         self.showEmptyView(tableVw: self.tableView)
@@ -1320,11 +1325,7 @@ extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource,UICo
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.latestEventData?.count ?? 0
     }
-    
-    
-    
-    
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "VolunteerIncomingCell") as! VolunteerIncomingCell

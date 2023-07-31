@@ -34,7 +34,7 @@ class PendingEventVC: ENTALDBaseViewController {
     var isPublishNumberFilterApplied = false
     var isPublishDataFilterApplied = false
     
-
+    
     @IBOutlet weak var segment: UISegmentedControl!
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnHome: UIButton!
@@ -45,7 +45,7 @@ class PendingEventVC: ENTALDBaseViewController {
     
     @IBOutlet weak var pendingApprovalTableView: UITableView!
     @IBOutlet weak var pendingPublishTableView: UITableView!
-
+    
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var searchImg: UIImageView!
     @IBOutlet weak var textSearch: UITextField!
@@ -53,12 +53,12 @@ class PendingEventVC: ENTALDBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         pendingApprovalTableView.delegate = self
         pendingApprovalTableView.dataSource = self
         pendingApprovalTableView.register(UINib(nibName: "PendingEventCell", bundle: nil), forCellReuseIdentifier: "PendingEventCell")
         pendingApprovalTableView.register(UINib(nibName: "EmptyEventTableCell", bundle: nil), forCellReuseIdentifier: "EmptyEventTableCell")
-    
+        
         pendingPublishTableView.delegate = self
         pendingPublishTableView.dataSource = self
         pendingPublishTableView.register(UINib(nibName: "PendingEventCell", bundle: nil), forCellReuseIdentifier: "PendingEventCell")
@@ -72,7 +72,7 @@ class PendingEventVC: ENTALDBaseViewController {
         super.viewWillAppear(animated)
         self.btnSelectGroup.setTitle("\(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "")", for: .normal)
     }
-
+    
     func decorateUI(){
         selectGroupView.layer.cornerRadius = 3
         btnSelectGroup.backgroundColor = UIColor.themePrimary
@@ -103,7 +103,7 @@ class PendingEventVC: ENTALDBaseViewController {
         
         isPendingApprovalTableSearch = true
         isPublishTableSearch = false
-
+        
     }
     
     @IBAction func segmentAction(_ sender: Any) {
@@ -113,7 +113,7 @@ class PendingEventVC: ENTALDBaseViewController {
             
             isPendingApprovalTableSearch = true
             isPublishTableSearch = false
-           
+            
         }else if (self.segment.selectedSegmentIndex == 1 ){
             self.pendingApprovalView.isHidden = true
             self.pendingPublishView.isHidden  = false
@@ -134,7 +134,7 @@ class PendingEventVC: ENTALDBaseViewController {
         textSearch.text = ""
         filterPendingPublishData = pendingPublishData
         filterPendingApprovalData = pendingApprovalData
-
+        
         
         pendingPublishTableView.reloadData()
         pendingApprovalTableView.reloadData()
@@ -162,6 +162,8 @@ class PendingEventVC: ENTALDBaseViewController {
         
         
     }
+    
+    
     
     @IBAction func approvalFilterTapped(_ sender: Any) {
         isPublishTableSearch = true
@@ -201,7 +203,7 @@ class PendingEventVC: ENTALDBaseViewController {
         self.navigationController?.popViewController(animated: false)
         
     }
- 
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         btnSearchClose.isHidden = false
     }
@@ -226,9 +228,9 @@ class PendingEventVC: ENTALDBaseViewController {
             filterPendingPublishData  =  pendingPublishData?.filter({
                 if let name = $0.msnfp_engagementopportunitytitle, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
                     return true
-                 }
-               return false
-             })
+                }
+                return false
+            })
             
             DispatchQueue.main.async {
                 self.pendingPublishTableView.reloadData()
@@ -371,7 +373,7 @@ class PendingEventVC: ENTALDBaseViewController {
                 $0.msnfp_engagementopportunitytitle ?? "" > $1.msnfp_engagementopportunitytitle ?? ""
             }
             isPublishNameFilterApplied = false
-
+            
         }
         
         self.isPublishLocationFilterApplied = false
@@ -395,7 +397,7 @@ class PendingEventVC: ENTALDBaseViewController {
                 $0.msnfp_location ?? "" > $1.msnfp_location ?? ""
             }
             isPublishLocationFilterApplied = false
-
+            
         }
         
         self.isPublishDataFilterApplied = false
@@ -419,7 +421,7 @@ class PendingEventVC: ENTALDBaseViewController {
                 $0.msnfp_maximum ?? 0 > $1.msnfp_maximum ?? 0
             }
             isPublishNumberFilterApplied = false
-
+            
         }
         
         self.isPublishLocationFilterApplied = false
@@ -467,9 +469,9 @@ class PendingEventVC: ENTALDBaseViewController {
             ParameterKeys.select : "sjavms_name,sjavms_address1name,sjavms_maxvolunteers,sjavms_eventstartdate,statecode,_sjavms_program_value,sjavms_eventrequestid",
             ParameterKeys.expand : "sjavms_msnfp_group_sjavms_eventrequest($filter=(msnfp_groupid eq \(groupId)))",
             ParameterKeys.filter : "(statecode eq 0 and (statuscode eq 1 or statuscode eq 802280002)) and (sjavms_msnfp_group_sjavms_eventrequest/any(o1:(o1/msnfp_groupid eq \(groupId))))",
-//            ParameterKeys.orderby : "msnfp_engagementopportunityschedule asc"
+            //            ParameterKeys.orderby : "msnfp_engagementopportunityschedule asc"
         ]
-
+        
         self.getPendingApprovalsData(params: params)
     }
     
@@ -505,7 +507,7 @@ class PendingEventVC: ENTALDBaseViewController {
                 }else{
                     self.showEmptyView(tableVw: self.pendingApprovalTableView)
                 }
-            
+                
             case .error(let error, let errorResponse):
                 var message = error.message
                 if let err = errorResponse {
@@ -526,7 +528,7 @@ class PendingEventVC: ENTALDBaseViewController {
             ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_location,msnfp_minimum,msnfp_startingdate,msnfp_endingdate,msnfp_engagementopportunitystatus,_sjavms_program_value,msnfp_engagementopportunityid,msnfp_maximum,_sjavms_contact_value,sjavms_maxparticipants",
             ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(msnfp_groupid eq \(groupId)))",
             ParameterKeys.filter : "(msnfp_engagementopportunitystatus eq 844060000) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
-//            ParameterKeys.orderby : "msnfp_engagementopportunityschedule asc"
+            //            ParameterKeys.orderby : "msnfp_engagementopportunityschedule asc"
         ]
         
         self.getPendingPublishData(params: params)
@@ -563,7 +565,7 @@ class PendingEventVC: ENTALDBaseViewController {
                 }else{
                     self.showEmptyView(tableVw: self.pendingPublishTableView)
                 }
-            
+                
             case .error(let error, let errorResponse):
                 var message = error.message
                 if let err = errorResponse {
@@ -576,6 +578,70 @@ class PendingEventVC: ENTALDBaseViewController {
             }
         }
     }
+
+    fileprivate func updatedata(eventId:String?){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        let params : [String:Any] = [ "msnfp_engagementopportunitystatus" : 844060002]
+//        let eventId = self.eventData?.msnfp_engagementopportunityid ?? ""
+
+        ENTALDLibraryAPI.shared.approvePendingEvent(eventId: eventId ?? "", params: params) { result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+
+            switch result{
+            case .success(value: _):
+                DispatchQueue.main.async {
+                    LoadingView.hide()
+                }
+
+            case .error(let error, let errorResponse):
+                DispatchQueue.main.async {
+                    LoadingView.hide()
+                }
+                var message = error.message
+                if error == .patchSuccess {
+                    self.getPendingApproval()
+                }else{
+                    var message = error.message
+                    if let err = errorResponse {
+                        message = err.error
+                    }
+                    DispatchQueue.main.async {
+                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    
+    @objc func updateEvent(_ sender:UIButton){
+        
+        let alert = UIAlertController(title: "Approval", message: "Do you want to approve event", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+            let index = sender.tag
+            
+            let eventid = self.filterPendingApprovalData?[index].sjavms_eventrequestid
+            self.updatedata(eventId: eventid)
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: { action in
+        }))
+        
+//        if let popoverController = alert.popoverPresentationController {
+//            popoverController.sourceView = pointView
+//            popoverController.sourceRect = pointView.bounds
+//        }
+        
+        present(alert, animated: true)
+    }
+       
+        
+        
     
 }
 
@@ -612,10 +678,17 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
             cell.lblLocation.text = rowModel?.sjavms_address1name ?? ""
             cell.lblMax.text = "\(rowModel?.sjavms_maxvolunteers ?? 0)"
             cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
-            cell.btnStatus.setTitle(rowModel?.sjavms_msnfp_group_sjavms_eventrequest?[0].getStatus(), for: .normal)
+//            cell.btnStatus.setTitle(rowModel?.sjavms_msnfp_group_sjavms_eventrequest?[0].getStatus(), for: .normal)
+            
+            cell.btnStatus.setTitle("Approve Event", for: .normal)
+            
+            cell.lblStatus.text = rowModel?.sjavms_msnfp_group_sjavms_eventrequest?[0].getStatus()
             
             
+            cell.btnStatus.tag = indexPath.row
             
+            cell.btnStatus.addTarget(self, action: #selector(updateEvent(_ :)), for: .touchUpInside)
+ 
         }else if (tableView == self.pendingPublishTableView){ // pending Publish
             
             let rowModel = self.filterPendingPublishData?[indexPath.row]
@@ -632,6 +705,9 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
             cell.delegate = self
             cell.isFromUnpublish = true
             cell.eventData = rowModel
+            cell.btnStatus.tag = indexPath.row
+            cell.lblStatus.isHidden = true
+//            cell.btnStatus.addTarget(self, action: #selector(updateEvent(_ :)), for: .touchUpInside)
         }
         
       

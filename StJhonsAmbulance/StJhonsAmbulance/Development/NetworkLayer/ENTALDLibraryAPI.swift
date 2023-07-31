@@ -481,5 +481,10 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
+    func approvePendingEvent(eventId: String, params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.approvePendingEvent(eventId: eventId, params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
 }
 

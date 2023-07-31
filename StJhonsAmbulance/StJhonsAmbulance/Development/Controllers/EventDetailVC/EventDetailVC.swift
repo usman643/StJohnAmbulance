@@ -280,7 +280,7 @@ class EventDetailVC: ENTALDBaseViewController {
             lblLocationDesc.text = latestEvent?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found"
             lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: latestEvent?.msnfp_schedulestatus ?? 0) ?? "Not Found")"
             self.eventId = latestEvent?.msnfp_participationscheduleid ?? ""
-            self.checkInbtnView.isHidden = true
+            self.checkInbtnView.isHidden = false
             self.paramName = "sjavms_checkedin"
             
             if ( self.latestEvent?.sjavms_checkedin == true ){

@@ -391,6 +391,10 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
                 
                 if let scheduleGroup = response.value {
                     self.scheduleData = scheduleGroup
+                    self.scheduleData = self.scheduleData?.sorted {
+                        $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
+                    }
+
                     if (self.scheduleData?.count == 0 || self.scheduleData?.count == nil){
                         self.showEmptyView(tableVw: self.tableView)
                         

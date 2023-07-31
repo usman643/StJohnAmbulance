@@ -228,7 +228,7 @@ class VolunteerEventVC: ENTALDBaseViewController {
                     self.eventData = apiData
                     
                     self.eventData = self.eventData?.sorted {
-                        $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
+                        $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
                     }
 
                     self.eventFilterData = self.eventData
@@ -296,7 +296,7 @@ class VolunteerEventVC: ENTALDBaseViewController {
                    
                     
                     self.nonEventData = self.nonEventData?.sorted {
-                        $0.sjavms_start ?? "" > $1.sjavms_start ?? ""
+                        $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
                     }
                     self.nonEventFilterData = self.nonEventData
                     

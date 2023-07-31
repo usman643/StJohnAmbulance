@@ -14,10 +14,11 @@ class EventManagerTVC: UITableViewCell {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var btnCheckIn: UISwitch!
     
+    @IBOutlet weak var volunteerImg: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         lblTitle.font = UIFont.BoldFont(16)
-        lblTitle.textColor = UIColor.textWhiteColor
+        lblTitle.textColor = UIColor.textBlackColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

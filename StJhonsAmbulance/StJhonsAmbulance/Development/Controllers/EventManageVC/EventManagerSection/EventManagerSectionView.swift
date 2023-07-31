@@ -14,21 +14,16 @@ class EventManagerSectionView : UITableViewHeaderFooterView {
     
     @IBOutlet weak var lblTime: UILabel!
     
-//    class func instanceFromNib() -> UIView {
-//        return UINib(nibName: "EventManagerSectionView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! UIView
-//    }
-    
-    
     override func draw(_ rect: CGRect) {
         self.decorateUI()
     }
     
     func decorateUI(){
-        lblDate.font = UIFont.BoldFont(14)
-        lblTime.font = UIFont.BoldFont(14)
-        
-        lblDate.textColor = UIColor.orangeColor
-        lblTime.textColor = UIColor.red
+//        self.contentView.backgroundColor = UIColor.themeColorSecondry
+        lblDate.font = UIFont.BoldFont(16)
+        lblTime.font = UIFont.BoldFont(16)
+        lblDate.textColor = UIColor.themeLight
+        lblTime.textColor = UIColor.themeLight
     }
     
 }

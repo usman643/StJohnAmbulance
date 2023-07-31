@@ -191,9 +191,9 @@ class VolunteersEventsTVC: UITableViewCell {
         self.lblTitle.text = cellModel?.msnfp_engagementopportunitytitle ?? ""
         self.lblLocation.text = cellModel?.msnfp_location ?? ""
         
-        self.btnView.isHidden = true
+//        self.btnView.isHidden = true
         
-//        self.btnDetail.setTitle("", for: .normal)
+        self.btnDetail.setTitle("View", for: .normal)
         
         
         

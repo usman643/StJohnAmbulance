@@ -112,6 +112,15 @@ class DateFormatManager{
         return dateFormatter.date(from: date ?? "") // replace Date String
     }
     
+    func getDateFromString(date: String?) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        dateFormatter.timeZone = TimeZone(identifier: "America/New_York")
+
+        let date = date//self.userData?.date_of_birth
+        return dateFormatter.date(from: date ?? "") // replace Date String
+    }
+    
     func getCurrentDateWithFormat(format: String?) -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format

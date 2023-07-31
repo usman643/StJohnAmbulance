@@ -7,10 +7,21 @@
 
 import UIKit
 
+enum VolunteerDataType {
+    
+    case Volunteer
+    case DayEvent
+    case Other
+
+}
+
 class VolunteerDetailVC: ENTALDBaseViewController {
     
     var volunteerData : VolunteerModel?
+    var dayVolunteerData : VolunteerOfEventDataModel?
     var isFromVolunteerScreen : Bool?
+    var isFromDayEventScreen : Bool?
+    var viewtype : VolunteerDataType?
     
     @IBOutlet weak var btnClose: UIButton!
     
@@ -44,7 +55,13 @@ class VolunteerDetailVC: ENTALDBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if isFromVolunteerScreen ?? false{
+        if (isFromDayEventScreen == true){
+            if let data = self.dataModel as? VolunteerOfEventDataModel {
+                self.dayVolunteerData = data
+            }
+            self.setupUI()
+            
+        }else if isFromVolunteerScreen ?? false{
             if let data = self.dataModel as? VolunteerModel {
                 self.volunteerData = data
             }
@@ -104,25 +121,41 @@ class VolunteerDetailVC: ENTALDBaseViewController {
     
     func setupUI(){
         
-        
-        
-        lblName.text = self.volunteerData?.msnfp_contactId?.fullname ?? ""
-
-        lblGender.text = ""
-        
-        lblPrefferenNoun.text = "____"
-//        lblPrefferenNoun.text = self.volunteerData?.msnfp_contactId?.sjavms_preferredpronouns
-        
-        lblEmail.text = self.volunteerData?.msnfp_contactId?.emailaddress1 ?? ""
-        
-        lblPhone.text = self.volunteerData?.msnfp_contactId?.telephone1 ?? ""
-        
-        lblAddresslineOne.text = self.volunteerData?.msnfp_contactId?.address1_line1 ?? ""
-        lblAddresslineTwo.text = self.volunteerData?.msnfp_contactId?.address1_city ?? ""
-        lblAddresslineThree.text = self.volunteerData?.msnfp_contactId?.address1_stateorprovince ?? ""
-        lblAddresslineFour.text = self.volunteerData?.msnfp_contactId?.address1_country ?? ""
-        
-
+        if (isFromDayEventScreen == true){
+            
+            lblName.text = self.dayVolunteerData?.sjavms_Volunteer?.fullname ?? ""
+            
+            lblGender.text = ""
+            
+            lblPrefferenNoun.text = "____"
+            //        lblPrefferenNoun.text = self.volunteerData?.msnfp_contactId?.sjavms_preferredpronouns
+            
+            lblEmail.text =  "____"
+            
+            lblPhone.text = "____"
+            
+            lblAddresslineOne.text = "____"
+            lblAddresslineTwo.text = "____"
+            lblAddresslineThree.text = "____"
+            lblAddresslineFour.text = "____"
+            
+        }else{
+            lblName.text = self.volunteerData?.msnfp_contactId?.fullname ?? ""
+            
+            lblGender.text = ""
+            
+            lblPrefferenNoun.text = "____"
+            //        lblPrefferenNoun.text = self.volunteerData?.msnfp_contactId?.sjavms_preferredpronouns
+            
+            lblEmail.text = self.volunteerData?.msnfp_contactId?.emailaddress1 ?? ""
+            
+            lblPhone.text = self.volunteerData?.msnfp_contactId?.telephone1 ?? ""
+            
+            lblAddresslineOne.text = self.volunteerData?.msnfp_contactId?.address1_line1 ?? ""
+            lblAddresslineTwo.text = self.volunteerData?.msnfp_contactId?.address1_city ?? ""
+            lblAddresslineThree.text = self.volunteerData?.msnfp_contactId?.address1_stateorprovince ?? ""
+            lblAddresslineFour.text = self.volunteerData?.msnfp_contactId?.address1_country ?? ""
+        }
         if isFromVolunteerScreen ?? false {
             
             lblEventTitle.isHidden = true
@@ -133,6 +166,8 @@ class VolunteerDetailVC: ENTALDBaseViewController {
             lblEnd.isHidden = true
             
         }
+        
+        
     }
     @IBAction func closeTapped(_ sender: Any) {
         

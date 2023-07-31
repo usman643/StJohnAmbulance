@@ -258,7 +258,7 @@ class ENTALDControllers {
     }
     
     func showEventManageScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, data:Any?, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
-        let vc = EventManageVC.loadFromNib()
+        let vc = VolunteerDayEventVC.loadFromNib()
         vc.eventData = data as? CurrentEventsModel
         vc.callbackToController = callBack
         
@@ -369,10 +369,11 @@ class ENTALDControllers {
         self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)
     }
     
-    func showVolunteerDetailScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+    func showVolunteerDetailScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil, dayEvent:Bool = false, callBack:ControllerCallBackCompletion?) {
         let vc = VolunteerDetailVC.loadFromNib()
         vc.callbackToController = callBack
         vc.dataModel = dataObj
+        vc.isFromDayEventScreen = dayEvent
         vc.isFromVolunteerScreen = true
         self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
     }

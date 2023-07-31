@@ -21,17 +21,6 @@ class ENTALDBaseViewController: UIViewController, MenuControllerDelegate {
     var callbackToController : ControllerCallBackCompletion?
     var dataModel: Any?
     
-    /// Appearance to be applied for navigation bar.
-//    private lazy var navBarAppearance: UINavigationBarAppearance = {
-//        let appearance = UINavigationBarAppearance()
-//        appearance.configureWithTransparentBackground()
-//        appearance.shadowImage = UIImage()
-//        appearance.shadowColor = nil
-//        appearance.backgroundColor = .clear
-//
-//        return appearance
-//    }()
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -40,13 +29,6 @@ class ENTALDBaseViewController: UIViewController, MenuControllerDelegate {
         super.viewDidLoad()
         self.registerReloadDataNotifications()
         self.setSideMenu(reference: self)
-//        setAppearanceDarkLightMode()
-//        self.navigationController?.navigationBar.prefersLargeTitles = false
-//        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-//        navigationController?.navigationBar.compactAppearance = navBarAppearance
-//        navigationController?.navigationBar.standardAppearance = navBarAppearance
-//        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-        
         self.navigationController?.navigationBar.isHidden = true
     }
     
