@@ -58,26 +58,26 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="dJa-0Z-MXb">
                                 <rect key="frame" x="62" y="53" width="281" height="84"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iB8-gb-cgP">
-                                        <rect key="frame" x="0.0" y="0.0" width="281" height="28"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kVL-0z-FWv">
-                                        <rect key="frame" x="0.0" y="28" width="281" height="28"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="281" height="42"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wWH-3s-Pfj">
-                                        <rect key="frame" x="0.0" y="56" width="281" height="28"/>
+                                        <rect key="frame" x="0.0" y="42" width="281" height="42"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iB8-gb-cgP">
+                                <rect key="frame" x="24.000000000000004" y="0.0" width="41.333333333333343" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -85,14 +85,18 @@
                             <constraint firstItem="E1k-PJ-XCd" firstAttribute="leading" secondItem="chT-cI-glG" secondAttribute="leading" constant="24" id="44Y-Tl-3Q5"/>
                             <constraint firstAttribute="bottom" secondItem="dJa-0Z-MXb" secondAttribute="bottom" constant="12" id="BKd-Se-UL3"/>
                             <constraint firstAttribute="trailing" secondItem="5zr-Db-dux" secondAttribute="trailing" id="H81-Dv-7ro"/>
+                            <constraint firstItem="5zr-Db-dux" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iB8-gb-cgP" secondAttribute="trailing" constant="8" id="I1b-sb-xxL"/>
                             <constraint firstItem="dJa-0Z-MXb" firstAttribute="leading" secondItem="E1k-PJ-XCd" secondAttribute="trailing" constant="8" id="Kvt-ve-yX7"/>
                             <constraint firstAttribute="trailing" secondItem="dJa-0Z-MXb" secondAttribute="trailing" constant="8" id="M4L-ta-rAm"/>
                             <constraint firstItem="gRV-lc-o73" firstAttribute="leading" secondItem="chT-cI-glG" secondAttribute="leading" constant="12" id="Oak-7c-h8F"/>
+                            <constraint firstItem="iB8-gb-cgP" firstAttribute="bottom" secondItem="i65-1L-owt" secondAttribute="bottom" id="PEi-Wu-hyN"/>
                             <constraint firstItem="gRV-lc-o73" firstAttribute="top" secondItem="5zr-Db-dux" secondAttribute="bottom" id="UaB-kp-cOd"/>
+                            <constraint firstItem="iB8-gb-cgP" firstAttribute="top" secondItem="i65-1L-owt" secondAttribute="top" id="V3X-6L-xu2"/>
                             <constraint firstItem="dJa-0Z-MXb" firstAttribute="top" secondItem="gRV-lc-o73" secondAttribute="bottom" constant="12" id="VDd-cW-FV1"/>
                             <constraint firstItem="5zr-Db-dux" firstAttribute="top" secondItem="chT-cI-glG" secondAttribute="top" id="d66-up-D6S"/>
                             <constraint firstAttribute="trailing" secondItem="gRV-lc-o73" secondAttribute="trailing" id="qH3-NZ-a1L"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="E1k-PJ-XCd" secondAttribute="bottom" priority="998" constant="12" id="s5h-nr-vHr"/>
+                            <constraint firstItem="iB8-gb-cgP" firstAttribute="leading" secondItem="chT-cI-glG" secondAttribute="leading" constant="24" id="wcf-dX-gNo"/>
                         </constraints>
                     </view>
                 </subviews>

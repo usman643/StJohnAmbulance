@@ -78,7 +78,7 @@ class QualificationCertificationVC: ENTALDBaseViewController,UITextFieldDelegate
         
         searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         searchView.layer.borderWidth = 1.5
-        searchView.isHidden = true
+        searchView.isHidden = false
         searchView.layer.cornerRadius = 8
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         

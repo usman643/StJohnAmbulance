@@ -43,7 +43,7 @@ class AdhocHourCell: UITableViewCell {
         btnView.titleLabel?.font = UIFont.BoldFont(13)
         
         lblEvent.textColor = UIColor.themeSecondryWhite
-        lblEvent.font = UIFont.RegularFont(13)
+        lblEvent.font = UIFont.BoldFont(14)
         lblProgram.textColor = UIColor.themeSecondryWhite
         lblProgram.font = UIFont.RegularFont(13)
 

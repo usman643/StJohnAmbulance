@@ -96,6 +96,7 @@ class PendingEventVC: ENTALDBaseViewController {
         searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         searchView.layer.borderWidth = 1.5
         searchView.isHidden = false
+        searchView.layer.cornerRadius = 8
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         
         self.pendingApprovalView.isHidden = false
@@ -469,7 +470,7 @@ class PendingEventVC: ENTALDBaseViewController {
             ParameterKeys.select : "sjavms_name,sjavms_address1name,sjavms_maxvolunteers,sjavms_eventstartdate,statecode,_sjavms_program_value,sjavms_eventrequestid",
             ParameterKeys.expand : "sjavms_msnfp_group_sjavms_eventrequest($filter=(msnfp_groupid eq \(groupId)))",
             ParameterKeys.filter : "(statecode eq 0 and (statuscode eq 1 or statuscode eq 802280002)) and (sjavms_msnfp_group_sjavms_eventrequest/any(o1:(o1/msnfp_groupid eq \(groupId))))",
-            //            ParameterKeys.orderby : "msnfp_engagementopportunityschedule asc"
+                        ParameterKeys.orderby : "sjavms_eventstartdate asc"
         ]
         
         self.getPendingApprovalsData(params: params)
@@ -528,7 +529,7 @@ class PendingEventVC: ENTALDBaseViewController {
             ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_location,msnfp_minimum,msnfp_startingdate,msnfp_endingdate,msnfp_engagementopportunitystatus,_sjavms_program_value,msnfp_engagementopportunityid,msnfp_maximum,_sjavms_contact_value,sjavms_maxparticipants",
             ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(msnfp_groupid eq \(groupId)))",
             ParameterKeys.filter : "(msnfp_engagementopportunitystatus eq 844060000) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
-            //            ParameterKeys.orderby : "msnfp_engagementopportunityschedule asc"
+            ParameterKeys.orderby : "msnfp_startingdate asc"
         ]
         
         self.getPendingPublishData(params: params)

@@ -41,17 +41,6 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     
     @IBOutlet weak var btnSeclectAction: UIButton!
     @IBOutlet weak var btnFilter: UIButton!
-    @IBOutlet weak var tableHeaderView: UIView!
-    @IBOutlet weak var lblName: UILabel!
-    @IBOutlet weak var lblEvent: UILabel!
-    @IBOutlet weak var lblDate: UILabel!
-    @IBOutlet weak var lblHours: UILabel!
-    @IBOutlet weak var lblShift: UILabel!
-    @IBOutlet weak var lblAction: UILabel!
-    
-    @IBOutlet weak var lblTabTitle: UILabel!
-    
-    @IBOutlet weak var selectedTabImg: UIImageView!
     
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var searchImg: UIImageView!
@@ -82,14 +71,6 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         
         lblTitle.font = UIFont.BoldFont(20)
         lblSubTitle.font = UIFont.BoldFont(16)
-        lblName.font = UIFont.BoldFont(12)
-        lblName.font = UIFont.BoldFont(12)
-        lblEvent.font = UIFont.BoldFont(12)
-        lblDate.font = UIFont.BoldFont(12)
-        lblHours.font = UIFont.BoldFont(12)
-        lblShift.font = UIFont.BoldFont(12)
-        lblAction.font = UIFont.BoldFont(12)
-//        lblTabTitle.font = UIFont.BoldFont(14)
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
         btnSelectGroup.backgroundColor = UIColor.themePrimary
         btnSelectGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
@@ -100,14 +81,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
  
         lblTitle.textColor = UIColor.themePrimaryWhite
         lblSubTitle.textColor = UIColor.themePrimaryWhite
-        lblName.textColor = UIColor.themePrimaryWhite
-        lblName.textColor = UIColor.themePrimaryWhite
-        lblEvent.textColor = UIColor.themePrimaryWhite
-        lblDate.textColor = UIColor.themePrimaryWhite
-        lblHours.textColor = UIColor.themePrimaryWhite
-        lblShift.textColor = UIColor.themePrimaryWhite
-        lblAction.textColor = UIColor.themePrimaryWhite
-//        lblTabTitle.textColor = UIColor.themePrimaryColor
+        
         
 //        tableHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
 //        tableHeaderView.layer.borderWidth = 1.5
@@ -120,6 +94,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         searchView.layer.borderWidth = 1.5
         searchView.isHidden = true
+        searchView.layer.cornerRadius = 8
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         
     }
@@ -399,7 +374,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
             
             ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(msnfp_groupid eq \(groupId)))",
             ParameterKeys.filter : "(sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
-            ParameterKeys.orderby : "msnfp_engagementopportunitytitle asc"
+            ParameterKeys.orderby : "msnfp_startingdate asc"
             
         ]
         
@@ -416,7 +391,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
             
             ParameterKeys.filter : "(_msnfp_engagementopportunity_value eq 0243fc0b-d274-ed11-81ac-0022486dfdbd)",
 //            ParameterKeys.filter : "(_msnfp_engagementopportunity_value eq 0243fc0b-d274-ed11-81ac-0022486dfdbd)",
-            ParameterKeys.orderby : "msnfp_engagementopportunityschedule asc"
+            ParameterKeys.orderby : "msnfp_effectivefrom asc"
             
         ]
         
@@ -477,7 +452,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
             
             ParameterKeys.expand : "sjavms_Volunteer($select=fullname,lastname,telephone1,emailaddress1,address1_stateorprovince,address1_postalcode,address1_country,address1_city)",
             ParameterKeys.filter : "(Microsoft.Dynamics.CRM.In(PropertyName='sjavms_volunteerevent',PropertyValues=[\(engagementOppertunityId)]))",
-            ParameterKeys.orderby : "msnfp_name asc"
+            ParameterKeys.orderby : "sjavms_start asc"
             
         ]
         DispatchQueue.main.async {

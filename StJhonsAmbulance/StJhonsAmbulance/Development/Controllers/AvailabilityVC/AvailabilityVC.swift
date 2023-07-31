@@ -146,6 +146,15 @@ class AvailabilityVC: ENTALDBaseViewController,UITextFieldDelegate {
 //        selectedTabImg.tintColor = UIColor.themePrimaryColor
         isAdhocTableSearch = true
         searchView.isHidden = false
+        searchView.layer.cornerRadius = 8
+        segment.selectedSegmentIndex = 0
+        self.adhocView.isHidden = false
+        self.volunteerHourView.isHidden = true
+        self.availablityView.isHidden = true
+        
+        isAdhocTableSearch = true
+        isVolunteerHourTableSearch = false
+        isAvailablityTableSearch = false
     }
     
     @IBAction func addAdhocHourTapped(_ sender: Any) {
@@ -723,7 +732,7 @@ class AvailabilityVC: ENTALDBaseViewController,UITextFieldDelegate {
             ParameterKeys.select : "msnfp_schedulestatus,sjavms_start,sjavms_end,_sjavms_volunteerevent_value,_msnfp_engagementopportunityscheduleid_value,sjavms_hours,msnfp_participationscheduleid",
             ParameterKeys.expand : "sjavms_VolunteerEvent($select=_sjavms_program_value,msnfp_engagementopportunitytitle),msnfp_engagementOpportunityScheduleId($select=msnfp_shiftname,msnfp_engagementopportunityschedule)",
             ParameterKeys.filter : "(statecode eq 0 and _sjavms_volunteer_value eq \(self.contactId)) and (sjavms_VolunteerEvent/sjavms_adhocevent ne true)",
-            ParameterKeys.orderby : "_sjavms_volunteerevent_value asc,msnfp_schedulestatus desc"
+            ParameterKeys.orderby : "sjavms_start asc"
             
         ]
         self.getVolunteerHourData(params: params)
@@ -812,6 +821,11 @@ class AvailabilityVC: ENTALDBaseViewController,UITextFieldDelegate {
                 
                 if let hours = response.value {
                     self.adhocData = hours
+                    
+                    self.adhocData = self.adhocData?.sorted {
+                        $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
+                    }
+                    
                     self.filterAdhocData = hours
                     if (self.adhocData?.count == 0 || self.adhocData?.count == nil){
                         self.showEmptyView(tableVw: self.adhocTableView)
