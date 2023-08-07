@@ -87,7 +87,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
                 
                 lblEventName.text = eventData?.msnfp_engagementopportunitytitle
                 if (eventData?.msnfp_startingdate != nil && eventData?.msnfp_startingdate != ""){
-                    let date =  DateFormatManager.shared.formatDateStrToStr(date: eventData?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEEE, MMMM d, yyyy")
+                    let date =  DateFormatManager.shared.formatDateStrToStr(date: eventData?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd hh:mm a")
                     lblDate.text = date
 
                    let dayRemaining = DateFormatManager.shared.dayRemaining(date: eventData?.msnfp_startingdate ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")
@@ -126,7 +126,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
                 
                 lblEventName.text = pendingShiftData?.msnfp_name
                 if (pendingShiftData?.sjavms_start != nil && pendingShiftData?.sjavms_start != ""){
-                    let date =  DateFormatManager.shared.formatDateStrToStr(date: pendingShiftData?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEEE, MMMM d, yyyy")
+                    let date =  DateFormatManager.shared.formatDateStrToStr(date: pendingShiftData?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd hh:mm a")
                     lblDate.text = date
                     
                     let dayRemaining = DateFormatManager.shared.dayRemaining(date: pendingShiftData?.sjavms_start ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")
@@ -149,7 +149,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
                 
                 lblEventName.text = unpublishEventData?.msnfp_engagementopportunitytitle
                 if (unpublishEventData?.msnfp_startingdate != nil && unpublishEventData?.msnfp_startingdate != ""){
-                    let date =  DateFormatManager.shared.formatDateStrToStr(date: unpublishEventData?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+                    let date =  DateFormatManager.shared.formatDateStrToStr(date: unpublishEventData?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd hh:mm a")
                     lblDate.text = date
                     if(DateFormatManager.shared.isDatePassed(date: unpublishEventData?.msnfp_startingdate ?? "...", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
                         self.btnCancel.isEnabled = false
@@ -181,7 +181,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
                 
                 lblEventName.text = pendingEventApprovalData?.sjavms_name
                 if (pendingEventApprovalData?.sjavms_eventstartdate != nil && pendingEventApprovalData?.sjavms_eventstartdate == ""){
-                    let date =  DateFormatManager.shared.formatDateStrToStr(date: pendingEventApprovalData?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+                    let date =  DateFormatManager.shared.formatDateStrToStr(date: pendingEventApprovalData?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd hh:mm a")
                     lblDate.text = date
                     let dayRemaining = DateFormatManager.shared.dayRemaining(date: pendingEventApprovalData?.sjavms_eventstartdate  ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")
                      if dayRemaining > 0 {
@@ -221,8 +221,8 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
             lblLocation.textColor = UIColor.themeBlackText
 //            lblProgramType.textColor = UIColor.themeBlackText
             
-            btnContact.titleLabel?.font = UIFont.BoldFont(14)
-            btnCancel.titleLabel?.font = UIFont.BoldFont(14)
+            btnContact.titleLabel?.font = UIFont.BoldFont(13)
+            btnCancel.titleLabel?.font = UIFont.BoldFont(12)
             
             contactBtnView.layer.borderColor = UIColor.themeColorSecondry.cgColor
             cancelBtnView.layer.borderColor = UIColor.red.cgColor
@@ -327,7 +327,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
         
         @objc func textFieldDidChange(_ textField: UITextField) {
             
-            if let str = textField.text, str.count > 2 {
+            if let str = textField.text, str.count > 0 {
                 let searchResults = self.getSearchData(keyword: str)
                 self.dataVol = searchResults
                 self.tableView.reloadData()
@@ -356,16 +356,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
         }
         
         
-//        @IBAction func segmentsTapped(_ sender: Any) {
-//            if self.C_Segments.selectedSegmentIndex == 0 {
-//                self.v_ContainerVU.isHidden = false
-//                self.mapContainerVu.isHidden = true
-//            }else{
-//                self.v_ContainerVU.isHidden = true
-//                self.mapContainerVu.isHidden = false
-//            }
-//        }
-        
+
         
         
         @IBAction func backTapped(_ sender: Any) {
@@ -451,7 +442,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
                 
                 ParameterKeys.select : "msnfp_schedulestatus,sjavms_start,sjavms_hours,_sjavms_volunteerevent_value,_sjavms_volunteer_value,msnfp_participationscheduleid,sjavms_start,sjavms_end,sjavms_checkedin,sjavms_checkedinlatitude,sjavms_checkedinlongitude",
                 
-                ParameterKeys.expand : "sjavms_Volunteer($select=fullname)",
+                ParameterKeys.expand : "sjavms_Volunteer($select=fullname,entityimage,fullname,lastname,telephone1,emailaddress1,address1_stateorprovince,address1_postalcode,address1_country,address1_city,address1_country,address1_line1,address1_line3,address1_line2,sjavms_gender,sjavms_preferredpronouns)",
                 ParameterKeys.filter : "(_sjavms_volunteerevent_value eq \(eventId))",
                 ParameterKeys.orderby : "_sjavms_volunteer_value asc,_sjavms_volunteerevent_value asc"
                 
@@ -477,6 +468,10 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
                     
                     if let pastEvent = response.value {
                         self.volunteerData = pastEvent
+                        self.volunteerData = self.volunteerData?.sorted(by: { ($0.sjavms_start ?? "") < ($1.sjavms_start ?? "") })
+                        
+                        
+                        
                         if (self.volunteerData?.count == 0 || self.volunteerData?.count == nil){
                             self.showEmptyView(tableVw: self.tableView)
                         }else{
@@ -758,7 +753,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
                 let calendar = Calendar.current
 
                 let components = calendar.dateComponents([.minute, .second], from: currentDate, to: eventDate)
-                if ((components.minute ?? 31) <= 30){
+                if ((components.minute ?? 31) <= 30 && (components.minute ?? 31) >= -30){
                     cell.btnCheckIn.isEnabled = true
                     cell.btnCheckIn.isUserInteractionEnabled = true
                 }else{

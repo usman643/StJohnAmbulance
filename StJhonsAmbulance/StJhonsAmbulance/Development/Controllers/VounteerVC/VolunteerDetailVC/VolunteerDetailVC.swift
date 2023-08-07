@@ -30,8 +30,8 @@ class VolunteerDetailVC: ENTALDBaseViewController {
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblGenderTitle: UILabel!
     @IBOutlet weak var lblGender: UILabel!
-    @IBOutlet weak var lblPrefferenNounTitle: UILabel!
-    @IBOutlet weak var lblPrefferenNoun: UILabel!
+//    @IBOutlet weak var lblPrefferenNounTitle: UILabel!
+//    @IBOutlet weak var lblPrefferenNoun: UILabel!
     @IBOutlet weak var lblEmailTitle: UILabel!
     @IBOutlet weak var lblEmail: UILabel!
     @IBOutlet weak var lblPhoneTitle: UILabel!
@@ -77,8 +77,8 @@ class VolunteerDetailVC: ENTALDBaseViewController {
         lblName.textColor = UIColor.themePrimaryWhite
         lblGenderTitle.textColor = UIColor.themePrimaryWhite
         lblGender.textColor = UIColor.themePrimaryWhite
-        lblPrefferenNounTitle.textColor = UIColor.themePrimaryWhite
-        lblPrefferenNoun.textColor = UIColor.themePrimaryWhite
+//        lblPrefferenNounTitle.textColor = UIColor.themePrimaryWhite
+//        lblPrefferenNoun.textColor = UIColor.themePrimaryWhite
         lblEmailTitle.textColor = UIColor.themePrimaryWhite
         lblEmail.textColor = UIColor.themePrimaryWhite
         lblPhoneTitle.textColor = UIColor.themePrimaryWhite
@@ -100,8 +100,8 @@ class VolunteerDetailVC: ENTALDBaseViewController {
         lblName.font = UIFont.RegularFont(14)
         lblGenderTitle.font = UIFont.BoldFont(16)
         lblGender.font = UIFont.RegularFont(14)
-        lblPrefferenNounTitle.font = UIFont.BoldFont(16)
-        lblPrefferenNoun.font = UIFont.RegularFont(14)
+//        lblPrefferenNounTitle.font = UIFont.BoldFont(16)
+//        lblPrefferenNoun.font = UIFont.RegularFont(14)
         lblEmailTitle.font = UIFont.BoldFont(16)
         lblEmail.font = UIFont.RegularFont(14)
         lblPhoneTitle.font = UIFont.BoldFont(16)
@@ -123,29 +123,29 @@ class VolunteerDetailVC: ENTALDBaseViewController {
         
         if (isFromDayEventScreen == true){
             
-            lblName.text = self.dayVolunteerData?.sjavms_Volunteer?.fullname ?? ""
+            lblName.text = self.dayVolunteerData?.sjavms_Volunteer?.fullname ?? "---"
             
-            lblGender.text = ""
+            lblGender.text = self.dayVolunteerData?.sjavms_Volunteer?.sjavms_gender ?? "---"
             
-            lblPrefferenNoun.text = "____"
-            //        lblPrefferenNoun.text = self.volunteerData?.msnfp_contactId?.sjavms_preferredpronouns
+//            lblPrefferenNoun.text = "____"
+//            lblPrefferenNoun.text = ProcessUtils.shared.getPronoun(code: self.dayVolunteerData?.sjavms_Volunteer?.sjavms_preferredpronouns)
             
-            lblEmail.text =  "____"
+            lblEmail.text =  self.dayVolunteerData?.sjavms_Volunteer?.emailaddress1 ?? "---"
             
-            lblPhone.text = "____"
+            lblPhone.text = self.dayVolunteerData?.sjavms_Volunteer?.telephone1 ?? "---"
             
-            lblAddresslineOne.text = "____"
-            lblAddresslineTwo.text = "____"
-            lblAddresslineThree.text = "____"
-            lblAddresslineFour.text = "____"
+            lblAddresslineOne.text = "\(self.dayVolunteerData?.sjavms_Volunteer?.address1_line1 ?? "") \(self.dayVolunteerData?.sjavms_Volunteer?.address1_line2 ?? "") \(self.dayVolunteerData?.sjavms_Volunteer?.address1_line3 ?? "") "
+            lblAddresslineTwo.text = self.dayVolunteerData?.sjavms_Volunteer?.address1_city ?? "---"
+            lblAddresslineThree.text = self.dayVolunteerData?.sjavms_Volunteer?.address1_stateorprovince ?? "---"
+            lblAddresslineFour.text = self.dayVolunteerData?.sjavms_Volunteer?.address1_country ?? "---"
             
         }else{
             lblName.text = self.volunteerData?.msnfp_contactId?.fullname ?? ""
             
-            lblGender.text = ""
+            lblGender.text = self.volunteerData?.msnfp_contactId?.sjavms_gender ?? ""
             
-            lblPrefferenNoun.text = "____"
-            //        lblPrefferenNoun.text = self.volunteerData?.msnfp_contactId?.sjavms_preferredpronouns
+//            lblPrefferenNoun.text = "____"
+//                    lblPrefferenNoun.text = self.volunteerData?.msnfp_contactId?.sjavms_preferredpronouns
             
             lblEmail.text = self.volunteerData?.msnfp_contactId?.emailaddress1 ?? ""
             

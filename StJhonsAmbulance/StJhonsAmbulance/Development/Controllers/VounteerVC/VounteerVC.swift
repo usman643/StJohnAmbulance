@@ -263,7 +263,7 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
             
             ParameterKeys.select : "msnfp_groupmembershipid,msnfp_membershiprole",
             
-            ParameterKeys.expand : "msnfp_contactId($select=fullname,lastname,telephone1,emailaddress1,address1_stateorprovince,address1_line1,address1_postalcode,address1_country,address1_city),sjavms_RoleType($select=sjavms_rolecategory,sjavms_name)",
+            ParameterKeys.expand : "msnfp_contactId($select=fullname,lastname,telephone1,emailaddress1,address1_stateorprovince,address1_line1,address1_postalcode,address1_country,address1_city,sjavms_gender),sjavms_RoleType($select=sjavms_rolecategory,sjavms_name)",
             ParameterKeys.filter : "(statecode eq 0 and _msnfp_groupid_value eq \(groupId)) and (msnfp_contactId/statecode eq 0)",
             ParameterKeys.orderby : "msnfp_membershiprole asc"
             

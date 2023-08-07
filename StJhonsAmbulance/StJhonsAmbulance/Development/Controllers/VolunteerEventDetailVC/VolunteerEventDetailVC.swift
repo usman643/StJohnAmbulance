@@ -56,7 +56,7 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
             availableData = dataModel as? AvailableEventModel
             self.eventId = self.availableData?.msnfp_engagementopportunityid ?? ""
 //            self.setupAvailiableScreenData()
-        }else if eventType == ""{
+        }else if eventType == "engagement"{
             scheduleEngagementData = dataModel as? ScheduleEngagementModel
             self.eventId = self.scheduleEngagementData?.OppId ?? ""
         }else if eventType == "calender"{
@@ -65,8 +65,8 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         }
         
         self.getEventTabDetail()
-        self.getEventParitionCheck()
-        self.reloadControllers()
+//        self.getEventParitionCheck()
+//        self.reloadControllers()
     }
     
     func decorateUI(){
@@ -116,6 +116,7 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
     
     func setupData(){
         DispatchQueue.main.async {
+            
             if (self.tabDetailData?[0].msnfp_engagementopportunitytitle != nil){
                 
                 self.lblEventName.text = self.tabDetailData?[0].msnfp_engagementopportunitytitle ?? ""
@@ -566,7 +567,17 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
                 if let qualification = response.value {
                     
                         self.tabDetailData = qualification
+                    if ((self.tabDetailData?.count ?? 0) > 0 ) {
                         self.setupData()
+                    }else{
+                        DispatchQueue.main.async {
+                            ENTALDAlertView.shared.showAPIAlertWithTitle(title: "Alert", message: "No Data Found", actionTitle: .KOK, completion: {status in
+                                
+                                self.navigationController?.popViewController(animated: true)
+                            })
+                        }
+                    }
+                       
                 }
                 
             case .error(let error, let errorResponse):
@@ -580,6 +591,7 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
                 }
             }
         }
+        
     }
     
     

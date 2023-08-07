@@ -96,6 +96,7 @@ struct ScheduleModelThree : Codable {
     let msnfp_participationscheduleid : String?
     let sjavms_end : String?
     let sjavms_checkedin : Bool?
+    var time_difference : Int?
     let sjavms_VolunteerEvent : ScheduleDataModel?
     
     

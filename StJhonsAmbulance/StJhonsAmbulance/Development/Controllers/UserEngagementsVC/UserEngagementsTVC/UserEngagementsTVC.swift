@@ -16,6 +16,7 @@ class UserEngagementsTVC: UITableViewCell {
     
     @IBOutlet weak var locationImg: UIImageView!
     @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var btnView: UIView!
     @IBOutlet weak var btnDetail: UIButton!
     
     
@@ -30,32 +31,44 @@ class UserEngagementsTVC: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
     func decorateUI(){
-        btnDetail.layer.cornerRadius = btnDetail.frame.size.height/2
-        btnDetail.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        btnDetail.titleLabel?.font = UIFont.BoldFont(14)
         
-        lblEventName.font = UIFont.BoldFont(14)
-        lblProgramType.font = UIFont.BoldFont(13)
-        lblDate.font = UIFont.RegularFont(12)
-        lblLocation.font = UIFont.RegularFont(12)
-        lblEventType.font = UIFont.RegularFont(11)
-        lblEventName.textColor = UIColor.themeBlackText
-        lblProgramType.textColor = UIColor.themeBlackText
-        lblDate.textColor = UIColor.themePrimaryWhite
-        lblLocation.textColor = UIColor.themePrimaryWhite
-        lblEventType.textColor = UIColor.themePrimaryWhite
         mainView.layer.borderWidth = 0.5
         mainView.layer.borderColor = UIColor.systemGray3.cgColor
         mainView.layer.shadowColor = UIColor.systemGray4.cgColor
-        mainView.layer.shadowOpacity = 0.8
+        mainView.layer.shadowOpacity = 0.5
         mainView.layer.shadowOffset = .zero
         mainView.layer.shadowRadius = 6
         
+        mainView.layer.cornerRadius = 16
+        btnDetail.layer.cornerRadius = 16
+        btnDetail.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
+        
+        lblDate.textColor = UIColor.themeSecondryWhite
+        lblDate.font =  UIFont.MediumFont(11)
+        
+        lblEventName.textColor = UIColor.themeSecondryWhite
+        lblProgramType.textColor = UIColor.themeSecondryWhite
+        lblLocation.textColor = UIColor.themeSecondryWhite
+        lblEventType.textColor = UIColor.themeSecondryWhite
+        
+        lblEventName.font = UIFont.BoldFont(14)
+        lblProgramType.font = UIFont.BoldFont(14)
+        lblLocation.font = UIFont.BoldFont(14)
+        lblEventType.font = UIFont.BoldFont(14)
+
+        
         locationImg.image = locationImg.image?.withRenderingMode(.alwaysTemplate)
-        locationImg.tintColor = UIColor.themePrimaryColor
+        
+        locationImg.tintColor = UIColor.themeColorSecondry
+        btnDetail.setTitleColor(UIColor.textWhiteColor, for: .normal)
+        btnDetail.titleLabel?.font = UIFont.BoldFont(12)
+        
+        btnView.layer.cornerRadius = 16
+        btnView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
+        
     }
-    
     func setContent (cellModel:ScheduleEngagementModel?){
         
         lblEventName.text = cellModel?.Title ?? "Not Found"

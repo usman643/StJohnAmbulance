@@ -10,14 +10,10 @@ import UIKit
 class ParticipationDetailTVC: UITableViewCell {
 
     @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var lblCreate: UILabel!
+    
     @IBOutlet weak var lblVolunteer: UILabel!
-    @IBOutlet weak var lblEvent: UILabel!
-    @IBOutlet weak var lblStart: UILabel!
-    @IBOutlet weak var lblEnd: UILabel!
-    @IBOutlet weak var lblCompleted: UILabel!
+//    @IBOutlet weak var lblEvent: UILabel!
     @IBOutlet weak var seperaterView: UIView!
-    @IBOutlet weak var lblPending: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         decorateUI()
@@ -25,21 +21,13 @@ class ParticipationDetailTVC: UITableViewCell {
     
     func decorateUI(){
         
-        lblCreate.textColor = UIColor.textBlackColor
-        lblVolunteer.textColor = UIColor.textBlackColor
-        lblEvent.textColor = UIColor.textBlackColor
-        lblStart.textColor = UIColor.textBlackColor
-        lblEnd.textColor = UIColor.textBlackColor
-        lblCompleted.textColor = UIColor.textBlackColor
-        lblPending.textColor = UIColor.textBlackColor
+        mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
         
-        lblCreate.font = UIFont.RegularFont(11)
+        lblVolunteer.textColor = UIColor.textBlackColor
+//        lblEvent.textColor = UIColor.textBlackColor
+
         lblVolunteer.font = UIFont.RegularFont(11)
-        lblEvent.font = UIFont.RegularFont(11)
-        lblStart.font = UIFont.RegularFont(11)
-        lblEnd.font = UIFont.RegularFont(11)
-        lblCompleted.font = UIFont.RegularFont(11)
-        lblPending.font = UIFont.RegularFont(11)
+//        lblEvent.font = UIFont.RegularFont(11)
         
     }
 
@@ -55,7 +43,7 @@ class ParticipationDetailTVC: UITableViewCell {
             
             let arr = participationtitle.components(separatedBy: " - ")
             lblVolunteer.text = arr[0]
-            lblEvent.text = arr[1]
+//            lblEvent.text = arr[1]
             
         }
         

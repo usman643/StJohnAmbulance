@@ -39,7 +39,6 @@ class AdhocHourCell: UITableViewCell {
         statusView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
 
         btnView.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        
         btnView.titleLabel?.font = UIFont.BoldFont(13)
         
         lblEvent.textColor = UIColor.themeSecondryWhite

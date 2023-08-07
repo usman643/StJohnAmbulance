@@ -50,12 +50,12 @@ class VolunteersEventsTVC: UITableViewCell {
         statusView.layer.cornerRadius = 16
         statusView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
         
-        lblDateTime.textColor = UIColor.themeSecondry
+        lblDateTime.textColor = UIColor.themeSecondryWhite
         
         btnView.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        lblTitle.textColor = UIColor.themeSecondry
+        lblTitle.textColor = UIColor.themeSecondryWhite
         
-        lblLocation.textColor = UIColor.themeSecondry
+        lblLocation.textColor = UIColor.themeSecondryWhite
         
         lblDateTime.font =  UIFont.MediumFont(11)
         btnView.titleLabel?.font = UIFont.BoldFont(13)
@@ -129,7 +129,7 @@ class VolunteersEventsTVC: UITableViewCell {
     
     func setContent(cellModel: ScheduleModelThree?,  indx : Int){
         
-        
+        self.cellType = "schedule"
         let startTime = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d, hh:mm a")
         
         let endTime = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
@@ -145,13 +145,7 @@ class VolunteersEventsTVC: UITableViewCell {
         }else{
             btnView.isHidden = true
         }
-
-        
-        
-        
-        
-        
-//        self.scheduleEventdata = cellModel
+        self.scheduleEventdata = cellModel
 //        self.eventId = cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
 //        self.lblEvent.text = cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
 //        self.lblLocation.text = cellModel?.sjavms_VolunteerEvent?.msnfp_location ?? ""
@@ -181,7 +175,7 @@ class VolunteersEventsTVC: UITableViewCell {
     
     func setContent(cellModel: AvailableEventModel?, indx : Int){
         
-        
+        self.cellType = "available"
         let startTime = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d, hh:mm a")
         
         let endTime = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
@@ -195,13 +189,9 @@ class VolunteersEventsTVC: UITableViewCell {
         
         self.btnDetail.setTitle("View", for: .normal)
         
+
+        self.availableEventdata = cellModel
         
-        
-        
-        
-        
-        
-//        self.availableEventdata = cellModel
 //        self.eventId = cellModel?.msnfp_engagementopportunityid ?? ""
 //
 //        self.lblEvent.text = cellModel?.msnfp_engagementopportunitytitle ?? ""

@@ -201,6 +201,7 @@
 		1DD1919D2A004E4100EEFC5D /* UserEngagementsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DD1919B2A004E4100EEFC5D /* UserEngagementsVC.xib */; };
 		1DD191A52A00E94000EEFC5D /* UserEngagementsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD191A32A00E94000EEFC5D /* UserEngagementsTVC.swift */; };
 		1DD191A62A00E94000EEFC5D /* UserEngagementsTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DD191A42A00E94000EEFC5D /* UserEngagementsTVC.xib */; };
+		1DD22BCF2A7A8F5200F65D21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DD22BCD2A7A8F5200F65D21 /* Main.storyboard */; };
 		1DD46E322992D28E00B25E10 /* VolunteerDashBoardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD46E312992D28E00B25E10 /* VolunteerDashBoardRouter.swift */; };
 		1DD46E362992FA4400B25E10 /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD46E352992FA4400B25E10 /* ScheduleModel.swift */; };
 		1DD6659729AE8BAB00CAA164 /* LanguageResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD6659629AE8BAB00CAA164 /* LanguageResponseModel.swift */; };
@@ -244,7 +245,6 @@
 		1DF9C12E29DE007B004744AD /* AddAvilabilityVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DF9C12C29DE007B004744AD /* AddAvilabilityVC.xib */; };
 		353C6107281213A500CC8B7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C6106281213A500CC8B7F /* AppDelegate.swift */; };
 		353C6109281213A500CC8B7F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C6108281213A500CC8B7F /* SceneDelegate.swift */; };
-		353C610E281213A500CC8B7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 353C610C281213A500CC8B7F /* Main.storyboard */; };
 		353C6110281213A600CC8B7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 353C610F281213A600CC8B7F /* Assets.xcassets */; };
 		353C6113281213A600CC8B7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 353C6111281213A600CC8B7F /* LaunchScreen.storyboard */; };
 		353C61452813EF9600CC8B7F /* ENTALDAppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C61442813EF9600CC8B7F /* ENTALDAppConfig.swift */; };
@@ -603,6 +603,7 @@
 		1DD1919B2A004E4100EEFC5D /* UserEngagementsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserEngagementsVC.xib; sourceTree = "<group>"; };
 		1DD191A32A00E94000EEFC5D /* UserEngagementsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEngagementsTVC.swift; sourceTree = "<group>"; };
 		1DD191A42A00E94000EEFC5D /* UserEngagementsTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserEngagementsTVC.xib; sourceTree = "<group>"; };
+		1DD22BCE2A7A8F5200F65D21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1DD46E312992D28E00B25E10 /* VolunteerDashBoardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerDashBoardRouter.swift; sourceTree = "<group>"; };
 		1DD46E352992FA4400B25E10 /* ScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModel.swift; sourceTree = "<group>"; };
 		1DD6659629AE8BAB00CAA164 /* LanguageResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageResponseModel.swift; sourceTree = "<group>"; };
@@ -648,7 +649,6 @@
 		353C6103281213A500CC8B7F /* StJhonsAmbulance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StJhonsAmbulance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		353C6106281213A500CC8B7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		353C6108281213A500CC8B7F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		353C610D281213A500CC8B7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		353C610F281213A600CC8B7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		353C6112281213A600CC8B7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		353C6114281213A600CC8B7F /* StJhons_info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = StJhons_info.plist; sourceTree = "<group>"; };
@@ -2043,8 +2043,8 @@
 		353C61422813ED6F00CC8B7F /* StoryBoards */ = {
 			isa = PBXGroup;
 			children = (
-				353C610C281213A500CC8B7F /* Main.storyboard */,
 				353C6111281213A600CC8B7F /* LaunchScreen.storyboard */,
+				1DD22BCD2A7A8F5200F65D21 /* Main.storyboard */,
 			);
 			path = StoryBoards;
 			sourceTree = "<group>";
@@ -2586,7 +2586,6 @@
 				1DCE27BA29CEDD0800A80B3A /* EventHourTVC.xib in Resources */,
 				1DBA5CBF29C6F4CA0094D16C /* ShiftOptionTVC.xib in Resources */,
 				E43FFCBC29B5CCBE008814C2 /* EventDetailInfoFormVC.xib in Resources */,
-				353C610E281213A500CC8B7F /* Main.storyboard in Resources */,
 				1D2E2442298FD241006AB56A /* EventManagerTVC.xib in Resources */,
 				1D0C847529E1EADD0085177D /* CreateAdhocHourVC.xib in Resources */,
 				1DC2711529CF206B00B2D762 /* EventAuditVC.xib in Resources */,
@@ -2637,6 +2636,7 @@
 				1D9573A22A362F3600FFAF6E /* SignalRVC.xib in Resources */,
 				1DF4DA972A65C30700F3243E /* VolunteerDayEventVC.xib in Resources */,
 				1D8A424929CD869800C3FC84 /* EventDescriptionVC.xib in Resources */,
+				1DD22BCF2A7A8F5200F65D21 /* Main.storyboard in Resources */,
 				1D8A424429CD829600C3FC84 /* EventSummaryScreenTVC.xib in Resources */,
 				359E9C35282D47C2001E3D73 /* onBoardingJson.json in Resources */,
 				1D61B6C22A5B45150044BD26 /* AwardsVC.xib in Resources */,
@@ -3103,10 +3103,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		353C610C281213A500CC8B7F /* Main.storyboard */ = {
+		1DD22BCD2A7A8F5200F65D21 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				353C610D281213A500CC8B7F /* Base */,
+				1DD22BCE2A7A8F5200F65D21 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -3255,13 +3255,14 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 60;
+				CURRENT_PROJECT_VERSION = 63;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StJhonsAmbulance/StJhons_info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "SJA Impact";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "We will use calendar to show scheduals";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = Description;
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = Description;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Need your location updates to send";
@@ -3294,15 +3295,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 60;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 63;
+				DEVELOPMENT_TEAM = ZBSWH433X6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StJhonsAmbulance/StJhons_info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "SJA Impact";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "We will use calendar to show scheduals";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = Description;
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = Description;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Need your location updates to send";
@@ -3317,10 +3317,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.STJohn.Ambulance;
+				PRODUCT_BUNDLE_IDENTIFIER = com.umair.xcyv;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "ST John Distribution";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "StJhonsAmbulance/StJhonsAmbulance-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

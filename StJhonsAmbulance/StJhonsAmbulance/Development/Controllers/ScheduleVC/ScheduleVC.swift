@@ -18,16 +18,16 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
     var formatter = DateFormatter()
     let contactId = UserDefaults.standard.contactIdToken ?? ""
     
+    @IBOutlet weak var mainContentView: UIView!
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var btnCalender: UIButton!
     @IBOutlet weak var btnSignUp: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet weak var addImg: UIImageView!
-    
-    @IBOutlet weak var selectedTabImg: UIImageView!
-    @IBOutlet weak var lblTabTitle: UILabel!
+    @IBOutlet weak var lblCalender: UILabel!
+    @IBOutlet weak var lblSignup: UILabel!
+    @IBOutlet weak var lblEvents: UILabel!
     
     
     @IBOutlet weak var calenderView: UIView!
@@ -37,7 +37,7 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
         decorateUI()
         getScheduleInfo()
         
-        calendar = FSCalendar(frame: CGRect(x:0.0,y:40.0,width: self.calenderView.frame.size.width, height: self.calenderView.frame.size.height))
+        calendar = FSCalendar(frame: CGRect(x:0.0,y:0.0,width: self.calenderView.frame.size.width, height: self.calenderView.frame.size.height))
         calendar.scrollDirection = .vertical
         self.calenderView.addSubview(calendar)
         calendar.delegate = self
@@ -52,6 +52,10 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
     }
     
     func decorateUI(){
+//        mainContentView.backgroundColor = UIColor.clear
+        mainContentView.layer.cornerRadius = 30
+        mainContentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
         lblTitle.textColor = UIColor.themePrimaryWhite
         lblTitle.font = UIFont.BoldFont(24)
         
@@ -59,9 +63,13 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
         btnSignUp.titleLabel?.font = UIFont.BoldFont(14)
         btnSignUp.layer.cornerRadius = 2
         
-        let image = UIImage(named: "ic_add")?.withRenderingMode(.alwaysTemplate)
-        addImg.image = image
-        addImg.tintColor = .white
+        lblCalender.font = UIFont.BoldFont(16)
+        lblSignup.font = UIFont.BoldFont(16)
+        lblCalender.textColor = UIColor.themeLight
+        lblSignup.textColor = UIColor.themeLight
+//        let image = UIImage(named: "ic_add")?.withRenderingMode(.alwaysTemplate)
+//        addImg.image = image
+//        addImg.tintColor = .white
         
 //        lblTabTitle.textColor = UIColor.themePrimaryColor
 //        lblTabTitle.font = UIFont.BoldFont(16)
@@ -84,14 +92,23 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
     }
     
     @IBAction func showCalenderTapped(_ sender: Any) {
-        if (calenderView.isHidden){
-            calenderView.isHidden = false
-        }else{
-            calenderView.isHidden = true
-        }
+        
+        calenderView.isHidden = false
         
         
+        
+        
+//        if (calenderView.isHidden){
+//            calenderView.isHidden = false
+//        }else{
+//            calenderView.isHidden = true
+//        }
     }
+    
+    @IBAction func showEventsTapped(_ sender: Any) {
+        calenderView.isHidden = true
+    }
+    
     
     func showEmptyView(tableVw : UITableView){
         DispatchQueue.main.async {
@@ -391,6 +408,7 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
                 
                 if let scheduleGroup = response.value {
                     self.scheduleData = scheduleGroup
+                    self.timefilter()
                     self.scheduleData = self.scheduleData?.sorted {
                         $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
                     }
@@ -425,7 +443,60 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
             }
         }
     }
-}
+    func timefilter(){
+        var minusTime : [ScheduleModelThree]  = []
+        var plusTime : [ScheduleModelThree] = []
+
+        
+        for i in (0 ..< (self.scheduleData?.count ?? 0) - 1){
+            
+            let eventDate = DateFormatManager.shared.getDateFromString(date: self.scheduleData?[i].sjavms_start) ?? Date()
+            let currentDate = DateFormatManager.shared.getCurrentDate()
+            let calendar = Calendar.current
+            
+            let components = calendar.dateComponents([.minute, .second], from: currentDate, to: eventDate)
+            self.scheduleData?[i].time_difference = components.minute
+            
+            if ((self.scheduleData?[i].time_difference ?? 0) >= 0){
+
+                if let data = self.scheduleData?[i] {
+                    plusTime.append(data)
+                }
+               
+            }else{
+                    
+                if let data = self.scheduleData?[i] {
+                    minusTime.append(data)
+                }
+            }
+        }
+        
+//        for i in (0 ..< (self.scheduleData?.count ?? 0)){
+//
+//            if ((self.scheduleData?[i].time_difference ?? 0) >= 0){
+//
+//                if let data = self.scheduleData?[i] {
+//                    plusTime.append(data)
+//                }
+//
+//            }else{
+//
+//                if let data = self.scheduleData?[i] {
+//                    minusTime.append(data)
+//                }
+//
+//            }
+            
+            
+            plusTime = plusTime.sorted(by: { ($0.time_difference ?? 0) < ($1.time_difference ?? 0) })
+//            minusTime = minusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
+            self.scheduleData = []
+            self.scheduleData?.append(contentsOf: plusTime)
+//            self.latestEventData?.append(contentsOf: minusTime)
+
+        }
+    }
+
 
 
 // ============================  Tableview Delegates ===================================

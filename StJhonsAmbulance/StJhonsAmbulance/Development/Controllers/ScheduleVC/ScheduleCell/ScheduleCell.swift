@@ -44,10 +44,10 @@ class ScheduleCell: UITableViewCell {
         btnMainView.layer.cornerRadius = 16
         btnMainView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
         
-        lblDate.textColor = UIColor.themeSecondry
+        lblDate.textColor = UIColor.themeSecondryWhite
         
-        lblTitle.textColor = UIColor.themeSecondry
-        lblSubTitle.textColor = UIColor.themeSecondry
+        lblTitle.textColor = UIColor.themeSecondryWhite
+        lblSubTitle.textColor = UIColor.themeSecondryWhite
         
         lblDate.font =  UIFont.MediumFont(11)
         

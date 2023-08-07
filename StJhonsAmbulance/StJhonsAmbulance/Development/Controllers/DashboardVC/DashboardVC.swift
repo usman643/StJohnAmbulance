@@ -19,11 +19,11 @@ class DashboardVC: ENTALDBaseViewController{
     var mapArr : [CheckInModel] = []
     var params : [String:Any] = [:]
     let conId = UserDefaults.standard.contactIdToken ?? ""
-//    let tabbar = ENTALDTabbarViewController()
+    //    let tabbar = ENTALDTabbarViewController()
     
     var selectedUserGroup : LandingGroupsModel?
     var genderData : [LanguageModel] = []
-//    var prefferedLanguageData : [LanguageModel] = []
+    //    var prefferedLanguageData : [LanguageModel] = []
     var prefferedPronounData : [LanguageModel] = []
     var prefferedMethodContactData : [LanguageModel] = []
     var languageData : [LanguageModel] = []
@@ -74,24 +74,25 @@ class DashboardVC: ENTALDBaseViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        tableView.register(UINib(nibName: "VolunteerIncomingCell", bundle: nil), forCellReuseIdentifier: "VolunteerIncomingCellex")
+        //        tableView.register(UINib(nibName: "VolunteerIncomingCell", bundle: nil), forCellReuseIdentifier: "VolunteerIncomingCellex")
         decorateUI()
         getGroups()
         setupContent()
-//        getVolunteerAward()
+        //        getVolunteerAward()
         setupTableView()
         setupCollectionView()
         
         gridData = [
-//                    DashBoardGridModel(title: "No Upcoming Event", subTitle: "", bgColor: UIColor.darkBlueColor, icon: "ic_camp", key: "sjavms_youthcamp"),
-                    
-//                    DashBoardGridModel(title: "Check In", subTitle: "", bgColor: UIColor.hexString(hex: "AC41DE"), icon: "ic_checkIn", key: "sjavms_checkin"),
-                    DashBoardGridModel(title: "My Schedule", subTitle: "", bgColor: UIColor.hexString(hex: "2DD0DA"), icon: "ic_calender", key: "sjavms_myschedule"),
-                    DashBoardGridModel(title: "Events", subTitle: "", bgColor: UIColor.hexString(hex: "41B8DE"), icon: "ic_event", key: "sjavms_events"),
-                    DashBoardGridModel(title: "Hours", subTitle: "", bgColor: UIColor.hexString(hex: "4151DE"), icon: "ic_hour", key: "sjavms_hours"),
-                    DashBoardGridModel(title: "Messages", subTitle: "", bgColor: UIColor.orangeRedColor, icon: "ic_message", key: "sjavms_messages")
-                ]
-//        getDashBoardOrder()
+            //                    DashBoardGridModel(title: "No Upcoming Event", subTitle: "", bgColor: UIColor.darkBlueColor, icon: "ic_camp", key: "sjavms_youthcamp"),
+            
+//            DashBoardGridModel(title: "Hours", subTitle: "", bgColor: UIColor.hexString(hex: "4151DE"), icon: "ic_hour", key: "sjavms_hours"),
+            //
+            DashBoardGridModel(title: "My Schedule", subTitle: "", bgColor: UIColor.hexString(hex: "2DD0DA"), icon: "ic_calender", key: "sjavms_myschedule"),
+            DashBoardGridModel(title: "Events", subTitle: "", bgColor: UIColor.hexString(hex: "41B8DE"), icon: "ic_event", key: "sjavms_events"),
+            DashBoardGridModel(title: "Check In", subTitle: "", bgColor: UIColor.hexString(hex: "AC41DE"), icon: "ic_checkIn", key: "sjavms_checkin"),
+            DashBoardGridModel(title: "Messages", subTitle: "", bgColor: UIColor.orangeRedColor, icon: "ic_message", key: "sjavms_messages")
+        ]
+        //        getDashBoardOrder()
         
         
         getGender()
@@ -105,81 +106,81 @@ class DashboardVC: ENTALDBaseViewController{
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false // or true
-
+        
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
-
+    
     func decorateUI(){
-//        self.navigationController?.setNavigationBarHidden(true, animated: false)
-//        self.navigationController?.navigationBar.isHidden = true
+        //        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        //        self.navigationController?.navigationBar.isHidden = true
         lblIncomingTitle.font = UIFont.BoldFont(20)
         lblIncomingTitle.textColor = UIColor.themeBlackText
         profileImg.layer.cornerRadius = profileImg.frame.size.height/2
-//        campImgView.layer.cornerRadius = campImgView.frame.size.height/2
-//        messageImgView.layer.cornerRadius = messageImgView.frame.size.height/2
-//        checkInImgView.layer.cornerRadius = checkInImgView.frame.size.height/2
-//        calenderImgView.layer.cornerRadius = calenderImgView.frame.size.height/2
-//        hourImgView.layer.cornerRadius = hourImgView.frame.size.height/2
-//        eventImgView.layer.cornerRadius = eventImgView.frame.size.height/2
-//
-//        campView.backgroundColor = UIColor.hexString(hex: "203152")
-//        messageView.backgroundColor = UIColor.hexString(hex: "DE5D41")
-//        checkInView.backgroundColor = UIColor.hexString(hex: "AC41DE")
-//        calenderView.backgroundColor = UIColor.hexString(hex: "2DD0DA")
-//        hourView.backgroundColor = UIColor.hexString(hex: "4151DE")
-//        eventView.backgroundColor = UIColor.hexString(hex: "41B8DE")
-//
-//        lblCamp.font = UIFont.BoldFont(16)
-//        lblCampNum.font = UIFont.BoldFont(16)
-//        lblMessage.font = UIFont.BoldFont(16)
-//        lblMessageNum.font = UIFont.BoldFont(16)
-//        lblCheckIn.font = UIFont.BoldFont(16)
-//        lblCalender.font = UIFont.BoldFont(16)
-//        lblCalenderNum.font = UIFont.BoldFont(16)
-//        lblHour.font = UIFont.BoldFont(16)
-//        lblHourNum.font = UIFont.BoldFont(16)
-//        lblEvent.font = UIFont.BoldFont(16)
-//
-//        lblCamp.textColor = UIColor.textWhiteColor
-//        lblCampNum.textColor = UIColor.textWhiteColor
-//        lblMessage.textColor = UIColor.textWhiteColor
-//        lblMessageNum.textColor = UIColor.textWhiteColor
-//        lblCheckIn.textColor = UIColor.textWhiteColor
-//        lblCalender.textColor = UIColor.textWhiteColor
-//        lblCalenderNum.textColor = UIColor.textWhiteColor
-//        lblHour.textColor = UIColor.textWhiteColor
-//        lblHourNum.textColor = UIColor.textWhiteColor
-//        lblEvent.textColor = UIColor.textWhiteColor
+        //        campImgView.layer.cornerRadius = campImgView.frame.size.height/2
+        //        messageImgView.layer.cornerRadius = messageImgView.frame.size.height/2
+        //        checkInImgView.layer.cornerRadius = checkInImgView.frame.size.height/2
+        //        calenderImgView.layer.cornerRadius = calenderImgView.frame.size.height/2
+        //        hourImgView.layer.cornerRadius = hourImgView.frame.size.height/2
+        //        eventImgView.layer.cornerRadius = eventImgView.frame.size.height/2
+        //
+        //        campView.backgroundColor = UIColor.hexString(hex: "203152")
+        //        messageView.backgroundColor = UIColor.hexString(hex: "DE5D41")
+        //        checkInView.backgroundColor = UIColor.hexString(hex: "AC41DE")
+        //        calenderView.backgroundColor = UIColor.hexString(hex: "2DD0DA")
+        //        hourView.backgroundColor = UIColor.hexString(hex: "4151DE")
+        //        eventView.backgroundColor = UIColor.hexString(hex: "41B8DE")
+        //
+        //        lblCamp.font = UIFont.BoldFont(16)
+        //        lblCampNum.font = UIFont.BoldFont(16)
+        //        lblMessage.font = UIFont.BoldFont(16)
+        //        lblMessageNum.font = UIFont.BoldFont(16)
+        //        lblCheckIn.font = UIFont.BoldFont(16)
+        //        lblCalender.font = UIFont.BoldFont(16)
+        //        lblCalenderNum.font = UIFont.BoldFont(16)
+        //        lblHour.font = UIFont.BoldFont(16)
+        //        lblHourNum.font = UIFont.BoldFont(16)
+        //        lblEvent.font = UIFont.BoldFont(16)
+        //
+        //        lblCamp.textColor = UIColor.textWhiteColor
+        //        lblCampNum.textColor = UIColor.textWhiteColor
+        //        lblMessage.textColor = UIColor.textWhiteColor
+        //        lblMessageNum.textColor = UIColor.textWhiteColor
+        //        lblCheckIn.textColor = UIColor.textWhiteColor
+        //        lblCalender.textColor = UIColor.textWhiteColor
+        //        lblCalenderNum.textColor = UIColor.textWhiteColor
+        //        lblHour.textColor = UIColor.textWhiteColor
+        //        lblHourNum.textColor = UIColor.textWhiteColor
+        //        lblEvent.textColor = UIColor.textWhiteColor
         awardNumView.backgroundColor = UIColor.red
         awardNumView.layer.cornerRadius = awardNumView.frame.size.height/2
         awardNumView.isHidden = true;
         lblAward.isHidden = true;
         
-////        campView.backgroundColor = UIColor.hexString(hex: "203152")
-////        messageView.backgroundColor = UIColor.hexString(hex: "DE5D41")
-////        checkInView.backgroundColor = UIColor.hexString(hex: "AC41DE")
-////        calenderView.backgroundColor = UIColor.hexString(hex: "2DD0DA")
-//
+        ////        campView.backgroundColor = UIColor.hexString(hex: "203152")
+        ////        messageView.backgroundColor = UIColor.hexString(hex: "DE5D41")
+        ////        checkInView.backgroundColor = UIColor.hexString(hex: "AC41DE")
+        ////        calenderView.backgroundColor = UIColor.hexString(hex: "2DD0DA")
+        //
         lblName.textColor = UIColor.themeColorSecondry
         lblActiveDate.textColor = UIColor.colorGrey72
         lblTotalHours.textColor = UIColor.colorGrey72
         lblServiceYears.textColor = UIColor.colorGrey72
-
+        
         lblName.font = UIFont.BoldFont(24)
         lblActiveDate.font = UIFont.BoldFont(12)
         lblTotalHours.font = UIFont.BoldFont(12)
         lblServiceYears.font = UIFont.BoldFont(12)
-
+        
         lblActiveDate.isHidden = true
         lblTotalHours.isHidden = true
         lblServiceYears.isHidden = true
-
-//        lblTabTitle.font = UIFont.BoldFont(16)
-//        lblTabTitle.textColor = UIColor.themePrimary
+        
+        //        lblTabTitle.font = UIFont.BoldFont(16)
+        //        lblTabTitle.textColor = UIColor.themePrimary
     }
     
     func setupContent(){
@@ -197,10 +198,10 @@ class DashboardVC: ENTALDBaseViewController{
         collectionview.register(UINib(nibName: "CSDashBaordCVC", bundle: nil), forCellWithReuseIdentifier: "CSDashBaordCVC")
         collectionview.dataSource = self
         collectionview.delegate = self
-//        collectionview.collectionViewLayout = generateLayout()
-//        collectionview.dragDelegate = self
-//        collectionview.dropDelegate = self
-//        collectionview.dragInteractionEnabled = true
+        //        collectionview.collectionViewLayout = generateLayout()
+        //        collectionview.dragDelegate = self
+        //        collectionview.dropDelegate = self
+        //        collectionview.dragInteractionEnabled = true
     }
     
     private func setupTableView(){
@@ -209,7 +210,7 @@ class DashboardVC: ENTALDBaseViewController{
         tableView.dataSource = self
         tableView.register(UINib(nibName: "VolunteerIncomingCell", bundle: nil), forCellReuseIdentifier: "VolunteerIncomingCell")
     }
-
+    
     
     @IBAction func sideMenuTapped(_ sender: Any) {
         present(menu!, animated: true)
@@ -271,7 +272,7 @@ class DashboardVC: ENTALDBaseViewController{
         }
     }
     
-   
+    
     @IBAction func eventTapped(_ sender: Any) {
         
         UIView.transition(from: self.eventView,
@@ -312,7 +313,7 @@ class DashboardVC: ENTALDBaseViewController{
     }
     
     @IBAction func openHoursScreen(_ sender: Any) {
-     
+        
         self.openNextScreen(controller:"sjavms_hours")
     }
     
@@ -335,62 +336,72 @@ class DashboardVC: ENTALDBaseViewController{
                 if ((self.latestEventData?[0]) != nil){
                     ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.latestEventData?[0], eventName: "latestEvent") { params, controller in
                         self.openNextScreen(controller:params as? String)
-
+                        
                     }
                 }
             }
-        
+            
             
         }else if (controller == "sjavms_messages"){
-//            self.tabbar.selectedIndex = 4
-//            let vc = SignalRVC()
-//            self.navigationController?.pushViewController(vc, animated: true)
-//            self.tabBarController?.selectedIndex = 4
+            //            self.tabbar.selectedIndex = 4
+            //            let vc = SignalRVC()
+            //            self.navigationController?.pushViewController(vc, animated: true)
+            //            self.tabBarController?.selectedIndex = 4
             ENTALDControllers.shared.showMessageScreen(type: .ENTALDPUSH, from: self,  dataObj: true) { params, controller in
                 self.openNextScreen(controller:params as? String)
             }
             
         }else if (controller == "sjavms_checkin" ){
-//            let dispatchQueue = DispatchQueue(label: "myQueu", qos: .background)
-//            //Create a semaphore
-//            let semaphore = DispatchSemaphore(value: 0)
-//
-//            dispatchQueue.async {
-//                for i in (0 ..< (self.latestEventIdData?.count ?? 0)){
-//                    self.getCheckInData(eventOppId: self.latestEventIdData?[i].msnfp_engagementopportunityid ?? "", completion:{ [weak self] model in
-//                        semaphore.signal()
-//                        guard let self = self else {return}
-//                        if let checkInData = model?.value {
-//                            self.checkInData = checkInData
-//                            if ((self.checkInData?.count ?? 0) > 0){
-//                                self.mapArr.append(contentsOf: (checkInData))
-//                            }
-//                        }
-//
-//                    })
-//                    semaphore.wait()
-//                }
-//
-//                DispatchQueue.main.async(execute: {
-//                    ENTALDControllers.shared.showVolunteerMap(type: .ENTALDPUSH, from: self, isNavigationController:true, dataObj: self.mapArr, callBack: nil)
-//
-//                })
-//            }
-            self.tabBarController?.selectedIndex = 3
-    
+            
+            ENTALDControllers.shared.showVolunteerMap(type: .ENTALDPUSH, from: self, callBack:  { params, controller in
+                self.openNextScreen(controller:params as? String)
+            })
+            
+            
+            
+            
+            
+            //            let dispatchQueue = DispatchQueue(label: "myQueu", qos: .background)
+            //            //Create a semaphore
+            //            let semaphore = DispatchSemaphore(value: 0)
+            //
+            //            dispatchQueue.async {
+            //                for i in (0 ..< (self.latestEventIdData?.count ?? 0)){
+            //                    self.getCheckInData(eventOppId: self.latestEventIdData?[i].msnfp_engagementopportunityid ?? "", completion:{ [weak self] model in
+            //                        semaphore.signal()
+            //                        guard let self = self else {return}
+            //                        if let checkInData = model?.value {
+            //                            self.checkInData = checkInData
+            //                            if ((self.checkInData?.count ?? 0) > 0){
+            //                                self.mapArr.append(contentsOf: (checkInData))
+            //                            }
+            //                        }
+            //
+            //                    })
+            //                    semaphore.wait()
+            //                }
+            //
+            //                DispatchQueue.main.async(execute: {
+            //                    ENTALDControllers.shared.showVolunteerMap(type: .ENTALDPUSH, from: self, isNavigationController:true, dataObj: self.mapArr, callBack: nil)
+            //
+            //                })
+            //            }
+//            self.tabBarController?.selectedIndex = 3
+            
         }else if (controller == "sjavms_myschedule"){
-//            ENTALDControllers.shared.showVolunteerScheduleScreen(type: .ENTALDPUSH, from: self) { params, controller in
-//                self.openNextScreen(controller:params as? String)
-//            }
+            //            ENTALDControllers.shared.showVolunteerScheduleScreen(type: .ENTALDPUSH, from: self) { params, controller in
+            //                self.openNextScreen(controller:params as? String)
+            //            }
             self.tabBarController?.selectedIndex = 1
         }else if (controller == "sjavms_hours"){
+            self.tabBarController?.selectedIndex = 3
             ENTALDControllers.shared.showVolunteerHourScreen(type: .ENTALDPUSH, from: self) { params, controller in
                 self.openNextScreen(controller:params as? String)
             }
         }else if (controller == "sjavms_events"){
-//            ENTALDControllers.shared.showVolunteerEventScreen(type: .ENTALDPUSH, from: self) { params, controller in
-//                self.openNextScreen(controller:params as? String)
-//            }
+            //            ENTALDControllers.shared.showVolunteerEventScreen(type: .ENTALDPUSH, from: self) { params, controller in
+            //                self.openNextScreen(controller:params as? String)
+            //            }
             self.tabBarController?.selectedIndex = 2
         }
         
@@ -406,7 +417,7 @@ class DashboardVC: ENTALDBaseViewController{
         let params : [String:Any] = [
             
             ParameterKeys.select : "_msnfp_awardid_value,msnfp_awarddate,msnfp_awardversionid,msnfp_name",
-//            ParameterKeys.expand : "msnfp_groupId",
+            //            ParameterKeys.expand : "msnfp_groupId",
             ParameterKeys.filter : "(msnfp_status eq 844060003 and _msnfp_primarycontactid_value eq \(contactId))",
             ParameterKeys.orderby : "_msnfp_awardid_value asc"
         ]
@@ -430,9 +441,9 @@ class DashboardVC: ENTALDBaseViewController{
                     if let award = response.value {
                         self.awardData = award
                         
-//                        self.lblAward.text = "\(award.count)"
-//                        self.awardNumView.isHidden = false
-//                        self.lblAward.isHidden = false
+                        //                        self.lblAward.text = "\(award.count)"
+                        //                        self.awardNumView.isHidden = false
+                        //                        self.lblAward.isHidden = false
                         
                     }else{
                         self.awardNumView.isHidden = true
@@ -445,9 +456,9 @@ class DashboardVC: ENTALDBaseViewController{
                 if let err = errorResponse {
                     message = err.error
                 }
-//                DispatchQueue.main.async {
-//                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
-//                }
+                //                DispatchQueue.main.async {
+                //                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                //                }
             }
         }
     }
@@ -462,8 +473,8 @@ class DashboardVC: ENTALDBaseViewController{
             
             ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_needsreviewedparticipants,msnfp_minimum,msnfp_maximum,_sjavms_group_value,msnfp_endingdate,msnfp_cancelledparticipants,msnfp_appliedparticipants,msnfp_startingdate,msnfp_engagementopportunityid",
             ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(statecode eq 0 and Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(ProcessUtils.shared.groupListValue ?? "")])))",
-                
-              //  "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(statecode eq 0 and Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(ProcessUtils.shared.groupListValue ?? "")])))",
+            
+            //  "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(statecode eq 0 and Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(ProcessUtils.shared.groupListValue ?? "")])))",
             ParameterKeys.filter : "(statecode eq 0) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/statecode eq 0 and o1/Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(ProcessUtils.shared.groupListValue ?? "")]))))",
             ParameterKeys.orderby : "msnfp_engagementopportunitytitle asc"
         ]
@@ -484,16 +495,16 @@ class DashboardVC: ENTALDBaseViewController{
             switch result{
             case .success(value: let response):
                 
-                    if let award = response.value {
-                        self.latestEventIdData = award
-                        self.getIncomingEvent()
-
-                    }else{
-                        
-                        DispatchQueue.main.async {
-                            self.collectionview.reloadData()
-                        }
+                if let award = response.value {
+                    self.latestEventIdData = award
+                    self.getIncomingEvent()
+                    
+                }else{
+                    
+                    DispatchQueue.main.async {
+                        self.collectionview.reloadData()
                     }
+                }
                 
                 
             case .error(let error, let errorResponse):
@@ -501,33 +512,33 @@ class DashboardVC: ENTALDBaseViewController{
                 if let err = errorResponse {
                     message = err.error
                 }
-//                DispatchQueue.main.async {
-//                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
-//                }
+                //                DispatchQueue.main.async {
+                //                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                //                }
             }
         }
     }
     
     func getIncomingEvent(){
         
-              var propertyValues = ""
+        var propertyValues = ""
         
-                for i in (0 ..< (self.latestEventIdData?.count ?? 0)){
-                    var str = ""
-        
-                    if let groupid_value = self.latestEventIdData?[i].msnfp_engagementopportunityid {
-        
-                        if ( i == (self.latestEventIdData?.count ?? 0) - 1){
-                            str = "'{\(groupid_value)}'"
-                        }else{
-                            str = "'{\(groupid_value)}',"
-                        }
-        
-                        propertyValues += str
-                    }
-        
-        
+        for i in (0 ..< (self.latestEventIdData?.count ?? 0)){
+            var str = ""
+            
+            if let groupid_value = self.latestEventIdData?[i].msnfp_engagementopportunityid {
+                
+                if ( i == (self.latestEventIdData?.count ?? 0) - 1){
+                    str = "'{\(groupid_value)}'"
+                }else{
+                    str = "'{\(groupid_value)}',"
                 }
+                
+                propertyValues += str
+            }
+            
+            
+        }
         
         guard let contactId = UserDefaults.standard.contactIdToken  else {return}
         guard let currentDate = DateFormatManager.shared.getCurrentDateWithFormat(format: "yyyy-MM-dd") else {return}
@@ -535,7 +546,7 @@ class DashboardVC: ENTALDBaseViewController{
             
             ParameterKeys.select : "msnfp_name,msnfp_participationscheduleid,statuscode,statecode,msnfp_schedulestatus,sjavms_start,sjavms_end",
             ParameterKeys.expand : "sjavms_VolunteerEvent($select=msnfp_engagementopportunitytitle,msnfp_location)",
-
+            
             ParameterKeys.filter : "(_sjavms_volunteer_value eq \(contactId) and msnfp_schedulestatus eq 335940000 and Microsoft.Dynamics.CRM.OnOrAfter(PropertyName='sjavms_end',PropertyValue='\(currentDate)') and Microsoft.Dynamics.CRM.In(PropertyName='sjavms_volunteerevent',PropertyValues=[\(propertyValues)]))",
             ParameterKeys.orderby : "msnfp_name asc"
         ]
@@ -555,46 +566,50 @@ class DashboardVC: ENTALDBaseViewController{
             
             switch result{
             case .success(value: let response):
-               
-                    
-//                    var index = NSNotFound
-//                    for i in (0..<(self.gridData?.count ?? 0 )){
-//                        if (self.gridData?[i].key ==  "sjavms_youthcamp"){
-//                            index = i
-//                        }
-//                    }
-//                DispatchQueue.main.async {
-//                    if let award = response.value {
-//                        self.latestEventData = award
-//                        if ((self.latestEventData?.count ?? 0 ) > 0){
-//                            self.gridData?[index].title = self.latestEventData?[0].sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
-//                            if (self.latestEventData?[0].sjavms_start != nil && self.latestEventData?[0].sjavms_start != ""){
-//                                let startData = DateFormatManager.shared.formatDateStrToStr(date: self.latestEventData?[0].sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
-//                                self.gridData?[index].subTitle = startData
-//                                self.collectionview.reloadData()
-//                            }else{
-//                                self.gridData?[index].subTitle  = ""
-//                            }
-//                        }else{
-//                            DispatchQueue.main.async {
-//                                self.gridData?[index].title  = "No Upcoming Event"
-//                                self.collectionview.reloadData()
-//                            }
-//                        }
-//                    }else{
-//                        DispatchQueue.main.async {
-//                            self.gridData?[index].title  = "No Upcoming Event"
-//                            self.collectionview.reloadData()
-//                        }
-//                    }
-//                }
+                
+                
+                //                    var index = NSNotFound
+                //                    for i in (0..<(self.gridData?.count ?? 0 )){
+                //                        if (self.gridData?[i].key ==  "sjavms_youthcamp"){
+                //                            index = i
+                //                        }
+                //                    }
+                //                DispatchQueue.main.async {
+                //                    if let award = response.value {
+                //                        self.latestEventData = award
+                //                        if ((self.latestEventData?.count ?? 0 ) > 0){
+                //                            self.gridData?[index].title = self.latestEventData?[0].sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
+                //                            if (self.latestEventData?[0].sjavms_start != nil && self.latestEventData?[0].sjavms_start != ""){
+                //                                let startData = DateFormatManager.shared.formatDateStrToStr(date: self.latestEventData?[0].sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
+                //                                self.gridData?[index].subTitle = startData
+                //                                self.collectionview.reloadData()
+                //                            }else{
+                //                                self.gridData?[index].subTitle  = ""
+                //                            }
+                //                        }else{
+                //                            DispatchQueue.main.async {
+                //                                self.gridData?[index].title  = "No Upcoming Event"
+                //                                self.collectionview.reloadData()
+                //                            }
+                //                        }
+                //                    }else{
+                //                        DispatchQueue.main.async {
+                //                            self.gridData?[index].title  = "No Upcoming Event"
+                //                            self.collectionview.reloadData()
+                //                        }
+                //                    }
+                //                }
                 
                 
                 if let apiData = response.value {
                     self.latestEventData = apiData
+                    self.timefilter()
                     
                     self.latestEventData = self.latestEventData?.sorted(by: { $0.sjavms_start ?? "" < $1.sjavms_start ?? "" })
-
+                    
+                    //time filter
+                    
+                    
                     
                     if (self.latestEventData?.count == 0 || self.latestEventData?.count == nil){
                         self.showEmptyView(tableVw: self.tableView)
@@ -611,7 +626,7 @@ class DashboardVC: ENTALDBaseViewController{
                 }else{
                     self.showEmptyView(tableVw: self.tableView)
                 }
-            
+                
                 
                 
                 
@@ -636,7 +651,54 @@ class DashboardVC: ENTALDBaseViewController{
             tableVw.addSubview(view)
         }
     }
- 
+    
+    func timefilter(){
+        var minusTime : [LatestEventDataModel]  = []
+        var plusTime : [LatestEventDataModel] = []
+
+        
+        for i in (0 ..< (self.latestEventData?.count ?? 0)){
+            
+            let eventDate = DateFormatManager.shared.getDateFromString(date: self.latestEventData?[i].sjavms_start) ?? Date()
+            let currentDate = DateFormatManager.shared.getCurrentDate()
+            let calendar = Calendar.current
+            
+            let components = calendar.dateComponents([.minute, .second], from: currentDate, to: eventDate)
+            self.latestEventData?[i].time_difference = components.minute
+        }
+        
+        for i in (0 ..< (self.latestEventData?.count ?? 0) - 1){
+//            debugPrint(self.latestEventData)
+            if ((self.latestEventData?[i].time_difference ?? 0) >= 0){
+
+                if let data = self.latestEventData?[i] {
+                    plusTime.append(data)
+                }
+               
+            }else{
+                    
+                if let data = self.latestEventData?[i] {
+                    minusTime.append(data)
+                }
+                    
+            }
+            
+            plusTime = plusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
+            minusTime = minusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
+            
+            
+            self.latestEventData = []
+            self.latestEventData?.append(contentsOf: plusTime)
+            self.latestEventData?.append(contentsOf: minusTime)
+            
+            
+            
+            
+            
+            
+            
+        }
+    }
 }
 
 

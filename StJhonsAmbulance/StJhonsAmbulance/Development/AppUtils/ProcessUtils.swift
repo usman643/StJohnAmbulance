@@ -156,6 +156,20 @@ class ProcessUtils {
         }
     }
     
+    func getPronoun(code:Int)->String?{
+        
+        switch code {
+        case 802280001:
+            return "Mr."
+        case 802280002:
+            return "Ms."
+        case 802280000:
+            return "Ms."
+        default:
+            return nil
+        }
+    }
+    
     func convertBase64StringToImage (imageBase64String:String) -> UIImage? {
         let imageData = Data(base64Encoded: imageBase64String)
         let image = UIImage(data: imageData!)

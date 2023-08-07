@@ -54,30 +54,16 @@ class ENTALDControllers {
     }
     
     func startFlowfromLandingScreen(from:UIViewController?, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?){
-        DispatchQueue.main.async {
-            
-            self.showTabbarViewController(type: .ENTALDPUSH, from: from) { params, controller in
-                
+        
+        ProcessUtils.shared.refreshToken { status in
+            if status {
+                DispatchQueue.main.async{
+                    
+                    self.showTabbarViewController(type: .ENTALDPUSH, from: from) { params, controller in
+                        
+                    }
+                }
             }
-//            self.showVolunteerDashBoardScreen(type: .ENTALDPUSH, from: from) { params, controller in
-//
-//            }
-            
-//            self.showLandingScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
-//
-//                if(params as? String == "volunteer"){
-//                    ProcessUtils.shared.currentRole = "volunteer"
-//                    self.showVolunteerDashBoardScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
-//
-//                    }
-//
-//                }else if(params as? String == "cslead"){
-//                    ProcessUtils.shared.currentRole = "cslead"
-//                    self.showCSDashBoardScreen(type: .ENTALDPUSH, from: UIApplication.getTopViewController()) { params, controller in
-//
-//                    }
-//                }
-//            }
         }
     }
     

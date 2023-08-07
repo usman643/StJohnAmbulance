@@ -396,14 +396,6 @@ extension ParticipationDetailVC: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ParticipationDetailTVC", for: indexPath) as! ParticipationDetailTVC
         
-        if indexPath.row % 2 == 0{
-            cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-            cell.seperaterView.backgroundColor = UIColor.themePrimaryColor
-        }else{
-            cell.mainView.backgroundColor = UIColor.viewLightColor
-            cell.seperaterView.backgroundColor = UIColor.gray
-        }
-        
         if let participationtitle = self.participationFilterData?[indexPath.row].msnfp_participationtitle{
             let arr = participationtitle.components(separatedBy: " - ")
             self.participationFilterData?[indexPath.row].eventName = arr[1]

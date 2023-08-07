@@ -31,6 +31,7 @@ struct CurrentEventsModel: Codable {
     
     let msnfp_engagementopportunitytitle : String?
     let msnfp_startingdate : String?
+    let address1_line1 : String?
     let msnfp_location : String?
     let msnfp_engagementopportunitystatus : Int?
     let _sjavms_program_value : String?
