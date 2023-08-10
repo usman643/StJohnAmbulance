@@ -164,7 +164,9 @@ class InAppMsgVC: ENTALDBaseViewController {
             switch result{
             case .success(value: let response):
                 
-                if let volunteers = response.value {
+                if var volunteers = response.value {
+                    let loggedInContact = "\(UserDefaults.standard.userInfo?.contactid ?? "")"
+                    volunteers.removeAll(where: {$0.contactid == loggedInContact})
                     self.volunteerData = volunteers
                     self.filterVolunteerData = volunteers
                     if (self.volunteerData?.count == 0 || self.volunteerData?.count == nil){
