@@ -437,8 +437,6 @@ extension InAppMsgVC : UITableViewDelegate,UITableViewDataSource {
         }else{
             ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: filterScheduleData?[indexPath.row].sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? "", callBack: nil)
         }
-        
-        
     }
     
 }

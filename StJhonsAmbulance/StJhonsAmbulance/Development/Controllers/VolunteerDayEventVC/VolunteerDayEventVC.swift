@@ -792,7 +792,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
             let key = Array(self.dataVol.keys)[indexPath.section]
             if let rowModel : [VolunteerOfEventDataModel] = self.dataVol[key] as? [VolunteerOfEventDataModel]{
                 
-                ENTALDControllers.shared.showVolunteerDetailScreen(type: .ENTALDPRESENT_POPOVER, from: self, dataObj: rowModel[indexPath.row], dayEvent : true) { params, controller in
+                ENTALDControllers.shared.showVolunteerDetailScreen(type: .ENTALDPUSH, from: self, dataObj: rowModel[indexPath.row], dayEvent : true) { params, controller in
 
                 }
                 

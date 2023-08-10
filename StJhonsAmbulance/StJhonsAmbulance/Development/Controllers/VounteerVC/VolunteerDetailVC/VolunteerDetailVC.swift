@@ -22,6 +22,8 @@ class VolunteerDetailVC: ENTALDBaseViewController {
     var isFromVolunteerScreen : Bool?
     var isFromDayEventScreen : Bool?
     var viewtype : VolunteerDataType?
+    var volunteerContactId : String?
+    var volunteerPhoneNumber = ""
     
     @IBOutlet weak var btnClose: UIButton!
     
@@ -42,6 +44,7 @@ class VolunteerDetailVC: ENTALDBaseViewController {
     @IBOutlet weak var lblAddresslineThree: UILabel!
     @IBOutlet weak var lblAddresslineFour: UILabel!
     
+    @IBOutlet weak var btnMessage: UIButton!
     
     @IBOutlet weak var eventTimeView: UIView!
     
@@ -58,12 +61,16 @@ class VolunteerDetailVC: ENTALDBaseViewController {
         if (isFromDayEventScreen == true){
             if let data = self.dataModel as? VolunteerOfEventDataModel {
                 self.dayVolunteerData = data
+                volunteerContactId = dayVolunteerData?.sjavms_Volunteer?.contactid
+                volunteerPhoneNumber = dayVolunteerData?.sjavms_Volunteer?.telephone1 ?? ""
             }
             self.setupUI()
             
         }else if isFromVolunteerScreen ?? false{
             if let data = self.dataModel as? VolunteerModel {
                 self.volunteerData = data
+                volunteerContactId = volunteerData?.msnfp_contactId?.contactid
+                volunteerPhoneNumber = volunteerData?.msnfp_contactId?.telephone1 ?? ""
             }
             self.setupUI()
         }
@@ -171,7 +178,24 @@ class VolunteerDetailVC: ENTALDBaseViewController {
     }
     @IBAction func closeTapped(_ sender: Any) {
         
-        self.dismiss(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
+    
+    @IBAction func messageTapped(_ sender: Any) {
+        
+        ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: volunteerContactId ?? "", callBack: nil)
+        
+    }
+    
+    @IBAction func callTapped(_ sender: Any) {
+        let phone = self.volunteerPhoneNumber
+               if phone != "" {
+                   let deeplinkStr =  "tel://\(phone.digits)"
+                   if let url = URL(string: deeplinkStr), UIApplication.shared.canOpenURL(url){
+                       UIApplication.shared.open(url)
+                   }
+               }
+        
+    }
 }
