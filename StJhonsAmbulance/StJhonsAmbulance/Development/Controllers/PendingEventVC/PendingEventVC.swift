@@ -580,11 +580,11 @@ class PendingEventVC: ENTALDBaseViewController {
         }
     }
 
-    fileprivate func updatedata(eventId:String?){
+    fileprivate func updatedata(eventId:String? , status:Int?){
         DispatchQueue.main.async {
             LoadingView.show()
         }
-        let params : [String:Any] = [ "msnfp_engagementopportunitystatus" : 844060002]
+        let params : [String:Any] = [ "sjavms_volunteerrequeststatus" : status ?? 0]
 //        let eventId = self.eventData?.msnfp_engagementopportunityid ?? ""
 
         ENTALDLibraryAPI.shared.approvePendingEvent(eventId: eventId ?? "", params: params) { result in
@@ -624,13 +624,20 @@ class PendingEventVC: ENTALDBaseViewController {
         
         let alert = UIAlertController(title: "Approval", message: "Do you want to approve event", preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+        alert.addAction(UIAlertAction(title: "Approve", style: .default, handler: { action in
             let index = sender.tag
             
             let eventid = self.filterPendingApprovalData?[index].sjavms_eventrequestid
-            self.updatedata(eventId: eventid)
+            self.updatedata(eventId: eventid, status: 802280000)
         }))
-        alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: { action in
+        alert.addAction(UIAlertAction(title: "Decline", style: .default, handler: { action in
+            let index = sender.tag
+            
+            let eventid = self.filterPendingApprovalData?[index].sjavms_eventrequestid
+            self.updatedata(eventId: eventid, status: 802280001)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { action in
+            
         }))
         
 //        if let popoverController = alert.popoverPresentationController {

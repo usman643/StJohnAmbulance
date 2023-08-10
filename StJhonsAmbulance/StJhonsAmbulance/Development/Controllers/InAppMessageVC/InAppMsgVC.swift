@@ -433,7 +433,7 @@ extension InAppMsgVC : UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (tableView == volunteerTableView){
-            ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: filterVolunteerData?[indexPath.row].fullname ?? "", callBack: nil)
+            ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: filterVolunteerData?[indexPath.row].contactid ?? "", callBack: nil)
         }else{
             ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: filterScheduleData?[indexPath.row].sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? "", callBack: nil)
         }

@@ -87,7 +87,7 @@ enum EventRouter : Router {
         case .getAuditHistory : return "audits"
         case .getOtherVoulnteerParticipation : return "msnfp_participations"
         case .getEventDatilTabInfo : return "msnfp_publicengagementopportunities"
-        case .approvePendingEvent(let eventID, _) : return "msnfp_engagementopportunities(\(eventID))"
+        case .approvePendingEvent(let eventID, _) : return "sjavms_eventrequests(\(eventID))"
             
             
         case .simulate401: return "simulate-401"
