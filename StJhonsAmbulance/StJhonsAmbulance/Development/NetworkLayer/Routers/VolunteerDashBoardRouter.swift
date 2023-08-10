@@ -27,6 +27,7 @@ enum VolunteerDashBoardRouter : Router {
     case getScheduleData(params:[String:Any])
     case getScheduleEngagementData(params:[String:Any])
     case getCheckInData(params:[String:Any])
+    case getInAppVoluntterData(params:[String:Any])
     
     case simulate401
     
@@ -51,6 +52,7 @@ enum VolunteerDashBoardRouter : Router {
         case .getScheduleData : return "msnfp_awardversions"
         case .getScheduleEngagementData : return "get-user-engagements/"
         case .getCheckInData : return "contacts"
+        case .getInAppVoluntterData : return "contacts"
             
             
             
@@ -93,6 +95,8 @@ enum VolunteerDashBoardRouter : Router {
         case .getScheduleEngagementData(let params):
             return params
         case .getCheckInData(let params):
+            return params
+        case .getInAppVoluntterData(let params):
             return params
         default: return [:]
         }

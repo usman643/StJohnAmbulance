@@ -328,6 +328,11 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
+    func getVolunteersData(params:[String:Any],  _ completion:@escaping((ApiResult<InAppVolunteerDataResponseModel, ApiError>) -> Void )){
+        let router = VolunteerDashBoardRouter.getInAppVoluntterData(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
     
     
     

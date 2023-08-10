@@ -129,3 +129,29 @@ struct VounteerEventDataByDate : Codable {
 }
 
 
+struct InAppVolunteerDataResponseModel: Codable {
+    
+    let value: [InAppVolunteerDataModel]?
+  
+}
+
+struct InAppVolunteerDataModel : Codable {
+    
+    let fullname : String?
+    let lastname : String?
+    let contactid : String?
+    let entityimage : String?
+    let telephone1 : String?
+    let emailaddress1 : String?
+    let address1_stateorprovince : String?
+    let address1_postalcode : String?
+    let address1_country : String?
+    let address1_city : String?
+    let address1_line1 : String?
+    let address1_line2 : String?
+    let address1_line3 : String?
+    let sjavms_gender : String?
+    let sjavms_preferredpronouns : Int?
+
+}
+

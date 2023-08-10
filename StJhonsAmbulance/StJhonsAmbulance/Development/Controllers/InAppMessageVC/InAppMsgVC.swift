@@ -13,19 +13,69 @@ class InAppMsgVC: ENTALDBaseViewController {
     var scheduleEngagementData : [ScheduleModelTwo]?
     var scheduleData : [ScheduleModelThree]?
     var filterScheduleData : [ScheduleModelThree]?
+    
+    var volunteerData : [InAppVolunteerDataModel]?
+    var filterVolunteerData : [InAppVolunteerDataModel]?
+    
+    var isEventsTableSearch = false
+    var isVolunteerTableSearch = false
 
     @IBOutlet weak var eventsTableView: UITableView!
+    @IBOutlet weak var volunteerTableView: UITableView!
+    
+    @IBOutlet weak var volunteerView: UIView!
+    @IBOutlet weak var eventView: UIView!
+    @IBOutlet weak var segment: UISegmentedControl!
+    
+    @IBOutlet weak var searchView: UIView!
+    @IBOutlet weak var searchImg: UIImageView!
+    @IBOutlet weak var textSearch: UITextField!
+    @IBOutlet weak var btnSearchClose: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         decorateUI()
         registerCell()
+        getVolunteers()
         getScheduleInfo()
     }
     
     
     func decorateUI(){
 
+        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+        searchView.layer.borderWidth = 1.5
+        searchView.isHidden = false
+        
+        textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        
+        self.volunteerView.isHidden = false
+        self.eventView.isHidden = true
+        
+        isEventsTableSearch = true
+        isVolunteerTableSearch = false
+        
+        
+    }
+    
+    @IBAction func segmenTapped(_ sender: Any) {
+        if self.segment.selectedSegmentIndex == 0 {
+            self.volunteerView.isHidden = false
+            self.eventView.isHidden = true
+            
+            isEventsTableSearch = false
+            isVolunteerTableSearch = true
+            
+        }else if (self.segment.selectedSegmentIndex == 1 ){
+            
+            self.volunteerView.isHidden = true
+            self.eventView.isHidden = false
+            
+            isEventsTableSearch = true
+            isVolunteerTableSearch = false
+
+        }
+        self.textSearch.text = ""
         
         
     }
@@ -34,7 +84,9 @@ class InAppMsgVC: ENTALDBaseViewController {
         eventsTableView.delegate = self
         eventsTableView.dataSource = self
         eventsTableView.register(UINib(nibName: "InAppEventTVC", bundle: nil), forCellReuseIdentifier: "InAppEventTVC")
-        
+        volunteerTableView.delegate = self
+        volunteerTableView.dataSource = self
+        volunteerTableView.register(UINib(nibName: "InAppEventTVC", bundle: nil), forCellReuseIdentifier: "InAppEventTVC")
        
     }
     
@@ -42,7 +94,129 @@ class InAppMsgVC: ENTALDBaseViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        
+        if (textField.text != "" && isVolunteerTableSearch == true ){
+            
+            filterVolunteerData  =  volunteerData?.filter({
+                if let name = $0.fullname, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                    return true
+                }
+                return false
+            })
+            DispatchQueue.main.async {
+                self.volunteerTableView.reloadData()
+            }
+            
+            
+        }else if(textField.text != "" && isEventsTableSearch == true ){
+            
+            filterScheduleData  =  scheduleData?.filter({
+                if let name = $0.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+                    return true
+                 }
+               return false
+             })
+            
+            DispatchQueue.main.async {
+                self.eventsTableView.reloadData()
+            }
+            
+        }else{
+            DispatchQueue.main.async {
+                self.filterVolunteerData = self.volunteerData
+                self.volunteerTableView.reloadData()
+                self.filterScheduleData = self.scheduleData
+                self.eventsTableView.reloadData()
+                
+            }
+        }
+    }
+    
     //==================== Schedule API =====================
+    
+    
+    func getVolunteers(){
+        let groupList =   ProcessUtils.shared.groupListValue ?? ""
+        let params : [String:Any] = [
+            
+            ParameterKeys.select : "contactid,fullname",
+//            ParameterKeys.expand : "",
+            ParameterKeys.filter : "(msnfp_volunteer eq true and statuscode eq 1)",
+            ParameterKeys.orderby : "fullname asc"
+        ]
+        
+        self.getVolunteersData(params: params)
+    }
+    
+    
+    
+    fileprivate func getVolunteersData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.getVolunteersData(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                
+                if let volunteers = response.value {
+                    self.volunteerData = volunteers
+                    self.filterVolunteerData = volunteers
+                    if (self.volunteerData?.count == 0 || self.volunteerData?.count == nil){
+                        self.showEmptyView(tableVw: self.volunteerTableView)
+                    }else{
+                        
+                        DispatchQueue.main.async {
+                            for subview in self.volunteerTableView.subviews {
+                                subview.removeFromSuperview()
+                            }
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        self.volunteerTableView.reloadData()
+                    }
+                }else{
+                    self.showEmptyView(tableVw: self.volunteerTableView)
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                self.showEmptyView(tableVw: self.volunteerTableView)
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     func getScheduleInfo(){
@@ -232,27 +406,38 @@ class InAppMsgVC: ENTALDBaseViewController {
 extension InAppMsgVC : UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return scheduleData?.count ?? 0
+        if (tableView == volunteerTableView){
+            return filterVolunteerData?.count ?? 0
+        }else{
+            return filterScheduleData?.count ?? 0
+        }
+        
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "InAppEventTVC", for: indexPath) as! InAppEventTVC
-        
-        cell.lblTitle.text = scheduleData?[indexPath.row].sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
-//        if indexPath.row % 2 == 0{
-            cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+        if (tableView == volunteerTableView){
+            cell.lblTitle.text = filterVolunteerData?[indexPath.row].fullname ?? ""
+                cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+        }else{
+            cell.lblTitle.text = filterScheduleData?[indexPath.row].sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+                cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+        }
             
-//        }else{
-//            cell.mainView.backgroundColor = UIColor.viewLightColor
-//        }
+       
+
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (tableView == volunteerTableView){
+            ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: filterVolunteerData?[indexPath.row].fullname ?? "", callBack: nil)
+        }else{
+            ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: filterScheduleData?[indexPath.row].sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? "", callBack: nil)
+        }
         
-        ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: scheduleData?[indexPath.row].sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? "", callBack: nil)
         
     }
     
