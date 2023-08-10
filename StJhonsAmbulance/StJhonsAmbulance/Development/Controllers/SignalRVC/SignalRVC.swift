@@ -82,7 +82,8 @@ override func viewDidAppear(_ animated: Bool) {
         self.name = "\(UserDefaults.standard.contactIdToken ?? "")"
 
         self.chatHubConnectionDelegate = ChatHubConnectionDelegate(controller: self)
-        self.chatHubConnection = HubConnectionBuilder(url: URL(string: self.serverUrl)!)
+        let appendQuery = "\(self.serverUrl)?access_token=\(self.name)"
+        self.chatHubConnection = HubConnectionBuilder(url: URL(string: appendQuery)!)
             .withLogging(minLogLevel: .debug)
             .withAutoReconnect()
             .withHubConnectionDelegate(delegate: self.chatHubConnectionDelegate!)
@@ -95,7 +96,7 @@ override func viewDidAppear(_ animated: Bool) {
         if let hub = self.chatHubConnection {
             hub.delegate = self
             // Set our callbacks for the messages we expect from the SignalR hub.
-            hub.on(method: "onGroupMessageRecieved", callback: {[weak self] argumentExtractor in
+            hub.on(method: "newMessageReceived", callback: {[weak self] argumentExtractor in
                 guard let self = self else {return}
                 do {
                     let response = try argumentExtractor.getArgument(type: String.self)
@@ -150,7 +151,7 @@ override func didReceiveMemoryWarning() {
     let message = txtMessage.text
     if message != "" {
         
-        chatHubConnection?.send(method: "groupMessage", message,"\(UserDefaults.standard.contactIdToken ?? "")" ,"\(UserDefaults.standard.userInfo?.fullname ?? "")", "test.jpg" , eventId, sendDidComplete: { error in
+        chatHubConnection?.send(method: "sendMessageToUser", message, "\(eventId ?? "")" ,"\(UserDefaults.standard.userInfo?.fullname ?? "")", "test.jpg", sendDidComplete: { error in
             if let e = error {
                 print("Sending Error \(e)")
             }else{
