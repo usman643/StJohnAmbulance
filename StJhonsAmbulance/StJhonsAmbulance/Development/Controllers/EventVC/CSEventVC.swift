@@ -63,11 +63,12 @@ class CSEventVC:ENTALDBaseViewController, UITextFieldDelegate {
         
         registerCells()
         decorateUI()
-        getCurrentEvents()
+//        getCurrentEvents()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        getCurrentEvents()
         self.btnSelectGroup.setTitle("\(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "")", for: .normal)
     }
     
@@ -90,13 +91,6 @@ class CSEventVC:ENTALDBaseViewController, UITextFieldDelegate {
         
         searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         searchView.layer.borderWidth = 1.5
-//        btnSearchClose.isHidden = true
-        
-//        lblTabTitle.textColor = UIColor.themePrimaryColor
-//        lblTabTitle.font = UIFont.BoldFont(16)
-//
-//        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
-//        selectedTabImg.tintColor = UIColor.themePrimaryColor
         searchView.isHidden = false
         self.currentView.isHidden = false
         self.upcomingView.isHidden = true
@@ -105,7 +99,6 @@ class CSEventVC:ENTALDBaseViewController, UITextFieldDelegate {
         isCurrentEventTableSearch = true
         isUpcomingEventTableSearch = false
         isPastEventTableSearch = false
-        
         
     }
     
@@ -499,45 +492,9 @@ class CSEventVC:ENTALDBaseViewController, UITextFieldDelegate {
             }
         }
     }
-    
-    
-    
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -566,18 +523,6 @@ extension CSEventVC : UITableViewDelegate, UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(withIdentifier: "CSEventTVC", for: indexPath) as! CSEventTVC
             let rowModel = self.filterCurrentEventData?[indexPath.row]
             cell.setupContent(cellModel: rowModel)
-            
-            
-//            cell.delegate = self
-//            cell.eventdata  = rowModel
-//            cell.mainView.backgroundColor = getEventColor(volunteerNum: rowModel?.msnfp_maximum ?? 0)
-
-//            cell.lblEvent.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
-//            cell.lblLocation.text = rowModel?.msnfp_location ?? ""
-//            cell.lblStart.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
-//            cell.lblEnd.text =  DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
-//            cell.lblNeeded.text = "\(rowModel?.msnfp_minimum ?? 0)"
-            
             return cell
             
             
@@ -590,19 +535,6 @@ extension CSEventVC : UITableViewDelegate, UITableViewDataSource{
             
             let rowModel = self.filterUpcomingEventData?[indexPath.row]
             cell.setupContent(cellModel: rowModel)
-        
-//            cell.delegate = self
-//            cell.eventdata  = rowModel
-//            cell.mainView.backgroundColor = getEventColor(volunteerNum: rowModel?.msnfp_maximum ?? 0)
-            
-//            cell.lblEvent.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
-//            cell.lblLocation.text = rowModel?.msnfp_location ?? ""
-//            cell.lblStart.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
-//            cell.lblEnd.text =  DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
-//            cell.lblNeeded.text = "\(rowModel?.msnfp_minimum ?? 0)"
-            
-            
-            
             return cell
             
         }else if(tableView == self.pastTableView){
@@ -614,15 +546,6 @@ extension CSEventVC : UITableViewDelegate, UITableViewDataSource{
                 cell.btnView.tag = indexPath.row
                 cell.setupContent(cellModel: rowModel)
                 cell.btnView.addTarget(self, action: #selector(showEventDetail(_ :)), for: .touchUpInside)
-            
-            
-//            cell.lblEvent.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
-//            cell.lblLocation.text = rowModel?.msnfp_location ?? ""
-//            cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
-            
-//            cell.btnView.tag = indexPath.row
-//            cell.btnView.addTarget(self, action: #selector(openViewSummaryScreen(eventdata: rowModel)), for: .touchUpInside)
-            
             return cell
         }
         let cells = tableView.dequeueReusableCell(withIdentifier: "PastEventTVC", for: indexPath) as! PastEventTVC

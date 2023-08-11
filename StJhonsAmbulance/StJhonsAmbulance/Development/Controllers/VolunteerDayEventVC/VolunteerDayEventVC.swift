@@ -773,10 +773,10 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
 
                 let components = calendar.dateComponents([.minute, .second], from: currentDate, to: eventDate)
                 if ((components.minute ?? 31) <= 30 && (components.minute ?? 31) >= -30){
-                    cell.btnCheckIn.isEnabled = true
+//                    cell.btnCheckIn.isEnabled = true
                     cell.btnCheckIn.isUserInteractionEnabled = true
                 }else{
-                    cell.btnCheckIn.isEnabled = false
+//                    cell.btnCheckIn.isEnabled = false
                     cell.btnCheckIn.isUserInteractionEnabled = false
                 }
                 cell.delegate = self

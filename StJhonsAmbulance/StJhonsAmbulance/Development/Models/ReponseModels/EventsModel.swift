@@ -42,6 +42,7 @@ struct CurrentEventsModel: Codable {
     let _sjavms_contact_value : String?
     let sjavms_maxparticipants : Int?
     let sjavms_checkedin : Bool?
+    var time_difference : Int?
     let sjavms_msnfp_engagementopportunity_msnfp_group : CurrentEventGroupModel?
     func getStatus()->String?{
         let status = self.msnfp_engagementopportunitystatus

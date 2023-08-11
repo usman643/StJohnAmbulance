@@ -74,6 +74,8 @@ class CSEventTVC: UITableViewCell {
         if (cellModel?.msnfp_engagementopportunitystatus) != nil {
             btnDetail.setTitle("\(cellModel?.getStatus() ?? "")" , for: .normal)
             
+        }else{
+            btnDetail.setTitle("View" , for: .normal)
         }
     }
   

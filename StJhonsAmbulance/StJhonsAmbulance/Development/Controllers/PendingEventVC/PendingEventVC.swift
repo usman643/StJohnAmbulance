@@ -491,7 +491,14 @@ class PendingEventVC: ENTALDBaseViewController {
                 
                 if let pendingData = response.value {
                     self.pendingApprovalData = pendingData
-                    self.filterPendingApprovalData = pendingData
+                    
+                    
+//                    self.pendingApprovalTimefilter()
+                    
+                    self.pendingApprovalData = self.pendingApprovalData?.sorted(by: { $0.sjavms_eventstartdate ?? "" < $1.sjavms_eventstartdate ?? "" })
+                    
+                    
+                    self.filterPendingApprovalData = self.pendingApprovalData
                     if (self.pendingApprovalData?.count == 0 || self.pendingApprovalData?.count == nil){
                         self.showEmptyView(tableVw: self.pendingApprovalTableView)
                     }else{
@@ -551,6 +558,10 @@ class PendingEventVC: ENTALDBaseViewController {
                 if let pendingData = response.value {
                     self.pendingPublishData = pendingData
                     self.filterPendingPublishData = pendingData
+                    self.pendingTimefilter()
+                    
+                    self.pendingPublishData = self.pendingPublishData?.sorted(by: { $0.msnfp_startingdate ?? "" < $1.msnfp_startingdate ?? "" })
+                    self.filterPendingPublishData = self.pendingPublishData
                     if (self.pendingPublishData?.count == 0 || self.pendingPublishData?.count == nil){
                         self.showEmptyView(tableVw: self.pendingPublishTableView)
                     }else{
@@ -646,6 +657,82 @@ class PendingEventVC: ENTALDBaseViewController {
 //        }
         
         present(alert, animated: true)
+    }
+    
+    func pendingTimefilter(){
+        var minusTime : [CurrentEventsModel]  = []
+        var plusTime : [CurrentEventsModel] = []
+
+        
+        for i in (0 ..< (self.pendingPublishData?.count ?? 0) - 1){
+            
+            let eventDate = DateFormatManager.shared.getDateFromString(date: self.pendingPublishData?[i].msnfp_startingdate) ?? Date()
+            let currentDate = DateFormatManager.shared.getCurrentDate()
+            let calendar = Calendar.current
+            
+            let components = calendar.dateComponents([.minute, .second], from: currentDate, to: eventDate)
+            self.pendingPublishData?[i].time_difference = components.minute
+        }
+        
+        for i in (0 ..< (self.pendingPublishData?.count ?? 0) - 1){
+//            debugPrint(self.latestEventData)
+            if ((self.pendingPublishData?[i].time_difference ?? 0) >= 0){
+
+                if let data = self.pendingPublishData?[i] {
+                    plusTime.append(data)
+                }
+               
+            }else{
+                    
+                if let data = self.pendingPublishData?[i] {
+                    minusTime.append(data)
+                }
+                    
+            }
+            
+            plusTime = plusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
+            minusTime = minusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
+            self.pendingPublishData = []
+            self.pendingPublishData?.append(contentsOf: plusTime)
+//            self.pendingPublishData?.append(contentsOf: minusTime)
+        }
+    }
+    
+    func pendingApprovalTimefilter(){
+        var minusTime : [PendingApprovalEventsModel]  = []
+        var plusTime : [PendingApprovalEventsModel] = []
+
+        
+        for i in (0 ..< (self.pendingApprovalData?.count ?? 0) - 1){
+            
+            let eventDate = DateFormatManager.shared.getDateFromString(date: self.pendingApprovalData?[i].sjavms_eventstartdate) ?? Date()
+            let currentDate = DateFormatManager.shared.getCurrentDate()
+            let calendar = Calendar.current
+            
+            let components = calendar.dateComponents([.minute, .second], from: currentDate, to: eventDate)
+            self.pendingApprovalData?[i].time_difference = components.minute
+        }
+        
+        for i in (0 ..< (self.pendingApprovalData?.count ?? 0) - 1){
+//            debugPrint(self.latestEventData)
+            if ((self.pendingApprovalData?[i].time_difference ?? 0) >= 0){
+
+                if let data = self.pendingApprovalData?[i] {
+                    plusTime.append(data)
+                }
+            }else{
+                    
+                if let data = self.pendingApprovalData?[i] {
+                    minusTime.append(data)
+                }
+            }
+            
+            plusTime = plusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
+            minusTime = minusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
+            self.pendingApprovalData = []
+            self.pendingApprovalData?.append(contentsOf: plusTime)
+//            self.pendingApprovalData?.append(contentsOf: minusTime)
+        }
     }
        
         
