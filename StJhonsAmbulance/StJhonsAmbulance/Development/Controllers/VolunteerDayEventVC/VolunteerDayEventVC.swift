@@ -459,7 +459,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
             
             let params : [String:Any] = [
                 
-                ParameterKeys.select : "msnfp_schedulestatus,sjavms_start,sjavms_hours,_sjavms_volunteerevent_value,_sjavms_volunteer_value,msnfp_participationscheduleid,sjavms_start,sjavms_end,sjavms_checkedin,sjavms_checkedinlatitude,sjavms_checkedinlongitude,sjavms_checkedinlatitudevalue,sjavms_checkedinlongitudevalue",
+                ParameterKeys.select : "msnfp_schedulestatus,sjavms_start,sjavms_hours,_sjavms_volunteerevent_value,_sjavms_volunteer_value,msnfp_participationscheduleid,sjavms_start,sjavms_end,sjavms_checkedin,sjavms_checkedinlatitude,sjavms_checkedinlongitude",
                 
                 ParameterKeys.expand : "sjavms_Volunteer($select=fullname,entityimage,fullname,lastname,telephone1,emailaddress1,address1_stateorprovince,address1_postalcode,address1_country,address1_city,address1_country,address1_line1,address1_line3,address1_line2,sjavms_gender,sjavms_preferredpronouns)",
                 ParameterKeys.filter : "(_sjavms_volunteerevent_value eq \(eventId))",
@@ -811,7 +811,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
             let key = Array(self.dataVol.keys)[indexPath.section]
             if let rowModel : [VolunteerOfEventDataModel] = self.dataVol[key] as? [VolunteerOfEventDataModel]{
                 
-                ENTALDControllers.shared.showVolunteerDetailScreen(type: .ENTALDPRESENT_POPOVER, from: self, dataObj: rowModel[indexPath.row], dayEvent : true) { params, controller in
+                ENTALDControllers.shared.showVolunteerDetailScreen(type: .ENTALDPUSH, from: self, dataObj: rowModel[indexPath.row], dayEvent : true) { params, controller in
 
                 }
                 
