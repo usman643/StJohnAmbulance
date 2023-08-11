@@ -73,9 +73,9 @@ class MapViewController: ENTALDBaseViewController {
         mapViewContainer.addSubview(mapView)
         mapViewContainer.addConstraintsWithFormat("H:|[v0]|", views: mapView)
         mapViewContainer.addConstraintsWithFormat("V:|[v0]|", views: mapView)
-        var lat = LocationManager.defualt.getRecentLocation().lat == 0 ? 45.27996209121132 : LocationManager.defualt.getRecentLocation().lat
+        let lat = LocationManager.defualt.getRecentLocation().lat == 0 ? 45.27996209121132 : LocationManager.defualt.getRecentLocation().lat
         
-        var lng = LocationManager.defualt.getRecentLocation().lng == 0 ? -66.06639728779841 : LocationManager.defualt.getRecentLocation().lng
+        let lng = LocationManager.defualt.getRecentLocation().lng == 0 ? -66.06639728779841 : LocationManager.defualt.getRecentLocation().lng
         
         let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lng, zoom: 8.0)
 

@@ -285,33 +285,52 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
     }
     
     
-        fileprivate func setupLocationPins(){
-            let camera = GMSCameraPosition.camera(withLatitude: 45.27996209121132, longitude: -66.06639728779841, zoom: 3.0)
-            mapView.camera = camera
-            for coords in self.mapCoords {
-                let markerpic = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: coords.pic ?? "")
-                
-                let marker = GMSMarker()
-                marker.position = CLLocationCoordinate2D(latitude: coords.lat, longitude: coords.lng)
-                marker.map = mapView
-                
-                let mapView : MapPinView = MapPinView.fromNib()
-                mapView.frame = CGRect(x: 0, y: 0, width: 105, height: 105)
-    //            MapPinView(frame: )
-                mapView.pinTitle.text = coords.name
-                mapView.pinIcon.image = markerpic
-                marker.iconView = mapView
-            }
+    fileprivate func setupLocationPins(){
+//        let camera = GMSCameraPosition.camera(withLatitude: 45.27996209121132, longitude: -66.06639728779841, zoom: 3.0)
+//        mapView.camera = camera
+        
+        for coords in self.mapCoords {
+            let markerpic = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: coords.pic ?? "")
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2D(latitude: coords.lat, longitude: coords.lng)
+            marker.map = mapView
+            
+            let mapView : MapPinView = MapPinView.fromNib()
+            mapView.frame = CGRect(x: 0, y: 0, width: 105, height: 105)
+//            MapPinView(frame: )
+            mapView.pinTitle.text = coords.name
+            mapView.pinIcon.image = markerpic
+            marker.iconView = mapView
         }
+    }
         
         fileprivate func setupMapView() {
             mapContainerVu.addSubview(mapView)
             mapContainerVu.addConstraintsWithFormat("H:|[v0]|", views: mapView)
             mapContainerVu.addConstraintsWithFormat("V:|[v0]|", views: mapView)
             
-            let camera = GMSCameraPosition.camera(withLatitude: 45.27996209121132, longitude: -66.06639728779841, zoom: 3.0)
+            let lat = LocationManager.defualt.getRecentLocation().lat == 0 ? 45.27996209121132 : LocationManager.defualt.getRecentLocation().lat
             
+            let lng = LocationManager.defualt.getRecentLocation().lng == 0 ? -66.06639728779841 : LocationManager.defualt.getRecentLocation().lng
+            
+            let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lng, zoom: 8.0)
+
+    //        let camera = GMSCameraPosition.camera(withLatitude: 45.27996209121132, longitude: -66.06639728779841, zoom: 6.0)
             mapView.camera = camera
+            
+            let userImage = UserDefaults.standard.userInfo?.entityimage ?? ""
+            let userName = UserDefaults.standard.userInfo?.fullname ?? ""
+            let markerpic = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: userImage)
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+            marker.map = mapView
+            
+            let mapView : MapPinView = MapPinView.fromNib()
+            mapView.frame = CGRect(x: 0, y: 0, width: 105, height: 105)
+    //            MapPinView(frame: )
+            mapView.pinTitle.text = userName
+            mapView.pinIcon.image = markerpic
+            marker.iconView = mapView
         }
         
         
@@ -440,7 +459,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
             
             let params : [String:Any] = [
                 
-                ParameterKeys.select : "msnfp_schedulestatus,sjavms_start,sjavms_hours,_sjavms_volunteerevent_value,_sjavms_volunteer_value,msnfp_participationscheduleid,sjavms_start,sjavms_end,sjavms_checkedin,sjavms_checkedinlatitude,sjavms_checkedinlongitude",
+                ParameterKeys.select : "msnfp_schedulestatus,sjavms_start,sjavms_hours,_sjavms_volunteerevent_value,_sjavms_volunteer_value,msnfp_participationscheduleid,sjavms_start,sjavms_end,sjavms_checkedin,sjavms_checkedinlatitude,sjavms_checkedinlongitude,sjavms_checkedinlatitudevalue,sjavms_checkedinlongitudevalue",
                 
                 ParameterKeys.expand : "sjavms_Volunteer($select=fullname,entityimage,fullname,lastname,telephone1,emailaddress1,address1_stateorprovince,address1_postalcode,address1_country,address1_city,address1_country,address1_line1,address1_line3,address1_line2,sjavms_gender,sjavms_preferredpronouns)",
                 ParameterKeys.filter : "(_sjavms_volunteerevent_value eq \(eventId))",
@@ -792,7 +811,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
             let key = Array(self.dataVol.keys)[indexPath.section]
             if let rowModel : [VolunteerOfEventDataModel] = self.dataVol[key] as? [VolunteerOfEventDataModel]{
                 
-                ENTALDControllers.shared.showVolunteerDetailScreen(type: .ENTALDPUSH, from: self, dataObj: rowModel[indexPath.row], dayEvent : true) { params, controller in
+                ENTALDControllers.shared.showVolunteerDetailScreen(type: .ENTALDPRESENT_POPOVER, from: self, dataObj: rowModel[indexPath.row], dayEvent : true) { params, controller in
 
                 }
                 
