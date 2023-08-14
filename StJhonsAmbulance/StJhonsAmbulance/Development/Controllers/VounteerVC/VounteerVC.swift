@@ -357,7 +357,7 @@ extension VounteerVC: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        ENTALDControllers.shared.showVolunteerDetailScreen(type: .ENTALDPRESENT_POPOVER, from: self, dataObj: filteredData?[indexPath.row]) { params, controller in
+        ENTALDControllers.shared.showVolunteerDetailScreen(type: .ENTALDPUSH, from: self, dataObj: filteredData?[indexPath.row]) { params, controller in
             
         }
         

@@ -30,11 +30,7 @@ class CSDashBoardVC: ENTALDBaseViewController{
     @IBOutlet weak var menuSelectedsImg: UIImageView!
     @IBOutlet weak var lblTabTitle: UILabel!
     
-    
-    
-    
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
@@ -103,26 +99,6 @@ class CSDashBoardVC: ENTALDBaseViewController{
         present(menu!, animated: true)
     }
     
-    
-    @IBAction func openVolunteerScreen(_ sender: Any) {
-        
-        self.openNextScreecn(controller: "sjavms_volunteers")
-    }
-    
-    @IBAction func openEventScreen(_ sender: Any) {
-        self.openNextScreecn(controller: "sjavms_events")
-        
-    }
-    
-    @IBAction func openPendingShiftsScreen(_ sender: Any) {
-        self.openNextScreecn(controller: "sjavms_pendingshifts")
-        
-    }
-    
-    @IBAction func openMessagesScreen(_ sender: Any) {
-        self.openNextScreecn(controller: "sjavms_messages")
-        
-    }
     
     
     func getLatestUpcomingEvent(){

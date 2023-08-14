@@ -603,7 +603,7 @@ class DashboardVC: ENTALDBaseViewController{
                 
                 if let apiData = response.value {
                     self.latestEventData = apiData
-                    self.timefilter()
+//                    self.timefilter()
                     
                     self.latestEventData = self.latestEventData?.sorted(by: { $0.sjavms_start ?? "" < $1.sjavms_start ?? "" })
                     
@@ -656,8 +656,8 @@ class DashboardVC: ENTALDBaseViewController{
         var minusTime : [LatestEventDataModel]  = []
         var plusTime : [LatestEventDataModel] = []
 
-        
-        for i in (0 ..< (self.latestEventData?.count ?? 0)){
+        if ((self.latestEventData?.count ?? 0) > 0){
+        for i in (0 ..< (self.latestEventData?.count ?? 0) - 1){
             
             let eventDate = DateFormatManager.shared.getDateFromString(date: self.latestEventData?[i].sjavms_start) ?? Date()
             let currentDate = DateFormatManager.shared.getCurrentDate()
@@ -667,33 +667,33 @@ class DashboardVC: ENTALDBaseViewController{
             self.latestEventData?[i].time_difference = components.minute
         }
         
-        for i in (0 ..< (self.latestEventData?.count ?? 0) - 1){
-//            debugPrint(self.latestEventData)
-            if ((self.latestEventData?[i].time_difference ?? 0) >= 0){
-
-                if let data = self.latestEventData?[i] {
-                    plusTime.append(data)
-                }
-               
-            }else{
+            for i in (0 ..< (self.latestEventData?.count ?? 0) - 1){
+                //            debugPrint(self.latestEventData)
+                if ((self.latestEventData?[i].time_difference ?? 0) >= 0){
                     
-                if let data = self.latestEventData?[i] {
-                    minusTime.append(data)
-                }
+                    if let data = self.latestEventData?[i] {
+                        plusTime.append(data)
+                    }
                     
+                }else{
+                    
+                    if let data = self.latestEventData?[i] {
+                        minusTime.append(data)
+                    }
+                    
+                }
+                
+                plusTime = plusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
+                minusTime = minusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
+                
+                
+                self.latestEventData = []
+                self.latestEventData?.append(contentsOf: plusTime)
+                self.latestEventData?.append(contentsOf: minusTime)
+                
+                
+                
             }
-            
-            plusTime = plusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
-            minusTime = minusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
-            
-            
-            self.latestEventData = []
-            self.latestEventData?.append(contentsOf: plusTime)
-            self.latestEventData?.append(contentsOf: minusTime)
-            
-            
-            
-            
             
             
             

@@ -493,7 +493,7 @@ class PendingEventVC: ENTALDBaseViewController {
                     self.pendingApprovalData = pendingData
                     
                     
-//                    self.pendingApprovalTimefilter()
+                    self.pendingApprovalTimefilter()
                     
                     self.pendingApprovalData = self.pendingApprovalData?.sorted(by: { $0.sjavms_eventstartdate ?? "" < $1.sjavms_eventstartdate ?? "" })
                     
@@ -660,78 +660,75 @@ class PendingEventVC: ENTALDBaseViewController {
     }
     
     func pendingTimefilter(){
+        
         var minusTime : [CurrentEventsModel]  = []
         var plusTime : [CurrentEventsModel] = []
-
-        
-        for i in (0 ..< (self.pendingPublishData?.count ?? 0) - 1){
-            
-            let eventDate = DateFormatManager.shared.getDateFromString(date: self.pendingPublishData?[i].msnfp_startingdate) ?? Date()
-            let currentDate = DateFormatManager.shared.getCurrentDate()
-            let calendar = Calendar.current
-            
-            let components = calendar.dateComponents([.minute, .second], from: currentDate, to: eventDate)
-            self.pendingPublishData?[i].time_difference = components.minute
-        }
-        
-        for i in (0 ..< (self.pendingPublishData?.count ?? 0) - 1){
-//            debugPrint(self.latestEventData)
-            if ((self.pendingPublishData?[i].time_difference ?? 0) >= 0){
-
-                if let data = self.pendingPublishData?[i] {
-                    plusTime.append(data)
-                }
-               
-            }else{
+        if ((self.pendingPublishData?.count ?? 0) > 0){
+            for i in (0 ..< (self.pendingPublishData?.count ?? 0) - 1){
+                
+                let eventDate = DateFormatManager.shared.getDateFromString(date: self.pendingPublishData?[i].msnfp_startingdate) ?? Date()
+                let currentDate = DateFormatManager.shared.getCurrentDate()
+                let calendar = Calendar.current
+                
+                let components = calendar.dateComponents([.minute, .second], from: currentDate, to: eventDate)
+                self.pendingPublishData?[i].time_difference = components.minute
+                
+                if ((self.pendingPublishData?[i].time_difference ?? 0) >= 0){
                     
-                if let data = self.pendingPublishData?[i] {
-                    minusTime.append(data)
-                }
+                    if let data = self.pendingPublishData?[i] {
+                        plusTime.append(data)
+                    }
                     
+                }else{
+                    
+                    if let data = self.pendingPublishData?[i] {
+                        minusTime.append(data)
+                    }
+                }
             }
-            
-            plusTime = plusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
-            minusTime = minusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
+            plusTime = plusTime.sorted(by: { ($0.time_difference ?? 0) < ($1.time_difference ?? 0) })
+            //            minusTime = minusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
             self.pendingPublishData = []
             self.pendingPublishData?.append(contentsOf: plusTime)
-//            self.pendingPublishData?.append(contentsOf: minusTime)
+            //            self.latestEventData?.append(contentsOf: minusTime)
+
         }
     }
     
     func pendingApprovalTimefilter(){
+        
         var minusTime : [PendingApprovalEventsModel]  = []
         var plusTime : [PendingApprovalEventsModel] = []
-
-        
-        for i in (0 ..< (self.pendingApprovalData?.count ?? 0) - 1){
-            
-            let eventDate = DateFormatManager.shared.getDateFromString(date: self.pendingApprovalData?[i].sjavms_eventstartdate) ?? Date()
-            let currentDate = DateFormatManager.shared.getCurrentDate()
-            let calendar = Calendar.current
-            
-            let components = calendar.dateComponents([.minute, .second], from: currentDate, to: eventDate)
-            self.pendingApprovalData?[i].time_difference = components.minute
-        }
-        
-        for i in (0 ..< (self.pendingApprovalData?.count ?? 0) - 1){
-//            debugPrint(self.latestEventData)
-            if ((self.pendingApprovalData?[i].time_difference ?? 0) >= 0){
-
-                if let data = self.pendingApprovalData?[i] {
-                    plusTime.append(data)
-                }
-            }else{
+        if ((self.pendingApprovalData?.count ?? 0) > 0){
+            for i in (0 ..< (self.pendingApprovalData?.count ?? 0) - 1){
+                
+                let eventDate = DateFormatManager.shared.getDateFromString(date: self.pendingApprovalData?[i].sjavms_eventstartdate) ?? Date()
+                let currentDate = DateFormatManager.shared.getCurrentDate()
+                let calendar = Calendar.current
+                
+                let components = calendar.dateComponents([.minute, .second], from: currentDate, to: eventDate)
+                self.pendingApprovalData?[i].time_difference = components.minute
+                
+                if ((self.pendingApprovalData?[i].time_difference ?? 0) >= 0){
                     
-                if let data = self.pendingApprovalData?[i] {
-                    minusTime.append(data)
+                    if let data = self.pendingApprovalData?[i] {
+                        plusTime.append(data)
+                    }
+                    
+                }else{
+                    
+                    if let data = self.pendingApprovalData?[i] {
+                        minusTime.append(data)
+                    }
                 }
             }
-            
-            plusTime = plusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
-            minusTime = minusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
+            plusTime = plusTime.sorted(by: { ($0.time_difference ?? 0) < ($1.time_difference ?? 0) })
+            //            minusTime = minusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
             self.pendingApprovalData = []
             self.pendingApprovalData?.append(contentsOf: plusTime)
-//            self.pendingApprovalData?.append(contentsOf: minusTime)
+            //            self.latestEventData?.append(contentsOf: minusTime)
+            
+            
         }
     }
        

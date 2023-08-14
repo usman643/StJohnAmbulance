@@ -119,14 +119,14 @@ class LoginVC: ENTALDBaseViewController {
         
         
         
-//        ENTALDControllers.shared.showForgetScreen(type: .ENTALDPUSH, from: self) { params, controller in
-//            self.navigationController?.popViewController(animated: true)
-//        }
+        ENTALDControllers.shared.showForgetScreen(type: .ENTALDPUSH, from: self) { params, controller in
+            self.navigationController?.popViewController(animated: true)
+        }
 //        let vc = VolunteerEventVC()
         
         
-        let vc = SignalRVC()
-        self.navigationController?.pushViewController(vc, animated: true)
+//        let vc = SignalRVC()
+//        self.navigationController?.pushViewController(vc, animated: true)
         
         
         

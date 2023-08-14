@@ -85,7 +85,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
             
             if ((eventData) != nil){
                 
-                lblEventName.text = eventData?.msnfp_engagementopportunitytitle
+                lblEventName.text =  ((eventData?.address1_line1) != nil) ? eventData?.address1_line1 : eventData?.msnfp_engagementopportunitytitle
                 if (eventData?.msnfp_startingdate != nil && eventData?.msnfp_startingdate != ""){
                     let date =  DateFormatManager.shared.formatDateStrToStr(date: eventData?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd hh:mm a")
                     lblDate.text = date
@@ -124,7 +124,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
                 
             }else if ((pendingShiftData) != nil){
                 
-                lblEventName.text = pendingShiftData?.msnfp_name
+                lblEventName.text = pendingShiftData?.sjavms_VolunteerEvent?.msnfp_street1 ?? ""
                 if (pendingShiftData?.sjavms_start != nil && pendingShiftData?.sjavms_start != ""){
                     let date =  DateFormatManager.shared.formatDateStrToStr(date: pendingShiftData?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd hh:mm a")
                     lblDate.text = date
@@ -147,7 +147,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
                 }
             }else if ((unpublishEventData) != nil){
                 
-                lblEventName.text = unpublishEventData?.msnfp_engagementopportunitytitle
+                lblEventName.text = unpublishEventData?.address1_line1
                 if (unpublishEventData?.msnfp_startingdate != nil && unpublishEventData?.msnfp_startingdate != ""){
                     let date =  DateFormatManager.shared.formatDateStrToStr(date: unpublishEventData?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd hh:mm a")
                     lblDate.text = date
@@ -179,7 +179,9 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
                 
             }else if ((pendingEventApprovalData) != nil){
                 
-                lblEventName.text = pendingEventApprovalData?.sjavms_name
+                lblEventName.text = ((pendingEventApprovalData?.sjavms_address1name) != nil) ? pendingEventApprovalData?.sjavms_address1name  : pendingEventApprovalData?.sjavms_name
+                
+                
                 if (pendingEventApprovalData?.sjavms_eventstartdate != nil && pendingEventApprovalData?.sjavms_eventstartdate == ""){
                     let date =  DateFormatManager.shared.formatDateStrToStr(date: pendingEventApprovalData?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd hh:mm a")
                     lblDate.text = date
