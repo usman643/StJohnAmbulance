@@ -27,14 +27,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y5K-DT-bbC">
-                    <rect key="frame" x="0.0" y="602" width="393" height="250"/>
+                    <rect key="frame" x="0.0" y="570" width="393" height="250"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="250" id="83y-X0-6Dh"/>
                     </constraints>
                 </pickerView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rsI-Vk-uF5">
-                    <rect key="frame" x="0.0" y="562" width="393" height="40"/>
+                    <rect key="frame" x="0.0" y="530" width="393" height="40"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UDX-tb-PIS">
                             <rect key="frame" x="345" y="3" width="43" height="34"/>
@@ -62,7 +62,7 @@
                 <constraint firstItem="y5K-DT-bbC" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="MIe-ga-CVQ"/>
                 <constraint firstItem="y5K-DT-bbC" firstAttribute="top" secondItem="rsI-Vk-uF5" secondAttribute="bottom" id="SQ4-M5-LOm"/>
                 <constraint firstItem="y5K-DT-bbC" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Xwj-2f-61k"/>
-                <constraint firstAttribute="bottom" secondItem="y5K-DT-bbC" secondAttribute="bottom" id="bcg-1e-LX2"/>
+                <constraint firstAttribute="bottom" secondItem="y5K-DT-bbC" secondAttribute="bottom" constant="32" id="bcg-1e-LX2"/>
             </constraints>
             <point key="canvasLocation" x="-27" y="20"/>
         </view>

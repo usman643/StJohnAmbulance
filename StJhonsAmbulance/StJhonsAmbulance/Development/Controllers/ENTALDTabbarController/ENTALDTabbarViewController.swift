@@ -93,11 +93,11 @@ class ENTALDTabbarViewController: UITabBarController {
         let eventVC = VolunteerEventsVC.loadFromNib()
         let eventImg = "icVolunteerTab".templatedImage
         
-//        let checkinVC = MapViewController.loadFromNib()
-//        let checkinImg = "tabLocation".templatedImage
+        let checkinVC = MapViewController.loadFromNib()
+        let checkinImg = "tabLocation".templatedImage
         
-        let hourVC = VolunteerEventVC.loadFromNib()
-        let hourImg = "hourGlass".templatedImage
+//        let hourVC = VolunteerEventVC.loadFromNib()
+//        let hourImg = "hourGlass".templatedImage
         
         let scheduleVC = ScheduleVC.loadFromNib()
         let scheduleImg = "tabCalender".templatedImage
@@ -109,7 +109,7 @@ class ENTALDTabbarViewController: UITabBarController {
             self.createNavController(for: homeVC, title: "", image: homeImg),
             self.createNavController(for: scheduleVC, title: "", image: scheduleImg),
             self.createNavController(for: eventVC, title: "", image: eventImg),
-            self.createNavController(for: hourVC, title: "", image: hourImg),
+            self.createNavController(for: checkinVC, title: "", image: checkinImg),
             self.createNavController(for: messageVC, title: "", image: messageImg)
         ]
     }
