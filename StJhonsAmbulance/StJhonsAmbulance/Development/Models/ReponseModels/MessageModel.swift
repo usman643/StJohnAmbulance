@@ -65,3 +65,23 @@ struct MessageModel: Codable {
     
     
 }
+
+
+struct MessageChatResponseModel :Codable{
+    
+    let value : [MessageChatDataModel]?
+    
+}
+
+struct MessageChatDataModel : Codable{
+    
+    let subject : String?
+    let statuscode : Int?
+    let modifiedon : String?
+    let description : String?
+    let senton : String?
+    let activityid : String?
+    let safedescription : String?
+    
+}
+

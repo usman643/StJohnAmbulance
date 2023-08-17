@@ -60,6 +60,11 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
+    func requestChatMessages(params:[String:Any],  _ completion:@escaping((ApiResult<ChatMessageResponseModel, ApiError>) -> Void )){
+        let router = DashBoardRouter.getChatMessages(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
     func requestVolunteer(params:[String:Any],  _ completion:@escaping((ApiResult<VolunteerResponseModel, ApiError>) -> Void )){
         let router = DashBoardRouter.getVolunteers(params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
@@ -488,6 +493,11 @@ class ENTALDLibraryAPI {
     
     func approvePendingEvent(eventId: String, params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
         let router = EventRouter.approvePendingEvent(eventId: eventId, params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
+    func saveChatMessage(params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
+        let router = DashBoardRouter.saveChatMessages(params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     

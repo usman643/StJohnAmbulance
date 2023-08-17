@@ -201,6 +201,10 @@ struct ChangeModel :Codable {
     var newValue : String?
 }
 
+struct ChatMessageResponseModel : Codable {
+    var value : [MessageArguments]?
+}
+
 
 struct ChatMessage : Decodable {
     var data : MessageArguments?
@@ -211,5 +215,13 @@ struct MessageArguments :Codable {
     var name : String?
     var image : String?
     var message : String?
+    
+    
+    
+    var subject : String?
+    var sjavms_senton : String?
+    var activityid : String?
+    
+    
     
 }

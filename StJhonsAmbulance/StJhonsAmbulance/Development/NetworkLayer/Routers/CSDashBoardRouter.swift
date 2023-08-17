@@ -13,6 +13,8 @@ enum DashBoardRouter : Router {
     case getPendingShiftsOne(params:[String:Any])
     case getPendingShiftsTwo(params:[String:Any])
     case getPendingShiftsThree(params:[String:Any])
+    case getChatMessages(params:[String:Any])
+    case saveChatMessages(params:[String:Any])
     case getMessages(params:[String:Any])
     case postMessages(params:PostGroupMessageRequestModel)
     case postAddAvailability(params:PostAddAvailabilityRequestModel)
@@ -31,6 +33,8 @@ enum DashBoardRouter : Router {
         case .getPendingShiftsTwo: return "msnfp_participationschedules"
         case .getPendingShiftsThree : return "msnfp_engagementopportunityschedules"
         case .getMessages : return "emails"
+        case .getChatMessages : return "sjavms_inappmessages"
+        case .saveChatMessages : return "sjavms_inappmessages"
         case .postMessages : return "emails"
         case .postAddAvailability : return "msnfp_availabilities"
         case .getVolunteers : return "msnfp_groupmemberships"
@@ -49,6 +53,10 @@ enum DashBoardRouter : Router {
         case .getPendingShiftsTwo(let params):
             return params
         case .getPendingShiftsThree(let params):
+            return params
+        case .getChatMessages(let params):
+            return params
+        case .saveChatMessages(let params):
             return params
         case .getMessages(let params):
             return params
@@ -90,6 +98,8 @@ enum DashBoardRouter : Router {
             return HTTPMethodType.post.rawValue
         case .saveDashboardTilesOrder(_):
             return HTTPMethodType.post.rawValue
+        case .saveChatMessages(_):
+            return HTTPMethodType.post.rawValue
         case .updateDashboardTilesOrder(_,_):
             return HTTPMethodType.patch.rawValue
         default:
@@ -109,6 +119,8 @@ enum DashBoardRouter : Router {
         case .postAddAvailability(_):
             return .ENTJSONEncoding
         case .saveDashboardTilesOrder(_):
+            return .ENTJSONEncoding
+        case .saveChatMessages(_):
             return .ENTJSONEncoding
         case .updateDashboardTilesOrder(_,_):
             return .ENTJSONEncoding

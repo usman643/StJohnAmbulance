@@ -11,31 +11,11 @@ import SwiftSignalRClient
 
 
 class SignalRVC: ENTALDBaseViewController, UITableViewDelegate, UITableViewDataSource, HubConnectionDelegate  {
-    func connectionDidOpen(hubConnection: SwiftSignalRClient.HubConnection) {
-        
-    }
-    
-    func connectionDidFailToOpen(error: Error) {
-        
-    }
-    
-    func connectionDidClose(error: Error?) {
-        
-    }
-    
-    func connectionDidOpen(connection: SwiftSignalRClient.Connection) {
-        
-    }
-    
-    func connectionDidReceiveData(connection: SwiftSignalRClient.Connection, data: Data) {
-        print("Received Data")
-    }
-    
-    
+
     var isConnected = false
     var eventId : String?
 //    var socket : WebSocket!
-    
+    let conId = UserDefaults.standard.contactIdToken ?? ""
     
     @IBOutlet weak var txtMessage: UITextField!
     
@@ -78,7 +58,7 @@ class SignalRVC: ENTALDBaseViewController, UITableViewDelegate, UITableViewDataS
 
  
 override func viewDidAppear(_ animated: Bool) {
-   
+    getchatMessage()
         self.name = "\(UserDefaults.standard.contactIdToken ?? "")"
 
         self.chatHubConnectionDelegate = ChatHubConnectionDelegate(controller: self)
@@ -141,6 +121,114 @@ override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
 }
     
+    func saveChatMessage (){
+        let currentDate = DateFormatManager.shared.getCurrentDate()
+        let dateStr = DateFormatManager.shared.formatDate(date: currentDate)
+        
+        let params : [String: Any] = [
+                "sjavms_inappmessage_activity_parties": [
+                    [
+                        "partyid_contact@odata.bind": "/contacts(\(self.conId))",
+                        "participationtypemask": 1
+                    ],
+                    [
+                        "partyid_contact@odata.bind": "/contacts(\(self.eventId ?? ""))",
+                        "participationtypemask": 2
+                    ]
+                ],
+                "subject": "\(self.txtMessage.text ?? "")",
+                "sjavms_senton": "\(dateStr)"
+            ]
+        
+        ENTALDLibraryAPI.shared.saveChatMessage(params: params){ result in
+            switch result{
+            case .success(value: _):
+                debugPrint("message send")
+                
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+}
+
+    
+    
+    func getchatMessage (){
+       
+        let params : [String:Any] = [
+            
+            ParameterKeys.select : "activityid,subject",
+            ParameterKeys.expand : "sjavms_inappmessage_activity_parties($filter=(participationtypemask eq 1 and _partyid_value eq \(self.conId ))),sjavms_inappmessage_activity_parties($filter=(participationtypemask eq 2 and _partyid_value eq \(self.eventId ?? "")))",
+            ParameterKeys.filter : "(sjavms_inappmessage_activity_parties/any(o1:(o1/participationtypemask eq 1 and o1/_partyid_value eq \(self.conId )))) and (sjavms_inappmessage_activity_parties/any(o2:(o2/participationtypemask eq 2 and o2/_partyid_value eq \(self.eventId ?? ""))))",
+            ParameterKeys.orderby : "sjavms_senton desc"
+        ]
+        
+        self.getMessagesData(params: params)
+    
+}
+    
+
+fileprivate func getMessagesData(params : [String:Any]){
+    DispatchQueue.main.async {
+        LoadingView.show()
+    }
+    
+    ENTALDLibraryAPI.shared.requestChatMessages(params: params){ result in
+        DispatchQueue.main.async {
+            LoadingView.hide()
+        }
+        
+        switch result{
+        case .success(value: let response):
+            
+            if let messagesData = response.value {
+                self.messages = messagesData
+                if (self.messages.count < 1){
+                    self.showEmptyView(tableVw: self.tableView)
+                }else{
+                    
+                    DispatchQueue.main.async {
+                        for subview in self.tableView.subviews {
+                            subview.removeFromSuperview()
+                        }
+                    }
+                }
+                DispatchQueue.main.async {
+                    
+                    self.tableView.reloadData()
+                }
+                
+            }else{
+                self.showEmptyView(tableVw: self.tableView)
+            }
+            
+        case .error(let error, let errorResponse):
+            var message = error.message
+            if let err = errorResponse {
+                message = err.error
+            }
+            self.showEmptyView(tableVw: self.tableView)
+            DispatchQueue.main.async {
+                ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+            }
+        }
+    }
+}
+    func showEmptyView(tableVw : UITableView){
+        DispatchQueue.main.async {
+            let view = EmptyView.instanceFromNib()
+            view.frame = tableVw.frame
+            tableVw.addSubview(view)
+        }
+    }
     
     @IBAction func baskTapped(_ sender: Any) {
         
@@ -157,6 +245,7 @@ override func didReceiveMemoryWarning() {
             }else{
                 let mess = MessageArguments(name: "\(UserDefaults.standard.userInfo?.fullname ?? "")", image: "test.jpg", message: message)
                 self.appendMessage(model: mess)
+                self.saveChatMessage()
             }
         })
         
@@ -183,32 +272,26 @@ private func appendMessage(model: MessageArguments) {
 fileprivate func connectionDidOpen() {
     toggleUI(isEnabled: true)
 }
-
-//fileprivate func connectionDidFailToOpen(error: Error) {
-//    blockUI(message: "Connection failed to start.", error: error)
-//}
-//
-//fileprivate func connectionDidClose(error: Error?) {
-//    if let alert = reconnectAlert {
-//        alert.dismiss(animated: true, completion: nil)
-//    }
-//    blockUI(message: "Connection is closed.", error: error)
-//}
-//
-//fileprivate func connectionWillReconnect(error: Error?) {
-//    guard reconnectAlert == nil else {
-//        print("Alert already present. This is unexpected.")
-//        return
-//    }
-//
-//    reconnectAlert = UIAlertController(title: "Reconnecting...", message: "Please wait", preferredStyle: .alert)
-//    self.present(reconnectAlert!, animated: true, completion: nil)
-//}
-//
-//fileprivate func connectionDidReconnect() {
-//    reconnectAlert?.dismiss(animated: true, completion: nil)
-//    reconnectAlert = nil
-//}
+    
+    func connectionDidOpen(hubConnection: SwiftSignalRClient.HubConnection) {
+        
+    }
+    
+    func connectionDidFailToOpen(error: Error) {
+        
+    }
+    
+    func connectionDidClose(error: Error?) {
+        
+    }
+    
+    func connectionDidOpen(connection: SwiftSignalRClient.Connection) {
+        
+    }
+    
+    func connectionDidReceiveData(connection: SwiftSignalRClient.Connection, data: Data) {
+        print("Received Data")
+    }
 
 func blockUI(message: String, error: Error?) {
     var message = message
@@ -237,6 +320,9 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
     
     cell.lblName.text = messages[row].name ?? ""
     cell.lblMessage?.text = messages[row].message ?? ""
+    if (messages[row].subject != nil || messages[row].subject == "" ){
+        cell.lblMessage?.text = messages[row].subject;
+    }
     
     return cell
 }
