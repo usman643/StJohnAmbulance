@@ -202,12 +202,17 @@ struct ChangeModel :Codable {
 }
 
 struct ChatMessageResponseModel : Codable {
-    var value : [MessageArguments]?
+    var value : [ChatMessageResponseValues]?
 }
 
 
 struct ChatMessage : Decodable {
     var data : MessageArguments?
+}
+
+struct ChatMessageResponseValues:Codable {
+    let subject : String?
+    let sjavms_senton : String?
 }
 
 

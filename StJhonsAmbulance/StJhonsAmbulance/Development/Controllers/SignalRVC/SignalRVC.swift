@@ -121,7 +121,7 @@ override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
 }
     
-    func saveChatMessage (){
+    func saveChatMessage (messageTxt:String){
         let currentDate = DateFormatManager.shared.getCurrentDate()
         let dateStr = DateFormatManager.shared.formatDate(date: currentDate)
         
@@ -130,13 +130,13 @@ override func didReceiveMemoryWarning() {
                     [
                         "partyid_contact@odata.bind": "/contacts(\(self.conId))",
                         "participationtypemask": 1
-                    ],
+                    ] as [String : Any],
                     [
                         "partyid_contact@odata.bind": "/contacts(\(self.eventId ?? ""))",
                         "participationtypemask": 2
                     ]
                 ],
-                "subject": "\(self.txtMessage.text ?? "")",
+                "subject": messageTxt,
                 "sjavms_senton": "\(dateStr)"
             ]
         
@@ -144,8 +144,6 @@ override func didReceiveMemoryWarning() {
             switch result{
             case .success(value: _):
                 debugPrint("message send")
-                
-                
             case .error(let error, let errorResponse):
                 var message = error.message
                 if let err = errorResponse {
@@ -190,7 +188,7 @@ fileprivate func getMessagesData(params : [String:Any]){
         case .success(value: let response):
             
             if let messagesData = response.value {
-                self.messages = messagesData
+                self.messages = messagesData.map({MessageArguments(subject:$0.subject, sjavms_senton: $0.sjavms_senton)})
                 if (self.messages.count < 1){
                     self.showEmptyView(tableVw: self.tableView)
                 }else{
@@ -243,9 +241,9 @@ fileprivate func getMessagesData(params : [String:Any]){
             if let e = error {
                 print("Sending Error \(e)")
             }else{
-                let mess = MessageArguments(name: "\(UserDefaults.standard.userInfo?.fullname ?? "")", image: "test.jpg", message: message)
+                let mess = MessageArguments(name: "\(UserDefaults.standard.userInfo?.fullname ?? "")", image: "test.jpg", subject: message)
                 self.appendMessage(model: mess)
-                self.saveChatMessage()
+                self.saveChatMessage(messageTxt: message ?? "")
             }
         })
         
