@@ -121,6 +121,38 @@ extension UIColor {
         return hexString(hex:"CFCFCF")
     }
     
+    class var unselectedTabColor:UIColor{
+        return hexString(hex:"6E6E6E")
+    }
+    
+    class var selectedTabColor:UIColor{
+        return hexString(hex:"2D3934")
+    }
+    
+    class var navBarGrayColor:UIColor{
+        return hexString(hex:"F0F0F0")
+    }
+    
+    class var navBarLabelColor:UIColor{
+        return hexString(hex:"646464")
+    }
+    
+    class var themeLightGrayColor:UIColor{
+        return hexString(hex:"F2F2F2")
+    }
+    
+    class var hourGreenColor:UIColor{
+        return hexString(hex:"1B6544")
+    }
+    
+    class var pageTitleColor:UIColor{
+        return hexString(hex:"234135")
+    }
+    
+    class var SJAGreenColor:UIColor{
+        return hexString(hex:"18573A")
+    }
+    
     
     
 
@@ -175,3 +207,7 @@ extension UIColor {
     }
     
 }
+
+
+//SJA green: #18573A
+

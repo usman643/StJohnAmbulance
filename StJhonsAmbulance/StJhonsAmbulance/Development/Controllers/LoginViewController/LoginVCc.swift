@@ -14,7 +14,7 @@ class LoginVC: ENTALDBaseViewController {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblEmail: UILabel!
     @IBOutlet weak var lblPassword: UILabel!
-    
+    @IBOutlet weak var headerLogoView: UIView!
     @IBOutlet weak var headerLogoImgView: UIImageView!
     @IBOutlet weak var txtUserName: ACFloatingTextfield!
     @IBOutlet weak var txtPassword: ACFloatingTextfield!
@@ -31,11 +31,6 @@ class LoginVC: ENTALDBaseViewController {
     @IBOutlet weak var fbView: UIView!
     
     @IBOutlet weak var btnStaySignIn: UIButton!
-    
-    @IBOutlet weak var lblFinancialSupport: UILabel!
-    @IBOutlet weak var lblPublicSafetyEng: UILabel!
-    @IBOutlet weak var lblPublicSafetyFrench: UILabel!
-    
     
     // Life cycle
     override func viewDidLoad() {
@@ -56,8 +51,9 @@ class LoginVC: ENTALDBaseViewController {
     }
 
     func decorateUI(){
-        
         self.navigationController?.navigationBar.isHidden = true
+//        headerLogoView.layer.cornerRadius =  headerLogoView.frame.size.height/2
+//        headerLogoView.backgroundColor = UIColor.themePrimary
         txtUserName.addDoneOnKeyboardWithTarget(self, action: #selector(nextButtonClicked), titleText: "Email")
         txtPassword.addDoneOnKeyboardWithTarget(self, action: #selector(doneButtonClicked), titleText: "Password")
         
@@ -70,6 +66,7 @@ class LoginVC: ENTALDBaseViewController {
         txtPassword.isSecureTextEntry = true
         txtPassword.textColor = UIColor.textBlackColor
         txtUserName.textColor = UIColor.textBlackColor
+        
         
         gmailView.layer.cornerRadius = gmailView.frame.size.height/2
        addShadow(to: gmailView)
@@ -90,9 +87,6 @@ class LoginVC: ENTALDBaseViewController {
         btnRegister.titleLabel?.font = UIFont.RegularFont(14)
         lblLoginWith.font = UIFont.RegularFont(14)
         btnLogin.titleLabel?.font = UIFont.BoldFont(20)
-        lblFinancialSupport.font = UIFont.BoldFont(13)
-        lblPublicSafetyEng.font = UIFont.BoldFont(14)
-        lblPublicSafetyFrench.font = UIFont.BoldFont(14)
         
         lblTitle.textColor = UIColor.textWhiteColor
         lblEmail.textColor = UIColor.textBlackColor
@@ -102,9 +96,6 @@ class LoginVC: ENTALDBaseViewController {
         lblStaySigin.textColor = UIColor.textGrayColor
         btnForgotPass.titleLabel?.textColor = UIColor.textGrayColor
         lblAccountRegister.textColor = UIColor.textBlackColor
-        lblFinancialSupport.textColor = UIColor.textBlackColor
-        lblPublicSafetyEng.textColor = UIColor.textBlackColor
-        lblPublicSafetyFrench.textColor = UIColor.textBlackColor
         
         lblLoginWith.textColor = UIColor.textGrayColor
         txtUserName.placeHolderColor = UIColor.textLightGrayColor
@@ -112,7 +103,7 @@ class LoginVC: ENTALDBaseViewController {
         btnLogin.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnRegister.titleLabel?.textColor = UIColor.themePrimaryColor
         btnStaySignIn.backgroundColor = UIColor.viewLightGrayColor
- 
+        
     }
     
     @IBAction func registerTapped(_ sender: Any) {

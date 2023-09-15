@@ -11,24 +11,52 @@ import UIKit
 extension UIFont {
     
     class func LightFont(_ size: CGFloat) -> UIFont {
-        let font = UIFont(name: "Quicksand-Light", size: size) ?? UIFont()
+        let font = UIFont(name: "NunitoSans-Light", size: size) ?? UIFont()
         return font
     }
     
     class func RegularFont(_ size: CGFloat) -> UIFont {
-        return UIFont(name: "Quicksand-Regular", size: size) ?? UIFont()
+        return UIFont(name: "NunitoSans-Regular", size: size) ?? UIFont()
     }
     
     class func MediumFont(_ size: CGFloat) -> UIFont {
-        return UIFont(name: "Quicksand-Medium", size: size) ?? UIFont()
+        return UIFont(name: "NunitoSans-SemiBold", size: size) ?? UIFont()
     }
     
     class func SemiBoldFont(_ size: CGFloat) -> UIFont {
-        return UIFont(name: "Quicksand-SemiBold", size: size) ?? UIFont()
+        return UIFont(name: "NunitoSans-SemiBold", size: size) ?? UIFont()
     }
     
     class func BoldFont(_ size: CGFloat) -> UIFont {
-        let font = UIFont(name: "Quicksand-Bold", size: size) ?? UIFont()
+        let font = UIFont(name: "NunitoSans-Bold", size: size) ?? UIFont()
+        return font
+    }
+    
+    
+    
+    
+    
+    
+    
+    class func HeaderLightFont(_ size: CGFloat) -> UIFont {
+        let font = UIFont(name: "Avenir-Light", size: size) ?? UIFont()
+        return font
+    }
+    
+    class func HeaderRegularFont(_ size: CGFloat) -> UIFont {
+        return UIFont(name: "Avenir-Regular", size: size) ?? UIFont()
+    }
+    
+    class func HeaderMediumFont(_ size: CGFloat) -> UIFont {
+        return UIFont(name: "Avenir-Medium", size: size) ?? UIFont()
+    }
+    
+    class func HeaderSemiBoldFont(_ size: CGFloat) -> UIFont {
+        return UIFont(name: "Avenir-Medium", size: size) ?? UIFont()
+    }
+    
+    class func HeaderBoldFont(_ size: CGFloat) -> UIFont {
+        let font = UIFont(name: "Avenir-Heavy", size: size) ?? UIFont()
         return font
     }
     
