@@ -91,26 +91,31 @@ class ENTALDTabbarViewController: UITabBarController {
         let homeImg = "tabHome".templatedImage
         
         let eventVC = VolunteerEventsVC.loadFromNib()
-        let eventImg = "icVolunteerTab".templatedImage
+        let eventImg = "tabLocation".templatedImage
         
-        let checkinVC = MapViewController.loadFromNib()
-        let checkinImg = "tabLocation".templatedImage
+//        let checkinVC = MapViewController.loadFromNib()
+//        let checkinImg = "tabLocation".templatedImage
         
-//        let hourVC = VolunteerEventVC.loadFromNib()
-//        let hourImg = "hourGlass".templatedImage
+        let hourVC = VolunteerEventVC.loadFromNib()
+        let hourImg = "icHourGlass".templatedImage
         
         let scheduleVC = ScheduleVC.loadFromNib()
         let scheduleImg = "tabCalender".templatedImage
-        
-        let messageVC = InAppMsgVC.loadFromNib()
-        let messageImg = "tabMessage".templatedImage
+//
+//        let messageVC = InAppMsgVC.loadFromNib()
+//        let messageImg = "tabMessage".templatedImage
        
         viewControllers = [
-            self.createNavController(for: homeVC, title: "", image: homeImg),
-            self.createNavController(for: scheduleVC, title: "", image: scheduleImg),
-            self.createNavController(for: eventVC, title: "", image: eventImg),
-            self.createNavController(for: checkinVC, title: "", image: checkinImg),
-            self.createNavController(for: messageVC, title: "", image: messageImg)
+            self.createNavController(for: homeVC, title: "Home", image: homeImg),
+            
+            self.createNavController(for: eventVC, title: "Events", image: eventImg),
+            
+            self.createNavController(for: hourVC, title: "Hours", image: hourImg),
+            
+            self.createNavController(for: scheduleVC, title: "Schedule", image: scheduleImg),
+            
+           
+//            self.createNavController(for: messageVC, title: "", image: messageImg)
         ]
     }
     

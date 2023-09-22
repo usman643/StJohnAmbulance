@@ -67,19 +67,20 @@ class VolunteerEventVC: ENTALDBaseViewController {
 
     func decorateUI(){
         
-        self.selectEvent()
+        self.selectNonEvent()
         lblScreenTitle.font = UIFont.BoldFont(18)
+        lblScreenTitle.textColor = UIColor.textBlackColor
         pendingImgMainView1.layer.cornerRadius = 15
         yearImgMainView.layer.cornerRadius = 15
         lifetimeImgMainView.layer.cornerRadius = 15
         
-        lblPendingValue.font = UIFont.BoldFont(15)
-        lblYearValue.font = UIFont.BoldFont(15)
-        lblLifetimeValue.font = UIFont.BoldFont(15)
+        lblPendingValue.font = UIFont.HeaderBoldFont(14)
+        lblYearValue.font = UIFont.HeaderBoldFont(14)
+        lblLifetimeValue.font = UIFont.HeaderBoldFont(14)
         
-        lblPendingTitle.font = UIFont.BoldFont(16)
-        lblYearTitle.font = UIFont.BoldFont(16)
-        lblLifetimeTitle.font = UIFont.BoldFont(16)
+        lblPendingTitle.font = UIFont.HeaderBoldFont(14)
+        lblYearTitle.font = UIFont.HeaderBoldFont(14)
+        lblLifetimeTitle.font = UIFont.HeaderBoldFont(14)
 
         btnCurveView.layer.cornerRadius = 20
     
@@ -130,10 +131,10 @@ class VolunteerEventVC: ENTALDBaseViewController {
     }
     
     func setContent(){
-        
-        lblPendingValue.text = UserDefaults.standard.userInfo?.sjavms_totalpendinghrs?.getFormattedNumber()
-        lblYearValue.text = UserDefaults.standard.userInfo?.sjavms_totalhourscompletedthisyear?.getFormattedNumber()
-        lblLifetimeValue.text = UserDefaults.standard.userInfo?.msnfp_totalengagementhours?.getFormattedNumber()
+//        
+//        lblPendingValue.text = UserDefaults.standard.userInfo?.sjavms_totalpendinghrs?.getFormattedNumber()
+//        lblYearValue.text = UserDefaults.standard.userInfo?.sjavms_totalhourscompletedthisyear?.getFormattedNumber()
+//        lblLifetimeValue.text = UserDefaults.standard.userInfo?.msnfp_totalengagementhours?.getFormattedNumber()
     }
     
     @IBAction func searchCloseTapped(_ sender: Any) {
@@ -147,12 +148,14 @@ class VolunteerEventVC: ENTALDBaseViewController {
 
     func selectEvent(){
         
-        btnEvent.isSelected = true
-        btnNonEvent.isSelected = false
-        eventBtnBottomView.isHidden = false
-        nonEventBtnBottomView.isHidden = true
-        btnEvent.setTitleColor(UIColor.themeColorSecondry, for: .normal)
-        btnNonEvent.setTitleColor(UIColor.textLightGrayColor, for: .normal)
+        btnEvent.isSelected = false
+        btnNonEvent.isSelected = true
+        eventBtnBottomView.isHidden = true
+        nonEventBtnBottomView.isHidden = false
+        btnEvent.setTitleColor(UIColor.textLightGrayColor, for: .normal)
+        btnNonEvent.setTitleColor(UIColor.themeColorSecondry, for: .normal)
+        
+      
 //        btnEvent.titleLabel?.textColor = UIColor.textBlackColor
 //        btnNonEvent.titleLabel?.textColor = UIColor.textLightGrayColor
         DispatchQueue.main.async {
@@ -162,12 +165,12 @@ class VolunteerEventVC: ENTALDBaseViewController {
     
     func selectNonEvent(){
         
-        btnEvent.isSelected = false
-        btnNonEvent.isSelected = true
-        eventBtnBottomView.isHidden = true
-        nonEventBtnBottomView.isHidden = false
-        btnEvent.setTitleColor(UIColor.textLightGrayColor, for: .normal)
-        btnNonEvent.setTitleColor(UIColor.themeColorSecondry, for: .normal)
+        btnEvent.isSelected = true
+        btnNonEvent.isSelected = false
+        eventBtnBottomView.isHidden = false
+        nonEventBtnBottomView.isHidden = true
+        btnEvent.setTitleColor(UIColor.themeColorSecondry, for: .normal)
+        btnNonEvent.setTitleColor(UIColor.textLightGrayColor, for: .normal)
         DispatchQueue.main.async {
             self.tableView.reloadData()
             let indexPath = IndexPath(row: 0, section: 0)
@@ -184,16 +187,21 @@ class VolunteerEventVC: ENTALDBaseViewController {
     
    
     @IBAction func eventTableShow(_ sender: Any) {
-        selectEvent()
+        selectNonEvent()
+        
         
     }
     
     
     @IBAction func nonEventTableShow(_ sender: Any) {
-        selectNonEvent()
+        selectEvent()
     }
     
     
+    @IBAction func messageTapped(_ sender: Any) {
+        
+        ENTALDControllers.shared.showGroupMessageVC(type: .ENTALDPUSH, from: self, callBack: nil)
+    }
     
 // MARK:  APIs
     
@@ -375,6 +383,10 @@ extension VolunteerEventVC : UITableViewDelegate,UITableViewDataSource{
         
         return cell
 
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

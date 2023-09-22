@@ -21,37 +21,56 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Txm-My-rPx">
                         <rect key="frame" x="32" y="8" width="292" height="84"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icCup" translatesAutoresizingMaskIntoConstraints="NO" id="Kdl-zY-aO1">
-                                <rect key="frame" x="12" y="12" width="24" height="40"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="award-trophy" translatesAutoresizingMaskIntoConstraints="NO" id="Kdl-zY-aO1">
+                                <rect key="frame" x="12" y="12" width="24" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="24" id="JhU-HU-QcJ"/>
-                                    <constraint firstAttribute="height" constant="40" id="vom-EM-O0X"/>
+                                    <constraint firstAttribute="height" constant="30" id="vom-EM-O0X"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MbE-v6-bRe">
-                                <rect key="frame" x="46" y="11.999999999999998" width="238" height="20.333333333333329"/>
+                                <rect key="frame" x="46" y="12" width="238" height="31"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PxF-2o-hPO">
-                                <rect key="frame" x="46" y="40.333333333333336" width="238" height="31.666666666666664"/>
+                                <rect key="frame" x="36" y="60" width="248" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0fn-b1-LNf">
+                                <rect key="frame" x="8" y="51" width="276" height="1"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="2bH-sA-IZu"/>
+                                </constraints>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar-3 (2)" translatesAutoresizingMaskIntoConstraints="NO" id="Y99-jr-eHi">
+                                <rect key="frame" x="16" y="60" width="12" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="12" id="834-jR-y94"/>
+                                    <constraint firstAttribute="height" constant="12" id="p4P-uB-AoW"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Kdl-zY-aO1" firstAttribute="leading" secondItem="Txm-My-rPx" secondAttribute="leading" constant="12" id="2U1-9l-TrQ"/>
-                            <constraint firstItem="PxF-2o-hPO" firstAttribute="trailing" secondItem="MbE-v6-bRe" secondAttribute="trailing" id="5kp-CM-jaI"/>
+                            <constraint firstAttribute="trailing" secondItem="PxF-2o-hPO" secondAttribute="trailing" constant="8" id="68O-zV-5Rm"/>
                             <constraint firstAttribute="bottom" secondItem="PxF-2o-hPO" secondAttribute="bottom" constant="12" id="8r4-kt-N12"/>
-                            <constraint firstItem="PxF-2o-hPO" firstAttribute="top" secondItem="MbE-v6-bRe" secondAttribute="bottom" constant="8" id="Adj-MI-8eX"/>
-                            <constraint firstItem="PxF-2o-hPO" firstAttribute="leading" secondItem="MbE-v6-bRe" secondAttribute="leading" id="B9G-la-QSy"/>
+                            <constraint firstItem="PxF-2o-hPO" firstAttribute="leading" secondItem="Y99-jr-eHi" secondAttribute="trailing" constant="8" id="Gcv-l8-7zh"/>
+                            <constraint firstItem="0fn-b1-LNf" firstAttribute="top" secondItem="MbE-v6-bRe" secondAttribute="bottom" constant="8" id="Klx-0z-BAa"/>
                             <constraint firstItem="MbE-v6-bRe" firstAttribute="top" secondItem="Txm-My-rPx" secondAttribute="top" constant="12" id="MFk-pP-ccZ"/>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Kdl-zY-aO1" secondAttribute="bottom" constant="12" id="MQZ-2J-enH"/>
+                            <constraint firstItem="PxF-2o-hPO" firstAttribute="top" secondItem="0fn-b1-LNf" secondAttribute="bottom" constant="8" id="ZYl-OA-9PG"/>
                             <constraint firstItem="Kdl-zY-aO1" firstAttribute="top" secondItem="Txm-My-rPx" secondAttribute="top" constant="12" id="ZaC-Rm-vh6"/>
+                            <constraint firstAttribute="bottom" secondItem="Y99-jr-eHi" secondAttribute="bottom" constant="12" id="cbu-51-Ox5"/>
                             <constraint firstAttribute="trailing" secondItem="MbE-v6-bRe" secondAttribute="trailing" constant="8" id="mJL-pj-0Yz"/>
+                            <constraint firstItem="Y99-jr-eHi" firstAttribute="top" secondItem="0fn-b1-LNf" secondAttribute="bottom" constant="8" id="qXJ-kb-aoI"/>
+                            <constraint firstItem="Y99-jr-eHi" firstAttribute="leading" secondItem="Txm-My-rPx" secondAttribute="leading" constant="16" id="siv-s0-5cg"/>
+                            <constraint firstAttribute="trailing" secondItem="0fn-b1-LNf" secondAttribute="trailing" constant="8" id="vSa-1u-WJO"/>
+                            <constraint firstItem="0fn-b1-LNf" firstAttribute="leading" secondItem="Txm-My-rPx" secondAttribute="leading" constant="8" id="xbP-r6-TB8"/>
                             <constraint firstItem="MbE-v6-bRe" firstAttribute="leading" secondItem="Kdl-zY-aO1" secondAttribute="trailing" constant="10" id="yqW-Y8-LsD"/>
                         </constraints>
                     </view>
@@ -73,9 +92,13 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="icCup" width="28" height="33.333332061767578"/>
+        <image name="award-trophy" width="200" height="200"/>
+        <image name="calendar-3 (2)" width="100" height="100"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

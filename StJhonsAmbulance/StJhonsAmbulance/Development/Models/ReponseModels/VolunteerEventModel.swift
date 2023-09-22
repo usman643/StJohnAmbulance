@@ -37,7 +37,7 @@ struct VolunteerEventsModel : Codable {
     let sjavms_checkin : Bool?
     let sjavms_checkedin : Bool?
     let sjavms_VolunteerEvent : VolunteerEventsDataModel?
-    
+    let sjavms_msnfp_engagementopportunity_msnfp_group : [SjavmsMsnfpEngagementopportunity]?
     
 }
 
@@ -49,6 +49,13 @@ struct VolunteerEventsDataModel : Codable {
     
 }
 
+struct SjavmsMsnfpEngagementopportunity : Codable {
+    let sjaProgram : String?
+    
+    enum CodingKeys: String, CodingKey {
+        case sjaProgram = "_sjavms_program_value@OData.Community.Display.V1.FormattedValue"
+    }
+}
 
 
 struct VolunteersOfEventModel : Codable {

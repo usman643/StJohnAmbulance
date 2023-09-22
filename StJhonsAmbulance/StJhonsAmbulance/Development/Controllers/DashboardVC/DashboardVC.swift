@@ -146,6 +146,12 @@ class DashboardVC: ENTALDBaseViewController{
         
     }
     
+    @IBAction func emptyEventBtnTapped(_ sender: Any) {
+        
+        self.tabBarController?.selectedIndex = 1
+    }
+    
+    
     func openNextScreen(controller:String?){
         
         if (controller == "sjavms_youthcamp"){
@@ -418,37 +424,36 @@ class DashboardVC: ENTALDBaseViewController{
                 //                    }
                 //                }
                 
-                
-                if let apiData = response.value {
-                    self.latestEventData = apiData
-                    self.timefilter()
-                    
-                    self.latestEventData = self.latestEventData?.sorted(by: { $0.sjavms_start ?? "" < $1.sjavms_start ?? "" })
-                    
-                    //time filter
-                    
-                    
-                    
-                    if (self.latestEventData?.count == 0 || self.latestEventData?.count == nil){
-                        self.showEmptyView(tableVw: self.tableView)
-                    }else{
-                        DispatchQueue.main.async {
-                            for subview in self.tableView.subviews {
-                                subview.removeFromSuperview()
-                            }
+                DispatchQueue.main.async {
+                    if let apiData = response.value {
+                        self.latestEventData = apiData
+                        self.timefilter()
+                        
+                        self.latestEventData = self.latestEventData?.sorted(by: { $0.sjavms_start ?? "" < $1.sjavms_start ?? "" })
+                        
+                        //time filter
+                        
+                        
+                        
+                        if (self.latestEventData?.count == 0 || self.latestEventData?.count == nil){
+                            self.emptyView.isHidden = false
+                            //                        self.showEmptyView(tableVw: self.tableView)
+                        }else{
+                            //                        DispatchQueue.main.async {
+                            //                            for subview in self.tableView.subviews {
+                            //                                subview.removeFromSuperview()
+                            //                            }
+                            self.emptyView.isHidden = true
+                            //                        }
                         }
-                    }
-                    DispatchQueue.main.async {
+                        //                    DispatchQueue.main.async {
                         self.tableView.reloadData()
+                        //                    }
+                    }else{
+                        //                    self.showEmptyView(tableVw: self.tableView)
+                        self.emptyView.isHidden = false
                     }
-                }else{
-                    self.showEmptyView(tableVw: self.tableView)
                 }
-                
-                
-                
-                
-                
                 
             case .error(let error, let errorResponse):
                 var message = error.message

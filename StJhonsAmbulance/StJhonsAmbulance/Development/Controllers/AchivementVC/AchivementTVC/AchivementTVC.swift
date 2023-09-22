@@ -34,12 +34,12 @@ class AchivementTVC: UITableViewCell {
         mainView.layer.shadowOffset = .zero
         mainView.layer.shadowRadius = 6
         
-        mainView.layer.cornerRadius = 16
+        mainView.layer.cornerRadius = 8
         
         lblName.textColor = UIColor.themePrimary
-        lblName.font = UIFont.RegularFont(14)
+        lblName.font = UIFont.BoldFont(16)
         lblDate.textColor = UIColor.themePrimary
-        lblDate.font = UIFont.RegularFont(14)
+        lblDate.font = UIFont.RegularFont(10)
         
         
     }

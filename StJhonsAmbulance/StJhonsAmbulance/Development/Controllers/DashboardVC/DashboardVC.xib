@@ -201,11 +201,13 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LbQ-hg-Xx8">
                             <rect key="frame" x="135" y="281" width="120" height="40"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0gu-O1-Erz">
-                                    <rect key="frame" x="93" y="47" width="54" height="34"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0gu-O1-Erz">
+                                    <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" title="Button"/>
+                                    <connections>
+                                        <action selector="emptyEventBtnTapped:" destination="-1" eventType="touchUpInside" id="qHd-XM-paV"/>
+                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Events" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tye-6p-y49">
                                     <rect key="frame" x="12" y="0.0" width="68" height="40"/>
@@ -225,12 +227,16 @@
                             <color key="backgroundColor" name="PrimaryGreen"/>
                             <constraints>
                                 <constraint firstItem="Pp6-RS-PEf" firstAttribute="centerY" secondItem="LbQ-hg-Xx8" secondAttribute="centerY" id="3CW-rc-cd0"/>
+                                <constraint firstItem="0gu-O1-Erz" firstAttribute="leading" secondItem="LbQ-hg-Xx8" secondAttribute="leading" id="58z-iV-NJT"/>
                                 <constraint firstItem="tye-6p-y49" firstAttribute="leading" secondItem="LbQ-hg-Xx8" secondAttribute="leading" constant="12" id="FhP-KB-v1N"/>
+                                <constraint firstAttribute="bottom" secondItem="0gu-O1-Erz" secondAttribute="bottom" id="Hcc-4f-yQc"/>
                                 <constraint firstAttribute="bottom" secondItem="tye-6p-y49" secondAttribute="bottom" id="PiE-fQ-rjc"/>
                                 <constraint firstItem="tye-6p-y49" firstAttribute="top" secondItem="LbQ-hg-Xx8" secondAttribute="top" id="Q3m-O1-1Po"/>
                                 <constraint firstAttribute="trailing" secondItem="Pp6-RS-PEf" secondAttribute="trailing" constant="8" id="Qoh-gd-USN"/>
                                 <constraint firstAttribute="width" constant="120" id="Qts-E6-uZI"/>
                                 <constraint firstItem="Pp6-RS-PEf" firstAttribute="leading" secondItem="tye-6p-y49" secondAttribute="trailing" id="S5A-fA-BRI"/>
+                                <constraint firstItem="0gu-O1-Erz" firstAttribute="top" secondItem="LbQ-hg-Xx8" secondAttribute="top" id="URz-mc-Vk4"/>
+                                <constraint firstAttribute="trailing" secondItem="0gu-O1-Erz" secondAttribute="trailing" id="iEq-Gk-tzJ"/>
                                 <constraint firstAttribute="height" constant="40" id="wBa-vc-027"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>

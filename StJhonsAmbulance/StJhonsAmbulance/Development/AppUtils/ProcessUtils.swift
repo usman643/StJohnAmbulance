@@ -54,7 +54,7 @@ class ProcessUtils {
         case 335940000:
             return "Pending"
         case 335940001:
-            return "Shift Hours Approved"
+            return "Approved"
         case 335940002:
             return "No Show"
         case 335940003:

@@ -11,27 +11,26 @@ import UIKit
 extension UIFont {
     
     class func LightFont(_ size: CGFloat) -> UIFont {
-        let font = UIFont(name: "NunitoSans-Light", size: size) ?? UIFont()
+        let font = UIFont(name: "NunitoSans-Light", size: size) ?? UIFont.systemFont(ofSize: size, weight: .light)
         return font
     }
     
     class func RegularFont(_ size: CGFloat) -> UIFont {
-        return UIFont(name: "NunitoSans-Regular", size: size) ?? UIFont()
+        return UIFont(name: "NunitoSans-Regular", size: size) ?? UIFont.systemFont(ofSize: size, weight: .regular)
     }
     
     class func MediumFont(_ size: CGFloat) -> UIFont {
-        return UIFont(name: "NunitoSans-SemiBold", size: size) ?? UIFont()
+        return UIFont(name: "NunitoSans-SemiBold", size: size) ?? UIFont.systemFont(ofSize: size, weight: .medium)
     }
     
     class func SemiBoldFont(_ size: CGFloat) -> UIFont {
-        return UIFont(name: "NunitoSans-SemiBold", size: size) ?? UIFont()
+        return UIFont(name: "NunitoSans-SemiBold", size: size) ?? UIFont.systemFont(ofSize: size, weight: .semibold)
     }
     
     class func BoldFont(_ size: CGFloat) -> UIFont {
-        let font = UIFont(name: "NunitoSans-Bold", size: size) ?? UIFont()
+        let font = UIFont(name: "NunitoSans-Bold", size: size) ?? UIFont.systemFont(ofSize: size, weight: .bold)
         return font
     }
-    
     
     
     

@@ -14,6 +14,7 @@ class AwardsVC: ENTALDBaseViewController {
     var engagementType : EngagementType = .Engagement
     let contactId = UserDefaults.standard.contactIdToken ?? ""
     
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -45,7 +46,7 @@ class AwardsVC: ENTALDBaseViewController {
     }
     
     func decorateUI(){
-        
+        headerView.addBottomShadow()
         
     }
     
@@ -107,13 +108,14 @@ extension AwardsVC : UITableViewDelegate,UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AchivementTVC", for: indexPath) as! AchivementTVC
         
         let cellModel = self.awardData?[indexPath.row]
-        cell.lblName.text = "Name: \(cellModel?.name ?? "")"
+        cell.lblName.text = "\(cellModel?.name ?? "")"
+        cell.lblName.numberOfLines = 0
         if let date = cellModel?.msnfp_awarddate {
             
-            let dateStr = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat:"yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
-            cell.lblDate.text = "Date: \(dateStr)"
+            let dateStr = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat:"yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM dd")
+            cell.lblDate.text = "\(dateStr)"
         }else{
-            cell.lblDate.text = "Date: Not Found"
+            cell.lblDate.text = "Date Not Found"
         }
         return cell
     }

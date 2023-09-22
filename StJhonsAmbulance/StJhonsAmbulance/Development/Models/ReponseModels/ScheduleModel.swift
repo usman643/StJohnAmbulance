@@ -98,7 +98,7 @@ struct ScheduleModelThree : Codable {
     let sjavms_checkedin : Bool?
     var time_difference : Int?
     let sjavms_VolunteerEvent : ScheduleDataModel?
-    
+    let sjavms_msnfp_engagementopportunity_msnfp_group : [SjavmsMsnfpEngagementopportunity]?
     
 }
 
@@ -109,6 +109,7 @@ struct ScheduleDataModel : Codable {
     let msnfp_location : String?
     let msnfp_engagementopportunityid : String?
     let msnfp_engagementopportunitystatus : Int?
+//    let sjavms_msnfp_engagementopportunity_msnfp_group : [SjavmsMsnfpEngagementopportunity]?
     
 }
 
@@ -150,6 +151,7 @@ struct AvailableEventModel : Codable {
     let msnfp_minimum : Int?
     let sjavms_checkin : Bool?
     let sjavms_checkedin : Bool?
+    let sjavms_msnfp_engagementopportunity_msnfp_group : [SjavmsMsnfpEngagementopportunity]?
 //    let sjavms_msnfp_engagementopportunity_msnfp_group :  [EngagementopportunityGroupModel]?
 }
 

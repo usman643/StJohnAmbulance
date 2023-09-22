@@ -22,6 +22,7 @@ class VolunteersEventsTVC: UITableViewCell {
     @IBOutlet weak var btnView: UIButton!
     @IBOutlet weak var lblTitle: UILabel!
     
+    @IBOutlet weak var lblProgram: UILabel!
     @IBOutlet weak var lblLocation: UILabel!
     @IBOutlet weak var seperatorView: UIView!
     @IBOutlet weak var btnDetail: UIButton!
@@ -54,14 +55,16 @@ class VolunteersEventsTVC: UITableViewCell {
         
         btnView.setTitleColor(UIColor.textWhiteColor, for: .normal)
         lblTitle.textColor = UIColor.themeSecondryWhite
+        lblProgram.textColor = UIColor.themeSecondryWhite
         
         lblLocation.textColor = UIColor.themeSecondryWhite
         
         lblDateTime.font =  UIFont.MediumFont(11)
         btnView.titleLabel?.font = UIFont.BoldFont(13)
         lblTitle.font =  UIFont.BoldFont(14)
+        lblProgram.font =  UIFont.BoldFont(13)
         
-        lblLocation.font =  UIFont.RegularFont(13)
+        lblLocation.font =  UIFont.RegularFont(11)
         
     }
     
@@ -94,37 +97,19 @@ class VolunteersEventsTVC: UITableViewCell {
        
         lblDateTime.text = "\(startTime) - \(endTime)"
         
-        self.lblTitle.text = cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
-        self.lblLocation.text = cellModel?.sjavms_VolunteerEvent?.msnfp_location ?? ""
+        self.lblTitle.text = cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "..."
+        self.lblLocation.text = cellModel?.sjavms_VolunteerEvent?.msnfp_location ?? "..."
         
-        if let statusStr = cellModel?.msnfp_schedulestatus{
-            
-            self.btnDetail.setTitle("\(ProcessUtils.shared.getStatus(code:statusStr) ?? "")", for: .normal)
-        }else{
-            btnView.isHidden = true
-        }
-        
-        
-       
-    
-        
-//        if (cellModel?.sjavms_start != "" && cellModel?.sjavms_start != nil ){
-//            let date = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
-//            let startTime = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+//        if let statusStr = cellModel?.msnfp_schedulestatus{
 //
-//            lblDate.text = date
-//            lblStart.text = startTime
+//            self.btnDetail.setTitle("\(ProcessUtils.shared.getStatus(code:statusStr) ?? "")", for: .normal)
 //        }else{
-//            lblDate.text = ""
-//            lblStart.text = ""
+//            btnView.isHidden = true
 //        }
-//
-//        if (cellModel?.sjavms_end != "" && cellModel?.sjavms_end != nil ){
-//            let endTime = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
-//            lblEnd.text = endTime
-//        }else{
-//            lblEnd.text = ""
-//        }
+        
+//        lblProgram.text = cellModel?.sjavms_msnfp_engagementopportunity_msnfp_group?[0].sjaProgram ?? "Program"
+        lblProgram.text = cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "Program"
+
     }
     
     func setContent(cellModel: ScheduleModelThree?,  indx : Int){
@@ -136,41 +121,20 @@ class VolunteersEventsTVC: UITableViewCell {
        
         lblDateTime.text = "\(startTime) - \(endTime)"
         
-        self.lblTitle.text = cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
-        self.lblLocation.text = cellModel?.sjavms_VolunteerEvent?.msnfp_location ?? ""
+        self.lblTitle.text = cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "..."
+        self.lblLocation.text = cellModel?.sjavms_VolunteerEvent?.msnfp_location ?? "..."
         
-        if let statusStr = cellModel?.msnfp_schedulestatus{
-            
-            self.btnDetail.setTitle("\(ProcessUtils.shared.getStatus(code:statusStr) ?? "")", for: .normal)
-        }else{
-            btnView.isHidden = true
-        }
+//        if let statusStr = cellModel?.msnfp_schedulestatus{
+//
+//            self.btnDetail.setTitle("\(ProcessUtils.shared.getStatus(code:statusStr) ?? "")", for: .normal)
+//        }else{
+//            btnView.isHidden = true
+//        }
         self.scheduleEventdata = cellModel
-//        self.eventId = cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
-//        self.lblEvent.text = cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
-//        self.lblLocation.text = cellModel?.sjavms_VolunteerEvent?.msnfp_location ?? ""
-////        self.lblAction.text = ProcessUtils.shared.getStatus(code: cellModel?.msnfp_schedulestatus ?? 0)
-//        self.lblAction.text = ""
-//        btnAction.setImage(UIImage(named: "ic_pencil"), for: .normal)
-//        self.cellType = "schedule"
-//
-//        if (cellModel?.sjavms_start != "" && cellModel?.sjavms_start != nil ){
-//            let date = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
-//            let startTime = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
-//
-//            lblDate.text = date
-//            lblStart.text = startTime
-//        }else{
-//            lblDate.text = ""
-//            lblStart.text = ""
-//        }
-//
-//        if (cellModel?.sjavms_end != "" && cellModel?.sjavms_end != nil ){
-//            let endTime = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
-//            lblEnd.text = endTime
-//        }else{
-//            lblEnd.text = ""
-//        }
+        
+//        lblProgram.text = cellModel?.sjavms_msnfp_engagementopportunity_msnfp_group?[0].sjaProgram ?? "..."
+        lblProgram.text = cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "..."
+  
     }
     
     func setContent(cellModel: AvailableEventModel?, indx : Int){
@@ -182,15 +146,17 @@ class VolunteersEventsTVC: UITableViewCell {
        
         lblDateTime.text = "\(startTime) - \(endTime)"
         
-        self.lblTitle.text = cellModel?.msnfp_engagementopportunitytitle ?? ""
-        self.lblLocation.text = cellModel?.msnfp_location ?? ""
+        self.lblTitle.text = cellModel?.msnfp_engagementopportunitytitle ?? "..."
+        self.lblLocation.text = cellModel?.msnfp_location ?? "..."
         
 //        self.btnView.isHidden = true
         
-        self.btnDetail.setTitle("View", for: .normal)
+//        self.btnDetail.setTitle("View", for: .normal)
         
 
         self.availableEventdata = cellModel
+        
+        lblProgram.text = cellModel?.sjavms_msnfp_engagementopportunity_msnfp_group?[0].sjaProgram ?? "..."
         
 //        self.eventId = cellModel?.msnfp_engagementopportunityid ?? ""
 //

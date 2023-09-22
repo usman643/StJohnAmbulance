@@ -17,6 +17,7 @@ class VolunterEventTVC: UITableViewCell {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblTotalHours: UILabel!
     
+    @IBOutlet weak var statusImage: UIImageView!
     
     @IBOutlet weak var seperatorView: UIView!
     override func awakeFromNib() {
@@ -43,13 +44,13 @@ class VolunterEventTVC: UITableViewCell {
         statusView.layer.cornerRadius = 16
         statusView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
         
-        lblDateTime.textColor = UIColor.themeSecondryWhite
-        lblStatus.textColor = UIColor.textWhiteColor
-        lblTitle.textColor = UIColor.themeSecondryWhite
-        lblTotalHours.textColor = UIColor.themeSecondryWhite
+        lblDateTime.textColor = UIColor.themeBlackText
+        lblStatus.textColor = UIColor.textGrayColor
+        lblTitle.textColor = UIColor.themePrimaryWhite
+        lblTotalHours.textColor = UIColor.themeBlackText
         
         lblDateTime.font =  UIFont.MediumFont(11)
-        lblStatus.font =  UIFont.BoldFont(13)
+        lblStatus.font =  UIFont.BoldFont(10)
         lblTitle.font =  UIFont.BoldFont(14)
         lblTotalHours.font =  UIFont.RegularFont(13)
         
@@ -64,17 +65,18 @@ class VolunterEventTVC: UITableViewCell {
         lblDateTime.text = startTime
         lblStatus.text = ProcessUtils.shared.getStatus(code: cellModel?.msnfp_schedulestatus ?? 0)
         lblTitle.text = "\(cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "")"
-        lblTotalHours.text = "Hours: \(cellModel?.sjavms_hours?.getFormattedNumber() ?? "")"
+        lblTotalHours.text = "\(cellModel?.sjavms_hours?.getFormattedNumber() ?? "") Hours"
         
-//        lblEvent.text =
-        
-        
-//        lblDate.text = date
-//        lblStart.text = startTime
-//        lblEnd.text = endTime
-//        lblTotal.text = cellModel?.sjavms_hours?.getFormattedNumber()
-//        lblStatus.text = ProcessUtils.shared.getStatus(code: cellModel?.msnfp_schedulestatus ?? 0)
-//
+
+        if (lblStatus.text == "Pending"){
+            statusImage.image = UIImage(named: "hourglass Pending Yellow")
+        }else if (lblStatus.text == "Cancelled"){
+            statusImage.image = UIImage(named: "Cancelled Status")
+        }else if (lblStatus.text == "Approved"){
+            statusImage.image = UIImage(named: "check-double Green")
+        }else{
+            statusImage.isHidden = true
+        }
         
         
         
