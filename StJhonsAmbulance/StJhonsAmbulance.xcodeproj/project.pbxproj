@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E3AB66A8860E0564F387482 /* libPods-StJhonsAmbulance.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74EE966F992938AF4CB62C00 /* libPods-StJhonsAmbulance.a */; };
 		18BC50AC29B60F11007BF382 /* GeneralInfoFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BC50AA29B60F11007BF382 /* GeneralInfoFormVC.swift */; };
 		18BC50AD29B60F11007BF382 /* GeneralInfoFormVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18BC50AB29B60F11007BF382 /* GeneralInfoFormVC.xib */; };
 		1D00A0D2298AB19000700418 /* CSDashBoardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D00A0D1298AB19000700418 /* CSDashBoardRouter.swift */; };
@@ -200,6 +201,10 @@
 		1DC6F7862A6A999000FAA561 /* AdhocHourCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DC6F7842A6A999000FAA561 /* AdhocHourCell.xib */; };
 		1DC6F78A2A6A99AF00FAA561 /* VolunteerHourCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6F7882A6A99AF00FAA561 /* VolunteerHourCell.swift */; };
 		1DC6F78B2A6A99AF00FAA561 /* VolunteerHourCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DC6F7892A6A99AF00FAA561 /* VolunteerHourCell.xib */; };
+		1DCABDDD2AC4D14C008899C5 /* ManagerEventPendingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCABDDB2AC4D14C008899C5 /* ManagerEventPendingCell.swift */; };
+		1DCABDDE2AC4D14C008899C5 /* ManagerEventPendingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DCABDDC2AC4D14C008899C5 /* ManagerEventPendingCell.xib */; };
+		1DCC77AD2AC4AE39005C39BF /* CSManageEventsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCC77AB2AC4AE39005C39BF /* CSManageEventsVC.swift */; };
+		1DCC77AE2AC4AE39005C39BF /* CSManageEventsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DCC77AC2AC4AE39005C39BF /* CSManageEventsVC.xib */; };
 		1DCD2F9F299CBABA00B16CA2 /* ContactInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCD2F9D299CBABA00B16CA2 /* ContactInfoVC.swift */; };
 		1DCD2FA0299CBABA00B16CA2 /* ContactInfoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DCD2F9E299CBABA00B16CA2 /* ContactInfoVC.xib */; };
 		1DCE27B029CEDB6F00A80B3A /* EventMessageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCE27AE29CEDB6F00A80B3A /* EventMessageTVC.swift */; };
@@ -208,6 +213,8 @@
 		1DCE27BA29CEDD0800A80B3A /* EventHourTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DCE27B829CEDD0800A80B3A /* EventHourTVC.xib */; };
 		1DCE27BE29CEFBF800A80B3A /* EventScheduleTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCE27BC29CEFBF800A80B3A /* EventScheduleTVC.swift */; };
 		1DCE27BF29CEFBF800A80B3A /* EventScheduleTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DCE27BD29CEFBF800A80B3A /* EventScheduleTVC.xib */; };
+		1DD103912AC36904006F67AA /* SideMenuShiftTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1038F2AC36904006F67AA /* SideMenuShiftTVC.swift */; };
+		1DD103922AC36904006F67AA /* SideMenuShiftTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DD103902AC36904006F67AA /* SideMenuShiftTVC.xib */; };
 		1DD1919C2A004E4100EEFC5D /* UserEngagementsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1919A2A004E4100EEFC5D /* UserEngagementsVC.swift */; };
 		1DD1919D2A004E4100EEFC5D /* UserEngagementsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DD1919B2A004E4100EEFC5D /* UserEngagementsVC.xib */; };
 		1DD191A52A00E94000EEFC5D /* UserEngagementsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD191A32A00E94000EEFC5D /* UserEngagementsTVC.swift */; };
@@ -302,9 +309,7 @@
 		359E9C70282EA32F001E3D73 /* ENTALDTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359E9C6F282EA32F001E3D73 /* ENTALDTabbarViewController.swift */; };
 		359E9C76282EA58E001E3D73 /* ENTALDOffersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359E9C74282EA58E001E3D73 /* ENTALDOffersViewController.swift */; };
 		359E9C77282EA58E001E3D73 /* ENTALDOffersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 359E9C75282EA58E001E3D73 /* ENTALDOffersViewController.xib */; };
-		6B03168A67F3B7478E7C740F /* Pods_StJhonsAmbulance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65CB4DE9AB000AE91BFB9399 /* Pods_StJhonsAmbulance.framework */; };
-		74DC25C35F0027C45A146D37 /* Pods_StJhonsAmbulanceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A3366737A0F46F41C9C050F /* Pods_StJhonsAmbulanceTests.framework */; };
-		CBBF866E9500D4C5310D30E4 /* Pods_StJhonsAmbulance_StJhonsAmbulanceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384D5212F5153F6EBC44A59B /* Pods_StJhonsAmbulance_StJhonsAmbulanceUITests.framework */; };
+		3B1AFD09F4B1A10A3BB0A100 /* libPods-StJhonsAmbulance-StJhonsAmbulanceUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CD94577EBE20F5D705F875E /* libPods-StJhonsAmbulance-StJhonsAmbulanceUITests.a */; };
 		E43FFCBB29B5CCBE008814C2 /* EventDetailInfoFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43FFCB929B5CCBE008814C2 /* EventDetailInfoFormVC.swift */; };
 		E43FFCBC29B5CCBE008814C2 /* EventDetailInfoFormVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E43FFCBA29B5CCBE008814C2 /* EventDetailInfoFormVC.xib */; };
 		E43FFCC429B5CD19008814C2 /* CreateEventFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43FFCC229B5CD19008814C2 /* CreateEventFormVC.swift */; };
@@ -399,6 +404,7 @@
 		E4F7CB10297E121000428A4E /* SideMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4F7CB0B297E121000428A4E /* SideMenuVC.xib */; };
 		E4F7CB11297E121000428A4E /* SideMenuTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4F7CB0D297E121000428A4E /* SideMenuTVC.xib */; };
 		E4F7CB12297E121000428A4E /* SideMenuTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F7CB0E297E121000428A4E /* SideMenuTVC.swift */; };
+		F4BA275EAB0A4EED823DB9D3 /* libPods-StJhonsAmbulanceTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E04F380CBC1BA0C833A4358 /* libPods-StJhonsAmbulanceTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -613,6 +619,10 @@
 		1DC6F7842A6A999000FAA561 /* AdhocHourCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdhocHourCell.xib; sourceTree = "<group>"; };
 		1DC6F7882A6A99AF00FAA561 /* VolunteerHourCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerHourCell.swift; sourceTree = "<group>"; };
 		1DC6F7892A6A99AF00FAA561 /* VolunteerHourCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VolunteerHourCell.xib; sourceTree = "<group>"; };
+		1DCABDDB2AC4D14C008899C5 /* ManagerEventPendingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerEventPendingCell.swift; sourceTree = "<group>"; };
+		1DCABDDC2AC4D14C008899C5 /* ManagerEventPendingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManagerEventPendingCell.xib; sourceTree = "<group>"; };
+		1DCC77AB2AC4AE39005C39BF /* CSManageEventsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSManageEventsVC.swift; sourceTree = "<group>"; };
+		1DCC77AC2AC4AE39005C39BF /* CSManageEventsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CSManageEventsVC.xib; sourceTree = "<group>"; };
 		1DCD2F9D299CBABA00B16CA2 /* ContactInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactInfoVC.swift; sourceTree = "<group>"; };
 		1DCD2F9E299CBABA00B16CA2 /* ContactInfoVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactInfoVC.xib; sourceTree = "<group>"; };
 		1DCE27AE29CEDB6F00A80B3A /* EventMessageTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMessageTVC.swift; sourceTree = "<group>"; };
@@ -621,6 +631,8 @@
 		1DCE27B829CEDD0800A80B3A /* EventHourTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventHourTVC.xib; sourceTree = "<group>"; };
 		1DCE27BC29CEFBF800A80B3A /* EventScheduleTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventScheduleTVC.swift; sourceTree = "<group>"; };
 		1DCE27BD29CEFBF800A80B3A /* EventScheduleTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventScheduleTVC.xib; sourceTree = "<group>"; };
+		1DD1038F2AC36904006F67AA /* SideMenuShiftTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuShiftTVC.swift; sourceTree = "<group>"; };
+		1DD103902AC36904006F67AA /* SideMenuShiftTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenuShiftTVC.xib; sourceTree = "<group>"; };
 		1DD1919A2A004E4100EEFC5D /* UserEngagementsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEngagementsVC.swift; sourceTree = "<group>"; };
 		1DD1919B2A004E4100EEFC5D /* UserEngagementsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserEngagementsVC.xib; sourceTree = "<group>"; };
 		1DD191A32A00E94000EEFC5D /* UserEngagementsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEngagementsTVC.swift; sourceTree = "<group>"; };
@@ -720,11 +732,11 @@
 		359E9C6F282EA32F001E3D73 /* ENTALDTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENTALDTabbarViewController.swift; sourceTree = "<group>"; };
 		359E9C74282EA58E001E3D73 /* ENTALDOffersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENTALDOffersViewController.swift; sourceTree = "<group>"; };
 		359E9C75282EA58E001E3D73 /* ENTALDOffersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ENTALDOffersViewController.xib; sourceTree = "<group>"; };
-		384D5212F5153F6EBC44A59B /* Pods_StJhonsAmbulance_StJhonsAmbulanceUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StJhonsAmbulance_StJhonsAmbulanceUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3A3366737A0F46F41C9C050F /* Pods_StJhonsAmbulanceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StJhonsAmbulanceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		65CB4DE9AB000AE91BFB9399 /* Pods_StJhonsAmbulance.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StJhonsAmbulance.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CD94577EBE20F5D705F875E /* libPods-StJhonsAmbulance-StJhonsAmbulanceUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StJhonsAmbulance-StJhonsAmbulanceUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		74EE966F992938AF4CB62C00 /* libPods-StJhonsAmbulance.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StJhonsAmbulance.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		754673A58EE4B8DBA401C2B5 /* Pods-StJhonsAmbulance-StJhonsAmbulanceUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StJhonsAmbulance-StJhonsAmbulanceUITests.debug.xcconfig"; path = "Target Support Files/Pods-StJhonsAmbulance-StJhonsAmbulanceUITests/Pods-StJhonsAmbulance-StJhonsAmbulanceUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		75C42544C2CA5A5AE834CABC /* Pods-StJhonsAmbulance-StJhonsAmbulanceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StJhonsAmbulance-StJhonsAmbulanceUITests.release.xcconfig"; path = "Target Support Files/Pods-StJhonsAmbulance-StJhonsAmbulanceUITests/Pods-StJhonsAmbulance-StJhonsAmbulanceUITests.release.xcconfig"; sourceTree = "<group>"; };
+		8E04F380CBC1BA0C833A4358 /* libPods-StJhonsAmbulanceTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StJhonsAmbulanceTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1369C353180B1370CB1D661 /* Pods-StJhonsAmbulanceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StJhonsAmbulanceTests.debug.xcconfig"; path = "Target Support Files/Pods-StJhonsAmbulanceTests/Pods-StJhonsAmbulanceTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E2A3F7E87047CECA4F259EFD /* Pods-StJhonsAmbulance.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StJhonsAmbulance.release.xcconfig"; path = "Target Support Files/Pods-StJhonsAmbulance/Pods-StJhonsAmbulance.release.xcconfig"; sourceTree = "<group>"; };
 		E43FFCB929B5CCBE008814C2 /* EventDetailInfoFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailInfoFormVC.swift; sourceTree = "<group>"; };
@@ -831,7 +843,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B03168A67F3B7478E7C740F /* Pods_StJhonsAmbulance.framework in Frameworks */,
+				0E3AB66A8860E0564F387482 /* libPods-StJhonsAmbulance.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -839,7 +851,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74DC25C35F0027C45A146D37 /* Pods_StJhonsAmbulanceTests.framework in Frameworks */,
+				F4BA275EAB0A4EED823DB9D3 /* libPods-StJhonsAmbulanceTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -847,7 +859,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CBBF866E9500D4C5310D30E4 /* Pods_StJhonsAmbulance_StJhonsAmbulanceUITests.framework in Frameworks */,
+				3B1AFD09F4B1A10A3BB0A100 /* libPods-StJhonsAmbulance-StJhonsAmbulanceUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1656,6 +1668,25 @@
 			path = VolunteerHourCell;
 			sourceTree = "<group>";
 		};
+		1DCABDD62AC4D0C7008899C5 /* ManageEventPendingCell */ = {
+			isa = PBXGroup;
+			children = (
+				1DCABDDB2AC4D14C008899C5 /* ManagerEventPendingCell.swift */,
+				1DCABDDC2AC4D14C008899C5 /* ManagerEventPendingCell.xib */,
+			);
+			path = ManageEventPendingCell;
+			sourceTree = "<group>";
+		};
+		1DCC77AA2AC4ADF5005C39BF /* CSManageEventsVC */ = {
+			isa = PBXGroup;
+			children = (
+				1DCABDD62AC4D0C7008899C5 /* ManageEventPendingCell */,
+				1DCC77AB2AC4AE39005C39BF /* CSManageEventsVC.swift */,
+				1DCC77AC2AC4AE39005C39BF /* CSManageEventsVC.xib */,
+			);
+			path = CSManageEventsVC;
+			sourceTree = "<group>";
+		};
 		1DCD2F98299CB9D300B16CA2 /* ContactInfoVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -1924,6 +1955,7 @@
 		353C61392813ECF400CC8B7F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1DCC77AA2AC4ADF5005C39BF /* CSManageEventsVC */,
 				1DB4D5502A670FF000095B7B /* InAppMessageVC */,
 				1DF4DA932A65C2DC00F3243E /* VolunteerDayEventVC */,
 				1D61B6BE2A5B44FD0044BD26 /* AwardsVC */,
@@ -2209,9 +2241,9 @@
 		DA15ED376B116FD31FF33F3D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				65CB4DE9AB000AE91BFB9399 /* Pods_StJhonsAmbulance.framework */,
-				384D5212F5153F6EBC44A59B /* Pods_StJhonsAmbulance_StJhonsAmbulanceUITests.framework */,
-				3A3366737A0F46F41C9C050F /* Pods_StJhonsAmbulanceTests.framework */,
+				74EE966F992938AF4CB62C00 /* libPods-StJhonsAmbulance.a */,
+				6CD94577EBE20F5D705F875E /* libPods-StJhonsAmbulance-StJhonsAmbulanceUITests.a */,
+				8E04F380CBC1BA0C833A4358 /* libPods-StJhonsAmbulanceTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2445,6 +2477,8 @@
 			children = (
 				E4F7CB0D297E121000428A4E /* SideMenuTVC.xib */,
 				E4F7CB0E297E121000428A4E /* SideMenuTVC.swift */,
+				1DD1038F2AC36904006F67AA /* SideMenuShiftTVC.swift */,
+				1DD103902AC36904006F67AA /* SideMenuShiftTVC.xib */,
 			);
 			path = SideMenuCell;
 			sourceTree = "<group>";
@@ -2460,7 +2494,6 @@
 				353C60FF281213A500CC8B7F /* Sources */,
 				353C6100281213A500CC8B7F /* Frameworks */,
 				353C6101281213A500CC8B7F /* Resources */,
-				97013DD7CB49596A8E090C2B /* [CP] Embed Pods Frameworks */,
 				D57F346F43D25CF61A8989B4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -2468,8 +2501,6 @@
 			dependencies = (
 			);
 			name = StJhonsAmbulance;
-			packageProductDependencies = (
-			);
 			productName = ENTADRO;
 			productReference = 353C6103281213A500CC8B7F /* StJhonsAmbulance.app */;
 			productType = "com.apple.product-type.application";
@@ -2501,7 +2532,6 @@
 				353C611F281213A600CC8B7F /* Sources */,
 				353C6120281213A600CC8B7F /* Frameworks */,
 				353C6121281213A600CC8B7F /* Resources */,
-				16F58CB031FFADB5F8031C16 /* [CP] Embed Pods Frameworks */,
 				16B820B9B5ED2BE0A02C09DF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -2546,8 +2576,6 @@
 				Base,
 			);
 			mainGroup = 353C60FA281213A500CC8B7F;
-			packageReferences = (
-			);
 			productRefGroup = 353C6104281213A500CC8B7F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -2574,6 +2602,7 @@
 				1D64DC9229C1D77E0017608A /* AchivementTVC.xib in Resources */,
 				1D8D892A2AB47167006137C3 /* Avenir-Regular.ttf in Resources */,
 				1D3A4B692A6D133800DE9480 /* ExternalQualificationCell.xib in Resources */,
+				1DCABDDE2AC4D14C008899C5 /* ManagerEventPendingCell.xib in Resources */,
 				1DF4DA9B2A66942B00F3243E /* CSEventVC.xib in Resources */,
 				1DF176EA29852448005809C6 /* PendingEventTVC.xib in Resources */,
 				1DF82FB329FD3DD900E04690 /* AddEventScheduleShiftVC.xib in Resources */,
@@ -2632,6 +2661,7 @@
 				1D3BD157299D9460008F4178 /* QualificationCertificationVC.xib in Resources */,
 				1D144301298404ED001F3B15 /* EventVC.xib in Resources */,
 				1DD877EC29EDEC4F00863ADC /* ContractDocumentVC.xib in Resources */,
+				1DD103922AC36904006F67AA /* SideMenuShiftTVC.xib in Resources */,
 				1D3BD15C299D9521008F4178 /* SettingVC.xib in Resources */,
 				1D7DECB529CED93900F86A6F /* EventHourVC.xib in Resources */,
 				353C614E28140B6B00CC8B7F /* ENTALDHomeViewController.xib in Resources */,
@@ -2647,6 +2677,7 @@
 				E4B2EF0C297C57EB00D05014 /* Quicksand-Bold.ttf in Resources */,
 				1DDA4F9D2A53541B00D46136 /* ScheduleCell.xib in Resources */,
 				1DAE87912A6D36AF00BD0833 /* PendingShiftCell.xib in Resources */,
+				1DCC77AE2AC4AE39005C39BF /* CSManageEventsVC.xib in Resources */,
 				E4CF50412A0BA7290033903A /* MapViewController.xib in Resources */,
 				1D0BDEDE29826EC700CC2030 /* VounteerVC.xib in Resources */,
 				E4B2EF10297C57EB00D05014 /* Quicksand-Light.ttf in Resources */,
@@ -2760,23 +2791,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-StJhonsAmbulance-StJhonsAmbulanceUITests/Pods-StJhonsAmbulance-StJhonsAmbulanceUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		16F58CB031FFADB5F8031C16 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-StJhonsAmbulance-StJhonsAmbulanceUITests/Pods-StJhonsAmbulance-StJhonsAmbulanceUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-StJhonsAmbulance-StJhonsAmbulanceUITests/Pods-StJhonsAmbulance-StJhonsAmbulanceUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-StJhonsAmbulance-StJhonsAmbulanceUITests/Pods-StJhonsAmbulance-StJhonsAmbulanceUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		61EA0D543859FD60A32DDBC3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2819,23 +2833,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		97013DD7CB49596A8E090C2B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-StJhonsAmbulance/Pods-StJhonsAmbulance-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-StJhonsAmbulance/Pods-StJhonsAmbulance-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-StJhonsAmbulance/Pods-StJhonsAmbulance-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D57F346F43D25CF61A8989B4 /* [CP] Copy Pods Resources */ = {
@@ -2958,6 +2955,7 @@
 				359E9C76282EA58E001E3D73 /* ENTALDOffersViewController.swift in Sources */,
 				E4E697222A1B8CB30045D212 /* SkeletonView.swift in Sources */,
 				1D3BD151299D8004008F4178 /* SkillsVC.swift in Sources */,
+				1DCC77AD2AC4AE39005C39BF /* CSManageEventsVC.swift in Sources */,
 				E4E697462A1B8CB30045D212 /* TimelineView.swift in Sources */,
 				E4E697292A1B8CB30045D212 /* CurrentLineView.swift in Sources */,
 				E4E697242A1B8CB30045D212 /* KVKTableViewHeaderFooterView.swift in Sources */,
@@ -2979,6 +2977,7 @@
 				359E9C33282D46D9001E3D73 /* ENTALDDummyDataUtils.swift in Sources */,
 				1DA0A39129E0B73500284A4B /* VolunteerHourDetailVC.swift in Sources */,
 				E4E697492A1B8CB30045D212 /* AllDayEventView.swift in Sources */,
+				1DD103912AC36904006F67AA /* SideMenuShiftTVC.swift in Sources */,
 				E4E697312A1B8CB30045D212 /* KVKCalendarView.swift in Sources */,
 				1DC2711429CF206B00B2D762 /* EventAuditVC.swift in Sources */,
 				1D1442F62983E67C001F3B15 /* PendingShiftVC.swift in Sources */,
@@ -3079,6 +3078,7 @@
 				E4E697302A1B8CB30045D212 /* YearView.swift in Sources */,
 				353C61642814810700CC8B7F /* UIApplication+Extension.swift in Sources */,
 				E4E6971F2A1B8CB30045D212 /* DayData.swift in Sources */,
+				1DCABDDD2AC4D14C008899C5 /* ManagerEventPendingCell.swift in Sources */,
 				1D3BD160299D9541008F4178 /* LanguageVC.swift in Sources */,
 				E4E6972D2A1B8CB30045D212 /* ResizeEventView.swift in Sources */,
 				1D762827299E98F200609DED /* SJAQualificationTVC.swift in Sources */,
@@ -3299,7 +3299,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 69;
+				CURRENT_PROJECT_VERSION = 70;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3341,7 +3341,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 69;
+				CURRENT_PROJECT_VERSION = 70;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
 				GENERATE_INFOPLIST_FILE = YES;

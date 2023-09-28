@@ -18,16 +18,18 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
     var formatter = DateFormatter()
     let contactId = UserDefaults.standard.contactIdToken ?? ""
     
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var mainContentView: UIView!
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var btnList: UIButton!
     @IBOutlet weak var btnCalender: UIButton!
     @IBOutlet weak var btnSignUp: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet weak var lblCalender: UILabel!
+    @IBOutlet weak var listBottomView: UIView!
+    @IBOutlet weak var calendarBottomView: UIView!
     @IBOutlet weak var lblSignup: UILabel!
-    @IBOutlet weak var lblEvents: UILabel!
     
     
     @IBOutlet weak var calenderView: UIView!
@@ -63,11 +65,15 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
         btnSignUp.titleLabel?.font = UIFont.BoldFont(14)
         btnSignUp.layer.cornerRadius = 2
         
-        lblCalender.font = UIFont.BoldFont(16)
-        lblSignup.font = UIFont.BoldFont(16)
-        lblCalender.textColor = UIColor.themeLight
+//        lblCalender.font = UIFont.BoldFont(16)
+        lblSignup.font = UIFont.BoldFont(13)
+//        lblCalender.textColor = UIColor.themeLight
         lblSignup.textColor = UIColor.themeLight
         calenderView.isHidden = true
+        listBottomView.isHidden = false
+        calendarBottomView.isHidden = true
+        headerView.addBottomShadow()
+        
     }
     
     @IBAction func signUpTapped(_ sender: Any) {
@@ -83,10 +89,14 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
     @IBAction func showCalenderTapped(_ sender: Any) {
         
         calenderView.isHidden = false
+        listBottomView.isHidden = true
+        calendarBottomView.isHidden = false
     }
     
     @IBAction func showEventsTapped(_ sender: Any) {
         calenderView.isHidden = true
+        listBottomView.isHidden = false
+        calendarBottomView.isHidden = true
     }
     
     
@@ -96,11 +106,6 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
             view.frame = tableVw.frame
             tableVw.addSubview(view)
         }
-    }
-    
-    @IBAction func sideMenuTapped(_ sender: Any) {
-        present(menu!, animated: true)
-        
     }
     
     func minimumDate(for calendar: FSCalendar) -> Date {
@@ -180,10 +185,10 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
         }
         
         ENTALDLibraryAPI.shared.requestScheduleTwo(params: params){ result in
-            DispatchQueue.main.async {
-                LoadingView.hide()
-            }
-            
+//            DispatchQueue.main.async {
+//                LoadingView.hide()
+//            }
+//
             switch result{
             case .success(value: let response):
                 
@@ -191,6 +196,9 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
                     self.scheduleEngagementData = scheduleGroup
                     if (self.scheduleEngagementData?.count == 0 || self.scheduleEngagementData?.count == nil){
                         self.showEmptyView(tableVw: self.tableView)
+                        DispatchQueue.main.async {
+                            LoadingView.hide()
+                        }
                     }else{
                         self.getScheduleInfoThree()
                         DispatchQueue.main.async {
@@ -210,6 +218,7 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
                 }
                 self.showEmptyView(tableVw: self.tableView)
                 DispatchQueue.main.async {
+                    LoadingView.hide()
                     ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
                 }
             }
@@ -247,10 +256,10 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
     }
     
     fileprivate func getScheduleInfoThreeData(params : [String:Any]){
-        DispatchQueue.main.async {
-            LoadingView.show()
-        }
-        
+//        DispatchQueue.main.async {
+//            LoadingView.show()
+//        }
+//
         ENTALDLibraryAPI.shared.requestScheduleThree(params: params){ result in
             DispatchQueue.main.async {
                 LoadingView.hide()

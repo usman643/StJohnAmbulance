@@ -40,6 +40,10 @@ class InAppMsgVC: ENTALDBaseViewController {
         getScheduleInfo()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
     
     func decorateUI(){
 

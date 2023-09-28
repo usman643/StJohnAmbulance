@@ -280,9 +280,10 @@ class DashboardVC: ENTALDBaseViewController{
                 if let err = errorResponse {
                     message = err.error
                 }
-                //                DispatchQueue.main.async {
+                                DispatchQueue.main.async {
+                                    LoadingView.hide()
                 //                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
-                //                }
+                                }
             }
         }
     }
@@ -312,9 +313,9 @@ class DashboardVC: ENTALDBaseViewController{
         }
 
         ENTALDLibraryAPI.shared.requestVolunteerLatestEventInfo(params: params){ result in
-            DispatchQueue.main.async {
-                LoadingView.hide()
-            }
+//            DispatchQueue.main.async {
+//                LoadingView.hide()
+//            }
 
             switch result{
             case .success(value: let response):
@@ -336,9 +337,10 @@ class DashboardVC: ENTALDBaseViewController{
                 if let err = errorResponse {
                     message = err.error
                 }
-                //                DispatchQueue.main.async {
+                                DispatchQueue.main.async {
+                                    LoadingView.hide()
                 //                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
-                //                }
+                                }
             }
         }
     }
@@ -379,9 +381,9 @@ class DashboardVC: ENTALDBaseViewController{
     }
     
     fileprivate func getVolunteerIncomingData(params : [String:Any]){
-        DispatchQueue.main.async {
-            LoadingView.show()
-        }
+//        DispatchQueue.main.async {
+//            LoadingView.show()
+//        }
         
         ENTALDLibraryAPI.shared.requestVolunteerLatestEvents(params: params){ result in
             DispatchQueue.main.async {
@@ -497,27 +499,12 @@ class DashboardVC: ENTALDBaseViewController{
                     if let data = self.latestEventData?[i] {
                         plusTime.append(data)
                     }
-                    
-                }else{
-                    
-                    if let data = self.latestEventData?[i] {
-                        minusTime.append(data)
-                    }
-                    
                 }
-                
-                plusTime = plusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
-//                minusTime = minusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
-                
-                
-                self.latestEventData = []
-                self.latestEventData?.append(contentsOf: plusTime)
-//                self.latestEventData?.append(contentsOf: minusTime)
-                
-                
-                
             }
             
+            plusTime = plusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
+            self.latestEventData = []
+            self.latestEventData?.append(contentsOf: plusTime)
             
             
         }
@@ -901,14 +888,14 @@ extension DashboardVC : UITableViewDelegate,UITableViewDataSource{
             ParameterKeys.orderby : "fullname asc"
         ]
         
-        DispatchQueue.main.async {
-            LoadingView.show()
-        }
+//        DispatchQueue.main.async {
+//            LoadingView.show()
+//        }
         
         ENTALDLibraryAPI.shared.requestCheckInData(params: params){ result in
-            DispatchQueue.main.async {
-                LoadingView.hide()
-            }
+//            DispatchQueue.main.async {
+//                LoadingView.hide()
+//            }
             
             switch result{
             case .success(value: let response):
@@ -935,14 +922,14 @@ extension DashboardVC : UITableViewDelegate,UITableViewDataSource{
             ParameterKeys.filter : "objecttypecode eq 'contact' and attributename eq 'sjavms_gender' and langid eq 1033"
         ]
     
-        DispatchQueue.main.async {
-            LoadingView.show()
-        }
+//        DispatchQueue.main.async {
+//            LoadingView.show()
+//        }
         
         ENTALDLibraryAPI.shared.requestProfileInfoDetail(params: params){ result in
-            DispatchQueue.main.async {
-                LoadingView.hide()
-            }
+//            DispatchQueue.main.async {
+//                LoadingView.hide()
+//            }
             switch result{
             case .success(value: let response):
                 
@@ -970,14 +957,14 @@ extension DashboardVC : UITableViewDelegate,UITableViewDataSource{
             ParameterKeys.filter : "objecttypecode eq 'contact' and attributename eq 'sjavms_preferredpronouns' and langid eq 1033"
         ]
     
-        DispatchQueue.main.async {
-            LoadingView.show()
-        }
+//        DispatchQueue.main.async {
+//            LoadingView.show()
+//        }
         
         ENTALDLibraryAPI.shared.requestProfileInfoDetail(params: params){ result in
-            DispatchQueue.main.async {
-                LoadingView.hide()
-            }
+//            DispatchQueue.main.async {
+//                LoadingView.hide()
+//            }
             switch result{
             case .success(value: let response):
                 
@@ -1004,9 +991,9 @@ extension DashboardVC : UITableViewDelegate,UITableViewDataSource{
             ParameterKeys.filter : "objecttypecode eq 'contact' and attributename eq 'preferredcontactmethodcode' and langid eq 1033"
         ]
     
-        DispatchQueue.main.async {
-            LoadingView.show()
-        }
+//        DispatchQueue.main.async {
+//            LoadingView.show()
+//        }
         
         ENTALDLibraryAPI.shared.requestProfileInfoDetail(params: params){ result in
             DispatchQueue.main.async {
@@ -1043,14 +1030,14 @@ extension DashboardVC : UITableViewDelegate,UITableViewDataSource{
             
         ]
     
-        DispatchQueue.main.async {
-            LoadingView.show()
-        }
+//        DispatchQueue.main.async {
+//            LoadingView.show()
+//        }
         
         ENTALDLibraryAPI.shared.requestPreferedLanguage(params: params){ result in
-            DispatchQueue.main.async {
-                LoadingView.hide()
-            }
+//            DispatchQueue.main.async {
+//                LoadingView.hide()
+//            }
             switch result{
             case .success(value: let response):
                 

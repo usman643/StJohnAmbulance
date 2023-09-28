@@ -11,7 +11,7 @@ class SideMenuTVC: UITableViewCell {
 
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var lblTitle: UILabel!
-    
+    @IBOutlet weak var seperatorView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

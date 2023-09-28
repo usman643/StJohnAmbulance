@@ -22,19 +22,11 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var searchMainView: UIView!
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var searchImg: UIImageView!
     @IBOutlet weak var textSearch: UITextField!
-    @IBOutlet weak var stackView: UIStackView!
-    @IBOutlet weak var lblName: UILabel!
-    @IBOutlet weak var lblRole: UILabel!
-    @IBOutlet weak var lblCity: UILabel!
-    @IBOutlet weak var lblState: UILabel!
-    @IBOutlet weak var btnSearchClose: UIButton!
-    
-    @IBOutlet weak var lblTabTitle: UILabel!
-    @IBOutlet weak var selectedTabImg: UIImageView!
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -48,41 +40,23 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
         btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
     }
     
     func decorateUI(){
         
-        lblTitle.font = UIFont.BoldFont(20)
+        lblTitle.font = UIFont.HeaderBoldFont(20)
         lblTitle.textColor = UIColor.themePrimaryWhite
-        lblName.font = UIFont.BoldFont(12)
-        lblRole.font = UIFont.BoldFont(12)
-        lblCity.font = UIFont.BoldFont(12)
-        lblState.font = UIFont.BoldFont(12)
-//        lblTabTitle.font = UIFont.BoldFont(16)
-        lblName.textColor = UIColor.themePrimaryWhite
-        lblRole.textColor = UIColor.themePrimaryWhite
-        lblCity.textColor = UIColor.themePrimaryWhite
-        lblState.textColor = UIColor.themePrimaryWhite
-//        lblTabTitle.textColor = UIColor.themePrimaryColor
-        stackView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        stackView.layer.borderWidth = 1.5
         searchView.layer.borderWidth = 1.5
-        btnSearchClose.isHidden = true
         btnSelectGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
+        btnSelectGroup.titleLabel?.font = UIFont.HeaderBoldFont(14)
         btnSelectGroup.backgroundColor = UIColor.themePrimary
-        
-        
-//        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
-//        selectedTabImg.tintColor = UIColor.themePrimaryColor
-        
-        
+        searchMainView.isHidden = true
     }
 
-    @IBAction func homeTapped(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+    @IBAction func messageTapped(_ sender: Any) {
+        ENTALDControllers.shared.showGroupMessageVC(type: .ENTALDPUSH, from: self, callBack: nil)
     }
     
     @IBAction func backTapped(_ sender: Any) {
@@ -94,6 +68,7 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
         showGroupsPicker()
     }
     
+    
 
     @IBAction func searchCloseTapped(_ sender: Any) {
         textSearch.endEditing(true)
@@ -101,8 +76,6 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
         filteredData = volunteerData
         tableView.reloadData()
     }
-    
-    
     
     @IBAction func nameFilterTapped(_ sender: Any) {
  
@@ -148,52 +121,14 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
         
         
     }
+
     
-    
-    
-    @IBAction func sideMenuTapped(_ sender: Any) {
-        present(menu!, animated: true)
-        
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+        if scrollView.contentOffset.y > tableView.frame.size.height {
+            searchMainView.isHidden = false
+        }
     }
-    
-    
-    //================ Side Menu =============//
-    
-    @IBAction func openMessagesScreen(_ sender: Any) {
-        self.navigationController?.popViewController(animated: false)
-        self.callbackToController?("sjavms_messages", self)
-    }
-    @IBAction func openVolunteerScreen(_ sender: Any) {
-        self.navigationController?.popViewController(animated: false)
-        self.callbackToController?("sjavms_volunteers", self)
-    }
-    @IBAction func openEventScreen(_ sender: Any) {
-        self.navigationController?.popViewController(animated: false)
-        self.callbackToController?("sjavms_events", self)
-    }
-    @IBAction func openPendingEventScreen(_ sender: Any) {
-        self.navigationController?.popViewController(animated: false)
-        self.callbackToController?("sjavms_pendingevents", self)
-    }
-    @IBAction func openPendingShiftsScreen(_ sender: Any) {
-        self.navigationController?.popViewController(animated: false)
-        self.callbackToController?("sjavms_pendingshifts", self)
-    }
- 
-    
-    
-    
-    @IBAction func openDashBoardScreen(_ sender: Any) {
-        self.navigationController?.popViewController(animated: false)
-    }
-    
-    
-    
-    
-    
-    
-    
-    
     func showEmptyView(){
         DispatchQueue.main.async {
             let view = EmptyView.instanceFromNib()
@@ -215,11 +150,11 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
         }
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        btnSearchClose.isHidden = false
+        
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        btnSearchClose.isHidden = true
+      
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -333,36 +268,48 @@ extension VounteerVC: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "VounteerTVC", for: indexPath) as! VounteerTVC
-        if indexPath.row % 2 == 0{
-            cell.mianView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-            cell.dividerView.backgroundColor = UIColor.themePrimaryColor
-        }else{
-            cell.mianView.backgroundColor = UIColor.viewLightColor
-            cell.dividerView.backgroundColor = UIColor.gray
-        }
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "VounteerTVC", for: indexPath) as! VounteerTVC        
         let rowModel = filteredData?[indexPath.row]
  
         cell.lblName.text = rowModel?.msnfp_contactId?.fullname
         cell.lblRole.text = rowModel?.sjavms_RoleType?.sjavms_name
-        cell.lblCity.text = rowModel?.msnfp_contactId?.address1_city
-        cell.lblState.text = rowModel?.msnfp_contactId?.address1_stateorprovince
+        cell.lblAddress.text = rowModel?.msnfp_contactId?.address1_line1
+//        cell.profileImg.image = rowModel?.
+        cell.btnMsg.tag = indexPath.row
+        cell.btnDetail.tag = indexPath.row
+        cell.btnMsg.addTarget(self, action: #selector(didTapMsg(_:)), for: .touchUpInside)
+        cell.btnDetail.addTarget(self, action: #selector(didTapDetail(_:)), for: .touchUpInside)
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 30
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        ENTALDControllers.shared.showVolunteerDetailScreen(type: .ENTALDPUSH, from: self, dataObj: filteredData?[indexPath.row]) { params, controller in
+//        ENTALDControllers.shared.showVolunteerDetailScreen(type: .ENTALDPUSH, from: self, dataObj: filteredData?[indexPath.row]) { params, controller in
+//
+//        }
+        
+        
+        
+    }
+    @objc private func didTapMsg(_ sender: CoreSegment) {
+        let tag = sender.tag
+        let rowModel = filteredData?[tag]
+        
+        ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: rowModel?.msnfp_groupmembershipid ?? "", callBack: nil)
+      
+    }
+    @objc private func didTapDetail(_ sender: CoreSegment) {
+        let tag = sender.tag
+        let rowModel = filteredData?[tag]
+        
+        ENTALDControllers.shared.showVolunteerDetailScreen(type: .ENTALDPUSH, from: self, dataObj: rowModel) { params, controller in
             
         }
-        
-        
-        
     }
     
 }

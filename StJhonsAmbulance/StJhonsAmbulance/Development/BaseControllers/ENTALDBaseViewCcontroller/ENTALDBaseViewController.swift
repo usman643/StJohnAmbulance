@@ -43,7 +43,7 @@ class ENTALDBaseViewController: UIViewController, MenuControllerDelegate {
             
             ENTALDControllers.shared.showContactInfoScreen(type: .ENTALDPUSH, from: self, callBack: nil)
                         
-        }else if(named == "Qualifications/Certifications"){
+        }else if(named == "Qualifications"){
             
             ENTALDControllers.shared.showSideMenuQualificationScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
                         
@@ -73,6 +73,16 @@ class ENTALDBaseViewController: UIViewController, MenuControllerDelegate {
         }else if(named == "Documents"){
             ENTALDControllers.shared.showContactDocumentScreen(type: .ENTALDPUSH, from: self, callBack: nil)
 //            ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
+        }else if(named == "Shifts"){
+            
+            ENTALDControllers.shared.showContactDocumentScreen(type: .ENTALDPUSH, from: self, callBack: nil)
+        }else if(named == "Events"){
+            
+            ENTALDControllers.shared.showEventScreen(type: .ENTALDPUSH, from: self, callBack: nil)
+        }else if(named == "Volenteers"){
+            
+            ENTALDControllers.shared.showVolunteersScreen(type: .ENTALDPUSH, from: self, callBack: nil)
+
         }else if(named == "Logout"){
             
             UserDefaults.standard.signOut()

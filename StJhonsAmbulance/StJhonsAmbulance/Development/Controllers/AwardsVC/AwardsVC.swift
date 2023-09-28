@@ -57,10 +57,12 @@ class AwardsVC: ENTALDBaseViewController {
     
     
     @IBAction func hourCalenderTapped(_ sender: Any) {
-        let cellModel = self.engagementData
-        callbackToController?(cellModel, self)
-        
+//        let cellModel = self.engagementData
+//        callbackToController?(cellModel, self)
+//
+        ENTALDControllers.shared.showGroupMessageVC(type: .ENTALDPUSH, from: self, callBack: nil)
     }
+        
     
 }
 

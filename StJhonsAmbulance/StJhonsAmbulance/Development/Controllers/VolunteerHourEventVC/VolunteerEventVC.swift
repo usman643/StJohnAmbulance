@@ -132,9 +132,9 @@ class VolunteerEventVC: ENTALDBaseViewController {
     
     func setContent(){
 //        
-//        lblPendingValue.text = UserDefaults.standard.userInfo?.sjavms_totalpendinghrs?.getFormattedNumber()
-//        lblYearValue.text = UserDefaults.standard.userInfo?.sjavms_totalhourscompletedthisyear?.getFormattedNumber()
-//        lblLifetimeValue.text = UserDefaults.standard.userInfo?.msnfp_totalengagementhours?.getFormattedNumber()
+        lblPendingValue.text = UserDefaults.standard.userInfo?.sjavms_totalpendinghrs?.getFormattedNumber()
+        lblYearValue.text = UserDefaults.standard.userInfo?.sjavms_totalhourscompletedthisyear?.getFormattedNumber()
+        lblLifetimeValue.text = UserDefaults.standard.userInfo?.msnfp_totalengagementhours?.getFormattedNumber()
     }
     
     @IBAction func searchCloseTapped(_ sender: Any) {
@@ -287,14 +287,14 @@ class VolunteerEventVC: ENTALDBaseViewController {
     }
     
     fileprivate func getVolunteerNonEventData(params : [String:Any]){
-        DispatchQueue.main.async {
-            LoadingView.show()
-        }
+//        DispatchQueue.main.async {
+//            LoadingView.show()
+//        }
         
         ENTALDLibraryAPI.shared.requestVolunteerNonEvent(params: params){ result in
-            DispatchQueue.main.async {
-                LoadingView.hide()
-            }
+//            DispatchQueue.main.async {
+//                LoadingView.hide()
+//            }
             
             switch result{
             case .success(value: let response):
@@ -394,11 +394,11 @@ extension VolunteerEventVC : UITableViewDelegate,UITableViewDataSource{
         if (btnEvent.isSelected){
             let rowModel = self.eventFilterData?[indexPath.row]
             
-//            ENTALDControllers.shared.showVolunteerHourDetailScreen(type: .ENTALDPUSH, from: self, dataObj : rowModel) { params, controller in
-//                if(params as? Int == 1){
-//                    self.getVolunteerEvents()
-//                }
-//            }
+            ENTALDControllers.shared.showVolunteerHourDetailScreen(type: .ENTALDPUSH, from: self, dataObj : rowModel) { params, controller in
+                if(params as? Int == 1){
+                    self.getVolunteerEvents()
+                }
+            }
             
             
             

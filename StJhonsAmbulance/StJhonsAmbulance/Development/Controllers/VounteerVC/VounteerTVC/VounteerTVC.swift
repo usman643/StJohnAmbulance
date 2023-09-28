@@ -9,15 +9,18 @@ import UIKit
 
 class VounteerTVC: UITableViewCell {
 
-    @IBOutlet weak var stackView: UIStackView!
+    
+    @IBOutlet weak var profileImg: UIImageView!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblRole: UILabel!
-    @IBOutlet weak var lblCity: UILabel!
-    @IBOutlet weak var lblState: UILabel!
+    @IBOutlet weak var lblAddress: UILabel!
     @IBOutlet weak var mianView: UIView!
-    
     @IBOutlet weak var dividerView: UIView!
+    @IBOutlet weak var roleImge: UIImageView!
     
+    
+    @IBOutlet weak var btnMsg: UIButton!
+    @IBOutlet weak var btnDetail: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,16 +28,15 @@ class VounteerTVC: UITableViewCell {
     }
     
     func decorateUI(){
-        
-        lblName.font = UIFont.MediumFont(12)
+        roleImge.image = roleImge.image?.withRenderingMode(.alwaysTemplate)
+        roleImge.tintColor = UIColor.themePrimaryColor
+        lblName.font = UIFont.BoldFont(16)
         lblRole.font = UIFont.MediumFont(12)
-        lblCity.font = UIFont.MediumFont(12)
-        lblState.font = UIFont.RegularFont(12)
-        
-        lblName.textColor = UIColor.textBlackColor
+        lblAddress.font = UIFont.MediumFont(12)
+
+        lblName.textColor = UIColor.themePrimaryWhite
         lblRole.textColor = UIColor.textBlackColor
-        lblCity.textColor = UIColor.textBlackColor
-        lblState.textColor = UIColor.textBlackColor
+        lblAddress.textColor = UIColor.textBlackColor
         
     }
 

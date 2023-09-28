@@ -108,7 +108,7 @@ class EventVC: ENTALDBaseViewController, UITextFieldDelegate,EventSummaryDelegat
         
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         selectGroupView.layer.cornerRadius = 3
-        btnSelectGroup.layer.cornerRadius = 3
+        
         btnCreateEvent.layer.cornerRadius = 3
         lblTitle.font = UIFont.BoldFont(20)
         lblTitle.textColor = UIColor.themePrimaryWhite

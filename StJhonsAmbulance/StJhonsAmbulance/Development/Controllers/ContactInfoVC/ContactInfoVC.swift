@@ -23,6 +23,8 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
     
     
     @IBOutlet weak var lblTitle: UILabel!
+    
+    @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblFirstName: UILabel!
     @IBOutlet weak var lblLastName: UILabel!
     @IBOutlet weak var lblPreferredPronoun: UILabel!
@@ -69,6 +71,12 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
     @IBOutlet weak var lblLastYearHours: UILabel!
     @IBOutlet weak var lblLifetimeHours: UILabel!
     
+    @IBOutlet weak var lblLifeTimeHour: UILabel!
+    @IBOutlet weak var lblThisYearHour: UILabel!
+    @IBOutlet weak var lblLServiceYears: UILabel!
+    @IBOutlet weak var lblLastYearHour: UILabel!
+    
+    @IBOutlet weak var headerView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -89,103 +97,112 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
         
         lblTitle.textColor = UIColor.themePrimaryWhite
         lblTitle.font = UIFont.BoldFont(16)
-        lblFirstName.textColor = UIColor.themePrimaryWhite
+        lblFirstName.textColor = UIColor.textGrayColor
         lblFirstName.font = UIFont.BoldFont(12)
-        lblLastName.textColor = UIColor.themePrimaryWhite
+        lblLastName.textColor = UIColor.textGrayColor
         lblLastName.font = UIFont.BoldFont(12)
-        lblPreferredPronoun.textColor = UIColor.themePrimaryWhite
+        lblPreferredPronoun.textColor = UIColor.textGrayColor
         lblPreferredPronoun.font = UIFont.BoldFont(12)
-        lblGender.textColor = UIColor.themePrimaryWhite
+        lblGender.textColor = UIColor.textGrayColor
         lblGender.font = UIFont.BoldFont(12)
-        lblBirthday.textColor = UIColor.themePrimaryWhite
+        lblBirthday.textColor = UIColor.textGrayColor
         lblBirthday.font = UIFont.BoldFont(12)
-        lblEmail.textColor = UIColor.themePrimaryWhite
+        lblEmail.textColor = UIColor.textGrayColor
         lblEmail.font = UIFont.BoldFont(12)
-        lblPrimaryPhone.textColor = UIColor.themePrimaryWhite
+        lblPrimaryPhone.textColor = UIColor.textGrayColor
         lblPrimaryPhone.font = UIFont.BoldFont(12)
-        lblContactMethod.textColor = UIColor.themePrimaryWhite
+        lblContactMethod.textColor = UIColor.textGrayColor
         lblContactMethod.font = UIFont.BoldFont(12)
-        lblEmergencyContact.textColor = UIColor.themePrimaryWhite
+        lblEmergencyContact.textColor = UIColor.textGrayColor
         lblEmergencyContact.font = UIFont.BoldFont(12)
-        lblEmergencyName.textColor = UIColor.themePrimaryWhite
+        lblEmergencyName.textColor = UIColor.textGrayColor
         lblEmergencyName.font = UIFont.BoldFont(12)
-        lblOptNotification.textColor = UIColor.themePrimaryWhite
+        lblOptNotification.textColor = UIColor.textGrayColor
         lblOptNotification.font = UIFont.BoldFont(12)
-        lblStreetOne.textColor = UIColor.themePrimaryWhite
+        lblStreetOne.textColor = UIColor.textGrayColor
         lblStreetOne.font = UIFont.BoldFont(12)
-        lblStreetTwo.textColor = UIColor.themePrimaryWhite
+        lblStreetTwo.textColor = UIColor.textGrayColor
         lblStreetTwo.font = UIFont.BoldFont(12)
-        lblStreetThree.textColor = UIColor.themePrimaryWhite
+        lblStreetThree.textColor = UIColor.textGrayColor
         lblStreetThree.font = UIFont.BoldFont(12)
-        lblCity.textColor = UIColor.themePrimaryWhite
+        lblCity.textColor = UIColor.textGrayColor
         lblCity.font = UIFont.BoldFont(12)
-        lblProvince.textColor = UIColor.themePrimaryWhite
+        lblProvince.textColor = UIColor.textGrayColor
         lblProvince.font = UIFont.BoldFont(12)
-        lblPostalCde.textColor = UIColor.themePrimaryWhite
+        lblPostalCde.textColor = UIColor.textGrayColor
         lblPostalCde.font = UIFont.BoldFont(12)
         
+        lblLifeTimeHour.font = UIFont.MediumFont(12)
+        lblLifeTimeHour.textColor = UIColor.textGrayColor
+        lblThisYearHour.font = UIFont.MediumFont(12)
+        lblThisYearHour.textColor = UIColor.textGrayColor
+        lblLServiceYears.font = UIFont.MediumFont(12)
+        lblLServiceYears.textColor = UIColor.textGrayColor
+        lblLastYearHour.font = UIFont.MediumFont(12)
+        lblLastYearHour.textColor = UIColor.textGrayColor
+        
         txtFirstName.font = UIFont.RegularFont(14)
-        txtFirstName.layer.borderWidth = 1
+        txtFirstName.layer.borderWidth = 0
         txtFirstName.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         txtLastName.font = UIFont.RegularFont(14)
-        txtLastName.layer.borderWidth = 1
+        txtLastName.layer.borderWidth = 0
         txtLastName.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         txtBirthday.font = UIFont.RegularFont(14)
-        txtBirthday.layer.borderWidth = 1
+        txtBirthday.layer.borderWidth = 0
         txtBirthday.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         txtEmail.font = UIFont.RegularFont(14)
-        txtEmail.layer.borderWidth = 1
+        txtEmail.layer.borderWidth = 0
         txtEmail.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         txtPrimaryPhone.font = UIFont.RegularFont(14)
-        txtPrimaryPhone.layer.borderWidth = 1
+        txtPrimaryPhone.layer.borderWidth = 0
         txtPrimaryPhone.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         txtStreetOne.font = UIFont.RegularFont(14)
-        txtStreetOne.layer.borderWidth = 1
+        txtStreetOne.layer.borderWidth = 0
         txtStreetOne.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         txtStreetTwo.font = UIFont.RegularFont(14)
-        txtStreetTwo.layer.borderWidth = 1
+        txtStreetTwo.layer.borderWidth = 0
         txtStreetTwo.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         txtStreetThree.font = UIFont.RegularFont(14)
-        txtStreetThree.layer.borderWidth = 1
+        txtStreetThree.layer.borderWidth = 0
         txtStreetThree.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         txtCity.font = UIFont.RegularFont(14)
-        txtCity.layer.borderWidth = 1
+        txtCity.layer.borderWidth = 0
         txtCity.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         txtProvince.font = UIFont.RegularFont(14)
-        txtProvince.layer.borderWidth = 1
+        txtProvince.layer.borderWidth = 0
         txtProvince.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         txtPostalCode.font = UIFont.RegularFont(14)
-        txtPostalCode.layer.borderWidth = 1
+        txtPostalCode.layer.borderWidth = 0
         txtPostalCode.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         txtEmergencyContactName.font = UIFont.RegularFont(14)
-        txtEmergencyContactName.layer.borderWidth = 1
+        txtEmergencyContactName.layer.borderWidth = 0
         txtEmergencyContactName.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         txtEmergencyContactPhone.font = UIFont.RegularFont(14)
-        txtEmergencyContactPhone.layer.borderWidth = 1
+        txtEmergencyContactPhone.layer.borderWidth = 0
         txtEmergencyContactPhone.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         
-        btnPrefferenNoun.backgroundColor = UIColor.themePrimary
-        btnPrefferenNoun.titleLabel?.font = UIFont.BoldFont(14)
+        btnPrefferenNoun.backgroundColor = UIColor.clear
+        btnPrefferenNoun.titleLabel?.font = UIFont.RegularFont(14)
         btnPrefferenNoun.layer.cornerRadius = 2
-        btnPrefferenNoun.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        btnGender.backgroundColor = UIColor.themePrimary
-        btnGender.titleLabel?.font = UIFont.BoldFont(14)
+        btnPrefferenNoun.setTitleColor(UIColor.textBlackColor, for: .normal)
+        btnGender.backgroundColor = UIColor.clear
+        btnGender.titleLabel?.font = UIFont.RegularFont(14)
         btnGender.layer.cornerRadius = 2
-        btnGender.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        btnContactMethod.backgroundColor = UIColor.themePrimary
-        btnContactMethod.titleLabel?.font = UIFont.BoldFont(14)
+        btnGender.setTitleColor(UIColor.textBlackColor, for: .normal)
+        btnContactMethod.backgroundColor = UIColor.clear
+        btnContactMethod.titleLabel?.font = UIFont.RegularFont(14)
         btnContactMethod.layer.cornerRadius = 2
-        btnContactMethod.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        btnOptNotofocation.backgroundColor = UIColor.themePrimary
-        btnOptNotofocation.titleLabel?.font = UIFont.BoldFont(14)
+        btnContactMethod.setTitleColor(UIColor.textBlackColor, for: .normal)
+        btnOptNotofocation.backgroundColor = UIColor.clear
+        btnOptNotofocation.titleLabel?.font = UIFont.RegularFont(14)
         btnOptNotofocation.layer.cornerRadius = 2
-        btnOptNotofocation.setTitleColor(UIColor.textWhiteColor, for: .normal)
+        btnOptNotofocation.setTitleColor(UIColor.textBlackColor, for: .normal)
         
         btnSubmit.themeColorButton()
         btnSubmit.backgroundColor = UIColor.themePrimaryColor
-        btnSubmit.titleLabel?.font = UIFont.BoldFont(16.0)
+        btnSubmit.titleLabel?.font = UIFont.BoldFont(18.0)
 //        self.btnSubmit.isEnabled = false
-        profileImg.layer.cornerRadius = profileImg.frame.size.height/2
+        profileImg.layer.cornerRadius = 8
     
         lblYearsOfService.font = UIFont.BoldFont(16)
         lblCurrentYearHours.font = UIFont.BoldFont(16)
@@ -197,31 +214,39 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
         lblLastYearHours.textColor = UIColor.themeBlackText
         lblLifetimeHours.textColor = UIColor.themeBlackText
         
-        lblYearsOfService.text = "Years of Service : \(UserDefaults.standard.userInfo?.sjavms_qualifiedyearsofservice?.getFormattedNumber() ?? "")"
-        lblCurrentYearHours.text = "Hours Current Year : \(UserDefaults.standard.userInfo?.sjavms_totalhourscompletedthisyear?.getFormattedNumber() ?? "")"
-        lblLastYearHours.text = "Last Year Hours : \(UserDefaults.standard.userInfo?.sjavms_totalhourscompletedpreviousyear?.getFormattedNumber() ?? "")"
-        lblLifetimeHours.text = "Lifetime Hours : \(UserDefaults.standard.userInfo?.msnfp_totalengagementhours?.getFormattedNumber() ?? "")"
+        lblYearsOfService.text = "\(UserDefaults.standard.userInfo?.sjavms_qualifiedyearsofservice?.getFormattedNumber() ?? "")"
+        lblCurrentYearHours.text = "\(UserDefaults.standard.userInfo?.sjavms_totalhourscompletedthisyear?.getFormattedNumber() ?? "")"
+        lblLastYearHours.text = "\(UserDefaults.standard.userInfo?.sjavms_totalhourscompletedpreviousyear?.getFormattedNumber() ?? "")"
+        lblLifetimeHours.text = "\(UserDefaults.standard.userInfo?.msnfp_totalengagementhours?.getFormattedNumber() ?? "")"
         
-//        txtFirstName.isUserInteractionEnabled = false
-//        txtLastName.isUserInteractionEnabled = false
-//        txtBirthday.isUserInteractionEnabled = false
-//        txtEmail.isUserInteractionEnabled = false
-//        txtPrimaryPhone.isUserInteractionEnabled = false
-//        txtStreetOne.isUserInteractionEnabled = false
-//        txtStreetTwo.isUserInteractionEnabled = false
-//        txtStreetThree.isUserInteractionEnabled = false
-//        txtCity.isUserInteractionEnabled = false
-//        txtProvince.isUserInteractionEnabled = false
-//        txtPostalCode.isUserInteractionEnabled = false
-//        txtEmergencyContactName.isUserInteractionEnabled = false
-//        txtEmergencyContactPhone.isUserInteractionEnabled = false
         
+        lblLifeTimeHour.text = "Lifetime Hours".uppercased()
+        lblThisYearHour.text = "Hours This Year".uppercased()
+        lblLServiceYears.text = "Years of Service".uppercased()
+        lblLastYearHour.text = "Hours Last Year".uppercased()
+        
+        
+        txtFirstName.lineColor = UIColor.textLightGrayColor
+        txtLastName.lineColor = UIColor.textLightGrayColor
+        txtBirthday.lineColor = UIColor.textLightGrayColor
+        txtEmail.lineColor = UIColor.textLightGrayColor
+        txtPrimaryPhone.lineColor = UIColor.textLightGrayColor
+        txtStreetOne.lineColor = UIColor.textLightGrayColor
+        txtStreetTwo.lineColor = UIColor.textLightGrayColor
+        txtStreetThree.lineColor = UIColor.textLightGrayColor
+        txtCity.lineColor = UIColor.textLightGrayColor
+        txtProvince.lineColor = UIColor.textLightGrayColor
+        txtPostalCode.lineColor = UIColor.textLightGrayColor
+        txtEmergencyContactName.lineColor = UIColor.textLightGrayColor
+        txtEmergencyContactPhone.lineColor = UIColor.textLightGrayColor
+        headerView.addBottomShadow()
     }
     
     func setupData(){
         
         let userDefaultObj = UserDefaults.standard.userInfo
         profileImg.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: userDefaultObj?.entityimage ?? "") ?? UIImage(named: "ic_profile")
+        lblName.text = "\(userDefaultObj?.firstname ?? "") \(userDefaultObj?.lastname ?? "")"
         txtFirstName.text = userDefaultObj?.firstname ?? ""
         txtLastName.text = userDefaultObj?.lastname ?? ""
         txtBirthday.text = userDefaultObj?.birthdate ?? ""
@@ -236,12 +261,13 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
         txtEmergencyContactName.text = userDefaultObj?.sjavms_emergencycontactname ?? ""
         txtEmergencyContactPhone.text = userDefaultObj?.sjavms_emergencycontactphone ?? ""
         var gender = ""
-        if userDefaultObj?.gendercode == 1 {
+        if userDefaultObj?.gendercode == 2 {
             gender = "Male"
-        }else if userDefaultObj?.gendercode ==  0 {
+        }else if userDefaultObj?.gendercode ==  1 {
             gender = "Female"
         }
 
+        btnGender.setTitle(gender, for: .normal)
         
 //         = self.getGender(userDefaultObj?.gendercode ?? 0)
         let noun = self.getPreferedNoun(userDefaultObj?.sjavms_preferredpronouns ?? 0)
@@ -334,6 +360,12 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
 //        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
     }
     
+    
+    @IBAction func messageTapped(_ sender: Any) {
+        
+        ENTALDControllers.shared.showGroupMessageVC(type: .ENTALDPUSH, from: self, callBack: nil)
+        
+    }
     
     
     func getGender(_ preferedLanguage:Int)->String?{

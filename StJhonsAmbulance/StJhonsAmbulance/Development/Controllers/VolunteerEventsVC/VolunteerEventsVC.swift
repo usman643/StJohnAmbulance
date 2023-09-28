@@ -210,34 +210,21 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     }
     
     @IBAction func availableTapped(_ sender: Any) {
+        
         resetButtonView()
         self.availableView.isHidden = false
-//        self.scheduleView.isHidden = true
-//        self.pastView.isHidden = true
         isAvailabilityTableSearch = true
-//        isScheduleTableSearch = false
-//        isPastTableSearch = false
-        
         vwAvailable.isHidden = false
-//        vwSchedule.isHidden = true
-//        vwPast.isHidden = true
         btnAvailable.setTitleColor(UIColor.themeColorSecondry, for: .normal)
-        
+
     }
     
     @IBAction func scheduleTapped(_ sender: Any) {
         
         resetButtonView()
-//        self.availableView.isHidden = true
         self.scheduleView.isHidden = false
-//        self.pastView.isHidden = true
-//        isAvailabilityTableSearch = false
         isScheduleTableSearch = true
-//        isPastTableSearch = false
-        
-//        vwAvailable.isHidden = true
         vwSchedule.isHidden = false
-//        vwPast.isHidden = true
         btnSchedule.setTitleColor(UIColor.themeColorSecondry, for: .normal)
         
     }
@@ -307,50 +294,8 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         self.textSearch.placeholder = "Filter Past Event"
         
     }
-    
-    // Bottom bar Action
-    
-    @IBAction func openLatestEventScreen(_ sender: Any) {
-        self.navigationController?.popViewController(animated: false)
-        self.callbackToController?("sjavms_youthcamp", self)
-    }
-    
-    @IBAction func openCheckInScreen(_ sender: Any) {
-        self.navigationController?.popViewController(animated: false)
-        self.callbackToController?("sjavms_checkin", self)
-    }
-    
-    @IBAction func openEventScreen(_ sender: Any) {
-        self.navigationController?.popViewController(animated: false)
-        self.callbackToController?("sjavms_events", self)
-        
-    }
-    
-    @IBAction func openHoursScreen(_ sender: Any) {
-        self.navigationController?.popViewController(animated: false)
-        self.callbackToController?("sjavms_hours", self)
-        
-    }
-    
-    @IBAction func openMessagesScreen(_ sender: Any) {
-        self.navigationController?.popViewController(animated: false)
-        self.callbackToController?("sjavms_messages", self)
-        
-    }
-    
-    @IBAction func openScheduleScreen(_ sender: Any) {
-        self.navigationController?.popViewController(animated: false)
-        self.callbackToController?("sjavms_myschedule", self)
-        
-    }
-    
-    @IBAction func openDashBoardScreen(_ sender: Any) {
-        self.navigationController?.popViewController(animated: false)
-        
-    }
-    
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        btnSearchClose.isHidden = false
+//        btnSearchClose.isHidden = false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -498,14 +443,14 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     
     
     fileprivate func getScheduleInfoTwoData(params : [String:Any]){
-        DispatchQueue.main.async {
-            LoadingView.show()
-        }
+//        DispatchQueue.main.async {
+//            LoadingView.show()
+//        }
         
         ENTALDLibraryAPI.shared.requestScheduleTwo(params: params){ result in
-            DispatchQueue.main.async {
-                LoadingView.hide()
-            }
+//            DispatchQueue.main.async {
+//                LoadingView.hide()
+//            }
             
             switch result{
             case .success(value: let response):
@@ -569,14 +514,14 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     }
     
     fileprivate func getScheduleInfoThreeData(params : [String:Any]){
-        DispatchQueue.main.async {
-            LoadingView.show()
-        }
+//        DispatchQueue.main.async {
+//            LoadingView.show()
+//        }
         
         ENTALDLibraryAPI.shared.requestScheduleThree(params: params){ result in
-            DispatchQueue.main.async {
-                LoadingView.hide()
-            }
+//            DispatchQueue.main.async {
+//                LoadingView.hide()
+//            }
             
             switch result{
             case .success(value: let response):

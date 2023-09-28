@@ -32,21 +32,19 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="38q-vT-Te3">
                                 <rect key="frame" x="311" y="0.0" width="40" height="35"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CtL-6H-w48">
-                                        <rect key="frame" x="0.0" y="0.0" width="40" height="35"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="xvu-5D-it3">
+                                        <rect key="frame" x="4" y="6.9999999999999982" width="32" height="21.333333333333329"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="arrow.right" catalog="system"/>
-                                    </button>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" name="secondryGreen"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="CtL-6H-w48" secondAttribute="bottom" id="41b-m9-8oq"/>
-                                    <constraint firstAttribute="trailing" secondItem="CtL-6H-w48" secondAttribute="trailing" id="F09-hj-zae"/>
-                                    <constraint firstItem="CtL-6H-w48" firstAttribute="leading" secondItem="38q-vT-Te3" secondAttribute="leading" id="OiI-sW-5AK"/>
+                                    <constraint firstItem="xvu-5D-it3" firstAttribute="top" secondItem="38q-vT-Te3" secondAttribute="top" constant="4" id="L3K-2c-TWF"/>
                                     <constraint firstAttribute="width" constant="40" id="Pi0-Dh-usO"/>
-                                    <constraint firstItem="CtL-6H-w48" firstAttribute="top" secondItem="38q-vT-Te3" secondAttribute="top" id="QMi-Jg-GxC"/>
+                                    <constraint firstItem="xvu-5D-it3" firstAttribute="leading" secondItem="38q-vT-Te3" secondAttribute="leading" constant="4" id="c7A-ov-rci"/>
                                     <constraint firstAttribute="height" constant="35" id="fC4-8a-U2A"/>
+                                    <constraint firstAttribute="trailing" secondItem="xvu-5D-it3" secondAttribute="trailing" constant="4" id="ihn-5h-q9r"/>
+                                    <constraint firstAttribute="bottom" secondItem="xvu-5D-it3" secondAttribute="bottom" constant="4" id="tw3-24-day"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tzb-9o-yDF">

@@ -18,6 +18,7 @@ class ScheduleCell: UITableViewCell {
     
     @IBOutlet weak var btnMainView: UIView!
     @IBOutlet weak var btnView: UIButton!
+    @IBOutlet weak var lblLocation: UILabel!
     
     
     override func awakeFromNib() {
@@ -45,14 +46,16 @@ class ScheduleCell: UITableViewCell {
         btnMainView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
         
         lblDate.textColor = UIColor.themeSecondryWhite
+        lblLocation.textColor = UIColor.themeSecondryWhite
         
         lblTitle.textColor = UIColor.themeSecondryWhite
         lblSubTitle.textColor = UIColor.themeSecondryWhite
         
         lblDate.font =  UIFont.MediumFont(11)
+        lblLocation.font =  UIFont.MediumFont(11)
         
         lblTitle.font =  UIFont.BoldFont(14)
-        lblSubTitle.font =  UIFont.RegularFont(13)
+        lblSubTitle.font =  UIFont.RegularFont(12)
         
         locationImg.image = locationImg.image?.withRenderingMode(.alwaysTemplate)
         
@@ -65,8 +68,10 @@ class ScheduleCell: UITableViewCell {
     
     func setContent(cellModel : ScheduleModelThree?){
     
-        lblTitle.text = "Title: \(cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "")"
-        lblSubTitle.text = "Location: \(cellModel?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found") "
+        lblTitle.text = "\(cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "")"
+        lblTitle.text = "..."
+//        ProcessUtils.shared.eventStatusArr[cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitystatus?.msnfp_engagementopportunitystatus ?? ""]
+        lblLocation.text = "\(cellModel?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found") "
         if (cellModel?.sjavms_start != "" && cellModel?.sjavms_start != nil ){
             
             let startTime = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d, hh:mm a")
