@@ -79,6 +79,14 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
     }
 
     func decorateUI(){
+        
+        if (ProcessUtils.shared.selectedUserGroup == nil){
+            if (ProcessUtils.shared.userGroupsList.count > 0 ){
+                ProcessUtils.shared.selectedUserGroup = ProcessUtils.shared.volunteerGroupsList[0]
+                btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
+            }
+        }
+        
         headerView.addBottomShadow()
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
         btnSelectGroup.backgroundColor = UIColor.themeSecondry
@@ -91,8 +99,11 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
         btnUnnpublishView.backgroundColor = UIColor.themePrimaryColor
         btnPastView.backgroundColor = UIColor.themePrimaryColor
         
-        
         resetButtonView()
+        isAvaiableEvent = true
+        btnAvailable.setTitleColor(UIColor.themePrimaryColor, for: .normal)
+        btnAvailableView.isHidden = false
+        availableView.isHidden = false
     }
     
     
@@ -113,6 +124,9 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
         btnAvailableView.isHidden = false
         availableView.isHidden = false
         
+        if ((filterCurrentEventData?.count ?? 0) == 0){
+            self.emptyView.isHidden = false
+        }
     }
     
     @IBAction func pendingApprovalTapped(_ sender: Any) {
@@ -121,6 +135,9 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
         btnPendingApproval.setTitleColor(UIColor.themePrimaryColor, for: .normal)
         btnPendingApprovalView.isHidden = false
         pendingApprovalView.isHidden = false
+        if ((filterPendingApprovalData?.count ?? 0) == 0){
+            self.emptyView.isHidden = false
+        }
     }
     
     @IBAction func unpublishTapped(_ sender: Any) {
@@ -129,7 +146,9 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
         btnUnnpublish.setTitleColor(UIColor.themePrimaryColor, for: .normal)
         btnUnnpublishView.isHidden = false
         unpublishView.isHidden = false
-        
+        if ((filterPendingPublishData?.count ?? 0) == 0){
+            self.emptyView.isHidden = false
+        }
     }
     
     @IBAction func pastTapped(_ sender: Any) {
@@ -138,6 +157,9 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
         btnPast.setTitleColor(UIColor.themePrimaryColor, for: .normal)
         btnPastView.isHidden = false
         pastView.isHidden = false
+        if ((filterPastEventData?.count ?? 0) == 0){
+            self.emptyView.isHidden = false
+        }
     }
     
     @IBAction func selectGroupTapped(_ sender: Any) {
@@ -157,6 +179,14 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
         pendingApprovalTableView.dataSource = self
         unpublishTableView.dataSource = self
         pastTableView.dataSource = self
+        
+        availableTableView.register(UINib(nibName: "ManagerEventPendingCell", bundle: nil), forCellReuseIdentifier: "ManagerEventPendingCell")
+        pendingApprovalTableView.register(UINib(nibName: "ManagerEventPendingCell", bundle: nil), forCellReuseIdentifier: "ManagerEventPendingCell")
+        unpublishTableView.register(UINib(nibName: "ManagerEventPendingCell", bundle: nil), forCellReuseIdentifier: "ManagerEventPendingCell")
+        pastTableView.register(UINib(nibName: "ManagerEventPendingCell", bundle: nil), forCellReuseIdentifier: "ManagerEventPendingCell")
+        
+        
+        
     }
     
     func resetButtonView(){
@@ -497,22 +527,20 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
 //            self.getUpcomingEvents()
             switch result{
             case .success(value: let response):
-                
+                DispatchQueue.main.async{
                 if let currentEvent = response.value {
                     self.currentEventData = currentEvent
                     self.filterCurrentEventData = currentEvent
                     if (self.currentEventData?.count == 0 || self.currentEventData?.count == nil){
-                        self.emptyView.isHidden = false
+                            self.emptyView.isHidden = false
                     }else{
-                        DispatchQueue.main.async {
                             self.emptyView.isHidden = true
-                        }
                     }
-                    DispatchQueue.main.async {
                         self.availableTableView.reloadData()
-                    }
+                    
                 }else{
                     self.emptyView.isHidden = false
+                }
                 }
                 
             case .error(let error, let errorResponse):
@@ -659,22 +687,12 @@ extension CSManageEventsVC : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return getNumberofRow()
+        return getNumberofRow(tableView : tableView)
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "ManagerEventPendingCell") as! ManagerEventPendingCell
-//        
-//        cell.
-//        
-//        
-//        
-//        return cell
-        
-        
-        
+
         if (tableView == self.availableTableView){
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "ManagerEventPendingCell", for: indexPath) as! ManagerEventPendingCell
@@ -686,27 +704,68 @@ extension CSManageEventsVC : UITableViewDelegate, UITableViewDataSource{
             cell.lblTitle.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
             cell.lblLocation.text = rowModel?.msnfp_location ?? ""
             cell.lblDateTime.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+            cell.lblProgram.text = rowModel?.sjavms_program_value ?? ""
             cell.lblparticipants.text = "\(rowModel?.msnfp_minimum ?? 0)"
+            
+            cell.btnDetail.addTarget(self, action:#selector(showManageDetail(_:)), for:.touchUpInside)
+            
             
             return cell
             
             
         }else if(tableView == self.pastTableView){
             
-            let  cell = tableView.dequeueReusableCell(withIdentifier: "PastEventTVC", for: indexPath) as! PastEventTVC
+            let  cell = tableView.dequeueReusableCell(withIdentifier: "ManagerEventPendingCell", for: indexPath) as! ManagerEventPendingCell
            
             
             let rowModel = self.filterPastEventData?[indexPath.row]
             
-            cell.lblEvent.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
+            cell.lblTitle.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
             cell.lblLocation.text = rowModel?.msnfp_location ?? ""
-            cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+            cell.lblDateTime.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+            cell.lblProgram.text = rowModel?.sjavms_program_value ?? ""
+            cell.lblparticipants.text = "\(rowModel?.msnfp_minimum ?? 0)"
             
+            cell.btnDetail.addTarget(self, action:#selector(showManageDetail(_:)), for:.touchUpInside)
+            return cell
+            
+        }else if (tableView == self.pendingApprovalTableView){
+            
+            let  cell = tableView.dequeueReusableCell(withIdentifier: "ManagerEventPendingCell", for: indexPath) as! ManagerEventPendingCell
+            let rowModel = self.filterPendingApprovalData?[indexPath.row]
+            
+            cell.lblTitle.text = rowModel?.sjavms_name ?? ""
+            cell.lblLocation.text = rowModel?.sjavms_address1name ?? ""
+//            cell.lblHour.text = "\(rowModel?.time_difference ?? 0 )"
+            cell.lblDateTime.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+            cell.lblparticipants.text = "\(rowModel?.sjavms_maxvolunteers ?? 0)"
+            cell.lblProgram.text = rowModel?.sjavms_program_value ?? ""
+            
+            cell.btnDetail.addTarget(self, action:#selector(showManageDetail(_:)), for:.touchUpInside)
+            return cell
+            
+        }else if (tableView == self.unpublishTableView){
+            
+            let  cell = tableView.dequeueReusableCell(withIdentifier: "ManagerEventPendingCell", for: indexPath) as! ManagerEventPendingCell
+            let rowModel = self.filterPendingPublishData?[indexPath.row]
+        
+            cell.lblTitle.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
+            cell.lblLocation.text = rowModel?.msnfp_location ?? ""
+//            cell.lblHour.text = "\(rowModel?.time_difference ?? 0 )"
+            cell.lblDateTime.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+            cell.lblparticipants.text = ((rowModel?.msnfp_maximum) != nil) ? "\(rowModel?.msnfp_maximum ?? 0)" : ""
+            cell.lblProgram.text = rowModel?.sjavms_program_value ?? ""
+            
+            cell.btnDetail.addTarget(self, action:#selector(showManageDetail(_:)), for:.touchUpInside)
             return cell
         }
-        let cells = tableView.dequeueReusableCell(withIdentifier: "PastEventTVC", for: indexPath) as! PastEventTVC
+        let cells = tableView.dequeueReusableCell(withIdentifier: "ManagerEventPendingCell", for: indexPath) as! ManagerEventPendingCell
         return cells
     }
+    
+    
+    
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
@@ -714,50 +773,121 @@ extension CSManageEventsVC : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        
+        
+        if (tableView == availableTableView){
+            
+            ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.filterCurrentEventData?[indexPath.row], eventName: "availableEvent", callBack: nil)
 
-        if (tableView == self.availableTableView){
+        }else if (tableView == pastTableView){
             
-            ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data:self.filterCurrentEventData?[indexPath.row], callBack: nil)
-        }else if(tableView == self.pastTableView){
+            ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.filterPastEventData?[indexPath.row], eventName: "pastEvent", callBack: nil)
             
-            ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data:self.filterPastEventData?[indexPath.row], callBack: nil)
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
+//        if (tableView == self.availableTableView){
+//            
+//            ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data:self.filterCurrentEventData?[indexPath.row], callBack: nil)
+//        }else if(tableView == self.pastTableView){
+//            
+//            ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data:self.filterPastEventData?[indexPath.row], callBack: nil)
+//        }else if (tableView == self.unpublishTableView){
+//            
+//            let eventdata = self.filterPendingPublishData?[indexPath.row]
+//            
+//            ENTALDControllers.shared.showEventSummaryScreen(type: .ENTALDPUSH, from: self , dataObj: eventdata) { params, controller in
+//                
+//            }
+//        }
+    }
+    
+    @objc func showManageDetail(_ sender:UIButton ){
+        
+        let index = sender.tag
+        
+        
+        if (isAvaiableEvent == true){
+            
+            ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data:self.filterCurrentEventData?[index], callBack: nil)
+            
+        }else if(isPastEvent == true){
+            
+            ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data:self.filterPastEventData?[index], callBack: nil)
+        }else if (isUnpublishEvent == true){
+            
+            let eventdata = self.filterPendingPublishData?[index]
+            
+            ENTALDControllers.shared.showEventSummaryScreen(type: .ENTALDPUSH, from: self , dataObj: eventdata) { params, controller in
+                
+            }
+        }else if (isPendingApprovalEvent == true){
+            
+            let eventdata = self.filterPendingApprovalData?[index]
+            
+            ENTALDControllers.shared.showEventSummaryScreen(type: .ENTALDPUSH, from: self , dataObj: eventdata) { params, controller in
+                
+            }
+        }
+        
+        
     }
 
-    func getNumberofRow() -> Int{
-        if (isAvaiableEvent == true){
+    func getNumberofRow(tableView : UITableView) -> Int{
+        if (tableView == availableTableView){
             
             if ((filterCurrentEventData?.count ?? 0) > 0){
                 return filterCurrentEventData?.count ?? 0
             }else{
-                self.emptyView.isHidden = true
+//                self.emptyView.isHidden = true
             }
             
-        }else if (isPendingApprovalEvent == true){
+        }else if (tableView == pendingApprovalTableView){
             
             if ((filterPendingApprovalData?.count ?? 0) > 0){
                 return filterPendingApprovalData?.count ?? 0
             }else{
-                self.emptyView.isHidden = true
+//                self.emptyView.isHidden = true
             }
             
-        }else if (isUnpublishEvent == true){
+        }else if (tableView == unpublishTableView){
             if ((filterPendingPublishData?.count ?? 0) > 0){
                 return filterPendingPublishData?.count ?? 0
             }else{
-                self.emptyView.isHidden = true
+//                self.emptyView.isHidden = true
             }
             
-        }else if (isPastEvent == true){
+        }else if (tableView == pastTableView){
             if ((filterPastEventData?.count ?? 0) > 0){
                 return filterPastEventData?.count ?? 0
             }else{
-                self.emptyView.isHidden = true
+//                self.emptyView.isHidden = true
             }
             
         }else {
-            self.emptyView.isHidden = true
+//            self.emptyView.isHidden = true
             return 0
         }
         return 0

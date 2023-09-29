@@ -23,6 +23,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
         var pendingShiftData : PendingShiftModelTwo?
         var pendingEventApprovalData : PendingApprovalEventsModel?
         var unpublishEventData : CurrentEventsModel?
+    var eventId : String = ""
         
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var mapContainerVu: UIView!
@@ -52,6 +53,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
 //        @IBOutlet weak var lblProgramType: UILabel!
         @IBOutlet weak var btnCancel: UIButton!
         @IBOutlet weak var btnContact: UIButton!
+        @IBOutlet weak var btnEditEvent: UIButton!
         
         @IBOutlet weak var searchView: UIView!
         @IBOutlet weak var txtSearch: UITextField!
@@ -62,6 +64,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
     
     @IBOutlet weak var contactBtnView: UIView!
     @IBOutlet weak var cancelBtnView: UIView!
+    @IBOutlet weak var editEventBtnView: UIView!
     
         
         override func viewDidLoad() {
@@ -84,7 +87,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
         func setupData(){
             
             if ((eventData) != nil){
-                
+                eventId = eventData?.msnfp_engagementopportunityid ?? ""
                 lblEventName.text =  ((eventData?.address1_line1) != nil) ? eventData?.address1_line1 : eventData?.msnfp_engagementopportunitytitle
                 if (eventData?.msnfp_startingdate != nil && eventData?.msnfp_startingdate != ""){
                     let date =  DateFormatManager.shared.formatDateStrToStr(date: eventData?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd hh:mm a")
@@ -124,6 +127,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
                 
             }else if ((pendingShiftData) != nil){
                 
+                eventId = pendingShiftData?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
                 lblEventName.text = pendingShiftData?.sjavms_VolunteerEvent?.msnfp_street1 ?? ""
                 if (pendingShiftData?.sjavms_start != nil && pendingShiftData?.sjavms_start != ""){
                     let date =  DateFormatManager.shared.formatDateStrToStr(date: pendingShiftData?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd hh:mm a")
@@ -147,6 +151,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
                 }
             }else if ((unpublishEventData) != nil){
                 
+                eventId = unpublishEventData?.msnfp_engagementopportunityid ?? ""
                 lblEventName.text = unpublishEventData?.address1_line1
                 if (unpublishEventData?.msnfp_startingdate != nil && unpublishEventData?.msnfp_startingdate != ""){
                     let date =  DateFormatManager.shared.formatDateStrToStr(date: unpublishEventData?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd hh:mm a")
@@ -179,6 +184,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
                 
             }else if ((pendingEventApprovalData) != nil){
                 
+                eventId = pendingEventApprovalData?.sjavms_eventrequestid ?? ""
                 lblEventName.text = ((pendingEventApprovalData?.sjavms_address1name) != nil) ? pendingEventApprovalData?.sjavms_address1name  : pendingEventApprovalData?.sjavms_name
                 
                 
@@ -211,7 +217,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
             
 //            btnBack.tintColor = .white
             
-            lblEventName.font = UIFont.BoldFont(22)
+            lblEventName.font = UIFont.BoldFont(18)
             lblEventDetail.font = UIFont.BoldFont(16)
             lblDate.font = UIFont.BoldFont(11)
             lblLocation.font = UIFont.BoldFont(11)
@@ -225,16 +231,20 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
             
             btnContact.titleLabel?.font = UIFont.BoldFont(13)
             btnCancel.titleLabel?.font = UIFont.BoldFont(12)
+            btnEditEvent.titleLabel?.font = UIFont.BoldFont(12)
             
             contactBtnView.layer.borderColor = UIColor.themeColorSecondry.cgColor
             cancelBtnView.layer.borderColor = UIColor.red.cgColor
+            editEventBtnView.layer.borderColor = UIColor.textBlackColor.cgColor
             contactBtnView.layer.borderWidth = 1
             cancelBtnView.layer.borderWidth = 1
+            editEventBtnView.layer.borderWidth = 1
             
 //            btnAddVolunteer.titleLabel?.font = UIFont.BoldFont(16)
             
             btnContact.setTitleColor(UIColor.themeColorSecondry, for: .normal)
             btnCancel.setTitleColor(UIColor.red, for: .normal)
+            btnEditEvent.setTitleColor(UIColor.textBlackColor, for: .normal)
 //            btnAddVolunteer.setTitleColor(UIColor.darkBlueColor, for: .normal)
             
             txtSearch.font = UIFont.RegularFont(14)
@@ -242,6 +252,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
             
             btnCancel.layer.cornerRadius = 8
             btnContact.layer.cornerRadius = 8
+            btnEditEvent.layer.cornerRadius = 8
 //            btnAddVolunteer.layer.cornerRadius = 2
             
             searchView.layer.cornerRadius = searchView.frame.size.height/2
@@ -254,6 +265,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
             btnCancel.setTitle("Close Event", for: .normal)
             btnCancel.backgroundColor = UIColor.clear
             btnContact.backgroundColor = UIColor.clear
+            btnEditEvent.backgroundColor = UIColor.clear
             
             self.viewSwitch.setOn(false, animated: true)
             
@@ -284,6 +296,12 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
             
 //            self.viewSwitch.setOn(true, animated: true)
         }
+    }
+    
+    
+    @IBAction func messageTapped(_ sender: Any) {
+        
+        ENTALDControllers.shared.showGroupMessageVC(type: .ENTALDPUSH, from: self, callBack: nil)
     }
     
     
@@ -420,7 +438,16 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
             })
 
         }
-        @IBAction func searchCloseTapped(_ sender: Any) {
+    
+    
+    @IBAction func editEventTapped(_ sender: Any) {
+        
+        ENTALDControllers.shared.showEventSummaryScreen(type: .ENTALDPUSH, from: self , dataObj: eventId) { params, controller in
+            
+        }
+        
+    }
+    @IBAction func searchCloseTapped(_ sender: Any) {
             txtSearch.text = ""
             txtSearch.endEditing(true)
             

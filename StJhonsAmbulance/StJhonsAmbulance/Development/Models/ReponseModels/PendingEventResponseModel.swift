@@ -35,9 +35,23 @@ struct PendingApprovalEventsModel: Codable {
     let sjavms_eventstartdate : String?
     let statecode : Int?
     let _sjavms_program_value : String?
+    let sjavms_program_value : String?
     let sjavms_eventrequestid : String?
     var time_difference : Int?
     let sjavms_msnfp_group_sjavms_eventrequest : [PendingApprovalGroupEventRequestModel]?
+    
+    enum CodingKeys: String , CodingKey {
+        case sjavms_name
+        case sjavms_address1name
+        case sjavms_maxvolunteers
+        case sjavms_eventstartdate
+        case statecode
+        case _sjavms_program_value
+        case sjavms_program_value = "_createdby_value@OData.Community.Display.V1.FormattedValue"
+        case sjavms_eventrequestid
+        case time_difference
+        case sjavms_msnfp_group_sjavms_eventrequest
+    }
    
     
 }

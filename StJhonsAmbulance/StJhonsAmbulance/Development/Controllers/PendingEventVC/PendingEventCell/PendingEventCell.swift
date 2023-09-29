@@ -17,12 +17,16 @@ class PendingEventCell: UITableViewCell {
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblLocation: UILabel!
-    @IBOutlet weak var lblMax: UILabel!
-    @IBOutlet weak var lblDate: UILabel!
-    @IBOutlet weak var statusView: UIView!
-    @IBOutlet weak var btnStatus: UIButton!
     
+    @IBOutlet weak var lblDate: UILabel!
+    @IBOutlet weak var lbltime: UILabel!
+    @IBOutlet weak var statusImg: UIImageView!
     @IBOutlet weak var lblStatus: UILabel!
+    @IBOutlet weak var lblHour: UILabel!
+    
+    @IBOutlet weak var imgView: UIImageView!
+    
+    @IBOutlet weak var btnSelect: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         deocrateUI()
@@ -38,27 +42,17 @@ class PendingEventCell: UITableViewCell {
         mainView.layer.shadowRadius = 6
         
         mainView.layer.cornerRadius = 16
-        statusView.layer.cornerRadius = 16
-        statusView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
-        btnStatus.setTitleColor(UIColor.textWhiteColor, for: .normal)
-       
-        btnStatus.titleLabel?.font = UIFont.BoldFont(13)
         
-     
-        
-        
-        
-        lblName.font = UIFont.BoldFont(14)
+        lblName.font = UIFont.BoldFont(16)
+        lblHour.font = UIFont.BoldFont(16)
         lblLocation.font = UIFont.RegularFont(13)
-        lblMax.font = UIFont.RegularFont(13)
-        lblStatus.font = UIFont.RegularFont(13)
-        lblDate.font = UIFont.RegularFont(11)
+        lblStatus.font = UIFont.RegularFont(11)
+        lblDate.font = UIFont.RegularFont(13)
         
         
-        lblName.textColor = UIColor.themePrimaryWhite
+        lblName.textColor = UIColor.themeSecondryWhite
         lblLocation.textColor = UIColor.themePrimaryWhite
-        lblMax.textColor = UIColor.themePrimaryWhite
-        lblStatus.textColor = UIColor.themePrimaryWhite
+        lblStatus.textColor = UIColor.textLightGrayColor
         lblDate.textColor = UIColor.themePrimaryWhite
       
         
@@ -80,6 +74,73 @@ class PendingEventCell: UITableViewCell {
         if eventId != nil && eventId != ""{
             delegate?.updateSiglePendingEventStatus(eventId: self.eventId ?? "")
         }
+        
+    }
+    
+    
+    func setCellData(rowModel : PendingShiftModelTwo?){
+//        if (rowModel?.event_selected ?? false){
+//            
+//            imgView.image = UIImage(systemName: "checkmark.square.fill")
+//        }else{
+//            imgView.image = UIImage(systemName: "square")
+//        }
+        
+        lblName.text = rowModel?.event_name ?? ""
+        lblLocation.text = rowModel?.sjavms_VolunteerEvent?.msnfp_location ?? ""
+
+        lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+//        lblShift.text = "\(startTime) - \(endTime)"
+//            cell.btnStatus.setTitle(rowModel?.sjavms_msnfp_group_sjavms_eventrequest?[0].getStatus(), for: .normal)
+        
+//            cell.btn.setTitle("Approve Event", for: .normal)
+        if (rowModel?.msnfp_schedulestatus != nil){
+            lblStatus.text = ProcessUtils.shared.getStatus(code: rowModel?.msnfp_schedulestatus ?? 00000)
+           
+        }
+    
+        
+        
+        
+        
+        
+        let hours = rowModel?.sjavms_hours
+        let hoursStr = NSString(format: "%.2f", hours ?? Float())
+        let startTime = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.event_starttime ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+        
+        let endTime = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.event_endtime ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+        
+        lblHour.text = "\(hoursStr) Hours"
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        if (rowModel?.event_selected ?? false){
+//            self.mainView.backgroundColor = UIColor.themeLight
+            imgView.image = UIImage(systemName: "checkmark.square.fill")
+        }else{
+            imgView.image = UIImage(systemName: "square")
+//            self.mainView.backgroundColor = UIColor.clear
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
     }
     

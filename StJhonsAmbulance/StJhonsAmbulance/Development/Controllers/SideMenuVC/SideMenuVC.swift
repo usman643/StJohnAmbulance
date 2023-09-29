@@ -36,7 +36,7 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var arrMenuIconList = ["ic_profile","ic_availability","ic_skill","ic_Qualification","ic_document","ic_language","ic_passKey","ic_setting","ic_logout"]
     
     var leadMenuList = ["Qualifications","Documents","Awards","Shifts","Event","Volenteers","Settings","Logout"]
-    var leadMenuIconList = ["ic_Qualification","ic_document","ic_skill","time-clock-nine-to-twelve","","", "ic_setting","ic_logout"]
+    var leadMenuIconList = ["ic_Qualification","ic_document","ic_skill","time-clock-nine-to-twelve","manageEvent","presentation-audience", "ic_setting","ic_logout"]
     
     
     

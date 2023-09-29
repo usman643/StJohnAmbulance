@@ -55,7 +55,7 @@ class ENTALDBaseViewController: UIViewController, MenuControllerDelegate {
             
             ENTALDControllers.shared.showSideMenuSkillsScreen(type: .ENTALDPUSH, from: self,  callBack: nil)
                         
-        }else if(named == "Honours & Awards"){
+        }else if(named == "Awards"){
             
             ENTALDControllers.shared.showAwardScreen(type: .ENTALDPUSH, from: self, dataObj: nil, callBack: nil)
                         
@@ -75,10 +75,10 @@ class ENTALDBaseViewController: UIViewController, MenuControllerDelegate {
 //            ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: { status in })
         }else if(named == "Shifts"){
             
-            ENTALDControllers.shared.showContactDocumentScreen(type: .ENTALDPUSH, from: self, callBack: nil)
-        }else if(named == "Events"){
+            ENTALDControllers.shared.showPendingShiftScreen(type: .ENTALDPUSH, from: self, callBack: nil)
+        }else if(named == "Event"){
             
-            ENTALDControllers.shared.showEventScreen(type: .ENTALDPUSH, from: self, callBack: nil)
+            ENTALDControllers.shared.showCSLeadEventVC(type: .ENTALDPUSH, from: self, callBack: nil)
         }else if(named == "Volenteers"){
             
             ENTALDControllers.shared.showVolunteersScreen(type: .ENTALDPUSH, from: self, callBack: nil)

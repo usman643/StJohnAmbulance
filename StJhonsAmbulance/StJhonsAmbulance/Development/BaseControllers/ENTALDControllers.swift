@@ -486,6 +486,16 @@ class ENTALDControllers {
     }
     
     
+      
+    func showCSLeadEventVC(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = CSManageEventsVC.loadFromNib()
+        vc.dataModel = dataObj
+        vc.callbackToController = callBack
+        
+        self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
+    }
+    
+    
     
     
     

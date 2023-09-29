@@ -42,6 +42,7 @@ struct CurrentEventsModel: Codable {
     let _sjavms_contact_value : String?
     let sjavms_maxparticipants : Int?
     let sjavms_checkedin : Bool?
+    let sjavms_program_value : String?
     var time_difference : Int?
     let sjavms_msnfp_engagementopportunity_msnfp_group : CurrentEventGroupModel?
     func getStatus()->String?{
@@ -64,6 +65,25 @@ struct CurrentEventsModel: Codable {
         default:
             return nil
         }
+    }
+    
+    enum CodingKeys: String , CodingKey {
+        case msnfp_engagementopportunitytitle
+        case msnfp_startingdate
+        case address1_line1
+        case msnfp_location
+        case msnfp_engagementopportunitystatus
+        case _sjavms_program_value
+        case msnfp_engagementopportunityid
+        case msnfp_endingdate
+        case msnfp_maximum
+        case msnfp_minimum
+        case _sjavms_contact_value
+        case sjavms_maxparticipants
+        case sjavms_checkedin
+        case sjavms_program_value = "_sjavms_program_value@OData.Community.Display.V1.FormattedValue"
+        case time_difference
+        case sjavms_msnfp_engagementopportunity_msnfp_group
     }
 }
 

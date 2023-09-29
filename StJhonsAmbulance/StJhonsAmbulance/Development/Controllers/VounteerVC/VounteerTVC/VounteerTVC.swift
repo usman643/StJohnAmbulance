@@ -37,6 +37,8 @@ class VounteerTVC: UITableViewCell {
         lblName.textColor = UIColor.themePrimaryWhite
         lblRole.textColor = UIColor.textBlackColor
         lblAddress.textColor = UIColor.textBlackColor
+        roleImge.image = roleImge.image?.withRenderingMode(.alwaysTemplate)
+        roleImge.tintColor = UIColor.themePrimaryColor
         
     }
 

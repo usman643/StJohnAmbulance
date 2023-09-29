@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,7 +14,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="KGk-i7-Jjw" customClass="SideMenuTVC" customModule="StJhonsAmbulance" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -42,12 +42,11 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="Tfk-0F-cCc" secondAttribute="trailing" constant="60" id="5Ga-3p-Vo4"/>
-                    <constraint firstAttribute="bottom" secondItem="Tfk-0F-cCc" secondAttribute="bottom" id="9tD-nl-m35"/>
                     <constraint firstAttribute="trailing" secondItem="nut-7n-LUl" secondAttribute="trailing" constant="5" id="AFa-ws-Vej"/>
                     <constraint firstItem="Tfk-0F-cCc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="DzH-X1-AZD"/>
                     <constraint firstItem="Tfk-0F-cCc" firstAttribute="top" secondItem="yIm-Ik-8Vn" secondAttribute="bottom" constant="6" id="PXh-GO-R4V"/>
                     <constraint firstItem="nut-7n-LUl" firstAttribute="top" secondItem="yIm-Ik-8Vn" secondAttribute="top" id="UvW-Ae-sL9"/>
-                    <constraint firstAttribute="bottom" secondItem="Tfk-0F-cCc" secondAttribute="bottom" constant="6" id="XWZ-3P-IFl"/>
+                    <constraint firstAttribute="bottom" secondItem="Tfk-0F-cCc" secondAttribute="bottom" constant="4" id="XWZ-3P-IFl"/>
                     <constraint firstItem="yIm-Ik-8Vn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="cuP-4n-en7"/>
                     <constraint firstItem="yIm-Ik-8Vn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="flJ-RS-YtT"/>
                     <constraint firstItem="yIm-Ik-8Vn" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="hg3-aZ-R61"/>

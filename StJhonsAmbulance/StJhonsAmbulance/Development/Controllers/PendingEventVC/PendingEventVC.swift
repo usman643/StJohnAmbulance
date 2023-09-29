@@ -768,37 +768,45 @@ extension PendingEventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
             
             cell.lblName.text = rowModel?.sjavms_name ?? ""
             cell.lblLocation.text = rowModel?.sjavms_address1name ?? ""
-            cell.lblMax.text = "\(rowModel?.sjavms_maxvolunteers ?? 0)"
+            cell.lblHour.text = "\(rowModel?.time_difference ?? 0 )"
             cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
 //            cell.btnStatus.setTitle(rowModel?.sjavms_msnfp_group_sjavms_eventrequest?[0].getStatus(), for: .normal)
             
-            cell.btnStatus.setTitle("Approve Event", for: .normal)
+//            cell.btn.setTitle("Approve Event", for: .normal)
             
             cell.lblStatus.text = rowModel?.sjavms_msnfp_group_sjavms_eventrequest?[0].getStatus()
             
             
-            cell.btnStatus.tag = indexPath.row
+            cell.btnSelect.tag = indexPath.row
             
-            cell.btnStatus.addTarget(self, action: #selector(updateEvent(_ :)), for: .touchUpInside)
+            cell.btnSelect.addTarget(self, action: #selector(updateEvent(_ :)), for: .touchUpInside)
+
  
         }else if (tableView == self.pendingPublishTableView){ // pending Publish
             
             let rowModel = self.filterPendingPublishData?[indexPath.row]
             cell.lblName.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
             cell.lblLocation.text = rowModel?.msnfp_location ?? ""
-            cell.lblMax.text = "\(rowModel?.msnfp_maximum  ?? 0)"
             cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
             
 //            cell.lblStatus.text = rowModel?.getStatus()
             
-            cell.btnStatus.setTitle(rowModel?.getStatus(), for: .normal)
+            cell.btnSelect.setTitle(rowModel?.getStatus(), for: .normal)
             cell.delegate = self
             cell.eventId = rowModel?.msnfp_engagementopportunityid
             cell.delegate = self
             cell.isFromUnpublish = true
             cell.eventData = rowModel
-            cell.btnStatus.tag = indexPath.row
+            cell.btnSelect.tag = indexPath.row
             cell.lblStatus.isHidden = true
+            
+//            if (rowModel?.event_selected ?? false){
+//    
+//                cell.imgView.image = UIImage(systemName: "checkmark.square.fill")
+//            }else{
+//                cell.imgView.image = UIImage(systemName: "square")
+//            }
+            
 //            cell.btnStatus.addTarget(self, action: #selector(updateEvent(_ :)), for: .touchUpInside)
         }
         

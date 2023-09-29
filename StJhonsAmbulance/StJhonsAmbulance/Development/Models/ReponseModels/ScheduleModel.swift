@@ -91,6 +91,7 @@ struct ScheduleResponseModelThree: Codable {
 struct ScheduleModelThree : Codable {
     
     let _sjavms_volunteerevent_value : String?
+    let sjavms_volunteerevent_value : String?
     let msnfp_schedulestatus : Int?
     let sjavms_start : String?
     let msnfp_participationscheduleid : String?
@@ -100,6 +101,19 @@ struct ScheduleModelThree : Codable {
     let sjavms_VolunteerEvent : ScheduleDataModel?
     let sjavms_msnfp_engagementopportunity_msnfp_group : [SjavmsMsnfpEngagementopportunity]?
     
+    
+    enum CodingKeys: String, CodingKey {
+        case _sjavms_volunteerevent_value
+        case sjavms_volunteerevent_value = "_createdby_value@OData.Community.Display.V1.FormattedValue"
+        case msnfp_schedulestatus
+        case sjavms_start
+        case msnfp_participationscheduleid
+        case sjavms_end
+        case sjavms_checkedin
+        case time_difference
+        case sjavms_VolunteerEvent
+        case sjavms_msnfp_engagementopportunity_msnfp_group
+    }
 }
 
 
@@ -147,12 +161,29 @@ struct AvailableEventModel : Codable {
     let msnfp_location : String?
     let msnfp_engagementopportunityid : String?
     let _sjavms_program_value : String?
+    let sjavms_program_value : String?
     let msnfp_maximum : Int?
     let msnfp_minimum : Int?
     let sjavms_checkin : Bool?
     let sjavms_checkedin : Bool?
     let sjavms_msnfp_engagementopportunity_msnfp_group : [SjavmsMsnfpEngagementopportunity]?
 //    let sjavms_msnfp_engagementopportunity_msnfp_group :  [EngagementopportunityGroupModel]?
+    
+    enum CodingKeys: String, CodingKey {
+        case msnfp_engagementopportunitytitle
+        case msnfp_engagementopportunitystatus
+        case msnfp_startingdate
+        case msnfp_endingdate
+        case msnfp_location
+        case msnfp_engagementopportunityid
+        case _sjavms_program_value
+        case sjavms_program_value = "_sjavms_program_value@OData.Community.Display.V1.FormattedValue"
+        case msnfp_maximum
+        case msnfp_minimum
+        case sjavms_checkin
+        case sjavms_checkedin
+        case sjavms_msnfp_engagementopportunity_msnfp_group
+    }
 }
 
 

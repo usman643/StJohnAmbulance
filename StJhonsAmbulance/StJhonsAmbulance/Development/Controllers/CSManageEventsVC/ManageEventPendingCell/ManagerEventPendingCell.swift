@@ -16,15 +16,16 @@ class ManagerEventPendingCell: UITableViewCell {
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var statusView: UIView!
     @IBOutlet weak var lblDateTime: UILabel!
-    @IBOutlet weak var btnView: UIButton!
     @IBOutlet weak var lblTitle: UILabel!
     
     @IBOutlet weak var lblProgram: UILabel!
     @IBOutlet weak var lblLocation: UILabel!
-    @IBOutlet weak var seperatorView: UIView!
     @IBOutlet weak var btnDetail: UIButton!
     
     @IBOutlet weak var userImg: UIImageView!
+    
+    @IBOutlet weak var dateImg: UIImageView!
+    
     @IBOutlet weak var lblparticipants: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,8 +34,6 @@ class ManagerEventPendingCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
     
     func decorateUI(){
@@ -51,8 +50,7 @@ class ManagerEventPendingCell: UITableViewCell {
         statusView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
         
         lblDateTime.textColor = UIColor.themeSecondryWhite
-        
-        btnView.setTitleColor(UIColor.textWhiteColor, for: .normal)
+
         lblTitle.textColor = UIColor.themeSecondryWhite
         lblProgram.textColor = UIColor.themeSecondryWhite
         
@@ -60,12 +58,15 @@ class ManagerEventPendingCell: UITableViewCell {
         
         lblDateTime.font =  UIFont.MediumFont(11)
         lblparticipants.font =  UIFont.MediumFont(11)
-        btnView.titleLabel?.font = UIFont.BoldFont(13)
         lblTitle.font =  UIFont.BoldFont(14)
         lblProgram.font =  UIFont.BoldFont(13)
         
         lblLocation.font =  UIFont.RegularFont(11)
         
+        userImg.image = userImg.image?.withRenderingMode(.alwaysTemplate)
+        userImg.tintColor = UIColor.themePrimaryColor
+        dateImg.image = dateImg.image?.withRenderingMode(.alwaysTemplate)
+        dateImg.tintColor = UIColor.themePrimaryColor
     }
     
 }

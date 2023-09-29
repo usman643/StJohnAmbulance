@@ -30,22 +30,24 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     let groupId : String = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupId() ?? ""
     
     
-    @IBOutlet weak var btnBack: UIButton!
-    @IBOutlet weak var btnHome: UIButton!
+  
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var btnSelectGroup: UIButton!
     @IBOutlet weak var btnGroupView: UIView!
-    @IBOutlet weak var lblTitle: UILabel!
-    @IBOutlet weak var lblSubTitle: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     
-    @IBOutlet weak var btnSeclectAction: UIButton!
-    @IBOutlet weak var btnFilter: UIButton!
+    @IBOutlet weak var btnApprove: UIButton!
+    @IBOutlet weak var btnPending: UIButton!
+    @IBOutlet weak var btnCancel: UIButton!
     
-    @IBOutlet weak var searchView: UIView!
-    @IBOutlet weak var searchImg: UIImageView!
-    @IBOutlet weak var textSearch: UITextField!
-    @IBOutlet weak var btnSearchClose: UIButton!
+//    @IBOutlet weak var btnSeclectAction: UIButton!
+//    @IBOutlet weak var btnFilter: UIButton!
+//    
+//    @IBOutlet weak var searchView: UIView!
+//    @IBOutlet weak var searchImg: UIImageView!
+//    @IBOutlet weak var textSearch: UITextField!
+//    @IBOutlet weak var btnSearchClose: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +55,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "PendingShiftCell", bundle: nil), forCellReuseIdentifier: "PendingShiftCell")
+        tableView.register(UINib(nibName: "PendingShiftCell", bundle: nil), forCellReuseIdentifier: "PendingEventCell")
         tableView.register(UINib(nibName: "EmptyEventTableCell", bundle: nil), forCellReuseIdentifier: "EmptyEventTableCell")
     
         decorateUI()
@@ -63,49 +66,46 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
         self.btnSelectGroup.setTitle("\(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "")", for: .normal)
     }
     
     /// <#Description#>
     func decorateUI(){
         
-        lblTitle.font = UIFont.BoldFont(20)
-        lblSubTitle.font = UIFont.BoldFont(16)
+        if (ProcessUtils.shared.selectedUserGroup == nil){
+            if (ProcessUtils.shared.userGroupsList.count > 0 ){
+                ProcessUtils.shared.selectedUserGroup = ProcessUtils.shared.volunteerGroupsList[0]
+                btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
+            }
+        }
+        headerView.addBottomShadow()
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
         btnSelectGroup.backgroundColor = UIColor.themePrimary
         btnSelectGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        
-        btnSeclectAction.titleLabel?.font = UIFont.BoldFont(14)
-        btnSeclectAction.backgroundColor = UIColor.themePrimary
-        btnSeclectAction.setTitleColor(UIColor.textWhiteColor, for: .normal)
- 
-        lblTitle.textColor = UIColor.themePrimaryWhite
-        lblSubTitle.textColor = UIColor.themePrimaryWhite
-        
-        
-//        tableHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-//        tableHeaderView.layer.borderWidth = 1.5
-        
         btnGroupView.layer.cornerRadius = 3
         
-//        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
-//        selectedTabImg.tintColor = UIColor.themePrimaryColor
+        btnApprove.setTitleColor(UIColor.themePrimaryColor, for: .normal)
+        btnApprove.titleLabel?.font = UIFont.BoldFont(14)
+        btnApprove.layer.cornerRadius = 6
+        btnApprove.layer.borderWidth = 1
+        btnApprove.layer.borderColor = UIColor.themePrimaryColor.cgColor
         
-        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        searchView.layer.borderWidth = 1.5
-        searchView.isHidden = true
-        searchView.layer.cornerRadius = 8
-        textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        btnPending.setTitleColor(UIColor.systemYellow, for: .normal)
+        btnPending.titleLabel?.font = UIFont.BoldFont(14)
+        btnPending.layer.cornerRadius = 6
+        btnPending.layer.borderWidth = 1
+        btnPending.layer.borderColor = UIColor.systemYellow.cgColor
         
+        btnCancel.setTitleColor(UIColor.red, for: .normal)
+        btnCancel.titleLabel?.font = UIFont.BoldFont(14)
+        btnCancel.layer.cornerRadius = 6
+        btnCancel.layer.borderWidth = 1
+        btnCancel.layer.borderColor = UIColor.red.cgColor
     }
  
     @IBAction func closeSearch(_ sender: Any) {
-        self.searchView.isHidden = true
-        textSearch.endEditing(true)
-        textSearch.text = ""
-        filterPendingShiftData = pendingShiftData
-
-        tableView.reloadData()
+   
         
     }
     
@@ -117,52 +117,16 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         showGroupsPicker()
     }
     
-    @IBAction func homeTapped(_ sender: Any) {
+    @IBAction func messageTapped(_ sender: Any) {
         
-        self.navigationController?.popViewController(animated: true)
-        
-    }
-    
-    @IBAction func sideMenuTapped(_ sender: Any) {
-        
-        present(menu!, animated: true)
-    }
-    // Bottom bar action
-    
- 
-    
-    @IBAction func openMessagesScreen(_ sender: Any) {
-        self.navigationController?.popViewController(animated: false)
-        self.callbackToController?("sjavms_messages", self)
-    }
-    @IBAction func openVolunteerScreen(_ sender: Any) {
-        self.navigationController?.popViewController(animated: false)
-        self.callbackToController?("sjavms_volunteers", self)
-    }
-    @IBAction func openEventScreen(_ sender: Any) {
-        self.navigationController?.popViewController(animated: false)
-        self.callbackToController?("sjavms_events", self)
-    }
-    @IBAction func openPendingEventScreen(_ sender: Any) {
-        self.navigationController?.popViewController(animated: false)
-        self.callbackToController?("sjavms_pendingevents", self)
-    }
-    @IBAction func openPendingShiftsScreen(_ sender: Any) {
-        self.navigationController?.popViewController(animated: false)
-        self.callbackToController?("sjavms_pendingshifts", self)
-    }
-    
-    @IBAction func openDashBoardScreen(_ sender: Any) {
-        self.navigationController?.popViewController(animated: false)
+        ENTALDControllers.shared.showGroupMessageVC(type: .ENTALDPUSH, from: self) { params, controller in
+            
+        }
         
     }
     
+   
     @IBAction func filterTapped(_ sender: Any) {
-       
-      
-        self.searchView.isHidden = false
-        self.textSearch.placeholder = "Search Pending Shift"
-        
         
     }
     
@@ -187,6 +151,57 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         }
         
     }
+    
+    @IBAction func approveShiftTapped(_ sender: Any) {
+        
+        let selectedEvents = self.pendingShiftData?.filter( {$0.event_selected == true})
+        
+        for i in (0..<(selectedEvents?.count ?? 0 )){
+                let apiParams = [
+                    "msnfp_schedulestatus": 335940001
+                ]
+                
+                self.updateStatusData(eventId: selectedEvents?[i].msnfp_participationscheduleid ?? "", params: apiParams as [String : Any])
+            
+        }
+        self.getPendingShift()
+        
+    }
+    
+    @IBAction func pendingShiftTapped(_ sender: Any) {
+        let selectedEvents = self.pendingShiftData?.filter( {$0.event_selected == true})
+        
+        for i in (0..<(selectedEvents?.count ?? 0 )){
+            
+            
+                let apiParams = [
+                    "msnfp_schedulestatus": 335940000
+                ]
+                
+                self.updateStatusData(eventId: selectedEvents?[i].msnfp_participationscheduleid ?? "", params: apiParams as [String : Any])
+            
+        }
+        self.getPendingShift()
+    }
+    
+    @IBAction func cancelShiftTapped(_ sender: Any) {
+        let selectedEvents = self.pendingShiftData?.filter( {$0.event_selected == true})
+        
+        for i in (0..<(selectedEvents?.count ?? 0 )){
+            
+            
+                let apiParams = [
+                    "msnfp_schedulestatus": 335940003
+                ]
+                
+                self.updateStatusData(eventId: selectedEvents?[i].msnfp_participationscheduleid ?? "", params: apiParams as [String : Any])
+            
+        }
+        self.getPendingShift()
+        
+    }
+    
+    
     func filterByName(){
         if !isNamefilterApplied{
             self.filterPendingShiftData = self.filterPendingShiftData?.sorted {
@@ -206,14 +221,6 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
-    }
-    
-    
-    @IBAction func nameFilterTapped(_ sender: Any) {
-        
-        self.searchView.isHidden = false
-        self.textSearch.placeholder = "Search Pending Shifts"
-
     }
     
     
@@ -303,7 +310,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        btnSearchClose.isHidden = false
+        
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -587,10 +594,9 @@ extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PendingShiftCell", for: indexPath) as! PendingShiftCell
         
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PendingEventCell", for: indexPath) as! PendingEventCell
         
-        cell.delegate = self
         let rowModel = filterPendingShiftData?[indexPath.row]
         let eventId = self.filterPendingShiftData?[indexPath.row].msnfp_participationscheduleid
 //        let eventId = self.getPendingShiftThreeModelBy(rowModel?._sjavms_volunteerevent_value ?? "")
@@ -598,7 +604,63 @@ extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
         
         cell.setCellData(rowModel : rowModel)
         
+        
+        
+        
+        
+        
+        
+        
+            
+//            cell.lblName.text = rowModel?.sjavms_name ?? ""
+//            cell.lblLocation.text = rowModel?.sjavms_address1name ?? ""
+//            cell.lblHour.text = "\(rowModel?.time_difference ?? 0 )"
+//            cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+////            cell.btnStatus.setTitle(rowModel?.sjavms_msnfp_group_sjavms_eventrequest?[0].getStatus(), for: .normal)
+//            
+////            cell.btn.setTitle("Approve Event", for: .normal)
+//            
+//            cell.lblStatus.text = rowModel?.sjavms_msnfp_group_sjavms_eventrequest?[0].getStatus()
+//            
+//            
+            cell.btnSelect.tag = indexPath.row
+            
+            cell.btnSelect.addTarget(self, action: #selector(updateEvent(_ :)), for: .touchUpInside)
+
+        
+        
+        
         return cell
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//        
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "PendingShiftCell", for: indexPath) as! PendingShiftCell
+//        
+//        
+//        cell.delegate = self
+//        let rowModel = filterPendingShiftData?[indexPath.row]
+//        let eventId = self.filterPendingShiftData?[indexPath.row].msnfp_participationscheduleid
+////        let eventId = self.getPendingShiftThreeModelBy(rowModel?._sjavms_volunteerevent_value ?? "")
+//        cell.eventId = eventId ?? ""
+//        
+//        cell.setCellData(rowModel : rowModel)
+//        
+//        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -620,5 +682,14 @@ extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
         
         
         //        ENTALDControllers.shared.showEventManageScreen(type: .ENTALDPUSH, from: self, data:self.pendingShiftData?[indexPath.row], callBack: nil)
+    }
+    
+    @objc func updateEvent(_ sender:UIButton){
+        
+        let indexPath = IndexPath(item: sender.tag, section: 0)
+        tableView.reloadRows(at: [indexPath], with: .none)
+        
+        
+        
     }
 }

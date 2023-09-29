@@ -45,10 +45,15 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
     }
     
     func decorateUI(){
-        
+        if (ProcessUtils.shared.selectedUserGroup == nil){
+            if (ProcessUtils.shared.userGroupsList.count > 0 ){
+                ProcessUtils.shared.selectedUserGroup = ProcessUtils.shared.volunteerGroupsList[0]
+                btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
+            }
+        }
         lblTitle.font = UIFont.HeaderBoldFont(20)
         lblTitle.textColor = UIColor.themePrimaryWhite
-        searchView.layer.borderWidth = 1.5
+//        searchView.layer.borderWidth = 1.5
         btnSelectGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnSelectGroup.titleLabel?.font = UIFont.HeaderBoldFont(14)
         btnSelectGroup.backgroundColor = UIColor.themePrimary
