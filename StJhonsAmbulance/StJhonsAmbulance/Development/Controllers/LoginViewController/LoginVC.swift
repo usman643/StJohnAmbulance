@@ -43,12 +43,12 @@ class LoginVC: ENTALDBaseViewController {
 
 //        self.txtUserName.text = "fostertorihayes@gmail.com"
 //        self.txtPassword.text = "Cleo789$$"
+//        
+        self.txtUserName.text = "tfoster@missioncrm.ca"
+        self.txtPassword.text = "Samson987$"
         
-//        self.txtUserName.text = "tfoster@missioncrm.ca"
-//        self.txtPassword.text = "Samson987$"
-        
-        self.txtUserName.text = "dougsalomon@outlook.com"
-        self.txtPassword.text = "qAz!2#sss"
+//        self.txtUserName.text = "dougsalomon@outlook.com"
+//        self.txtPassword.text = "qAz!2#sss"
         
         UserDefaults.standard.authToken = nil
         isRememberPassword = false
@@ -79,7 +79,7 @@ class LoginVC: ENTALDBaseViewController {
         gmailView.backgroundColor = UIColor.textWhiteColor
         
         btnStaySignIn.layer.cornerRadius = 2
-        lblTitle.font = UIFont.BoldFont(42)
+        lblTitle.font = UIFont.HeaderBoldFont(42)
         lblEmail.font = UIFont.BoldFont(20)
         lblPassword.font = UIFont.BoldFont(20)
         txtUserName.font = UIFont.RegularFont(16)

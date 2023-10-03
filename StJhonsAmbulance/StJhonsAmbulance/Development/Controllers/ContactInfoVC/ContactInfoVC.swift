@@ -95,8 +95,8 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
 
     func deocorateUI(){
         
-        lblTitle.textColor = UIColor.themePrimaryWhite
-        lblTitle.font = UIFont.BoldFont(16)
+        lblTitle.textColor = UIColor.headerGreen
+        lblTitle.font = UIFont.HeaderBoldFont(18)
         lblFirstName.textColor = UIColor.textGrayColor
         lblFirstName.font = UIFont.BoldFont(12)
         lblLastName.textColor = UIColor.textGrayColor

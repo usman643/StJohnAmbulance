@@ -62,7 +62,8 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     
     @IBOutlet weak var headerView: UIView!
     
-//    @IBOutlet weak var segment: UISegmentedControl!
+    @IBOutlet weak var lblTitle: UILabel!
+    //    @IBOutlet weak var segment: UISegmentedControl!
     
     @IBOutlet weak var availableTable: UITableView!
     @IBOutlet weak var scheduleTable: UITableView!
@@ -97,20 +98,13 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     }
 
     func decorateUI(){
-        
+        lblTitle.font = UIFont.HeaderBoldFont(18)
+        lblTitle.textColor = UIColor.headerGreen
         searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         searchView.layer.borderWidth = 1.5
         searchView.isHidden = false
         
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
-        
-//        self.availableView.isHidden = false
-//        self.scheduleView.isHidden = true
-//        self.pastView.isHidden = true
-//        isAvailabilityTableSearch = true
-//        isScheduleTableSearch = false
-//        isPastTableSearch = false
-        
         resetButtonView()
         self.availableView.isHidden = false
         isAvailabilityTableSearch = true
@@ -134,45 +128,6 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         pastTable.register(UINib(nibName: "VolunteersEventsTVC", bundle: nil), forCellReuseIdentifier: "VolunteersEventsTVC")
 
     }
-    
-//    @IBAction func segmenTapped(_ sender: Any) {
-//        if self.segment.selectedSegmentIndex == 0 {
-//            self.availableView.isHidden = false
-//            self.scheduleView.isHidden = true
-//            self.pastView.isHidden = true
-//            isAvailabilityTableSearch = true
-//            isScheduleTableSearch = false
-//            isPastTableSearch = false
-//
-//        }else if (self.segment.selectedSegmentIndex == 1 ){
-//            self.availableView.isHidden = true
-//            self.scheduleView.isHidden = false
-//            self.pastView.isHidden = true
-//            isAvailabilityTableSearch = false
-//            isScheduleTableSearch = true
-//            isPastTableSearch = false
-//
-//
-//
-//        }else if (self.segment.selectedSegmentIndex == 2 ){
-//            self.availableView.isHidden = true
-//            self.scheduleView.isHidden = true
-//            self.pastView.isHidden = false
-//            isAvailabilityTableSearch = false
-//            isScheduleTableSearch = false
-//            isPastTableSearch = true
-//        }
-//        self.textSearch.text = ""
-//
-//
-//    }
-    
-    
-//    func openEventDetailScreen(eventId:String){
-//
-//        ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: eventId, callBack: nil)
-//
-//    }
     
     func openScheduleEventDetailScreen(rowModel: ScheduleModelThree?) {
         ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: rowModel, eventType : "schedule" )  { params, controller in
@@ -216,7 +171,10 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         isAvailabilityTableSearch = true
         vwAvailable.isHidden = false
         btnAvailable.setTitleColor(UIColor.themeColorSecondry, for: .normal)
-
+  
+            if (filterAvailableData?.count == 0){
+                emptyView.isHidden = false
+            }
     }
     
     @IBAction func scheduleTapped(_ sender: Any) {
@@ -226,7 +184,10 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         isScheduleTableSearch = true
         vwSchedule.isHidden = false
         btnSchedule.setTitleColor(UIColor.themeColorSecondry, for: .normal)
-        
+
+            if (filterScheduleData?.count == 0){
+                emptyView.isHidden = false
+            }
     }
     
     @IBAction func pastTapped(_ sender: Any) {
@@ -235,7 +196,9 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         isPastTableSearch = true
         vwPast.isHidden = false
         btnPast.setTitleColor(UIColor.themeColorSecondry, for: .normal)
-        
+        if (filterPastEventData?.count == 0){
+            emptyView.isHidden = false
+        }
     }
     
     func resetButtonView(){
@@ -642,19 +605,11 @@ extension VolunteerEventsVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (tableView == availableTable){
-            if (filterAvailableData?.count == 0){
-                emptyView.isHidden = false
-            }
             return filterAvailableData?.count ?? 0
         }else if (tableView == scheduleTable){
-            if (filterAvailableData?.count == 0){
-                emptyView.isHidden = false
-            }
+
             return filterScheduleData?.count ?? 0
         }else if (tableView == pastTable){
-            if (filterAvailableData?.count == 0){
-                emptyView.isHidden = false
-            }
             return filterPastEventData?.count ?? 0
         }
         

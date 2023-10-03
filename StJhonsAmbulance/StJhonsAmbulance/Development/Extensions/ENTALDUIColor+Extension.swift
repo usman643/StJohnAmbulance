@@ -153,9 +153,17 @@ extension UIColor {
         return hexString(hex:"18573A")
     }
     
+    class var headerTitleColor:UIColor{
+        return hexString(hex:"18573A")
+    }
+    
     
     
 
+    @nonobjc class var headerGreen: UIColor {
+        return UIColor(named: "headerGreen")!
+    }
+    
     @nonobjc class var themePrimary: UIColor {
         return UIColor(named: "themePrimary")!
     }

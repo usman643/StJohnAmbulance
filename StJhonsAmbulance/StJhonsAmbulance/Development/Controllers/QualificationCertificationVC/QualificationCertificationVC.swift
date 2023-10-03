@@ -36,8 +36,10 @@ class QualificationCertificationVC: ENTALDBaseViewController,UITextFieldDelegate
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var externalTable: UITableView!
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var SJATableview: UITableView!
     
+    @IBOutlet weak var lbltitle: UILabel!
     @IBOutlet weak var externalView: UIView!
     @IBOutlet weak var SJAView: UIView!
     
@@ -73,6 +75,9 @@ class QualificationCertificationVC: ENTALDBaseViewController,UITextFieldDelegate
 
     func decorateUI(){
         
+        lbltitle.font = UIFont.HeaderBoldFont(18)
+        lbltitle.textColor = UIColor.headerGreen
+        headerView.addBottomShadow()
         isSJATableSearch = true
         isExternalTableSearch = false
         
@@ -100,6 +105,11 @@ class QualificationCertificationVC: ENTALDBaseViewController,UITextFieldDelegate
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    @IBAction func messageTapped(_ sender: Any) {
+        ENTALDControllers.shared.showGroupMessageVC(type: .ENTALDPUSH, from: self, callBack: nil)
+    }
+    
     
     @IBAction func segmentAction(_ sender: Any) {
         

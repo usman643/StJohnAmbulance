@@ -51,8 +51,8 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
                 btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
             }
         }
-        lblTitle.font = UIFont.HeaderBoldFont(20)
-        lblTitle.textColor = UIColor.themePrimaryWhite
+        lblTitle.font = UIFont.HeaderBoldFont(18)
+        lblTitle.textColor = UIColor.headerGreen
 //        searchView.layer.borderWidth = 1.5
         btnSelectGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnSelectGroup.titleLabel?.font = UIFont.HeaderBoldFont(14)

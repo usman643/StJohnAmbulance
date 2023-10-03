@@ -686,10 +686,14 @@ class PendingEventVC: ENTALDBaseViewController {
                     }
                 }
             }
-            plusTime = plusTime.sorted(by: { ($0.time_difference ?? 0) < ($1.time_difference ?? 0) })
-            //            minusTime = minusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
-            self.pendingPublishData = []
-            self.pendingPublishData?.append(contentsOf: plusTime)
+            if (plusTime.count > 0){
+                plusTime = plusTime.sorted(by: { ($0.time_difference ?? 0) < ($1.time_difference ?? 0) })
+                //            minusTime = minusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
+                self.pendingPublishData = []
+                self.pendingPublishData?.append(contentsOf: plusTime)
+            }else{
+                self.pendingPublishData = []
+            }
             //            self.latestEventData?.append(contentsOf: minusTime)
 
         }
@@ -722,10 +726,14 @@ class PendingEventVC: ENTALDBaseViewController {
                     }
                 }
             }
-            plusTime = plusTime.sorted(by: { ($0.time_difference ?? 0) < ($1.time_difference ?? 0) })
-            //            minusTime = minusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
-            self.pendingApprovalData = []
-            self.pendingApprovalData?.append(contentsOf: plusTime)
+            if (plusTime.count > 0){
+                plusTime = plusTime.sorted(by: { ($0.time_difference ?? 0) < ($1.time_difference ?? 0) })
+                //            minusTime = minusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
+                self.pendingApprovalData = []
+                self.pendingApprovalData?.append(contentsOf: plusTime)
+            }else{
+                self.pendingApprovalData = []
+            }
             //            self.latestEventData?.append(contentsOf: minusTime)
             
             

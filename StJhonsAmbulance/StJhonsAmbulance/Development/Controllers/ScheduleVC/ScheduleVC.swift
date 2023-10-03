@@ -58,8 +58,8 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
         mainContentView.layer.cornerRadius = 30
         mainContentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
-        lblTitle.textColor = UIColor.themePrimaryWhite
-        lblTitle.font = UIFont.BoldFont(24)
+        lblTitle.textColor = UIColor.headerGreen
+        lblTitle.font = UIFont.HeaderBoldFont(18)
         
         btnSignUp.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnSignUp.titleLabel?.font = UIFont.BoldFont(14)
@@ -306,7 +306,7 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
         }
     }
     func timefilter(){
-        var minusTime : [ScheduleModelThree]  = []
+//        var minusTime : [ScheduleModelThree]  = []
         var plusTime : [ScheduleModelThree] = []
         
         if ((self.scheduleData?.count ?? 0) > 0){
@@ -325,17 +325,22 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
                         plusTime.append(data)
                     }
                     
-                }else{
-                    
-                    if let data = self.scheduleData?[i] {
-                        minusTime.append(data)
-                    }
+//                }else{
+//                    
+//                    if let data = self.scheduleData?[i] {
+//                        minusTime.append(data)
+//                    }
                 }
             }
-            plusTime = plusTime.sorted(by: { ($0.time_difference ?? 0) < ($1.time_difference ?? 0) })
-            //            minusTime = minusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
-            self.scheduleData = []
-            self.scheduleData?.append(contentsOf: plusTime)
+            
+            if (plusTime.count > 0){
+                plusTime = plusTime.sorted(by: { ($0.time_difference ?? 0) < ($1.time_difference ?? 0) })
+                //            minusTime = minusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
+                self.scheduleData = []
+                self.scheduleData?.append(contentsOf: plusTime)
+            }else{
+                self.scheduleData = []
+            }
             //            self.latestEventData?.append(contentsOf: minusTime)
             
         }

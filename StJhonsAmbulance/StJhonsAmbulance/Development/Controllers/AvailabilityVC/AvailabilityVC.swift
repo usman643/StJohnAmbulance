@@ -44,7 +44,8 @@ class AvailabilityVC: ENTALDBaseViewController,UITextFieldDelegate {
     @IBOutlet var allHeadingLabel: [UILabel]!
     @IBOutlet weak var segment: UISegmentedControl!
     
-   
+    @IBOutlet weak var lblTitile: UILabel!
+    
   
     @IBOutlet weak var adhocView: UIView!
     @IBOutlet weak var volunteerHourView: UIView!
@@ -117,9 +118,9 @@ class AvailabilityVC: ENTALDBaseViewController,UITextFieldDelegate {
 
     func decorateUI(){
         
-//        headerView.layer.borderWidth = 1
-//        headerView.layer.borderColor = UIColor.themePrimaryColor.cgColor
-        
+        headerView.addBottomShadow()
+        lblTitile.font = UIFont.boldSystemFont(ofSize: 18)
+        lblTitile.textColor = UIColor.headerGreen
         headerLabelView.layer.borderWidth = 1
         headerLabelView.layer.borderColor = UIColor.themePrimaryColor.cgColor
 
@@ -139,11 +140,6 @@ class AvailabilityVC: ENTALDBaseViewController,UITextFieldDelegate {
         searchView.layer.borderWidth = 1.5
         
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
-//        lblTabTitle.textColor = UIColor.themePrimaryColor
-//        lblTabTitle.font = UIFont.BoldFont(16)
-//        
-//        selectedTabImg.image = selectedTabImg.image?.withRenderingMode(.alwaysTemplate)
-//        selectedTabImg.tintColor = UIColor.themePrimaryColor
         isAdhocTableSearch = true
         searchView.isHidden = false
         searchView.layer.cornerRadius = 8
@@ -185,6 +181,9 @@ class AvailabilityVC: ENTALDBaseViewController,UITextFieldDelegate {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func messageTapped(_ sender: Any) {
+        ENTALDControllers.shared.showGroupMessageVC(type: .ENTALDPUSH, from: self, callBack: nil)
+    }
     @IBAction func homeTapped(_ sender: Any) {
     
     }

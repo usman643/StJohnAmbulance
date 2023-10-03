@@ -40,6 +40,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     @IBOutlet weak var btnApprove: UIButton!
     @IBOutlet weak var btnPending: UIButton!
     @IBOutlet weak var btnCancel: UIButton!
+    @IBOutlet weak var lblTitle: UILabel!
     
 //    @IBOutlet weak var btnSeclectAction: UIButton!
 //    @IBOutlet weak var btnFilter: UIButton!
@@ -79,6 +80,8 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                 btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
             }
         }
+        lblTitle.font = UIFont.HeaderBoldFont(18)
+        lblTitle.textColor = UIColor.headerGreen
         headerView.addBottomShadow()
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
         btnSelectGroup.backgroundColor = UIColor.themePrimary

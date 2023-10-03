@@ -17,6 +17,7 @@ class AwardsVC: ENTALDBaseViewController {
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var lblTitle: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         if (engagementType == .Calender){
@@ -46,6 +47,8 @@ class AwardsVC: ENTALDBaseViewController {
     }
     
     func decorateUI(){
+        lblTitle.font = UIFont.HeaderBoldFont(18)
+        lblTitle.textColor = UIColor.headerGreen
         headerView.addBottomShadow()
         
     }

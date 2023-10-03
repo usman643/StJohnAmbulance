@@ -68,8 +68,8 @@ class VolunteerEventVC: ENTALDBaseViewController {
     func decorateUI(){
         
         self.selectNonEvent()
-        lblScreenTitle.font = UIFont.BoldFont(18)
-        lblScreenTitle.textColor = UIColor.textBlackColor
+        lblScreenTitle.font = UIFont.HeaderBoldFont(18)
+        lblScreenTitle.textColor = UIColor.headerGreen
         pendingImgMainView1.layer.cornerRadius = 15
         yearImgMainView.layer.cornerRadius = 15
         lifetimeImgMainView.layer.cornerRadius = 15

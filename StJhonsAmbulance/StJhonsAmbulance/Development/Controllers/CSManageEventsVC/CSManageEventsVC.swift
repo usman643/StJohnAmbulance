@@ -86,7 +86,8 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
                 btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
             }
         }
-        
+        lblTitle.font = UIFont.HeaderBoldFont(18)
+        lblTitle.textColor = UIColor.headerGreen
         headerView.addBottomShadow()
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
         btnSelectGroup.backgroundColor = UIColor.themeSecondry
@@ -441,10 +442,15 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
                     }
                 }
             }
-            plusTime = plusTime.sorted(by: { ($0.time_difference ?? 0) < ($1.time_difference ?? 0) })
-            //            minusTime = minusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
-            self.pendingPublishData = []
-            self.pendingPublishData?.append(contentsOf: plusTime)
+            if (plusTime.count > 0){
+                plusTime = plusTime.sorted(by: { ($0.time_difference ?? 0) < ($1.time_difference ?? 0) })
+                
+                //            minusTime = minusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
+                self.pendingPublishData = []
+                self.pendingPublishData?.append(contentsOf: plusTime)
+            }else{
+                self.pendingPublishData = []
+            }
             //            self.latestEventData?.append(contentsOf: minusTime)
 
         }
@@ -477,10 +483,14 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
                     }
                 }
             }
-            plusTime = plusTime.sorted(by: { ($0.time_difference ?? 0) < ($1.time_difference ?? 0) })
-            //            minusTime = minusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
-            self.pendingApprovalData = []
-            self.pendingApprovalData?.append(contentsOf: plusTime)
+            if (plusTime.count > 0){
+                plusTime = plusTime.sorted(by: { ($0.time_difference ?? 0) < ($1.time_difference ?? 0) })
+                //            minusTime = minusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
+                self.pendingApprovalData = []
+                self.pendingApprovalData?.append(contentsOf: plusTime)
+            }else{
+                self.pendingApprovalData = []
+            }
             //            self.latestEventData?.append(contentsOf: minusTime)
             
             

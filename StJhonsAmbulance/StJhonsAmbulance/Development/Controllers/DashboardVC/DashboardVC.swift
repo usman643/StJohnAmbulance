@@ -94,6 +94,8 @@ class DashboardVC: ENTALDBaseViewController{
     }
     
     func decorateUI(){
+        lblTitle.font = UIFont.HeaderBoldFont(18)
+        lblTitle.textColor = UIColor.headerTitleColor
         lblIncomingTitle.font = UIFont.HeaderBoldFont(14)
         lblIncomingTitle.textColor = UIColor.themeBlackText
         lblTitle.font = UIFont.HeaderBoldFont(14)
@@ -501,10 +503,13 @@ class DashboardVC: ENTALDBaseViewController{
                     }
                 }
             }
-            
-            plusTime = plusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
-            self.latestEventData = []
-            self.latestEventData?.append(contentsOf: plusTime)
+            if (plusTime.count > 0){
+                plusTime = plusTime.sorted(by: { $0.time_difference ?? 0 < $1.time_difference ?? 0 })
+                self.latestEventData = []
+                self.latestEventData?.append(contentsOf: plusTime)
+            }else{
+                self.latestEventData = []
+            }
             
             
         }

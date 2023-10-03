@@ -33,8 +33,8 @@ class SettingVC: ENTALDBaseViewController {
     }
 
     func decorateUI(){
-        lblTitle.textColor = UIColor.themePrimaryWhite
-        lblTitle.font = UIFont.BoldFont(16)
+        lblTitle.textColor = UIColor.headerGreen
+        lblTitle.font = UIFont.HeaderBoldFont(18)
         lblTheme.textColor = UIColor.themePrimaryWhite
         lblTheme.font = UIFont.BoldFont(16)
         
