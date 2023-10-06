@@ -35,7 +35,7 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var arrMenuList = ["Qualifications/Certifications", "Documents", "Awards", "Settings","Logout"]
     var arrMenuIconList = ["ic_Qualification","ic_document","ic_skill","ic_setting","ic_logout"]
     
-    var leadMenuList = ["Qualifications","Documents","Awards","Shifts","Event","Volenteers","Settings","Logout"]
+    var leadMenuList = ["Qualifications","Documents","Awards","Shifts","Event","Volunteers","Settings","Logout"]
     var leadMenuIconList = ["ic_Qualification","ic_document","ic_skill","time-clock-nine-to-twelve","manageEvent","presentation-audience", "ic_setting","ic_logout"]
     
     
@@ -72,7 +72,7 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
     @IBAction func ProfileBtnTapped(_ sender: Any) {
         
-        let selectedItem = arrMenuList[0]
+        let selectedItem = "Profile"
         self.dismiss(animated: true, completion: nil)
         //            self.tblSideMenuList.deselectRow(at: indexPath, animated: true)
         delegate?.didSelectMenuItem(named: selectedItem)
@@ -113,7 +113,7 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTVC", for: indexPath) as! SideMenuTVC
             cell.lblTitle.text = title
-            if (title == "Volenteers"){
+            if (title == "Volunteers"){
                 cell.seperatorView.isHidden = false
             }else{
                 cell.seperatorView.isHidden = true

@@ -22,6 +22,7 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
     
     @IBOutlet weak var lblScreenTitle: UILabel!
     
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblModifiedDate: UILabel!
     @IBOutlet weak var lblAction: UILabel!
@@ -53,8 +54,9 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
     }
     
     func decorateUI(){
-        lblTitle.textColor = UIColor.themePrimaryWhite
-        lblTitle.font = UIFont.BoldFont(13)
+        headerView.addBottomShadow()
+        lblTitle.textColor = UIColor.headerGreen
+        lblTitle.font = UIFont.HeaderBoldFont(18)
         lblModifiedDate.textColor = UIColor.themePrimaryWhite
         lblModifiedDate.font = UIFont.BoldFont(13)
         lblAction.textColor = UIColor.themePrimaryWhite
@@ -89,6 +91,9 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
         
     }
 
+    @IBAction func messageTapped(_ sender: Any) {
+        ENTALDControllers.shared.showGroupMessageVC(type: .ENTALDPUSH, from: self, callBack: nil)
+    }
     
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)

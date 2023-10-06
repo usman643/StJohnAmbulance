@@ -38,8 +38,8 @@ class CalenderEventTVC: UITableViewCell {
         
         lblEventName.font = UIFont.BoldFont(14)
         
-        lblDate.font = UIFont.RegularFont(12)
-        lblLocation.font = UIFont.RegularFont(12)
+        lblDate.font = UIFont.BoldFont(13)
+        lblLocation.font = UIFont.BoldFont(13)
         
         lblEventName.textColor = UIColor.themeBlackText
         

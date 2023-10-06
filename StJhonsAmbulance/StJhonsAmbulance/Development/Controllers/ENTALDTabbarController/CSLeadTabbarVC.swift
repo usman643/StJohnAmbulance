@@ -120,7 +120,7 @@ class CSLeadTabbarVC: UITabBarController {
                 if viewController == selectedViewController {
                     viewController.tabBarItem.setTitleTextAttributes([.font: UIFont.BoldFont(12)], for: .normal)
                 } else {
-                    viewController.tabBarItem.setTitleTextAttributes([.font: UIFont.RegularFont(12)], for: .normal)
+                    viewController.tabBarItem.setTitleTextAttributes([.font: UIFont.BoldFont(12)], for: .normal)
                 }
             }
         }

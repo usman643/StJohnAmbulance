@@ -39,7 +39,7 @@ class VolunteerEventTVC: UITableViewCell {
     }
     func deocrateUI(){
         for label in allLabel{
-            label.font = UIFont.RegularFont(10)
+            label.font = UIFont.BoldFont(10)
             label.textColor = UIColor.textBlackColor
         }
     }

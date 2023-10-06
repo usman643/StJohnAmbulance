@@ -40,13 +40,15 @@ class SettingVC: ENTALDBaseViewController {
         
     }
     
-    
     @IBAction func changePassTapped(_ sender: Any) {
         
         ENTALDControllers.shared.showChangePasswordScreen(type: .ENTALDPUSH, from: self, callBack: nil)
     }
     
-
+    @IBAction func messageTapped(_ sender: Any) {
+        ENTALDControllers.shared.showGroupMessageVC(type: .ENTALDPUSH, from: self, callBack: nil)
+    }
+    
     @IBAction func backTapped(_ sender: Any) {
         
         self.navigationController?.popViewController(animated: true)

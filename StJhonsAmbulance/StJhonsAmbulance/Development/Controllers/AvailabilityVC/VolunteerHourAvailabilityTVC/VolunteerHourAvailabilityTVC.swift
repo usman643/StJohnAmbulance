@@ -34,19 +34,19 @@ class VolunteerHourAvailabilityTVC: UITableViewCell {
     func decorateUI(){
         
         lblEvent.textColor = UIColor.textBlackColor
-        lblEvent.font = UIFont.RegularFont(10)
+        lblEvent.font = UIFont.BoldFont(10)
         lblProgram.textColor = UIColor.textBlackColor
-        lblProgram.font = UIFont.RegularFont(10)
+        lblProgram.font = UIFont.BoldFont(10)
         lblSchedule.textColor = UIColor.textBlackColor
-        lblSchedule.font = UIFont.RegularFont(10)
+        lblSchedule.font = UIFont.BoldFont(10)
         lblStart.textColor = UIColor.textBlackColor
-        lblStart.font = UIFont.RegularFont(10)
+        lblStart.font = UIFont.BoldFont(10)
         lblEnd.textColor = UIColor.textBlackColor
-        lblEnd.font = UIFont.RegularFont(10)
+        lblEnd.font = UIFont.BoldFont(10)
         lblHours.textColor = UIColor.textBlackColor
-        lblHours.font = UIFont.RegularFont(10)
+        lblHours.font = UIFont.BoldFont(10)
         lblStatus.textColor = UIColor.textBlackColor
-        lblStatus.font = UIFont.RegularFont(10)
+        lblStatus.font = UIFont.BoldFont(10)
         
     }
     

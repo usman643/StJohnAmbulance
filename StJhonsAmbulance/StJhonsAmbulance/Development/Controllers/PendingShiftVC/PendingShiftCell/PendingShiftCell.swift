@@ -48,7 +48,7 @@ class PendingShiftCell: UITableViewCell {
         mainView.layer.cornerRadius = 16
         statusView.layer.cornerRadius = 16
         statusView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
-        btnStatus.setTitleColor(UIColor.textWhiteColor, for: .normal)
+        btnStatus.setTitleColor(UIColor.textLightGrayColor, for: .normal)
         lblDate.textColor = UIColor.themeSecondryWhite
         lblDate.font =  UIFont.MediumFont(11)
         btnStatus.titleLabel?.font = UIFont.BoldFont(13)
@@ -56,17 +56,16 @@ class PendingShiftCell: UITableViewCell {
         
         
         lblName.font = UIFont.BoldFont(14)
-        lblEvent.font = UIFont.RegularFont(13)
-        lblHours.font = UIFont.RegularFont(13)
-        lblShift.font = UIFont.RegularFont(13)
+        lblEvent.font = UIFont.BoldFont(13)
+        lblHours.font = UIFont.BoldFont(13)
+        lblShift.font = UIFont.BoldFont(13)
         
         
         lblName.textColor = UIColor.themePrimaryWhite
-        lblName.textColor = UIColor.themePrimaryWhite
-        lblEvent.textColor = UIColor.themePrimaryWhite
-        lblDate.textColor = UIColor.themePrimaryWhite
-        lblHours.textColor = UIColor.themePrimaryWhite
-        lblShift.textColor = UIColor.themePrimaryWhite
+        lblEvent.textColor = UIColor.headerGreen
+        lblDate.textColor = UIColor.headerGreen
+        lblHours.textColor = UIColor.headerGreen
+        lblShift.textColor = UIColor.headerGreen
     }
     
     func setCellData(rowModel : PendingShiftModelTwo?){

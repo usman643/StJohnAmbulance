@@ -12,7 +12,7 @@ class EmptyEventTableCell: UITableViewCell {
     @IBOutlet weak var lblTitle: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        lblTitle.font = UIFont.RegularFont(12)
+        lblTitle.font = UIFont.BoldFont(12)
         lblTitle.textColor = UIColor.textBlackColor
     }
 

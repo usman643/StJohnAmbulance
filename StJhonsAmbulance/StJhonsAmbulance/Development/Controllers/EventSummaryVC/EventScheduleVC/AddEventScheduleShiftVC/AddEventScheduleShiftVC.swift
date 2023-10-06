@@ -57,13 +57,13 @@ class AddEventScheduleShiftVC:  ENTALDBaseViewController,UITextFieldDelegate {
         txtEndDate.layer.borderWidth = 1
         txtEndTime.layer.borderWidth = 1
         
-        txtScheduleTitle.font = UIFont.RegularFont(14)
-        txtMinPaticipant.font = UIFont.RegularFont(14)
-        txtMaxPaticipant.font = UIFont.RegularFont(14)
-        txtStartDate.font = UIFont.RegularFont(14)
-        txtStartTime.font = UIFont.RegularFont(14)
-        txtEndDate.font = UIFont.RegularFont(14)
-        txtEndTime.font = UIFont.RegularFont(14)
+        txtScheduleTitle.font = UIFont.BoldFont(14)
+        txtMinPaticipant.font = UIFont.BoldFont(14)
+        txtMaxPaticipant.font = UIFont.BoldFont(14)
+        txtStartDate.font = UIFont.BoldFont(14)
+        txtStartTime.font = UIFont.BoldFont(14)
+        txtEndDate.font = UIFont.BoldFont(14)
+        txtEndTime.font = UIFont.BoldFont(14)
         
         txtScheduleTitle.textColor = UIColor.textBlackColor
         txtMinPaticipant.textColor = UIColor.textBlackColor

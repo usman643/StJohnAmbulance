@@ -51,11 +51,11 @@ class ScheduleCell: UITableViewCell {
         lblTitle.textColor = UIColor.themeSecondryWhite
         lblSubTitle.textColor = UIColor.themeSecondryWhite
         
-        lblDate.font =  UIFont.MediumFont(11)
-        lblLocation.font =  UIFont.MediumFont(11)
+        lblDate.font =  UIFont.BoldFont(12)
+        lblLocation.font =  UIFont.BoldFont(12)
         
         lblTitle.font =  UIFont.BoldFont(14)
-        lblSubTitle.font =  UIFont.RegularFont(12)
+        lblSubTitle.font =  UIFont.BoldFont(13)
         
         locationImg.image = locationImg.image?.withRenderingMode(.alwaysTemplate)
         

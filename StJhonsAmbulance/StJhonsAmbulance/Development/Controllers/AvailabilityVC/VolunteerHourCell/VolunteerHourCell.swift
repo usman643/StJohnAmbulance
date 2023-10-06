@@ -52,13 +52,13 @@ class VolunteerHourCell: UITableViewCell {
         btnView.titleLabel?.font = UIFont.BoldFont(13)
         
         lblEvent.textColor = UIColor.themeSecondryWhite
-        lblEvent.font = UIFont.RegularFont(13)
+        lblEvent.font = UIFont.BoldFont(13)
         lblProgram.textColor = UIColor.themeSecondryWhite
-        lblProgram.font = UIFont.RegularFont(13)
+        lblProgram.font = UIFont.BoldFont(13)
         lblSchedule.textColor = UIColor.themeSecondryWhite
-        lblSchedule.font = UIFont.RegularFont(13)
+        lblSchedule.font = UIFont.BoldFont(13)
         lblHours.textColor = UIColor.themeSecondryWhite
-        lblHours.font = UIFont.RegularFont(13)
+        lblHours.font = UIFont.BoldFont(13)
         
     }
     

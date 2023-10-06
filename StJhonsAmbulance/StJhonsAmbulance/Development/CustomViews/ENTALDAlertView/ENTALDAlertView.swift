@@ -46,7 +46,7 @@ class ENTALDAlertView: UIView {
         let appearence = SCLAlertView.SCLAppearance(
             kWindowWidth : SCREEN_WIDTH * 0.80,
             kTitleFont: UIFont.MediumFont(20.0),
-            kTextFont: UIFont.RegularFont(16.0),
+            kTextFont: UIFont.BoldFont(16.0),
             showCloseButton: false,
             showCircularIcon : false
         )
@@ -86,7 +86,7 @@ class ENTALDAlertView: UIView {
         let appearence = SCLAlertView.SCLAppearance(
             kWindowWidth : SCREEN_WIDTH * 0.80,
             kTitleFont: UIFont.MediumFont(20.0),
-            kTextFont: UIFont.RegularFont(16.0),
+            kTextFont: UIFont.BoldFont(16.0),
             showCloseButton: false,
             showCircularIcon : false
         )
@@ -107,7 +107,7 @@ class ENTALDAlertView: UIView {
         let appearence = SCLAlertView.SCLAppearance(
             kWindowWidth : SCREEN_WIDTH * 0.80,
             kTitleFont: UIFont.MediumFont(20.0),
-            kTextFont: UIFont.RegularFont(16.0),
+            kTextFont: UIFont.BoldFont(16.0),
             showCloseButton: false,
             showCircularIcon : false
         )

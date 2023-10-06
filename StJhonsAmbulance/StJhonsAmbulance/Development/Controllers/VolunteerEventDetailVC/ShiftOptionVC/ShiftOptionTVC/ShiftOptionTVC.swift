@@ -33,12 +33,12 @@ class ShiftOptionTVC: UITableViewCell {
         lblNeeded.textColor = UIColor.textBlackColor
         lblStatus.textColor = UIColor.textBlackColor
         
-        lblShift.font = UIFont.RegularFont(11)
-        lblStart.font = UIFont.RegularFont(11)
-        lblEnd.font = UIFont.RegularFont(11)
-        lblHours.font = UIFont.RegularFont(11)
-        lblNeeded.font = UIFont.RegularFont(11)
-        lblStatus.font = UIFont.RegularFont(11)
+        lblShift.font = UIFont.BoldFont(11)
+        lblStart.font = UIFont.BoldFont(11)
+        lblEnd.font = UIFont.BoldFont(11)
+        lblHours.font = UIFont.BoldFont(11)
+        lblNeeded.font = UIFont.BoldFont(11)
+        lblStatus.font = UIFont.BoldFont(11)
         
         
     }

@@ -43,12 +43,12 @@ class EventAuditTVC: UITableViewCell {
         lblOldValue.textColor = UIColor.textBlackColor
         lblNewValue.textColor = UIColor.textBlackColor
         
-        lblChangeDate.font = UIFont.RegularFont(11)
-        lblChangeBy.font = UIFont.RegularFont(11)
-        lblChangeEvent.font = UIFont.RegularFont(11)
-        lblChangeField.font = UIFont.RegularFont(11)
-        lblOldValue.font = UIFont.RegularFont(11)
-        lblNewValue.font = UIFont.RegularFont(11)
+        lblChangeDate.font = UIFont.BoldFont(11)
+        lblChangeBy.font = UIFont.BoldFont(11)
+        lblChangeEvent.font = UIFont.BoldFont(11)
+        lblChangeField.font = UIFont.BoldFont(11)
+        lblOldValue.font = UIFont.BoldFont(11)
+        lblNewValue.font = UIFont.BoldFont(11)
     }
     
     func setContent(cellModel : AuditModel?){

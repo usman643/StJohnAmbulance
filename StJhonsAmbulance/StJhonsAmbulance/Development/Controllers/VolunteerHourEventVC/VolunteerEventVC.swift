@@ -45,7 +45,12 @@ class VolunteerEventVC: ENTALDBaseViewController {
     @IBOutlet weak var btnSearchClose: UIButton!
     
     @IBOutlet weak var tableView: UITableView!
+    var isEventLoadMoreShow = true
+    var isNonEventLoadMoreShow = true
     
+    @IBOutlet weak var loadMoreView: UIView!
+    @IBOutlet weak var btnLoadMore: UIButton!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +83,10 @@ class VolunteerEventVC: ENTALDBaseViewController {
         lblYearValue.font = UIFont.HeaderBoldFont(14)
         lblLifetimeValue.font = UIFont.HeaderBoldFont(14)
         
+        lblPendingValue.textColor = UIColor.headerGreen
+        lblYearValue.textColor = UIColor.headerGreen
+        lblLifetimeValue.textColor = UIColor.headerGreen
+        
         lblPendingTitle.font = UIFont.HeaderBoldFont(14)
         lblYearTitle.font = UIFont.HeaderBoldFont(14)
         lblLifetimeTitle.font = UIFont.HeaderBoldFont(14)
@@ -88,10 +97,17 @@ class VolunteerEventVC: ENTALDBaseViewController {
         btnNonEvent.titleLabel?.font = UIFont.BoldFont(14)
         
         searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        searchView.layer.borderWidth = 1.5
+        searchView.layer.borderWidth = 1
         searchView.layer.cornerRadius = 8
 //        searchView.isHidden = true
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        
+        btnLoadMore.layer.borderColor = UIColor.themeColorSecondry.cgColor
+        btnLoadMore.layer.borderWidth = 1.0
+        btnLoadMore.setTitle("Load More", for: .normal)
+        btnLoadMore.setTitleColor(UIColor.themeColorSecondry, for: .normal)
+        btnLoadMore.titleLabel?.font = UIFont.BoldFont(16)
+        loadMoreView.isHidden = true
         
         
     }
@@ -203,6 +219,20 @@ class VolunteerEventVC: ENTALDBaseViewController {
         ENTALDControllers.shared.showGroupMessageVC(type: .ENTALDPUSH, from: self, callBack: nil)
     }
     
+    @IBAction func eventLoadMoreTapped(_ sender: Any) {
+     
+        DispatchQueue.main.async {
+            if (self.btnEvent.isSelected){
+                self.isEventLoadMoreShow = false
+            }else if (self.btnNonEvent.isSelected){
+                self.isNonEventLoadMoreShow = false
+            }
+            self.loadMoreView.isHidden = true
+            self.tableView.reloadData()
+        }
+    }
+    
+
 // MARK:  APIs
     
     
@@ -357,8 +387,17 @@ extension VolunteerEventVC : UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if (btnEvent.isSelected){
+            
+            if ((eventFilterData?.count ?? 0) > 3 && isEventLoadMoreShow){
+                loadMoreView.isHidden = false
+                return 3
+            }
             return self.eventFilterData?.count ?? 0
         }else if (btnNonEvent.isSelected){
+            if ((nonEventFilterData?.count ?? 0) > 3 && isNonEventLoadMoreShow){
+                loadMoreView.isHidden = false
+                return 3
+            }
             return self.nonEventFilterData?.count ?? 0
         }
         

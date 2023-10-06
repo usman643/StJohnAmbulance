@@ -29,17 +29,17 @@ class ExternalQualificationTVC: UITableViewCell {
     }
     func decorateUI(){
         lblCertificateId.textColor = UIColor.themeBlackText
-        lblCertificateId.font = UIFont.RegularFont(10)
+        lblCertificateId.font = UIFont.BoldFont(10)
         lblQualification.textColor = UIColor.themeBlackText
-        lblQualification.font = UIFont.RegularFont(10)
+        lblQualification.font = UIFont.BoldFont(10)
         lblType.textColor = UIColor.themeBlackText
-        lblType.font = UIFont.RegularFont(10)
+        lblType.font = UIFont.BoldFont(10)
         lblIssue.textColor = UIColor.themeBlackText
-        lblIssue.font = UIFont.RegularFont(10)
+        lblIssue.font = UIFont.BoldFont(10)
         lblExpire.textColor = UIColor.themeBlackText
-        lblExpire.font = UIFont.RegularFont(10)
+        lblExpire.font = UIFont.BoldFont(10)
         lblAction.textColor = UIColor.themeBlackText
-        lblAction.font = UIFont.RegularFont(10)
+        lblAction.font = UIFont.BoldFont(10)
         
     }
     

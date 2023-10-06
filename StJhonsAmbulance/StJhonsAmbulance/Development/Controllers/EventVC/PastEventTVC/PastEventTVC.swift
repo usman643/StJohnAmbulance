@@ -23,9 +23,9 @@ class PastEventTVC: UITableViewCell {
     
     func deocrateUI(){
         
-        lblEvent.font = UIFont.RegularFont(11)
-        lblLocation.font = UIFont.RegularFont(11)
-        lblDate.font = UIFont.RegularFont(11)
+        lblEvent.font = UIFont.BoldFont(11)
+        lblLocation.font = UIFont.BoldFont(11)
+        lblDate.font = UIFont.BoldFont(11)
         
         lblEvent.textColor = UIColor.textBlackColor
         lblLocation.textColor = UIColor.textBlackColor

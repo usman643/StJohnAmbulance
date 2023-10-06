@@ -59,20 +59,20 @@ class EventNotesVC: ENTALDBaseViewController {
     func decorateUI(){
         lblTitle.font = UIFont.BoldFont(22)
         btnStatusView.layer.cornerRadius = 5
-        btnStatus.titleLabel?.font = UIFont.RegularFont(14)
+        btnStatus.titleLabel?.font = UIFont.BoldFont(14)
         btnSubmit.titleLabel?.font = UIFont.BoldFont(14)
         btnStatus.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnSubmit.setTitleColor(UIColor.textWhiteColor, for: .normal)
         
-        txtParticipantNum.font = UIFont.RegularFont(13)
+        txtParticipantNum.font = UIFont.BoldFont(13)
         txtParticipantNum.textColor = UIColor.themeBlackText
-        txtDonationReceived.font = UIFont.RegularFont(13)
+        txtDonationReceived.font = UIFont.BoldFont(13)
         txtDonationReceived.textColor = UIColor.themeBlackText
-        txtSurveyComment.font = UIFont.RegularFont(13)
+        txtSurveyComment.font = UIFont.BoldFont(13)
         txtSurveyComment.textColor = UIColor.themeBlackText
-        txtOtherComment.font = UIFont.RegularFont(13)
+        txtOtherComment.font = UIFont.BoldFont(13)
         txtOtherComment.textColor = UIColor.themeBlackText
-        txtOtherTreatment.font = UIFont.RegularFont(13)
+        txtOtherTreatment.font = UIFont.BoldFont(13)
         txtOtherTreatment.textColor = UIColor.themeBlackText
         
         txtParticipantNum.layer.borderColor = UIColor.themePrimaryWhite.cgColor
@@ -106,7 +106,7 @@ class EventNotesVC: ENTALDBaseViewController {
         }
         
         for label in lblAvailables{
-            label.font = UIFont.RegularFont(13)
+            label.font = UIFont.BoldFont(13)
             label.textColor = UIColor.themePrimaryWhite
         }
         

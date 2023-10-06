@@ -45,9 +45,9 @@ class PendingEventCell: UITableViewCell {
         
         lblName.font = UIFont.BoldFont(16)
         lblHour.font = UIFont.BoldFont(16)
-        lblLocation.font = UIFont.RegularFont(13)
-        lblStatus.font = UIFont.RegularFont(11)
-        lblDate.font = UIFont.RegularFont(13)
+        lblLocation.font = UIFont.BoldFont(13)
+        lblStatus.font = UIFont.BoldFont(11)
+        lblDate.font = UIFont.BoldFont(13)
         
         
         lblName.textColor = UIColor.themeSecondryWhite

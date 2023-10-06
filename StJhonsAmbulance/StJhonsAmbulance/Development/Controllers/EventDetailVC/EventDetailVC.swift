@@ -95,12 +95,12 @@ class EventDetailVC: ENTALDBaseViewController {
         lblPrograme.textColor = UIColor.themePrimaryWhite
         lblDetailDesc.textColor = UIColor.textBlackColor
         
-        lblDetailDesc.font = UIFont.RegularFont(12)
-        lblDate.font = UIFont.RegularFont(11)
-        lblShift.font = UIFont.RegularFont(11)
-        lblPrograme.font = UIFont.RegularFont(11)
-//        lblStatus.font = UIFont.RegularFont(14)
-//        lblLocationDesc.font = UIFont.RegularFont(14)
+        lblDetailDesc.font = UIFont.BoldFont(12)
+        lblDate.font = UIFont.BoldFont(11)
+        lblShift.font = UIFont.BoldFont(11)
+        lblPrograme.font = UIFont.BoldFont(11)
+//        lblStatus.font = UIFont.BoldFont(14)
+//        lblLocationDesc.font = UIFont.BoldFont(14)
         
         lblDate.textColor = UIColor.textBlackColor
         lblShift.textColor = UIColor.textBlackColor

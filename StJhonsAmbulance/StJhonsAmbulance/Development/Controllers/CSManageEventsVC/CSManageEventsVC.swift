@@ -27,6 +27,12 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
     var isUnpublishEvent = false
     var isPastEvent = false
     
+    var isAvaiableLoadMoreShow = true
+    var isPendingApprovalLoadMoreShow = true
+    var isUnpublishLoadMoreShow = true
+    var isPastLoadMoreShow = true
+    
+    
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var selectGroupView: UIView!
@@ -58,6 +64,15 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
     @IBOutlet weak var unpublishTableView: UITableView!
     @IBOutlet weak var pastTableView: UITableView!
     
+    
+    @IBOutlet weak var availableLoadMoreView: UIView!
+    @IBOutlet weak var btnnAvailableLoadMore: UIButton!
+    @IBOutlet weak var pendingLoadMoreView: UIView!
+    @IBOutlet weak var btnnPendingLoadMore: UIButton!
+    @IBOutlet weak var unpublishLoadMoreView: UIView!
+    @IBOutlet weak var btnUpublishLoadMore: UIButton!
+    @IBOutlet weak var pastLoadMoreView: UIView!
+    @IBOutlet weak var btnnPastLoadMore: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,6 +120,17 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
         btnAvailable.setTitleColor(UIColor.themePrimaryColor, for: .normal)
         btnAvailableView.isHidden = false
         availableView.isHidden = false
+        
+        btnAvailable.titleLabel?.font = UIFont.BoldFont(14)
+        btnPendingApproval.titleLabel?.font = UIFont.BoldFont(14)
+        btnUnnpublish.titleLabel?.font = UIFont.BoldFont(14)
+        btnPast.titleLabel?.font = UIFont.BoldFont(14)
+        
+        
+        
+        
+        
+        
     }
     
     
@@ -165,6 +191,41 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
     
     @IBAction func selectGroupTapped(_ sender: Any) {
         showGroupsPicker()
+    }
+    
+    
+    
+    @IBAction func pastLoadMoreTapped(_ sender: Any) {
+        isPastLoadMoreShow = false
+        DispatchQueue.main.async {
+            self.pastLoadMoreView.isHidden = true
+            self.pastTableView.reloadData()
+        }
+    }
+    
+    @IBAction func pendingLoadMoreTapped(_ sender: Any) {
+        isPendingApprovalLoadMoreShow = false
+        DispatchQueue.main.async {
+            self.pendingLoadMoreView.isHidden = true
+            self.pendingApprovalTableView.reloadData()
+        }
+    }
+       
+    @IBAction func unpublishLoadMoreTapped(_ sender: Any) {
+        isUnpublishLoadMoreShow = false
+        DispatchQueue.main.async {
+            self.unpublishLoadMoreView.isHidden = true
+            self.unpublishTableView.reloadData()
+        }
+    }
+    
+    @IBAction func availableLoadMoreTapped(_ sender: Any) {
+        isAvaiableLoadMoreShow = false
+        DispatchQueue.main.async {
+            self.availableLoadMoreView.isHidden = true
+            self.availableTableView.reloadData()
+            self.view.layoutIfNeeded()
+        }
     }
     
     
@@ -868,33 +929,40 @@ extension CSManageEventsVC : UITableViewDelegate, UITableViewDataSource{
     func getNumberofRow(tableView : UITableView) -> Int{
         if (tableView == availableTableView){
             
-            if ((filterCurrentEventData?.count ?? 0) > 0){
-                return filterCurrentEventData?.count ?? 0
-            }else{
-//                self.emptyView.isHidden = true
+            if ((filterCurrentEventData?.count ?? 0) > 3 && isAvaiableLoadMoreShow){
+                availableLoadMoreView.isHidden = false
+                return 3
             }
+                availableLoadMoreView.isHidden = true
+                return filterCurrentEventData?.count ?? 0
+            
             
         }else if (tableView == pendingApprovalTableView){
             
-            if ((filterPendingApprovalData?.count ?? 0) > 0){
-                return filterPendingApprovalData?.count ?? 0
-            }else{
-//                self.emptyView.isHidden = true
+            if ((filterPendingApprovalData?.count ?? 0) > 3 && isPendingApprovalLoadMoreShow){
+                pendingLoadMoreView.isHidden = false
+                return 3
             }
+            pendingLoadMoreView.isHidden = true
+                return filterPendingApprovalData?.count ?? 0
             
         }else if (tableView == unpublishTableView){
-            if ((filterPendingPublishData?.count ?? 0) > 0){
-                return filterPendingPublishData?.count ?? 0
-            }else{
-//                self.emptyView.isHidden = true
+            if ((filterPendingPublishData?.count ?? 0) > 3 && isUnpublishLoadMoreShow){
+                unpublishLoadMoreView.isHidden = false
+                return 3
             }
+                unpublishLoadMoreView.isHidden = true
+                return filterPendingPublishData?.count ?? 0
+
             
         }else if (tableView == pastTableView){
-            if ((filterPastEventData?.count ?? 0) > 0){
-                return filterPastEventData?.count ?? 0
-            }else{
-//                self.emptyView.isHidden = true
+            if ((filterPastEventData?.count ?? 0) > 3 && isPastLoadMoreShow){
+                pastLoadMoreView.isHidden = false
+                return 3
             }
+            pastLoadMoreView.isHidden = true
+                return filterPastEventData?.count ?? 0
+         
             
         }else {
 //            self.emptyView.isHidden = true

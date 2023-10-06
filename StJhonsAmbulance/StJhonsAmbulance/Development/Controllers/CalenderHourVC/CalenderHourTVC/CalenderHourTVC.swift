@@ -28,7 +28,7 @@ class CalenderHourTVC: UITableViewCell {
     
     func decorateUI(){
         
-        lblHour.font = UIFont.RegularFont(12)
+        lblHour.font = UIFont.BoldFont(12)
         lblHour.textColor = UIColor.themeBlackColor
 //        hourSeperatorView.backgroundColor = UIColor.themeBlackColor
 //        hourHighLightView.backgroundColor = UIColor.lightGray

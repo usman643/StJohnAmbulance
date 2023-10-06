@@ -88,12 +88,12 @@ class EventDescriptionVC: ENTALDBaseViewController {
         DetailDescriptionTextView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         txtDonation.layer.borderWidth = 1
         txtDonation.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        txtEventName.font = UIFont.RegularFont(13)
-        txtEmail.font = UIFont.RegularFont(13)
-        txtPrimaryPhone.font = UIFont.RegularFont(13)
-        txtOrgnizerName.font = UIFont.RegularFont(13)
-        DetailDescriptionTextView.font = UIFont.RegularFont(13)
-        txtDonation.font = UIFont.RegularFont(13)
+        txtEventName.font = UIFont.BoldFont(13)
+        txtEmail.font = UIFont.BoldFont(13)
+        txtPrimaryPhone.font = UIFont.BoldFont(13)
+        txtOrgnizerName.font = UIFont.BoldFont(13)
+        DetailDescriptionTextView.font = UIFont.BoldFont(13)
+        txtDonation.font = UIFont.BoldFont(13)
         btnAdhocEvent.layer.cornerRadius = 3
         txtDonation.keyboardType = .decimalPad
         

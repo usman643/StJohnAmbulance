@@ -29,13 +29,13 @@ class SJAQualificationTVC: UITableViewCell {
     func decorateUI(){
         
         lblQualification.textColor = UIColor.textBlackColor
-        lblQualification.font = UIFont.RegularFont(10)
+        lblQualification.font = UIFont.BoldFont(10)
         lblType.textColor = UIColor.themeBlackText
-        lblType.font = UIFont.RegularFont(10)
+        lblType.font = UIFont.BoldFont(10)
         lblEffectiveFrom.textColor = UIColor.themeBlackText
-        lblEffectiveFrom.font = UIFont.RegularFont(10)
+        lblEffectiveFrom.font = UIFont.BoldFont(10)
         lblExpiration.textColor = UIColor.themeBlackText
-        lblExpiration.font = UIFont.RegularFont(10)
+        lblExpiration.font = UIFont.BoldFont(10)
         
     }
     

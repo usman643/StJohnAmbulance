@@ -60,7 +60,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
         lblTitle.font = UIFont.BoldFont(22)
         lblTitle.textColor = UIColor.themePrimaryColor
         for label in headingAllLabel{
-            label.font = UIFont.RegularFont(11)
+            label.font = UIFont.BoldFont(11)
             label.textColor = UIColor.themePrimaryWhite
         }
         tableHeadingView.layer.borderWidth = 1.5

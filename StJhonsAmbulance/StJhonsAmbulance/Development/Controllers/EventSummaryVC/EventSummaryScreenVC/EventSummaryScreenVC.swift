@@ -72,7 +72,7 @@ class EventSummaryScreenVC: ENTALDBaseViewController {
         lblProgram.textColor = UIColor.themePrimaryColor
         lblShortDesc.font = UIFont.BoldFont(14)
         lblShortDesc.textColor = UIColor.themePrimaryColor
-        lblAdhoc.font = UIFont.RegularFont(12)
+        lblAdhoc.font = UIFont.BoldFont(12)
         lblAdhoc.textColor = UIColor.themePrimaryColor
         selectStatusView.layer.cornerRadius = 5
         selectProgramView.layer.cornerRadius = 5
@@ -83,9 +83,9 @@ class EventSummaryScreenVC: ENTALDBaseViewController {
         tableHeadingView.layer.borderWidth = 1
         tableHeadingView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         
-        txtEventName.font = UIFont.RegularFont(12)
+        txtEventName.font = UIFont.BoldFont(12)
         txtEventName.textColor = UIColor.themeBlackText
-        txtEventDesc.font = UIFont.RegularFont(12)
+        txtEventDesc.font = UIFont.BoldFont(12)
         txtEventDesc.textColor = UIColor.themeBlackText
         btnSelectProgram.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnSelectProgram.titleLabel?.font = UIFont.BoldFont(14)

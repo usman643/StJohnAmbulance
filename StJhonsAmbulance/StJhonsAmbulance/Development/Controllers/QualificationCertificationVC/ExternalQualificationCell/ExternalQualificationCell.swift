@@ -48,11 +48,11 @@ class ExternalQualificationCell: UITableViewCell {
         btnView.titleLabel?.font = UIFont.BoldFont(13)
         
         lblQualification.textColor = UIColor.themeSecondryWhite
-        lblQualification.font = UIFont.RegularFont(13)
+        lblQualification.font = UIFont.BoldFont(13)
         lblCertificateId.textColor = UIColor.themeSecondryWhite
-        lblCertificateId.font = UIFont.RegularFont(13)
+        lblCertificateId.font = UIFont.BoldFont(13)
         lblType.textColor = UIColor.themeSecondryWhite
-        lblType.font = UIFont.RegularFont(13)
+        lblType.font = UIFont.BoldFont(13)
         
     }
     

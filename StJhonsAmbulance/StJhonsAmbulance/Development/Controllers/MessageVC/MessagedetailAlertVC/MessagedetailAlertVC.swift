@@ -41,8 +41,8 @@ class MessagedetailAlertVC: ENTALDBaseViewController {
         
         lblTitle.font = UIFont.BoldFont(24)
         lblSubTitle.font = UIFont.BoldFont(24)
-        lblSubject.font = UIFont.RegularFont(14)
-        lblMessage.font = UIFont.RegularFont(14)
+        lblSubject.font = UIFont.BoldFont(14)
+        lblMessage.font = UIFont.BoldFont(14)
         lblSubjectTitle.font = UIFont.BoldFont(16)
         lblMessageTitle.font = UIFont.BoldFont(16)
 

@@ -44,10 +44,10 @@ class AdhocHourCell: UITableViewCell {
         lblEvent.textColor = UIColor.themeSecondryWhite
         lblEvent.font = UIFont.BoldFont(14)
         lblProgram.textColor = UIColor.themeSecondryWhite
-        lblProgram.font = UIFont.RegularFont(13)
+        lblProgram.font = UIFont.BoldFont(13)
 
         lblHours.textColor = UIColor.themeSecondryWhite
-        lblHours.font = UIFont.RegularFont(13)
+        lblHours.font = UIFont.BoldFont(13)
         
     }
     

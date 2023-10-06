@@ -43,14 +43,14 @@ class EventScheduleTVC: UITableViewCell {
         lblMax.textColor = UIColor.textBlackColor
         lblStatus.textColor = UIColor.textBlackColor
         
-        lblTitle.font = UIFont.RegularFont(10)
-        lblStart.font = UIFont.RegularFont(10)
-        lblEnd.font = UIFont.RegularFont(10)
-        lblEvent.font = UIFont.RegularFont(10)
-        lblHour.font = UIFont.RegularFont(10)
-        lblMin.font = UIFont.RegularFont(10)
-        lblMax.font = UIFont.RegularFont(10)
-        lblStatus.font = UIFont.RegularFont(10)
+        lblTitle.font = UIFont.BoldFont(10)
+        lblStart.font = UIFont.BoldFont(10)
+        lblEnd.font = UIFont.BoldFont(10)
+        lblEvent.font = UIFont.BoldFont(10)
+        lblHour.font = UIFont.BoldFont(10)
+        lblMin.font = UIFont.BoldFont(10)
+        lblMax.font = UIFont.BoldFont(10)
+        lblStatus.font = UIFont.BoldFont(10)
     }
     
     

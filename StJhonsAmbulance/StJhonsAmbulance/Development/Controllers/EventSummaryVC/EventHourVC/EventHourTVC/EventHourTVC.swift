@@ -35,11 +35,11 @@ class EventHourTVC: UITableViewCell {
         lblHour.textColor = UIColor.textBlackColor
         lblStatus.textColor = UIColor.textBlackColor
         
-        lblName.font = UIFont.RegularFont(11)
-        lblEvent.font = UIFont.RegularFont(11)
-        lblDate.font = UIFont.RegularFont(11)
-        lblHour.font = UIFont.RegularFont(11)
-        lblStatus.font = UIFont.RegularFont(11)
+        lblName.font = UIFont.BoldFont(11)
+        lblEvent.font = UIFont.BoldFont(11)
+        lblDate.font = UIFont.BoldFont(11)
+        lblHour.font = UIFont.BoldFont(11)
+        lblStatus.font = UIFont.BoldFont(11)
     }
     
     func setContent(rowModel: VolunteerOfEventDataModel? , eventName: String?){

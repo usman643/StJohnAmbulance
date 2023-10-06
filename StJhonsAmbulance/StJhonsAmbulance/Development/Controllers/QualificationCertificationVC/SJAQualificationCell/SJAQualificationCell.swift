@@ -46,9 +46,9 @@ class SJAQualificationCell: UITableViewCell {
         btnView.titleLabel?.font = UIFont.BoldFont(13)
         
         lblQualification.textColor = UIColor.themeSecondryWhite
-        lblQualification.font = UIFont.RegularFont(13)
+        lblQualification.font = UIFont.BoldFont(13)
         lblType.textColor = UIColor.themeSecondryWhite
-        lblType.font = UIFont.RegularFont(13)
+        lblType.font = UIFont.BoldFont(13)
         
     }
     

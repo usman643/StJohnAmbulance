@@ -57,7 +57,7 @@ class ParticipationDetailVC: ENTALDBaseViewController,UITextViewDelegate, UIText
         tableHeaderView.layer.borderWidth = 1
         tableHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         btnCloseSearch.isHidden = true
-        txtSearch.font = UIFont.RegularFont(12)
+        txtSearch.font = UIFont.BoldFont(12)
         txtSearch.textColor = UIColor.textBlackColor
         txtSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
     }

@@ -17,6 +17,7 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
     var calendar : FSCalendar!
     var formatter = DateFormatter()
     let contactId = UserDefaults.standard.contactIdToken ?? ""
+    var isLoadMoreShow : Bool = true
     
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var mainContentView: UIView!
@@ -30,9 +31,10 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
     @IBOutlet weak var listBottomView: UIView!
     @IBOutlet weak var calendarBottomView: UIView!
     @IBOutlet weak var lblSignup: UILabel!
-    
-    
+
     @IBOutlet weak var calenderView: UIView!
+    @IBOutlet weak var btnLoadMore: UIButton!
+    @IBOutlet weak var loadMoreView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         registerCell()
@@ -74,6 +76,13 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
         calendarBottomView.isHidden = true
         headerView.addBottomShadow()
         
+        btnLoadMore.layer.borderColor = UIColor.themeColorSecondry.cgColor
+        btnLoadMore.layer.borderWidth = 1.0
+        btnLoadMore.setTitle("Load More", for: .normal)
+        btnLoadMore.setTitleColor(UIColor.themeColorSecondry, for: .normal)
+        btnLoadMore.titleLabel?.font = UIFont.BoldFont(16)
+        loadMoreView.isHidden = true
+        
     }
     
     @IBAction func signUpTapped(_ sender: Any) {
@@ -91,12 +100,25 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
         calenderView.isHidden = false
         listBottomView.isHidden = true
         calendarBottomView.isHidden = false
+        
+        self.loadMoreView.isHidden = true
     }
     
     @IBAction func showEventsTapped(_ sender: Any) {
         calenderView.isHidden = true
         listBottomView.isHidden = false
         calendarBottomView.isHidden = true
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    @IBAction func loadMoreTapped(_ sender: Any) {
+        isLoadMoreShow = false
+        DispatchQueue.main.async {
+            self.loadMoreView.isHidden = true
+            self.tableView.reloadData()
+        }
     }
     
     
@@ -356,7 +378,11 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
 extension ScheduleVC : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return scheduleData?.count ?? 0
+        if ((scheduleData?.count ?? 0) > 3 && isLoadMoreShow){
+            loadMoreView.isHidden = false
+            return 3
+        }
+            return scheduleData?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

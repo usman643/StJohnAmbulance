@@ -26,7 +26,7 @@ class CSDashBaordCVC: UICollectionViewCell {
         mainView.layer.cornerRadius = 3
         imgView.layer.cornerRadius = imgView.frame.size.height/2
         
-        lblCount.font = UIFont.RegularFont(12)
+        lblCount.font = UIFont.BoldFont(12)
         lblTitle.font = UIFont.MediumFont(16)
         
         lblCount.textColor = UIColor.textWhiteColor

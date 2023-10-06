@@ -32,7 +32,7 @@ class VoluteerHoursTVC: UITableViewCell {
     }
     func decorateUI(){
         for label in allLabel{
-            label.font = UIFont.RegularFont(11)
+            label.font = UIFont.BoldFont(11)
             label.textColor = UIColor.textBlackColor
         }
         

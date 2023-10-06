@@ -13,7 +13,7 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
     var filteredData : [VolunteerModel]?
     var isNameFilter : Bool = false
     var isRoleFilter : Bool = false
-    
+    var isLoadMoreShow : Bool = true
 
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnHome: UIButton!
@@ -26,7 +26,10 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var searchImg: UIImageView!
     @IBOutlet weak var textSearch: UITextField!
-   
+    @IBOutlet weak var btnLoadMore: UIButton!
+    @IBOutlet weak var loadMoreView: UIView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -58,6 +61,12 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
         btnSelectGroup.titleLabel?.font = UIFont.HeaderBoldFont(14)
         btnSelectGroup.backgroundColor = UIColor.themePrimary
         searchMainView.isHidden = true
+        btnLoadMore.layer.borderColor = UIColor.themeColorSecondry.cgColor
+        btnLoadMore.layer.borderWidth = 1.0
+        btnLoadMore.setTitle("Load More", for: .normal)
+        btnLoadMore.setTitleColor(UIColor.themeColorSecondry, for: .normal)
+        btnLoadMore.titleLabel?.font = UIFont.BoldFont(16)
+        loadMoreView.isHidden = true
     }
 
     @IBAction func messageTapped(_ sender: Any) {
@@ -71,6 +80,16 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
     @IBAction func selectGroupTapped(_ sender: Any) {
         
         showGroupsPicker()
+    }
+    
+    
+    
+    @IBAction func loadMoreTapped(_ sender: Any) {
+        isLoadMoreShow = false
+        DispatchQueue.main.async {
+            self.loadMoreView.isHidden = true
+            self.tableView.reloadData()
+        }
     }
     
     
@@ -239,6 +258,7 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
                         }
                         
                         DispatchQueue.main.async {
+                            
                             for subview in self.tableView.subviews {
                                 subview.removeFromSuperview()
                             }
@@ -269,7 +289,11 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
 
 extension VounteerVC: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredData?.count ?? 0
+        if ((filteredData?.count ?? 0) > 3 && isLoadMoreShow){
+            loadMoreView.isHidden = false
+            return 3
+        }
+            return filteredData?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

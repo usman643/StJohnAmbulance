@@ -95,14 +95,12 @@ class DashboardVC: ENTALDBaseViewController{
     
     func decorateUI(){
         lblTitle.font = UIFont.HeaderBoldFont(18)
-        lblTitle.textColor = UIColor.headerTitleColor
+        lblTitle.textColor = UIColor.headerGreen
         lblIncomingTitle.font = UIFont.HeaderBoldFont(14)
         lblIncomingTitle.textColor = UIColor.themeBlackText
-        lblTitle.font = UIFont.HeaderBoldFont(14)
-        lblTitle.textColor = UIColor.themeBlackText
         lblName.font = UIFont.BoldFont(14)
-        lblName.textColor = UIColor.themePrimaryColor
-        lblDesc.font = UIFont.RegularFont(12)
+        lblName.textColor = UIColor.headerGreen
+        lblDesc.font = UIFont.MediumFont(13)
         profileImg.layer.cornerRadius = profileImg.frame.size.height/2
         headerView.dropShadow(color: UIColor.blue, opacity: 1.0, offSet: .zero, radius: 0, scale: true)
         emptyView.isHidden = true

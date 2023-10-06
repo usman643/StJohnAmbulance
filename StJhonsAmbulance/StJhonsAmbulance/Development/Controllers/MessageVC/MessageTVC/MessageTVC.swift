@@ -31,7 +31,7 @@ class MessageTVC: UITableViewCell {
     func decorateUI(){
         lblName.font = UIFont.BoldFont(14)
         lblDate.font = UIFont.BoldFont(14)
-        lblMessage.font = UIFont.RegularFont(12)
+        lblMessage.font = UIFont.BoldFont(12)
         
         lblName.textColor = UIColor.textBlackColor
         lblDate.textColor = UIColor.textBlackColor

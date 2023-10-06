@@ -26,9 +26,9 @@ class ScheduleTVC: UITableViewCell {
     }
     func decorateUI(){
         lblTitle.font = UIFont.BoldFont(16)
-        lblSubTitle.font = UIFont.RegularFont(14)
-        lblTime.font = UIFont.RegularFont(14)
-        lblDate.font = UIFont.RegularFont(14)
+        lblSubTitle.font = UIFont.BoldFont(14)
+        lblTime.font = UIFont.BoldFont(14)
+        lblDate.font = UIFont.BoldFont(14)
         
         lblTitle.textColor = UIColor.themePrimaryColor
         lblSubTitle.textColor = UIColor.themeColorSecondry

@@ -226,7 +226,7 @@ class EventManageVC: ENTALDBaseViewController, UITextFieldDelegate,updateVolunte
         btnAddVolunteer.setTitleColor(UIColor.darkBlueColor, for: .normal)
         
         btnProgram.backgroundColor = UIColor.red
-        txtSearch.font = UIFont.RegularFont(16)
+        txtSearch.font = UIFont.BoldFont(16)
         txtSearch.textColor = UIColor.textWhiteColor
         
         btnProgram.layer.cornerRadius = 2

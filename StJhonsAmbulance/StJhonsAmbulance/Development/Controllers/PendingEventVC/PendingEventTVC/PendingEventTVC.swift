@@ -29,11 +29,11 @@ class PendingEventTVC: UITableViewCell {
     
     func deocrateUI(){
         
-        lblName.font = UIFont.RegularFont(11)
-        lblLocation.font = UIFont.RegularFont(11)
-        lblMax.font = UIFont.RegularFont(11)
-        lblDate.font = UIFont.RegularFont(11)
-        lblStatus.font = UIFont.RegularFont(11)
+        lblName.font = UIFont.BoldFont(11)
+        lblLocation.font = UIFont.BoldFont(11)
+        lblMax.font = UIFont.BoldFont(11)
+        lblDate.font = UIFont.BoldFont(11)
+        lblStatus.font = UIFont.BoldFont(11)
         
         lblName.textColor = UIColor.textBlackColor
         lblLocation.textColor = UIColor.textBlackColor

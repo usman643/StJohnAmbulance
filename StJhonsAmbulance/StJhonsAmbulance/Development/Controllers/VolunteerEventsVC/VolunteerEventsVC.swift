@@ -49,6 +49,18 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     var isPastStartFilterApplied = false
     var isPastEndFilterApplied = false
     
+    var isAvailableLoadMoreShow = true
+    var isScheduleLoadMoreShow = true
+    var isPastLoadMoreShow = true
+    
+    @IBOutlet weak var pastLoadMoreView: UIView!
+    @IBOutlet weak var btnPastLoadMore: UIButton!    
+    @IBOutlet weak var scheduleLoadMoreView: UIView!
+    @IBOutlet weak var btnScheduleLoadMore: UIButton!
+    @IBOutlet weak var avilableLoadMoreView: UIView!
+    @IBOutlet weak var btnAvilableLoadMore: UIButton!
+    
+    
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnHome: UIButton!
 
@@ -73,10 +85,10 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     @IBOutlet weak var scheduleView: UIView!
     @IBOutlet weak var pastView: UIView!
     
-    @IBOutlet weak var searchView: UIView!
-    @IBOutlet weak var searchImg: UIImageView!
-    @IBOutlet weak var textSearch: UITextField!
-    @IBOutlet weak var btnSearchClose: UIButton!
+//    @IBOutlet weak var searchView: UIView!
+//    @IBOutlet weak var searchImg: UIImageView!
+//    @IBOutlet weak var textSearch: UITextField!
+//    @IBOutlet weak var btnSearchClose: UIButton!
     
     
     @IBOutlet weak var emptyView: UIView!
@@ -100,17 +112,41 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     func decorateUI(){
         lblTitle.font = UIFont.HeaderBoldFont(18)
         lblTitle.textColor = UIColor.headerGreen
-        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        searchView.layer.borderWidth = 1.5
-        searchView.isHidden = false
+//        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+//        searchView.layer.borderWidth = 1.5
+//        searchView.isHidden = false
         
-        textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+//        textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         resetButtonView()
         self.availableView.isHidden = false
         isAvailabilityTableSearch = true
         vwAvailable.isHidden = false
         btnAvailable.setTitleColor(UIColor.themeColorSecondry, for: .normal)
         headerView.addBottomShadow()
+        pastLoadMoreView.isHidden = true
+        scheduleLoadMoreView.isHidden = true
+        avilableLoadMoreView.isHidden = true
+        
+        btnAvilableLoadMore.layer.borderColor = UIColor.themeColorSecondry.cgColor
+        btnAvilableLoadMore.layer.borderWidth = 1.0
+        btnAvilableLoadMore.setTitle("Load More", for: .normal)
+        btnAvilableLoadMore.setTitleColor(UIColor.themeColorSecondry, for: .normal)
+        btnAvilableLoadMore.titleLabel?.font = UIFont.BoldFont(16)
+        avilableLoadMoreView.isHidden = true
+        
+        btnScheduleLoadMore.layer.borderColor = UIColor.themeColorSecondry.cgColor
+        btnScheduleLoadMore.layer.borderWidth = 1.0
+        btnScheduleLoadMore.setTitle("Load More", for: .normal)
+        btnScheduleLoadMore.setTitleColor(UIColor.themeColorSecondry, for: .normal)
+        btnScheduleLoadMore.titleLabel?.font = UIFont.BoldFont(16)
+        scheduleLoadMoreView.isHidden = true
+        
+        btnPastLoadMore.layer.borderColor = UIColor.themeColorSecondry.cgColor
+        btnPastLoadMore.layer.borderWidth = 1.0
+        btnPastLoadMore.setTitle("Load More", for: .normal)
+        btnPastLoadMore.setTitleColor(UIColor.themeColorSecondry, for: .normal)
+        btnPastLoadMore.titleLabel?.font = UIFont.BoldFont(16)
+        pastLoadMoreView.isHidden = true 
     }
     
     func registerCells(){
@@ -145,8 +181,8 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     
     @IBAction func searchCloseTapped(_ sender: Any) {
 //        self.searchView.isHidden = true
-        textSearch.endEditing(true)
-        textSearch.text = ""
+//        textSearch.endEditing(true)
+//        textSearch.text = ""
         filterScheduleData = scheduleData
         filterAvailableData = availableData
         filterPastEventData = pastEventData
@@ -226,37 +262,38 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     }
     
     
+    @IBAction func pastLoadMoreTapped(_ sender: Any) {
+        isPastLoadMoreShow = false
+        DispatchQueue.main.async {
+            self.pastLoadMoreView.isHidden = true
+            self.pastTable.reloadData()
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    @IBAction func scheduleLoadMoreTapped(_ sender: Any) {
+        isScheduleLoadMoreShow = false
+        DispatchQueue.main.async {
+            self.scheduleLoadMoreView.isHidden = true
+            self.scheduleTable.reloadData()
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    @IBAction func availableLoadMoreTapped(_ sender: Any) {
+        isAvailableLoadMoreShow = false
+        DispatchQueue.main.async {
+            self.avilableLoadMoreView.isHidden = true
+            self.availableTable.reloadData()
+            self.view.layoutIfNeeded()
+        }
+    }
+    
     @IBAction func addEventsTapped(_ sender: Any) {
-        
-        
+        ENTALDControllers.shared.showCreateEventForm(type: .ENTALDPUSH, from: self) { params, controller in
+        }
     }
     
-    
-    @IBAction func availableFilterTapped(_ sender: Any) {
-        isAvailabilityTableSearch = true
-        isScheduleTableSearch = false
-        isPastTableSearch = false
-        self.searchView.isHidden = false
-        self.textSearch.placeholder = "Filter Availability Event"
-    }
-    
-    @IBAction func scheduledFilterTapped(_ sender: Any) {
-        isAvailabilityTableSearch = false
-        isScheduleTableSearch = true
-        isPastTableSearch = false
-        self.searchView.isHidden = false
-        self.textSearch.placeholder = "Filter Scheduled Event"
-        
-    }
-    
-    @IBAction func pastFilterTapped(_ sender: Any) {
-        isAvailabilityTableSearch = false
-        isScheduleTableSearch = false
-        isPastTableSearch = true
-        self.searchView.isHidden = false
-        self.textSearch.placeholder = "Filter Past Event"
-        
-    }
     func textFieldDidBeginEditing(_ textField: UITextField) {
 //        btnSearchClose.isHidden = false
     }
@@ -566,7 +603,9 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
                     self.filterAvailableData = availableEvent
                     if (self.availableData?.count == 0 || self.availableData?.count == nil){
 //                        self.showEmptyView(tableVw: self.availableTable)
-                        self.emptyView.isHidden = false
+                        DispatchQueue.main.async {
+                            self.emptyView.isHidden = false
+                        }
                         
                     }else{
                         DispatchQueue.main.async {
@@ -581,7 +620,9 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
                     }
                 }else{
 //                    self.showEmptyView(tableVw: self.availableTable)
-                    self.emptyView.isHidden = false
+                    DispatchQueue.main.async {
+                        self.emptyView.isHidden = false
+                    }
                 }
                 
             case .error(let error, let errorResponse):
@@ -605,11 +646,22 @@ extension VolunteerEventsVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (tableView == availableTable){
+            if ((filterAvailableData?.count ?? 0) > 3 && isAvailableLoadMoreShow){
+                avilableLoadMoreView.isHidden = false
+                return 3
+            }
             return filterAvailableData?.count ?? 0
         }else if (tableView == scheduleTable){
-
+            if ((filterScheduleData?.count ?? 0) > 3 && isScheduleLoadMoreShow){
+                scheduleLoadMoreView.isHidden = false
+                return 3
+            }
             return filterScheduleData?.count ?? 0
         }else if (tableView == pastTable){
+            if ((filterPastEventData?.count ?? 0) > 3 && isPastLoadMoreShow){
+                pastLoadMoreView.isHidden = false
+                return 3
+            }
             return filterPastEventData?.count ?? 0
         }
         

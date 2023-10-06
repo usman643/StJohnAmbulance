@@ -66,13 +66,13 @@ class EventLocationVC: ENTALDBaseViewController {
 
         for txtfield in allTxtFields {
             
-            txtfield.font = UIFont.RegularFont(12)
+            txtfield.font = UIFont.BoldFont(12)
             txtfield.textColor = UIColor.themePrimaryWhite
         }
         
         for txtfield in allTxtFields {
             
-            txtfield.font = UIFont.RegularFont(12)
+            txtfield.font = UIFont.BoldFont(12)
             txtfield.textColor = UIColor.themePrimaryWhite
             txtfield.layer.borderWidth = 1
             txtfield.layer.borderColor = UIColor.themePrimaryWhite.cgColor

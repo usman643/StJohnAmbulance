@@ -162,17 +162,17 @@ class VolunteerHourDetailVC: ENTALDBaseViewController, UISearchTextFieldDelegate
         txtendTime.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0);
         
         
-        txtstartDate.font = UIFont.RegularFont(13)
-        txtstartTime.font = UIFont.RegularFont(13)
-        txtendDate.font = UIFont.RegularFont(13)
-        txtendTime.font = UIFont.RegularFont(13)
-        txteventName.font = UIFont.RegularFont(13)
-        txtprogramName.font = UIFont.RegularFont(13)
-        txteventRequirement.font = UIFont.RegularFont(13)
-        txtlocation.font = UIFont.RegularFont(13)
-        txtstreetOne.font = UIFont.RegularFont(13)
-        txtstreetTwo.font = UIFont.RegularFont(13)
-        txtstreetThree.font = UIFont.RegularFont(13)
+        txtstartDate.font = UIFont.BoldFont(13)
+        txtstartTime.font = UIFont.BoldFont(13)
+        txtendDate.font = UIFont.BoldFont(13)
+        txtendTime.font = UIFont.BoldFont(13)
+        txteventName.font = UIFont.BoldFont(13)
+        txtprogramName.font = UIFont.BoldFont(13)
+        txteventRequirement.font = UIFont.BoldFont(13)
+        txtlocation.font = UIFont.BoldFont(13)
+        txtstreetOne.font = UIFont.BoldFont(13)
+        txtstreetTwo.font = UIFont.BoldFont(13)
+        txtstreetThree.font = UIFont.BoldFont(13)
         
         txtstartDate.textColor = UIColor.themePrimaryWhite
         txtstartTime.textColor = UIColor.themePrimaryWhite
@@ -215,8 +215,8 @@ class VolunteerHourDetailVC: ENTALDBaseViewController, UISearchTextFieldDelegate
         lblEvent.textColor = UIColor.themePrimaryWhite
         lblShift.textColor = UIColor.themePrimaryWhite
         
-        lblEvent.font = UIFont.RegularFont(13)
-        lblShift.font = UIFont.RegularFont(13)
+        lblEvent.font = UIFont.BoldFont(13)
+        lblShift.font = UIFont.BoldFont(13)
     }
     
     func setupData(){

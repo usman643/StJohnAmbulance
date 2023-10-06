@@ -28,13 +28,13 @@ class AvailabilityTVC: UITableViewCell {
     
     func deocrateUI(){
         lblTitle.textColor = UIColor.textBlackColor
-        lblTitle.font = UIFont.RegularFont(12)
+        lblTitle.font = UIFont.BoldFont(12)
         lblEffectiveFrom.textColor = UIColor.textBlackColor
-        lblEffectiveFrom.font = UIFont.RegularFont(12)
+        lblEffectiveFrom.font = UIFont.BoldFont(12)
         lblEffectiveto.textColor = UIColor.textBlackColor
-        lblEffectiveto.font = UIFont.RegularFont(12)
+        lblEffectiveto.font = UIFont.BoldFont(12)
         lblWorkingDays.textColor = UIColor.textBlackColor
-        lblWorkingDays.font = UIFont.RegularFont(12)
+        lblWorkingDays.font = UIFont.BoldFont(12)
     }
     
     func setContent(cellModel: AvailablityHourModel?){

@@ -37,12 +37,12 @@ class PendingShiftTVC: UITableViewCell {
     
     func decorateUI(){
         
-        lblName.font = UIFont.RegularFont(10)
-        lblEvent.font = UIFont.RegularFont(10)
-        lblDate.font = UIFont.RegularFont(10)
-        lblHours.font = UIFont.RegularFont(10)
-        lblShift.font = UIFont.RegularFont(8)
-        lblAction.font = UIFont.RegularFont(10)
+        lblName.font = UIFont.BoldFont(10)
+        lblEvent.font = UIFont.BoldFont(10)
+        lblDate.font = UIFont.BoldFont(10)
+        lblHours.font = UIFont.BoldFont(10)
+        lblShift.font = UIFont.BoldFont(8)
+        lblAction.font = UIFont.BoldFont(10)
         
         lblName.textColor = UIColor.textBlackColor
         lblName.textColor = UIColor.textBlackColor

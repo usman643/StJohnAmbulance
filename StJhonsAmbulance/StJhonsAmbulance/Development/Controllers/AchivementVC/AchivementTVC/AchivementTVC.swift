@@ -39,7 +39,7 @@ class AchivementTVC: UITableViewCell {
         lblName.textColor = UIColor.themePrimary
         lblName.font = UIFont.BoldFont(16)
         lblDate.textColor = UIColor.themePrimary
-        lblDate.font = UIFont.RegularFont(10)
+        lblDate.font = UIFont.BoldFont(10)
         
         
     }

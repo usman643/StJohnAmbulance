@@ -31,7 +31,7 @@ class MessagesCell: UITableViewCell {
         userImage.layer.cornerRadius = userImage.frame.size.height/2
         lblName.font = UIFont.BoldFont(13)
         lblName.textColor = UIColor.themeColorSecondry
-        lblMessage.font = UIFont.RegularFont(12)
+        lblMessage.font = UIFont.BoldFont(12)
         lblMessage.textColor = UIColor.themeBlackText
         
         

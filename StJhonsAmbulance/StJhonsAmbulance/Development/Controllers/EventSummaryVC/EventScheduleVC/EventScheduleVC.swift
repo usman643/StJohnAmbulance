@@ -66,7 +66,7 @@ class EventScheduleVC: ENTALDBaseViewController {
         btnStatus.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnStatus.titleLabel?.font = UIFont.BoldFont(14)
         btnMultiday.layer.cornerRadius = 3
-        lblMultidayEvent.font = UIFont.RegularFont(12)
+        lblMultidayEvent.font = UIFont.BoldFont(12)
         lblMultidayEvent.textColor = UIColor.themePrimaryWhite
         
         minVolunteer.keyboardType = .decimalPad
@@ -74,7 +74,7 @@ class EventScheduleVC: ENTALDBaseViewController {
         maxDailyAttendance.keyboardType = .decimalPad
         
         for label in lblAge{
-            label.font = UIFont.RegularFont(14)
+            label.font = UIFont.BoldFont(14)
             label.textColor = UIColor.themePrimaryWhite
         }
         
@@ -92,7 +92,7 @@ class EventScheduleVC: ENTALDBaseViewController {
         }
 
         for txtField in allTxtField{
-            txtField.font = UIFont.RegularFont(13)
+            txtField.font = UIFont.BoldFont(13)
             txtField.textColor = UIColor.themePrimaryWhite
             txtField.layer.borderWidth = 1
             txtField.layer.borderColor = UIColor.themePrimaryWhite.cgColor

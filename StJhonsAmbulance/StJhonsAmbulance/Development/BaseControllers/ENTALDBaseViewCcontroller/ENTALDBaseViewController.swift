@@ -79,7 +79,7 @@ class ENTALDBaseViewController: UIViewController, MenuControllerDelegate {
         }else if(named == "Event"){
             
             ENTALDControllers.shared.showCSLeadEventVC(type: .ENTALDPUSH, from: self, callBack: nil)
-        }else if(named == "Volenteers"){
+        }else if(named == "Volunteers"){
             
             ENTALDControllers.shared.showVolunteersScreen(type: .ENTALDPUSH, from: self, callBack: nil)
 

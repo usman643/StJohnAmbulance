@@ -38,11 +38,11 @@ class EventSummaryScreenTVC: UITableViewCell {
         lblHour.textColor = UIColor.textBlackColor
         lblStatus.textColor = UIColor.textBlackColor
         
-        lblVolunteen.font = UIFont.RegularFont(11)
-        lblEvent.font = UIFont.RegularFont(11)
-        lblStart.font = UIFont.RegularFont(11)
-        lblHour.font = UIFont.RegularFont(11)
-        lblStatus.font = UIFont.RegularFont(11)
+        lblVolunteen.font = UIFont.BoldFont(11)
+        lblEvent.font = UIFont.BoldFont(11)
+        lblStart.font = UIFont.BoldFont(11)
+        lblHour.font = UIFont.BoldFont(11)
+        lblStatus.font = UIFont.BoldFont(11)
     }
     
     func setContent(rowModel : VolunteerOfEventDataModel? ,eventName : String?){

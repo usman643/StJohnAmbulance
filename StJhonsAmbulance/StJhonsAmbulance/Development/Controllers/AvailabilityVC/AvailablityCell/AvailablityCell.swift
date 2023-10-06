@@ -49,9 +49,9 @@ class AvailablityCell: UITableViewCell {
         btnView.titleLabel?.font = UIFont.BoldFont(13)
         
         lblEvent.textColor = UIColor.themeSecondryWhite
-        lblEvent.font = UIFont.RegularFont(13)
+        lblEvent.font = UIFont.BoldFont(13)
         lblWorkingDays.textColor = UIColor.themeSecondryWhite
-        lblWorkingDays.font = UIFont.RegularFont(13)
+        lblWorkingDays.font = UIFont.BoldFont(13)
 
     }
     

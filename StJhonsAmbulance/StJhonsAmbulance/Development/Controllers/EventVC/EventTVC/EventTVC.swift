@@ -29,12 +29,12 @@ class EventTVC: UITableViewCell {
     
     func deocrateUI(){
         
-        lblEvent.font = UIFont.RegularFont(11)
-        lblLocation.font = UIFont.RegularFont(11)
-        lblStart.font = UIFont.RegularFont(11)
-        lblEnd.font = UIFont.RegularFont(11)
-        lblNeeded.font = UIFont.RegularFont(11)
-        btnView.titleLabel?.font = UIFont.RegularFont(11)
+        lblEvent.font = UIFont.BoldFont(11)
+        lblLocation.font = UIFont.BoldFont(11)
+        lblStart.font = UIFont.BoldFont(11)
+        lblEnd.font = UIFont.BoldFont(11)
+        lblNeeded.font = UIFont.BoldFont(11)
+        btnView.titleLabel?.font = UIFont.BoldFont(11)
         
         lblEvent.textColor = UIColor.textBlackColor
         lblLocation.textColor = UIColor.textBlackColor

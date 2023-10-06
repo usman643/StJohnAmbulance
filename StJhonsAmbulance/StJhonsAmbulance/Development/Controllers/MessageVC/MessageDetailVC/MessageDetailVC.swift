@@ -56,8 +56,8 @@ class MessageDetailVC: ENTALDBaseViewController , UITextViewDelegate {
         txtSubject.textColor = UIColor.textBlackColor
         txtMessage.textColor = UIColor.textBlackColor
         
-        txtSubject.font = UIFont.RegularFont(14)
-        txtMessage.font = UIFont.RegularFont(14)
+        txtSubject.font = UIFont.BoldFont(14)
+        txtMessage.font = UIFont.BoldFont(14)
         
         self.lblMessageError.isHidden = true
         self.lblMessageError.text = "Please Enter Message"

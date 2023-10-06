@@ -53,8 +53,8 @@ class CSEventTVC: UITableViewCell {
         lblDateTime.font =  UIFont.MediumFont(11)
         btnView.titleLabel?.font = UIFont.BoldFont(13)
         lblTitle.font =  UIFont.BoldFont(14)
-        lblTotalHours.font =  UIFont.RegularFont(13)
-        lblLocation.font =  UIFont.RegularFont(13)
+        lblTotalHours.font =  UIFont.BoldFont(13)
+        lblLocation.font =  UIFont.BoldFont(13)
         
     }
     

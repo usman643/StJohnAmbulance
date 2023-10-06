@@ -26,13 +26,13 @@ class AdhocHourTVC: UITableViewCell {
     
     func decorateUI(){
         lblTitle.textColor = UIColor.textBlackColor
-        lblTitle.font = UIFont.RegularFont(12)
+        lblTitle.font = UIFont.BoldFont(12)
         lblProgram.textColor = UIColor.textBlackColor
-        lblProgram.font = UIFont.RegularFont(12)
+        lblProgram.font = UIFont.BoldFont(12)
         lblHours.textColor = UIColor.textBlackColor
-        lblHours.font = UIFont.RegularFont(12)
+        lblHours.font = UIFont.BoldFont(12)
         lblStatus.textColor = UIColor.textBlackColor
-        lblStatus.font = UIFont.RegularFont(12)
+        lblStatus.font = UIFont.BoldFont(12)
         
         
     }

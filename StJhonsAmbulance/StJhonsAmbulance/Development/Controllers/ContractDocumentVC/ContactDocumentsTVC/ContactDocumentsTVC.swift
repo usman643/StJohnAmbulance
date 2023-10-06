@@ -26,9 +26,9 @@ class ContactDocumentsTVC: UITableViewCell {
         lblModifiedDate.textColor = UIColor.textBlackColor
         lblAction.textColor = UIColor.textBlackColor
         
-        lblName.font = UIFont.RegularFont(12)
-        lblModifiedDate.font = UIFont.RegularFont(12)
-        lblAction.font = UIFont.RegularFont(12)
+        lblName.font = UIFont.BoldFont(12)
+        lblModifiedDate.font = UIFont.BoldFont(12)
+        lblAction.font = UIFont.BoldFont(12)
         
     }
 

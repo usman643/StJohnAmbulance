@@ -26,8 +26,8 @@ class ParticipationDetailTVC: UITableViewCell {
         lblVolunteer.textColor = UIColor.textBlackColor
 //        lblEvent.textColor = UIColor.textBlackColor
 
-        lblVolunteer.font = UIFont.RegularFont(11)
-//        lblEvent.font = UIFont.RegularFont(11)
+        lblVolunteer.font = UIFont.BoldFont(11)
+//        lblEvent.font = UIFont.BoldFont(11)
         
     }
 

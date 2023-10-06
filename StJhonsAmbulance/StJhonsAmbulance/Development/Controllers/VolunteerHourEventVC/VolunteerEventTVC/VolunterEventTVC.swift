@@ -44,15 +44,15 @@ class VolunterEventTVC: UITableViewCell {
         statusView.layer.cornerRadius = 16
         statusView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
         
-        lblDateTime.textColor = UIColor.themeBlackText
+        lblDateTime.textColor = UIColor.headerGreen
         lblStatus.textColor = UIColor.textGrayColor
         lblTitle.textColor = UIColor.themePrimaryWhite
-        lblTotalHours.textColor = UIColor.themeBlackText
+        lblTotalHours.textColor = UIColor.headerGreen
         
-        lblDateTime.font =  UIFont.MediumFont(11)
+        lblDateTime.font =  UIFont.BoldFont(13)
         lblStatus.font =  UIFont.BoldFont(10)
         lblTitle.font =  UIFont.BoldFont(14)
-        lblTotalHours.font =  UIFont.RegularFont(13)
+        lblTotalHours.font =  UIFont.BoldFont(13)
         
     }
     
@@ -60,9 +60,8 @@ class VolunterEventTVC: UITableViewCell {
         
         let date = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
         let startTime = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d, hh:mm a")
-        let endTime = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d, hh:mm a")
-        
-        lblDateTime.text = startTime
+        let endTime = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'(Z'", newFormat: "hh:mm a")
+        lblDateTime.text = "\(startTime) - \(endTime)"
         lblStatus.text = ProcessUtils.shared.getStatus(code: cellModel?.msnfp_schedulestatus ?? 0)
         lblTitle.text = "\(cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "")"
         lblTotalHours.text = "\(cellModel?.sjavms_hours?.getFormattedNumber() ?? "") Hours"

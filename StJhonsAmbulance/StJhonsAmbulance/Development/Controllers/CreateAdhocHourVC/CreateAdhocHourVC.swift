@@ -74,9 +74,9 @@ class CreateAdhocHourVC: ENTALDBaseViewController {
             label.textColor = UIColor.themePrimaryWhite
         }
         
-        txtHourNumbers.font = UIFont.RegularFont(13)
-        txtDateWorked.font = UIFont.RegularFont(13)
-        txtNotes.font = UIFont.RegularFont(13)
+        txtHourNumbers.font = UIFont.BoldFont(13)
+        txtDateWorked.font = UIFont.BoldFont(13)
+        txtNotes.font = UIFont.BoldFont(13)
         txtHourNumbers.textColor = UIColor.themePrimaryWhite
         txtDateWorked.textColor = UIColor.themePrimaryWhite
         txtNotes.textColor = UIColor.themePrimaryWhite
@@ -95,9 +95,9 @@ class CreateAdhocHourVC: ENTALDBaseViewController {
         btnTherapyDog.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnEvent.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnCreate.titleLabel?.font = UIFont.BoldFont(14)
-        btnTherapyDogFamily.titleLabel?.font = UIFont.RegularFont(13)
-        btnTherapyDog.titleLabel?.font = UIFont.RegularFont(13)
-        btnEvent.titleLabel?.font = UIFont.RegularFont(13)
+        btnTherapyDogFamily.titleLabel?.font = UIFont.BoldFont(13)
+        btnTherapyDog.titleLabel?.font = UIFont.BoldFont(13)
+        btnEvent.titleLabel?.font = UIFont.BoldFont(13)
         therapyDogView.isHidden = true
         
         txtHourNumbers.keyboardType = .decimalPad
