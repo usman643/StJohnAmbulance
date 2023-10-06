@@ -289,9 +289,9 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
 
 extension VounteerVC: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if ((filteredData?.count ?? 0) > 3 && isLoadMoreShow){
+        if ((filteredData?.count ?? 0) > 5 && isLoadMoreShow){
             loadMoreView.isHidden = false
-            return 3
+            return 5
         }
             return filteredData?.count ?? 0
     }

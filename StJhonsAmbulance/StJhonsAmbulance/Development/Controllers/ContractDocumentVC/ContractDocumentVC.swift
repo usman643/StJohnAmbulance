@@ -20,7 +20,6 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
     var isModifiedOnFilterApplied = false
     var isNameFilterApplied = false
     
-    @IBOutlet weak var lblScreenTitle: UILabel!
     
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var lblTitle: UILabel!
@@ -64,9 +63,6 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
         
         tableHeaderView.layer.borderWidth = 1.5
         tableHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        
-        lblScreenTitle.font = UIFont.BoldFont(22)
-        lblScreenTitle.textColor = UIColor.themePrimaryWhite
         
         searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         searchView.layer.borderWidth = 1.5

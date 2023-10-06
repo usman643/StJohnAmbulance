@@ -10,6 +10,7 @@ import UIKit
 class SettingVC: ENTALDBaseViewController {
 
     
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblTheme: UILabel!
     
@@ -37,6 +38,7 @@ class SettingVC: ENTALDBaseViewController {
         lblTitle.font = UIFont.HeaderBoldFont(18)
         lblTheme.textColor = UIColor.themePrimaryWhite
         lblTheme.font = UIFont.BoldFont(16)
+        headerView.addBottomShadow()
         
     }
     
