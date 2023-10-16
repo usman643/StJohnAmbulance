@@ -10,6 +10,9 @@ import UIKit
 
 class DashboardVC: ENTALDBaseViewController{
     
+    var availableData : [AvailableEventModel]?
+    
+    var filterAvailableData : [AvailableEventModel]?
     var gridData : [DashBoardGridModel]?
     var awardData : [VolunteerAwardModel]?
     var latestEventIdData : [LatestEventModel]?
@@ -104,6 +107,14 @@ class DashboardVC: ENTALDBaseViewController{
         profileImg.layer.cornerRadius = profileImg.frame.size.height/2
         headerView.dropShadow(color: UIColor.blue, opacity: 1.0, offSet: .zero, radius: 0, scale: true)
         emptyView.isHidden = true
+        btnMessage.setImage(ProcessUtils.shared.getMessageImage(), for: .normal)
+        
+        let originalImage = UIImage(named: "messages-bubble-square-text")!
+        let tintedImage = ProcessUtils.shared.tintImage(originalImage)
+        btnMessage.setImage(tintedImage, for: .normal)     
+        let  sideMenuImage = UIImage(named: "sideMenu")!
+        btnSideMenu.setImage(ProcessUtils.shared.tintImage(sideMenuImage), for: .normal)
+
     }
     
     func setupContent(){
@@ -234,6 +245,99 @@ class DashboardVC: ENTALDBaseViewController{
     
     
     // ==================  API  =====================
+    
+    func getAvailableInfo(){
+        
+        let propertyValues = ProcessUtils.shared.groupListValue ?? ""
+       
+        let params : [String:Any] = [
+            
+            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_endingdate,msnfp_startingdate,msnfp_engagementopportunityid,_sjavms_program_value,msnfp_location,msnfp_maximum,msnfp_minimum,msnfp_multipledays",
+            ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(propertyValues)])))",
+            
+            ParameterKeys.filter : "(Microsoft.Dynamics.CRM.In(PropertyName='statuscode',PropertyValues=['1','802280000']) and sjavms_adhocevent ne true and msnfp_engagementopportunitystatus eq 844060002 and (Microsoft.Dynamics.CRM.Today(PropertyName='msnfp_endingdate') or Microsoft.Dynamics.CRM.NextXYears(PropertyName='msnfp_endingdate',PropertyValue=10))) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(propertyValues)]))))",
+       ParameterKeys.orderby : "msnfp_startingdate asc"
+        ]
+        
+        self.getAvailalbeInfoData(params: params)
+        
+    }
+    
+    fileprivate func getAvailalbeInfoData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestVolunteerAvailableEventTwo(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                DispatchQueue.main.async {
+                    if let availableEvent = response.value {
+                        self.availableData = availableEvent
+                        self.filterAvailableData = availableEvent
+                        self.availableData = self.availableData?.sorted {
+                            $0.msnfp_startingdate ?? "" < $1.msnfp_startingdate ?? ""
+                        }
+                        self.filterAvailableData = self.availableData
+                        if (self.availableData?.count == 0 || self.availableData?.count == nil){
+                            //                        self.showEmptyView(tableVw: self.availableTable)
+                            self.emptyView.isHidden = false
+
+                        }else{
+                            
+                            self.tableView.reloadData()
+                            self.emptyView.isHidden = true
+                            
+                        }
+                        self.tableView.reloadData()
+                        
+                    }else{
+//                        self.emptyView.isHidden = false
+                        self.tableView.reloadData()
+                        
+                    }
+                }
+                
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                self.showEmptyView(tableVw: self.tableView)
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //====================================
     
     func getVolunteerAward(){
         
@@ -453,7 +557,9 @@ class DashboardVC: ENTALDBaseViewController{
                         //                    }
                     }else{
                         //                    self.showEmptyView(tableVw: self.tableView)
+                        self.tableView.reloadData()
                         self.emptyView.isHidden = false
+                        
                     }
                 }
                 
@@ -1137,7 +1243,8 @@ extension DashboardVC : UITableViewDelegate,UITableViewDataSource{
 //                            self.setSelectedGroup(data: data)
 //                        }
                     }
-                    self.getLatestIncomingEvent()
+//                    self.getLatestIncomingEvent()
+                    self.getAvailableInfo()
                     
                 }
                 break
@@ -1198,19 +1305,25 @@ extension DashboardVC : UITableViewDelegate,UITableViewDataSource{
     //MARK: TableView Deletegates
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.latestEventData?.count ?? 0
+        return self.filterAvailableData?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "VolunteerIncomingCell") as! VolunteerIncomingCell
         
-        let rowModel = self.latestEventData?[indexPath.row]
+        
+        let rowModel = self.filterAvailableData?[indexPath.row]
         cell.setupContent(cellModel: rowModel)
         
         
-        cell.btnView.tag = indexPath.row
-        cell.btnView.addTarget(self, action: #selector(self.viewDetail(_:)), for: .touchUpInside)
+        
+//        let rowModel = self.latestEventData?[indexPath.row]
+//        cell.setupContent(cellModel: rowModel)
+//        
+        
+        cell.btnDetail.tag = indexPath.row
+        cell.btnDetail.addTarget(self, action: #selector(self.viewDetail(_:)), for: .touchUpInside)
         
         return cell
     }
@@ -1226,9 +1339,9 @@ extension DashboardVC : UITableViewDelegate,UITableViewDataSource{
     
     @objc func viewDetail(_ sender:UIButton){
         let tag = sender.tag
-        let rowModel = self.latestEventData?[tag]
+        let rowModel = self.filterAvailableData?[tag]
         
-        ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: rowModel, eventName: "latestEvent") { params, controller in
+        ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: rowModel, eventName: "availableEvent") { params, controller in
            
 
         }

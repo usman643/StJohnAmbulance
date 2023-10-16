@@ -50,6 +50,7 @@ class QualificationCertificationVC: ENTALDBaseViewController,UITextFieldDelegate
     
     @IBOutlet weak var segment: UISegmentedControl!
     
+    @IBOutlet weak var btnMessage: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,7 +87,9 @@ class QualificationCertificationVC: ENTALDBaseViewController,UITextFieldDelegate
         searchView.isHidden = false
         searchView.layer.cornerRadius = 8
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
-        
+        let originalImage = UIImage(named: "messages-bubble-square-text")!
+        let tintedImage = ProcessUtils.shared.tintImage(originalImage)
+        btnMessage.setImage(tintedImage, for: .normal)
     }
     
     func registerCell(){

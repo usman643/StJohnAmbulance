@@ -16,9 +16,17 @@ class EventSummaryVC: ENTALDBaseViewController, UIScrollViewDelegate{
     var slides:[Any] = []
     
     @IBOutlet var containerView: UIView!
+    @IBOutlet weak var btnMessage: UIButton!
+    
+    @IBOutlet weak var lblTitle: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.reloadControllers()
+        lblTitle.font = UIFont.HeaderBoldFont(18)
+        lblTitle.textColor = UIColor.headerGreen
+        let originalImage = UIImage(named: "messages-bubble-square-text")!
+        let tintedImage = ProcessUtils.shared.tintImage(originalImage)
+        btnMessage.setImage(tintedImage, for: .normal)
     }
     
     func segmentsConfigurations(){

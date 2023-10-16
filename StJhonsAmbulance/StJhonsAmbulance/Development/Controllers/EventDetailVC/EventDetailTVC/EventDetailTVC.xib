@@ -33,8 +33,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Su2-3P-1cS">
                                 <rect key="frame" x="0.0" y="0.0" width="347" height="40"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1st Shift" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vGw-gi-vZW">
-                                        <rect key="frame" x="11.999999999999996" y="0.0" width="49.666666666666657" height="40"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shift" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vGw-gi-vZW">
+                                        <rect key="frame" x="12.000000000000002" y="0.0" width="27.666666666666671" height="40"/>
                                         <fontDescription key="fontDescription" name="NunitoSans-SemiBold" family="Nunito Sans" pointSize="13"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -69,6 +69,9 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ayf-Al-xJG">
                                 <rect key="frame" x="24" y="48" width="51" height="35"/>
                                 <color key="onTintColor" name="secondryGreen"/>
+                                <connections>
+                                    <action selector="switchAction:" destination="KGk-i7-Jjw" eventType="valueChanged" id="Ko0-t8-nyP"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check In" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fB4-9S-bFh">
                                 <rect key="frame" x="89" y="56.000000000000007" width="55.666666666666657" height="19.333333333333336"/>
@@ -104,7 +107,10 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="lblShift" destination="vGw-gi-vZW" id="Tp8-A3-9B2"/>
+                <outlet property="lblTime" destination="FlH-JJ-ZsN" id="cae-Bl-vKg"/>
                 <outlet property="mainView" destination="q9k-Z1-DEt" id="hxW-nu-ykA"/>
+                <outlet property="switchChange" destination="Ayf-Al-xJG" id="glH-ix-MFa"/>
             </connections>
             <point key="canvasLocation" x="183.96946564885496" y="41.197183098591552"/>
         </tableViewCell>

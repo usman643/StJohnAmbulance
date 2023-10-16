@@ -19,6 +19,8 @@ class UserEngagementsVC: ENTALDBaseViewController {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var btnMessage: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,8 +33,13 @@ class UserEngagementsVC: ENTALDBaseViewController {
     }
 
     func decorateUI(){
-        lblTitle.textColor = UIColor.themePrimaryWhite
-        lblTitle.font = UIFont.BoldFont(20)
+        lblTitle.textColor = UIColor.headerGreen
+        lblTitle.font = UIFont.HeaderBoldFont(18)
+        headerView.addBottomShadow()
+        let originalImage = UIImage(named: "messages-bubble-square-text")!
+        let tintedImage = ProcessUtils.shared.tintImage(originalImage)
+        btnMessage.setImage(tintedImage, for: .normal)
+        
     }
     
     @IBAction func backTapped(_ sender: Any) {

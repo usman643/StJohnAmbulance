@@ -205,3 +205,31 @@ struct VolunteerStatusShift : Codable {
     let msnfp_participationscheduleid : String?
     
 }
+
+
+struct VolunteerReportedShiftResponseModel : Codable {
+    
+    let value: [VolunteerReportedShiftResponse]?
+}
+
+struct VolunteerReportedShiftResponse: Codable {
+    
+    
+    let createdon : String?
+    let _msnfp_engagementopportunityscheduleid_value : String?
+    let msnfp_name : String?
+    let _msnfp_participationid_value : String?
+    let msnfp_participationscheduleid : String?
+    let msnfp_schedulestatus : Int?
+    let sja_additionalnotes : String?
+    let _sjavms_adhochoursid_value : String?
+    let sjavms_end : String?
+    let _sjavms_group_value : String?
+    let sjavms_hours : Float?
+    let sjavms_start : String?
+    let _sjavms_volunteer_value : String?
+    let _sjavms_volunteerevent_value : String?
+    let statecode : Int?
+    let sjavms_checkedin : Int?
+  
+}

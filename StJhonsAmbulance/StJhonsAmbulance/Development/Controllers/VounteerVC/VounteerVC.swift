@@ -16,7 +16,7 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
     var isLoadMoreShow : Bool = true
 
     @IBOutlet weak var btnBack: UIButton!
-    @IBOutlet weak var btnHome: UIButton!
+    @IBOutlet weak var btnMessage: UIButton!
     @IBOutlet weak var btnSelectGroup: UIButton!
     @IBOutlet weak var btnGroupView: UIView!
     @IBOutlet weak var lblTitle: UILabel!
@@ -67,6 +67,9 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
         btnLoadMore.setTitleColor(UIColor.themeColorSecondry, for: .normal)
         btnLoadMore.titleLabel?.font = UIFont.BoldFont(16)
         loadMoreView.isHidden = true
+        let originalImage = UIImage(named: "messages-bubble-square-text")!
+        let tintedImage = ProcessUtils.shared.tintImage(originalImage)
+        btnMessage.setImage(tintedImage, for: .normal)
     }
 
     @IBAction func messageTapped(_ sender: Any) {

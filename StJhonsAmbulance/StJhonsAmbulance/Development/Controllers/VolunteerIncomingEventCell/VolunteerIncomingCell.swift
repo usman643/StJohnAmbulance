@@ -13,10 +13,10 @@ class VolunteerIncomingCell: UITableViewCell {
     @IBOutlet weak var statusView: UIView!
     @IBOutlet weak var lblDateTime: UILabel!
 
-    @IBOutlet weak var btnView: UIButton!
+    @IBOutlet weak var btnDetail: UIButton!
     @IBOutlet weak var lblTitle: UILabel!
-    @IBOutlet weak var lblTotalHours: UILabel!
-    
+    @IBOutlet weak var lblProgram: UILabel!
+    @IBOutlet weak var lblLocation: UILabel!
     
     @IBOutlet weak var seperatorView: UIView!
     override func awakeFromNib() {
@@ -32,6 +32,7 @@ class VolunteerIncomingCell: UITableViewCell {
     
     func decorateUI(){
         
+        
         mainView.layer.borderWidth = 0.5
         mainView.layer.borderColor = UIColor.systemGray3.cgColor
         mainView.layer.shadowColor = UIColor.systemGray4.cgColor
@@ -43,20 +44,24 @@ class VolunteerIncomingCell: UITableViewCell {
         statusView.layer.cornerRadius = 16
         statusView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
         
-        lblDateTime.textColor = UIColor.themeSecondryWhite
-
-        btnView.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        lblTitle.textColor = UIColor.themeSecondryWhite
-        lblTotalHours.textColor = UIColor.themeSecondryWhite
+        lblDateTime.textColor = UIColor.themeBlackText
         
-        lblDateTime.font =  UIFont.MediumFont(11)
-        btnView.titleLabel?.font = UIFont.BoldFont(13)
-        lblTitle.font =  UIFont.BoldFont(14)
-        lblTotalHours.font =  UIFont.BoldFont(13)
+        btnDetail.setTitleColor(UIColor.themeBlackText, for: .normal)
+        lblTitle.textColor = UIColor.themePrimaryWhite
+        lblProgram.textColor = UIColor.themeBlackText
+        
+        lblLocation.textColor = UIColor.themeBlackText
+        
+        lblDateTime.font =  UIFont.BoldFont(12)
+        btnDetail.titleLabel?.font = UIFont.BoldFont(13)
+        lblTitle.font =  UIFont.BoldFont(18)
+        lblProgram.font =  UIFont.BoldFont(13)
+        
+        lblLocation.font =  UIFont.BoldFont(12)
         
     }
     
-    func setupContent(cellModel: LatestEventDataModel?){
+    func setupContent(cellModel: AvailableEventModel?){
         
         
 //        self.gridData?[index].title = self.latestEventData?[0].sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
@@ -65,15 +70,17 @@ class VolunteerIncomingCell: UITableViewCell {
        //                                self.gridData?[index].subTitle = startData
         
         
-        let startTime = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d, hh:mm a")
+        let startTime = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d, hh:mm a")
         
-        let endTime = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+        let endTime = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
 
         lblDateTime.text = "\(startTime) - \(endTime)"
         
-        lblTitle.text = "\(cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "")"
+        lblTitle.text = "\(cellModel?.msnfp_engagementopportunitytitle ?? "")"
         
-        lblTotalHours.text = "Location: \(cellModel?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found") "
+        lblLocation.text = "\(cellModel?.msnfp_location ?? "Not Found") "
+        
+        lblProgram.text = cellModel?.sjavms_msnfp_engagementopportunity_msnfp_group?[0].sjaProgram ?? "..."
 
     }
     

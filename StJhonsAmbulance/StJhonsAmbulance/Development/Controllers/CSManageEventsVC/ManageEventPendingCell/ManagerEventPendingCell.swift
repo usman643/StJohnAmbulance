@@ -44,22 +44,21 @@ class ManagerEventPendingCell: UITableViewCell {
         mainView.layer.shadowOpacity = 0.5
         mainView.layer.shadowOffset = .zero
         mainView.layer.shadowRadius = 6
-        
         mainView.layer.cornerRadius = 16
         statusView.layer.cornerRadius = 16
         statusView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
         
         
 
-        lblTitle.textColor = UIColor.themeSecondryWhite
-        lblProgram.textColor = UIColor.headerGreen
-        lblLocation.textColor = UIColor.headerGreen
-        lblDateTime.textColor = UIColor.headerGreen
-        lblparticipants.textColor = UIColor.headerGreen
+        lblTitle.textColor = UIColor.themePrimaryWhite
+        lblProgram.textColor = UIColor.themeBlackText
+        lblLocation.textColor = UIColor.themeBlackText
+        lblDateTime.textColor = UIColor.themeBlackText
+        lblparticipants.textColor = UIColor.themeBlackText
     
         lblDateTime.font =  UIFont.BoldFont(13)
         lblparticipants.font =  UIFont.BoldFont(13)
-        lblTitle.font =  UIFont.BoldFont(14)
+        lblTitle.font =  UIFont.BoldFont(18)
         lblProgram.font =  UIFont.BoldFont(13)
         lblLocation.font =  UIFont.BoldFont(13)
         

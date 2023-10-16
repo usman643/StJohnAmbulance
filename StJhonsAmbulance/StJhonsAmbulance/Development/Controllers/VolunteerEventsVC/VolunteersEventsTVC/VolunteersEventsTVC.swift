@@ -51,17 +51,17 @@ class VolunteersEventsTVC: UITableViewCell {
         statusView.layer.cornerRadius = 16
         statusView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
         
-        lblDateTime.textColor = UIColor.headerGreen
+        lblDateTime.textColor = UIColor.themeBlackText
         
-        btnView.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        lblTitle.textColor = UIColor.themeSecondryWhite
-        lblProgram.textColor = UIColor.headerGreen
+        btnView.setTitleColor(UIColor.themeBlackText, for: .normal)
+        lblTitle.textColor = UIColor.themePrimaryWhite
+        lblProgram.textColor = UIColor.themeBlackText
         
-        lblLocation.textColor = UIColor.headerGreen
+        lblLocation.textColor = UIColor.themeBlackText
         
         lblDateTime.font =  UIFont.BoldFont(12)
         btnView.titleLabel?.font = UIFont.BoldFont(13)
-        lblTitle.font =  UIFont.BoldFont(14)
+        lblTitle.font =  UIFont.BoldFont(18)
         lblProgram.font =  UIFont.BoldFont(13)
         
         lblLocation.font =  UIFont.BoldFont(12)

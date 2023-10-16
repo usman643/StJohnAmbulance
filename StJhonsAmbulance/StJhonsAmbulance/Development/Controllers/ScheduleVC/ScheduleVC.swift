@@ -19,9 +19,10 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
     let contactId = UserDefaults.standard.contactIdToken ?? ""
     var isLoadMoreShow : Bool = true
     
+    @IBOutlet weak var btnMessage: UIButton!
+    @IBOutlet weak var btnSidemenu: UIButton!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var mainContentView: UIView!
-    @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var btnList: UIButton!
     @IBOutlet weak var btnCalender: UIButton!
@@ -46,6 +47,11 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
         self.calenderView.addSubview(calendar)
         calendar.delegate = self
         calendar.dataSource = self
+        
+        calendar.appearance.headerTitleFont = UIFont.BoldFont(18)
+        calendar.appearance.headerTitleColor = UIColor.headerGreen
+        calendar.appearance.weekdayTextColor = UIColor.headerGreen
+        calendar.appearance.weekdayFont = UIFont.BoldFont(14)
         
     }
     
@@ -82,17 +88,25 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
         btnLoadMore.setTitleColor(UIColor.themeColorSecondry, for: .normal)
         btnLoadMore.titleLabel?.font = UIFont.BoldFont(16)
         loadMoreView.isHidden = true
+        let originalImage = UIImage(named: "messages-bubble-square-text")!
+        let tintedImage = ProcessUtils.shared.tintImage(originalImage)
+        btnMessage.setImage(tintedImage, for: .normal)
+        let  sideMenuImage = UIImage(named: "sideMenu")!
+        btnSidemenu.setImage(ProcessUtils.shared.tintImage(sideMenuImage), for: .normal)
         
     }
     
+    @IBAction func messageTapped(_ sender: Any) {
+        ENTALDControllers.shared.showGroupMessageVC(type: .ENTALDPUSH, from: self, callBack: nil)
+    }
     @IBAction func signUpTapped(_ sender: Any) {
         ENTALDControllers.shared.ShowUserEngagementsVC(type: .ENTALDPUSH, from: self, callBack: nil)
         
     }
     
     @IBAction func backTapped(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-        
+//        self.navigationController?.popViewController(animated: true)
+        present(menu!, animated: true)
     }
     
     @IBAction func showCalenderTapped(_ sender: Any) {

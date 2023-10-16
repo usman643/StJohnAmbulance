@@ -10,6 +10,11 @@ import UIKit
 class EventDetailTVC: UITableViewCell {
 
     @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var lblShift: UILabel!
+    @IBOutlet weak var lblTime: UILabel!
+    @IBOutlet weak var switchChange: UISwitch!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         decorateUI()
@@ -30,5 +35,12 @@ class EventDetailTVC: UITableViewCell {
         mainView.layer.shadowOffset = .zero
         mainView.layer.shadowRadius = 6
     }
+    
+    
+    @IBAction func switchAction(_ sender: Any) {
+        
+        
+    }
+    
     
 }

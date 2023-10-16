@@ -19,8 +19,8 @@
             <connections>
                 <outlet property="btnBack" destination="pnH-Iz-dyk" id="Lo7-kc-Z6C"/>
                 <outlet property="btnGroupView" destination="1Vc-MC-aPe" id="A6x-Nz-Bum"/>
-                <outlet property="btnHome" destination="uyL-so-vQm" id="geJ-yR-G4C"/>
                 <outlet property="btnLoadMore" destination="wbE-Ee-IUq" id="ATq-oM-LTZ"/>
+                <outlet property="btnMessage" destination="uyL-so-vQm" id="hg5-Jh-p2A"/>
                 <outlet property="btnSelectGroup" destination="kqZ-Vg-csa" id="MMZ-c2-znB"/>
                 <outlet property="lblTitle" destination="ViP-8o-AHZ" id="6fm-4V-7Xa"/>
                 <outlet property="loadMoreView" destination="TzI-2V-QPM" id="tIr-sW-kqq"/>
@@ -73,7 +73,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manage Volunteer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ViP-8o-AHZ">
-                            <rect key="frame" x="123" y="36" width="147" height="20.333333333333329"/>
+                            <rect key="frame" x="123" y="36" width="147" height="20"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                             <color key="textColor" name="secondryGreen"/>
                             <nil key="highlightedColor"/>
@@ -104,7 +104,7 @@
                             </connections>
                         </button>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="oq7-Cx-QSV">
-                            <rect key="frame" x="193" y="15.33333333333333" width="15" height="10.000000000000002"/>
+                            <rect key="frame" x="193" y="15.333333333333321" width="15" height="10.000000000000021"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="F6Z-3b-OfN"/>
@@ -255,10 +255,10 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
-            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

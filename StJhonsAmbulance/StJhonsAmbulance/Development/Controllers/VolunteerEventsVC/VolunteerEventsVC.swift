@@ -61,7 +61,7 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     @IBOutlet weak var btnAvilableLoadMore: UIButton!
     
     
-    @IBOutlet weak var btnBack: UIButton!
+    @IBOutlet weak var btnSidemenu: UIButton!
     @IBOutlet weak var btnHome: UIButton!
 
     @IBOutlet weak var btnAvailable: UIButton!
@@ -104,9 +104,10 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        getAvailableInfo()
         getScheduleInfo()
         getVolunteerPastEvent()
-        getAvailableInfo()
+       
     }
 
     func decorateUI(){
@@ -147,6 +148,13 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         btnPastLoadMore.setTitleColor(UIColor.themeColorSecondry, for: .normal)
         btnPastLoadMore.titleLabel?.font = UIFont.BoldFont(16)
         pastLoadMoreView.isHidden = true 
+        
+        
+        let originalImage = UIImage(named: "messages-bubble-square-text")!
+        let tintedImage = ProcessUtils.shared.tintImage(originalImage)
+        btnHome.setImage(tintedImage, for: .normal)
+        let  sideMenuImage = UIImage(named: "sideMenu")!
+        btnSidemenu.setImage(ProcessUtils.shared.tintImage(sideMenuImage), for: .normal)
     }
     
     func registerCells(){
@@ -193,7 +201,8 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     }
 
     @IBAction func backTapped(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+//        self.navigationController?.popViewController(animated: true)
+        present(menu!, animated: true)
     }
     
     @IBAction func homeTapped(_ sender: Any) {
@@ -201,46 +210,60 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     }
     
     @IBAction func availableTapped(_ sender: Any) {
-        
-        resetButtonView()
-        self.availableView.isHidden = false
-        isAvailabilityTableSearch = true
-        vwAvailable.isHidden = false
-        btnAvailable.setTitleColor(UIColor.themeColorSecondry, for: .normal)
-  
-            if (filterAvailableData?.count == 0){
-                emptyView.isHidden = false
+        DispatchQueue.main.async {
+            self.resetButtonView()
+            self.availableView.isHidden = false
+            self.isAvailabilityTableSearch = true
+            self.vwAvailable.isHidden = false
+            self.btnAvailable.setTitleColor(UIColor.themeColorSecondry, for: .normal)
+            
+            if (self.filterAvailableData?.count == 0){
+                self.emptyView.isHidden = false
+                self.getAvailableInfo()
+            }else{
+                
+                self.availableTable.reloadData()
             }
+            
+            
+        }
+        
     }
     
     @IBAction func scheduleTapped(_ sender: Any) {
-        
-        resetButtonView()
-        self.scheduleView.isHidden = false
-        isScheduleTableSearch = true
-        vwSchedule.isHidden = false
-        btnSchedule.setTitleColor(UIColor.themeColorSecondry, for: .normal)
-
-            if (filterScheduleData?.count == 0){
-                emptyView.isHidden = false
+        DispatchQueue.main.async {
+            self.resetButtonView()
+            self.scheduleView.isHidden = false
+            self.isScheduleTableSearch = true
+            self.vwSchedule.isHidden = false
+            self.btnSchedule.setTitleColor(UIColor.themeColorSecondry, for: .normal)
+            
+            if (self.filterScheduleData?.count == 0){
+                self.emptyView.isHidden = false
+            }else{
+                self.scheduleTable.reloadData()
             }
+        }
     }
     
     @IBAction func pastTapped(_ sender: Any) {
-        resetButtonView()
-        self.pastView.isHidden = false
-        isPastTableSearch = true
-        vwPast.isHidden = false
-        btnPast.setTitleColor(UIColor.themeColorSecondry, for: .normal)
-        if (filterPastEventData?.count == 0){
-            emptyView.isHidden = false
+        DispatchQueue.main.async {
+            self.resetButtonView()
+            self.pastView.isHidden = false
+            self.isPastTableSearch = true
+            self.vwPast.isHidden = false
+            self.btnPast.setTitleColor(UIColor.themeColorSecondry, for: .normal)
+            if (self.filterPastEventData?.count == 0){
+                self.emptyView.isHidden = false
+            }else{
+                
+                self.pastTable.reloadData()
+            }
         }
     }
     
     func resetButtonView(){
-        
-        
-        
+
         self.availableView.isHidden = true
         self.scheduleView.isHidden = true
         self.pastView.isHidden = true
@@ -594,34 +617,30 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
             
             switch result{
             case .success(value: let response):
-                
-                if let availableEvent = response.value {
-                    self.availableData = availableEvent
-                    self.availableData = self.availableData?.sorted {
-                        $0.msnfp_startingdate ?? "" < $1.msnfp_startingdate ?? ""
-                    }
-                    self.filterAvailableData = availableEvent
-                    if (self.availableData?.count == 0 || self.availableData?.count == nil){
-//                        self.showEmptyView(tableVw: self.availableTable)
-                        DispatchQueue.main.async {
-                            self.emptyView.isHidden = false
+                DispatchQueue.main.async {
+                    if let availableEvent = response.value {
+                        self.availableData = availableEvent
+                        self.filterAvailableData = availableEvent
+                        self.availableData = self.availableData?.sorted {
+                            $0.msnfp_startingdate ?? "" < $1.msnfp_startingdate ?? ""
                         }
+                        self.filterAvailableData = self.availableData
+                        if (self.availableData?.count == 0 || self.availableData?.count == nil){
+                            //                        self.showEmptyView(tableVw: self.availableTable)
+                            self.emptyView.isHidden = false
+
+                        }else{
+                            
+                            self.availableTable.reloadData()
+                            self.emptyView.isHidden = true
+                            
+                        }
+                        self.availableTable.reloadData()
                         
                     }else{
-                        DispatchQueue.main.async {
-                            self.availableTable.reloadData()
-//                            for subview in self.availableTable.subviews {
-//                                subview.removeFromSuperview()
-//                            }
-                        }
-                    }
-                    DispatchQueue.main.async {
+//                        self.emptyView.isHidden = false
                         self.availableTable.reloadData()
-                    }
-                }else{
-//                    self.showEmptyView(tableVw: self.availableTable)
-                    DispatchQueue.main.async {
-                        self.emptyView.isHidden = false
+                        
                     }
                 }
                 

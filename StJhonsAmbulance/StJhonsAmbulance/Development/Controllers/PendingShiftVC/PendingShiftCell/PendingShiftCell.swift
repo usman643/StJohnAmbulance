@@ -55,7 +55,7 @@ class PendingShiftCell: UITableViewCell {
         
         
         
-        lblName.font = UIFont.BoldFont(14)
+        lblName.font = UIFont.BoldFont(16)
         lblEvent.font = UIFont.BoldFont(13)
         lblHours.font = UIFont.BoldFont(13)
         lblShift.font = UIFont.BoldFont(13)

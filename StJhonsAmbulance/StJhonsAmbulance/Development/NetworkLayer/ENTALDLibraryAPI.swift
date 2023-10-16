@@ -338,7 +338,10 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
-    
+    func getReportedShiftsData(params:[String:Any],  _ completion:@escaping((ApiResult<VolunteerReportedShiftResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getReportedShiftsData(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
     
     
     

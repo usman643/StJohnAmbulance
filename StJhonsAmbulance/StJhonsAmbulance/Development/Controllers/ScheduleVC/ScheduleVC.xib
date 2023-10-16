@@ -17,10 +17,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ScheduleVC" customModule="StJhonsAmbulance" customModuleProvider="target">
             <connections>
-                <outlet property="btnBack" destination="X55-AH-15e" id="TVR-GM-Qo2"/>
                 <outlet property="btnCalender" destination="9MD-7c-6Qx" id="Ckc-kk-AA8"/>
                 <outlet property="btnList" destination="zp1-B7-Olv" id="i43-sE-Y6H"/>
                 <outlet property="btnLoadMore" destination="ixN-dZ-Ij3" id="fH5-Y4-Myf"/>
+                <outlet property="btnMessage" destination="QKw-bd-MtG" id="J0b-Np-Ktk"/>
+                <outlet property="btnSidemenu" destination="X55-AH-15e" id="JYL-6P-RhX"/>
                 <outlet property="btnSignUp" destination="udY-sz-uOT" id="Ran-21-uqR"/>
                 <outlet property="calendarBottomView" destination="xbR-hb-hZy" id="el8-Cd-Nd0"/>
                 <outlet property="calenderView" destination="1oc-7S-Y6g" id="QB4-d5-Ena"/>
@@ -42,15 +43,15 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mfL-kP-O5o">
                     <rect key="frame" x="0.0" y="59" width="430" height="60"/>
                     <subviews>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X55-AH-15e">
-                            <rect key="frame" x="16" y="14" width="32" height="32"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X55-AH-15e">
+                            <rect key="frame" x="24" y="16" width="28" height="28"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="32" id="Ohb-Ba-6jn"/>
-                                <constraint firstAttribute="height" constant="32" id="hNu-xE-vTj"/>
+                                <constraint firstAttribute="width" constant="28" id="Ohb-Ba-6jn"/>
+                                <constraint firstAttribute="height" constant="28" id="hNu-xE-vTj"/>
                             </constraints>
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" image="chevron.backward" catalog="system"/>
+                            <state key="normal" image="sideMenu"/>
                             <connections>
                                 <action selector="backTapped:" destination="-1" eventType="touchUpInside" id="50D-Va-YcE"/>
                             </connections>
@@ -70,6 +71,9 @@
                             </constraints>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" image="messages-bubble-square-text"/>
+                            <connections>
+                                <action selector="messageTapped:" destination="-1" eventType="touchUpInside" id="mxI-sX-gAH"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Schedule" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evW-3c-8Rg">
                             <rect key="frame" x="177" y="36" width="76" height="24.666666666666671"/>
@@ -80,15 +84,15 @@
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstItem="X55-AH-15e" firstAttribute="centerY" secondItem="mfL-kP-O5o" secondAttribute="centerY" id="6A9-e4-8s0"/>
                         <constraint firstItem="evW-3c-8Rg" firstAttribute="top" secondItem="Pxe-wb-Yog" secondAttribute="bottom" constant="4" id="6LW-IF-hpW"/>
                         <constraint firstItem="QKw-bd-MtG" firstAttribute="centerY" secondItem="mfL-kP-O5o" secondAttribute="centerY" id="Hw1-9k-8v4"/>
                         <constraint firstAttribute="height" constant="60" id="Sro-G6-Pl5"/>
                         <constraint firstItem="Pxe-wb-Yog" firstAttribute="top" secondItem="mfL-kP-O5o" secondAttribute="top" id="XJY-dh-TBr"/>
+                        <constraint firstItem="X55-AH-15e" firstAttribute="centerY" secondItem="mfL-kP-O5o" secondAttribute="centerY" id="a9r-k6-aD0"/>
                         <constraint firstItem="evW-3c-8Rg" firstAttribute="centerX" secondItem="mfL-kP-O5o" secondAttribute="centerX" id="iqk-gp-IZ8"/>
                         <constraint firstAttribute="trailing" secondItem="QKw-bd-MtG" secondAttribute="trailing" constant="16" id="kfG-Ec-gNU"/>
                         <constraint firstItem="Pxe-wb-Yog" firstAttribute="centerX" secondItem="mfL-kP-O5o" secondAttribute="centerX" id="nrw-eW-V7K"/>
-                        <constraint firstItem="X55-AH-15e" firstAttribute="leading" secondItem="mfL-kP-O5o" secondAttribute="leading" constant="16" id="txY-gb-vrY"/>
+                        <constraint firstItem="X55-AH-15e" firstAttribute="leading" secondItem="mfL-kP-O5o" secondAttribute="leading" constant="24" id="txY-gb-vrY"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xBg-P3-j3B">
@@ -313,10 +317,10 @@
         </view>
     </objects>
     <resources>
-        <image name="chevron.backward" catalog="system" width="97" height="128"/>
         <image name="logo_icon" width="102" height="97"/>
         <image name="messages-bubble-square-text" width="200" height="200"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="sideMenu" width="200" height="200"/>
         <namedColor name="PrimaryGreen">
             <color red="0.0078431372549019607" green="0.30980392156862746" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -330,7 +334,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray2Color">
-            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -13,9 +13,11 @@ class SettingVC: ENTALDBaseViewController {
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblTheme: UILabel!
+    @IBOutlet weak var lblThemeDark: UILabel!
     
     @IBOutlet weak var themeSwitch: UISwitch!
     
+    @IBOutlet weak var btnMessage: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +40,12 @@ class SettingVC: ENTALDBaseViewController {
         lblTitle.font = UIFont.HeaderBoldFont(18)
         lblTheme.textColor = UIColor.themePrimaryWhite
         lblTheme.font = UIFont.BoldFont(16)
+        lblThemeDark.textColor = UIColor.themePrimaryWhite
+        lblThemeDark.font = UIFont.BoldFont(16)
         headerView.addBottomShadow()
+        let originalImage = UIImage(named: "messages-bubble-square-text")!
+        let tintedImage = ProcessUtils.shared.tintImage(originalImage)
+        btnMessage.setImage(tintedImage, for: .normal)
         
     }
     

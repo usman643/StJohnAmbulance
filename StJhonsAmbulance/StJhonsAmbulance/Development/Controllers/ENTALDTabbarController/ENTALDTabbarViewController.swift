@@ -91,13 +91,13 @@ class ENTALDTabbarViewController: UITabBarController {
         let homeImg = "tabHome".templatedImage
         
         let eventVC = VolunteerEventsVC.loadFromNib()
-        let eventImg = "tabLocation".templatedImage
+        let eventImg = "ai-navigation-spark".templatedImage
         
 //        let checkinVC = MapViewController.loadFromNib()
 //        let checkinImg = "tabLocation".templatedImage
         
         let hourVC = VolunteerEventVC.loadFromNib()
-        let hourImg = "icHourGlass".templatedImage
+        let hourImg = "hourglass-alternate".templatedImage
         
         let scheduleVC = ScheduleVC.loadFromNib()
         let scheduleImg = "tabCalender".templatedImage

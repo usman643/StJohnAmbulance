@@ -76,7 +76,11 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
     @IBOutlet weak var lblLServiceYears: UILabel!
     @IBOutlet weak var lblLastYearHour: UILabel!
     
+    @IBOutlet weak var lblContact: UILabel!
+    @IBOutlet weak var lblAddress: UILabel!
+    
     @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var btnMessage: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -141,60 +145,60 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
         lblLastYearHour.font = UIFont.BoldFont(9)
         lblLastYearHour.textColor = UIColor.textGrayColor
         
-        txtFirstName.font = UIFont.BoldFont(14)
+        txtFirstName.font = UIFont.RegularFont(14)
         txtFirstName.layer.borderWidth = 0
         txtFirstName.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        txtLastName.font = UIFont.BoldFont(14)
+        txtLastName.font = UIFont.RegularFont(14)
         txtLastName.layer.borderWidth = 0
         txtLastName.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        txtBirthday.font = UIFont.BoldFont(14)
+        txtBirthday.font = UIFont.RegularFont(14)
         txtBirthday.layer.borderWidth = 0
         txtBirthday.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        txtEmail.font = UIFont.BoldFont(14)
+        txtEmail.font = UIFont.RegularFont(14)
         txtEmail.layer.borderWidth = 0
         txtEmail.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        txtPrimaryPhone.font = UIFont.BoldFont(14)
+        txtPrimaryPhone.font = UIFont.RegularFont(14)
         txtPrimaryPhone.layer.borderWidth = 0
         txtPrimaryPhone.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        txtStreetOne.font = UIFont.BoldFont(14)
+        txtStreetOne.font = UIFont.RegularFont(14)
         txtStreetOne.layer.borderWidth = 0
         txtStreetOne.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        txtStreetTwo.font = UIFont.BoldFont(14)
+        txtStreetTwo.font = UIFont.RegularFont(14)
         txtStreetTwo.layer.borderWidth = 0
         txtStreetTwo.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        txtStreetThree.font = UIFont.BoldFont(14)
+        txtStreetThree.font = UIFont.RegularFont(14)
         txtStreetThree.layer.borderWidth = 0
         txtStreetThree.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        txtCity.font = UIFont.BoldFont(14)
+        txtCity.font = UIFont.MediumFont(14)
         txtCity.layer.borderWidth = 0
         txtCity.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        txtProvince.font = UIFont.BoldFont(14)
+        txtProvince.font = UIFont.RegularFont(14)
         txtProvince.layer.borderWidth = 0
         txtProvince.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        txtPostalCode.font = UIFont.BoldFont(14)
+        txtPostalCode.font = UIFont.RegularFont(14)
         txtPostalCode.layer.borderWidth = 0
         txtPostalCode.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        txtEmergencyContactName.font = UIFont.BoldFont(14)
+        txtEmergencyContactName.font = UIFont.RegularFont(14)
         txtEmergencyContactName.layer.borderWidth = 0
         txtEmergencyContactName.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        txtEmergencyContactPhone.font = UIFont.BoldFont(14)
+        txtEmergencyContactPhone.font = UIFont.RegularFont(14)
         txtEmergencyContactPhone.layer.borderWidth = 0
         txtEmergencyContactPhone.layer.borderColor = UIColor.themePrimaryWhite.cgColor
         
         btnPrefferenNoun.backgroundColor = UIColor.clear
-        btnPrefferenNoun.titleLabel?.font = UIFont.BoldFont(14)
+        btnPrefferenNoun.titleLabel?.font = UIFont.RegularFont(14)
         btnPrefferenNoun.layer.cornerRadius = 2
         btnPrefferenNoun.setTitleColor(UIColor.textBlackColor, for: .normal)
         btnGender.backgroundColor = UIColor.clear
-        btnGender.titleLabel?.font = UIFont.BoldFont(14)
+        btnGender.titleLabel?.font = UIFont.RegularFont(14)
         btnGender.layer.cornerRadius = 2
         btnGender.setTitleColor(UIColor.textBlackColor, for: .normal)
         btnContactMethod.backgroundColor = UIColor.clear
-        btnContactMethod.titleLabel?.font = UIFont.BoldFont(14)
+        btnContactMethod.titleLabel?.font = UIFont.RegularFont(14)
         btnContactMethod.layer.cornerRadius = 2
         btnContactMethod.setTitleColor(UIColor.textBlackColor, for: .normal)
         btnOptNotofocation.backgroundColor = UIColor.clear
-        btnOptNotofocation.titleLabel?.font = UIFont.BoldFont(14)
+        btnOptNotofocation.titleLabel?.font = UIFont.RegularFont(14)
         btnOptNotofocation.layer.cornerRadius = 2
         btnOptNotofocation.setTitleColor(UIColor.textBlackColor, for: .normal)
         
@@ -241,6 +245,13 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
         txtEmergencyContactName.lineColor = UIColor.textLightGrayColor
         txtEmergencyContactPhone.lineColor = UIColor.textLightGrayColor
         headerView.addBottomShadow()
+        lblContact.font =  UIFont.RegularFont(14)
+        lblContact.textColor =  UIColor.themeBlackText
+        lblAddress.font =  UIFont.RegularFont(14)
+        lblAddress.textColor =  UIColor.themeBlackText
+        let originalImage = UIImage(named: "messages-bubble-square-text")!
+        let tintedImage = ProcessUtils.shared.tintImage(originalImage)
+        btnMessage.setImage(tintedImage, for: .normal)
     }
     
     func setupData(){
@@ -437,7 +448,7 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
             LoadingView.hide()
         }
         switch result{
-        case .success(value: let _):
+        case .success(value: _):
              break
         case .error(let error, let errorResponse):
             if error == .patchSuccess {

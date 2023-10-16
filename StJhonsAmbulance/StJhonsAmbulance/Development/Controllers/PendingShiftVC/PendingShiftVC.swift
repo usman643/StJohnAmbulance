@@ -42,7 +42,8 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     @IBOutlet weak var btnCancel: UIButton!
     @IBOutlet weak var lblTitle: UILabel!
     
-//    @IBOutlet weak var btnSeclectAction: UIButton!
+    @IBOutlet weak var btnMessage: UIButton!
+    //    @IBOutlet weak var btnSeclectAction: UIButton!
 //    @IBOutlet weak var btnFilter: UIButton!
 //    
 //    @IBOutlet weak var searchView: UIView!
@@ -56,8 +57,8 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "PendingShiftCell", bundle: nil), forCellReuseIdentifier: "PendingShiftCell")
-        tableView.register(UINib(nibName: "PendingShiftCell", bundle: nil), forCellReuseIdentifier: "PendingEventCell")
-        tableView.register(UINib(nibName: "EmptyEventTableCell", bundle: nil), forCellReuseIdentifier: "EmptyEventTableCell")
+        tableView.register(UINib(nibName: "PendingEventCell", bundle: nil), forCellReuseIdentifier: "PendingEventCell")
+//        tableView.register(UINib(nibName: "EmptyEventTableCell", bundle: nil), forCellReuseIdentifier: "EmptyEventTableCell")
     
         decorateUI()
         getPendingShift()
@@ -105,6 +106,9 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         btnCancel.layer.cornerRadius = 6
         btnCancel.layer.borderWidth = 1
         btnCancel.layer.borderColor = UIColor.red.cgColor
+        let originalImage = UIImage(named: "messages-bubble-square-text")!
+        let tintedImage = ProcessUtils.shared.tintImage(originalImage)
+        btnMessage.setImage(tintedImage, for: .normal)
     }
  
     @IBAction func closeSearch(_ sender: Any) {
@@ -498,6 +502,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                             for subview in self.tableView.subviews {
                                 subview.removeFromSuperview()
                             }
+                            self.tableView.reloadData()
                         }
                     }
                     DispatchQueue.main.async {

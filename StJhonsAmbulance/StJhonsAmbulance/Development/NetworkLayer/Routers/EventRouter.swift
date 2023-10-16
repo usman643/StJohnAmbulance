@@ -40,6 +40,7 @@ enum EventRouter : Router {
     case applyShift(params:[String:Any])
     case cancelParticipation(participationId:String, params:[String:Any])
     case getvolunteerShiftStatus(params:[String:Any])
+    case getReportedShiftsData(params:[String:Any])
     case getAuditHistory(params:[String:Any])
     case getOtherVoulnteerParticipation(params:[String:Any])
     case getEventDatilTabInfo(params:[String:Any])
@@ -84,6 +85,7 @@ enum EventRouter : Router {
         case .applyShift : return "msnfp_participations"
         case .cancelParticipation(let participationId, _) : return "msnfp_participations(\(participationId))"
         case .getvolunteerShiftStatus : return "msnfp_participationschedules"
+        case .getReportedShiftsData : return "msnfp_participationschedules"
         case .getAuditHistory : return "audits"
         case .getOtherVoulnteerParticipation : return "msnfp_participations"
         case .getEventDatilTabInfo : return "msnfp_publicengagementopportunities"
@@ -161,6 +163,8 @@ enum EventRouter : Router {
         case .applyShift(let params):
             return params
         case .getvolunteerShiftStatus(let params):
+            return params
+        case .getReportedShiftsData(let params):
             return params
         case .getAuditHistory(let params):
             return params

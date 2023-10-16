@@ -20,6 +20,7 @@ class AwardsVC: ENTALDBaseViewController {
     @IBOutlet weak var lblTitle: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.decorateUI()
         if (engagementType == .Calender){
             self.engagementData = self.dataModel as? [ScheduleModelThree]
 

@@ -17,8 +17,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingVC" customModule="StJhonsAmbulance" customModuleProvider="target">
             <connections>
+                <outlet property="btnMessage" destination="89M-TU-zRa" id="Za5-rP-HnT"/>
                 <outlet property="headerView" destination="9Ib-Vi-UTz" id="LtX-9q-qkJ"/>
                 <outlet property="lblTheme" destination="sSB-MS-XKx" id="T18-9J-SLr"/>
+                <outlet property="lblThemeDark" destination="DUo-aJ-KSI" id="bAN-xH-gsd"/>
                 <outlet property="lblTitle" destination="2bz-MD-uHe" id="OXj-Lu-98u"/>
                 <outlet property="themeSwitch" destination="ezI-z9-9aK" id="wLq-69-RAT"/>
                 <outlet property="view" destination="Ur9-xC-B1c" id="I11-IF-9G6"/>
@@ -44,14 +46,14 @@
                     </constraints>
                 </view>
                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ezI-z9-9aK">
-                    <rect key="frame" x="244" y="163" width="51" height="31"/>
+                    <rect key="frame" x="172" y="163" width="51" height="31"/>
                     <color key="tintColor" red="0.0" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <action selector="themeSwicthAction:" destination="-1" eventType="valueChanged" id="mOJ-HT-qje"/>
                     </connections>
                 </switch>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dark Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sSB-MS-XKx">
-                    <rect key="frame" x="32.000000000000007" y="168.33333333333334" width="83.666666666666686" height="20.333333333333343"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Light Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sSB-MS-XKx">
+                    <rect key="frame" x="32" y="168.33333333333334" width="86" height="20.333333333333343"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -143,21 +145,29 @@
                         <constraint firstAttribute="bottom" secondItem="ujl-GQ-Tpy" secondAttribute="bottom" constant="4" id="tUv-2q-g3v"/>
                     </constraints>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dark Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DUo-aJ-KSI">
+                    <rect key="frame" x="277.33333333333331" y="168.33333333333334" width="83.666666666666686" height="20.333333333333343"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="TIH-XY-MbS"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="ezI-z9-9aK" firstAttribute="centerX" secondItem="Ur9-xC-B1c" secondAttribute="centerX" id="03I-jk-XKw"/>
                 <constraint firstItem="1uL-jz-o51" firstAttribute="top" secondItem="aw2-mv-GnE" secondAttribute="bottom" constant="24" id="2zZ-vB-Knf"/>
                 <constraint firstItem="ezI-z9-9aK" firstAttribute="centerY" secondItem="sSB-MS-XKx" secondAttribute="centerY" id="3Oc-S7-fgi"/>
+                <constraint firstItem="DUo-aJ-KSI" firstAttribute="top" secondItem="sSB-MS-XKx" secondAttribute="top" id="4ik-OV-BAA"/>
                 <constraint firstAttribute="trailing" secondItem="aw2-mv-GnE" secondAttribute="trailing" constant="16" id="5YO-o4-VdL"/>
                 <constraint firstItem="ezI-z9-9aK" firstAttribute="top" secondItem="rtD-xl-gsP" secondAttribute="bottom" constant="25" id="7xl-HK-dp1"/>
-                <constraint firstItem="TIH-XY-MbS" firstAttribute="trailing" secondItem="ezI-z9-9aK" secondAttribute="trailing" constant="100" id="EDD-Mr-zdB"/>
                 <constraint firstItem="TIH-XY-MbS" firstAttribute="trailing" secondItem="9Ib-Vi-UTz" secondAttribute="trailing" id="FI1-VV-aRf"/>
                 <constraint firstItem="1uL-jz-o51" firstAttribute="centerX" secondItem="Ur9-xC-B1c" secondAttribute="centerX" id="Hke-Qr-Tvo"/>
                 <constraint firstItem="aw2-mv-GnE" firstAttribute="leading" secondItem="Ur9-xC-B1c" secondAttribute="leading" constant="16" id="J4T-t7-bPZ"/>
                 <constraint firstItem="9Ib-Vi-UTz" firstAttribute="top" secondItem="TIH-XY-MbS" secondAttribute="top" id="NiJ-vs-HSu"/>
                 <constraint firstItem="rtD-xl-gsP" firstAttribute="top" secondItem="9Ib-Vi-UTz" secondAttribute="bottom" constant="16" id="RVh-5Q-zR4"/>
                 <constraint firstItem="aw2-mv-GnE" firstAttribute="top" secondItem="sSB-MS-XKx" secondAttribute="bottom" constant="24" id="S8K-Rb-WkT"/>
+                <constraint firstItem="TIH-XY-MbS" firstAttribute="trailing" secondItem="DUo-aJ-KSI" secondAttribute="trailing" constant="32" id="SHn-aq-8xe"/>
                 <constraint firstItem="sSB-MS-XKx" firstAttribute="leading" secondItem="TIH-XY-MbS" secondAttribute="leading" constant="32" id="SQB-EM-CZM"/>
                 <constraint firstItem="rtD-xl-gsP" firstAttribute="leading" secondItem="Ur9-xC-B1c" secondAttribute="leading" constant="12" id="h54-Cd-xpq"/>
                 <constraint firstItem="9Ib-Vi-UTz" firstAttribute="leading" secondItem="Ur9-xC-B1c" secondAttribute="leading" id="nQf-ov-ww6"/>

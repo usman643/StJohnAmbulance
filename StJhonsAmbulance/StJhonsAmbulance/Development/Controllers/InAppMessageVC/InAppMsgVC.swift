@@ -20,6 +20,8 @@ class InAppMsgVC: ENTALDBaseViewController {
     var isEventsTableSearch = false
     var isVolunteerTableSearch = false
 
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var eventsTableView: UITableView!
     @IBOutlet weak var volunteerTableView: UITableView!
     
@@ -30,7 +32,6 @@ class InAppMsgVC: ENTALDBaseViewController {
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var searchImg: UIImageView!
     @IBOutlet weak var textSearch: UITextField!
-    @IBOutlet weak var btnSearchClose: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,10 +47,13 @@ class InAppMsgVC: ENTALDBaseViewController {
     
     
     func decorateUI(){
-
-        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        searchView.layer.borderWidth = 1.5
-        searchView.isHidden = false
+        headerView.addBottomShadow()
+        lblTitle.font = UIFont.HeaderBoldFont(18)
+        lblTitle.textColor = UIColor.headerGreen
+        
+//        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+//        searchView.layer.borderWidth = 1.5
+//        searchView.isHidden = false
         
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         

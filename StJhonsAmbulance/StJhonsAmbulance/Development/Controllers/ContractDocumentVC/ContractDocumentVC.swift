@@ -26,6 +26,7 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
     @IBOutlet weak var lblModifiedDate: UILabel!
     @IBOutlet weak var lblAction: UILabel!
     
+    @IBOutlet weak var btnMessage: UIButton!
     @IBOutlet weak var tableHeaderView: UIView!
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var searchImg: UIImageView!
@@ -68,6 +69,9 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
         searchView.layer.borderWidth = 1.5
         searchView.isHidden = true
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        let originalImage = UIImage(named: "messages-bubble-square-text")!
+        let tintedImage = ProcessUtils.shared.tintImage(originalImage)
+        btnMessage.setImage(tintedImage, for: .normal)
     }
     
     func registerCell(){

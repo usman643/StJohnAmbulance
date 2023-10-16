@@ -73,7 +73,7 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
     @IBOutlet weak var btnUpublishLoadMore: UIButton!
     @IBOutlet weak var pastLoadMoreView: UIView!
     @IBOutlet weak var btnnPastLoadMore: UIButton!
-    
+    @IBOutlet weak var btnMessage: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         textSearch.delegate = self
@@ -126,10 +126,9 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
         btnUnnpublish.titleLabel?.font = UIFont.BoldFont(14)
         btnPast.titleLabel?.font = UIFont.BoldFont(14)
         
-        
-        
-        
-        
+        let originalImage = UIImage(named: "messages-bubble-square-text")!
+        let tintedImage = ProcessUtils.shared.tintImage(originalImage)
+        btnMessage.setImage(tintedImage, for: .normal)
         
     }
     

@@ -45,22 +45,22 @@ class ScheduleCell: UITableViewCell {
         btnMainView.layer.cornerRadius = 16
         btnMainView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
         
-        lblDate.textColor = UIColor.themeSecondryWhite
-        lblLocation.textColor = UIColor.themeSecondryWhite
+        lblDate.textColor = UIColor.themeBlackText
+        lblLocation.textColor = UIColor.themeBlackText
         
-        lblTitle.textColor = UIColor.themeSecondryWhite
-        lblSubTitle.textColor = UIColor.themeSecondryWhite
+        lblTitle.textColor = UIColor.themePrimaryWhite
+        lblSubTitle.textColor = UIColor.themeBlackText
         
         lblDate.font =  UIFont.BoldFont(12)
         lblLocation.font =  UIFont.BoldFont(12)
         
-        lblTitle.font =  UIFont.BoldFont(14)
+        lblTitle.font =  UIFont.BoldFont(18)
         lblSubTitle.font =  UIFont.BoldFont(13)
         
         locationImg.image = locationImg.image?.withRenderingMode(.alwaysTemplate)
         
-        locationImg.tintColor = UIColor.themeColorSecondry
-        btnView.setTitleColor(UIColor.textWhiteColor, for: .normal)
+        locationImg.tintColor = UIColor.themeBlackText
+        btnView.setTitleColor(UIColor.themeBlackText, for: .normal)
         btnView.titleLabel?.font = UIFont.BoldFont(12)
         
     }

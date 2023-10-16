@@ -39,10 +39,10 @@ class VolunteerEventVC: ENTALDBaseViewController {
     @IBOutlet weak var eventBtnBottomView: UIView!
     @IBOutlet weak var nonEventBtnBottomView: UIView!
     
+    @IBOutlet weak var searchMainView: UIView!
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var searchImg: UIImageView!
     @IBOutlet weak var textSearch: UITextField!
-    @IBOutlet weak var btnSearchClose: UIButton!
     
     @IBOutlet weak var tableView: UITableView!
     var isEventLoadMoreShow = true
@@ -51,6 +51,9 @@ class VolunteerEventVC: ENTALDBaseViewController {
     @IBOutlet weak var loadMoreView: UIView!
     @IBOutlet weak var btnLoadMore: UIButton!
 
+    @IBOutlet weak var btnSidemenu: UIButton!
+    
+    @IBOutlet weak var btnMessage: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,11 +71,13 @@ class VolunteerEventVC: ENTALDBaseViewController {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
     }
+    
+
 
 
     func decorateUI(){
-        
-        self.selectNonEvent()
+        searchMainView.isHidden = true
+        self.selectEvent()
         lblScreenTitle.font = UIFont.HeaderBoldFont(18)
         lblScreenTitle.textColor = UIColor.headerGreen
         pendingImgMainView1.layer.cornerRadius = 15
@@ -96,9 +101,9 @@ class VolunteerEventVC: ENTALDBaseViewController {
         btnEvent.titleLabel?.font = UIFont.BoldFont(14)
         btnNonEvent.titleLabel?.font = UIFont.BoldFont(14)
         
-        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        searchView.layer.borderWidth = 1
-        searchView.layer.cornerRadius = 8
+//        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+//        searchView.layer.borderWidth = 1
+//        searchView.layer.cornerRadius = 8
 //        searchView.isHidden = true
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         
@@ -108,12 +113,15 @@ class VolunteerEventVC: ENTALDBaseViewController {
         btnLoadMore.setTitleColor(UIColor.themeColorSecondry, for: .normal)
         btnLoadMore.titleLabel?.font = UIFont.BoldFont(16)
         loadMoreView.isHidden = true
-        
+        let originalImage = UIImage(named: "messages-bubble-square-text")!
+        let tintedImage = ProcessUtils.shared.tintImage(originalImage)
+        btnMessage.setImage(tintedImage, for: .normal)
+        let  sideMenuImage = UIImage(named: "sideMenu")!
+        btnSidemenu.setImage(ProcessUtils.shared.tintImage(sideMenuImage), for: .normal)
         
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        btnSearchClose.isHidden = false
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -153,13 +161,13 @@ class VolunteerEventVC: ENTALDBaseViewController {
         lblLifetimeValue.text = UserDefaults.standard.userInfo?.msnfp_totalengagementhours?.getFormattedNumber()
     }
     
-    @IBAction func searchCloseTapped(_ sender: Any) {
-        textSearch.endEditing(true)
-        textSearch.text = ""
-        eventFilterData = eventData
-        nonEventFilterData = nonEventData
-        tableView.reloadData()
-    }
+//    @IBAction func searchCloseTapped(_ sender: Any) {
+//        textSearch.endEditing(true)
+//        textSearch.text = ""
+//        eventFilterData = eventData
+//        nonEventFilterData = nonEventData
+//        tableView.reloadData()
+//    }
     
 
     func selectEvent(){
@@ -198,21 +206,18 @@ class VolunteerEventVC: ENTALDBaseViewController {
     }
     
     @IBAction func backTapped(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        present(menu!, animated: true)
     }
     
    
     @IBAction func eventTableShow(_ sender: Any) {
         selectNonEvent()
-        
-        
     }
     
     
     @IBAction func nonEventTableShow(_ sender: Any) {
         selectEvent()
     }
-    
     
     @IBAction func messageTapped(_ sender: Any) {
         
@@ -268,23 +273,24 @@ class VolunteerEventVC: ENTALDBaseViewController {
                     self.eventData = self.eventData?.sorted {
                         $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
                     }
-
+                    
                     self.eventFilterData = self.eventData
-                    if (self.eventData?.count == 0 || self.eventData?.count == nil){
-                        self.showEmptyView(tableVw: self.tableView)
-                    }else{
-                        DispatchQueue.main.async {
-                            for subview in self.tableView.subviews {
-                                subview.removeFromSuperview()
-                            }
-                        }
-                    }
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
-                }else{
-                    self.showEmptyView(tableVw: self.tableView)
                 }
+//                    if (self.eventData?.count == 0 || self.eventData?.count == nil){
+//                        self.showEmptyView(tableVw: self.tableView)
+//                    }else{
+//                        DispatchQueue.main.async {
+//                            for subview in self.tableView.subviews {
+//                                subview.removeFromSuperview()
+//                            }
+//                        }
+//                    }
+//                    DispatchQueue.main.async {
+//                        self.tableView.reloadData()
+//                    }
+//                }else{
+//                    self.showEmptyView(tableVw: self.tableView)
+//                }
             
             case .error(let error, let errorResponse):
                 var message = error.message
@@ -317,14 +323,14 @@ class VolunteerEventVC: ENTALDBaseViewController {
     }
     
     fileprivate func getVolunteerNonEventData(params : [String:Any]){
-//        DispatchQueue.main.async {
-//            LoadingView.show()
-//        }
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
         
         ENTALDLibraryAPI.shared.requestVolunteerNonEvent(params: params){ result in
-//            DispatchQueue.main.async {
-//                LoadingView.hide()
-//            }
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
             
             switch result{
             case .success(value: let response):
@@ -338,24 +344,24 @@ class VolunteerEventVC: ENTALDBaseViewController {
                     }
                     self.nonEventFilterData = self.nonEventData
                     
-//                    if (self.nonEventData?.count == 0 || self.nonEventData?.count == nil){
-//                        self.showEmptyView(tableVw: self.nonEventTableView)
-//                    }
-//                    else{
+                    if (self.nonEventData?.count == 0 || self.nonEventData?.count == nil){
+                        self.showEmptyView(tableVw: self.tableView)
+                    }
+                    else{
                         
-//                        DispatchQueue.main.async {
-//                            for subview in self.nonEventTableView.subviews {
-//                                subview.removeFromSuperview()
-//                            }
-//                        }
-//                    }
-//                    DispatchQueue.main.async {
-//                        self.nonEventTableView.reloadData()
-//                    }
+                        DispatchQueue.main.async {
+                            for subview in self.tableView.subviews {
+                                subview.removeFromSuperview()
+                            }
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
                 }
-//                else{
-//                    self.showEmptyView(tableVw: self.nonEventTableView)
-//                }
+                else{
+                    self.showEmptyView(tableVw: self.tableView)
+                }
             
             case .error(let error, let errorResponse):
                 var message = error.message
@@ -381,7 +387,7 @@ class VolunteerEventVC: ENTALDBaseViewController {
 }
 
 
-extension VolunteerEventVC : UITableViewDelegate,UITableViewDataSource{
+extension VolunteerEventVC : UITableViewDelegate,UITableViewDataSource, UIScrollViewDelegate{
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -451,5 +457,12 @@ extension VolunteerEventVC : UITableViewDelegate,UITableViewDataSource{
             }
         }
     }
-    
+        func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            let yOffset = scrollView.contentOffset.y
+            if yOffset > 100 { // You can adjust this value according to when you want to show the custom view
+                searchMainView.isHidden = false
+            } else {
+                searchMainView.isHidden = true
+            }
+        }
 }

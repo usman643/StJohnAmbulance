@@ -16,7 +16,9 @@ class EventDetailVC: ENTALDBaseViewController {
     var documents : [ContactDocumentResults]?
     var filterDocuments : [ContactDocumentResults]?
     var contactInfo : [ContactDataModel]?
+    var shiftsData : [VolunteerReportedShiftResponse]?
     var eventId = ""
+    var eventOpprtunityId = ""
     var isCancelEvent = false
     var paramName = ""
     
@@ -63,16 +65,16 @@ class EventDetailVC: ENTALDBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupData()
-        getDocumentToken()
+//        getDocumentToken()
         decorateUI()
         registerCell()
-        
         LocationManager.defualt.startLocationUpdates()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
+        getReportedShifts()
     }
     
     func registerCell(){
@@ -80,30 +82,28 @@ class EventDetailVC: ENTALDBaseViewController {
         self.tableView.dataSource = self
         self.tableView.register(UINib(nibName: "ContactDocumentsTVC", bundle: nil), forCellReuseIdentifier: "ContactDocumentsTVC")
         self.tableView.register(UINib(nibName: "EventDetailTVC", bundle: nil), forCellReuseIdentifier: "EventDetailTVC")
-        
-        
     }
     
     func decorateUI(){
-        lblEventName.font = UIFont.BoldFont(14)
+        lblEventName.font = UIFont.HeaderBoldFont(16)
         lblLocation.font = UIFont.BoldFont(12)
         lblDetail.font = UIFont.BoldFont(12)
         
         lblEventName.textColor = UIColor.themePrimaryWhite
-        lblLocation.textColor = UIColor.themePrimaryWhite
-        lblDetail.textColor = UIColor.themePrimaryWhite
-        lblPrograme.textColor = UIColor.themePrimaryWhite
-        lblDetailDesc.textColor = UIColor.textBlackColor
+        lblLocation.textColor = UIColor.themeBlackText
+        lblDetail.textColor = UIColor.themeBlackText
+        lblPrograme.textColor = UIColor.themeBlackText
+        lblDetailDesc.textColor = UIColor.themeBlackText
         
         lblDetailDesc.font = UIFont.BoldFont(12)
         lblDate.font = UIFont.BoldFont(11)
         lblShift.font = UIFont.BoldFont(11)
-        lblPrograme.font = UIFont.BoldFont(11)
+        lblPrograme.font = UIFont.BoldFont(12)
 //        lblStatus.font = UIFont.BoldFont(14)
 //        lblLocationDesc.font = UIFont.BoldFont(14)
         
-        lblDate.textColor = UIColor.textBlackColor
-        lblShift.textColor = UIColor.textBlackColor
+        lblDate.textColor = UIColor.themeBlackText
+        lblShift.textColor = UIColor.themeBlackText
 //        lblStatus.textColor = UIColor.textGrayColor
 //        lblLocationDesc.textColor = UIColor.textGrayColor
         
@@ -127,31 +127,7 @@ class EventDetailVC: ENTALDBaseViewController {
         infoView.layer.shadowOpacity = 0.5
         infoView.layer.shadowOffset = .zero
         infoView.layer.shadowRadius = 6
-        
-//        btnCheckIn.titleLabel?.font = UIFont.BoldFont(14)
-//        btnCheckIn.setTitleColor(UIColor.textWhiteColor, for: .normal)
-//        btnCheckIn.layer.cornerRadius = 2
-//        btnCheckIn.backgroundColor = UIColor.themeSecondry
-        
-//        btnCancel.titleLabel?.font = UIFont.BoldFont(14)
-//        btnCancel.setTitleColor(UIColor.textWhiteColor, for: .normal)
-//        btnCancel.layer.cornerRadius = 2
-//        btnCancel.backgroundColor = UIColor.themeSecondry
-//        
-//        checkInBtnImg.image = checkInBtnImg.image?.withRenderingMode(.alwaysTemplate)
-//        checkInBtnImg.tintColor = UIColor.white
-//        
-//        tableHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-//        tableHeaderView.layer.borderWidth = 1.5
-//        
-//        lblName.font = UIFont.BoldFont(13)
-//        lblModifiedOn.font = UIFont.BoldFont(13)
-//        lblAction.font = UIFont.BoldFont(13)
-//        
-//        lblName.textColor = UIColor.themePrimaryWhite
-//        lblModifiedOn.textColor = UIColor.themePrimaryWhite
-//        lblAction.textColor = UIColor.themePrimaryWhite
-        
+
     }
     
     func setupData(){
@@ -169,6 +145,7 @@ class EventDetailVC: ENTALDBaseViewController {
 //            lblLocationDesc.text = availableEvent?.msnfp_location ?? "Not Found"
 //            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: availableEvent?.msnfp_engagementopportunitystatus ?? 0) ?? "Not Found")"
             self.eventId = availableEvent?.msnfp_engagementopportunityid ?? ""
+            self.eventOpprtunityId = availableEvent?.msnfp_engagementopportunityid ?? ""
             self.lblPrograme.text = availableEvent?.sjavms_program_value ?? ""
 
 //                self.checkInbtnView.isHidden = true
@@ -214,6 +191,7 @@ class EventDetailVC: ENTALDBaseViewController {
 //            lblLocationDesc.text = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found"
 //            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: scheduleEvent?.msnfp_schedulestatus ?? 0) ?? "Not Found")"
             self.eventId = scheduleEvent?.msnfp_participationscheduleid ?? ""
+            self.eventOpprtunityId = scheduleEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
             self.lblPrograme.text = scheduleEvent?.sjavms_volunteerevent_value ?? ""
             if (scheduleEvent?.msnfp_participationscheduleid == nil || scheduleEvent?.msnfp_participationscheduleid == ""){
 //                self.checkInbtnView.isHidden = true
@@ -263,6 +241,7 @@ class EventDetailVC: ENTALDBaseViewController {
 //            lblLocationDesc.text = pastEvent?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found"
 //            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: pastEvent?.msnfp_schedulestatus ?? 0) ?? "Not Found")"
             self.eventId =  ""
+            self.eventOpprtunityId =  pastEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
             
             self.lblPrograme.text =  ""
             if (pastEvent?.msnfp_participationscheduleid == nil || pastEvent?.msnfp_participationscheduleid == ""){
@@ -310,6 +289,9 @@ class EventDetailVC: ENTALDBaseViewController {
 //            lblLocationDesc.text = latestEvent?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found"
 //            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: latestEvent?.msnfp_schedulestatus ?? 0) ?? "Not Found")"
             self.eventId = latestEvent?.msnfp_participationscheduleid ?? ""
+            self.eventOpprtunityId = latestEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
+            
+            
 //            self.checkInbtnView.isHidden = false
             self.paramName = "sjavms_checkedin"
             self.lblPrograme.text = ""
@@ -364,7 +346,7 @@ class EventDetailVC: ENTALDBaseViewController {
 //
 //        }
 //        if btnCheckIn.isEnabled{
-            updateCheckInData()
+//            updateCheckInData()
 //        }
         //            ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alter", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
         
@@ -433,7 +415,7 @@ class EventDetailVC: ENTALDBaseViewController {
         self.getContact()
     }
     
-    fileprivate func updateCheckInData(){
+    @objc func updateCheckInData(_ sender: Any){
         let params = [
             "\(self.paramName)": true,
             "sjavms_checkedinlatitudevalue": LocationManager.defualt.getRecentLocation().lat,
@@ -442,8 +424,9 @@ class EventDetailVC: ENTALDBaseViewController {
         DispatchQueue.main.async {
             LoadingView.show()
         }
-
-        ENTALDLibraryAPI.shared.updateVolunteerCheckIn(particitionId: self.eventId , params: params){ result in
+        guard let index = (sender as AnyObject).tag else { return  }
+        let participationId = self.shiftsData?[index]._sjavms_volunteer_value ?? ""
+        ENTALDLibraryAPI.shared.updateVolunteerCheckIn(particitionId: participationId , params: params){ result in
             DispatchQueue.main.async {
                 LoadingView.hide()
             }
@@ -742,7 +725,7 @@ extension EventDetailVC : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return self.filterDocuments?.count ?? 0
-        return 2
+        return shiftsData?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -758,6 +741,21 @@ extension EventDetailVC : UITableViewDelegate, UITableViewDataSource{
 //        }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "EventDetailTVC", for: indexPath) as! EventDetailTVC
+
+        let rowModel = self.shiftsData?[indexPath.row]
+        let startTime = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+        let endTime = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+        cell.lblTime.text = "\(startTime) - \(endTime)"
+        
+        if ((rowModel?.sjavms_checkedin ?? 0) == 1){
+            cell.switchChange.isOn = true
+        }else{
+            cell.switchChange.isOn = false
+        }
+        cell.lblShift.text = "shift"
+        cell.switchChange.tag = indexPath.row
+        cell.switchChange.addTarget(self, action: #selector (updateCheckInData), for: .valueChanged)
+//        cell.switchChange.addTarget(self, action:  #selector(updateCheckInData(eventValue: self.shiftsData?[indexPath.row]._sjavms_volunteer_value)), for:.valueChanged )
         
         return cell
     }
@@ -782,7 +780,86 @@ extension EventDetailVC : UITableViewDelegate, UITableViewDataSource{
 //                }
 //            }
 //        }
+        
+        
+        
+        
+//        _sjavms_volunteer_value
     }
+    
+    
+    
+    func getReportedShifts(){
+        
+        
+        
+        let params : [String:Any] = [
+            
+            ParameterKeys.select : "sjavms_checkedin,createdon,_msnfp_engagementopportunityscheduleid_value,msnfp_name,_msnfp_participationid_value,msnfp_participationscheduleid,msnfp_schedulestatus,sja_additionalnotes,_sjavms_adhochoursid_value,sjavms_end,_sjavms_group_value,sjavms_hours,sjavms_start,_sjavms_volunteer_value,_sjavms_volunteerevent_value,statecode",
+            ParameterKeys.filter : "(_sjavms_volunteerevent_value eq \(self.eventOpprtunityId) and statecode eq 0)"
+//            ParameterKeys.filter : "(_sjavms_volunteerevent_value eq \(self.eventOpprtunityId) and statecode eq 0)"
+            
+        ]
+        
+        self.getReportedShiftsData(params: params)
+        
+    }
+    
+    fileprivate func getReportedShiftsData(params : [String:Any]){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.getReportedShiftsData(params: params){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                
+                if let shiftsData = response.value {
+                    self.shiftsData = shiftsData
+                    if (self.shiftsData?.count == 0 || self.shiftsData?.count == nil){
+                        DispatchQueue.main.async {
+                            self.tableView.isHidden = true
+                        }
+                    }else{
+                      
+                        DispatchQueue.main.async {
+                            self.tableView.isHidden = false
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+
+                }else{
+                    DispatchQueue.main.async {
+                        self.tableView.isHidden = false
+                    }
+                }
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                
+                DispatchQueue.main.async {
+//                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }
     

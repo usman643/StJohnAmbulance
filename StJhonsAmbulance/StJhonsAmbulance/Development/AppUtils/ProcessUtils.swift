@@ -242,5 +242,44 @@ class ProcessUtils {
         
         return false
     }
+    
+    func getMessageImage()->UIImage{
+        
+        var img = UIImage(named: "messages-bubble-square-text")
+        if (UserDefaults.standard.isDarkMode){
+//            img = img?.withRenderingMode(.alwaysTemplate)
+//            img?.withTintColor(UIColor.themePrimaryColor)
+            img = img?.withTintColor((UIColor.themePrimaryColor), renderingMode: .alwaysTemplate)
+            return img ?? UIImage()
+        }else{
+//            img = img?.withRenderingMode(.alwaysTemplate)
+            img = img?.withTintColor((UIColor.headerGreen), renderingMode: .alwaysTemplate)
+//            img?.withTintColor(UIColor.headerGreen)
+            return img ?? UIImage()
+        }
+    }
+    
+    func tintImage(_ originalImage: UIImage) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(originalImage.size, false, originalImage.scale)
+        var tintColor : UIColor! ;
+        if (UserDefaults.standard.isDarkMode){
+          tintColor =  UIColor.themePrimaryColor
+            
+        }else{
+            tintColor =  UIColor.headerGreen
+        }
+            
+        tintColor.set()
+        
+        let bounds = CGRect(x: 0, y: 0, width: originalImage.size.width, height: originalImage.size.height)
+        UIRectFill(bounds)
+        
+        originalImage.draw(in: bounds, blendMode: .destinationIn, alpha: 1.0)
+        
+        let tintedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return tintedImage ?? originalImage
+    }
 }
 

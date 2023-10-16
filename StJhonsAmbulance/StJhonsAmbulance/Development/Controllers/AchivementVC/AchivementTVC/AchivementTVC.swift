@@ -36,10 +36,10 @@ class AchivementTVC: UITableViewCell {
         
         mainView.layer.cornerRadius = 8
         
-        lblName.textColor = UIColor.themePrimary
+        lblName.textColor = UIColor.themeBlackText
         lblName.font = UIFont.BoldFont(16)
-        lblDate.textColor = UIColor.themePrimary
-        lblDate.font = UIFont.BoldFont(10)
+        lblDate.textColor = UIColor.themeBlackText
+        lblDate.font = UIFont.BoldFont(12)
         
         
     }

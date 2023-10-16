@@ -19,7 +19,10 @@ class SignalRVC: ENTALDBaseViewController, UITableViewDelegate, UITableViewDataS
     
     @IBOutlet weak var txtMessage: UITextField!
     
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var btnSend: UIButton!
+    @IBOutlet weak var btnMessage: UIButton!
     // Update the Url accordingly
 //    private let serverUrl = "https://4c6f-39-41-237-112.ngrok-free.app/chathub"  // /chat or /chatLongPolling or /chatWebSockets
     private let serverUrl = "https://sjasignalr.azurewebsites.net/chathub"
@@ -39,8 +42,14 @@ class SignalRVC: ENTALDBaseViewController, UITableViewDelegate, UITableViewDataS
         self.tableView.delegate = self
         self.tableView.dataSource = self
         tableView.register(UINib(nibName: "MessagesCell", bundle: nil), forCellReuseIdentifier: "MessagesCell")
+        headerView.addBottomShadow()
+        lblTitle.font = UIFont.HeaderBoldFont(18)
+        lblTitle.textColor = UIColor.headerGreen
+        lblTitle.text = name 
         
-        
+        let originalImage = UIImage(named: "messages-bubble-square-text")!
+        let tintedImage = ProcessUtils.shared.tintImage(originalImage)
+        btnMessage.setImage(tintedImage, for: .normal)
     }
     
     
