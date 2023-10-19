@@ -46,14 +46,14 @@ class VolunteerIncomingCell: UITableViewCell {
         
         lblDateTime.textColor = UIColor.themeBlackText
         
-        btnDetail.setTitleColor(UIColor.themeBlackText, for: .normal)
+        btnDetail.setTitleColor(UIColor.white, for: .normal)
         lblTitle.textColor = UIColor.themePrimaryWhite
         lblProgram.textColor = UIColor.themeBlackText
         
         lblLocation.textColor = UIColor.themeBlackText
         
         lblDateTime.font =  UIFont.BoldFont(12)
-        btnDetail.titleLabel?.font = UIFont.BoldFont(13)
+        btnDetail.titleLabel?.font = UIFont.BoldFont(12)
         lblTitle.font =  UIFont.BoldFont(18)
         lblProgram.font =  UIFont.BoldFont(13)
         

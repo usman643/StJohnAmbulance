@@ -16,19 +16,23 @@ class ContactDocumentsTVC: UITableViewCell {
     @IBOutlet weak var seperatorView: UIView!
     @IBOutlet weak var mainView: UIView!
     
+    @IBOutlet weak var documentImg: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         decorateUI()
     }
     
     func decorateUI(){
+        
+        documentImg.image = documentImg.image?.withRenderingMode(.alwaysTemplate)
+        documentImg.tintColor = UIColor.headerGreen
         lblName.textColor = UIColor.textBlackColor
         lblModifiedDate.textColor = UIColor.textBlackColor
-        lblAction.textColor = UIColor.textBlackColor
+//        lblAction.textColor = UIColor.textBlackColor
         
-        lblName.font = UIFont.BoldFont(12)
+        lblName.font = UIFont.BoldFont(14)
         lblModifiedDate.font = UIFont.BoldFont(12)
-        lblAction.font = UIFont.BoldFont(12)
+//        lblAction.font = UIFont.BoldFont(12)
         
     }
 
@@ -50,7 +54,7 @@ class ContactDocumentsTVC: UITableViewCell {
             lblModifiedDate.text = ""
         }
         
-        lblAction.text = ""
+        
 
     }
     

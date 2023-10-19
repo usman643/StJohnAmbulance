@@ -586,23 +586,46 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         }
     }
     // ========================= Available API ================================
-
     
     func getAvailableInfo(){
         
-        let propertyValues = ProcessUtils.shared.groupListValue ?? ""
-       
-        let params : [String:Any] = [
-            
-            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_endingdate,msnfp_startingdate,msnfp_engagementopportunityid,_sjavms_program_value,msnfp_location,msnfp_maximum,msnfp_minimum,msnfp_multipledays",
-            ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(propertyValues)])))",
-            
-            ParameterKeys.filter : "(Microsoft.Dynamics.CRM.In(PropertyName='statuscode',PropertyValues=['1','802280000']) and sjavms_adhocevent ne true and msnfp_engagementopportunitystatus eq 844060002 and (Microsoft.Dynamics.CRM.Today(PropertyName='msnfp_endingdate') or Microsoft.Dynamics.CRM.NextXYears(PropertyName='msnfp_endingdate',PropertyValue=10))) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(propertyValues)]))))",
-       ParameterKeys.orderby : "msnfp_startingdate asc"
-        ]
+        self.availableData = [AvailableEventModel]()
+        self.filterAvailableData = [AvailableEventModel]()
+
+        var propertyValues = ""
         
-        self.getAvailalbeInfoData(params: params)
-        
+        let chunkSize = 7 // Set the desired chunk size
+
+        for startIndex in stride(from: 0, to: ProcessUtils.shared.allGroupsList.count, by: chunkSize) {
+            propertyValues = ""
+            let endIndex = min(startIndex + chunkSize, ProcessUtils.shared.allGroupsList.count)
+            let chunk = Array(ProcessUtils.shared.allGroupsList[startIndex..<endIndex])
+            
+            for i in (0 ..< (chunk.count )){
+                var str = ""
+                
+                if let groupid_value = chunk[i]._sjavms_groupid_value {
+                    
+                    if ( i == (chunk.count) - 1){
+                        str = "'{\(groupid_value)}'"
+                    }else{
+                        str = "'{\(groupid_value)}',"
+                    }
+                    propertyValues += str
+                }
+            }
+
+            let params : [String:Any] = [
+                
+                ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_endingdate,msnfp_startingdate,msnfp_engagementopportunityid,_sjavms_program_value,msnfp_location,msnfp_maximum,msnfp_minimum,msnfp_multipledays",
+                ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(propertyValues)])))",
+                
+                ParameterKeys.filter : "(Microsoft.Dynamics.CRM.In(PropertyName='statuscode',PropertyValues=['1','802280000']) and sjavms_adhocevent ne true and msnfp_engagementopportunitystatus eq 844060002 and (Microsoft.Dynamics.CRM.Today(PropertyName='msnfp_endingdate') or Microsoft.Dynamics.CRM.NextXYears(PropertyName='msnfp_endingdate',PropertyValue=10))) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(propertyValues)]))))",
+                ParameterKeys.orderby : "msnfp_startingdate asc"
+            ]
+            
+            self.getAvailalbeInfoData(params: params)
+        }
     }
     
     fileprivate func getAvailalbeInfoData(params : [String:Any]){
@@ -619,8 +642,10 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
             case .success(value: let response):
                 DispatchQueue.main.async {
                     if let availableEvent = response.value {
-                        self.availableData = availableEvent
-                        self.filterAvailableData = availableEvent
+                        self.availableData?.append(contentsOf: availableEvent)
+                        self.filterAvailableData?.append(contentsOf: availableEvent)
+//                        self.availableData = availableEvent
+//                        self.filterAvailableData = availableEvent
                         self.availableData = self.availableData?.sorted {
                             $0.msnfp_startingdate ?? "" < $1.msnfp_startingdate ?? ""
                         }
@@ -638,9 +663,8 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
                         self.availableTable.reloadData()
                         
                     }else{
-//                        self.emptyView.isHidden = false
+                        self.emptyView.isHidden = false
                         self.availableTable.reloadData()
-                        
                     }
                 }
                 
@@ -656,7 +680,6 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
             }
         }
     }
-    
 }
 
 

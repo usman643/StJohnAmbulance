@@ -248,18 +248,46 @@ class DashboardVC: ENTALDBaseViewController{
     
     func getAvailableInfo(){
         
-        let propertyValues = ProcessUtils.shared.groupListValue ?? ""
-       
-        let params : [String:Any] = [
-            
-            ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_endingdate,msnfp_startingdate,msnfp_engagementopportunityid,_sjavms_program_value,msnfp_location,msnfp_maximum,msnfp_minimum,msnfp_multipledays",
-            ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(propertyValues)])))",
-            
-            ParameterKeys.filter : "(Microsoft.Dynamics.CRM.In(PropertyName='statuscode',PropertyValues=['1','802280000']) and sjavms_adhocevent ne true and msnfp_engagementopportunitystatus eq 844060002 and (Microsoft.Dynamics.CRM.Today(PropertyName='msnfp_endingdate') or Microsoft.Dynamics.CRM.NextXYears(PropertyName='msnfp_endingdate',PropertyValue=10))) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(propertyValues)]))))",
-       ParameterKeys.orderby : "msnfp_startingdate asc"
-        ]
+        self.availableData = [AvailableEventModel]()
+        self.filterAvailableData = [AvailableEventModel]()
+
+        var propertyValues = ""
         
-        self.getAvailalbeInfoData(params: params)
+        
+        let chunkSize = 7 // Set the desired chunk size
+
+        for startIndex in stride(from: 0, to: ProcessUtils.shared.allGroupsList.count, by: chunkSize) {
+            propertyValues = ""
+            
+            let endIndex = min(startIndex + chunkSize, ProcessUtils.shared.allGroupsList.count)
+            
+            
+            let chunk = Array(ProcessUtils.shared.allGroupsList[startIndex..<endIndex])
+            
+            for i in (0 ..< (chunk.count )){
+                var str = ""
+                
+                if let groupid_value = chunk[i]._sjavms_groupid_value {
+                    
+                    if ( i == (chunk.count) - 1){
+                        str = "'{\(groupid_value)}'"
+                    }else{
+                        str = "'{\(groupid_value)}',"
+                    }
+                    propertyValues += str
+                }
+            }
+            let params : [String:Any] = [
+                
+                ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_endingdate,msnfp_startingdate,msnfp_engagementopportunityid,_sjavms_program_value,msnfp_location,msnfp_maximum,msnfp_minimum,msnfp_multipledays",
+                ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(propertyValues)])))",
+                
+                ParameterKeys.filter : "(Microsoft.Dynamics.CRM.In(PropertyName='statuscode',PropertyValues=['1','802280000']) and sjavms_adhocevent ne true and msnfp_engagementopportunitystatus eq 844060002 and (Microsoft.Dynamics.CRM.Today(PropertyName='msnfp_endingdate') or Microsoft.Dynamics.CRM.NextXYears(PropertyName='msnfp_endingdate',PropertyValue=10))) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(propertyValues)]))))",
+                ParameterKeys.orderby : "msnfp_startingdate asc"
+            ]
+            
+            self.getAvailalbeInfoData(params: params)
+        }
         
     }
     
@@ -277,8 +305,10 @@ class DashboardVC: ENTALDBaseViewController{
             case .success(value: let response):
                 DispatchQueue.main.async {
                     if let availableEvent = response.value {
-                        self.availableData = availableEvent
-                        self.filterAvailableData = availableEvent
+                        self.availableData?.append(contentsOf: availableEvent)
+                        self.filterAvailableData?.append(contentsOf: availableEvent)
+//                        self.availableData = availableEvent
+//                        self.filterAvailableData = availableEvent
                         self.availableData = self.availableData?.sorted {
                             $0.msnfp_startingdate ?? "" < $1.msnfp_startingdate ?? ""
                         }
@@ -296,7 +326,8 @@ class DashboardVC: ENTALDBaseViewController{
                         self.tableView.reloadData()
                         
                     }else{
-//                        self.emptyView.isHidden = false
+                        
+                        self.emptyView.isHidden = false
                         self.tableView.reloadData()
                         
                     }
@@ -496,40 +527,7 @@ class DashboardVC: ENTALDBaseViewController{
             
             switch result{
             case .success(value: let response):
-                
-                
-                //                    var index = NSNotFound
-                //                    for i in (0..<(self.gridData?.count ?? 0 )){
-                //                        if (self.gridData?[i].key ==  "sjavms_youthcamp"){
-                //                            index = i
-                //                        }
-                //                    }
-                //                DispatchQueue.main.async {
-                //                    if let award = response.value {
-                //                        self.latestEventData = award
-                //                        if ((self.latestEventData?.count ?? 0 ) > 0){
-                //                            self.gridData?[index].title = self.latestEventData?[0].sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle
-                //                            if (self.latestEventData?[0].sjavms_start != nil && self.latestEventData?[0].sjavms_start != ""){
-                //                                let startData = DateFormatManager.shared.formatDateStrToStr(date: self.latestEventData?[0].sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd")
-                //                                self.gridData?[index].subTitle = startData
-                //                                self.collectionview.reloadData()
-                //                            }else{
-                //                                self.gridData?[index].subTitle  = ""
-                //                            }
-                //                        }else{
-                //                            DispatchQueue.main.async {
-                //                                self.gridData?[index].title  = "No Upcoming Event"
-                //                                self.collectionview.reloadData()
-                //                            }
-                //                        }
-                //                    }else{
-                //                        DispatchQueue.main.async {
-                //                            self.gridData?[index].title  = "No Upcoming Event"
-                //                            self.collectionview.reloadData()
-                //                        }
-                //                    }
-                //                }
-                
+
                 DispatchQueue.main.async {
                     if let apiData = response.value {
                         self.latestEventData = apiData
@@ -622,371 +620,7 @@ class DashboardVC: ENTALDBaseViewController{
 
 
 extension DashboardVC : UITableViewDelegate,UITableViewDataSource{
-//,UICollectionViewDragDelegate,UICollectionViewDropDelegate {
-    
-    
-    
-    
 
-    
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        self.view.endEditing(true)
-//
-//        let cell = collectionView.cellForItem(at: indexPath) as! CSDashBaordCVC
-//
-//        UIView.transition(from: cell.mainView,
-//                          to: cell.mainView,
-//                          duration: 0.7,
-//                          options: [.transitionFlipFromLeft, .showHideTransitionViews]) { status in
-//            if status {
-//                self.openNextScreen(controller:self.gridData?[indexPath.row].key)
-//            }
-//        }
-//    }
-    // old alyout
-//    private func generateLayout() -> UICollectionViewLayout {
-//
-//        // First Section
-//        let pairMainPhotoSize = NSCollectionLayoutSize(
-//            widthDimension: .fractionalWidth(1/2),
-//            heightDimension: .fractionalHeight(1.0))
-//        let pairMainPhotoItem = NSCollectionLayoutItem(layoutSize: pairMainPhotoSize)
-//
-//        pairMainPhotoItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-//
-//        let pairSmallPhotoSize = NSCollectionLayoutSize(
-//            widthDimension: .fractionalWidth(2),
-//            heightDimension: .fractionalHeight(1/2))
-//        let pairSmallPhotoItem = NSCollectionLayoutItem(layoutSize: pairSmallPhotoSize)
-//        pairSmallPhotoItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-//
-//        let stackedSmallPhotoGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/4), heightDimension: .fractionalHeight(1.0)), subitem: pairSmallPhotoItem, count: 2)
-//
-////        First Section Group
-//        let mainAndSmallPhotoGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1/2)), subitems: [pairMainPhotoItem, stackedSmallPhotoGroup])
-//
-//        let smallPhotoSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1))
-//        let smallPhotoItem = NSCollectionLayoutItem(layoutSize: smallPhotoSize)
-//        smallPhotoItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-////
-//        let tripleSmallPhotoGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1)), subitem: smallPhotoItem, count: 1)
-//
-//        let stackedTripleSmallPhotoGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1/4)), subitems: [smallPhotoItem, tripleSmallPhotoGroup])
-//
-//
-//
-//
-//
-//        let smallPhotoSize2 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/2), heightDimension: .fractionalHeight(1))
-//        let smallPhotoItem2 = NSCollectionLayoutItem(layoutSize: smallPhotoSize2)
-//        smallPhotoItem2.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-////
-//
-//        let tripleSmallPhotoGroup2 = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)), subitem: smallPhotoItem2, count: 2)
-//
-//        let stackedTripleSmallPhotoGroup2 = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1/4)), subitems: [tripleSmallPhotoGroup2])
-//
-//
-//
-//
-//        let allGroup = NSCollectionLayoutGroup.vertical(
-//            layoutSize: NSCollectionLayoutSize(
-//                widthDimension: .fractionalWidth(1.0),
-//                heightDimension: .fractionalHeight(1.0)),
-//            subitems: [
-//                mainAndSmallPhotoGroup,
-//                stackedTripleSmallPhotoGroup,
-//                stackedTripleSmallPhotoGroup2
-//
-//            ])
-//        let section = NSCollectionLayoutSection(group: allGroup)
-//        return UICollectionViewCompositionalLayout(section: section)
-//    }
-//  drag drop delegate
-//    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-//        //to lock first 2 items
-////        if (indexPath.item  < 2){
-////            return []
-////        }
-//
-//        let item = self.gridData?[indexPath.row]
-//        let itemProvider = NSItemProvider(object: item?.title as! NSString )
-//        let dragItem = UIDragItem(itemProvider: itemProvider)
-//        dragItem.localObject = item
-//        return [dragItem]
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
-//        // to lock first 2 items
-////        if (destinationIndexPath?.item ?? 0 < 2){
-////            return UICollectionViewDropProposal(operation: .forbidden)
-////        }
-//        if collectionView.hasActiveDrag{
-//            return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
-//        }
-//
-//        return UICollectionViewDropProposal(operation: .forbidden)
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator)  {
-//
-//        var destinationIndexPath : IndexPath
-//        if let indexPath = coordinator.destinationIndexPath{
-//            destinationIndexPath = indexPath
-//        }else{
-//            let row = collectionView.numberOfItems(inSection: 0)
-//            destinationIndexPath = IndexPath(item: row - 1 , section: 0)
-//        }
-//
-//        if coordinator.proposal.operation == .move {
-//            self.reorderItems(coordinator: coordinator, destinationIndexPath: destinationIndexPath, collectionView: collectionView)
-//        }
-//
-//
-//    }
-//
-//    fileprivate func reorderItems (coordinator: UICollectionViewDropCoordinator, destinationIndexPath: IndexPath, collectionView:UICollectionView){
-//
-//
-//        if let item = coordinator.items.first,
-//           let sourceIndexPath = item.sourceIndexPath {
-//            collectionView.performBatchUpdates({
-//                self.gridData?.remove(at: sourceIndexPath.item)
-//                self.gridData?.insert(item.dragItem.localObject as! DashBoardGridModel, at: destinationIndexPath.item)
-//
-//                collectionView.deleteItems (at: [sourceIndexPath])
-//                collectionView.insertItems (at: [destinationIndexPath])}, completion: nil)
-//
-//
-//
-//            coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
-//        }
-//
-//        params = [
-//            "sjavms_user@odata.bind" : "/contacts(\(self.conId))",
-//            "sjavms_csgrouplead" : false,
-//            ]
-//        for i in (0..<(self.gridData?.count ?? 0 )){
-//            self.gridData?[i].order = i + 1
-//
-//            var key = (self.gridData?[i].key ?? "") as String
-//            var order = (self.gridData?[i].order ?? NSNotFound) as Int
-//            params[key] = order
-//
-//        }
-//
-//
-//        self.updateDashboardGridOrder(params: params)
-//        params = [:]
-//    }
-    
-    
-//
-//    fileprivate func getDashBoardOrder(){
-//
-//        let params : [String:Any] = [
-//
-//            ParameterKeys.select : "statecode,sjavms_messages,sjavms_events,sjavms_checkin,sjavms_hours,sjavms_name,sjavms_myschedule,sjavms_dayofevent,sjavms_pendingevents,sjavms_csgrouplead,_sjavms_user_value,sjavms_volunteers,sjavms_youthcamp,sjavms_pendingshifts",
-//            ParameterKeys.filter : "(sjavms_csgrouplead eq false and statecode eq 0 and _sjavms_user_value eq \(UserDefaults.standard.contactIdToken ?? ""))",
-//
-//        ]
-//
-//        DispatchQueue.main.async {
-//            LoadingView.show()
-//        }
-//
-//        ENTALDLibraryAPI.shared.getDashBoardTileOrder(params: params){ result in
-//            DispatchQueue.main.async {
-//                LoadingView.hide()
-//            }
-//
-//            switch result{
-//            case .success(value: let response):
-//
-//                if let apidata = response.value {
-//                    if apidata.count > 0{
-//
-//                        self.dashBoardOrder = apidata[0]
-//                        var modeldata : [DashBoardGridModel] = []
-//
-//                        var _ = self.gridData?.compactMap({ model in
-//                            var model = model
-//
-//
-//                            if model.key == "sjavms_youthcamp" {
-//                                model.order = self.dashBoardOrder?.sjavms_youthcamp
-//                            }else if model.key == "sjavms_messages" {
-//                                model.order = self.dashBoardOrder?.sjavms_messages
-//                            }else if model.key == "sjavms_checkin" {
-//                                model.order = self.dashBoardOrder?.sjavms_checkin
-//                            }else if model.key == "sjavms_myschedule" {
-//                                model.order = self.dashBoardOrder?.sjavms_myschedule
-//                            }else if model.key == "sjavms_hours" {
-//                                model.order = self.dashBoardOrder?.sjavms_hours
-//                            }else if model.key == "sjavms_events" {
-//                                model.order = self.dashBoardOrder?.sjavms_events
-//                            }
-//
-//                            modeldata.append(model)
-//                            return true
-//                        })
-//
-//                        self.gridData = modeldata
-//
-//                        self.gridData = self.gridData?.sorted {
-//                            $0.order ?? NSNotFound < $1.order ?? NSNotFound
-//                        }
-//                        DispatchQueue.main.async {
-//                            self.collectionview.reloadData()
-//                        }
-//
-//                    }else{
-//                            self.saveDashboardGridOrder()
-//                        }
-//                }else{
-//                    self.saveDashboardGridOrder()
-//                }
-//
-//            case .error(let error, let errorResponse):
-//                var message = error.message
-//                if let err = errorResponse {
-//                    message = err.error
-//                }
-////                DispatchQueue.main.async {
-////                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
-////                }
-//            }
-//        }
-//    }
-//
-//    fileprivate func saveDashboardGridOrder(){
-//
-//        let params : [String:Any] = [
-//            "sjavms_user@odata.bind" : "/contacts(\(self.conId))",
-//               "sjavms_csgrouplead" : false,
-//               "sjavms_messages": 2,
-//               "sjavms_myschedule": 1,
-//               "sjavms_events": 4,
-////               "sjavms_checkin": 3,
-////               "sjavms_youthcamp": 1,
-//               "sjavms_hours": 3
-//        ]
-//
-//        DispatchQueue.main.async {
-//            LoadingView.show()
-//        }
-//
-//        ENTALDLibraryAPI.shared.saveDashBoardTileOrder(params: params) { result in
-//            DispatchQueue.main.async {
-//                LoadingView.hide()
-//            }
-//
-//            switch result{
-//            case .success(value: _):
-//                DispatchQueue.main.async {
-//                    LoadingView.hide()
-//                }
-//
-//            case .error(let error, let errorResponse):
-//                DispatchQueue.main.async {
-//                    LoadingView.hide()
-//                }
-//                if error == .patchSuccess {
-//                    self.getDashBoardOrder()
-//                }else{
-//                    var message = error.message
-//                    if let err = errorResponse {
-//                        message = err.error
-//                    }
-////                    DispatchQueue.main.async {
-////                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
-////                    }
-//                }
-//            }
-//        }
-//
-//        var modeldata : [DashBoardGridModel] = []
-//
-//        var _ = self.gridData?.compactMap({ model in
-//            var model = model
-//
-////            if model.key == "sjavms_youthcamp" {
-////                model.order = 1
-////            }else
-//            if model.key == "sjavms_messages" {
-//                model.order = 2
-////            }else if model.key == "sjavms_checkin" {
-////                model.order = 3
-//            }else if model.key == "sjavms_myschedule" {
-//                model.order = 1
-//            }else if model.key == "sjavms_hours" {
-//                model.order = 3
-//            }else if model.key == "sjavms_events" {
-//                model.order = 4
-//            }
-//
-////            if model.key == "sjavms_youthcamp" {
-////                model.order = 1
-////            }else if model.key == "sjavms_messages" {
-////                model.order = 2
-////            }else if model.key == "sjavms_checkin" {
-////                model.order = 3
-////            }else if model.key == "sjavms_myschedule" {
-////                model.order = 4
-////            }else if model.key == "sjavms_hours" {
-////                model.order = 5
-////            }else if model.key == "sjavms_events" {
-////                model.order = 6
-////            }
-//
-//
-//
-//
-//            modeldata.append(model)
-//            return true
-//        })
-//
-//        self.gridData = modeldata
-//    }
-//
-//
-//    fileprivate func updateDashboardGridOrder(params : [String:Any]){
-//        DispatchQueue.main.async {
-//            LoadingView.show()
-//        }
-//
-//        ENTALDLibraryAPI.shared.updateDashBoardTileOrder(orderid: self.dashBoardOrder?.sjavms_dashboard_orderid ?? "", params: params) { result in
-//            DispatchQueue.main.async {
-//                LoadingView.hide()
-//            }
-//
-//            switch result{
-//            case .success(value: _):
-//                DispatchQueue.main.async {
-//                    LoadingView.hide()
-//                }
-//
-//            case .error(let error, let errorResponse):
-//                DispatchQueue.main.async {
-//                    LoadingView.hide()
-//                }
-//                if error == .patchSuccess {
-////                    DispatchQueue.main.async {
-////                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: "patch sucess", actionTitle: .KOK, completion: {status in })
-////                    }
-//                }else{
-//                    var message = error.message
-//                    if let err = errorResponse {
-//                        message = err.error
-//                    }
-////                    DispatchQueue.main.async {
-////                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
-////                    }
-//                }
-//            }
-//        }
-//    }
-    
     fileprivate func getCheckInData(eventOppId:String, completion:@escaping((_ model : CheckInResponseModel?) -> Void )){
         
         let params : [String:Any] = [
@@ -1355,6 +989,29 @@ extension DashboardVC : UITableViewDelegate,UITableViewDataSource{
 //            self.getScheduleInfo()
 //        }
     }
+    
+    func combineResults<T>(_ array: [T], using function: (T, T, T) -> T) -> [T] {
+        var combinedResult: [T] = []
+        
+        for i in stride(from: 0, to: array.count, by: 3) {
+            if i + 2 < array.count {
+                let result = function(array[i], array[i + 1], array[i + 2])
+                combinedResult.append(result)
+            }
+        }
+        
+        return combinedResult
+    }
+
+    // Example function to call with three values
+    func exampleFunction(_ a: Int, _ b: Int, _ c: Int) -> Int {
+        return a + b + c
+    }
+
+    // Call the combineResults function with the exampleFunction
+//    let combinedResult = combineResults(myArray, using: exampleFunction)
+
+
     
     
 }

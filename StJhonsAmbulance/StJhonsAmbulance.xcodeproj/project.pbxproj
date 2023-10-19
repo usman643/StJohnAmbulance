@@ -87,6 +87,8 @@
 		1D4DE85D297FE33C00246242 /* CommonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4DE85C297FE33C00246242 /* CommonModel.swift */; };
 		1D50ECDC29921B4D00821049 /* EventDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D50ECDA29921B4D00821049 /* EventDetailVC.swift */; };
 		1D50ECDD29921B4D00821049 /* EventDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D50ECDB29921B4D00821049 /* EventDetailVC.xib */; };
+		1D5575C42AE1D2CC0035A5A9 /* MessageSenderTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5575C22AE1D2CC0035A5A9 /* MessageSenderTVC.swift */; };
+		1D5575C52AE1D2CC0035A5A9 /* MessageSenderTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D5575C32AE1D2CC0035A5A9 /* MessageSenderTVC.xib */; };
 		1D55C8DE29B3D03C0035E4D4 /* RequestModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D55C8DD29B3D03C0035E4D4 /* RequestModels.swift */; };
 		1D55C8E329B3F5B90035E4D4 /* PendingStatusPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D55C8E129B3F5B90035E4D4 /* PendingStatusPickerView.swift */; };
 		1D55C8E429B3F5B90035E4D4 /* PendingStatusPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D55C8E229B3F5B90035E4D4 /* PendingStatusPickerView.xib */; };
@@ -254,6 +256,10 @@
 		1DF176FE29893E52005809C6 /* EventsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF176FD29893E52005809C6 /* EventsModel.swift */; };
 		1DF1770029893ECA005809C6 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF176FF29893ECA005809C6 /* MessageModel.swift */; };
 		1DF1770229893ED8005809C6 /* VolunteerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1770129893ED8005809C6 /* VolunteerModel.swift */; };
+		1DF224782AE1ABFC00A30552 /* VolunteerMessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF224762AE1ABFC00A30552 /* VolunteerMessageVC.swift */; };
+		1DF224792AE1ABFC00A30552 /* VolunteerMessageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DF224772AE1ABFC00A30552 /* VolunteerMessageVC.xib */; };
+		1DF2247D2AE1B04300A30552 /* VolunteerMessageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2247B2AE1B04300A30552 /* VolunteerMessageTVC.swift */; };
+		1DF2247E2AE1B04300A30552 /* VolunteerMessageTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DF2247C2AE1B04300A30552 /* VolunteerMessageTVC.xib */; };
 		1DF4DA962A65C30700F3243E /* VolunteerDayEventVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF4DA942A65C30700F3243E /* VolunteerDayEventVC.swift */; };
 		1DF4DA972A65C30700F3243E /* VolunteerDayEventVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DF4DA952A65C30700F3243E /* VolunteerDayEventVC.xib */; };
 		1DF4DA9A2A66942B00F3243E /* CSEventVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF4DA982A66942B00F3243E /* CSEventVC.swift */; };
@@ -508,6 +514,8 @@
 		1D4DE85C297FE33C00246242 /* CommonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonModel.swift; sourceTree = "<group>"; };
 		1D50ECDA29921B4D00821049 /* EventDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailVC.swift; sourceTree = "<group>"; };
 		1D50ECDB29921B4D00821049 /* EventDetailVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventDetailVC.xib; sourceTree = "<group>"; };
+		1D5575C22AE1D2CC0035A5A9 /* MessageSenderTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSenderTVC.swift; sourceTree = "<group>"; };
+		1D5575C32AE1D2CC0035A5A9 /* MessageSenderTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageSenderTVC.xib; sourceTree = "<group>"; };
 		1D55C8DD29B3D03C0035E4D4 /* RequestModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestModels.swift; sourceTree = "<group>"; };
 		1D55C8E129B3F5B90035E4D4 /* PendingStatusPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingStatusPickerView.swift; sourceTree = "<group>"; };
 		1D55C8E229B3F5B90035E4D4 /* PendingStatusPickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PendingStatusPickerView.xib; sourceTree = "<group>"; };
@@ -675,6 +683,10 @@
 		1DF176FD29893E52005809C6 /* EventsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsModel.swift; sourceTree = "<group>"; };
 		1DF176FF29893ECA005809C6 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		1DF1770129893ED8005809C6 /* VolunteerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerModel.swift; sourceTree = "<group>"; };
+		1DF224762AE1ABFC00A30552 /* VolunteerMessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerMessageVC.swift; sourceTree = "<group>"; };
+		1DF224772AE1ABFC00A30552 /* VolunteerMessageVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VolunteerMessageVC.xib; sourceTree = "<group>"; };
+		1DF2247B2AE1B04300A30552 /* VolunteerMessageTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerMessageTVC.swift; sourceTree = "<group>"; };
+		1DF2247C2AE1B04300A30552 /* VolunteerMessageTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VolunteerMessageTVC.xib; sourceTree = "<group>"; };
 		1DF4DA942A65C30700F3243E /* VolunteerDayEventVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerDayEventVC.swift; sourceTree = "<group>"; };
 		1DF4DA952A65C30700F3243E /* VolunteerDayEventVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VolunteerDayEventVC.xib; sourceTree = "<group>"; };
 		1DF4DA982A66942B00F3243E /* CSEventVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSEventVC.swift; sourceTree = "<group>"; };
@@ -887,6 +899,8 @@
 			children = (
 				1D0BDED62982645400CC2030 /* MessageTVC.swift */,
 				1D0BDED72982645400CC2030 /* MessageTVC.xib */,
+				1D5575C22AE1D2CC0035A5A9 /* MessageSenderTVC.swift */,
+				1D5575C32AE1D2CC0035A5A9 /* MessageSenderTVC.xib */,
 			);
 			path = MessageTVC;
 			sourceTree = "<group>";
@@ -1854,6 +1868,25 @@
 			path = PastEventTVC;
 			sourceTree = "<group>";
 		};
+		1DF224752AE1ABB700A30552 /* VolunteerMessageVC */ = {
+			isa = PBXGroup;
+			children = (
+				1DF2247A2AE1B01900A30552 /* VolunteerMessageTVC */,
+				1DF224762AE1ABFC00A30552 /* VolunteerMessageVC.swift */,
+				1DF224772AE1ABFC00A30552 /* VolunteerMessageVC.xib */,
+			);
+			path = VolunteerMessageVC;
+			sourceTree = "<group>";
+		};
+		1DF2247A2AE1B01900A30552 /* VolunteerMessageTVC */ = {
+			isa = PBXGroup;
+			children = (
+				1DF2247B2AE1B04300A30552 /* VolunteerMessageTVC.swift */,
+				1DF2247C2AE1B04300A30552 /* VolunteerMessageTVC.xib */,
+			);
+			path = VolunteerMessageTVC;
+			sourceTree = "<group>";
+		};
 		1DF4DA932A65C2DC00F3243E /* VolunteerDayEventVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -2031,6 +2064,7 @@
 		353C61392813ECF400CC8B7F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1DF224752AE1ABB700A30552 /* VolunteerMessageVC */,
 				1DCC77AA2AC4ADF5005C39BF /* CSManageEventsVC */,
 				1DB4D5502A670FF000095B7B /* InAppMessageVC */,
 				1DF4DA932A65C2DC00F3243E /* VolunteerDayEventVC */,
@@ -2659,6 +2693,7 @@
 				1D4DE841297FB4C600246242 /* ForgetVC.xib in Resources */,
 				1D84798229CD076300CE9F37 /* EventSummaryScreenVC.xib in Resources */,
 				1DBA5CC429C6F8790094D16C /* VEventDetailVC.xib in Resources */,
+				1DF224792AE1ABFC00A30552 /* VolunteerMessageVC.xib in Resources */,
 				1DBA5CB529C6EABD0094D16C /* VolunteerEventDetailVC.xib in Resources */,
 				1D2AF04329A2520200ACE141 /* WebViewVC.xib in Resources */,
 				1DF176F029852F7A005809C6 /* PastEventTVC.xib in Resources */,
@@ -2666,6 +2701,7 @@
 				353C6110281213A600CC8B7F /* Assets.xcassets in Resources */,
 				1D0BDEE329826EE700CC2030 /* VounteerTVC.xib in Resources */,
 				1DCE27BA29CEDD0800A80B3A /* EventHourTVC.xib in Resources */,
+				1DF2247E2AE1B04300A30552 /* VolunteerMessageTVC.xib in Resources */,
 				1DBA5CBF29C6F4CA0094D16C /* ShiftOptionTVC.xib in Resources */,
 				E43FFCBC29B5CCBE008814C2 /* EventDetailInfoFormVC.xib in Resources */,
 				1D8D89372AB4738D006137C3 /* NunitoSans-Regular.ttf in Resources */,
@@ -2726,6 +2762,7 @@
 				1D8A424929CD869800C3FC84 /* EventDescriptionVC.xib in Resources */,
 				1DD22BCF2A7A8F5200F65D21 /* Main.storyboard in Resources */,
 				1D8A424429CD829600C3FC84 /* EventSummaryScreenTVC.xib in Resources */,
+				1D5575C52AE1D2CC0035A5A9 /* MessageSenderTVC.xib in Resources */,
 				359E9C35282D47C2001E3D73 /* onBoardingJson.json in Resources */,
 				1D61B6C22A5B45150044BD26 /* AwardsVC.xib in Resources */,
 				1D4DE855297FBC4000246242 /* CSDashBoardVC.xib in Resources */,
@@ -3063,6 +3100,7 @@
 				1DF749C82AC5669700A761EF /* Date+Extension.swift in Sources */,
 				1DF749EB2AC5669700A761EF /* DayCell.swift in Sources */,
 				359E9C70282EA32F001E3D73 /* ENTALDTabbarViewController.swift in Sources */,
+				1DF224782AE1ABFC00A30552 /* VolunteerMessageVC.swift in Sources */,
 				E47F99BC297DC8F900BF793B /* DashboardVC.swift in Sources */,
 				1DD191A52A00E94000EEFC5D /* UserEngagementsTVC.swift in Sources */,
 				359E9C6B282E6DE4001E3D73 /* ENTALDUIColor+Extension.swift in Sources */,
@@ -3109,6 +3147,7 @@
 				1DF749D62AC5669700A761EF /* SwiftUI+Extensions.swift in Sources */,
 				1D2E244B298FD778006AB56A /* VolunteerEventsVC.swift in Sources */,
 				1DBA5CC329C6F8790094D16C /* VEventDetailVC.swift in Sources */,
+				1DF2247D2AE1B04300A30552 /* VolunteerMessageTVC.swift in Sources */,
 				1DF749CF2AC5669700A761EF /* VerticalLineView.swift in Sources */,
 				1DF749EC2AC5669700A761EF /* DayData.swift in Sources */,
 				359E9C66282E455F001E3D73 /* CoreTextField.swift in Sources */,
@@ -3154,6 +3193,7 @@
 				359E9C1C282B7598001E3D73 /* ENTALDUIFont+Extension.swift in Sources */,
 				1DF749D22AC5669700A761EF /* EventViewGeneral.swift in Sources */,
 				1D92A48A29B22A4A00D5C8E3 /* MessageDetailVC.swift in Sources */,
+				1D5575C42AE1D2CC0035A5A9 /* MessageSenderTVC.swift in Sources */,
 				1DF176FC29893B40005809C6 /* EventRouter.swift in Sources */,
 				1D6C772E2A3F8A8D00FD8DD3 /* CSLeadTabbarVC.swift in Sources */,
 				E4E696E02A1B37AE0045D212 /* CustomDayCell.swift in Sources */,
@@ -3351,7 +3391,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 79;
+				CURRENT_PROJECT_VERSION = 81;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3393,7 +3433,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 79;
+				CURRENT_PROJECT_VERSION = 81;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
 				GENERATE_INFOPLIST_FILE = YES;

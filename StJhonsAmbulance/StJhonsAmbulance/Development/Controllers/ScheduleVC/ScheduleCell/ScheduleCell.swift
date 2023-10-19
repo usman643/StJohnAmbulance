@@ -69,7 +69,7 @@ class ScheduleCell: UITableViewCell {
     func setContent(cellModel : ScheduleModelThree?){
     
         lblTitle.text = "\(cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "")"
-        lblTitle.text = "..."
+        lblSubTitle.text = "..."
 //        ProcessUtils.shared.eventStatusArr[cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitystatus?.msnfp_engagementopportunitystatus ?? ""]
         lblLocation.text = "\(cellModel?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found") "
         if (cellModel?.sjavms_start != "" && cellModel?.sjavms_start != nil ){

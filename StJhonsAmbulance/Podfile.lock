@@ -1,42 +1,58 @@
 PODS:
   - ACFloatingTextfield-Swift (1.8)
-  - Alamofire (5.6.4)
-  - IQKeyboardManagerSwift (6.5.10)
+  - Alamofire (5.8.0)
+  - FSCalendar (2.8.4)
+  - GoogleMaps (7.4.0):
+    - GoogleMaps/Maps (= 7.4.0)
+  - GoogleMaps/Base (7.4.0)
+  - GoogleMaps/Maps (7.4.0):
+    - GoogleMaps/Base
+  - IQKeyboardManagerSwift (6.5.12)
   - Parchment (3.2.0)
   - SCLAlertView (0.8)
-  - SDWebImage (5.14.1):
-    - SDWebImage/Core (= 5.14.1)
-  - SDWebImage/Core (5.14.1)
+  - SDWebImage (5.18.2):
+    - SDWebImage/Core (= 5.18.2)
+  - SDWebImage/Core (5.18.2)
   - SideMenu (6.5.0)
+  - SwiftSignalRClient (1.0.0)
 
 DEPENDENCIES:
   - ACFloatingTextfield-Swift
   - Alamofire
+  - FSCalendar
+  - GoogleMaps
   - IQKeyboardManagerSwift
   - Parchment (~> 3.2)
   - SCLAlertView
   - SDWebImage
   - SideMenu
+  - SwiftSignalRClient
 
 SPEC REPOS:
   trunk:
     - ACFloatingTextfield-Swift
     - Alamofire
+    - FSCalendar
+    - GoogleMaps
     - IQKeyboardManagerSwift
     - Parchment
     - SCLAlertView
     - SDWebImage
     - SideMenu
+    - SwiftSignalRClient
 
 SPEC CHECKSUMS:
   ACFloatingTextfield-Swift: c3212cef9548ae58fa914ea1c26a2f9a4f7cd7df
-  Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
-  IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
+  Alamofire: 0e92e751b3e9e66d7982db43919d01f313b8eb91
+  FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
+  GoogleMaps: 032f676450ba0779bd8ce16840690915f84e57ac
+  IQKeyboardManagerSwift: 371b08cb39664fb56030f5345c815a4ffc74bbc0
   Parchment: a43c440b22c8a60f7e0196b74339446d4d1d18ea
   SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
-  SDWebImage: e1b3c38f170c6100130fce6856e423ed9e5f4fce
+  SDWebImage: c0de394d7cf7f9838aed1fd6bb6037654a4572e4
   SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
+  SwiftSignalRClient: f9a23a0407d490a799cc1a3c8835b8611128d76c
 
-PODFILE CHECKSUM: 49a074c22ba0e501b6ae9a7e675f60efe3c909f6
+PODFILE CHECKSUM: 2fe0180cbd8e7dfe23d00d6c9464930b8c7c1a8e
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1

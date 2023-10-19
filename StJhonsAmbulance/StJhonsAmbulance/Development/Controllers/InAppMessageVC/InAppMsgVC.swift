@@ -33,6 +33,12 @@ class InAppMsgVC: ENTALDBaseViewController {
     @IBOutlet weak var searchImg: UIImageView!
     @IBOutlet weak var textSearch: UITextField!
     
+    @IBOutlet weak var lblCompose: UILabel!
+    
+    @IBOutlet weak var pencilImg: UIImageView!
+    @IBOutlet weak var btnMessage: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         decorateUI()
@@ -51,6 +57,8 @@ class InAppMsgVC: ENTALDBaseViewController {
         lblTitle.font = UIFont.HeaderBoldFont(18)
         lblTitle.textColor = UIColor.headerGreen
         
+        lblCompose.font = UIFont.HeaderBoldFont(14)
+        lblCompose.textColor = UIColor.white
 //        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
 //        searchView.layer.borderWidth = 1.5
 //        searchView.isHidden = false
@@ -62,7 +70,11 @@ class InAppMsgVC: ENTALDBaseViewController {
         
         isEventsTableSearch = true
         isVolunteerTableSearch = false
-        
+        pencilImg.image = pencilImg.image?.withRenderingMode(.alwaysTemplate)
+        pencilImg.tintColor = UIColor.white
+        let originalImage = UIImage(named: "messages-bubble-square-text")!
+        let tintedImage = ProcessUtils.shared.tintImage(originalImage)
+        btnMessage.setImage(tintedImage, for: .normal)   
         
     }
     
@@ -101,6 +113,14 @@ class InAppMsgVC: ENTALDBaseViewController {
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    @IBAction func composeTapped(_ sender: Any) {
+        ENTALDControllers.shared.showVolunteerMessagesVC(type: .ENTALDPUSH, from: self) { params, controller in
+            
+        }
+        
+    }
+    
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         

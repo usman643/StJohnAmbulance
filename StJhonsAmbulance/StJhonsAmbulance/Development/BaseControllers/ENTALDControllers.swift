@@ -494,6 +494,15 @@ class ENTALDControllers {
         
         self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
     }
+        
+      
+    func showVolunteerMessagesVC(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+        let vc = VolunteerMessageVC.loadFromNib()
+        vc.dataModel = dataObj
+        vc.callbackToController = callBack
+        
+        self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
+    }
     
     
     

@@ -46,7 +46,7 @@
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z2h-RA-10O">
-                                        <rect key="frame" x="32" y="0.0" width="64" height="36"/>
+                                        <rect key="frame" x="32" y="0.0" width="60" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="CHECK-IN"/>
@@ -58,7 +58,7 @@
                                     <constraint firstAttribute="bottom" secondItem="YA7-8u-DOI" secondAttribute="bottom" constant="8" id="PXz-Ly-dtT"/>
                                     <constraint firstAttribute="bottom" secondItem="z2h-RA-10O" secondAttribute="bottom" id="gM0-3Z-SkV"/>
                                     <constraint firstItem="z2h-RA-10O" firstAttribute="leading" secondItem="YA7-8u-DOI" secondAttribute="trailing" constant="4" id="iKV-AI-IDp"/>
-                                    <constraint firstAttribute="trailing" secondItem="z2h-RA-10O" secondAttribute="trailing" constant="4" id="qpw-e7-eP4"/>
+                                    <constraint firstAttribute="trailing" secondItem="z2h-RA-10O" secondAttribute="trailing" constant="8" id="qpw-e7-eP4"/>
                                     <constraint firstItem="z2h-RA-10O" firstAttribute="top" secondItem="9TZ-Z6-pat" secondAttribute="top" id="r7f-fc-XFW"/>
                                     <constraint firstAttribute="width" constant="100" id="wXc-Lz-K2a"/>
                                     <constraint firstItem="YA7-8u-DOI" firstAttribute="top" secondItem="9TZ-Z6-pat" secondAttribute="top" constant="8" id="xeP-SE-cF4"/>
@@ -73,7 +73,7 @@
                                     <constraint firstAttribute="width" constant="16" id="nYS-5e-Ech"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i8h-RV-ZhR">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i8h-RV-ZhR">
                                 <rect key="frame" x="12" y="12" width="227" height="33.666666666666664"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -137,6 +137,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="Fgp-n2-HaP"/>
             <connections>
+                <outlet property="btnDetail" destination="z2h-RA-10O" id="9KH-fW-fhe"/>
                 <outlet property="lblDateTime" destination="KVw-cX-EJB" id="7xi-Op-RGd"/>
                 <outlet property="lblLocation" destination="yaM-wS-WnQ" id="vfB-r5-wbE"/>
                 <outlet property="lblProgram" destination="AYG-Ho-TpM" id="fK0-sY-CZm"/>
@@ -159,7 +160,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
