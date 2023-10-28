@@ -51,7 +51,8 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
         @IBOutlet weak var lblDate: UILabel!
         @IBOutlet weak var lblLocation: UILabel!
 //        @IBOutlet weak var lblProgramType: UILabel!
-        @IBOutlet weak var btnCancel: UIButton!
+    @IBOutlet weak var lblTime: UILabel!
+    @IBOutlet weak var btnCancel: UIButton!
         @IBOutlet weak var btnContact: UIButton!
         @IBOutlet weak var btnEditEvent: UIButton!
         
@@ -89,6 +90,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
             if ((eventData) != nil){
                 eventId = eventData?.msnfp_engagementopportunityid ?? ""
                 lblEventName.text =  ((eventData?.address1_line1) != nil) ? eventData?.address1_line1 : eventData?.msnfp_engagementopportunitytitle
+                lblEventDetail.text = eventData?.sjavms_program_value ?? ""
                 if (eventData?.msnfp_startingdate != nil && eventData?.msnfp_startingdate != ""){
                     let date =  DateFormatManager.shared.formatDateStrToStr(date: eventData?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd hh:mm a")
                     lblDate.text = date
@@ -123,14 +125,18 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
                 }else{
                     lblDate.text = "..."
                 }
-                lblLocation.text = eventData?.msnfp_location
+                lblLocation.text = ((eventData?.address1_line1) != nil) ? eventData?.address1_line1 : eventData?.msnfp_location ?? ""
                 
+                let startTime = DateFormatManager.shared.formatDateStrToStr(date: eventData?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+                let endTime = DateFormatManager.shared.formatDateStrToStr(date: eventData?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'(Z'", newFormat: "hh:mm a")
+                lblTime.text = "\(startTime) - \(endTime)"
                 
                 
             }else if ((pendingShiftData) != nil){
                 
                 eventId = pendingShiftData?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
                 lblEventName.text = pendingShiftData?.sjavms_VolunteerEvent?.msnfp_street1 ?? ""
+                lblEventDetail.text = pendingShiftData?.sjavms_VolunteerEvent?.program
                 if (pendingShiftData?.sjavms_start != nil && pendingShiftData?.sjavms_start != ""){
                     let date =  DateFormatManager.shared.formatDateStrToStr(date: pendingShiftData?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd hh:mm a")
                     lblDate.text = date
@@ -150,6 +156,9 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
 //                         self.btnCancel.backgroundColor = UIColor.redPinkColor
                          self.btnCancel.setTitle("Close Event", for: .normal)
                      }
+                    let startTime = DateFormatManager.shared.formatDateStrToStr(date: pendingShiftData?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+                    let endTime = DateFormatManager.shared.formatDateStrToStr(date: pendingShiftData?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'(Z'", newFormat: "hh:mm a")
+                    lblTime.text = "\(startTime) - \(endTime)"
                 }else{
                     lblDate.text = "..."
                 }
@@ -157,6 +166,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
                 
                 eventId = unpublishEventData?.msnfp_engagementopportunityid ?? ""
                 lblEventName.text = unpublishEventData?.address1_line1
+                lblEventDetail.text = unpublishEventData?.sjavms_program_value
                 if (unpublishEventData?.msnfp_startingdate != nil && unpublishEventData?.msnfp_startingdate != ""){
                     let date =  DateFormatManager.shared.formatDateStrToStr(date: unpublishEventData?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd hh:mm a")
                     lblDate.text = date
@@ -183,17 +193,21 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
 //                         self.btnCancel.backgroundColor = UIColor.redPinkColor
                          self.btnCancel.setTitle("Close Event", for: .normal)
                      }
+                    
+                    let startTime = DateFormatManager.shared.formatDateStrToStr(date: unpublishEventData?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+                    let endTime = DateFormatManager.shared.formatDateStrToStr(date: unpublishEventData?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'(Z'", newFormat: "hh:mm a")
+                    lblTime.text = "\(startTime) - \(endTime)"
 
                 }else{
                     lblDate.text = "...."
                 }
-                lblLocation.text = unpublishEventData?.msnfp_location
+                lblLocation.text = unpublishEventData?.address1_line1 ?? "..."
                 
             }else if ((pendingEventApprovalData) != nil){
                 
                 eventId = pendingEventApprovalData?.sjavms_eventrequestid ?? ""
                 lblEventName.text = ((pendingEventApprovalData?.sjavms_address1name) != nil) ? pendingEventApprovalData?.sjavms_address1name  : pendingEventApprovalData?.sjavms_name
-                
+                lblEventDetail.text = pendingEventApprovalData?._sjavms_program_value
                 
                 if (pendingEventApprovalData?.sjavms_eventstartdate != nil && pendingEventApprovalData?.sjavms_eventstartdate == ""){
                     let date =  DateFormatManager.shared.formatDateStrToStr(date: pendingEventApprovalData?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy/MM/dd hh:mm a")
@@ -213,10 +227,13 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
 //                         self.btnCancel.backgroundColor = UIColor.redPinkColor
                          self.btnCancel.setTitle("Close Event", for: .normal)
                      }
+                    let startTime = DateFormatManager.shared.formatDateStrToStr(date: pendingEventApprovalData?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+                    let endTime = DateFormatManager.shared.formatDateStrToStr(date: pendingEventApprovalData?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'(Z'", newFormat: "hh:mm a")
+                    lblTime.text = "\(startTime) - \(endTime)"
                 }else{
                     lblDate.text = "...."
                 }
-                //            lblLocation.text = pendingEventApprovalData?.
+                            lblLocation.text = pendingEventApprovalData?.sjavms_address1name ?? "..."
                 
             }
             
@@ -226,28 +243,31 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
             
 //            btnBack.tintColor = .white
             
-            lblEventName.font = UIFont.BoldFont(18)
+            lblEventName.font = UIFont.HeaderBoldFont(18)
             lblEventDetail.font = UIFont.BoldFont(16)
-            lblDate.font = UIFont.BoldFont(11)
-            lblLocation.font = UIFont.BoldFont(11)
+            lblDate.font = UIFont.BoldFont(12)
+            lblLocation.font = UIFont.BoldFont(12)
+            lblTime.font = UIFont.BoldFont(12)
 //            lblProgramType.font = UIFont.BoldFont(11)
           
-            lblEventDetail.textColor = UIColor.themeBlackText
-            lblEventName.textColor = UIColor.themeBlackText
-            lblDate.textColor = UIColor.themeBlackText
-            lblLocation.textColor = UIColor.themeBlackText
+            lblEventDetail.textColor = UIColor.headerGreen
+            lblEventName.textColor = UIColor.themePrimaryColor
+            lblDate.textColor = UIColor.headerGreen
+            lblLocation.textColor = UIColor.headerGreen
+            lblTime.textColor = UIColor.headerGreen
+            
 //            lblProgramType.textColor = UIColor.themeBlackText
             
             btnContact.titleLabel?.font = UIFont.BoldFont(13)
-            btnCancel.titleLabel?.font = UIFont.BoldFont(12)
-            btnEditEvent.titleLabel?.font = UIFont.BoldFont(12)
+            btnCancel.titleLabel?.font = UIFont.BoldFont(14)
+            btnEditEvent.titleLabel?.font = UIFont.BoldFont(14)
             
             contactBtnView.layer.borderColor = UIColor.themeColorSecondry.cgColor
             cancelBtnView.layer.borderColor = UIColor.red.cgColor
             editEventBtnView.layer.borderColor = UIColor.textBlackColor.cgColor
-            contactBtnView.layer.borderWidth = 1
-            cancelBtnView.layer.borderWidth = 1
-            editEventBtnView.layer.borderWidth = 1
+            contactBtnView.layer.borderWidth = 1.5
+            cancelBtnView.layer.borderWidth = 1.5
+            editEventBtnView.layer.borderWidth = 1.5
             
 //            btnAddVolunteer.titleLabel?.font = UIFont.BoldFont(16)
             
@@ -493,7 +513,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
         
         func getVolunteers(){
             
-            let eventId = self.eventData?.msnfp_engagementopportunityid ?? ""
+            let eventId = eventId
             
             let params : [String:Any] = [
                 

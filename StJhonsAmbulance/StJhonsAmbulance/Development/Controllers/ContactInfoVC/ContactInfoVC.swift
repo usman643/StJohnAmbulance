@@ -8,7 +8,7 @@
 import UIKit
 import MobileCoreServices
 
-class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & UINavigationControllerDelegate,UIScrollViewDelegate {
 
     var selectedGender : Int?
     var selectedPronoun : Int?
@@ -43,6 +43,7 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
     @IBOutlet weak var lblProvince: UILabel!
     @IBOutlet weak var lblPostalCde: UILabel!
     
+    @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var txtFirstName: ACFloatingTextfield!
     @IBOutlet weak var txtLastName: ACFloatingTextfield!
@@ -81,9 +82,12 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
     
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var btnMessage: UIButton!
+    
+    @IBOutlet weak var updateViewBottomCostraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        scrollView.delegate = self
         deocorateUI()
         setupData()
     }
@@ -98,6 +102,8 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
     }
 
     func deocorateUI(){
+        
+        
         
         lblTitle.textColor = UIColor.headerGreen
         lblTitle.font = UIFont.HeaderBoldFont(18)
@@ -517,5 +523,20 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
     func convertImageToBase64String (img: UIImage) -> String {
         return img.jpegData(compressionQuality: 1)?.base64EncodedString() ?? ""
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+            let yOffset = scrollView.contentOffset.y
+            if yOffset > 220{ // You can adjust this value according to when you want to show the custom view
+                if (((yOffset - 220) + 16 ) > 16 && !(((yOffset - 220) + 16 ) < 16)){
+                    self.updateViewBottomCostraint.constant = (yOffset - 220) + 16
+                }else{
+                    self.updateViewBottomCostraint.constant = 16
+                }
+                
+            } else {
+                self.updateViewBottomCostraint.constant = 16
+            }
+        }
     
 }

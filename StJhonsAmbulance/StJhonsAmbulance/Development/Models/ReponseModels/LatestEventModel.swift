@@ -60,6 +60,8 @@ struct LatestEventDataModel : Codable {
     let sjavms_end : String?
     let sjavms_checkedin : Bool?
     var time_difference : Int?
+    var msnfp_description : String?
+    var msnfp_shortdescription : String?
     let sjavms_VolunteerEvent : LatestImcomingEventDataModel?
     
 }

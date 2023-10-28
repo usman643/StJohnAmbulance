@@ -911,7 +911,7 @@ extension EventVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate
             cell.lblLocation.text = rowModel?.msnfp_location ?? ""
             cell.lblStart.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
             cell.lblEnd.text =  DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
-            cell.lblNeeded.text = "\(rowModel?.msnfp_minimum ?? 0)"
+            cell.lblNeeded.text = "\(rowModel?.sjavms_maxparticipants ?? 0)"
             
             return cell
             

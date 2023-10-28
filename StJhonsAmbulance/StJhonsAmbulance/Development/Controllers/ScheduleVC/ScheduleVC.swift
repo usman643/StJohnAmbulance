@@ -42,7 +42,7 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
         decorateUI()
         getScheduleInfo()
         
-        calendar = FSCalendar(frame: CGRect(x:0.0,y:0.0,width: self.calenderView.frame.size.width, height: self.calenderView.frame.size.height))
+        calendar = FSCalendar(frame: CGRect(x:0.0,y:0.0,width: UIScreen.main.bounds.size.width, height: self.calenderView.frame.size.height))
         calendar.scrollDirection = .vertical
         self.calenderView.addSubview(calendar)
         calendar.delegate = self

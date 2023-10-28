@@ -1,16 +1,15 @@
 //
-//  EventManagerSectionView.swift
+//  EventDetailHeaderView.swift
 //  StJhonsAmbulance
 //
-//  Created by Umair Yousaf on 14/02/2023.
+//  Created by Umair Yousaf on 29/10/2023.
 //
-
 
 import UIKit
 
-class EventManagerSectionView : UITableViewHeaderFooterView {
+class EventDetailHeaderView: UITableViewHeaderFooterView {
     
-    @IBOutlet weak var lblDate: UILabel!
+    @IBOutlet weak var lblShift: UILabel!
     
     @IBOutlet weak var lblTime: UILabel!
     
@@ -22,9 +21,9 @@ class EventManagerSectionView : UITableViewHeaderFooterView {
     
     func decorateUI(){
 //        self.contentView.backgroundColor = UIColor.themeColorSecondry
-        lblDate.font = UIFont.BoldFont(16)
+        lblShift.font = UIFont.BoldFont(16)
         lblTime.font = UIFont.BoldFont(16)
-        lblDate.textColor = UIColor.themeLight
+        lblShift.textColor = UIColor.themeLight
         lblTime.textColor = UIColor.themeLight
         headerview.backgroundColor = UIColor.headerGreen
         headerview.layer.cornerRadius = 12

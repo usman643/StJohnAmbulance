@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="NunitoSans-Bold.ttf">
+            <string>NunitoSans-Bold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PendingShiftVC" customModule="StJhonsAmbulance" customModuleProvider="target">
             <connections>
                 <outlet property="btnApprove" destination="cJY-ci-cBk" id="DBr-56-zno"/>
                 <outlet property="btnCancel" destination="tSs-XM-zOs" id="Hfz-pR-KpK"/>
                 <outlet property="btnGroupView" destination="iAj-yT-fZo" id="IGt-m5-QGH"/>
+                <outlet property="btnLoadMore" destination="4G1-GI-Tbm" id="SdM-JJ-J6Y"/>
                 <outlet property="btnMessage" destination="uU2-up-Pi7" id="p38-i4-XOE"/>
                 <outlet property="btnPending" destination="Bst-nD-D0G" id="FF5-Ay-TEM"/>
                 <outlet property="btnSelectGroup" destination="BQ8-0m-OYO" id="Eq8-tS-MHI"/>
                 <outlet property="headerView" destination="qPQ-Qc-MEf" id="59i-rd-ViE"/>
                 <outlet property="lblTitle" destination="K8n-el-xUY" id="JSS-Ff-ag3"/>
+                <outlet property="loadMoreView" destination="A89-qV-xvY" id="oE5-ch-eqz"/>
                 <outlet property="tableView" destination="TLb-ve-XRr" id="5C7-ki-Iar"/>
                 <outlet property="view" destination="oeN-dB-MLd" id="HFC-Al-5vS"/>
             </connections>
@@ -205,6 +212,40 @@
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <color key="sectionIndexBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A89-qV-xvY">
+                    <rect key="frame" x="0.0" y="746" width="393" height="60"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4G1-GI-Tbm">
+                            <rect key="frame" x="24" y="12" width="345" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="xyT-Fu-Y6c"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="16"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Load More">
+                                <color key="titleColor" name="secondryGreen"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                    <real key="value" value="1.5"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                    <color key="value" name="secondryGreen"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="eventLoadMoreTapped:" destination="-1" eventType="touchUpInside" id="XZY-Fv-48W"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="Ch3-DF-Gv6"/>
+                        <constraint firstAttribute="bottom" secondItem="4G1-GI-Tbm" secondAttribute="bottom" constant="8" id="GdW-Va-fJw"/>
+                        <constraint firstAttribute="trailing" secondItem="4G1-GI-Tbm" secondAttribute="trailing" constant="24" id="rhi-d6-rt1"/>
+                        <constraint firstItem="4G1-GI-Tbm" firstAttribute="leading" secondItem="A89-qV-xvY" secondAttribute="leading" constant="24" id="slQ-Rj-tc0"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="1sB-gv-edH"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -212,14 +253,17 @@
                 <constraint firstItem="dho-fg-QuW" firstAttribute="top" secondItem="iAj-yT-fZo" secondAttribute="bottom" constant="16" id="05B-HW-n1M"/>
                 <constraint firstItem="dho-fg-QuW" firstAttribute="leading" secondItem="1sB-gv-edH" secondAttribute="leading" id="46k-oL-YoW"/>
                 <constraint firstItem="qPQ-Qc-MEf" firstAttribute="leading" secondItem="oeN-dB-MLd" secondAttribute="leading" id="6b3-9I-GH6"/>
+                <constraint firstAttribute="trailing" secondItem="A89-qV-xvY" secondAttribute="trailing" id="8hS-n8-Q3d"/>
                 <constraint firstItem="1sB-gv-edH" firstAttribute="trailing" secondItem="TLb-ve-XRr" secondAttribute="trailing" constant="10" id="B9Q-Y2-RJd"/>
                 <constraint firstItem="TLb-ve-XRr" firstAttribute="top" secondItem="dho-fg-QuW" secondAttribute="bottom" constant="16" id="EjD-PE-e2l"/>
                 <constraint firstItem="qPQ-Qc-MEf" firstAttribute="top" secondItem="1sB-gv-edH" secondAttribute="top" id="FYh-Yk-E0n"/>
                 <constraint firstItem="1sB-gv-edH" firstAttribute="bottom" secondItem="TLb-ve-XRr" secondAttribute="bottom" constant="16" id="Ixp-a5-Dm5"/>
                 <constraint firstItem="1sB-gv-edH" firstAttribute="trailing" secondItem="dho-fg-QuW" secondAttribute="trailing" id="Jmo-Ns-6aY"/>
+                <constraint firstItem="1sB-gv-edH" firstAttribute="bottom" secondItem="A89-qV-xvY" secondAttribute="bottom" constant="12" id="eoH-tm-fVH"/>
                 <constraint firstItem="iAj-yT-fZo" firstAttribute="top" secondItem="qPQ-Qc-MEf" secondAttribute="bottom" constant="16" id="fYQ-Wd-He6"/>
                 <constraint firstItem="TLb-ve-XRr" firstAttribute="leading" secondItem="1sB-gv-edH" secondAttribute="leading" constant="10" id="gZl-BW-WjN"/>
                 <constraint firstItem="1sB-gv-edH" firstAttribute="trailing" secondItem="qPQ-Qc-MEf" secondAttribute="trailing" id="sK2-Wa-0dc"/>
+                <constraint firstItem="A89-qV-xvY" firstAttribute="leading" secondItem="1sB-gv-edH" secondAttribute="leading" id="wut-mF-qOc"/>
                 <constraint firstItem="iAj-yT-fZo" firstAttribute="centerX" secondItem="oeN-dB-MLd" secondAttribute="centerX" id="zCX-wL-nik"/>
             </constraints>
             <point key="canvasLocation" x="72.51908396946564" y="20.422535211267608"/>

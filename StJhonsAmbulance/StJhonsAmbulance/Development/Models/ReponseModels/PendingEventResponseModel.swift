@@ -38,6 +38,7 @@ struct PendingApprovalEventsModel: Codable {
     let sjavms_program_value : String?
     let sjavms_eventrequestid : String?
     var time_difference : Int?
+    var msnfp_grouptype : String?
     let sjavms_msnfp_group_sjavms_eventrequest : [PendingApprovalGroupEventRequestModel]?
     
     enum CodingKeys: String , CodingKey {

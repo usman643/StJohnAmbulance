@@ -72,12 +72,9 @@ class VolunteerEventVC: ENTALDBaseViewController {
         self.navigationController?.navigationBar.isHidden = true
     }
     
-
-
-
     func decorateUI(){
         searchMainView.isHidden = true
-        self.selectEvent()
+        self.selectNonEvent()
         lblScreenTitle.font = UIFont.HeaderBoldFont(18)
         lblScreenTitle.textColor = UIColor.headerGreen
         pendingImgMainView1.layer.cornerRadius = 15
@@ -100,11 +97,6 @@ class VolunteerEventVC: ENTALDBaseViewController {
     
         btnEvent.titleLabel?.font = UIFont.BoldFont(14)
         btnNonEvent.titleLabel?.font = UIFont.BoldFont(14)
-        
-//        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-//        searchView.layer.borderWidth = 1
-//        searchView.layer.cornerRadius = 8
-//        searchView.isHidden = true
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         
         btnLoadMore.layer.borderColor = UIColor.themeColorSecondry.cgColor
@@ -197,10 +189,10 @@ class VolunteerEventVC: ENTALDBaseViewController {
         btnNonEvent.setTitleColor(UIColor.textLightGrayColor, for: .normal)
         DispatchQueue.main.async {
             self.tableView.reloadData()
-            let indexPath = IndexPath(row: 0, section: 0)
-            if let _ = self.tableView.cellForRow(at: indexPath) {
-                self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-            }
+//            let indexPath = IndexPath(row: 0, section: 0)
+//            if let _ = self.tableView.cellForRow(at: indexPath) {
+//                self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+//            }
         }
 //        tableView.setContentOffset(CGPointZero, animated: true)
     }
@@ -228,9 +220,9 @@ class VolunteerEventVC: ENTALDBaseViewController {
      
         DispatchQueue.main.async {
             if (self.btnEvent.isSelected){
-                self.isEventLoadMoreShow = false
-            }else if (self.btnNonEvent.isSelected){
                 self.isNonEventLoadMoreShow = false
+            }else if (self.btnNonEvent.isSelected){
+                self.isEventLoadMoreShow = false
             }
             self.loadMoreView.isHidden = true
             self.tableView.reloadData()
@@ -337,13 +329,13 @@ class VolunteerEventVC: ENTALDBaseViewController {
                 
                 if let apiData = response.value {
                     self.nonEventData = apiData
-                   
+                    
                     
                     self.nonEventData = self.nonEventData?.sorted {
                         $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
                     }
                     self.nonEventFilterData = self.nonEventData
-                    
+//                }
                     if (self.nonEventData?.count == 0 || self.nonEventData?.count == nil){
                         self.showEmptyView(tableVw: self.tableView)
                     }
@@ -393,18 +385,20 @@ extension VolunteerEventVC : UITableViewDelegate,UITableViewDataSource, UIScroll
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if (btnEvent.isSelected){
+            if ((nonEventFilterData?.count ?? 0) > 3 && isNonEventLoadMoreShow){
+                loadMoreView.isHidden = false
+                return 3
+            }
+            return self.nonEventFilterData?.count ?? 0
+           
+        }else if (btnNonEvent.isSelected){
             
             if ((eventFilterData?.count ?? 0) > 3 && isEventLoadMoreShow){
                 loadMoreView.isHidden = false
                 return 3
             }
             return self.eventFilterData?.count ?? 0
-        }else if (btnNonEvent.isSelected){
-            if ((nonEventFilterData?.count ?? 0) > 3 && isNonEventLoadMoreShow){
-                loadMoreView.isHidden = false
-                return 3
-            }
-            return self.nonEventFilterData?.count ?? 0
+           
         }
         
         
@@ -418,12 +412,13 @@ extension VolunteerEventVC : UITableViewDelegate,UITableViewDataSource, UIScroll
         
         
         if (btnEvent.isSelected){
-            let rowModel = self.eventFilterData?[indexPath.row]
+            let rowModel = self.nonEventFilterData?[indexPath.row]
             cell.setupContent(cellModel: rowModel)
             
         }else if (btnNonEvent.isSelected){
-            let rowModel = self.nonEventFilterData?[indexPath.row]
+            let rowModel = self.eventFilterData?[indexPath.row]
             cell.setupContent(cellModel: rowModel)
+            
         }
         
         return cell
@@ -436,7 +431,7 @@ extension VolunteerEventVC : UITableViewDelegate,UITableViewDataSource, UIScroll
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if (btnEvent.isSelected){
+        if (btnNonEvent.isSelected){
             let rowModel = self.eventFilterData?[indexPath.row]
             
             ENTALDControllers.shared.showVolunteerHourDetailScreen(type: .ENTALDPUSH, from: self, dataObj : rowModel) { params, controller in
@@ -447,7 +442,7 @@ extension VolunteerEventVC : UITableViewDelegate,UITableViewDataSource, UIScroll
             
             
             
-        }else if (btnNonEvent.isSelected){
+        }else if (btnEvent.isSelected){
             let rowModel = self.nonEventFilterData?[indexPath.row]
             
             ENTALDControllers.shared.showVolunteerHourDetailScreen(type: .ENTALDPUSH, from: self, dataObj : rowModel) { params, controller in

@@ -13,7 +13,7 @@ protocol updatePendingShiftStatusDelegate {
 }
 
 class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate {
-
+    
     
     var pendingShiftData : [PendingShiftModelTwo]?
     var pendingShiftDataOne : [PendingShiftModelOne]?
@@ -27,10 +27,10 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     var isDatefilterApplied:Bool = false
     var isEventfilterApplied:Bool = false
     
-    let groupId : String = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupId() ?? ""
+    var groupId : String = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupId() ?? ""
+    var isLoadMoreShow = true
     
     
-  
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var btnSelectGroup: UIButton!
     @IBOutlet weak var btnGroupView: UIView!
@@ -43,26 +43,31 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     @IBOutlet weak var lblTitle: UILabel!
     
     @IBOutlet weak var btnMessage: UIButton!
+    
+    @IBOutlet weak var loadMoreView: UIView!
+    @IBOutlet weak var btnLoadMore: UIButton!
+    
+    
     //    @IBOutlet weak var btnSeclectAction: UIButton!
-//    @IBOutlet weak var btnFilter: UIButton!
-//    
-//    @IBOutlet weak var searchView: UIView!
-//    @IBOutlet weak var searchImg: UIImageView!
-//    @IBOutlet weak var textSearch: UITextField!
-//    @IBOutlet weak var btnSearchClose: UIButton!
+    //    @IBOutlet weak var btnFilter: UIButton!
+    //    
+    //    @IBOutlet weak var searchView: UIView!
+    //    @IBOutlet weak var searchImg: UIImageView!
+    //    @IBOutlet weak var textSearch: UITextField!
+    //    @IBOutlet weak var btnSearchClose: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        decorateUI()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "PendingShiftCell", bundle: nil), forCellReuseIdentifier: "PendingShiftCell")
         tableView.register(UINib(nibName: "PendingEventCell", bundle: nil), forCellReuseIdentifier: "PendingEventCell")
-//        tableView.register(UINib(nibName: "EmptyEventTableCell", bundle: nil), forCellReuseIdentifier: "EmptyEventTableCell")
-    
-        decorateUI()
-        getPendingShift()
-        getPendingShiftThree()
+        //        tableView.register(UINib(nibName: "EmptyEventTableCell", bundle: nil), forCellReuseIdentifier: "EmptyEventTableCell")
+        //        groupId = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupId() ?? ""
+        
+        //        getPendingShift()
+        //        getPendingShiftThree()
         
     }
     
@@ -70,6 +75,8 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
         self.btnSelectGroup.setTitle("\(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "")", for: .normal)
+        getPendingShift()
+        //        getPendingShiftThree()
     }
     
     /// <#Description#>
@@ -81,6 +88,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                 btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
             }
         }
+        groupId = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupId() ?? ""
         lblTitle.font = UIFont.HeaderBoldFont(18)
         lblTitle.textColor = UIColor.headerGreen
         headerView.addBottomShadow()
@@ -109,10 +117,20 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         let originalImage = UIImage(named: "messages-bubble-square-text")!
         let tintedImage = ProcessUtils.shared.tintImage(originalImage)
         btnMessage.setImage(tintedImage, for: .normal)
+        loadMoreView.isHidden = true
     }
- 
+    
+    @IBAction func eventLoadMoreTapped(_ sender: Any) {
+        
+        DispatchQueue.main.async {
+            self.isLoadMoreShow = false
+            self.loadMoreView.isHidden = true
+            self.tableView.reloadData()
+        }
+    }
+    
     @IBAction func closeSearch(_ sender: Any) {
-   
+        
         
     }
     
@@ -132,7 +150,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         
     }
     
-   
+    
     @IBAction func filterTapped(_ sender: Any) {
         
     }
@@ -161,50 +179,51 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     
     @IBAction func approveShiftTapped(_ sender: Any) {
         
-        let selectedEvents = self.pendingShiftData?.filter( {$0.event_selected == true})
+        let selectedEvents = self.filterPendingShiftData?.filter( {$0.event_selected == true})
+        
         
         for i in (0..<(selectedEvents?.count ?? 0 )){
-                let apiParams = [
-                    "msnfp_schedulestatus": 335940001
-                ]
-                
-                self.updateStatusData(eventId: selectedEvents?[i].msnfp_participationscheduleid ?? "", params: apiParams as [String : Any])
+            let apiParams = [
+                "msnfp_schedulestatus": 335940001
+            ]
+            
+            self.updateStatusData(eventId: selectedEvents?[i].msnfp_participationscheduleid ?? "", params: apiParams as [String : Any])
             
         }
-        self.getPendingShift()
+        //        self.getPendingShift()
         
     }
     
     @IBAction func pendingShiftTapped(_ sender: Any) {
-        let selectedEvents = self.pendingShiftData?.filter( {$0.event_selected == true})
+        let selectedEvents = self.filterPendingShiftData?.filter( {$0.event_selected == true})
         
         for i in (0..<(selectedEvents?.count ?? 0 )){
             
             
-                let apiParams = [
-                    "msnfp_schedulestatus": 335940000
-                ]
-                
-                self.updateStatusData(eventId: selectedEvents?[i].msnfp_participationscheduleid ?? "", params: apiParams as [String : Any])
+            let apiParams = [
+                "msnfp_schedulestatus": 335940000
+            ]
+            
+            self.updateStatusData(eventId: selectedEvents?[i].msnfp_participationscheduleid ?? "", params: apiParams as [String : Any])
             
         }
-        self.getPendingShift()
+        //        self.getPendingShift()
     }
     
     @IBAction func cancelShiftTapped(_ sender: Any) {
-        let selectedEvents = self.pendingShiftData?.filter( {$0.event_selected == true})
+        let selectedEvents = self.filterPendingShiftData?.filter( {$0.event_selected == true})
         
         for i in (0..<(selectedEvents?.count ?? 0 )){
             
             
-                let apiParams = [
-                    "msnfp_schedulestatus": 335940003
-                ]
-                
-                self.updateStatusData(eventId: selectedEvents?[i].msnfp_participationscheduleid ?? "", params: apiParams as [String : Any])
+            let apiParams = [
+                "msnfp_schedulestatus": 335940003
+            ]
+            
+            self.updateStatusData(eventId: selectedEvents?[i].msnfp_participationscheduleid ?? "", params: apiParams as [String : Any])
             
         }
-        self.getPendingShift()
+        //        self.getPendingShift()
         
     }
     
@@ -231,69 +250,23 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     }
     
     
-    @IBAction func eventFilterTapped(_ sender: Any) {
-
-        if !isEventfilterApplied{
-            self.filterPendingShiftData = self.filterPendingShiftData?.sorted {
-                $0.event_name ?? "" < $1.event_name ?? ""
-            }
-            isEventfilterApplied = true
-        }else{
-            self.filterPendingShiftData = self.filterPendingShiftData?.sorted {
-                $0.event_name ?? "" > $1.event_name ?? ""
-            }
-            isEventfilterApplied = false
-        }
-        
-        isDatefilterApplied = false
-        isNamefilterApplied = false
-        
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-    
-    
-    @IBAction func dateFilterTapped(_ sender: Any) {
-        
-        
-        if !isDatefilterApplied{
-            self.filterPendingShiftData = self.filterPendingShiftData?.sorted {
-                $0.event_starttime ?? "" < $1.event_starttime ?? ""
-            }
-            isDatefilterApplied = true
-        }else{
-            self.filterPendingShiftData = self.filterPendingShiftData?.sorted {
-                $0.event_starttime ?? "" > $1.event_starttime ?? ""
-            }
-            isDatefilterApplied = false
-        }
-        
-        isEventfilterApplied = false
-        isNamefilterApplied = false
-        
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    
-    }
     
     func updateSiglePendingShiftStatus(eventId:String) {
         ENTALDControllers.shared.showPendingShiftStatusUpdatePicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, dataObj: ProcessUtils.shared.getPendingShiftStatus()) { params, controller in
             
-//            let selectedEvents = self.pendingShiftData?.filter( {$0.event_selected == true})
-        
-                if let data = params {
-                    let apiParams = [
-                        "msnfp_schedulestatus": data as! Int
-                    ]
-                    self.updateStatusData(eventId: eventId , params: apiParams )
-                }
+            //            let selectedEvents = self.pendingShiftData?.filter( {$0.event_selected == true})
+            
+            if let data = params {
+                let apiParams = [
+                    "msnfp_schedulestatus": data as! Int
+                ]
+                self.updateStatusData(eventId: eventId , params: apiParams )
+            }
             self.getPendingShift()
         }
         
     }
-
+    
     func showEmptyView(tableVw : UITableView){
         DispatchQueue.main.async {
             let view = EmptyView.instanceFromNib()
@@ -337,13 +310,13 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
             DispatchQueue.main.async {
                 self.filterPendingShiftData = self.pendingShiftData
                 self.tableView.reloadData()
-               
+                
             }
         }
         
     }
     
-
+    
     
     // ======================== API ====================== //
     
@@ -352,35 +325,36 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         DispatchQueue.main.async {
             LoadingView.show()
         }
-
+        
         ENTALDLibraryAPI.shared.requestPendingShiftUpdate(eventId: eventId, params: params){ result in
-        DispatchQueue.main.async {
-            LoadingView.hide()
-        }
-        switch result{
-        case .success(value: let _):
-             break
-        case .error(let error, let errorResponse):
-            if error == .patchSuccess {
-//                ENTALDAlertView.shared.showContactAlertWithTitle(title: "Profile Updated Successfully", message: "", actionTitle: .KOK, completion: { status in })
-            }else{
-                var message = error.message
-                if let err = errorResponse {
-                    message = err.error
-                }
-                DispatchQueue.main.async {
-                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result{
+            case .success(value: _):
+                break
+            case .error(let error, let errorResponse):
+                if error == .patchSuccess {
+                    self.getPendingShift()
+                    //                ENTALDAlertView.shared.showContactAlertWithTitle(title: "Profile Updated Successfully", message: "", actionTitle: .KOK, completion: { status in })
+                }else{
+                    var message = error.message
+                    if let err = errorResponse {
+                        message = err.error
+                    }
+//                    DispatchQueue.main.async {
+//                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+//                    }
                 }
             }
         }
-    }
-    
-//
+        
+        //
     }
     
     
     func getPendingShift(){
-        
+        groupId = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupId() ?? ""
         
         let params : [String:Any] = [
             
@@ -404,12 +378,12 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
             ParameterKeys.select : "msnfp_engagementopportunityschedule,createdon,msnfp_totalhours,msnfp_startperiod,msnfp_hoursperday,_msnfp_engagementopportunity_value,msnfp_endperiod,msnfp_effectiveto,msnfp_effectivefrom,msnfp_workingdays,msnfp_engagementopportunityscheduleid",
             
             ParameterKeys.filter : "(_msnfp_engagementopportunity_value eq 0243fc0b-d274-ed11-81ac-0022486dfdbd)",
-//            ParameterKeys.filter : "(_msnfp_engagementopportunity_value eq 0243fc0b-d274-ed11-81ac-0022486dfdbd)",
+            //            ParameterKeys.filter : "(_msnfp_engagementopportunity_value eq 0243fc0b-d274-ed11-81ac-0022486dfdbd)",
             ParameterKeys.orderby : "msnfp_effectivefrom asc"
             
         ]
         
-
+        
         self.getPendingShiftDataThree(params: paramsThree)
     }
     
@@ -457,7 +431,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                 str = "'{\(self.pendingShiftDataOne?[i].msnfp_engagementopportunityid ?? "")}',"
             }
             engagementOppertunityId += str
-
+            print("printed ============ \( engagementOppertunityId)" )
         }
         
         let params : [String:Any] = [
@@ -486,7 +460,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                     if (self.pendingShiftData?.count == 0 || self.pendingShiftData?.count == nil){
                         self.showEmptyView(tableVw: self.tableView)
                     }else{
-                    
+                        
                         for i in (0 ..< (self.pendingShiftData?.count ?? 0)) {
                             
                             let rowModelEvent = self.getPendingShiftOneModelBy(self.pendingShiftData?[i]._sjavms_volunteerevent_value ?? "")
@@ -497,6 +471,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                             
                         }
                         
+                        self.pendingShiftData = self.pendingShiftData?.sorted(by: { ($0.sjavms_start ?? "") < ($1.sjavms_start ?? "") })
                         
                         DispatchQueue.main.async {
                             for subview in self.tableView.subviews {
@@ -511,7 +486,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                         self.filterByName()
                         self.tableView.reloadData()
                     }
-
+                    
                 }else{
                     self.showEmptyView(tableVw: self.tableView)
                 }
@@ -545,7 +520,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                 
                 if let pendingShift = response.value {
                     self.pendingShiftDataThree = pendingShift
-
+                    
                 }
                 
             case .error(let error, let errorResponse):
@@ -598,7 +573,13 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
 
 extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filterPendingShiftData?.count ?? 0
+        
+        if ((filterPendingShiftData?.count ?? 0) > 3 && isLoadMoreShow){
+            loadMoreView.isHidden = false
+            return 3
+        }
+        return self.filterPendingShiftData?.count ?? 0
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -607,7 +588,7 @@ extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
         
         let rowModel = filterPendingShiftData?[indexPath.row]
         let eventId = self.filterPendingShiftData?[indexPath.row].msnfp_participationscheduleid
-//        let eventId = self.getPendingShiftThreeModelBy(rowModel?._sjavms_volunteerevent_value ?? "")
+        //        let eventId = self.getPendingShiftThreeModelBy(rowModel?._sjavms_volunteerevent_value ?? "")
         cell.eventId = eventId ?? ""
         
         cell.setCellData(rowModel : rowModel)
@@ -619,22 +600,22 @@ extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
         
         
         
-            
-//            cell.lblName.text = rowModel?.sjavms_name ?? ""
-//            cell.lblLocation.text = rowModel?.sjavms_address1name ?? ""
-//            cell.lblHour.text = "\(rowModel?.time_difference ?? 0 )"
-//            cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
-////            cell.btnStatus.setTitle(rowModel?.sjavms_msnfp_group_sjavms_eventrequest?[0].getStatus(), for: .normal)
-//            
-////            cell.btn.setTitle("Approve Event", for: .normal)
-//            
-//            cell.lblStatus.text = rowModel?.sjavms_msnfp_group_sjavms_eventrequest?[0].getStatus()
-//            
-//            
-            cell.btnSelect.tag = indexPath.row
-            
-            cell.btnSelect.addTarget(self, action: #selector(updateEvent(_ :)), for: .touchUpInside)
-
+        
+        //            cell.lblName.text = rowModel?.sjavms_name ?? ""
+        //            cell.lblLocation.text = rowModel?.sjavms_address1name ?? ""
+        //            cell.lblHour.text = "\(rowModel?.time_difference ?? 0 )"
+        //            cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+        ////            cell.btnStatus.setTitle(rowModel?.sjavms_msnfp_group_sjavms_eventrequest?[0].getStatus(), for: .normal)
+        //            
+        ////            cell.btn.setTitle("Approve Event", for: .normal)
+        //            
+        //            cell.lblStatus.text = rowModel?.sjavms_msnfp_group_sjavms_eventrequest?[0].getStatus()
+        //            
+        //            
+        cell.btnSelect.tag = indexPath.row
+        
+        cell.btnSelect.addTarget(self, action: #selector(updateEvent(_ :)), for: .touchUpInside)
+        
         
         
         
@@ -656,19 +637,19 @@ extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
         
         
         
-//        
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "PendingShiftCell", for: indexPath) as! PendingShiftCell
-//        
-//        
-//        cell.delegate = self
-//        let rowModel = filterPendingShiftData?[indexPath.row]
-//        let eventId = self.filterPendingShiftData?[indexPath.row].msnfp_participationscheduleid
-////        let eventId = self.getPendingShiftThreeModelBy(rowModel?._sjavms_volunteerevent_value ?? "")
-//        cell.eventId = eventId ?? ""
-//        
-//        cell.setCellData(rowModel : rowModel)
-//        
-//        return cell
+        //        
+        //        let cell = tableView.dequeueReusableCell(withIdentifier: "PendingShiftCell", for: indexPath) as! PendingShiftCell
+        //        
+        //        
+        //        cell.delegate = self
+        //        let rowModel = filterPendingShiftData?[indexPath.row]
+        //        let eventId = self.filterPendingShiftData?[indexPath.row].msnfp_participationscheduleid
+        ////        let eventId = self.getPendingShiftThreeModelBy(rowModel?._sjavms_volunteerevent_value ?? "")
+        //        cell.eventId = eventId ?? ""
+        //        
+        //        cell.setCellData(rowModel : rowModel)
+        //        
+        //        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

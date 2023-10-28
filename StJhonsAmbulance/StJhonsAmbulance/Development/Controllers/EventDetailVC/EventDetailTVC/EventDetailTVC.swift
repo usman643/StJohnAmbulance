@@ -8,16 +8,15 @@
 import UIKit
 
 class EventDetailTVC: UITableViewCell {
-
-    @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var lblShift: UILabel!
-    @IBOutlet weak var lblTime: UILabel!
-    @IBOutlet weak var switchChange: UISwitch!
     
-    
+    public var delegate : updateVolunteerCheckInDelegate?
+    var cellModel : VolunteerOfEventDataModel?
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var btnCheckIn: UISwitch!
     override func awakeFromNib() {
         super.awakeFromNib()
-        decorateUI()
+        lblTitle.font = UIFont.BoldFont(16)
+        lblTitle.textColor = UIColor.textBlackColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -26,21 +25,31 @@ class EventDetailTVC: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func decorateUI(){
-        mainView.layer.cornerRadius = 12
-        mainView.layer.borderWidth = 0.5
-        mainView.layer.borderColor = UIColor.systemGray3.cgColor
-        mainView.layer.shadowColor = UIColor.systemGray4.cgColor
-        mainView.layer.shadowOpacity = 0.5
-        mainView.layer.shadowOffset = .zero
-        mainView.layer.shadowRadius = 6
-    }
     
     
-    @IBAction func switchAction(_ sender: Any) {
+    @IBAction func switchButton(_ sender: Any) {
         
         
+        if ( cellModel?.sjavms_checkedin == true){
+            cellModel?.sjavms_checkedin = false as! Bool
+            
+            let params = [
+                "sjavms_checkedin": false
+            ]
+//            self.updateCheckInData(participationId: rowModel?[indexPath.row].msnfp_participationscheduleid ?? "", params: params)
+            delegate?.updateVolunteerCheckIn(participationId: cellModel?.msnfp_participationscheduleid ?? "", param: params)
+        }else{
+            
+            cellModel?.sjavms_checkedin = true
+            let params = [
+                "sjavms_checkedin": true as! Bool
+            ]
+//            self.updateCheckInData(participationId: rowModel?[indexPath.row].msnfp_participationscheduleid ?? "", params: params)
+            delegate?.updateVolunteerCheckIn(participationId: cellModel?.msnfp_participationscheduleid ?? "", param: params)
+        }
+        
+//        delegate?.updateVolunteerCheckIn(participationId: cellModel?.msnfp_participationscheduleid, param: params)
+        
     }
-    
     
 }

@@ -128,8 +128,16 @@ struct PendingShiftModelTwo : Codable {
 }
 
 struct PendingShiftVolunteerModelTwo : Codable {
-    let fullname : String?
+    let address1_city : String?
+    let address1_country : String?
+    let address1_postalcode : String?
+    let address1_stateorprovince : String?
     let contactid : String?
+    let emailaddress1 : String?
+    let fullname : String?
+    let lastname : String?
+//    let telephone1 : Int?
+
 }
 
 struct VolunteerEventModel : Codable {

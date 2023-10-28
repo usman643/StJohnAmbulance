@@ -23,11 +23,9 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
     
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var lblTitle: UILabel!
-    @IBOutlet weak var lblModifiedDate: UILabel!
-    @IBOutlet weak var lblAction: UILabel!
+ 
     
     @IBOutlet weak var btnMessage: UIButton!
-    @IBOutlet weak var tableHeaderView: UIView!
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var searchImg: UIImageView!
     @IBOutlet weak var textSearch: UITextField!
@@ -57,17 +55,12 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
         headerView.addBottomShadow()
         lblTitle.textColor = UIColor.headerGreen
         lblTitle.font = UIFont.HeaderBoldFont(18)
-        lblModifiedDate.textColor = UIColor.themePrimaryWhite
-        lblModifiedDate.font = UIFont.BoldFont(13)
-        lblAction.textColor = UIColor.themePrimaryWhite
-        lblAction.font = UIFont.BoldFont(13)
+
+        searchView.layer.cornerRadius = searchView.frame.size.height/2
+        searchView.backgroundColor = UIColor.viewLightGrayColor
+//        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+//        searchView.layer.borderWidth = 1.5
         
-        tableHeaderView.layer.borderWidth = 1.5
-        tableHeaderView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        
-        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        searchView.layer.borderWidth = 1.5
-        searchView.isHidden = true
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         let originalImage = UIImage(named: "messages-bubble-square-text")!
         let tintedImage = ProcessUtils.shared.tintImage(originalImage)
@@ -82,7 +75,6 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
     }
     
     @IBAction func closeSearch(_ sender: Any) {
-        self.searchView.isHidden = true
         textSearch.endEditing(true)
         textSearch.text = ""
 //        filterPendingShiftData = pendingShiftData
@@ -337,13 +329,9 @@ extension ContractDocumentVC : UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactDocumentsTVC", for: indexPath) as! ContactDocumentsTVC
         let rowModel = self.filterDocuments?[indexPath.row]
         cell.setContent(cellModel: rowModel)
-        if indexPath.row % 2 == 0{
-            cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
-            cell.seperatorView.backgroundColor = UIColor.themePrimary
-        }else{
-            cell.mainView.backgroundColor = UIColor.viewLightColor
-            cell.seperatorView.backgroundColor = UIColor.gray
-        }
+        
+        cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+        
         return cell
     }
     

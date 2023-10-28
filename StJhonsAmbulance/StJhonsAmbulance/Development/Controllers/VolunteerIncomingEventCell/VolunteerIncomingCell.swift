@@ -14,11 +14,16 @@ class VolunteerIncomingCell: UITableViewCell {
     @IBOutlet weak var lblDateTime: UILabel!
 
     @IBOutlet weak var btnDetail: UIButton!
+    @IBOutlet weak var btnCheckIn: UIButton!
+    
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblProgram: UILabel!
     @IBOutlet weak var lblLocation: UILabel!
     
     @IBOutlet weak var seperatorView: UIView!
+    
+    @IBOutlet weak var checkinView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         decorateUI()
@@ -43,10 +48,13 @@ class VolunteerIncomingCell: UITableViewCell {
         mainView.layer.cornerRadius = 16
         statusView.layer.cornerRadius = 16
         statusView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
+        checkinView.layer.cornerRadius = 16
+        checkinView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
         
         lblDateTime.textColor = UIColor.themeBlackText
         
         btnDetail.setTitleColor(UIColor.white, for: .normal)
+        btnCheckIn.setTitleColor(UIColor.white, for: .normal)
         lblTitle.textColor = UIColor.themePrimaryWhite
         lblProgram.textColor = UIColor.themeBlackText
         
@@ -54,6 +62,7 @@ class VolunteerIncomingCell: UITableViewCell {
         
         lblDateTime.font =  UIFont.BoldFont(12)
         btnDetail.titleLabel?.font = UIFont.BoldFont(12)
+        btnCheckIn.titleLabel?.font = UIFont.BoldFont(11)
         lblTitle.font =  UIFont.BoldFont(18)
         lblProgram.font =  UIFont.BoldFont(13)
         
@@ -81,6 +90,21 @@ class VolunteerIncomingCell: UITableViewCell {
         lblLocation.text = "\(cellModel?.msnfp_location ?? "Not Found") "
         
         lblProgram.text = cellModel?.sjavms_msnfp_engagementopportunity_msnfp_group?[0].sjaProgram ?? "..."
+        
+        let eventDate = DateFormatManager.shared.getDateFromString(date: cellModel?.msnfp_startingdate) ?? Date()
+        let currentDate = DateFormatManager.shared.getCurrentDate()
+        let calendar = Calendar.current
+
+        let components = calendar.dateComponents([.minute, .second], from: currentDate, to: eventDate)
+        if ((components.minute ?? 31) <= 30 && (components.minute ?? 31) >= -30){
+//                    cell.btnCheckIn.isEnabled = true
+            self.checkinView.isHidden = false
+            self.statusView.isHidden = true
+        }else{
+//                    cell.btnCheckIn.isEnabled = false
+            self.checkinView.isHidden = true
+            self.statusView.isHidden = false
+        }
 
     }
     

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -18,12 +18,12 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VolunteerEventVC" customModule="StJhonsAmbulance" customModuleProvider="target">
             <connections>
                 <outlet property="btnCurveView" destination="VWM-fR-ztN" id="jO4-sp-6oD"/>
-                <outlet property="btnEvent" destination="UaT-pn-Gap" id="nGM-sl-IdS"/>
+                <outlet property="btnEvent" destination="yhN-t6-Rr5" id="16c-9Y-jHs"/>
                 <outlet property="btnLoadMore" destination="dZK-R0-l1K" id="Zwr-QW-zVL"/>
                 <outlet property="btnMessage" destination="DcZ-KW-4va" id="lxQ-Lx-Pc6"/>
-                <outlet property="btnNonEvent" destination="yhN-t6-Rr5" id="MVu-aB-YmY"/>
+                <outlet property="btnNonEvent" destination="UaT-pn-Gap" id="qfb-WZ-3Le"/>
                 <outlet property="btnSidemenu" destination="lrZ-e3-CTo" id="TBr-eq-5Hz"/>
-                <outlet property="eventBtnBottomView" destination="sUm-vf-Nol" id="M82-Ak-X6N"/>
+                <outlet property="eventBtnBottomView" destination="WA1-7w-5db" id="htt-4e-n7z"/>
                 <outlet property="lblLifetimeTitle" destination="Op4-Z1-ZTT" id="ZB0-PO-o99"/>
                 <outlet property="lblLifetimeValue" destination="nus-lr-T3L" id="mdf-av-QE1"/>
                 <outlet property="lblPendingTitle" destination="dFd-c7-yrf" id="ugi-md-haO"/>
@@ -34,7 +34,7 @@
                 <outlet property="lifetimeImgMainView" destination="5GX-Pb-mXa" id="SoI-is-ta7"/>
                 <outlet property="lifetimeImgView" destination="dGl-6s-YUA" id="ETS-Ar-xsE"/>
                 <outlet property="loadMoreView" destination="qAp-Ay-SXU" id="jbH-Vo-l19"/>
-                <outlet property="nonEventBtnBottomView" destination="WA1-7w-5db" id="Cpx-FF-Vsw"/>
+                <outlet property="nonEventBtnBottomView" destination="sUm-vf-Nol" id="NtV-bU-QFh"/>
                 <outlet property="pendingImgMainView1" destination="5w6-Ez-MRL" id="R0M-CD-5gt"/>
                 <outlet property="pendingImgView" destination="RNW-WM-HgZ" id="oMw-Qx-yVf"/>
                 <outlet property="searchImg" destination="Qwa-b6-gGy" id="vtz-Ng-ZaS"/>
@@ -307,11 +307,11 @@
                                                         <constraint firstAttribute="width" constant="100" id="5zf-gh-8uo"/>
                                                     </constraints>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" title="Non Event">
+                                                    <state key="normal" title="Event">
                                                         <color key="titleColor" name="themeBlackText"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="nonEventTableShow:" destination="-1" eventType="touchUpInside" id="dbQ-nf-fxM"/>
+                                                        <action selector="eventTableShow:" destination="-1" eventType="touchUpInside" id="VE0-9P-n62"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UaT-pn-Gap">
@@ -320,11 +320,11 @@
                                                         <constraint firstAttribute="width" constant="100" id="VFb-dm-hGL"/>
                                                     </constraints>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" title="Event">
+                                                    <state key="normal" title="Non Event">
                                                         <color key="titleColor" name="themeBlackText"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="eventTableShow:" destination="-1" eventType="touchUpInside" id="g14-qR-OIy"/>
+                                                        <action selector="nonEventTableShow:" destination="-1" eventType="touchUpInside" id="HqE-AL-hjc"/>
                                                     </connections>
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WA1-7w-5db">
@@ -524,10 +524,10 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
-            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

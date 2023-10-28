@@ -30,6 +30,9 @@ class DashboardVC: ENTALDBaseViewController{
     var prefferedPronounData : [LanguageModel] = []
     var prefferedMethodContactData : [LanguageModel] = []
     var languageData : [LanguageModel] = []
+    var isLoadMoreShow = true
+    var isfirstChuck = true
+    var isAvailableAPINeedCall = true;
     
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -51,6 +54,8 @@ class DashboardVC: ENTALDBaseViewController{
     @IBOutlet weak var lblEmptybtn: UILabel!
     @IBOutlet weak var emptyViewMsg: UILabel!
     @IBOutlet weak var emptyviewImg: UIImageView!
+    @IBOutlet weak var loadMoreView: UIView!
+    @IBOutlet weak var btnLoadMore: UIButton!
     //    @IBOutlet weak var collectionview: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,7 +119,7 @@ class DashboardVC: ENTALDBaseViewController{
         btnMessage.setImage(tintedImage, for: .normal)     
         let  sideMenuImage = UIImage(named: "sideMenu")!
         btnSideMenu.setImage(ProcessUtils.shared.tintImage(sideMenuImage), for: .normal)
-
+        loadMoreView.isHidden = true
     }
     
     func setupContent(){
@@ -140,6 +145,15 @@ class DashboardVC: ENTALDBaseViewController{
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "VolunteerIncomingCell", bundle: nil), forCellReuseIdentifier: "VolunteerIncomingCell")
+    }
+    
+    @IBAction func eventLoadMoreTapped(_ sender: Any) {
+     
+        DispatchQueue.main.async {
+            self.isLoadMoreShow = false
+            self.loadMoreView.isHidden = true
+            self.tableView.reloadData()
+        }
     }
     
     @IBAction func messageTapped(_ sender: Any) {
@@ -254,11 +268,11 @@ class DashboardVC: ENTALDBaseViewController{
         var propertyValues = ""
         
         
-        let chunkSize = 7 // Set the desired chunk size
+        let chunkSize = 3 // Set the desired chunk size
 
         for startIndex in stride(from: 0, to: ProcessUtils.shared.allGroupsList.count, by: chunkSize) {
             propertyValues = ""
-            
+            self.isfirstChuck = false
             let endIndex = min(startIndex + chunkSize, ProcessUtils.shared.allGroupsList.count)
             
             
@@ -279,7 +293,7 @@ class DashboardVC: ENTALDBaseViewController{
             }
             let params : [String:Any] = [
                 
-                ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_endingdate,msnfp_startingdate,msnfp_engagementopportunityid,_sjavms_program_value,msnfp_location,msnfp_maximum,msnfp_minimum,msnfp_multipledays",
+                ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_endingdate,msnfp_startingdate,msnfp_engagementopportunityid,_sjavms_program_value,msnfp_location,msnfp_maximum,msnfp_minimum,msnfp_multipledays,msnfp_shortdescription",
                 ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(propertyValues)])))",
                 
                 ParameterKeys.filter : "(Microsoft.Dynamics.CRM.In(PropertyName='statuscode',PropertyValues=['1','802280000']) and sjavms_adhocevent ne true and msnfp_engagementopportunitystatus eq 844060002 and (Microsoft.Dynamics.CRM.Today(PropertyName='msnfp_endingdate') or Microsoft.Dynamics.CRM.NextXYears(PropertyName='msnfp_endingdate',PropertyValue=10))) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(propertyValues)]))))",
@@ -319,26 +333,42 @@ class DashboardVC: ENTALDBaseViewController{
 
                         }else{
                             
-                            self.tableView.reloadData()
-                            self.emptyView.isHidden = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                                self.tableView.reloadData()
+                            })
+                           
+                                self.emptyView.isHidden = true
                             
                         }
-                        self.tableView.reloadData()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                            self.tableView.reloadData()
+                        })
                         
                     }else{
                         
+                        
                         self.emptyView.isHidden = false
+                        
                         self.tableView.reloadData()
+                        if (self.isAvailableAPINeedCall && self.filterAvailableData?.count ?? 0 < 1){
+                            self.getAvailableInfo()
+                            self.isAvailableAPINeedCall = false
+                        }
+                        
                         
                     }
                 }
+               
+                
                 
             case .error(let error, let errorResponse):
                 var message = error.message
                 if let err = errorResponse {
                     message = err.error
                 }
-                self.showEmptyView(tableVw: self.tableView)
+                if (self.isfirstChuck){
+                    self.emptyView.isHidden = false
+                }
                 DispatchQueue.main.async {
                     ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
                 }
@@ -878,8 +908,9 @@ extension DashboardVC : UITableViewDelegate,UITableViewDataSource{
 //                        }
                     }
 //                    self.getLatestIncomingEvent()
-                    self.getAvailableInfo()
-                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                        self.getAvailableInfo()
+                    })
                 }
                 break
             case .error(let error, let errorResponse):
@@ -939,6 +970,11 @@ extension DashboardVC : UITableViewDelegate,UITableViewDataSource{
     //MARK: TableView Deletegates
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+        if ((filterAvailableData?.count ?? 0) > 3 && isLoadMoreShow){
+            loadMoreView.isHidden = false
+            return 3
+        }
         return self.filterAvailableData?.count ?? 0
     }
 
@@ -958,6 +994,8 @@ extension DashboardVC : UITableViewDelegate,UITableViewDataSource{
         
         cell.btnDetail.tag = indexPath.row
         cell.btnDetail.addTarget(self, action: #selector(self.viewDetail(_:)), for: .touchUpInside)
+        cell.btnCheckIn.tag = indexPath.row
+        cell.btnCheckIn.addTarget(self, action: #selector(self.viewDetail(_:)), for: .touchUpInside)
         
         return cell
     }
@@ -975,7 +1013,7 @@ extension DashboardVC : UITableViewDelegate,UITableViewDataSource{
         let tag = sender.tag
         let rowModel = self.filterAvailableData?[tag]
         
-        ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: rowModel, eventName: "availableEvent") { params, controller in
+        ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: rowModel, eventName: "dashboardEvent") { params, controller in
            
 
         }

@@ -83,7 +83,9 @@ class PendingEventCell: UITableViewCell {
     func setCellData(rowModel : PendingShiftModelTwo?){
 
         lblName.text = rowModel?.event_name ?? ""
-        lblLocation.text = rowModel?.sjavms_VolunteerEvent?.msnfp_location ?? ""
+//        lblLocation.text = rowModel?.sjavms_VolunteerEvent?.msnfp_location ?? ""
+        var location = "\(rowModel?.sjavms_Volunteer?.address1_postalcode ?? "") \(rowModel?.sjavms_Volunteer?.address1_city ?? "") \(rowModel?.sjavms_Volunteer?.address1_country ?? "")"
+        lblLocation.text = location
 
         lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d")
         

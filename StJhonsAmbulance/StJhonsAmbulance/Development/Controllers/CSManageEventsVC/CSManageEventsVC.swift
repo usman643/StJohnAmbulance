@@ -80,10 +80,10 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
         decorateUI()
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         setupTableView()
+        getPendingApproval()
         getCurrentEvents()
         getPastEvents()
         getpendingPublish()
-        getPendingApproval()
         
     }
     
@@ -116,10 +116,10 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
         btnPastView.backgroundColor = UIColor.themePrimaryColor
         
         resetButtonView()
-        isAvaiableEvent = true
-        btnAvailable.setTitleColor(UIColor.themePrimaryColor, for: .normal)
-        btnAvailableView.isHidden = false
-        availableView.isHidden = false
+        isPendingApprovalEvent = true
+        btnPendingApproval.setTitleColor(UIColor.themePrimaryColor, for: .normal)
+        btnPendingApprovalView.isHidden = false
+        pendingApprovalView.isHidden = false
         
         btnAvailable.titleLabel?.font = UIFont.BoldFont(14)
         btnPendingApproval.titleLabel?.font = UIFont.BoldFont(14)
@@ -291,19 +291,6 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
     }
     
     
-    func getPendingApproval(){
-        guard let groupId = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupId() else {return}
-        let params : [String:Any] = [
-            
-            ParameterKeys.select : "sjavms_name,sjavms_address1name,sjavms_maxvolunteers,sjavms_eventstartdate,statecode,_sjavms_program_value,sjavms_eventrequestid",
-            ParameterKeys.expand : "sjavms_msnfp_group_sjavms_eventrequest($filter=(msnfp_groupid eq \(groupId)))",
-            ParameterKeys.filter : "(statecode eq 0 and (statuscode eq 1 or statuscode eq 802280002)) and (sjavms_msnfp_group_sjavms_eventrequest/any(o1:(o1/msnfp_groupid eq \(groupId))))",
-                        ParameterKeys.orderby : "sjavms_eventstartdate asc"
-        ]
-        
-        self.getPendingApprovalsData(params: params)
-    }
-    
     func showGroupsPicker(list:[LandingGroupsModel] = []){
         
         ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.groups, dataObj: ProcessUtils.shared.userGroupsList) { params, controller in
@@ -317,6 +304,21 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
         }
     }
     
+    func getPendingApproval(){
+        guard let groupId = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupId() else {return}
+        let params : [String:Any] = [
+            
+            ParameterKeys.select : "sjavms_name,sjavms_address1name,sjavms_maxvolunteers,sjavms_eventstartdate,statecode,_sjavms_program_value,sjavms_eventrequestid",
+            ParameterKeys.expand : "sjavms_msnfp_group_sjavms_eventrequest($filter=(msnfp_groupid eq \(groupId)))",
+            ParameterKeys.filter : "(statecode eq 0 and (statuscode eq 1 or statuscode eq 802280002)) and (sjavms_msnfp_group_sjavms_eventrequest/any(o1:(o1/msnfp_groupid eq \(groupId))))",
+            ParameterKeys.orderby : "sjavms_eventstartdate asc"
+        ]
+        
+        self.getPendingApprovalsData(params: params)
+    }
+    
+  
+    
     fileprivate func getPendingApprovalsData(params : [String:Any]){
         DispatchQueue.main.async {
             LoadingView.show()
@@ -328,21 +330,31 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
             }
             switch result{
             case .success(value: let response):
-                
-                if let pendingData = response.value {
-                    self.pendingApprovalData = pendingData
-                    
-                    
-                    self.pendingApprovalTimefilter()
-                    
-                    self.pendingApprovalData = self.pendingApprovalData?.sorted(by: { $0.sjavms_eventstartdate ?? "" < $1.sjavms_eventstartdate ?? "" })
-                    
-                    
-                    self.filterPendingApprovalData = self.pendingApprovalData
-                    
-                    DispatchQueue.main.async {
+                DispatchQueue.main.async{
+                    if let pendingData = response.value {
+                        self.pendingApprovalData = pendingData
+                        
+                        // time filter
+                        // self.pendingApprovalTimefilter()
+                        
+                        self.pendingApprovalData = self.pendingApprovalData?.sorted(by: { $0.sjavms_eventstartdate ?? "" < $1.sjavms_eventstartdate ?? "" })
+                        
+                        if (self.pendingApprovalData?.count == 0 || self.pendingApprovalData?.count == nil){
+                            self.emptyView.isHidden = false
+                        }else{
+                            self.emptyView.isHidden = true
+                        }
+                        //                        self.pendingApprovalTableView.reloadData()
+                        
+                        self.filterPendingApprovalData = self.pendingApprovalData
+                        
+                        
+                        self.pendingApprovalTableView.reloadData()
+                    }else{
+                        self.emptyView.isHidden = false
                         self.pendingApprovalTableView.reloadData()
                     }
+                    
                 }
                 
             case .error(let error, let errorResponse):
@@ -387,7 +399,7 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
                     self.filterPendingPublishData = pendingData
                     self.pendingTimefilter()
                     
-                    self.pendingPublishData = self.pendingPublishData?.sorted(by: { $0.msnfp_startingdate ?? "" < $1.msnfp_startingdate ?? "" })
+                    self.pendingPublishData = self.pendingPublishData?.sorted(by: { $0.msnfp_endingdate ?? "" < $1.msnfp_endingdate ?? "" })
                     self.filterPendingPublishData = self.pendingPublishData
                     
                     DispatchQueue.main.async {
@@ -601,15 +613,15 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
                 if let currentEvent = response.value {
                     self.currentEventData = currentEvent
                     self.filterCurrentEventData = currentEvent
-                    if (self.currentEventData?.count == 0 || self.currentEventData?.count == nil){
-                            self.emptyView.isHidden = false
-                    }else{
-                            self.emptyView.isHidden = true
-                    }
+//                    if (self.currentEventData?.count == 0 || self.currentEventData?.count == nil){
+//                            self.emptyView.isHidden = false
+//                    }else{
+//                            self.emptyView.isHidden = true
+//                    }
                         self.availableTableView.reloadData()
                     
                 }else{
-                    self.emptyView.isHidden = false
+//                    self.emptyView.isHidden = false
                 }
                 }
                 
@@ -619,7 +631,7 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
                     message = err.error
                 }
                
-                self.emptyView.isHidden = false
+//                self.emptyView.isHidden = false
                 
                 DispatchQueue.main.async {
                     ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
@@ -775,8 +787,24 @@ extension CSManageEventsVC : UITableViewDelegate, UITableViewDataSource{
             cell.lblLocation.text = rowModel?.msnfp_location ?? ""
             cell.lblDateTime.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
             cell.lblProgram.text = rowModel?.sjavms_program_value ?? ""
-            cell.lblparticipants.text = "\(rowModel?.msnfp_minimum ?? 0)"
+//            cell.lblparticipants.text = "\(rowModel?.msnfp_minimum ?? 0)"
+            if let participant = rowModel?.sjavms_maxparticipants {
+                cell.lblparticipants.text = "\(participant)"
+            }else{
+                cell.lblparticipants.text = "0"
+            }
+            cell.lblStatus.text = rowModel?.getStatus() ?? ""
             
+            
+            if (cell.lblStatus.text == "Pending"){
+                cell.statusImg.image = UIImage(named: "hourglass Pending Yellow")
+            }else if (cell.lblStatus.text == "Cancelled"){
+                cell.statusImg.image = UIImage(named: "Cancelled Status")
+            }else if (cell.lblStatus.text == "Approved"){
+                cell.statusImg.image = UIImage(named: "check-double Green")
+            }else{
+                cell.statusImg.isHidden = true
+            }
             cell.btnDetail.addTarget(self, action:#selector(showManageDetail(_:)), for:.touchUpInside)
             
             
@@ -794,7 +822,24 @@ extension CSManageEventsVC : UITableViewDelegate, UITableViewDataSource{
             cell.lblLocation.text = rowModel?.msnfp_location ?? ""
             cell.lblDateTime.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
             cell.lblProgram.text = rowModel?.sjavms_program_value ?? ""
-            cell.lblparticipants.text = "\(rowModel?.msnfp_minimum ?? 0)"
+            if let participant = rowModel?.sjavms_maxparticipants {
+                cell.lblparticipants.text = "\(participant)"
+            }else{
+                cell.lblparticipants.text = "0"
+            }
+            
+            cell.lblStatus.text = rowModel?.getStatus() ?? ""
+            
+            
+            if (cell.lblStatus.text == "Pending"){
+                cell.statusImg.image = UIImage(named: "hourglass Pending Yellow")
+            }else if (cell.lblStatus.text == "Cancelled"){
+                cell.statusImg.image = UIImage(named: "Cancelled Status")
+            }else if (cell.lblStatus.text == "Approved"){
+                cell.statusImg.image = UIImage(named: "check-double Green")
+            }else{
+                cell.statusImg.isHidden = true
+            }
             
             cell.btnDetail.addTarget(self, action:#selector(showManageDetail(_:)), for:.touchUpInside)
             return cell
@@ -808,10 +853,32 @@ extension CSManageEventsVC : UITableViewDelegate, UITableViewDataSource{
             cell.lblLocation.text = rowModel?.sjavms_address1name ?? ""
 //            cell.lblHour.text = "\(rowModel?.time_difference ?? 0 )"
             cell.lblDateTime.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
-            cell.lblparticipants.text = "\(rowModel?.sjavms_maxvolunteers ?? 0)"
+//            cell.lblparticipants.text = "\(rowModel?.sjavms_maxvolunteers ?? 0)"
             cell.lblProgram.text = rowModel?.sjavms_program_value ?? ""
             
+            if let participant = rowModel?.sjavms_maxvolunteers {
+                cell.lblparticipants.text = "\(participant)"
+            }else{
+                cell.lblparticipants.text = "0"
+            }
+            
             cell.btnDetail.addTarget(self, action:#selector(showManageDetail(_:)), for:.touchUpInside)
+            
+            cell.lblStatus.text = rowModel?.msnfp_grouptype ?? ""
+            
+            
+            if (cell.lblStatus.text == "Pending"){
+                cell.statusImg.image = UIImage(named: "hourglass Pending Yellow")
+            }else if (cell.lblStatus.text == "Cancelled"){
+                cell.statusImg.image = UIImage(named: "Cancelled Status")
+            }else if (cell.lblStatus.text == "Approved"){
+                cell.statusImg.image = UIImage(named: "check-double Green")
+            }else if (cell.lblStatus.text == "Unpublished"){
+                cell.statusImg.image = UIImage(named: "hourglass Pending Yellow")
+            }else{
+                cell.statusImg.isHidden = true
+            }
+            
             return cell
             
         }else if (tableView == self.unpublishTableView){
@@ -822,11 +889,39 @@ extension CSManageEventsVC : UITableViewDelegate, UITableViewDataSource{
             cell.lblTitle.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
             cell.lblLocation.text = rowModel?.msnfp_location ?? ""
 //            cell.lblHour.text = "\(rowModel?.time_difference ?? 0 )"
-            cell.lblDateTime.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
-            cell.lblparticipants.text = ((rowModel?.msnfp_maximum) != nil) ? "\(rowModel?.msnfp_maximum ?? 0)" : ""
+            if let date = rowModel?.msnfp_startingdate{
+                cell.lblDateTime.text = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+            }else{
+                cell.lblDateTime.text = "...."
+            }
             cell.lblProgram.text = rowModel?.sjavms_program_value ?? ""
             
+            if let participant = rowModel?.sjavms_maxparticipants {
+                cell.lblparticipants.text = "\(participant)"
+            }else{
+                cell.lblparticipants.text = "0"
+            }
             cell.btnDetail.addTarget(self, action:#selector(showManageDetail(_:)), for:.touchUpInside)
+            
+            cell.lblStatus.text = rowModel?.getStatus()
+            if (cell.lblStatus.text == "Pending"){
+                cell.statusImg.image = UIImage(named: "hourglass Pending Yellow")
+            }else if (cell.lblStatus.text == "Cancelled"){
+                cell.statusImg.image = UIImage(named: "Cancelled Status")
+            }else if (cell.lblStatus.text == "Approved"){
+                cell.statusImg.image = UIImage(named: "check-double Green")
+            }else if (cell.lblStatus.text == "Unpublished"){
+                cell.statusImg.image = UIImage(named: "hourglass Pending Yellow")
+            }else{
+                cell.statusImg.isHidden = true
+            }
+            
+            
+            
+            
+            
+            
+            
             return cell
         }
         let cells = tableView.dequeueReusableCell(withIdentifier: "ManagerEventPendingCell", for: indexPath) as! ManagerEventPendingCell
@@ -969,5 +1064,7 @@ extension CSManageEventsVC : UITableViewDelegate, UITableViewDataSource{
         }
         return 0
     }
+    
+    
     
 }

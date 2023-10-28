@@ -98,6 +98,8 @@ struct ScheduleModelThree : Codable {
     let sjavms_end : String?
     let sjavms_checkedin : Bool?
     var time_difference : Int?
+    var msnfp_description : String?
+    var msnfp_shortdescription : String?
     let sjavms_VolunteerEvent : ScheduleDataModel?
     let sjavms_msnfp_engagementopportunity_msnfp_group : [SjavmsMsnfpEngagementopportunity]?
     
@@ -111,6 +113,8 @@ struct ScheduleModelThree : Codable {
         case sjavms_end
         case sjavms_checkedin
         case time_difference
+        case msnfp_description
+        case msnfp_shortdescription
         case sjavms_VolunteerEvent
         case sjavms_msnfp_engagementopportunity_msnfp_group
     }
@@ -162,6 +166,8 @@ struct AvailableEventModel : Codable {
     let msnfp_engagementopportunityid : String?
     let _sjavms_program_value : String?
     let sjavms_program_value : String?
+    let msnfp_description : String?
+    let msnfp_shortdescription : String?
     let msnfp_maximum : Int?
     let msnfp_minimum : Int?
     let sjavms_checkin : Bool?
@@ -180,6 +186,8 @@ struct AvailableEventModel : Codable {
         case sjavms_program_value = "_sjavms_program_value@OData.Community.Display.V1.FormattedValue"
         case msnfp_maximum
         case msnfp_minimum
+        case msnfp_description
+        case msnfp_shortdescription
         case sjavms_checkin
         case sjavms_checkedin
         case sjavms_msnfp_engagementopportunity_msnfp_group

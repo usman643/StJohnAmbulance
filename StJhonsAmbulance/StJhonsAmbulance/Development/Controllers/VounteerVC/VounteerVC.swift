@@ -254,6 +254,7 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
                     self.filteredData = volunteers
                     if (self.volunteerData?.count == 0 || self.volunteerData?.count == nil){
                         self.showEmptyView()
+                        self.searchMainView.isHidden = true
                     }else{
                         
                         self.filteredData = self.filteredData?.sorted {

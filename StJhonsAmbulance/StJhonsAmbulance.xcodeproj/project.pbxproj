@@ -92,6 +92,8 @@
 		1D55C8DE29B3D03C0035E4D4 /* RequestModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D55C8DD29B3D03C0035E4D4 /* RequestModels.swift */; };
 		1D55C8E329B3F5B90035E4D4 /* PendingStatusPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D55C8E129B3F5B90035E4D4 /* PendingStatusPickerView.swift */; };
 		1D55C8E429B3F5B90035E4D4 /* PendingStatusPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D55C8E229B3F5B90035E4D4 /* PendingStatusPickerView.xib */; };
+		1D56A33B2AEDB8D400F4A797 /* EventDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D56A33A2AEDB8D400F4A797 /* EventDetailHeaderView.swift */; };
+		1D56A33D2AEDB8DE00F4A797 /* EventDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D56A33C2AEDB8DE00F4A797 /* EventDetailHeaderView.xib */; };
 		1D58BA56298CFBB0001FE5FD /* EmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D58BA55298CFBB0001FE5FD /* EmptyView.xib */; };
 		1D58BA58298CFBBB001FE5FD /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D58BA57298CFBBB001FE5FD /* EmptyView.swift */; };
 		1D5C1D1429C1D2E500608FF5 /* AchivementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5C1D1229C1D2E500608FF5 /* AchivementVC.swift */; };
@@ -519,6 +521,8 @@
 		1D55C8DD29B3D03C0035E4D4 /* RequestModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestModels.swift; sourceTree = "<group>"; };
 		1D55C8E129B3F5B90035E4D4 /* PendingStatusPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingStatusPickerView.swift; sourceTree = "<group>"; };
 		1D55C8E229B3F5B90035E4D4 /* PendingStatusPickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PendingStatusPickerView.xib; sourceTree = "<group>"; };
+		1D56A33A2AEDB8D400F4A797 /* EventDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailHeaderView.swift; sourceTree = "<group>"; };
+		1D56A33C2AEDB8DE00F4A797 /* EventDetailHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventDetailHeaderView.xib; sourceTree = "<group>"; };
 		1D58BA55298CFBB0001FE5FD /* EmptyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyView.xib; sourceTree = "<group>"; };
 		1D58BA57298CFBBB001FE5FD /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		1D5C1D1229C1D2E500608FF5 /* AchivementVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchivementVC.swift; sourceTree = "<group>"; };
@@ -1228,6 +1232,7 @@
 		1D50ECD529921B0C00821049 /* EventDetailVC */ = {
 			isa = PBXGroup;
 			children = (
+				1D56A3352AEDB81D00F4A797 /* EventDetailHeaderView */,
 				1DBE8B982AC712F500C8FDB9 /* EventDetailTVC */,
 				1DA8F1A4299F50F800640242 /* EventDetailCVC */,
 				1D50ECDA29921B4D00821049 /* EventDetailVC.swift */,
@@ -1251,6 +1256,15 @@
 				1D55C8E229B3F5B90035E4D4 /* PendingStatusPickerView.xib */,
 			);
 			path = PendingStatusPickerView;
+			sourceTree = "<group>";
+		};
+		1D56A3352AEDB81D00F4A797 /* EventDetailHeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				1D56A33A2AEDB8D400F4A797 /* EventDetailHeaderView.swift */,
+				1D56A33C2AEDB8DE00F4A797 /* EventDetailHeaderView.xib */,
+			);
+			path = EventDetailHeaderView;
 			sourceTree = "<group>";
 		};
 		1D58BA54298CFB97001FE5FD /* EmptyView */ = {
@@ -2647,6 +2661,7 @@
 				1D2E244C298FD778006AB56A /* VolunteerEventsVC.xib in Resources */,
 				1D1D1A382991978F00B5454E /* VoluteerHoursTVC.xib in Resources */,
 				1D762823299E98D200609DED /* ExternalQualificationTVC.xib in Resources */,
+				1D56A33D2AEDB8DE00F4A797 /* EventDetailHeaderView.xib in Resources */,
 				1DA0A39229E0B73500284A4B /* VolunteerHourDetailVC.xib in Resources */,
 				1DD191A62A00E94000EEFC5D /* UserEngagementsTVC.xib in Resources */,
 				1D64DC9229C1D77E0017608A /* AchivementTVC.xib in Resources */,
@@ -3054,6 +3069,7 @@
 				18BC50AC29B60F11007BF382 /* GeneralInfoFormVC.swift in Sources */,
 				1D4DE84D297FB51C00246242 /* NSString.swift in Sources */,
 				359E9C33282D46D9001E3D73 /* ENTALDDummyDataUtils.swift in Sources */,
+				1D56A33B2AEDB8D400F4A797 /* EventDetailHeaderView.swift in Sources */,
 				1DA0A39129E0B73500284A4B /* VolunteerHourDetailVC.swift in Sources */,
 				1DD103912AC36904006F67AA /* SideMenuShiftTVC.swift in Sources */,
 				1DC2711429CF206B00B2D762 /* EventAuditVC.swift in Sources */,
@@ -3391,7 +3407,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 81;
+				CURRENT_PROJECT_VERSION = 85;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3433,7 +3449,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 81;
+				CURRENT_PROJECT_VERSION = 85;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P8ZPS8BTF5;
 				GENERATE_INFOPLIST_FILE = YES;

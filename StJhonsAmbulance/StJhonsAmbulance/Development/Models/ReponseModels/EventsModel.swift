@@ -44,6 +44,8 @@ struct CurrentEventsModel: Codable {
     let sjavms_checkedin : Bool?
     let sjavms_program_value : String?
     var time_difference : Int?
+    let msnfp_description : String?
+    let msnfp_shortdescription : String?
     let sjavms_msnfp_engagementopportunity_msnfp_group : CurrentEventGroupModel?
     func getStatus()->String?{
         let status = self.msnfp_engagementopportunitystatus
@@ -63,7 +65,7 @@ struct CurrentEventsModel: Codable {
         case 802280002:
             return "Submitted"
         default:
-            return nil
+            return ""
         }
     }
     
@@ -83,6 +85,8 @@ struct CurrentEventsModel: Codable {
         case sjavms_checkedin
         case sjavms_program_value = "_sjavms_program_value@OData.Community.Display.V1.FormattedValue"
         case time_difference
+        case msnfp_description
+        case msnfp_shortdescription
         case sjavms_msnfp_engagementopportunity_msnfp_group
     }
 }

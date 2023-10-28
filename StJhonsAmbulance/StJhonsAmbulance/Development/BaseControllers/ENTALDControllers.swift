@@ -255,13 +255,15 @@ class ENTALDControllers {
         let vc = EventDetailVC.loadFromNib()
         
         if (eventName == "availableEvent"){
-            vc.availableEvent = data as? AvailableEventModel
+            vc.availableEvent = data as? CurrentEventsModel
         }else if (eventName == "scheduleEvent"){
             vc.scheduleEvent = data as? ScheduleModelThree
         }else if (eventName == "pastEvent"){
-            vc.pastEvent = data as? VolunteerEventsModel
+            vc.pastEvent = data as? CurrentEventsModel
         }else if (eventName == "latestEvent"){
             vc.latestEvent = data as? LatestEventDataModel
+        }else if (eventName == "dashboardEvent"){
+            vc.dashbaordEvent = data as?  AvailableEventModel
         }
         
         vc.callbackToController = callBack

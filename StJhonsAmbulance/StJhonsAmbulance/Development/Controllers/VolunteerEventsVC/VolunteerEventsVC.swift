@@ -53,6 +53,8 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     var isScheduleLoadMoreShow = true
     var isPastLoadMoreShow = true
     
+    var isAvailableAPINeedCall = true;
+    
     @IBOutlet weak var pastLoadMoreView: UIView!
     @IBOutlet weak var btnPastLoadMore: UIButton!    
     @IBOutlet weak var scheduleLoadMoreView: UIView!
@@ -85,11 +87,11 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     @IBOutlet weak var scheduleView: UIView!
     @IBOutlet weak var pastView: UIView!
     
-//    @IBOutlet weak var searchView: UIView!
-//    @IBOutlet weak var searchImg: UIImageView!
-//    @IBOutlet weak var textSearch: UITextField!
-//    @IBOutlet weak var btnSearchClose: UIButton!
     
+    @IBOutlet weak var searchMainView: UIView!
+    @IBOutlet weak var searchView: UIView!
+    @IBOutlet weak var searchImg: UIImageView!
+    @IBOutlet weak var textSearch: UITextField!
     
     @IBOutlet weak var emptyView: UIView!
     
@@ -111,6 +113,7 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     }
 
     func decorateUI(){
+        searchMainView.isHidden = true
         lblTitle.font = UIFont.HeaderBoldFont(18)
         lblTitle.textColor = UIColor.headerGreen
 //        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
@@ -155,6 +158,7 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         btnHome.setImage(tintedImage, for: .normal)
         let  sideMenuImage = UIImage(named: "sideMenu")!
         btnSidemenu.setImage(ProcessUtils.shared.tintImage(sideMenuImage), for: .normal)
+        textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
     }
     
     func registerCells(){
@@ -385,13 +389,21 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         }
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let yOffset = scrollView.contentOffset.y
+        if yOffset > 100 { // You can adjust this value according to when you want to show the custom view
+            searchMainView.isHidden = false
+        } else {
+            searchMainView.isHidden = true
+        }
+    }
   // ============================== API ========================
     
     func getVolunteerPastEvent(){
         guard let contactId = UserDefaults.standard.contactIdToken else {return}
         let params : [String:Any] = [
             
-            ParameterKeys.select : "_sjavms_volunteerevent_value,msnfp_schedulestatus,sjavms_start,msnfp_participationscheduleid,sjavms_end,sjavms_checkedin",
+            ParameterKeys.select : "_sjavms_volunteerevent_value,msnfp_schedulestatus,sjavms_start,msnfp_participationscheduleid,sjavms_end,sjavms_checkedin,msnfp_description,msnfp_shortdescription",
             ParameterKeys.expand : "sjavms_VolunteerEvent($select=msnfp_engagementopportunitytitle,msnfp_location)",
             ParameterKeys.filter : "(msnfp_schedulestatus eq 335940001 and _sjavms_volunteer_value eq \(contactId)) and (sjavms_VolunteerEvent/msnfp_engagementopportunitystatus eq 844060004)",
             ParameterKeys.orderby : "sjavms_start asc,_sjavms_volunteerevent_value asc"
@@ -525,7 +537,7 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         guard let contactId = UserDefaults.standard.contactIdToken  else {return}
         let params : [String:Any] = [
             
-            ParameterKeys.select : "_sjavms_volunteerevent_value,msnfp_schedulestatus,sjavms_start,msnfp_participationscheduleid,sjavms_end,sjavms_checkedin",
+            ParameterKeys.select : "_sjavms_volunteerevent_value,msnfp_schedulestatus,sjavms_start,msnfp_participationscheduleid,sjavms_end,sjavms_checkedin,msnfp_description,msnfp_shortdescription",
             ParameterKeys.expand : "sjavms_VolunteerEvent($select=msnfp_engagementopportunitytitle,msnfp_location)",
             ParameterKeys.filter : "(_sjavms_volunteer_value eq \(contactId) and msnfp_schedulestatus eq 335940000 and (\(propertyValues))) ",
             ParameterKeys.orderby : "sjavms_start asc"
@@ -617,7 +629,7 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
 
             let params : [String:Any] = [
                 
-                ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_endingdate,msnfp_startingdate,msnfp_engagementopportunityid,_sjavms_program_value,msnfp_location,msnfp_maximum,msnfp_minimum,msnfp_multipledays",
+                ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_endingdate,msnfp_startingdate,msnfp_engagementopportunityid,_sjavms_program_value,msnfp_location,msnfp_maximum,msnfp_minimum,msnfp_multipledays,msnfp_shortdescription",
                 ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(propertyValues)])))",
                 
                 ParameterKeys.filter : "(Microsoft.Dynamics.CRM.In(PropertyName='statuscode',PropertyValues=['1','802280000']) and sjavms_adhocevent ne true and msnfp_engagementopportunitystatus eq 844060002 and (Microsoft.Dynamics.CRM.Today(PropertyName='msnfp_endingdate') or Microsoft.Dynamics.CRM.NextXYears(PropertyName='msnfp_endingdate',PropertyValue=10))) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(propertyValues)]))))",
@@ -665,6 +677,11 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
                     }else{
                         self.emptyView.isHidden = false
                         self.availableTable.reloadData()
+                        
+                        if (self.isAvailableAPINeedCall){
+                            self.getAvailableInfo()
+                            self.isAvailableAPINeedCall = false
+                        }
                     }
                 }
                 

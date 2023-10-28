@@ -118,7 +118,7 @@ extension AwardsVC : UITableViewDelegate,UITableViewDataSource {
         cell.lblName.numberOfLines = 0
         if let date = cellModel?.msnfp_awarddate {
             
-            let dateStr = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat:"yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM dd")
+            let dateStr = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat:"yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "MMM dd yyyy")
             cell.lblDate.text = "\(dateStr)"
         }else{
             cell.lblDate.text = "Date Not Found"

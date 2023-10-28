@@ -65,8 +65,8 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         }
         
         self.getEventTabDetail()
-//        self.getEventParitionCheck()
-//        self.reloadControllers()
+        self.getEventParitionCheck()
+        self.reloadControllers()
     }
     
     func decorateUI(){
@@ -193,7 +193,9 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
     
     
     @IBAction func homeTapped(_ sender: Any) {
-        
+        ENTALDControllers.shared.showGroupMessageVC(type: .ENTALDPUSH, from: self) { params, controller in
+            
+        }
     }
     
     @IBAction func closeEventTapped(_ sender: Any) {

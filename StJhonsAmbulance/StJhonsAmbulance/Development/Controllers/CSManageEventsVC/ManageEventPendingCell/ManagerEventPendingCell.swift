@@ -27,6 +27,9 @@ class ManagerEventPendingCell: UITableViewCell {
     @IBOutlet weak var dateImg: UIImageView!
     
     @IBOutlet weak var lblparticipants: UILabel!
+    
+    @IBOutlet weak var statusImg: UIImageView!
+    @IBOutlet weak var lblStatus: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         decorateUI()
@@ -55,12 +58,14 @@ class ManagerEventPendingCell: UITableViewCell {
         lblLocation.textColor = UIColor.themeBlackText
         lblDateTime.textColor = UIColor.themeBlackText
         lblparticipants.textColor = UIColor.themeBlackText
+        lblStatus.textColor = UIColor.textLightGrayColor
     
         lblDateTime.font =  UIFont.BoldFont(13)
         lblparticipants.font =  UIFont.BoldFont(13)
         lblTitle.font =  UIFont.BoldFont(18)
         lblProgram.font =  UIFont.BoldFont(13)
         lblLocation.font =  UIFont.BoldFont(13)
+        lblStatus.font =  UIFont.BoldFont(12)
         
         userImg.image = userImg.image?.withRenderingMode(.alwaysTemplate)
         userImg.tintColor = UIColor.themePrimaryColor
