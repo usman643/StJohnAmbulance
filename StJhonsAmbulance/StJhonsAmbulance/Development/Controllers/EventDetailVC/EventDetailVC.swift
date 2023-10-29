@@ -389,7 +389,7 @@ class EventDetailVC: ENTALDBaseViewController , UITableViewDelegate, UITableView
             }
             
             self.lblDetail.text = self.dashbaordEvent?.msnfp_description ?? "Detail"
-            self.lblDetailDesc.text = "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890901234567890123456789012345678901234"// self.dashbaordEvent?.msnfp_shortdescription ?? "..."
+            self.lblDetailDesc.text = self.dashbaordEvent?.msnfp_shortdescription ?? "..."
         }
         if (self.eventId == ""){
 //            self.checkInbtnView.isHidden = true
@@ -499,6 +499,10 @@ class EventDetailVC: ENTALDBaseViewController , UITableViewDelegate, UITableView
     }
     
     
+    @IBAction func messageTapped(_ sender: Any) {
+        
+        ENTALDControllers.shared.showGroupMessageVC(type: .ENTALDPUSH, from: self, callBack: nil)
+    }
     
     
     @IBAction func cancelTapped(_ sender: Any) {

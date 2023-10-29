@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -30,7 +30,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vZg-Z7-xjM">
-                                <rect key="frame" x="8" y="8" width="34" height="44"/>
+                                <rect key="frame" x="8" y="8" width="277.33333333333331" height="44"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -126,7 +126,7 @@
                                     </view>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A6n-Sg-b0Q">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A6n-Sg-b0Q">
                                 <rect key="frame" x="289.33333333333331" y="8" width="45.666666666666686" height="44"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -156,6 +156,7 @@
                             <constraint firstAttribute="trailing" secondItem="f2T-Qw-iqp" secondAttribute="trailing" constant="8" id="PJa-Cu-YcZ"/>
                             <constraint firstAttribute="trailing" secondItem="bsh-lM-kMK" secondAttribute="trailing" id="T6H-D3-dNH"/>
                             <constraint firstAttribute="bottom" secondItem="UDV-F1-H9O" secondAttribute="bottom" constant="12" id="TCK-Aw-ly0"/>
+                            <constraint firstItem="A6n-Sg-b0Q" firstAttribute="leading" secondItem="vZg-Z7-xjM" secondAttribute="trailing" constant="4" id="WXt-3O-fSA"/>
                             <constraint firstItem="A6n-Sg-b0Q" firstAttribute="top" secondItem="vZg-Z7-xjM" secondAttribute="top" id="Wyg-9j-mKy"/>
                             <constraint firstItem="bsh-lM-kMK" firstAttribute="top" secondItem="vZg-Z7-xjM" secondAttribute="bottom" constant="4" id="Zne-Of-xoR"/>
                             <constraint firstItem="oc6-23-ZNh" firstAttribute="top" secondItem="bsh-lM-kMK" secondAttribute="bottom" constant="16" id="aaV-FH-PYP"/>

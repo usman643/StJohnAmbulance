@@ -169,7 +169,9 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                         "msnfp_schedulestatus": data as! Int
                     ]
                     
-                    self.updateStatusData(eventId: selectedEvents?[i].msnfp_participationscheduleid ?? "", params: apiParams as [String : Any])
+                    self.updateStatusData(eventId: selectedEvents?[i].msnfp_participationscheduleid ?? "", params: apiParams as [String : Any]){ model in
+                        
+                    }
                 }
             }
             self.getPendingShift()
@@ -181,49 +183,78 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         
         let selectedEvents = self.filterPendingShiftData?.filter( {$0.event_selected == true})
         
+        let dispatchQueue = DispatchQueue(label: "myQueu", qos: .background)
+        //Create a semaphore
+        let semaphore = DispatchSemaphore(value: 0)
         
-        for i in (0..<(selectedEvents?.count ?? 0 )){
-            let apiParams = [
-                "msnfp_schedulestatus": 335940001
-            ]
+        dispatchQueue.async {
             
-            self.updateStatusData(eventId: selectedEvents?[i].msnfp_participationscheduleid ?? "", params: apiParams as [String : Any])
-            
+            for i in (0..<(selectedEvents?.count ?? 0 )){
+                let apiParams = [
+                    "msnfp_schedulestatus": 335940001
+                ]
+                
+                self.updateStatusData(eventId: selectedEvents?[i].msnfp_participationscheduleid ?? "", params: apiParams as [String : Any]){ model in
+                    semaphore.signal()
+                }
+                semaphore.wait()
+            }
+            self.getPendingShift()
         }
+       
         //        self.getPendingShift()
         
     }
     
     @IBAction func pendingShiftTapped(_ sender: Any) {
         let selectedEvents = self.filterPendingShiftData?.filter( {$0.event_selected == true})
+        let dispatchQueue = DispatchQueue(label: "myQueu", qos: .background)
+        //Create a semaphore
+        let semaphore = DispatchSemaphore(value: 0)
         
-        for i in (0..<(selectedEvents?.count ?? 0 )){
+        dispatchQueue.async {
             
-            
-            let apiParams = [
-                "msnfp_schedulestatus": 335940000
-            ]
-            
-            self.updateStatusData(eventId: selectedEvents?[i].msnfp_participationscheduleid ?? "", params: apiParams as [String : Any])
-            
+            for i in (0..<(selectedEvents?.count ?? 0 )){
+                
+                
+                let apiParams = [
+                    "msnfp_schedulestatus": 335940000
+                ]
+                
+                self.updateStatusData(eventId: selectedEvents?[i].msnfp_participationscheduleid ?? "", params: apiParams as [String : Any]) { model in
+                    semaphore.signal()
+                }
+                semaphore.wait()
+                
+            }
+            self.getPendingShift()
         }
+        
         //        self.getPendingShift()
     }
     
     @IBAction func cancelShiftTapped(_ sender: Any) {
         let selectedEvents = self.filterPendingShiftData?.filter( {$0.event_selected == true})
+        let dispatchQueue = DispatchQueue(label: "myQueu", qos: .background)
+        //Create a semaphore
+        let semaphore = DispatchSemaphore(value: 0)
         
-        for i in (0..<(selectedEvents?.count ?? 0 )){
+        dispatchQueue.async {
             
-            
-            let apiParams = [
-                "msnfp_schedulestatus": 335940003
-            ]
-            
-            self.updateStatusData(eventId: selectedEvents?[i].msnfp_participationscheduleid ?? "", params: apiParams as [String : Any])
-            
+            for i in (0..<(selectedEvents?.count ?? 0 )){
+                let apiParams = [
+                    "msnfp_schedulestatus": 335940003
+                ]
+                
+                self.updateStatusData(eventId: selectedEvents?[i].msnfp_participationscheduleid ?? "", params: apiParams as [String : Any]){ model in
+                    semaphore.signal()
+                }
+                semaphore.wait()
+                
+            }
         }
-        //        self.getPendingShift()
+        self.getPendingShift()
+        //
         
     }
     
@@ -260,7 +291,9 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                 let apiParams = [
                     "msnfp_schedulestatus": data as! Int
                 ]
-                self.updateStatusData(eventId: eventId , params: apiParams )
+                self.updateStatusData(eventId: eventId , params: apiParams) { model in
+                    
+                }
             }
             self.getPendingShift()
         }
@@ -321,7 +354,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     // ======================== API ====================== //
     
     
-    fileprivate func updateStatusData(eventId: String, params : [String:Any]){
+    fileprivate func updateStatusData(eventId: String, params : [String:Any], completion:@escaping((_ model : Bool?) -> Void )){
         DispatchQueue.main.async {
             LoadingView.show()
         }
@@ -332,15 +365,20 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
             }
             switch result{
             case .success(value: _):
+                ENTALDAlertView.shared.showContactAlertWithTitle(title: "Somthing Went Wrong", message: "", actionTitle: .KOK, completion: { status in })
+                
+                completion(false)
                 break
             case .error(let error, let errorResponse):
                 if error == .patchSuccess {
-                    self.getPendingShift()
+//                    self.getPendingShift()
+                    completion(true)
                     //                ENTALDAlertView.shared.showContactAlertWithTitle(title: "Profile Updated Successfully", message: "", actionTitle: .KOK, completion: { status in })
                 }else{
                     var message = error.message
                     if let err = errorResponse {
                         message = err.error
+                        completion(false)
                     }
 //                    DispatchQueue.main.async {
 //                        ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })

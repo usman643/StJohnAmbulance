@@ -267,7 +267,6 @@ class DashboardVC: ENTALDBaseViewController{
 
         var propertyValues = ""
         
-        
         let chunkSize = 3 // Set the desired chunk size
 
         for startIndex in stride(from: 0, to: ProcessUtils.shared.allGroupsList.count, by: chunkSize) {
@@ -323,6 +322,24 @@ class DashboardVC: ENTALDBaseViewController{
                         self.filterAvailableData?.append(contentsOf: availableEvent)
 //                        self.availableData = availableEvent
 //                        self.filterAvailableData = availableEvent
+                        
+                        if var unwrappedData = self.availableData {
+                            var uniqueArray: [AvailableEventModel] = []
+                            
+                            // A set to keep track of seen IDs
+                            var seenIDs = Set<String>()
+                            
+                            for item in unwrappedData {
+                                if !seenIDs.contains(item.msnfp_engagementopportunityid ?? "") {
+                                    uniqueArray.append(item)
+                                    seenIDs.insert(item.msnfp_engagementopportunityid ?? "")
+                                }
+                            }
+                            self.availableData  = uniqueArray
+                        }
+                        
+//                        self.availableData = Array(uniqueSet)
+                        
                         self.availableData = self.availableData?.sorted {
                             $0.msnfp_startingdate ?? "" < $1.msnfp_startingdate ?? ""
                         }

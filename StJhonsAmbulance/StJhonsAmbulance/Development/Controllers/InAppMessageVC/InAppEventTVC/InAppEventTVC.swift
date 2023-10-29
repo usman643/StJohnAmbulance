@@ -17,7 +17,7 @@ class InAppEventTVC: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         lblTitle.font = UIFont.BoldFont(14)
-        lblTitle.textColor = UIColor.themePrimaryWhite
+        lblTitle.textColor = UIColor.textBlackColor
         
         lblMessage.font = UIFont.RegularFont(12)
         lblMessage.textColor = UIColor.textGrayColor
