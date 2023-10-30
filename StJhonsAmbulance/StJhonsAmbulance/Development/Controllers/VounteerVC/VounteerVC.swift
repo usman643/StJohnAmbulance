@@ -333,7 +333,7 @@ extension VounteerVC: UITableViewDelegate,UITableViewDataSource {
         let tag = sender.tag
         let rowModel = filteredData?[tag]
         
-        ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: rowModel?.msnfp_groupmembershipid ?? "", callBack: nil)
+        ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: rowModel?.msnfp_groupmembershipid ?? "", dataObj: nil , eventType : "" , callBack: nil)
       
     }
     @objc private func didTapDetail(_ sender: CoreSegment) {

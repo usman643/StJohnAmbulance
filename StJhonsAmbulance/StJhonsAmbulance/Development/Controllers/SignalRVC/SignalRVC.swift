@@ -14,8 +14,12 @@ class SignalRVC: ENTALDBaseViewController, UITableViewDelegate, UITableViewDataS
 
     var isConnected = false
     var eventId : String?
+    var eventType : String?
 //    var socket : WebSocket!
     let conId = UserDefaults.standard.contactIdToken ?? ""
+    var scheduleData : ScheduleModelThree?
+
+    var volunteerData : InAppVolunteerDataModel?
     
     @IBOutlet weak var txtMessage: UITextField!
     
@@ -23,6 +27,10 @@ class SignalRVC: ENTALDBaseViewController, UITableViewDelegate, UITableViewDataS
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblStatus: UILabel!
     @IBOutlet weak var btnSend: UIButton!
+    
+    @IBOutlet weak var profileImg: UIImageView!
+    @IBOutlet weak var sendMsgView: UIView!
+    
     // Update the Url accordingly
 //    private let serverUrl = "https://4c6f-39-41-237-112.ngrok-free.app/chathub"  // /chat or /chatLongPolling or /chatWebSockets
     private let serverUrl = "https://sjasignalr.azurewebsites.net/chathub"
@@ -52,6 +60,20 @@ class SignalRVC: ENTALDBaseViewController, UITableViewDelegate, UITableViewDataS
         lblStatus.textColor = UIColor.textLightGrayColor
         lblStatus.textColor = UIColor.headerGreen
         lblStatus.text = "Online"
+        sendMsgView.addHeaderShadow()
+        if (eventType == "volunteer"){
+            if let data = self.dataModel as? InAppVolunteerDataModel {
+                self.volunteerData = data
+                self.lblName.text = self.volunteerData?.fullname ?? ""
+                self.lblName.text = self.volunteerData?.fullname ?? ""
+                self.profileImg.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: self.volunteerData?.entityimage ?? "") ?? UIImage(named: "ic_profile")
+            }
+        }else if (eventType == "event"){
+            if let data = self.dataModel as? ScheduleModelThree {
+                self.scheduleData = data
+                self.lblName.text = self.scheduleData?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
+            }
+        }
         
     }
     
@@ -162,9 +184,9 @@ override func didReceiveMemoryWarning() {
                     message = err.error
                 }
                 
-                DispatchQueue.main.async {
-                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
-                }
+//                DispatchQueue.main.async {
+//                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+//                }
             }
         }
 }
@@ -175,7 +197,7 @@ override func didReceiveMemoryWarning() {
        
         let params : [String:Any] = [
             
-            ParameterKeys.select : "activityid,subject",
+//            ParameterKeys.select : "activityid,subject",
             ParameterKeys.expand : "sjavms_inappmessage_activity_parties($filter=(participationtypemask eq 1 and _partyid_value eq \(self.conId ))),sjavms_inappmessage_activity_parties($filter=(participationtypemask eq 2 and _partyid_value eq \(self.eventId ?? "")))",
             ParameterKeys.filter : "(sjavms_inappmessage_activity_parties/any(o1:(o1/participationtypemask eq 1 and o1/_partyid_value eq \(self.conId )))) and (sjavms_inappmessage_activity_parties/any(o2:(o2/participationtypemask eq 2 and o2/_partyid_value eq \(self.eventId ?? ""))))",
             ParameterKeys.orderby : "sjavms_senton desc"

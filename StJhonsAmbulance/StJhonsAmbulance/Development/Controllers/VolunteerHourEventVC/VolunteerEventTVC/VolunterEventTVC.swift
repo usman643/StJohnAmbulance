@@ -66,11 +66,12 @@ class VolunterEventTVC: UITableViewCell {
         lblTitle.text = "\(cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "")"
         lblTotalHours.text = "\(cellModel?.sjavms_hours?.getFormattedNumber() ?? "") Hours"
         
-
         if (lblStatus.text == "Pending"){
             statusImage.image = UIImage(named: "hourglass Pending Yellow")
         }else if (lblStatus.text == "Cancelled"){
             statusImage.image = UIImage(named: "Cancelled Status")
+        }else if (lblStatus.text == "No Show"){
+            statusImage.image = UIImage(named: "eyeClose")
         }else if (lblStatus.text == "Approved"){
             statusImage.image = UIImage(named: "check-double Green")
         }else{

@@ -210,7 +210,7 @@ class VolunteerMessageVC: ENTALDBaseViewController {
         }
         
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-                ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: filterVolunteerData?[indexPath.row].contactid ?? "", callBack: nil)
+                ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: filterVolunteerData?[indexPath.row].contactid ?? "", dataObj: filterVolunteerData?[indexPath.row] , eventType : "volunteer" , callBack: nil)
         }
         
     }

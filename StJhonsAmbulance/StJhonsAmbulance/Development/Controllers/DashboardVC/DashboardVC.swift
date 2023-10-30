@@ -363,9 +363,10 @@ class DashboardVC: ENTALDBaseViewController{
                         
                     }else{
                         
-                        
-                        self.emptyView.isHidden = false
-                        
+                        if (self.isfirstChuck){
+                            self.emptyView.isHidden = false
+                            self.isfirstChuck = false
+                        }
                         self.tableView.reloadData()
                         if (self.isAvailableAPINeedCall && self.filterAvailableData?.count ?? 0 < 1){
                             self.getAvailableInfo()

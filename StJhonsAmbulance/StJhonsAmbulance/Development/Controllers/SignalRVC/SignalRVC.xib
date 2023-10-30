@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -16,6 +16,8 @@
                 <outlet property="headerView" destination="iVS-Yj-co7" id="slY-xx-5bl"/>
                 <outlet property="lblName" destination="q8Q-LC-9gQ" id="hhg-NH-Ewy"/>
                 <outlet property="lblStatus" destination="Tod-RG-UIB" id="hoC-yj-oAR"/>
+                <outlet property="profileImg" destination="bU3-VI-tx7" id="YGk-TP-nYs"/>
+                <outlet property="sendMsgView" destination="x5I-jC-bDj" id="HEs-yC-35U"/>
                 <outlet property="tableView" destination="EOj-Z6-oQn" id="Xg0-1z-gNZ"/>
                 <outlet property="txtMessage" destination="xu9-CN-t6R" id="Cvo-eP-w9q"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -27,7 +29,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="EOj-Z6-oQn">
-                    <rect key="frame" x="0.0" y="127" width="393" height="617"/>
+                    <rect key="frame" x="0.0" y="127" width="393" height="601"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iVS-Yj-co7">
@@ -96,23 +98,23 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x5I-jC-bDj">
-                    <rect key="frame" x="0.0" y="744" width="393" height="50"/>
+                    <rect key="frame" x="0.0" y="728" width="393" height="66"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Edk-kE-Yj8">
-                            <rect key="frame" x="317" y="0.0" width="60" height="50"/>
+                            <rect key="frame" x="345" y="19" width="32" height="28"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="60" id="6WK-PE-T8i"/>
-                                <constraint firstAttribute="height" constant="50" id="ktH-nM-3g3"/>
+                                <constraint firstAttribute="width" constant="32" id="6WK-PE-T8i"/>
+                                <constraint firstAttribute="height" constant="28" id="ktH-nM-3g3"/>
                             </constraints>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" image="icSend"/>
+                            <state key="normal" image="icon_send"/>
                             <connections>
                                 <action selector="btnSend:" destination="-1" eventType="touchUpInside" id="VOl-li-1Tn"/>
                             </connections>
                         </button>
                         <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type Something" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xu9-CN-t6R">
-                            <rect key="frame" x="40" y="0.0" width="269" height="50"/>
+                            <rect key="frame" x="40" y="16" width="297" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="vUM-aa-nh7"/>
                             </constraints>
@@ -134,7 +136,7 @@
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstItem="Edk-kE-Yj8" firstAttribute="centerY" secondItem="x5I-jC-bDj" secondAttribute="centerY" id="8fx-fO-i5c"/>
-                        <constraint firstItem="xu9-CN-t6R" firstAttribute="top" secondItem="x5I-jC-bDj" secondAttribute="top" id="8hV-Wf-czg"/>
+                        <constraint firstItem="xu9-CN-t6R" firstAttribute="top" secondItem="x5I-jC-bDj" secondAttribute="top" constant="16" id="8hV-Wf-czg"/>
                         <constraint firstItem="Edk-kE-Yj8" firstAttribute="leading" secondItem="xu9-CN-t6R" secondAttribute="trailing" constant="8" id="QCd-hG-voz"/>
                         <constraint firstAttribute="bottom" secondItem="xu9-CN-t6R" secondAttribute="bottom" id="eYw-qZ-oZU"/>
                         <constraint firstItem="xu9-CN-t6R" firstAttribute="leading" secondItem="x5I-jC-bDj" secondAttribute="leading" constant="40" id="eyT-wN-etq"/>
@@ -163,8 +165,8 @@
     </objects>
     <resources>
         <image name="chevron.left" catalog="system" width="97" height="128"/>
-        <image name="icSend" width="50" height="50"/>
         <image name="ic_profile" width="24" height="24"/>
+        <image name="icon_send" width="46" height="42"/>
         <image name="logo_icon" width="102" height="97"/>
         <namedColor name="headerGreen">
             <color red="0.093999996781349182" green="0.34099999070167542" blue="0.22699999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

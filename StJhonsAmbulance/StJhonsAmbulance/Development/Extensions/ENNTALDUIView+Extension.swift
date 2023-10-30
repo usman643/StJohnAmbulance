@@ -167,6 +167,18 @@ extension UIView {
                                                      y: bounds.maxY - layer.shadowRadius,
                                                      width: bounds.width,
                                                      height: layer.shadowRadius)).cgPath
+    } 
+    
+    func addHeaderShadow() {
+        layer.masksToBounds = false
+        layer.shadowRadius = 4
+        layer.shadowOpacity = 1
+        layer.shadowColor = UIColor.gray.cgColor
+        layer.shadowOffset = CGSize(width: 0 , height: 2)
+        layer.shadowPath = UIBezierPath(rect: CGRect(x: 0,
+                                                     y: bounds.minY - layer.shadowRadius,
+                                                     width: bounds.width,
+                                                     height: layer.shadowRadius)).cgPath
     }
     
     

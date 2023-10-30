@@ -450,22 +450,21 @@ extension InAppMsgVC : UITableViewDelegate,UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "InAppEventTVC", for: indexPath) as! InAppEventTVC
         if (tableView == volunteerTableView){
             cell.lblTitle.text = filterVolunteerData?[indexPath.row].fullname ?? ""
-                cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+            cell.userImg.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: filterVolunteerData?[indexPath.row].entityimage ?? "") ?? UIImage(named: "ic_communication")
+//                cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
         }else{
             cell.lblTitle.text = filterScheduleData?[indexPath.row].sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
-                cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+//                cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
         }
-            
-       
-
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (tableView == volunteerTableView){
-            ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: filterVolunteerData?[indexPath.row].contactid ?? "", callBack: nil)
+            ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: filterVolunteerData?[indexPath.row].contactid ?? "", dataObj: filterVolunteerData?[indexPath.row] , eventType : "volunteer" ,callBack: nil)
         }else{
-            ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: filterScheduleData?[indexPath.row].sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? "", callBack: nil)
+            ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: filterScheduleData?[indexPath.row].sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? "", dataObj:filterScheduleData?[indexPath.row] , eventType : "event",  callBack: nil)
         }
         
         

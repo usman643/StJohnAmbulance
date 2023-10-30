@@ -184,7 +184,7 @@ class VolunteerDetailVC: ENTALDBaseViewController {
     
     @IBAction func messageTapped(_ sender: Any) {
         
-        ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: volunteerContactId ?? "", callBack: nil)
+        ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: volunteerContactId ?? "", dataObj: nil , eventType : "" , callBack: nil)
         
     }
     

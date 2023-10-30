@@ -1136,7 +1136,7 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
             cell.lblTitle.text = "Checked In"
         }else{
             cell.btnCheckIn.isOn = false
-            cell.lblTitle.text = "Checked In"
+            cell.lblTitle.text = "Check In"
         }
        
         

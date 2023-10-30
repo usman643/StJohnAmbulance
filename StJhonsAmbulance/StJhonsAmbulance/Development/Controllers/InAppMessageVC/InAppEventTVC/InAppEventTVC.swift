@@ -14,9 +14,10 @@ class InAppEventTVC: UITableViewCell {
     @IBOutlet weak var lblMessage: UILabel!
     @IBOutlet weak var lblTime: UILabel!
     
+    @IBOutlet weak var userImg: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        lblTitle.font = UIFont.BoldFont(14)
+        lblTitle.font = UIFont.HeaderBoldFont(16)
         lblTitle.textColor = UIColor.textBlackColor
         
         lblMessage.font = UIFont.RegularFont(12)

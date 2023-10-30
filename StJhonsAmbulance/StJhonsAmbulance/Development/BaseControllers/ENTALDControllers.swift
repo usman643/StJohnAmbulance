@@ -471,11 +471,12 @@ class ENTALDControllers {
         self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
     }
     
-    func showSignalRVC(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, eventId:String, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
+    func showSignalRVC(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, eventId:String, dataObj:Any? = nil, eventType: String? , callBack:ControllerCallBackCompletion?) {
         let vc = SignalRVC.loadFromNib()
         vc.dataModel = dataObj
         vc.callbackToController = callBack
         vc.eventId = eventId
+        vc.eventType = eventType
         self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
     }
       

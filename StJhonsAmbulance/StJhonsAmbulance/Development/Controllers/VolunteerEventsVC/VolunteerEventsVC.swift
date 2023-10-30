@@ -54,6 +54,7 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     var isPastLoadMoreShow = true
     
     var isAvailableAPINeedCall = true;
+    var isfirstChuck = true
     
     @IBOutlet weak var pastLoadMoreView: UIView!
     @IBOutlet weak var btnPastLoadMore: UIButton!    
@@ -178,17 +179,21 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     }
     
     func openScheduleEventDetailScreen(rowModel: ScheduleModelThree?) {
-        ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: rowModel, eventType : "schedule" )  { params, controller in
-            self.getScheduleInfo()
-           
-        }
+//        ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: rowModel, eventType : "schedule" )  { params, controller in
+//            self.getScheduleInfo()
+//           
+//        }
+        ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: rowModel, eventName: "scheduleEvent", callBack: nil)
     }
     
     func openAvailableEventDetailScreen(rowModel: AvailableEventModel?) {
-        ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: rowModel, eventType : "available" )  { params, controller in
-           
-            self.getAvailableInfo()
-        }
+        
+        
+        ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: rowModel, eventName: "dashboardEvent", callBack: nil)
+//        ENTALDControllers.shared.showVolunteerEventDetailScreen(type: .ENTALDPUSH, from: self, dataObj: rowModel, eventType : "available" )  { params, controller in
+//           
+//            self.getAvailableInfo()
+//        }
     }
     
     @IBAction func searchCloseTapped(_ sender: Any) {
@@ -606,11 +611,14 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
 
         var propertyValues = ""
         
-        let chunkSize = 7 // Set the desired chunk size
+        let chunkSize = 3 // Set the desired chunk size
 
         for startIndex in stride(from: 0, to: ProcessUtils.shared.allGroupsList.count, by: chunkSize) {
             propertyValues = ""
+            self.isfirstChuck = false
             let endIndex = min(startIndex + chunkSize, ProcessUtils.shared.allGroupsList.count)
+            
+            
             let chunk = Array(ProcessUtils.shared.allGroupsList[startIndex..<endIndex])
             
             for i in (0 ..< (chunk.count )){
@@ -626,7 +634,6 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
                     propertyValues += str
                 }
             }
-
             let params : [String:Any] = [
                 
                 ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_endingdate,msnfp_startingdate,msnfp_engagementopportunityid,_sjavms_program_value,msnfp_location,msnfp_maximum,msnfp_minimum,msnfp_multipledays,msnfp_shortdescription",
@@ -658,6 +665,20 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
                         self.filterAvailableData?.append(contentsOf: availableEvent)
 //                        self.availableData = availableEvent
 //                        self.filterAvailableData = availableEvent
+                        if var unwrappedData = self.availableData {
+                            var uniqueArray: [AvailableEventModel] = []
+                            
+                            // A set to keep track of seen IDs
+                            var seenIDs = Set<String>()
+                            
+                            for item in unwrappedData {
+                                if !seenIDs.contains(item.msnfp_engagementopportunityid ?? "") {
+                                    uniqueArray.append(item)
+                                    seenIDs.insert(item.msnfp_engagementopportunityid ?? "")
+                                }
+                            }
+                            self.availableData  = uniqueArray
+                        }
                         self.availableData = self.availableData?.sorted {
                             $0.msnfp_startingdate ?? "" < $1.msnfp_startingdate ?? ""
                         }
@@ -675,9 +696,12 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
                         self.availableTable.reloadData()
                         
                     }else{
-                        self.emptyView.isHidden = false
-                        self.availableTable.reloadData()
+                        if (self.isfirstChuck){
+                            self.emptyView.isHidden = false
+                            self.isfirstChuck = false
+                        }
                         
+                        self.availableTable.reloadData()
                         if (self.isAvailableAPINeedCall){
                             self.getAvailableInfo()
                             self.isAvailableAPINeedCall = false
@@ -749,7 +773,7 @@ extension VolunteerEventsVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (tableView == availableTable){
             
-            ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.filterAvailableData?[indexPath.row], eventName: "availableEvent", callBack: nil)
+            ENTALDControllers.shared.showEventDetailScreen(type: .ENTALDPUSH, from: self, data: self.filterAvailableData?[indexPath.row], eventName: "dashboardEvent", callBack: nil)
 
         }else if (tableView == scheduleTable){
             

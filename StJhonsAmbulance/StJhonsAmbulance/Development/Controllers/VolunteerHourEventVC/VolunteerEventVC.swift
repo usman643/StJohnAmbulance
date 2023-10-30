@@ -175,6 +175,7 @@ class VolunteerEventVC: ENTALDBaseViewController {
 //        btnEvent.titleLabel?.textColor = UIColor.textBlackColor
 //        btnNonEvent.titleLabel?.textColor = UIColor.textLightGrayColor
         DispatchQueue.main.async {
+            self.textSearch.text = ""
             self.tableView.reloadData()
         }
     }
@@ -188,7 +189,9 @@ class VolunteerEventVC: ENTALDBaseViewController {
         btnEvent.setTitleColor(UIColor.themeColorSecondry, for: .normal)
         btnNonEvent.setTitleColor(UIColor.textLightGrayColor, for: .normal)
         DispatchQueue.main.async {
+            self.textSearch.text = ""
             self.tableView.reloadData()
+            
 //            let indexPath = IndexPath(row: 0, section: 0)
 //            if let _ = self.tableView.cellForRow(at: indexPath) {
 //                self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
