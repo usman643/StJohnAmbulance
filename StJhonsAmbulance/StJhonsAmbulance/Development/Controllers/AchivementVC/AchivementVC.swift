@@ -63,12 +63,9 @@ class AchivementVC: ENTALDBaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false // or true
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
     
     func decorateUI(){
         

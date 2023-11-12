@@ -80,6 +80,13 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         self.getEventParitionCheck()
         self.reloadControllers()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false // or true
+        
+    }
+ 
     
     func decorateUI(){
         headerView.addBottomShadow()

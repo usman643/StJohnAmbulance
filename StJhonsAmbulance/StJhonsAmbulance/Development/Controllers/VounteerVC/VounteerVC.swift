@@ -46,7 +46,7 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
-//        btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
+        //        btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
         lblSelectedGroup.text = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName()
     }
     
@@ -165,7 +165,7 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
-        if scrollView.contentOffset.y > tableView.frame.size.height {
+        if scrollView.contentOffset.y > 120{
             searchMainView.isHidden = false
         }
     }

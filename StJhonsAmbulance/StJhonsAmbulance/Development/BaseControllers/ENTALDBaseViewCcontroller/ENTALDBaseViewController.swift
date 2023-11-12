@@ -23,15 +23,16 @@ class ENTALDBaseViewController: UIViewController, MenuControllerDelegate {
     var dataModel: Any?
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
+        
         let currentTraitCollection = UITraitCollection.current
-        if (UserDefaults.standard.isSystemPrefernceTheme == true){
+        if (UserDefaults.standard.isSystemPrefernceTheme == false){
+            return UserDefaults.standard.isDarkMode ? .lightContent : .darkContent
+        }else{
             if currentTraitCollection.userInterfaceStyle == .light {
                 return .darkContent
             } else if currentTraitCollection.userInterfaceStyle == .dark {
                 return .lightContent
             }
-        }else{
-            return UserDefaults.standard.isDarkMode ? .lightContent : .darkContent
         }
         return .lightContent
     }
@@ -160,22 +161,20 @@ func setSystemAppearanceMode() {
         UINavigationBar.appearance().overrideUserInterfaceStyle = .dark
 
     }
-    
-    self.setNeedsStatusBarAppearanceUpdate()
 
-//    let windows = UIApplication.shared.windows
-//    for window in windows {
-//        if NSStringFromClass(window.classForCoder) == "UITextEffectsWindow" {
-//                NSLog("===== Ignore UITextEffectsWindow")
-//
-//                return
-//            }
-//        for view in window.subviews {
-//            view.removeFromSuperview()
-//            window.addSubview(view)
-//        }
-//    }
-    
+    let windows = UIApplication.shared.windows
+    for window in windows {
+        if NSStringFromClass(window.classForCoder) == "UITextEffectsWindow" {
+                NSLog("===== Ignore UITextEffectsWindow")
+
+                return
+            }
+        for view in window.subviews {
+            view.removeFromSuperview()
+            window.addSubview(view)
+        }
+    }
+    self.setNeedsStatusBarAppearanceUpdate()
 }
     
     private func registerReloadDataNotifications(){

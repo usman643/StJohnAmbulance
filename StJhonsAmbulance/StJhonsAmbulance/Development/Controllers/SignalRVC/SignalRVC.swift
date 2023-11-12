@@ -96,6 +96,11 @@ class SignalRVC: ENTALDBaseViewController, UITableViewDelegate, UITableViewDataS
 //        }
 
  
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false // or true
+    }
 override func viewDidAppear(_ animated: Bool) {
     getchatMessage()
         self.name = "\(UserDefaults.standard.contactIdToken ?? "")"

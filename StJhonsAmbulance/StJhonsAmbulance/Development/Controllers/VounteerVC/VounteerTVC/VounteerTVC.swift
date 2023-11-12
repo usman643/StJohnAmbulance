@@ -30,9 +30,9 @@ class VounteerTVC: UITableViewCell {
     func decorateUI(){
         roleImge.image = roleImge.image?.withRenderingMode(.alwaysTemplate)
         roleImge.tintColor = UIColor.themePrimaryColor
-        lblName.font = UIFont.BoldFont(16)
-        lblRole.font = UIFont.BoldFont(12)
-        lblAddress.font = UIFont.BoldFont(12)
+        lblName.font = UIFont.HeaderBoldFont(16)
+        lblRole.font = UIFont.SemiBoldFont(12)
+        lblAddress.font = UIFont.SemiBoldFont(12)
 
         lblName.textColor = UIColor.themePrimaryWhite
         lblRole.textColor = UIColor.themeBlackText

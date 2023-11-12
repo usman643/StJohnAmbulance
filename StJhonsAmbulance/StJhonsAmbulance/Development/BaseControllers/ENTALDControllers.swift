@@ -209,7 +209,7 @@ class ENTALDControllers {
     }
     
     func showVolunteerHourScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
-        let vc = VolunteerEventVC.loadFromNib()
+        let vc = VolunteerEventHoursVC.loadFromNib()
         vc.callbackToController = callBack
         
         self.showViewController(navRoot: isNavigationController, type: .ENTALDPUSH, destination: vc, from: from)

@@ -13,6 +13,8 @@ class CalenderHourVC: ENTALDBaseViewController, KVKCalendarSettings, KVKCalendar
     @IBOutlet weak var btnViewAllEvent: UIButton!
     @IBOutlet weak var containerView: UIView!
     
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var headerView: UIView!
     var scheduleData : [ScheduleModelThree] = []
     var formatter = DateFormatter()
     
@@ -65,7 +67,17 @@ class CalenderHourVC: ENTALDBaseViewController, KVKCalendarSettings, KVKCalendar
                 self?.events = events
             }
         }
+        lblTitle.font = UIFont.HeaderBoldFont(18)
+        lblTitle.textColor = UIColor.headerGreen
+        headerView.addBottomShadow()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false // or true
+    }
+
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -104,6 +116,9 @@ class CalenderHourVC: ENTALDBaseViewController, KVKCalendarSettings, KVKCalendar
         }
     }
     
+    @IBAction func messageTapped(_ sender: Any) {
+        ENTALDControllers.shared.showGroupMessageVC(type: .ENTALDPUSH, from: self, callBack: nil)
+    }
     @IBAction func btnToday(_ sender: Any) {
         selectDate = Date()
         calendarView.scrollTo(selectDate, animated: true)

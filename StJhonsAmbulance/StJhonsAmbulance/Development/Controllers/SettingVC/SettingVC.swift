@@ -38,12 +38,8 @@ class SettingVC: ENTALDBaseViewController {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
 
-    func decorateUI(){
+    public func decorateUI(){
         lblTitle.textColor = UIColor.headerGreen
         lblTitle.font = UIFont.HeaderBoldFont(18)
         lblTheme.textColor = UIColor.themePrimaryWhite
@@ -96,6 +92,22 @@ class SettingVC: ENTALDBaseViewController {
         
     }
     
+    public func statusBar(){
+        let currentTraitCollection = UITraitCollection.current
+        if (UserDefaults.standard.isSystemPrefernceTheme){
+            
+            if currentTraitCollection.userInterfaceStyle == .light {
+                // The device is in light mode
+                              
+                UserDefaults.standard.isDarkMode = false
+            } else if currentTraitCollection.userInterfaceStyle == .dark {
+                // The device is in dark mode
+                              
+                UserDefaults.standard.isDarkMode = true
+            }
+            
+        }
+    }
     func setupData(){
         
         lblTitle.text = "Setting".localized
@@ -147,16 +159,16 @@ class SettingVC: ENTALDBaseViewController {
                                   themeSwitch.isOn = true
                     UserDefaults.standard.isDarkMode = true
                 }
+            
+            self.setSystemAppearanceMode()
         }else{
             UserDefaults.standard.isSystemPrefernceTheme = true
             isSystemPreferTheme = true
             btnSystemPreferTheme.setImage(UIImage(named: "Check box selected"), for: .normal)
             themeSwitch.isEnabled = false
             self.setSystemAppearanceMode()
-            self.setNeedsStatusBarAppearanceUpdate()
         }
-        
-        
+        self.setNeedsStatusBarAppearanceUpdate()
     }
     
 }

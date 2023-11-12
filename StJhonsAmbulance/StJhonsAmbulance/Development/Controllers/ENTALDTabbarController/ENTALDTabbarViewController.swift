@@ -101,7 +101,7 @@ class ENTALDTabbarViewController: UITabBarController {
 //        let checkinVC = MapViewController.loadFromNib()
 //        let checkinImg = "tabLocation".templatedImage
         
-        let hourVC = VolunteerEventVC.loadFromNib()
+        let hourVC = VolunteerEventHoursVC.loadFromNib()
         let hourImg = "hourglass-alternate".templatedImage
         
         let scheduleVC = ScheduleVC.loadFromNib()
@@ -127,7 +127,7 @@ class ENTALDTabbarViewController: UITabBarController {
             guard let selectedViewController = viewControllers?[selectedIndex] else {
                 return
             }
-            selectedViewController.tabBarItem.setTitleTextAttributes([.font: UIFont.HeavyFont(9)], for: .normal)
+            selectedViewController.tabBarItem.setTitleTextAttributes([.font: UIFont.HeavyFont(10)], for: .normal)
         }
     }
     

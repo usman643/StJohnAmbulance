@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="126" id="545-oD-MOW" customClass="MessageSenderTVC" customModule="StJhonsAmbulance" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="126" id="545-oD-MOW" customClass="MessageSenderTVC" customModule="StJhonsAmbulance" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="376" height="126"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="545-oD-MOW" id="Bbf-3e-vco">
@@ -44,6 +44,15 @@
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <real key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                                <size key="value" width="0.0" height="0.0"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
@@ -113,6 +122,7 @@
                 <outlet property="lblMessage" destination="Sne-kg-oYA" id="njs-F0-D8f"/>
                 <outlet property="lblTime" destination="Dfv-02-YMi" id="uEg-qB-Kea"/>
                 <outlet property="mainView" destination="HsN-EF-feP" id="SpF-Jf-atA"/>
+                <outlet property="messageView" destination="xhy-Gi-sh7" id="It8-uQ-uxj"/>
                 <outlet property="userImage" destination="zQM-WB-kP8" id="qaw-4O-7Hi"/>
             </connections>
             <point key="canvasLocation" x="181.67938931297709" y="47.887323943661976"/>

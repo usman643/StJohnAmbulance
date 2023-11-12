@@ -874,7 +874,7 @@ extension CSManageEventsVC : UITableViewDelegate, UITableViewDataSource{
             let rowModel = self.filterPastEventData?[indexPath.row]
             
             cell.lblTitle.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
-            cell.lblLocation.text = rowModel?.msnfp_location ?? ""
+            cell.lblLocation.text = rowModel?.msnfp_location ?? "Not found"
             cell.lblDateTime.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d, hh:mm a")
             cell.lblProgram.text = rowModel?.sjavms_program_value ?? ""
             if let participant = rowModel?.sjavms_maxparticipants {
@@ -905,7 +905,7 @@ extension CSManageEventsVC : UITableViewDelegate, UITableViewDataSource{
             let rowModel = self.filterPendingApprovalData?[indexPath.row]
             
             cell.lblTitle.text = rowModel?.sjavms_name ?? ""
-            cell.lblLocation.text = rowModel?.sjavms_address1name ?? ""
+            cell.lblLocation.text = rowModel?.sjavms_address1name ?? "Not found"
 //            cell.lblHour.text = "\(rowModel?.time_difference ?? 0 )"
             cell.lblDateTime.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d, hh:mm a")
 //            cell.lblparticipants.text = "\(rowModel?.sjavms_maxvolunteers ?? 0)"
@@ -948,7 +948,7 @@ extension CSManageEventsVC : UITableViewDelegate, UITableViewDataSource{
             let rowModel = self.filterPendingPublishData?[indexPath.row]
         
             cell.lblTitle.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
-            cell.lblLocation.text = rowModel?.msnfp_location ?? ""
+            cell.lblLocation.text = rowModel?.msnfp_location ?? "Not found"
 //            cell.lblHour.text = "\(rowModel?.time_difference ?? 0 )"
             if let date = rowModel?.msnfp_startingdate{
                 cell.lblDateTime.text = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d, hh:mm a")

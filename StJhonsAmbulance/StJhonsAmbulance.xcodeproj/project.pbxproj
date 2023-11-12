@@ -67,8 +67,8 @@
 		1D3E20F6298BCE4B00A97264 /* PendingEventResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E20F5298BCE4B00A97264 /* PendingEventResponseModel.swift */; };
 		1D3E20FA298BF33000A97264 /* EmptyEventTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E20F8298BF33000A97264 /* EmptyEventTableCell.swift */; };
 		1D3E20FB298BF33000A97264 /* EmptyEventTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D3E20F9298BF33000A97264 /* EmptyEventTableCell.xib */; };
-		1D4483EE2A44BA780077BD95 /* VolunteerEventVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4483EC2A44BA780077BD95 /* VolunteerEventVC.swift */; };
-		1D4483EF2A44BA780077BD95 /* VolunteerEventVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D4483ED2A44BA780077BD95 /* VolunteerEventVC.xib */; };
+		1D4483EE2A44BA780077BD95 /* VolunteerEventHoursVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4483EC2A44BA780077BD95 /* VolunteerEventHoursVC.swift */; };
+		1D4483EF2A44BA780077BD95 /* VolunteerEventHoursVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D4483ED2A44BA780077BD95 /* VolunteerEventHoursVC.xib */; };
 		1D4483FB2A44C3270077BD95 /* VolunterEventTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4483F92A44C3270077BD95 /* VolunterEventTVC.swift */; };
 		1D4483FC2A44C3270077BD95 /* VolunterEventTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D4483FA2A44C3270077BD95 /* VolunterEventTVC.xib */; };
 		1D4DE841297FB4C600246242 /* ForgetVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D4DE83C297FB4C600246242 /* ForgetVC.xib */; };
@@ -506,8 +506,8 @@
 		1D3E20F5298BCE4B00A97264 /* PendingEventResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingEventResponseModel.swift; sourceTree = "<group>"; };
 		1D3E20F8298BF33000A97264 /* EmptyEventTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyEventTableCell.swift; sourceTree = "<group>"; };
 		1D3E20F9298BF33000A97264 /* EmptyEventTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyEventTableCell.xib; sourceTree = "<group>"; };
-		1D4483EC2A44BA780077BD95 /* VolunteerEventVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerEventVC.swift; sourceTree = "<group>"; };
-		1D4483ED2A44BA780077BD95 /* VolunteerEventVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VolunteerEventVC.xib; sourceTree = "<group>"; };
+		1D4483EC2A44BA780077BD95 /* VolunteerEventHoursVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerEventHoursVC.swift; sourceTree = "<group>"; };
+		1D4483ED2A44BA780077BD95 /* VolunteerEventHoursVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VolunteerEventHoursVC.xib; sourceTree = "<group>"; };
 		1D4483F92A44C3270077BD95 /* VolunterEventTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunterEventTVC.swift; sourceTree = "<group>"; };
 		1D4483FA2A44C3270077BD95 /* VolunterEventTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VolunterEventTVC.xib; sourceTree = "<group>"; };
 		1D4DE83C297FB4C600246242 /* ForgetVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgetVC.xib; sourceTree = "<group>"; };
@@ -1193,8 +1193,8 @@
 			children = (
 				1DBB88682B0018840079070B /* VolunteerScheduleEventDetailVC */,
 				1D4483F02A44BA7E0077BD95 /* VolunteerEventTVC */,
-				1D4483EC2A44BA780077BD95 /* VolunteerEventVC.swift */,
-				1D4483ED2A44BA780077BD95 /* VolunteerEventVC.xib */,
+				1D4483EC2A44BA780077BD95 /* VolunteerEventHoursVC.swift */,
+				1D4483ED2A44BA780077BD95 /* VolunteerEventHoursVC.xib */,
 			);
 			path = VolunteerHourEventVC;
 			sourceTree = "<group>";
@@ -2829,7 +2829,7 @@
 				E4B2EF10297C57EB00D05014 /* Quicksand-Light.ttf in Resources */,
 				1D5C1D1529C1D2E500608FF5 /* AchivementVC.xib in Resources */,
 				1DC6F78B2A6A99AF00FAA561 /* VolunteerHourCell.xib in Resources */,
-				1D4483EF2A44BA780077BD95 /* VolunteerEventVC.xib in Resources */,
+				1D4483EF2A44BA780077BD95 /* VolunteerEventHoursVC.xib in Resources */,
 				1DE52A292991B87B0087DC85 /* VolunteerEventTVC.xib in Resources */,
 				1D3BD166299D955D008F4178 /* ChangePasswordVC.xib in Resources */,
 				1D608B3F299C2F0E00A03B00 /* AvailabilityVC.xib in Resources */,
@@ -3083,7 +3083,7 @@
 				E4B2EF04297C4D9C00D05014 /* Router.swift in Sources */,
 				1D64DC9129C1D77E0017608A /* AchivementTVC.swift in Sources */,
 				1DC2710F29CF0E3E00B2D762 /* EventNotesVC.swift in Sources */,
-				1D4483EE2A44BA780077BD95 /* VolunteerEventVC.swift in Sources */,
+				1D4483EE2A44BA780077BD95 /* VolunteerEventHoursVC.swift in Sources */,
 				1DF749D32AC5669700A761EF /* MonthData.swift in Sources */,
 				1D3E20FA298BF33000A97264 /* EmptyEventTableCell.swift in Sources */,
 				359E9C5F282E455F001E3D73 /* CoreCollectionView.swift in Sources */,

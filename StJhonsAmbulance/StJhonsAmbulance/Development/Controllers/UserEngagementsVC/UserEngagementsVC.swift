@@ -31,6 +31,13 @@ class UserEngagementsVC: ENTALDBaseViewController {
         decorateUI()
         getEngagement()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false // or true
+        
+    }
+
 
     func decorateUI(){
         lblTitle.textColor = UIColor.headerGreen

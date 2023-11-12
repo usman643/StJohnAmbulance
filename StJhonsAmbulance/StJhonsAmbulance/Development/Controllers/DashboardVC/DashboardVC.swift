@@ -99,10 +99,7 @@ class DashboardVC: ENTALDBaseViewController{
         
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
+
     
     func decorateUI(){
         lblTitle.font = UIFont.HeaderBoldFont(18)
@@ -158,12 +155,9 @@ class DashboardVC: ENTALDBaseViewController{
     }
     
     @objc func refreshData() {
-        self.isAvailableAPINeedCall = false
         self.isfirstChuck = true
         self.getAvailableInfo()
         self.refreshControl.endRefreshing()
-//        })
-           
         }
     
     @IBAction func eventLoadMoreTapped(_ sender: Any) {
@@ -287,7 +281,7 @@ class DashboardVC: ENTALDBaseViewController{
         var propertyValues = ""
         
         let chunkSize = 3 // Set the desired chunk size
-        let dispatchQueue = DispatchQueue(label: "myQueu", qos: .background)
+        let dispatchQueue = DispatchQueue(label: "myQu", qos: .background)
         //Create a semaphore
         let semaphore = DispatchSemaphore(value: 0)
         
@@ -330,9 +324,11 @@ class DashboardVC: ENTALDBaseViewController{
                     semaphore.signal()
                 }
                 semaphore.wait()
-                DispatchQueue.main.async {
-                    LoadingView.hide()
-                }
+                if startIndex + chunkSize >= ProcessUtils.shared.allGroupsList.count {
+                    DispatchQueue.main.async {
+                        LoadingView.hide()
+                    }
+                   }
             }
             
         }
@@ -353,6 +349,9 @@ class DashboardVC: ENTALDBaseViewController{
             case .success(value: let response):
                 DispatchQueue.main.async {
                     if let availableEvent = response.value {
+                        
+                        
+                        completion(true)
                         self.availableData?.append(contentsOf: availableEvent)
 //                        self.filterAvailableData?.append(contentsOf: availableEvent)
 //                        self.availableData = availableEvent
@@ -406,12 +405,10 @@ class DashboardVC: ENTALDBaseViewController{
                             self.isAvailableAPINeedCall = false
                         }
                         
-                        
+                        completion(true)
                     }
                 }
                
-                
-                completion(true)
             case .error(let error, let errorResponse):
                 completion(false)
                 var message = error.message

@@ -87,10 +87,15 @@ class EventDetailVC: ENTALDBaseViewController , UITableViewDelegate, UITableView
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        LocationManager.defualt.stopLocationUpdates()
         self.navigationController?.navigationBar.isHidden = true
 //        getReportedShifts()
         
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false // or true
+        //        getPendingShiftThree()
     }
+
     
     func registerCell(){
         self.tableView.delegate = self
@@ -411,11 +416,6 @@ class EventDetailVC: ENTALDBaseViewController , UITableViewDelegate, UITableView
         
         
         getVolunteers()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool){
-        super.viewWillDisappear(animated)
-        LocationManager.defualt.stopLocationUpdates()
     }
     
     @IBAction func backTapped(_ sender: Any) {

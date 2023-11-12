@@ -31,6 +31,16 @@ class EventSummaryVC: ENTALDBaseViewController, UIScrollViewDelegate{
         headerView.addBottomShadow()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false // or true
+        //        getPendingShiftThree()
+    }
+    
+
+    
     func segmentsConfigurations(){
         self.addPagerControllerAsChildView()
         pageController.dataSource = self

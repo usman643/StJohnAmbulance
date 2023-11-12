@@ -16,6 +16,7 @@ class MessagesCell: UITableViewCell {
     @IBOutlet weak var lblTime: UILabel!
     @IBOutlet weak var lblMessage: UILabel!
     
+    @IBOutlet weak var messageView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
        decorateUI()
@@ -34,15 +35,10 @@ class MessagesCell: UITableViewCell {
         lblMessage.font = UIFont.BoldFont(12)
         lblMessage.textColor = UIColor.darkGray
         
-        
-//        mainView.layer.borderWidth = 0.5
-//        mainView.layer.borderColor = UIColor.systemGray3.cgColor
-//        mainView.layer.shadowColor = UIColor.systemGray4.cgColor
-//        mainView.layer.shadowOpacity = 0.8
-//        mainView.layer.shadowOffset = .zero
-//        mainView.layer.shadowRadius = 6
-//        
-//        mainView.layer.cornerRadius = 12
+        messageView.layer.shadowColor = UIColor.systemGray2.cgColor
+        messageView.layer.shadowOpacity = 0.4
+        messageView.layer.shadowOffset = .zero
+        messageView.layer.shadowRadius = 8
     }
     
     

@@ -110,8 +110,11 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         getAvailableInfo()
         getScheduleInfo()
         getVolunteerPastEvent()
-        self.setNeedsStatusBarAppearanceUpdate()
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false // or true
     }
+    
+    
 
     func decorateUI(){
         searchMainView.isHidden = true
@@ -614,43 +617,62 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         
         self.availableData = [AvailableEventModel]()
         self.filterAvailableData = [AvailableEventModel]()
-
+        
         var propertyValues = ""
         
         let chunkSize = 3 // Set the desired chunk size
-
-        for startIndex in stride(from: 0, to: ProcessUtils.shared.allGroupsList.count, by: chunkSize) {
-            propertyValues = ""
-            self.isfirstChuck = false
-            let endIndex = min(startIndex + chunkSize, ProcessUtils.shared.allGroupsList.count)
-            
-            
-            let chunk = Array(ProcessUtils.shared.allGroupsList[startIndex..<endIndex])
-            
-            for i in (0 ..< (chunk.count )){
-                var str = ""
-                
-                if let groupid_value = chunk[i]._sjavms_groupid_value {
-                    
-                    if ( i == (chunk.count) - 1){
-                        str = "'{\(groupid_value)}'"
-                    }else{
-                        str = "'{\(groupid_value)}',"
-                    }
-                    propertyValues += str
+        let dispatchQueue = DispatchQueue(label: "myQu", qos: .background)
+        //Create a semaphore
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        dispatchQueue.async {
+            for startIndex in stride(from: 0, to: ProcessUtils.shared.allGroupsList.count, by: chunkSize) {
+                DispatchQueue.main.async {
+                    LoadingView.show()
                 }
+                propertyValues = ""
+                self.isfirstChuck = false
+                let endIndex = min(startIndex + chunkSize, ProcessUtils.shared.allGroupsList.count)
+                
+                
+                let chunk = Array(ProcessUtils.shared.allGroupsList[startIndex..<endIndex])
+                
+                for i in (0 ..< (chunk.count )){
+                    var str = ""
+                    
+                    if let groupid_value = chunk[i]._sjavms_groupid_value {
+                        
+                        if ( i == (chunk.count) - 1){
+                            str = "'{\(groupid_value)}'"
+                        }else{
+                            str = "'{\(groupid_value)}',"
+                        }
+                        propertyValues += str
+                    }
+                }
+                let params : [String:Any] = [
+                    
+                    ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_endingdate,msnfp_startingdate,msnfp_engagementopportunityid,_sjavms_program_value,msnfp_location,msnfp_maximum,msnfp_minimum,msnfp_multipledays,msnfp_shortdescription",
+                    ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(propertyValues)])))",
+                    
+                    ParameterKeys.filter : "(Microsoft.Dynamics.CRM.In(PropertyName='statuscode',PropertyValues=['1','802280000']) and sjavms_adhocevent ne true and msnfp_engagementopportunitystatus eq 844060002 and (Microsoft.Dynamics.CRM.Today(PropertyName='msnfp_endingdate') or Microsoft.Dynamics.CRM.NextXYears(PropertyName='msnfp_endingdate',PropertyValue=10))) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(propertyValues)]))))",
+                    ParameterKeys.orderby : "msnfp_startingdate asc"
+                ]
+                
+                self.getAvailalbeInfoData(params: params) { model in
+                    
+                    semaphore.signal()
+                }
+                semaphore.wait()
+                if startIndex + chunkSize >= ProcessUtils.shared.allGroupsList.count {
+                    DispatchQueue.main.async {
+                        LoadingView.hide()
+                    }
+                   }
             }
-            let params : [String:Any] = [
-                
-                ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_endingdate,msnfp_startingdate,msnfp_engagementopportunityid,_sjavms_program_value,msnfp_location,msnfp_maximum,msnfp_minimum,msnfp_multipledays,msnfp_shortdescription",
-                ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(propertyValues)])))",
-                
-                ParameterKeys.filter : "(Microsoft.Dynamics.CRM.In(PropertyName='statuscode',PropertyValues=['1','802280000']) and sjavms_adhocevent ne true and msnfp_engagementopportunitystatus eq 844060002 and (Microsoft.Dynamics.CRM.Today(PropertyName='msnfp_endingdate') or Microsoft.Dynamics.CRM.NextXYears(PropertyName='msnfp_endingdate',PropertyValue=10))) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(propertyValues)]))))",
-                ParameterKeys.orderby : "msnfp_startingdate asc"
-            ]
             
-            self.getAvailalbeInfoData(params: params)
         }
+        
     }
     
     fileprivate func getAvailalbeInfoData(params : [String:Any]){

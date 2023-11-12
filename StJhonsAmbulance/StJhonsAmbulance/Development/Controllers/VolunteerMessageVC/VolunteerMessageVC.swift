@@ -28,9 +28,11 @@ class VolunteerMessageVC: ENTALDBaseViewController {
             getVolunteers()
         }
         
-        override func viewWillAppear(_ animated: Bool) {
-            self.navigationController?.navigationBar.isHidden = true
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false // or true
+    }
         
         
         func decorateUI(){

@@ -84,6 +84,8 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
 //        self.btnSelectGroup.setTitle("\(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "")", for: .normal)
         self.lblSelectedGroup.text = "\(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "")"
         getPendingShift()
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false // or true
         //        getPendingShiftThree()
     }
     

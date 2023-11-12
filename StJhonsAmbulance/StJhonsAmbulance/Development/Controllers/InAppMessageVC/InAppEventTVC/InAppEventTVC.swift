@@ -18,11 +18,11 @@ class InAppEventTVC: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         lblTitle.font = UIFont.HeaderBoldFont(16)
-        lblTitle.textColor = UIColor.textBlackColor
+        lblTitle.textColor = UIColor.themeBlackText
         
-        lblMessage.font = UIFont.MediumFont(12)
+        lblMessage.font = UIFont.HeaderSemiBoldFont(12)
         lblMessage.textColor = UIColor.textGrayColor
-        lblTime.font = UIFont.RegularFont(12)
+        lblTime.font = UIFont.HeaderSemiBoldFont(12)
         lblTime.textColor = UIColor.textGrayColor
         //        self.contentView.backgroundColor = UIColor.themeLight
     }

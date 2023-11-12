@@ -12,6 +12,7 @@ fileprivate let keyAuthToken = "key_auth_token"
 fileprivate let contactId = "key_contact_id"
 fileprivate let keyUserIdentity = "key_user_identity"
 fileprivate let keyDarkMode = "key_dark_mode"
+fileprivate let keySystemThemeMode = "key_system_theme_mode"
 fileprivate let tokenTime = "tokenTime"
 fileprivate let keyStaySignedIn = "key_stay_signed_in"
 fileprivate let keyTokenExpireTime = "key_token_expire_time"
@@ -29,10 +30,10 @@ extension UserDefaults {
     
     var isSystemPrefernceTheme: Bool {
         get {
-            return bool(forKey: keyDarkMode)
+            return bool(forKey: keySystemThemeMode)
         }
         set {
-            set(newValue, forKey: keyDarkMode)
+            set(newValue, forKey: keySystemThemeMode)
         }
     }
     
