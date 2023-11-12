@@ -29,9 +29,9 @@ struct VolunteerResponseModel : Codable{
 
 struct VolunteerModel: Codable {
     
-    let msnfp_groupmembershipid : String?
-    let msnfp_membershiprole : Int?
-    let msnfp_contactId : VolunteerContactModel?
+    let sjavms_groupmembershipid : String?
+    let sjavms_membershiprole : Int?
+    let sjavms_contactid : VolunteerContactModel?
     let sjavms_RoleType : VolunteerRoleModel?
     
 }
@@ -56,9 +56,16 @@ struct VolunteerContactModel : Codable{
 struct VolunteerRoleModel : Codable{
     
     let sjavms_rolecategory : Int?
+    let role : String?
     let sjavms_name : String?
     let sjavms_roletypeid : String?
 
+    enum CodingKeys: String, CodingKey {
+        case sjavms_rolecategory
+        case role = "sjavms_rolecategory@OData.Community.Display.V1.FormattedValue"
+        case sjavms_name
+        case sjavms_roletypeid
+    }
 }
 
 

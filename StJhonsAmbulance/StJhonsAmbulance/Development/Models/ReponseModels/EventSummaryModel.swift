@@ -106,6 +106,73 @@ struct EventSummaryModel : Codable {
 
 
 
+struct  PendingApprovalSummaryResponseModel: Codable{
+    let value : [pendingApprovalSummaryModel]?
+    
+}
+
+
+struct pendingApprovalSummaryModel: Codable{
+    
+    let sjavms_name : String?
+    let sjavms_address1name : String?
+    let sjavms_maxvolunteers : Int?
+    let sjavms_eventstartdate : String?
+    let statecode : Int?
+    let _sjavms_program_value : String?
+    let sjavms_eventrequestid : String?
+    let sjavms_willotherhealthcareagenciesbeonsite : Bool?
+    let sjavms_volunteerrequeststatus : Int?
+    let sjavms_telephone : Bool?
+    let sjavms_tableschairsseating : Bool?
+    let statuscode : Int?
+    let sjavms_sitemapifapplicable : Bool?
+    let sjavms_shadedareaifoutside : Bool?
+    let sja_securityonsite : Bool?
+    let sjavms_phone : String?
+    let sjavms_parking : Bool?
+    let sjavms_othercomments : String?
+    let sjavms_organization : String?
+    let sjavms_multidayevent : Bool?
+    let sjavms_maxparticipants : Int?
+    let sjavms_lastname : String?
+    let sja_iceonsite : Bool?
+    let sjavms_foodforvolunteers : Bool?
+    let sjavms_firstname : String?
+    let sjavms_firstaidroomtent : Bool?
+    let sjavms_eventenddate : String?
+    let sjavms_eventdescription : String?
+    let sjavms_eventaudience : String?
+    let sjavms_email : String?
+    let sjavms_electricalpowersupply : Bool?
+    let sjavms_donationintended : Float?
+    let sjavms_designatedvolunteerarea : Bool?
+    let sjavms_declinereason : String?
+    let sjavms_declinedetails : String?
+    let _sjavms_council_value : String?
+    let sjavms_coordinatorphone : String?
+    let sjavms_coordinatorlastname : String?
+    let sjavms_coordinatorfirstname : String?
+    let sjavms_coordinatoremail : String?
+    let sjavms_cleandrinkingwater : Bool?
+    let sjavms_cellphonereception : Bool?
+    let _sjavms_branch_value : String?
+    let sjavms_bathrooms : Bool?
+    let sjavms_address1stateprovince : String?
+    let sjavms_address1zippostalcode : String?
+    let sjavms_address1line3 : String?
+    let sjavms_address1line2 : String?
+    let sjavms_address1line1 : String?
+    let sjavms_address1city : String?
+    let _sjavms_account_value : String?
+    let sjavms_13under : Bool?
+    let sjavms_1417 : Bool?
+    let sjavms_1860 : Bool?
+    let sjavms_60plus : Bool?
+    
+}
+
+
 struct  AuditResponseModel: Codable{
     let value : [AuditModel]?
     
@@ -226,6 +293,7 @@ struct MessageArguments :Codable {
     var subject : String?
     var sjavms_senton : String?
     var activityid : String?
+    var isSended : Bool?
     
     
     

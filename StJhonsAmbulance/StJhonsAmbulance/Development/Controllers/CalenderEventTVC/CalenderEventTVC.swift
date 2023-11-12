@@ -47,11 +47,11 @@ class CalenderEventTVC: UITableViewCell {
         lblLocation.textColor = UIColor.themePrimaryWhite
         
         mainView.layer.borderWidth = 0.5
-        mainView.layer.borderColor = UIColor.systemGray3.cgColor
-        mainView.layer.shadowColor = UIColor.systemGray4.cgColor
-        mainView.layer.shadowOpacity = 0.8
+        mainView.layer.borderColor = UIColor.systemGray5.cgColor
+        mainView.layer.shadowColor = UIColor.systemGray2.cgColor
+        mainView.layer.shadowOpacity = 0.4
         mainView.layer.shadowOffset = .zero
-        mainView.layer.shadowRadius = 6
+        mainView.layer.shadowRadius = 8
         
         locationImg.image = locationImg.image?.withRenderingMode(.alwaysTemplate)
         locationImg.tintColor = UIColor.themePrimaryColor

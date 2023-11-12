@@ -37,7 +37,7 @@ enum DashBoardRouter : Router {
         case .saveChatMessages : return "sjavms_inappmessages"
         case .postMessages : return "emails"
         case .postAddAvailability : return "msnfp_availabilities"
-        case .getVolunteers : return "msnfp_groupmemberships"
+        case .getVolunteers : return "sjavms_groupmemberships"
         case .getVolunteersOfEvent : return "msnfp_participationschedules"
         case .getDashboardTilesOrder : return "sjavms_dashboard_orders"
         case .saveDashboardTilesOrder : return "sjavms_dashboard_orders"

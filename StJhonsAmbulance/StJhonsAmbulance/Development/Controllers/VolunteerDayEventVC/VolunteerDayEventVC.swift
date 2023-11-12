@@ -99,14 +99,14 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
                     if dayRemaining > 0 {
                         DispatchQueue.main.async {
                             self.btnCancel.isEnabled = true
-                            self.btnEditEvent.isEnabled = true
+//                            self.btnEditEvent.isEnabled = true
 //                            self.btnCancel.backgroundColor = UIColor.redPinkColor
                             self.btnCancel.setTitle("Cancel Event", for: .normal)
                         }
                     }else{
                         DispatchQueue.main.async {
                             self.btnCancel.isEnabled = false
-                            self.btnEditEvent.isEnabled = false
+//                            self.btnEditEvent.isEnabled = false
 //                            self.btnCancel.backgroundColor = UIColor.lightGray
                             self.btnCancel.setTitle("Cancel Event", for: .normal)
                         }
@@ -145,14 +145,14 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
                      if dayRemaining > 0 {
                          
                          self.btnCancel.isEnabled = true
-                         self.btnEditEvent.isEnabled = true
+//                         self.btnEditEvent.isEnabled = true
 //                         btnCancel.backgroundColor = UIColor.redPinkColor
                          btnCancel.setTitle("Cancel Event", for: .normal)
                      }
                      
                      if(DateFormatManager.shared.isDatePassed(date: pendingShiftData?.sjavms_end ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
                          self.btnCancel.isEnabled = true
-                         self.btnEditEvent.isEnabled = true
+//                         self.btnEditEvent.isEnabled = true
 //                         self.btnCancel.backgroundColor = UIColor.redPinkColor
                          self.btnCancel.setTitle("Close Event", for: .normal)
                      }
@@ -172,7 +172,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
                     lblDate.text = date
                     if(DateFormatManager.shared.isDatePassed(date: unpublishEventData?.msnfp_startingdate ?? "...", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
                         self.btnCancel.isEnabled = false
-                        self.btnEditEvent.isEnabled = false
+//                        self.btnEditEvent.isEnabled = false
 //                        btnCancel.backgroundColor = UIColor.lightGray
                         btnCancel.setTitle("Event Passed", for: .normal)
                     }
@@ -182,14 +182,14 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
                      if dayRemaining > 0 {
                          
                          self.btnCancel.isEnabled = true
-                         self.btnEditEvent.isEnabled = true
+//                         self.btnEditEvent.isEnabled = true
 //                         btnCancel.backgroundColor = UIColor.redPinkColor
                          btnCancel.setTitle("Cance Event", for: .normal)
                      }
                      
                      if(DateFormatManager.shared.isDatePassed(date: unpublishEventData?.msnfp_endingdate ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
                          self.btnCancel.isEnabled = true
-                         self.btnEditEvent.isEnabled = true
+//                         self.btnEditEvent.isEnabled = true
 //                         self.btnCancel.backgroundColor = UIColor.redPinkColor
                          self.btnCancel.setTitle("Close Event", for: .normal)
                      }
@@ -216,14 +216,14 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
                      if dayRemaining > 0 {
                          
                          self.btnCancel.isEnabled = true
-                         self.btnEditEvent.isEnabled = true
+//                         self.btnEditEvent.isEnabled = true
 //                         btnCancel.backgroundColor = UIColor.redPinkColor
                          btnCancel.setTitle("Cance Event", for: .normal)
                      }
                      
                      if(DateFormatManager.shared.isDatePassed(date: pendingEventApprovalData?.sjavms_eventstartdate  ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")){
                          self.btnCancel.isEnabled = true
-                         self.btnEditEvent.isEnabled = true
+//                         self.btnEditEvent.isEnabled = true
 //                         self.btnCancel.backgroundColor = UIColor.redPinkColor
                          self.btnCancel.setTitle("Close Event", for: .normal)
                      }
@@ -243,7 +243,7 @@ class VolunteerDayEventVC: ENTALDBaseViewController, UITextFieldDelegate, update
             
 //            btnBack.tintColor = .white
             
-            lblEventName.font = UIFont.HeaderBoldFont(18)
+            lblEventName.font = UIFont.HeaderBlackFont(18)
             lblEventDetail.font = UIFont.BoldFont(16)
             lblDate.font = UIFont.BoldFont(12)
             lblLocation.font = UIFont.BoldFont(12)

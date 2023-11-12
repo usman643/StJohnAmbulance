@@ -42,30 +42,30 @@ class ManagerEventPendingCell: UITableViewCell {
     func decorateUI(){
         
         mainView.layer.borderWidth = 0.5
-        mainView.layer.borderColor = UIColor.systemGray3.cgColor
-        mainView.layer.shadowColor = UIColor.systemGray4.cgColor
-        mainView.layer.shadowOpacity = 0.5
+        mainView.layer.borderColor = UIColor.systemGray5.cgColor
+        mainView.layer.shadowColor = UIColor.systemGray2.cgColor
+        mainView.layer.shadowOpacity = 0.4
         mainView.layer.shadowOffset = .zero
-        mainView.layer.shadowRadius = 6
-        mainView.layer.cornerRadius = 16
-        statusView.layer.cornerRadius = 16
+        mainView.layer.shadowRadius = 8
+        
+        mainView.layer.cornerRadius = 8
+        statusView.layer.cornerRadius = 8
         statusView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
-        
-        
+        statusView.backgroundColor = UIColor.headerGreen
 
-        lblTitle.textColor = UIColor.themePrimaryWhite
-        lblProgram.textColor = UIColor.themeBlackText
-        lblLocation.textColor = UIColor.themeBlackText
-        lblDateTime.textColor = UIColor.themeBlackText
-        lblparticipants.textColor = UIColor.themeBlackText
-        lblStatus.textColor = UIColor.textLightGrayColor
+        lblTitle.textColor = UIColor.headerGreenWhite
+        lblProgram.textColor = UIColor.textDarkGreenWhite
+        lblLocation.textColor = UIColor.textDarkGreenWhite
+        lblDateTime.textColor = UIColor.textDarkGreenWhite
+        lblparticipants.textColor = UIColor.textDarkGreenWhite
+        lblStatus.textColor = UIColor.hexString(hex: "A3A3A3")
     
         lblDateTime.font =  UIFont.BoldFont(13)
         lblparticipants.font =  UIFont.BoldFont(13)
-        lblTitle.font =  UIFont.BoldFont(18)
+        lblTitle.font =  UIFont.HeaderBlackFont(16)
         lblProgram.font =  UIFont.BoldFont(13)
         lblLocation.font =  UIFont.BoldFont(13)
-        lblStatus.font =  UIFont.BoldFont(12)
+        lblStatus.font =  UIFont.HeaderBoldFont(10)
         
         userImg.image = userImg.image?.withRenderingMode(.alwaysTemplate)
         userImg.tintColor = UIColor.themePrimaryColor

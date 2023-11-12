@@ -8,6 +8,7 @@
 import UIKit
 //import Starscream
 import SwiftSignalRClient
+import IQKeyboardManagerSwift
 
 
 class SignalRVC: ENTALDBaseViewController, UITableViewDelegate, UITableViewDataSource, HubConnectionDelegate  {
@@ -50,6 +51,7 @@ class SignalRVC: ENTALDBaseViewController, UITableViewDelegate, UITableViewDataS
         self.tableView.delegate = self
         self.tableView.dataSource = self
         tableView.register(UINib(nibName: "MessagesCell", bundle: nil), forCellReuseIdentifier: "MessagesCell")
+        tableView.register(UINib(nibName: "MessageSenderTVC", bundle: nil), forCellReuseIdentifier: "MessageSenderTVC")
         headerView.addBottomShadow()
         
         lblName.font = UIFont.HeaderBoldFont(14)
@@ -74,7 +76,10 @@ class SignalRVC: ENTALDBaseViewController, UITableViewDelegate, UITableViewDataS
                 self.lblName.text = self.scheduleData?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? ""
             }
         }
-        
+        IQKeyboardManager.shared.disabledToolbarClasses = [ENTALDTabbarViewController.self]
+        IQKeyboardManager.shared.disabledDistanceHandlingClasses.append(ENTALDTabbarViewController.self)
+//        txtMessage.keyboardDistanceFromTextField = 50
+//        self.tabBarController?.tabBarHideOnKeyboard
     }
     
     
@@ -347,6 +352,43 @@ func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> 
 }
 
 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    
+    if indexPath.row % 2 == 0{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MessageSenderTVC", for: indexPath) as! MessageSenderTVC
+        let row = indexPath.row
+        
+    //    cell.lbl.text = messages[row].name ?? ""
+        cell.lblMessage?.text = messages[row].message ?? ""
+        if (messages[row].subject != nil || messages[row].subject == "" ){
+            cell.lblMessage?.text = messages[row].subject;
+        }
+        
+        if let img =  messages[row].message {
+            cell.userImage.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: img)
+        }
+        
+        
+        return cell
+    }else{
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MessagesCell", for: indexPath) as! MessagesCell
+        let row = indexPath.row
+        
+    //    cell.lbl.text = messages[row].name ?? ""
+        cell.lblMessage?.text = messages[row].message ?? ""
+        if (messages[row].subject != nil || messages[row].subject == "" ){
+            cell.lblMessage?.text = messages[row].subject;
+        }
+        
+        if let img =  messages[row].message {
+            cell.userImage.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: img)
+        }
+        
+        
+        return cell
+        
+    }
     let cell = tableView.dequeueReusableCell(withIdentifier: "MessagesCell", for: indexPath) as! MessagesCell
     let row = indexPath.row
     
@@ -355,6 +397,7 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
     if (messages[row].subject != nil || messages[row].subject == "" ){
         cell.lblMessage?.text = messages[row].subject;
     }
+    
     if let img =  messages[row].message {
         cell.userImage.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: img)
     }

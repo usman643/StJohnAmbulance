@@ -34,6 +34,7 @@ struct PendingApprovalEventsModel: Codable {
     let sjavms_maxvolunteers : Int?
     let sjavms_eventstartdate : String?
     let statecode : Int?
+    let sjavms_program : String?
     let _sjavms_program_value : String?
     let sjavms_program_value : String?
     let sjavms_eventrequestid : String?
@@ -47,6 +48,7 @@ struct PendingApprovalEventsModel: Codable {
         case sjavms_maxvolunteers
         case sjavms_eventstartdate
         case statecode
+        case sjavms_program
         case _sjavms_program_value
         case sjavms_program_value = "_createdby_value@OData.Community.Display.V1.FormattedValue"
         case sjavms_eventrequestid

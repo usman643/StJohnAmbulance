@@ -37,6 +37,7 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
         super.viewDidLoad()
         self.textSearch.delegate = self
         decorateUI()
+        setupData()
         registerCell()
         getDocumentToken()
         
@@ -65,6 +66,11 @@ class ContractDocumentVC: ENTALDBaseViewController,UITextFieldDelegate {
         let originalImage = UIImage(named: "messages-bubble-square-text")!
         let tintedImage = ProcessUtils.shared.tintImage(originalImage)
         btnMessage.setImage(tintedImage, for: .normal)
+    }
+    
+    func setupData(){
+        lblTitle.text = "Documents".localized
+        textSearch.placeholder = "Search".localized
     }
     
     func registerCell(){
@@ -330,7 +336,7 @@ extension ContractDocumentVC : UITableViewDelegate, UITableViewDataSource{
         let rowModel = self.filterDocuments?[indexPath.row]
         cell.setContent(cellModel: rowModel)
         
-        cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
+//        cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
         
         return cell
     }

@@ -34,24 +34,25 @@ class VolunterEventTVC: UITableViewCell {
     func decorateUI(){
         
         mainView.layer.borderWidth = 0.5
-        mainView.layer.borderColor = UIColor.systemGray3.cgColor
-        mainView.layer.shadowColor = UIColor.systemGray4.cgColor
-        mainView.layer.shadowOpacity = 0.5
+        mainView.layer.borderColor = UIColor.systemGray5.cgColor
+        mainView.layer.shadowColor = UIColor.systemGray2.cgColor
+        mainView.layer.shadowOpacity = 0.4
         mainView.layer.shadowOffset = .zero
-        mainView.layer.shadowRadius = 6
+        mainView.layer.shadowRadius = 8
         
-        mainView.layer.cornerRadius = 16
-        statusView.layer.cornerRadius = 16
+        mainView.layer.cornerRadius = 8
+        statusView.layer.cornerRadius = 8
         statusView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
+        statusView.backgroundColor = UIColor.headerGreen
         
-        lblDateTime.textColor = UIColor.themeBlackText
-        lblStatus.textColor = UIColor.textGrayColor
-        lblTitle.textColor = UIColor.headerGreen
-        lblTotalHours.textColor = UIColor.themeBlackText
+        lblDateTime.textColor = UIColor.textDarkGreenWhite
+        lblStatus.textColor = UIColor.textDarkGreenWhite
+        lblTitle.textColor = UIColor.headerGreenWhite
+        lblTotalHours.textColor = UIColor.textDarkGreenWhite
         
         lblDateTime.font =  UIFont.BoldFont(13)
-        lblStatus.font =  UIFont.BoldFont(10)
-        lblTitle.font =  UIFont.BoldFont(18)
+        lblStatus.font =  UIFont.BoldFont(13)
+        lblTitle.font =  UIFont.HeaderBlackFont(16)
         lblTotalHours.font =  UIFont.BoldFont(13)
         
     }

@@ -35,26 +35,28 @@ class ScheduleCell: UITableViewCell {
     func decorateUI(){
         
         mainView.layer.borderWidth = 0.5
-        mainView.layer.borderColor = UIColor.systemGray3.cgColor
-        mainView.layer.shadowColor = UIColor.systemGray4.cgColor
-        mainView.layer.shadowOpacity = 0.5
+        mainView.layer.borderColor = UIColor.systemGray5.cgColor
+        mainView.layer.shadowColor = UIColor.systemGray2.cgColor
+        mainView.layer.shadowOpacity = 0.4
         mainView.layer.shadowOffset = .zero
-        mainView.layer.shadowRadius = 6
+        mainView.layer.shadowRadius = 8
         
-        mainView.layer.cornerRadius = 16
-        btnMainView.layer.cornerRadius = 16
+        mainView.layer.cornerRadius = 8
+        btnMainView.layer.cornerRadius = 8
         btnMainView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
+        btnMainView.backgroundColor = UIColor.headerGreen
         
-        lblDate.textColor = UIColor.themeBlackText
-        lblLocation.textColor = UIColor.themeBlackText
+        lblDate.textColor = UIColor.textDarkGreenWhite
+        lblLocation.textColor = UIColor.textDarkGreenWhite
         
-        lblTitle.textColor = UIColor.themePrimaryWhite
-        lblSubTitle.textColor = UIColor.themeBlackText
         
-        lblDate.font =  UIFont.BoldFont(12)
-        lblLocation.font =  UIFont.BoldFont(12)
+        lblTitle.textColor = UIColor.headerGreenWhite
+        lblSubTitle.textColor = UIColor.textDarkGreenWhite
         
-        lblTitle.font =  UIFont.BoldFont(18)
+        lblDate.font =  UIFont.BoldFont(13)
+        lblLocation.font =  UIFont.BoldFont(13)
+        
+        lblTitle.font =  UIFont.HeaderBlackFont(16)
         lblSubTitle.font =  UIFont.BoldFont(13)
         
         locationImg.image = locationImg.image?.withRenderingMode(.alwaysTemplate)
@@ -69,14 +71,20 @@ class ScheduleCell: UITableViewCell {
     func setContent(cellModel : ScheduleModelThree?){
     
         lblTitle.text = "\(cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "")"
-        lblSubTitle.text = "..."
+        if let programValue = cellModel?.sjavms_VolunteerEvent?.program{
+            lblSubTitle.text = "\(programValue)"
+        }else{
+            lblSubTitle.text = ""
+        }
+        
 //        ProcessUtils.shared.eventStatusArr[cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitystatus?.msnfp_engagementopportunitystatus ?? ""]
         lblLocation.text = "\(cellModel?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found") "
         if (cellModel?.sjavms_start != "" && cellModel?.sjavms_start != nil ){
             
             let startTime = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.sjavms_start ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d, hh:mm a")
+            let endTime = DateFormatManager.shared.formatDateStrToStr(date: cellModel?.sjavms_end ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
-                        lblDate.text = startTime
+                        lblDate.text = "\(startTime) - \(endTime)"
                         
                     }else{
                         lblDate.text = "Not Found"

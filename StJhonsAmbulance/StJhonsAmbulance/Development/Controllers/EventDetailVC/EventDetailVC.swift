@@ -102,7 +102,9 @@ class EventDetailVC: ENTALDBaseViewController , UITableViewDelegate, UITableView
     }
     
     func decorateUI(){
-        lblEventName.font = UIFont.HeaderBoldFont(16)
+        
+        headerView.addBottomShadow()
+        lblEventName.font = UIFont.HeaderBlackFont(16)
         lblLocation.font = UIFont.BoldFont(12)
         lblDetail.font = UIFont.BoldFont(12)
         
@@ -112,7 +114,7 @@ class EventDetailVC: ENTALDBaseViewController , UITableViewDelegate, UITableView
         lblPrograme.textColor = UIColor.themeBlackText
         lblDetailDesc.textColor = UIColor.themeBlackText
         
-        lblDetailDesc.font = UIFont.BoldFont(12)
+        lblDetailDesc.font = UIFont.HeaderBoldFont(12)
         lblDate.font = UIFont.BoldFont(11)
         lblShift.font = UIFont.BoldFont(11)
         lblPrograme.font = UIFont.BoldFont(12)
@@ -151,7 +153,7 @@ class EventDetailVC: ENTALDBaseViewController , UITableViewDelegate, UITableView
         self.lblDetailDesc.text = "Short Description text will appear Here"
         if ((availableEvent) != nil){
             
-            let date = DateFormatManager.shared.formatDateStrToStr(date: availableEvent?.msnfp_startingdate ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
+            let date = DateFormatManager.shared.formatDateStrToStr(date: availableEvent?.msnfp_startingdate ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d")
             let startTime = DateFormatManager.shared.formatDateStrToStr(date: availableEvent?.msnfp_startingdate ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
             let endTime = DateFormatManager.shared.formatDateStrToStr(date: availableEvent?.msnfp_endingdate ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
@@ -199,7 +201,7 @@ class EventDetailVC: ENTALDBaseViewController , UITableViewDelegate, UITableView
             
         }else if ((scheduleEvent) != nil){
             
-            let date = DateFormatManager.shared.formatDateStrToStr(date: scheduleEvent?.sjavms_start ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
+            let date = DateFormatManager.shared.formatDateStrToStr(date: scheduleEvent?.sjavms_start ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d")
             let startTime = DateFormatManager.shared.formatDateStrToStr(date: scheduleEvent?.sjavms_start ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
             let endTime = DateFormatManager.shared.formatDateStrToStr(date: scheduleEvent?.sjavms_end ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
@@ -249,7 +251,7 @@ class EventDetailVC: ENTALDBaseViewController , UITableViewDelegate, UITableView
         }else if ((pastEvent) != nil){
 //            self.checkInbtnView.isHidden = true
 //            self.contactbtnView.isHidden = true
-            let date = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.msnfp_startingdate ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
+            let date = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.msnfp_startingdate ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d")
             
             let startTime = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.msnfp_startingdate ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
@@ -299,7 +301,7 @@ class EventDetailVC: ENTALDBaseViewController , UITableViewDelegate, UITableView
             
         }else if((latestEvent) != nil){
             
-            let date = DateFormatManager.shared.formatDateStrToStr(date: latestEvent?.sjavms_start ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
+            let date = DateFormatManager.shared.formatDateStrToStr(date: latestEvent?.sjavms_start ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d")
             
             let startTime = DateFormatManager.shared.formatDateStrToStr(date: latestEvent?.sjavms_start ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
@@ -346,7 +348,7 @@ class EventDetailVC: ENTALDBaseViewController , UITableViewDelegate, UITableView
             
         }else if((dashbaordEvent) != nil){
             
-            let date = DateFormatManager.shared.formatDateStrToStr(date: dashbaordEvent?.msnfp_startingdate ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
+            let date = DateFormatManager.shared.formatDateStrToStr(date: dashbaordEvent?.msnfp_startingdate ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d")
             
             let startTime = DateFormatManager.shared.formatDateStrToStr(date: dashbaordEvent?.msnfp_endingdate ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
@@ -1116,7 +1118,7 @@ func numberOfSections(in tableView: UITableView) -> Int {
 
 
 func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return self.numberOfRows(section: section)
+    return 1//self.numberOfRows(section: section)
     
 }
 

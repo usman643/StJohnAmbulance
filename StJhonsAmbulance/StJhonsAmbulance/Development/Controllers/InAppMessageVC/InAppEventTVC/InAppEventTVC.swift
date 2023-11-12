@@ -20,7 +20,7 @@ class InAppEventTVC: UITableViewCell {
         lblTitle.font = UIFont.HeaderBoldFont(16)
         lblTitle.textColor = UIColor.textBlackColor
         
-        lblMessage.font = UIFont.RegularFont(12)
+        lblMessage.font = UIFont.MediumFont(12)
         lblMessage.textColor = UIColor.textGrayColor
         lblTime.font = UIFont.RegularFont(12)
         lblTime.textColor = UIColor.textGrayColor

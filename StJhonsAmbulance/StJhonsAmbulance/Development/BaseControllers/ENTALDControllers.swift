@@ -110,6 +110,13 @@ class ENTALDControllers {
         self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
     }
     
+    func showPenndingApprovalSummaryScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil, callBack:ControllerCallBackCompletion?){
+        let vc = PendingApprovalSummaryVC.loadFromNib()
+        vc.dataModel = dataObj
+        vc.callbackToController = callBack
+        self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
+    }
+    
     func showLandingScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, _ dataObj:Any? = nil, callBack:ControllerCallBackCompletion?) {
         let vc = LandingVC.loadFromNib()
         vc.callbackToController = callBack
@@ -404,6 +411,15 @@ class ENTALDControllers {
     
     func showVolunteerEventDetailScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil,eventType : String, callBack:ControllerCallBackCompletion?) {
         let vc = VolunteerEventDetailVC.loadFromNib()
+        vc.eventType = eventType
+        vc.dataModel = dataObj
+        
+        vc.callbackToController = callBack
+        self.showViewController(navRoot: isNavigationController, type: type, destination: vc, from: from)
+    }
+    
+    func showVolunteerSchecduleEventDetailScreen(type: ENTALDControllerType, from:UIViewController?, isNavigationController:Bool = false, dataObj:Any? = nil,eventType : String, callBack:ControllerCallBackCompletion?) {
+        let vc = VolunteerScheduleEventDetailVC.loadFromNib()
         vc.eventType = eventType
         vc.dataModel = dataObj
         

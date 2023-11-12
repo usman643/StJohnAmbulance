@@ -41,30 +41,31 @@ class VolunteersEventsTVC: UITableViewCell {
     func decorateUI(){
         
         mainView.layer.borderWidth = 0.5
-        mainView.layer.borderColor = UIColor.systemGray3.cgColor
-        mainView.layer.shadowColor = UIColor.systemGray4.cgColor
-        mainView.layer.shadowOpacity = 0.5
+        mainView.layer.borderColor = UIColor.systemGray5.cgColor
+        mainView.layer.shadowColor = UIColor.systemGray2.cgColor
+        mainView.layer.shadowOpacity = 0.4
         mainView.layer.shadowOffset = .zero
-        mainView.layer.shadowRadius = 6
+        mainView.layer.shadowRadius = 8
         
-        mainView.layer.cornerRadius = 16
-        statusView.layer.cornerRadius = 16
+        mainView.layer.cornerRadius = 8
+        statusView.layer.cornerRadius = 8
         statusView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
+        statusView.backgroundColor = UIColor.headerGreen
         
-        lblDateTime.textColor = UIColor.themeBlackText
+        lblDateTime.textColor = UIColor.textDarkGreenWhite
         
-        btnView.setTitleColor(UIColor.themeBlackText, for: .normal)
-        lblTitle.textColor = UIColor.themePrimaryWhite
-        lblProgram.textColor = UIColor.themeBlackText
+        btnView.setTitleColor(UIColor.textDarkGreenWhite, for: .normal)
+        lblTitle.textColor = UIColor.headerGreenWhite
+        lblProgram.textColor = UIColor.textDarkGreenWhite
         
-        lblLocation.textColor = UIColor.themeBlackText
+        lblLocation.textColor = UIColor.textDarkGreenWhite
         
-        lblDateTime.font =  UIFont.BoldFont(12)
+        lblDateTime.font =  UIFont.BoldFont(13)
         btnView.titleLabel?.font = UIFont.BoldFont(13)
-        lblTitle.font =  UIFont.BoldFont(18)
+        lblTitle.font =  UIFont.HeaderBlackFont(16)
         lblProgram.font =  UIFont.BoldFont(13)
         
-        lblLocation.font =  UIFont.BoldFont(12)
+        lblLocation.font =  UIFont.BoldFont(13)
         
     }
     
@@ -133,7 +134,7 @@ class VolunteersEventsTVC: UITableViewCell {
         self.scheduleEventdata = cellModel
         
 //        lblProgram.text = cellModel?.sjavms_msnfp_engagementopportunity_msnfp_group?[0].sjaProgram ?? "..."
-        lblProgram.text = cellModel?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle ?? "..."
+        lblProgram.text = cellModel?.sjavms_VolunteerEvent?.program ?? "..."
   
     }
     

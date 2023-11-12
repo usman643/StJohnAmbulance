@@ -15,11 +15,13 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
     var isRoleFilter : Bool = false
     var isLoadMoreShow : Bool = true
 
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnMessage: UIButton!
     @IBOutlet weak var btnSelectGroup: UIButton!
     @IBOutlet weak var btnGroupView: UIView!
     @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblSelectedGroup: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var searchMainView: UIView!
@@ -44,14 +46,16 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
-        btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
+//        btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
+        lblSelectedGroup.text = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName()
     }
     
     func decorateUI(){
         if (ProcessUtils.shared.selectedUserGroup == nil){
             if (ProcessUtils.shared.userGroupsList.count > 0 ){
                 ProcessUtils.shared.selectedUserGroup = ProcessUtils.shared.volunteerGroupsList[0]
-                btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
+//                btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
+                lblSelectedGroup.text = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? ""
             }
         }
         lblTitle.font = UIFont.HeaderBoldFont(18)
@@ -59,17 +63,26 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
 //        searchView.layer.borderWidth = 1.5
         btnSelectGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
         btnSelectGroup.titleLabel?.font = UIFont.HeaderBoldFont(14)
-        btnSelectGroup.backgroundColor = UIColor.themePrimary
+        btnSelectGroup.backgroundColor = UIColor.clear
+        lblSelectedGroup.font = UIFont.HeaderBoldFont(14)
+        lblSelectedGroup.textColor = UIColor.textWhiteColor
+        
         searchMainView.isHidden = true
-        btnLoadMore.layer.borderColor = UIColor.themeColorSecondry.cgColor
+        btnLoadMore.layer.borderColor = UIColor.textDarkGreenWhite.cgColor
         btnLoadMore.layer.borderWidth = 1.0
-        btnLoadMore.setTitle("Load More", for: .normal)
-        btnLoadMore.setTitleColor(UIColor.themeColorSecondry, for: .normal)
-        btnLoadMore.titleLabel?.font = UIFont.BoldFont(16)
+        btnLoadMore.setTitle("Load More".localized, for: .normal)
+        btnLoadMore.setTitleColor(UIColor.textDarkGreenWhite, for: .normal)
+        btnLoadMore.titleLabel?.font = UIFont.MediumFont(16)
         loadMoreView.isHidden = true
         let originalImage = UIImage(named: "messages-bubble-square-text")!
         let tintedImage = ProcessUtils.shared.tintImage(originalImage)
         btnMessage.setImage(tintedImage, for: .normal)
+        headerView.addBottomShadow()
+    }
+    
+    func setupData(){
+        lblTitle.text = "Manage Volunteers".localized
+        textSearch.placeholder = "Search Volunteer".localized
     }
 
     @IBAction func messageTapped(_ sender: Any) {
@@ -108,12 +121,12 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
  
         if !isNameFilter{
             self.filteredData = self.filteredData?.sorted {
-                $0.msnfp_contactId?.fullname ?? "" < $1.msnfp_contactId?.fullname ?? ""
+                $0.sjavms_contactid?.fullname ?? "" < $1.sjavms_contactid?.fullname ?? ""
             }
             isNameFilter = true
         }else{
             self.filteredData = self.filteredData?.sorted {
-                $0.msnfp_contactId?.fullname ?? "" > $1.msnfp_contactId?.fullname ?? ""
+                $0.sjavms_contactid?.fullname ?? "" > $1.sjavms_contactid?.fullname ?? ""
             }
             isNameFilter = false
         }
@@ -171,7 +184,8 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
             if let data = params as? LandingGroupsModel {
                 ProcessUtils.shared.selectedUserGroup = data
                 
-                self.btnSelectGroup.setTitle("\(data.sjavms_groupid?.getGroupName() ?? "")", for: .normal)
+//                self.btnSelectGroup.setTitle("\(data.sjavms_groupid?.getGroupName() ?? "")", for: .normal)
+                self.lblSelectedGroup.text = "\(data.sjavms_groupid?.getGroupName() ?? "")"
                 self.getVolunteers()
             }
         }
@@ -189,17 +203,17 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
         if (textField.text != ""){
             
            filteredData =  volunteerData?.filter({
-               if let name = $0.msnfp_contactId?.fullname, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+               if let name = $0.sjavms_contactid?.fullname, name.lowercased().contains(textField.text?.lowercased() ?? "" ) {
                    return true
                 }
                if let role = $0.sjavms_RoleType?.sjavms_name, role.lowercased().contains(textField.text?.lowercased() ?? "" ) {
                    return true
                 }
-               if let city = $0.msnfp_contactId?.address1_city, city.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+               if let city = $0.sjavms_contactid?.address1_city, city.lowercased().contains(textField.text?.lowercased() ?? "" ) {
                    return true
                 }
                
-               if let state = $0.msnfp_contactId?.address1_stateorprovince, state.lowercased().contains(textField.text?.lowercased() ?? "" ) {
+               if let state = $0.sjavms_contactid?.address1_stateorprovince, state.lowercased().contains(textField.text?.lowercased() ?? "" ) {
                    return true
                 }
  
@@ -223,11 +237,11 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
         
         let params : [String:Any] = [
             
-            ParameterKeys.select : "msnfp_groupmembershipid,msnfp_membershiprole",
+            ParameterKeys.select : "sjavms_groupmembershipid,sjavms_membershiprole",
             
-            ParameterKeys.expand : "msnfp_contactId($select=fullname,lastname,telephone1,emailaddress1,address1_stateorprovince,address1_line1,address1_postalcode,address1_country,address1_city,sjavms_gender),sjavms_RoleType($select=sjavms_rolecategory,sjavms_name)",
-            ParameterKeys.filter : "(statecode eq 0 and _msnfp_groupid_value eq \(groupId)) and (msnfp_contactId/statecode eq 0)",
-            ParameterKeys.orderby : "msnfp_membershiprole asc"
+            ParameterKeys.expand : "sjavms_contactid($select=fullname,lastname,telephone1,emailaddress1,address1_stateorprovince,address1_line1,address1_postalcode,address1_country,address1_city),sjavms_RoleType($select=sjavms_rolecategory,sjavms_name)",
+            ParameterKeys.filter : "(statecode eq 0 and _sjavms_groupid_value eq \(groupId)) and (sjavms_contactid/statecode eq 0)",
+            ParameterKeys.orderby : "sjavms_membershiprole asc"
             
         ]
         
@@ -258,7 +272,7 @@ class VounteerVC: ENTALDBaseViewController, UITextFieldDelegate {
                     }else{
                         
                         self.filteredData = self.filteredData?.sorted {
-                            $0.msnfp_contactId?.lastname ?? "" < $1.msnfp_contactId?.lastname ?? ""
+                            $0.sjavms_contactid?.lastname ?? "" < $1.sjavms_contactid?.lastname ?? ""
                         }
                         
                         DispatchQueue.main.async {
@@ -304,9 +318,9 @@ extension VounteerVC: UITableViewDelegate,UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "VounteerTVC", for: indexPath) as! VounteerTVC        
         let rowModel = filteredData?[indexPath.row]
  
-        cell.lblName.text = rowModel?.msnfp_contactId?.fullname
+        cell.lblName.text = rowModel?.sjavms_contactid?.fullname
         cell.lblRole.text = rowModel?.sjavms_RoleType?.sjavms_name
-        cell.lblAddress.text = rowModel?.msnfp_contactId?.address1_line1
+        cell.lblAddress.text = rowModel?.sjavms_contactid?.address1_line1
 //        cell.profileImg.image = rowModel?.
         cell.btnMsg.tag = indexPath.row
         cell.btnDetail.tag = indexPath.row
@@ -333,7 +347,7 @@ extension VounteerVC: UITableViewDelegate,UITableViewDataSource {
         let tag = sender.tag
         let rowModel = filteredData?[tag]
         
-        ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: rowModel?.msnfp_groupmembershipid ?? "", dataObj: nil , eventType : "" , callBack: nil)
+        ENTALDControllers.shared.showSignalRVC(type: .ENTALDPUSH, from: self, eventId: rowModel?.sjavms_groupmembershipid ?? "", dataObj: nil , eventType : "" , callBack: nil)
       
     }
     @objc private func didTapDetail(_ sender: CoreSegment) {

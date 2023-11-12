@@ -31,7 +31,15 @@ extension UIColor {
     }
     
     class var themePrimaryColor:UIColor{
-        return hexString(hex:"024F29")
+        return hexString(hex:"175639")
+    }
+    
+    
+    class var color234135:UIColor{
+        return hexString(hex:"234135")
+    }
+    class var color2D3934:UIColor{
+        return hexString(hex:"2D3934")
     }
     
     class var colorGreen01733A:UIColor{
@@ -164,8 +172,18 @@ extension UIColor {
         return UIColor(named: "headerGreen")!
     }
     
+    @nonobjc class var headerGreenWhite: UIColor {
+        return UIColor(named: "headerGreenWhite")!
+    }
+    
     @nonobjc class var themePrimary: UIColor {
         return UIColor(named: "themePrimary")!
+    }
+    @nonobjc class var textDarkGreen: UIColor {
+        return UIColor(named: "textDarkGreen")!
+    }
+    @nonobjc class var textDarkGreenWhite: UIColor {
+        return UIColor(named: "textDarkGreenWhite")!
     }
     @nonobjc class var themeBlackText: UIColor {
         return UIColor(named: "themeBlackText")!

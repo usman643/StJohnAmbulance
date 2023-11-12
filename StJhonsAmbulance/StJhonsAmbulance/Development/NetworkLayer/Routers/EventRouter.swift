@@ -24,13 +24,16 @@ enum EventRouter : Router {
     case getCouncil(params:[String:Any])
     case getContactInfo(params:[String:Any])
     case getEventClickShiftOption(params:[String:Any])
+    case getPenndingApprovalClickShiftOption(params:[String:Any])
     case getEventClickShiftDetail(params:[String:Any])
     case getEventParticipationCheck(params:[String:Any])
     case getEventSummary(params:[String:Any])
+    case getPendingApprovalEventSummary(params:[String:Any])
     case getReportedShift(params:[String:Any])
     case updateContactInfo(contactId:String, params:[String:Any])
     case updateEventStatus(eventId:String, params:[String:Any])
     case updateSummaryData(eventId:String, params:[String:Any])
+    case updatePendingApprovalSummaryData(eventId:String, params:[String:Any])
     case addScheduleShift(params:[String:Any])
     case volunteerCheckIn(participationId:String, params:[String:Any])
     case cancelResgitertoAttendEvent(participationId:String, params:[String:Any])
@@ -68,13 +71,16 @@ enum EventRouter : Router {
         case .getBranch : return "sjavms_branchs"
         case .getCouncil : return "sjavms_vmscouncils"
         case .getEventClickShiftOption : return "msnfp_engagementopportunityschedules"
+        case .getPenndingApprovalClickShiftOption : return "sjavms_eventrequests"
         case .getEventClickShiftDetail : return "msnfp_publicengagementopportunities"
         case .getEventParticipationCheck : return "msnfp_participations"
         case .getEventSummary : return "msnfp_engagementopportunities"
+        case .getPendingApprovalEventSummary : return "sjavms_eventrequests"
         case .getReportedShift : return "msnfp_participationschedules"
         case .updateContactInfo(let contactId, _) : return "contacts(\(contactId))"
         case .updateEventStatus(let eventId, _) : return "msnfp_engagementopportunities(\(eventId))"
         case .updateSummaryData(let eventId, _) : return "msnfp_engagementopportunities(\(eventId))"
+        case .updatePendingApprovalSummaryData(let eventId, _) : return "sjavms_eventrequests(\(eventId))"
         case .addScheduleShift: return "msnfp_engagementopportunityschedules"
         case .volunteerCheckIn(let participationId, _) : return "msnfp_participationschedules(\(participationId))"
         case .cancelResgitertoAttendEvent(let participationId, _) : return "msnfp_participations(\(participationId))"
@@ -132,11 +138,15 @@ enum EventRouter : Router {
             return params
         case .getEventClickShiftOption(let params):
             return params
+        case .getPenndingApprovalClickShiftOption(let params):
+            return params
         case .getEventClickShiftDetail(let params):
             return params
         case .getEventParticipationCheck(let params):
             return params
         case .getEventSummary(let params):
+            return params
+        case .getPendingApprovalEventSummary(let params):
             return params
         case .getReportedShift(let params):
             return params
@@ -145,6 +155,8 @@ enum EventRouter : Router {
         case .updateEventStatus(_, let params):
             return params
         case .updateSummaryData(_, let params):
+            return params
+        case .updatePendingApprovalSummaryData(_, let params):
             return params
         case .addScheduleShift(let params):
             return params
@@ -202,6 +214,8 @@ enum EventRouter : Router {
             return HTTPMethodType.patch.rawValue
         case .updateSummaryData(_,_):
             return HTTPMethodType.patch.rawValue
+        case .updatePendingApprovalSummaryData(_,_):
+            return HTTPMethodType.patch.rawValue
         case .addScheduleShift:
             return HTTPMethodType.post.rawValue
         case .volunteerCheckIn(_,_):
@@ -251,6 +265,8 @@ enum EventRouter : Router {
         case .updateEventStatus(_,_):
             return .ENTJSONEncoding
         case .updateSummaryData(_,_):
+            return .ENTJSONEncoding
+        case .updatePendingApprovalSummaryData(_,_):
             return .ENTJSONEncoding
         case .addScheduleShift:
             return .ENTJSONEncoding

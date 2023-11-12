@@ -13,7 +13,9 @@ class VEventDetailVC: ENTALDBaseViewController {
     var eventId : String?
     var userParticipantData : VolunteerEventParticipationCheckModel?
     var qualification : String?
+    var eventType : String?
     var tabDetailData : VolunteerEventClickShiftDetailModel?
+    var scheduleEngagementData: ScheduleEngagementModel?
     
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblQualificationTitle: UILabel!
@@ -93,9 +95,16 @@ class VEventDetailVC: ENTALDBaseViewController {
 //    }
     
     func setupData(){
-        self.lblLocation.text = self.tabDetailData?.msnfp_location ?? ""
-        self.lblQualification.text = self.tabDetailData?.msnfp_qualifications ?? "None"
-        self.lblTitle.text = self.tabDetailData?.msnfp_shortdescription ?? ""
+        if (eventType == "engagment"){
+            self.lblLocation.text = self.scheduleEngagementData?.LocationTypeName ?? ""
+            self.lblTitle.text = self.scheduleEngagementData?.Desc ?? ""
+            self.lblQualificationTitle.isHidden = true
+            self.lblQualification.isHidden = true
+        }else{
+            self.lblLocation.text = self.tabDetailData?.msnfp_location ?? ""
+            self.lblQualification.text = self.tabDetailData?.msnfp_qualifications ?? "None"
+            self.lblTitle.text = self.tabDetailData?.msnfp_shortdescription ?? ""
+        }
     }
 
 }

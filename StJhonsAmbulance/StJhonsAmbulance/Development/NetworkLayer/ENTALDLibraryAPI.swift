@@ -242,6 +242,11 @@ class ENTALDLibraryAPI {
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
     
+    func requestVolunteerPendingApprovalClickOption(params:[String : Any],  _ completion:@escaping((ApiResult<VolunteerEventClickOptionResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getPenndingApprovalClickShiftOption(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    
     func requestVolunteerEventClickShiftDetail(params:[String : Any],  _ completion:@escaping((ApiResult<VolunteerEventClickShiftDetailResponseModel, ApiError>) -> Void )){
         let router = EventRouter.getEventClickShiftDetail(params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
@@ -254,6 +259,10 @@ class ENTALDLibraryAPI {
     
     func getEventSummary(params:[String : Any],  _ completion:@escaping((ApiResult<EventSummaryResponseModel, ApiError>) -> Void )){
         let router = EventRouter.getEventSummary(params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+    func getPendingApprovalEventSummary(params:[String : Any],  _ completion:@escaping((ApiResult<PendingApprovalSummaryResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.getPendingApprovalEventSummary(params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }
 
@@ -459,6 +468,11 @@ class ENTALDLibraryAPI {
     }
         
     func updateSummaryData(eventId: String ,params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
+        let router = EventRouter.updateSummaryData(eventId: eventId, params: params)
+        ENTALDHttpClient.shared.request(router, completion: completion)
+    }
+        
+    func updatePendingApprovalSummaryData(eventId: String ,params:[String:Any],  _ completion:@escaping((ApiResult<CurrentEventsResponseModel, ApiError>) -> Void )){
         let router = EventRouter.updateSummaryData(eventId: eventId, params: params)
         ENTALDHttpClient.shared.request(router, completion: completion)
     }

@@ -31,7 +31,7 @@ class MessageSenderTVC: UITableViewCell {
         lblTime.font = UIFont.BoldFont(10)
         lblTime.textColor = UIColor.textGrayColor
         lblMessage.font = UIFont.BoldFont(12)
-        lblMessage.textColor = UIColor.darkGray
+        lblMessage.textColor = UIColor.textWhiteColor
         
         
         //        mainView.layer.borderWidth = 0.5

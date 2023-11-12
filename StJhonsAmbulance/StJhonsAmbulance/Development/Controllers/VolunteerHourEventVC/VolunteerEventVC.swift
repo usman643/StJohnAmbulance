@@ -31,6 +31,7 @@ class VolunteerEventVC: ENTALDBaseViewController {
     @IBOutlet weak var lblLifetimeValue: UILabel!
     @IBOutlet weak var lblLifetimeTitle: UILabel!
     
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var btnCurveView: UIView!
     
     @IBOutlet weak var btnEvent: UIButton!
@@ -64,15 +65,16 @@ class VolunteerEventVC: ENTALDBaseViewController {
         setContent()
         getVolunteerEvents()
         getVolunteerNonEvent()
-    
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
+        self.setNeedsStatusBarAppearanceUpdate()
     }
     
     func decorateUI(){
+        headerView.addBottomShadow()
         searchMainView.isHidden = true
         self.selectNonEvent()
         lblScreenTitle.font = UIFont.HeaderBoldFont(18)
@@ -89,21 +91,25 @@ class VolunteerEventVC: ENTALDBaseViewController {
         lblYearValue.textColor = UIColor.headerGreen
         lblLifetimeValue.textColor = UIColor.headerGreen
         
-        lblPendingTitle.font = UIFont.HeaderBoldFont(14)
-        lblYearTitle.font = UIFont.HeaderBoldFont(14)
-        lblLifetimeTitle.font = UIFont.HeaderBoldFont(14)
-
+        lblPendingTitle.font = UIFont.BoldFont(14)
+        lblYearTitle.font = UIFont.BoldFont(14)
+        lblLifetimeTitle.font = UIFont.BoldFont(14)
+        
+        lblPendingTitle.textColor = UIColor.textWhiteColor
+        lblYearTitle.textColor = UIColor.textWhiteColor
+        lblLifetimeTitle.textColor = UIColor.textWhiteColor
+        
         btnCurveView.layer.cornerRadius = 20
     
-        btnEvent.titleLabel?.font = UIFont.BoldFont(14)
-        btnNonEvent.titleLabel?.font = UIFont.BoldFont(14)
+        btnEvent.titleLabel?.font = UIFont.BoldFont(16)
+        btnNonEvent.titleLabel?.font = UIFont.BoldFont(16)
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         
-        btnLoadMore.layer.borderColor = UIColor.themeColorSecondry.cgColor
+        btnLoadMore.layer.borderColor = UIColor.textDarkGreenWhite.cgColor
         btnLoadMore.layer.borderWidth = 1.0
-        btnLoadMore.setTitle("Load More", for: .normal)
-        btnLoadMore.setTitleColor(UIColor.themeColorSecondry, for: .normal)
-        btnLoadMore.titleLabel?.font = UIFont.BoldFont(16)
+        btnLoadMore.setTitle("Load More".localized, for: .normal)
+        btnLoadMore.setTitleColor(UIColor.textDarkGreenWhite, for: .normal)
+        btnLoadMore.titleLabel?.font = UIFont.MediumFont(16)
         loadMoreView.isHidden = true
         let originalImage = UIImage(named: "messages-bubble-square-text")!
         let tintedImage = ProcessUtils.shared.tintImage(originalImage)
@@ -169,7 +175,7 @@ class VolunteerEventVC: ENTALDBaseViewController {
         eventBtnBottomView.isHidden = true
         nonEventBtnBottomView.isHidden = false
         btnEvent.setTitleColor(UIColor.textLightGrayColor, for: .normal)
-        btnNonEvent.setTitleColor(UIColor.themeColorSecondry, for: .normal)
+        btnNonEvent.setTitleColor(UIColor.textDarkGreen, for: .normal)
         
       
 //        btnEvent.titleLabel?.textColor = UIColor.textBlackColor
@@ -186,16 +192,11 @@ class VolunteerEventVC: ENTALDBaseViewController {
         btnNonEvent.isSelected = false
         eventBtnBottomView.isHidden = false
         nonEventBtnBottomView.isHidden = true
-        btnEvent.setTitleColor(UIColor.themeColorSecondry, for: .normal)
+        btnEvent.setTitleColor(UIColor.textDarkGreen, for: .normal)
         btnNonEvent.setTitleColor(UIColor.textLightGrayColor, for: .normal)
         DispatchQueue.main.async {
             self.textSearch.text = ""
             self.tableView.reloadData()
-            
-//            let indexPath = IndexPath(row: 0, section: 0)
-//            if let _ = self.tableView.cellForRow(at: indexPath) {
-//                self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-//            }
         }
 //        tableView.setContentOffset(CGPointZero, animated: true)
     }

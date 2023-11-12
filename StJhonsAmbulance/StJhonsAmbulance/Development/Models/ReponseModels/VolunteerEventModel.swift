@@ -51,9 +51,15 @@ struct VolunteerEventsDataModel : Codable {
 
 struct SjavmsMsnfpEngagementopportunity : Codable {
     let sjaProgram : String?
+    let _sjavms_volunteerevent_value : String?
+    let sjavms_volunteerevent_value : String?
+    let sjavms_volunteerevent_value_modified : String?
     
     enum CodingKeys: String, CodingKey {
         case sjaProgram = "_sjavms_program_value@OData.Community.Display.V1.FormattedValue"
+        case _sjavms_volunteerevent_value = "_sjavms_volunteerevent_value"
+        case sjavms_volunteerevent_value = "_createdby_value@OData.Community.Display.V1.FormattedValue"
+        case sjavms_volunteerevent_value_modified = "_modifiedby_value@OData.Community.Display.V1.FormattedValue"
     }
 }
 

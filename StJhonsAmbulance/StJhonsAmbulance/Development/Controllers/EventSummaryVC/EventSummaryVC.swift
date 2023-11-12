@@ -15,6 +15,7 @@ class EventSummaryVC: ENTALDBaseViewController, UIScrollViewDelegate{
     var eventData : CurrentEventsModel?
     var slides:[Any] = []
     
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet var containerView: UIView!
     @IBOutlet weak var btnMessage: UIButton!
     
@@ -27,6 +28,7 @@ class EventSummaryVC: ENTALDBaseViewController, UIScrollViewDelegate{
         let originalImage = UIImage(named: "messages-bubble-square-text")!
         let tintedImage = ProcessUtils.shared.tintImage(originalImage)
         btnMessage.setImage(tintedImage, for: .normal)
+        headerView.addBottomShadow()
     }
     
     func segmentsConfigurations(){

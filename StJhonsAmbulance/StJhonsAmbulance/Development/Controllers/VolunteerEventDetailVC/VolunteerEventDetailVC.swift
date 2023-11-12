@@ -26,12 +26,15 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
     var slides:[Any] = []
     var eventType :String?
     var eventId = ""
+    var oppId = ""
     let currentDateTime = Date()
     var isBottombtnEnable = false
     var isApplyNowShow = false
     
+    @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var lblEventName: UILabel!
+    @IBOutlet weak var lblProgramName: UILabel!
     @IBOutlet weak var lblEventDate: UILabel!
     @IBOutlet weak var lblEventLocation: UILabel!
     
@@ -49,19 +52,28 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         if eventType == "schedule"{
             scheduleData = dataModel as? ScheduleModelThree
             self.eventId = self.scheduleData?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
+            self.lblProgramName.text = self.scheduleData?.sjavms_VolunteerEvent?.program ?? ""
 //            self.setupScheduleScreenData()
             
             
         }else if eventType == "available"{
             availableData = dataModel as? AvailableEventModel
             self.eventId = self.availableData?.msnfp_engagementopportunityid ?? ""
+            self.oppId = self.availableData?.msnfp_engagementopportunityid ?? ""
+            self.lblProgramName.text = self.availableData?.sjavms_program_value ?? ""
 //            self.setupAvailiableScreenData()
         }else if eventType == "engagement"{
             scheduleEngagementData = dataModel as? ScheduleEngagementModel
-            self.eventId = self.scheduleEngagementData?.OppId ?? ""
+            self.eventId = self.scheduleEngagementData?.VolunteeringEventId ?? ""
+            self.oppId = self.scheduleEngagementData?.OppId ?? ""
+            
+            self.lblProgramName.text = self.scheduleEngagementData?.Program ?? ""
+            
         }else if eventType == "calender"{
             scheduleCalenderData = dataModel as? ScheduleModelThree
             self.eventId = self.scheduleCalenderData?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
+            self.oppId = self.scheduleCalenderData?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
+            self.lblProgramName.text = self.scheduleCalenderData?.sjavms_VolunteerEvent?.program ?? ""
         }
         
         self.getEventTabDetail()
@@ -70,14 +82,19 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
     }
     
     func decorateUI(){
+        headerView.addBottomShadow()
         btnCloseEvent.layer.cornerRadius = btnCloseEvent.frame.size.height/2
         headerView.backgroundColor = UIColor.themePrimaryColor
         lblEventName.textColor = UIColor.textWhiteColor
+        lblProgramName.textColor = UIColor.textWhiteColor
         lblEventDate.textColor = UIColor.textWhiteColor
         lblEventLocation.textColor = UIColor.textWhiteColor
         lblDesc.textColor = UIColor.themePrimaryWhite
+        lblTitle.textColor = UIColor.headerGreen
         
+        lblTitle.font = UIFont.HeaderBoldFont(18)
         lblEventName.font = UIFont.BoldFont(16)
+        lblProgramName.font = UIFont.BoldFont(14)
         lblEventDate.font = UIFont.BoldFont(14)
         lblEventLocation.font = UIFont.BoldFont(14)
         lblDesc.font = UIFont.BoldFont(14)
@@ -86,7 +103,7 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         btnCloseEvent.isHidden = true
         self.btnCancelApprovedShift.isHidden = true
         self.btnCancelApprovedShift.layer.cornerRadius = self.btnCancelApprovedShift.frame.size.height/2
-        
+        lblTitle.text = "Event Detail".localized
     }
     
 //    func setupScheduleScreenData(){
@@ -120,7 +137,13 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
             if (self.tabDetailData?[0].msnfp_engagementopportunitytitle != nil){
                 
                 self.lblEventName.text = self.tabDetailData?[0].msnfp_engagementopportunitytitle ?? ""
-                self.lblEventLocation.text = self.tabDetailData?[0].msnfp_location ?? ""
+//                self.lblProgramName.text = self.tabDetailData?[0].msnfp_engagementopportunitytitle ?? ""
+                if (self.eventType == "engagement"){
+                    self.lblEventLocation.text = self.scheduleEngagementData?.LocationTypeName ?? ""
+                }else{
+                    self.lblEventLocation.text = self.tabDetailData?[0].msnfp_location ?? "..."
+                }
+               
                 
                 if let date = self.tabDetailData?[0].msnfp_startingdate {
                     
@@ -241,21 +264,25 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
         let detailVC = VEventDetailVC.loadFromNib()
         let participationVC = ParticipationDetailVC.loadFromNib()
         
-        shiftVC.title = "Schedule"
+        shiftVC.title = "Schedule".localized
         shiftVC.isBottombtnEnable = self.isBottombtnEnable
         shiftVC.eventId = self.eventId
         shiftVC.userParticipantData = self.userParticipantData
+        shiftVC.isEngagmentEvent = true
         viewControllers.append(shiftVC)
         
-        detailVC.title = "Detail"
-        detailVC.eventId = self.eventId
+        detailVC.title = "Detail".localized
+        detailVC.eventId = self.oppId
         detailVC.userParticipantData = self.userParticipantData
+        detailVC.tabDetailData = self.tabDetailData?[0]
+        detailVC.scheduleEngagementData = self.scheduleEngagementData
+        detailVC.eventType = "engagment"
         viewControllers.append(detailVC)
         
-        participationVC.title = "Participations"
-        participationVC.eventId = self.eventId
+        participationVC.title = "Participations".localized
+        participationVC.eventId = self.oppId
         participationVC.userParticipantData = self.userParticipantData
-        viewControllers.append(participationVC)
+//        viewControllers.append(participationVC)
         
         var option : PagingOptions = PagingOptions()
         option.borderColor = UIColor.separator
@@ -363,21 +390,21 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
                                 self.lblDesc.text = ""
                                 self.closeImg.isHidden = true
                                 self.closeImg.image = UIImage(named: "xmark.circle.fill")
-                                self.btnCancelApprovedShift.setTitle(" Apply Now ", for: .normal)
+                                self.btnCancelApprovedShift.setTitle(" Apply Now ".localized, for: .normal)
                                 self.isApplyNowShow = true
                                 self.btnCancelApprovedShift.isHidden = false
                                 self.btnCloseEvent.isHidden = true
                                 self.isBottombtnEnable = true
                             }
                                 if (self.userParticipantData?.msnfp_status == 844060000 || self.userParticipantData?.msnfp_status ==  844060001  || self.userParticipantData?.msnfp_status == 844060003) {
-                                    self.lblDesc.text = "In Review"
+                                    self.lblDesc.text = "In Review".localized
                                     self.closeImg.image = UIImage(systemName: "stopwatch")
                                     self.btnCloseEvent.isHidden = true
                                     self.btnCancelApprovedShift.isHidden = true
                                     
                                 }else if (self.userParticipantData?.msnfp_status == 844060004){
                                     
-                                    self.lblDesc.text = "Cancelled"
+                                    self.lblDesc.text = "Cancelled".localized
                                     self.closeImg.isHidden = false
                                     self.closeImg.image = UIImage(systemName:  "xmark.circle.fill")
                                     self.btnCloseEvent.isHidden = true
@@ -385,13 +412,13 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
                                     
                                 }else if (self.userParticipantData?.msnfp_status == 844060002){
                                     
-                                    self.lblDesc.text = "Registered to Attend"
+                                    self.lblDesc.text = "Registered to Attend".localized
                                     self.closeImg.isHidden = false
                                     self.closeImg.image = UIImage(systemName:  "checkmark.circle.fill")
                                     self.closeImg.tintColor = UIColor.themePrimaryColor
                                     self.btnCloseEvent.isHidden = true
                                     self.btnCancelApprovedShift.isHidden = false
-                                    self.btnCancelApprovedShift.setTitle(" Cancel ", for: .normal)
+                                    self.btnCancelApprovedShift.setTitle(" Cancel ".localized, for: .normal)
                                     self.isApplyNowShow = false
                                     
                                 }
@@ -403,7 +430,7 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
                                 
                                 //missed
                                 
-                                self.lblDesc.text = "Missed"
+                                self.lblDesc.text = "Missed".localized
                                 self.closeImg.isHidden = false
                                 self.closeImg.image = UIImage(systemName:  "xmark.circle.fill")
                                 self.btnCloseEvent.isHidden = true
@@ -422,18 +449,18 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
                                 self.btnCloseEvent.isEnabled = false
 //                                self.btnCloseEvent.setTitle(" Apply Now ", for: .normal)
                                 self.btnCancelApprovedShift.isHidden = false
-                                self.btnCancelApprovedShift.setTitle(" Apply Now ", for: .normal)
+                                self.btnCancelApprovedShift.setTitle(" Apply Now ".localized, for: .normal)
                                 self.isApplyNowShow = true
                             }
                             if (self.userParticipantData?.msnfp_status == 844060000 || self.userParticipantData?.msnfp_status ==  844060001  || self.userParticipantData?.msnfp_status == 844060003) {
-                                self.lblDesc.text = "In Review"
+                                self.lblDesc.text = "In Review".localized
                                 self.closeImg.image = UIImage(systemName: "stopwatch")
                                 self.btnCloseEvent.isHidden = true
                                 self.btnCancelApprovedShift.isHidden = true
                                 
                             }else if (self.userParticipantData?.msnfp_status == 844060004){
                                 
-                                self.lblDesc.text = "Cancelled"
+                                self.lblDesc.text = "Cancelled".localized
                                 self.closeImg.isHidden = false
                                 self.closeImg.image = UIImage(systemName:  "xmark.circle.fill")
                                 self.btnCloseEvent.isHidden = true
@@ -441,13 +468,13 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
                                 
                             }else if (self.userParticipantData?.msnfp_status == 844060002){
                                 
-                                self.lblDesc.text = "Registered to Attend"
+                                self.lblDesc.text = "Registered to Attend".localized
                                 self.closeImg.isHidden = false
                                 self.closeImg.image = UIImage(systemName:  "checkmark.circle.fill")
                                 self.closeImg.tintColor = UIColor.themePrimaryColor
                                 self.btnCloseEvent.isHidden = true
                                 self.btnCancelApprovedShift.isHidden = false
-                                self.btnCancelApprovedShift.setTitle(" Cancel ", for: .normal)
+                                self.btnCancelApprovedShift.setTitle(" Cancel ".localized, for: .normal)
                                 self.isApplyNowShow = false
                                 
                             }
@@ -573,7 +600,7 @@ class VolunteerEventDetailVC: ENTALDBaseViewController, UIScrollViewDelegate {
                         self.setupData()
                     }else{
                         DispatchQueue.main.async {
-                            ENTALDAlertView.shared.showAPIAlertWithTitle(title: "Alert", message: "No Data Found", actionTitle: .KOK, completion: {status in
+                            ENTALDAlertView.shared.showAPIAlertWithTitle(title: "Alert".localized, message: "No Data Found".localized, actionTitle: .KOK, completion: {status in
                                 
                                 self.navigationController?.popViewController(animated: true)
                             })

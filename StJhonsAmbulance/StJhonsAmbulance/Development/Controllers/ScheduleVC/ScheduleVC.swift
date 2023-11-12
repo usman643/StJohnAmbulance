@@ -49,8 +49,11 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
         calendar.dataSource = self
         
         calendar.appearance.headerTitleFont = UIFont.BoldFont(18)
-        calendar.appearance.headerTitleColor = UIColor.headerGreen
-        calendar.appearance.weekdayTextColor = UIColor.headerGreen
+        calendar.appearance.headerTitleColor = UIColor.themePrimaryWhite
+        calendar.appearance.weekdayTextColor = UIColor.themePrimaryWhite
+        calendar.appearance.weekdayTextColor = UIColor.themePrimaryWhite
+        calendar.appearance.titleDefaultColor = UIColor.themePrimaryWhite
+        calendar.appearance.weekdayTextColor = UIColor.themePrimaryWhite
         calendar.appearance.weekdayFont = UIFont.BoldFont(14)
         
     }
@@ -82,17 +85,24 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
         calendarBottomView.isHidden = true
         headerView.addBottomShadow()
         
-        btnLoadMore.layer.borderColor = UIColor.themeColorSecondry.cgColor
+        btnLoadMore.layer.borderColor = UIColor.headerGreenWhite.cgColor
         btnLoadMore.layer.borderWidth = 1.0
-        btnLoadMore.setTitle("Load More", for: .normal)
-        btnLoadMore.setTitleColor(UIColor.themeColorSecondry, for: .normal)
-        btnLoadMore.titleLabel?.font = UIFont.BoldFont(16)
+        btnLoadMore.setTitle("Load More".localized, for: .normal)
+        btnLoadMore.setTitleColor(UIColor.headerGreenWhite, for: .normal)
+        btnLoadMore.titleLabel?.font = UIFont.MediumFont(16)
         loadMoreView.isHidden = true
         let originalImage = UIImage(named: "messages-bubble-square-text")!
         let tintedImage = ProcessUtils.shared.tintImage(originalImage)
         btnMessage.setImage(tintedImage, for: .normal)
         let  sideMenuImage = UIImage(named: "sideMenu")!
         btnSidemenu.setImage(ProcessUtils.shared.tintImage(sideMenuImage), for: .normal)
+        
+        btnList.setTitleColor(UIColor.textDarkGreenWhite, for: .normal)
+        btnList.titleLabel?.font = UIFont.BoldFont(16)
+        btnCalender.setTitleColor(UIColor.textDarkGreenWhite, for: .normal)
+        btnCalender.titleLabel?.font = UIFont.BoldFont(16)
+        
+        
         
     }
     
@@ -116,6 +126,10 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
         calendarBottomView.isHidden = false
         
         self.loadMoreView.isHidden = true
+        
+        
+        btnList.setTitleColor(UIColor.viewLightGrayColor, for: .normal)
+        btnCalender.setTitleColor(UIColor.textDarkGreenWhite, for: .normal)
     }
     
     @IBAction func showEventsTapped(_ sender: Any) {
@@ -125,6 +139,8 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+        btnList.setTitleColor(UIColor.textDarkGreenWhite, for: .normal)
+        btnCalender.setTitleColor(UIColor.viewLightGrayColor, for: .normal)
     }
     
     @IBAction func loadMoreTapped(_ sender: Any) {
@@ -267,9 +283,9 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
         for i in (0 ..< (self.scheduleEngagementData?.count ?? 0)){
             var str = ""
             if ( i == (self.scheduleEngagementData?.count ?? 0) - 1){
-                str = "sjavms_VolunteerEvent/ msnfp_engagementopportunityid eq \(self.scheduleEngagementData?[i].msnfp_engagementopportunityid ?? "")"
+                str = "sjavms_VolunteerEvent/msnfp_engagementopportunityid eq \(self.scheduleEngagementData?[i].msnfp_engagementopportunityid ?? "")"
             }else{
-                str = "sjavms_VolunteerEvent/ msnfp_engagementopportunityid eq \(self.scheduleEngagementData?[i].msnfp_engagementopportunityid ?? "") or "
+                str = "sjavms_VolunteerEvent/msnfp_engagementopportunityid eq \(self.scheduleEngagementData?[i].msnfp_engagementopportunityid ?? "") or "
             }
             
             propertyValues += str
@@ -280,10 +296,8 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
         let params : [String:Any] = [
             
             ParameterKeys.select : "_sjavms_volunteerevent_value,msnfp_schedulestatus,sjavms_start,msnfp_participationscheduleid,sjavms_end,sjavms_checkedin",
-            ParameterKeys.expand : "sjavms_VolunteerEvent($select=msnfp_engagementopportunitytitle,msnfp_location)",
+            ParameterKeys.expand : "sjavms_VolunteerEvent($select=msnfp_engagementopportunitytitle,msnfp_location,_sjavms_program_value)",
             ParameterKeys.filter : "(_sjavms_volunteer_value eq \(contactId) and msnfp_schedulestatus eq 335940000 and (\(propertyValues))) ",
-            //            ParameterKeys.filter : "(_sjavms_volunteer_value eq \(contactId) and msnfp_schedulestatus eq 335940000 and (\(propertyValues))) ",
-            
             ParameterKeys.orderby : "msnfp_name asc"
         ]
         
@@ -306,7 +320,7 @@ class ScheduleVC: ENTALDBaseViewController,FSCalendarDelegate ,FSCalendarDataSou
                 
                 if let scheduleGroup = response.value {
                     self.scheduleData = scheduleGroup
-                    self.timefilter()
+//                    self.timefilter() // furture time filter
                     self.scheduleData = self.scheduleData?.sorted {
                         $0.sjavms_start ?? "" < $1.sjavms_start ?? ""
                     }

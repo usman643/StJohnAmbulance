@@ -44,20 +44,18 @@ class SJAQualificationTVC: UITableViewCell {
             lblType.text = cellModel?.bdo_type_value ?? "..."
             lblQualification.text = cellModel?.bdo_qualificationsid?.bdo_name
             if let date = cellModel?.bdo_effectivedate {
-                let start = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
+                let start = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy MMM dd")
                 lblEffectiveFrom.text = start
             }else{
                 lblEffectiveFrom.text = ""
             }
             
             if let date = cellModel?.bdo_expirationdate {
-                let expiry = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yy/MM/dd")
+                let expiry = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "yyyy MMM dd")
                 lblExpiration.text = expiry
             }else{
                 lblExpiration.text = ""
             }
-            
         }
-    
     
 }

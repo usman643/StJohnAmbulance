@@ -22,6 +22,7 @@ class VolunteerIncomingCell: UITableViewCell {
     
     @IBOutlet weak var seperatorView: UIView!
     
+    @IBOutlet weak var lblCheckIn: UILabel!
     @IBOutlet weak var checkinView: UIView!
     
     override func awakeFromNib() {
@@ -39,34 +40,39 @@ class VolunteerIncomingCell: UITableViewCell {
         
         
         mainView.layer.borderWidth = 0.5
-        mainView.layer.borderColor = UIColor.systemGray3.cgColor
-        mainView.layer.shadowColor = UIColor.systemGray4.cgColor
-        mainView.layer.shadowOpacity = 0.5
+        mainView.layer.borderColor = UIColor.systemGray5.cgColor
+        mainView.layer.shadowColor = UIColor.systemGray2.cgColor
+        mainView.layer.shadowOpacity = 0.4
         mainView.layer.shadowOffset = .zero
-        mainView.layer.shadowRadius = 6
+        mainView.layer.shadowRadius = 8
         
-        mainView.layer.cornerRadius = 16
-        statusView.layer.cornerRadius = 16
+        mainView.layer.cornerRadius = 8
+        statusView.layer.cornerRadius = 8
         statusView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
-        checkinView.layer.cornerRadius = 16
+        statusView.backgroundColor = UIColor.headerTitleColor
+        checkinView.backgroundColor = UIColor.headerTitleColor
+        checkinView.layer.cornerRadius = 8
         checkinView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
         
-        lblDateTime.textColor = UIColor.themeBlackText
-        
+        lblDateTime.textColor = UIColor.themePrimaryWhite
         btnDetail.setTitleColor(UIColor.white, for: .normal)
         btnCheckIn.setTitleColor(UIColor.white, for: .normal)
-        lblTitle.textColor = UIColor.themePrimaryWhite
-        lblProgram.textColor = UIColor.themeBlackText
+        lblCheckIn.textColor = UIColor.white
+        lblTitle.textColor = UIColor.headerGreenWhite
+        lblProgram.textColor = UIColor.themePrimaryWhite
         
-        lblLocation.textColor = UIColor.themeBlackText
+        lblLocation.textColor = UIColor.themePrimaryWhite
         
-        lblDateTime.font =  UIFont.BoldFont(12)
-        btnDetail.titleLabel?.font = UIFont.BoldFont(12)
-        btnCheckIn.titleLabel?.font = UIFont.BoldFont(11)
-        lblTitle.font =  UIFont.BoldFont(18)
+        lblDateTime.font =  UIFont.BoldFont(13)
+        btnDetail.titleLabel?.font = UIFont.BoldFont(13)
+        btnCheckIn.titleLabel?.font = UIFont.HeavyFont(9)
+        lblCheckIn.font = UIFont.HeavyFont(9)
+        lblTitle.font =  UIFont.HeaderBlackFont(16)
         lblProgram.font =  UIFont.BoldFont(13)
         
-        lblLocation.font =  UIFont.BoldFont(12)
+        lblLocation.font =  UIFont.BoldFont(13)
+        
+        
         
     }
     
@@ -89,7 +95,8 @@ class VolunteerIncomingCell: UITableViewCell {
         
         lblLocation.text = "\(cellModel?.msnfp_location ?? "Not Found") "
         
-        lblProgram.text = cellModel?.sjavms_msnfp_engagementopportunity_msnfp_group?[0].sjaProgram ?? "..."
+//        lblProgram.text = cellModel?.sjavms_msnfp_engagementopportunity_msnfp_group?[0].sjaProgram ?? "..."
+        lblProgram.text = cellModel?.sjavms_program_value ?? "..."
         
         let eventDate = DateFormatManager.shared.getDateFromString(date: cellModel?.msnfp_startingdate) ?? Date()
         let currentDate = DateFormatManager.shared.getCurrentDate()
@@ -107,6 +114,5 @@ class VolunteerIncomingCell: UITableViewCell {
         }
 
     }
-    
     
 }

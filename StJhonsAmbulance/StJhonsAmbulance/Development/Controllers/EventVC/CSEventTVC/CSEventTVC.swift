@@ -33,7 +33,7 @@ class CSEventTVC: UITableViewCell {
     func decorateUI(){
         
         mainView.layer.borderWidth = 0.5
-        mainView.layer.borderColor = UIColor.systemGray3.cgColor
+        mainView.layer.borderColor = UIColor.systemGray4.cgColor
         mainView.layer.shadowColor = UIColor.systemGray4.cgColor
         mainView.layer.shadowOpacity = 0.5
         mainView.layer.shadowOffset = .zero

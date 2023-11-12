@@ -47,6 +47,7 @@ class VolunteerDetailVC: ENTALDBaseViewController {
     @IBOutlet weak var btnMessage: UIButton!
     
     @IBOutlet weak var eventTimeView: UIView!
+    @IBOutlet weak var headerView: UIView!
     
     @IBOutlet weak var lblEventTitle: UILabel!
     @IBOutlet weak var lblStartTitle: UILabel!
@@ -69,8 +70,8 @@ class VolunteerDetailVC: ENTALDBaseViewController {
         }else if isFromVolunteerScreen ?? false{
             if let data = self.dataModel as? VolunteerModel {
                 self.volunteerData = data
-                volunteerContactId = volunteerData?.msnfp_contactId?.contactid
-                volunteerPhoneNumber = volunteerData?.msnfp_contactId?.telephone1 ?? ""
+                volunteerContactId = volunteerData?.sjavms_contactid?.contactid
+                volunteerPhoneNumber = volunteerData?.sjavms_contactid?.telephone1 ?? ""
             }
             self.setupUI()
         }
@@ -147,21 +148,21 @@ class VolunteerDetailVC: ENTALDBaseViewController {
             lblAddresslineFour.text = self.dayVolunteerData?.sjavms_Volunteer?.address1_country ?? "---"
             
         }else{
-            lblName.text = self.volunteerData?.msnfp_contactId?.fullname ?? ""
+            lblName.text = self.volunteerData?.sjavms_contactid?.fullname ?? ""
             
-            lblGender.text = self.volunteerData?.msnfp_contactId?.sjavms_gender ?? ""
+            lblGender.text = self.volunteerData?.sjavms_contactid?.sjavms_gender ?? ""
             
 //            lblPrefferenNoun.text = "____"
 //                    lblPrefferenNoun.text = self.volunteerData?.msnfp_contactId?.sjavms_preferredpronouns
             
-            lblEmail.text = self.volunteerData?.msnfp_contactId?.emailaddress1 ?? ""
+            lblEmail.text = self.volunteerData?.sjavms_contactid?.emailaddress1 ?? ""
             
-            lblPhone.text = self.volunteerData?.msnfp_contactId?.telephone1 ?? ""
+            lblPhone.text = self.volunteerData?.sjavms_contactid?.telephone1 ?? ""
             
-            lblAddresslineOne.text = self.volunteerData?.msnfp_contactId?.address1_line1 ?? ""
-            lblAddresslineTwo.text = self.volunteerData?.msnfp_contactId?.address1_city ?? ""
-            lblAddresslineThree.text = self.volunteerData?.msnfp_contactId?.address1_stateorprovince ?? ""
-            lblAddresslineFour.text = self.volunteerData?.msnfp_contactId?.address1_country ?? ""
+            lblAddresslineOne.text = self.volunteerData?.sjavms_contactid?.address1_line1 ?? ""
+            lblAddresslineTwo.text = self.volunteerData?.sjavms_contactid?.address1_city ?? ""
+            lblAddresslineThree.text = self.volunteerData?.sjavms_contactid?.address1_stateorprovince ?? ""
+            lblAddresslineFour.text = self.volunteerData?.sjavms_contactid?.address1_country ?? ""
         }
         if isFromVolunteerScreen ?? false {
             
@@ -197,5 +198,9 @@ class VolunteerDetailVC: ENTALDBaseViewController {
                    }
                }
         
+    }
+    
+    @IBAction func messageScreenTapped(_ sender: Any) {
+        ENTALDControllers.shared.showGroupMessageVC(type: .ENTALDPUSH, from: self, callBack: nil)
     }
 }

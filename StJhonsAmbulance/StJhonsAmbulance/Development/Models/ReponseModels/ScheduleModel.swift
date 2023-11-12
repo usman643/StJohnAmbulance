@@ -92,6 +92,7 @@ struct ScheduleModelThree : Codable {
     
     let _sjavms_volunteerevent_value : String?
     let sjavms_volunteerevent_value : String?
+    let sjavms_programe_value : String?
     let msnfp_schedulestatus : Int?
     let sjavms_start : String?
     let msnfp_participationscheduleid : String?
@@ -107,6 +108,7 @@ struct ScheduleModelThree : Codable {
     enum CodingKeys: String, CodingKey {
         case _sjavms_volunteerevent_value
         case sjavms_volunteerevent_value = "_createdby_value@OData.Community.Display.V1.FormattedValue"
+        case sjavms_programe_value = "_modifiedby_value@OData.Community.Display.V1.FormattedValue"
         case msnfp_schedulestatus
         case sjavms_start
         case msnfp_participationscheduleid
@@ -127,7 +129,16 @@ struct ScheduleDataModel : Codable {
     let msnfp_location : String?
     let msnfp_engagementopportunityid : String?
     let msnfp_engagementopportunitystatus : Int?
+    let program : String?
 //    let sjavms_msnfp_engagementopportunity_msnfp_group : [SjavmsMsnfpEngagementopportunity]?
+    
+    enum CodingKeys: String, CodingKey {
+        case msnfp_engagementopportunitytitle
+        case msnfp_location
+        case msnfp_engagementopportunityid
+        case msnfp_engagementopportunitystatus
+        case program = "_sjavms_program_value@OData.Community.Display.V1.FormattedValue"
+    }
     
 }
 
@@ -248,4 +259,5 @@ struct ScheduleEngagementModel : Codable {
     let LocationTypeValue : String?
     let LocationTitle : String?
     let City : String?
+    let VolunteeringEventId : String?
 }

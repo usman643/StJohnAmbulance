@@ -30,14 +30,14 @@ class CSLeadTabbarVC: UITabBarController {
     }
     
     func setupTabbarshadow(){
-        tabBar.layer.shadowColor = UIColor.lightGray.cgColor
-        tabBar.layer.shadowOpacity = 0.5
-        tabBar.layer.shadowOffset = CGSize.zero
-        tabBar.layer.shadowRadius = 5
+//        tabBar.layer.shadowColor = UIColor.lightGray.cgColor
+//        tabBar.layer.shadowOpacity = 0.5
+//        tabBar.layer.shadowOffset = CGSize.zero
+//        tabBar.layer.shadowRadius = 5
         self.tabBar.layer.borderColor = UIColor.clear.cgColor
         self.tabBar.layer.borderWidth = 0
         self.tabBar.clipsToBounds = false
-        self.tabBar.backgroundColor = UIColor.hexString(hex: "E6F2EB")
+        self.tabBar.backgroundColor = UIColor.hexString(hex: "F0F0F0")
         UITabBar.appearance().shadowImage = UIImage()
         UITabBar.appearance().backgroundImage = UIImage()
         UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -8)
@@ -105,7 +105,7 @@ class CSLeadTabbarVC: UITabBarController {
             guard let selectedViewController = viewControllers?[selectedIndex] else {
                 return
             }
-            selectedViewController.tabBarItem.setTitleTextAttributes([.font: UIFont.BoldFont(12)], for: .normal)
+            selectedViewController.tabBarItem.setTitleTextAttributes([.font: UIFont.HeavyFont(9)], for: .normal)
         }
     }
     
@@ -118,9 +118,9 @@ class CSLeadTabbarVC: UITabBarController {
             
             for viewController in viewControllers {
                 if viewController == selectedViewController {
-                    viewController.tabBarItem.setTitleTextAttributes([.font: UIFont.BoldFont(12)], for: .normal)
+                    viewController.tabBarItem.setTitleTextAttributes([.font: UIFont.HeavyFont(9)], for: .normal)
                 } else {
-                    viewController.tabBarItem.setTitleTextAttributes([.font: UIFont.BoldFont(12)], for: .normal)
+                    viewController.tabBarItem.setTitleTextAttributes([.font: UIFont.HeavyFont(9)], for: .normal)
                 }
             }
         }

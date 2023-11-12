@@ -12,11 +12,12 @@ class UserEngagementsTVC: UITableViewCell {
     @IBOutlet weak var lblProgramType: UILabel!
     @IBOutlet weak var lblDate: UILabel!
     @IBOutlet weak var lblLocation: UILabel!
-    @IBOutlet weak var lblEventType: UILabel!
     
+    @IBOutlet weak var lblDetail: UILabel!
     @IBOutlet weak var locationImg: UIImageView!
     @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var btnView: UIView!
+    @IBOutlet weak var statusView: UIView!
+    
     @IBOutlet weak var btnDetail: UIButton!
     
     
@@ -34,49 +35,62 @@ class UserEngagementsTVC: UITableViewCell {
     
     func decorateUI(){
         
+        
         mainView.layer.borderWidth = 0.5
-        mainView.layer.borderColor = UIColor.systemGray3.cgColor
-        mainView.layer.shadowColor = UIColor.systemGray4.cgColor
-        mainView.layer.shadowOpacity = 0.5
+        mainView.layer.borderColor = UIColor.systemGray5.cgColor
+        mainView.layer.shadowColor = UIColor.systemGray2.cgColor
+        mainView.layer.shadowOpacity = 0.4
         mainView.layer.shadowOffset = .zero
-        mainView.layer.shadowRadius = 6
+        mainView.layer.shadowRadius = 8
+        mainView.layer.cornerRadius = 8
         
-        mainView.layer.cornerRadius = 16
-        btnDetail.layer.cornerRadius = 16
-        btnDetail.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
+        statusView.layer.cornerRadius = 8
+        statusView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
+        statusView.backgroundColor = UIColor.headerGreen
         
-        lblDate.textColor = UIColor.themeSecondryWhite
-        lblDate.font =  UIFont.MediumFont(11)
+        lblDate.textColor = UIColor.textDarkGreenWhite
+        lblDate.font =  UIFont.BoldFont(13)
         
-        lblEventName.textColor = UIColor.themeSecondryWhite
-        lblProgramType.textColor = UIColor.themeSecondryWhite
-        lblLocation.textColor = UIColor.themeSecondryWhite
-        lblEventType.textColor = UIColor.themeSecondryWhite
+        lblEventName.textColor = UIColor.headerGreenWhite
+        lblProgramType.textColor = UIColor.textDarkGreenWhite
+        lblLocation.textColor = UIColor.textDarkGreenWhite
+        lblDetail.textColor = UIColor.textDarkGreenWhite
         
-        lblEventName.font = UIFont.BoldFont(14)
-        lblProgramType.font = UIFont.BoldFont(14)
-        lblLocation.font = UIFont.BoldFont(14)
-        lblEventType.font = UIFont.BoldFont(14)
-
+        lblEventName.font = UIFont.HeaderBlackFont(16)
+        lblProgramType.font = UIFont.BoldFont(13)
+        lblLocation.font = UIFont.BoldFont(13)
+        lblDetail.font = UIFont.BoldFont(13)
         
         locationImg.image = locationImg.image?.withRenderingMode(.alwaysTemplate)
         
-        locationImg.tintColor = UIColor.themeColorSecondry
+        locationImg.tintColor = UIColor.textDarkGreen
         btnDetail.setTitleColor(UIColor.textWhiteColor, for: .normal)
-        btnDetail.titleLabel?.font = UIFont.BoldFont(12)
+        btnDetail.titleLabel?.font = UIFont.BoldFont(13)
         
-        btnView.layer.cornerRadius = 16
-        btnView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
+        btnDetail.layer.cornerRadius = 8
+        btnDetail.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
         
     }
     func setContent (cellModel:ScheduleEngagementModel?){
         
         lblEventName.text = cellModel?.Title ?? "Not Found"
         lblProgramType.text = cellModel?.Program ?? "Not Found"
-        lblDate.text = "\(cellModel?.StartDate  ?? "Not Found" ) - \(cellModel?.EndDate  ?? "Not Found" )"
-        lblLocation.text = cellModel?.LocationTitle ?? "Not Found"
-        lblEventType.text = cellModel?.Desc ?? "Not Found"
         
+//        
+        let startDate = cellModel?.StartDateFull?.replacingOccurrences(of: " GMT", with: "")
+        let endDate = cellModel?.EndDateFull?.replacingOccurrences(of: " GMT", with: "")
+//        let startDate = cellModel?.StartDateFull ?? ""
+//        let endDate = cellModel?.EndDateFull ?? ""
+        
+        let start = DateFormatManager.shared.formatDateStrToStrWithoutZoneCountry(date: startDate ?? "", oldFormat: "E, d MMM yyyy HH:mm:ss", newFormat: "EEE, d MMM yyyy hh:mm a")
+        let end = DateFormatManager.shared.formatDateStrToStrWithoutZoneCountry(date: endDate ?? "", oldFormat: "E, d MMM yyyy HH:mm:ss", newFormat: "EEE, d MMM yyyy hh:mm a")
+        
+        lblDate.text = "\(start) - \(end)"
+//        lblDate.text = "\(cellModel?.StartDateString  ?? "Not Found" ) - \(cellModel?.EndDateString  ?? "Not Found" )"
+
+        
+        lblLocation.text = cellModel?.LocationTypeName ?? "Not Found"
+        lblDetail.text = cellModel?.Desc ?? "Not Found"
     }
     
     
@@ -85,10 +99,4 @@ class UserEngagementsTVC: UITableViewCell {
         
         
     }
-    
-    
-    
-    
-    
-    
 }

@@ -21,6 +21,7 @@ class AwardsVC: ENTALDBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.decorateUI()
+        setupData()
         if (engagementType == .Calender){
             self.engagementData = self.dataModel as? [ScheduleModelThree]
 
@@ -52,6 +53,10 @@ class AwardsVC: ENTALDBaseViewController {
         lblTitle.textColor = UIColor.headerGreen
         headerView.addBottomShadow()
         
+    }
+    
+    func setupData(){
+        lblTitle.text = "Awards".localized
     }
     
     @IBAction func backTapped(_ sender: Any) {

@@ -53,13 +53,14 @@ class LoginVC: ENTALDBaseViewController {
         UserDefaults.standard.authToken = nil
         isRememberPassword = false
         decorateUI()
+        setupData()
     }
 
     func decorateUI(){
         
         self.navigationController?.navigationBar.isHidden = true
-        txtUserName.addDoneOnKeyboardWithTarget(self, action: #selector(nextButtonClicked), titleText: "Email")
-        txtPassword.addDoneOnKeyboardWithTarget(self, action: #selector(doneButtonClicked), titleText: "Password")
+        txtUserName.addDoneOnKeyboardWithTarget(self, action: #selector(nextButtonClicked), titleText: "Email".localized)
+        txtPassword.addDoneOnKeyboardWithTarget(self, action: #selector(doneButtonClicked), titleText: "Password".localized)
         
         btnLogin.themeColorButton()
         MainVw.backgroundColor = UIColor.white
@@ -115,6 +116,21 @@ class LoginVC: ENTALDBaseViewController {
  
     }
     
+    func setupData(){
+        self.lblTitle.text = "SJA Impact".localized
+        self.lblEmail.text = "Email".localized
+        self.lblPassword.text = "Password".localized
+        self.txtUserName.placeholder = "Enter you email".localized
+        self.txtPassword.placeholder = "Enter you password".localized
+        self.lblStaySigin.text = "Stay logged in?".localized
+        lblAccountRegister.text = "Don’t have an account?".localized
+        lblFinancialSupport.text = "St. John Ambulance Canada aknowledge the financial support of Public Safety Canada".localized
+        self.btnForgotPass.setTitle("Forgot Password?".localized, for: .normal)
+        self.btnRegister.setTitle("Click Here".localized, for: .normal)
+        btnLogin.setTitle("Login".localized, for: .normal)
+        
+    }
+    
     @IBAction func registerTapped(_ sender: Any) {
 //        ENTALDAlertView.shared.showContactAlertWithTitle(title: "Alert", message: "Coming Soon", actionTitle: .KOK, completion: {status in })
     
@@ -146,26 +162,26 @@ class LoginVC: ENTALDBaseViewController {
     @IBAction func loginTapped(_ sender: Any) {
         
         guard let email = self.txtUserName.text else {
-            self.txtUserName.showErrorWithText(errorText: "Please enter email")
+            self.txtUserName.showErrorWithText(errorText: "Please enter email".localized)
             return
         }
         if email == "" {
-            self.txtUserName.showErrorWithText(errorText: "Please enter email")
+            self.txtUserName.showErrorWithText(errorText: "Please enter email".localized)
             return
         }
         
         if !email.isEmail {
-            self.txtUserName.showErrorWithText(errorText: "Please enter valid email")
+            self.txtUserName.showErrorWithText(errorText: "Please enter valid email".localized)
             return
         }
         
         guard let password = self.txtPassword.text else {
-            self.txtPassword.showErrorWithText(errorText: "Please Enter Password")
+            self.txtPassword.showErrorWithText(errorText: "Please Enter Password".localized)
             return
         }
         
         if (password == ""){
-            self.txtPassword.showErrorWithText(errorText: "Please Enter Password")
+            self.txtPassword.showErrorWithText(errorText: "Please Enter Password".localized)
             return
         }
         

@@ -24,6 +24,7 @@ class ProcessUtils {
     var contactInfo : UserIdentityModel?
     var tokenTime : Date = Date()
     var locationTypes = [844060000:"On Location", 844060001:"Virtual", 844060002:"Both", 844060003:"None"]
+    var shiftType = [335940000:"Pending Shifts".localized,335940001:"Approved Shifts".localized]
     var days =  [844060000 : "Monday",844060001 : "Tuesday",844060002 : "Wednesday",844060003 : "Thursday",844060004 : "Friday",844060005 : "Saturday",844060006 : "Sunday"]
     var eventStatusArr = [
         844060000 : "Draft",
@@ -120,6 +121,17 @@ class ProcessUtils {
         case 844060003:
             return "None"
     
+        default:
+            return ""
+        }
+    } 
+    func getShiftType(code:Int)->String?{
+        
+        switch code {
+        case 335940001:
+            return "Approved Shifts".localized
+        case 335940000:
+            return "Pending Shifts".localized
         default:
             return ""
         }

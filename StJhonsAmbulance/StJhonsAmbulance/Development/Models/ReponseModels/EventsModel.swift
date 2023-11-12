@@ -29,13 +29,13 @@ struct CurrentEventsResponseModel : Codable{
 
 struct CurrentEventsModel: Codable {
     
-    let msnfp_engagementopportunitytitle : String?
+    var msnfp_engagementopportunitytitle : String?
     let msnfp_startingdate : String?
     let address1_line1 : String?
     let msnfp_location : String?
     let msnfp_engagementopportunitystatus : Int?
     let _sjavms_program_value : String?
-    let msnfp_engagementopportunityid : String?
+    var msnfp_engagementopportunityid : String?
     let msnfp_endingdate : String?
     let msnfp_maximum : Int?
     let msnfp_minimum : Int?
@@ -46,7 +46,7 @@ struct CurrentEventsModel: Codable {
     var time_difference : Int?
     let msnfp_description : String?
     let msnfp_shortdescription : String?
-    let sjavms_msnfp_engagementopportunity_msnfp_group : CurrentEventGroupModel?
+//    let sjavms_msnfp_engagementopportunity_msnfp_group : CurrentEventGroupModel?
     func getStatus()->String?{
         let status = self.msnfp_engagementopportunitystatus
         switch status {
@@ -87,7 +87,7 @@ struct CurrentEventsModel: Codable {
         case time_difference
         case msnfp_description
         case msnfp_shortdescription
-        case sjavms_msnfp_engagementopportunity_msnfp_group
+//        case sjavms_msnfp_engagementopportunity_msnfp_group
     }
 }
 
@@ -210,7 +210,7 @@ struct VolunteerEventClickOptionModel : Codable {
     let statuscode : Int?
     let msnfp_engagementopportunityschedule : String?
 //    var msnfp_participationscheduleid : String?
-//    var msnfp_schedulestatus : Int?
+    var msnfp_schedulestatus : Int?
     
     
     let createdon : String?

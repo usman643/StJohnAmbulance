@@ -48,18 +48,19 @@ class ShiftOptionTVC: UITableViewCell {
 
     }
     
-    func setContent(cellModel: VolunteerEventClickOptionModel? , rowModel:ParticipationScheduleEngagementOppModel? ){
+//    func setContent(cellModel: VolunteerEventClickOptionModel? , rowModel:ParticipationScheduleEngagementOppModel? ){
+    func setContent(cellModel: VolunteerEventClickOptionModel? ){
         
         
         
         lblShift.text = cellModel?.msnfp_engagementopportunityschedule ?? ""
         lblHours.text = "\(cellModel?.msnfp_hours ?? Float())"
-        let needed = (cellModel?.msnfp_maximum ?? NSNotFound) - (cellModel?.msnfp_number ?? NSNotFound) 
+        let needed = (cellModel?.msnfp_maximum ?? 0) - (cellModel?.msnfp_number ?? 0)
         lblNeeded.text = "\(needed)"
-        if let status = ProcessUtils.shared.getStatus(code: rowModel?.msnfp_schedulestatus ?? NSNotFound){
-            lblStatus.text = status
-        }
-//        lblStatus.text = "\(cellModel?.msnfp_schedulestatus ?? NSNotFound)"
+//        if let status = ProcessUtils.shared.getStatus(code: cellModel?.msnfp_schedulestatus ?? NSNotFound){
+//            lblStatus.text = status
+//        }
+        lblStatus.text = ProcessUtils.shared.getStatus(code: cellModel?.msnfp_schedulestatus ?? NSNotFound)
 
         if let date = cellModel?.msnfp_effectivefrom {
             let start = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")

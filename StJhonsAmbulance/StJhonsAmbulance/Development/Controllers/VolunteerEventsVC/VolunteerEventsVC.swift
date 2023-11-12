@@ -110,7 +110,7 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         getAvailableInfo()
         getScheduleInfo()
         getVolunteerPastEvent()
-       
+        self.setNeedsStatusBarAppearanceUpdate()
     }
 
     func decorateUI(){
@@ -132,26 +132,26 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         scheduleLoadMoreView.isHidden = true
         avilableLoadMoreView.isHidden = true
         
-        btnAvilableLoadMore.layer.borderColor = UIColor.themeColorSecondry.cgColor
+        btnAvilableLoadMore.layer.borderColor = UIColor.headerGreenWhite.cgColor
         btnAvilableLoadMore.layer.borderWidth = 1.0
-        btnAvilableLoadMore.setTitle("Load More", for: .normal)
-        btnAvilableLoadMore.setTitleColor(UIColor.themeColorSecondry, for: .normal)
-        btnAvilableLoadMore.titleLabel?.font = UIFont.BoldFont(16)
+        btnAvilableLoadMore.setTitle("Load More".localized, for: .normal)
+        btnAvilableLoadMore.setTitleColor(UIColor.headerGreenWhite, for: .normal)
+        btnAvilableLoadMore.titleLabel?.font = UIFont.HeaderMediumFont(16)
         avilableLoadMoreView.isHidden = true
         
-        btnScheduleLoadMore.layer.borderColor = UIColor.themeColorSecondry.cgColor
+        btnScheduleLoadMore.layer.borderColor = UIColor.headerGreenWhite.cgColor
         btnScheduleLoadMore.layer.borderWidth = 1.0
-        btnScheduleLoadMore.setTitle("Load More", for: .normal)
-        btnScheduleLoadMore.setTitleColor(UIColor.themeColorSecondry, for: .normal)
-        btnScheduleLoadMore.titleLabel?.font = UIFont.BoldFont(16)
+        btnScheduleLoadMore.setTitle("Load More".localized, for: .normal)
+        btnScheduleLoadMore.setTitleColor(UIColor.headerGreenWhite, for: .normal)
+        btnScheduleLoadMore.titleLabel?.font = UIFont.HeaderMediumFont(16)
         scheduleLoadMoreView.isHidden = true
         
-        btnPastLoadMore.layer.borderColor = UIColor.themeColorSecondry.cgColor
+        btnPastLoadMore.layer.borderColor = UIColor.headerGreenWhite.cgColor
         btnPastLoadMore.layer.borderWidth = 1.0
-        btnPastLoadMore.setTitle("Load More", for: .normal)
-        btnPastLoadMore.setTitleColor(UIColor.themeColorSecondry, for: .normal)
-        btnPastLoadMore.titleLabel?.font = UIFont.BoldFont(16)
-        pastLoadMoreView.isHidden = true 
+        btnPastLoadMore.setTitle("Load More".localized, for: .normal)
+        btnPastLoadMore.setTitleColor(UIColor.headerGreenWhite, for: .normal)
+        btnPastLoadMore.titleLabel?.font = UIFont.HeaderMediumFont(16)
+        pastLoadMoreView.isHidden = true
         
         
         let originalImage = UIImage(named: "messages-bubble-square-text")!
@@ -160,6 +160,11 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         let  sideMenuImage = UIImage(named: "sideMenu")!
         btnSidemenu.setImage(ProcessUtils.shared.tintImage(sideMenuImage), for: .normal)
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        
+        btnAvailable.titleLabel?.font = UIFont.BoldFont(16)
+        btnSchedule.titleLabel?.font = UIFont.BoldFont(16)
+        btnPast.titleLabel?.font = UIFont.BoldFont(16)
+        
     }
     
     func registerCells(){
@@ -224,7 +229,7 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
             self.availableView.isHidden = false
             self.isAvailabilityTableSearch = true
             self.vwAvailable.isHidden = false
-            self.btnAvailable.setTitleColor(UIColor.themeColorSecondry, for: .normal)
+            self.btnAvailable.setTitleColor(UIColor.textDarkGreen, for: .normal)
             
             if (self.filterAvailableData?.count == 0){
                 self.emptyView.isHidden = false
@@ -233,10 +238,7 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
                 
                 self.availableTable.reloadData()
             }
-            
-            
-        }
-        
+        }   
     }
     
     @IBAction func scheduleTapped(_ sender: Any) {
@@ -245,7 +247,7 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
             self.scheduleView.isHidden = false
             self.isScheduleTableSearch = true
             self.vwSchedule.isHidden = false
-            self.btnSchedule.setTitleColor(UIColor.themeColorSecondry, for: .normal)
+            self.btnSchedule.setTitleColor(UIColor.textDarkGreen, for: .normal)
             
             if (self.filterScheduleData?.count == 0){
                 self.emptyView.isHidden = false
@@ -261,7 +263,7 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
             self.pastView.isHidden = false
             self.isPastTableSearch = true
             self.vwPast.isHidden = false
-            self.btnPast.setTitleColor(UIColor.themeColorSecondry, for: .normal)
+            self.btnPast.setTitleColor(UIColor.textDarkGreen, for: .normal)
             if (self.filterPastEventData?.count == 0){
                 self.emptyView.isHidden = false
             }else{
@@ -286,9 +288,9 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         vwPast.isHidden = true
         emptyView.isHidden = true
         
-        btnAvailable.titleLabel?.textColor = UIColor.gray
-        btnSchedule.titleLabel?.textColor = UIColor.gray
-        btnPast.titleLabel?.textColor = UIColor.gray
+        btnAvailable.titleLabel?.textColor = UIColor.hexString(hex: "6E6E6E")
+        btnSchedule.titleLabel?.textColor = UIColor.hexString(hex: "6E6E6E")
+        btnPast.titleLabel?.textColor = UIColor.hexString(hex: "6E6E6E")
         
         
     }
@@ -408,10 +410,14 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         guard let contactId = UserDefaults.standard.contactIdToken else {return}
         let params : [String:Any] = [
             
-            ParameterKeys.select : "_sjavms_volunteerevent_value,msnfp_schedulestatus,sjavms_start,msnfp_participationscheduleid,sjavms_end,sjavms_checkedin,msnfp_description,msnfp_shortdescription",
-            ParameterKeys.expand : "sjavms_VolunteerEvent($select=msnfp_engagementopportunitytitle,msnfp_location)",
-            ParameterKeys.filter : "(msnfp_schedulestatus eq 335940001 and _sjavms_volunteer_value eq \(contactId)) and (sjavms_VolunteerEvent/msnfp_engagementopportunitystatus eq 844060004)",
-            ParameterKeys.orderby : "sjavms_start asc,_sjavms_volunteerevent_value asc"
+            ParameterKeys.select : "_sjavms_volunteerevent_value,msnfp_schedulestatus,sjavms_start,msnfp_participationscheduleid,sjavms_end,sjavms_checkedin",
+            ParameterKeys.expand : "sjavms_VolunteerEvent($select=msnfp_engagementopportunitytitle,msnfp_engagementopportunityid,msnfp_location)",
+            ParameterKeys.filter : " (msnfp_schedulestatus eq 335940001 and _sjavms_volunteer_value eq \(contactId)) and (sjavms_VolunteerEvent/msnfp_engagementopportunitystatus eq 844060004)",
+            
+           
+            
+            
+//            ParameterKeys.orderby : "sjavms_start asc,_sjavms_volunteerevent_value asc"
         ]
         
         self.getVolunteerPastEventData(params: params)
@@ -530,9 +536,9 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         for i in (0 ..< (self.scheduleEngagementData?.count ?? 0)){
             var str = ""
             if ( i == (self.scheduleEngagementData?.count ?? 0) - 1){
-                str = "sjavms_VolunteerEvent/ msnfp_engagementopportunityid eq \(self.scheduleEngagementData?[i].msnfp_engagementopportunityid ?? "")"
+                str = "sjavms_VolunteerEvent/msnfp_engagementopportunityid eq \(self.scheduleEngagementData?[i].msnfp_engagementopportunityid ?? "")"
             }else{
-                str = "sjavms_VolunteerEvent/ msnfp_engagementopportunityid eq \(self.scheduleEngagementData?[i].msnfp_engagementopportunityid ?? "") or "
+                str = "sjavms_VolunteerEvent/msnfp_engagementopportunityid eq \(self.scheduleEngagementData?[i].msnfp_engagementopportunityid ?? "") or "
             }
             
             propertyValues += str
@@ -542,10 +548,10 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         guard let contactId = UserDefaults.standard.contactIdToken  else {return}
         let params : [String:Any] = [
             
-            ParameterKeys.select : "_sjavms_volunteerevent_value,msnfp_schedulestatus,sjavms_start,msnfp_participationscheduleid,sjavms_end,sjavms_checkedin,msnfp_description,msnfp_shortdescription",
-            ParameterKeys.expand : "sjavms_VolunteerEvent($select=msnfp_engagementopportunitytitle,msnfp_location)",
+            ParameterKeys.select : "_sjavms_volunteerevent_value,msnfp_schedulestatus,sjavms_start,msnfp_participationscheduleid,sjavms_end,sjavms_checkedin",
+            ParameterKeys.expand : "sjavms_VolunteerEvent($select=msnfp_engagementopportunitytitle,msnfp_location,_sjavms_program_value)",
             ParameterKeys.filter : "(_sjavms_volunteer_value eq \(contactId) and msnfp_schedulestatus eq 335940000 and (\(propertyValues))) ",
-            ParameterKeys.orderby : "sjavms_start asc"
+            ParameterKeys.orderby : "msnfp_name asc"
         ]
 
         
@@ -755,16 +761,21 @@ extension VolunteerEventsVC : UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "VolunteersEventsTVC", for: indexPath) as! VolunteersEventsTVC
         
         if (tableView == availableTable){
-            let rowModel = self.filterAvailableData?[indexPath.row]
-            cell.setContent(cellModel: rowModel, indx : indexPath.row)
-            cell.delegate = self
+            if let rowModel = self.filterAvailableData?[indexPath.row]{
+                cell.setContent(cellModel: rowModel, indx : indexPath.row)
+                cell.delegate = self
+            }
         }else if (tableView == scheduleTable){
-            let rowModel = self.filterScheduleData?[indexPath.row]
-            cell.setContent(cellModel: rowModel , indx : indexPath.row)
-            cell.delegate = self
+            if let rowModel = self.filterScheduleData?[indexPath.row]{
+                cell.setContent(cellModel: rowModel , indx : indexPath.row)
+                cell.delegate = self
+            }
         }else if (tableView == pastTable){
-            let rowModel = self.filterPastEventData?[indexPath.row]
-            cell.setContent(cellModel: rowModel)
+            if let rowModel = self.filterPastEventData?[indexPath.row]{
+                cell.setContent(cellModel: rowModel)
+                cell.delegate = self
+            }
+            
         }
         
         return cell

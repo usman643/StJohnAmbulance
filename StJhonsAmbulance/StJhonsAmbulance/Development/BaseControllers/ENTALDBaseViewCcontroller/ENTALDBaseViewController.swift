@@ -7,6 +7,7 @@
 
 import UIKit
 import SideMenu
+import IQKeyboardManagerSwift
 
 enum RefreshDataObserverType{
     
@@ -22,6 +23,16 @@ class ENTALDBaseViewController: UIViewController, MenuControllerDelegate {
     var dataModel: Any?
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
+        let currentTraitCollection = UITraitCollection.current
+        if (UserDefaults.standard.isSystemPrefernceTheme == true){
+            if currentTraitCollection.userInterfaceStyle == .light {
+                return .darkContent
+            } else if currentTraitCollection.userInterfaceStyle == .dark {
+                return .lightContent
+            }
+        }else{
+            return UserDefaults.standard.isDarkMode ? .lightContent : .darkContent
+        }
         return .lightContent
     }
         
@@ -30,6 +41,13 @@ class ENTALDBaseViewController: UIViewController, MenuControllerDelegate {
         self.registerReloadDataNotifications()
         self.setSideMenu(reference: self)
         self.navigationController?.navigationBar.isHidden = true
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.enableAutoToolbar = true
+        if (UserDefaults.standard.isSystemPrefernceTheme == true){
+            setSystemAppearanceMode()
+        }else{
+            setAppearanceDarkLightMode()
+        }
     }
     
     func didSelectMenuItem(named: String) {
@@ -104,7 +122,7 @@ class ENTALDBaseViewController: UIViewController, MenuControllerDelegate {
             self.menu?.setNavigationBarHidden(true, animated: true)
             self.menu?.menuWidth = view.bounds.width * 0.8
             SideMenuManager.default.leftMenuNavigationController = menu
-            SideMenuManager.default.addPanGestureToPresent(toView: self.view)
+//            SideMenuManager.default.addPanGestureToPresent(toView: self.view)
             
         }
     }
@@ -126,6 +144,39 @@ class ENTALDBaseViewController: UIViewController, MenuControllerDelegate {
             }
         }
     }
+    
+    
+func setSystemAppearanceMode() {
+    let currentTraitCollection = UITraitCollection.current
+    if currentTraitCollection.userInterfaceStyle == .light {
+        
+        UITabBar.appearance().overrideUserInterfaceStyle = .light
+        UIView.appearance().overrideUserInterfaceStyle = .light
+        UINavigationBar.appearance().overrideUserInterfaceStyle = .light
+        
+    } else if currentTraitCollection.userInterfaceStyle == .dark {
+        UITabBar.appearance().overrideUserInterfaceStyle = .dark
+        UIView.appearance().overrideUserInterfaceStyle = .dark
+        UINavigationBar.appearance().overrideUserInterfaceStyle = .dark
+
+    }
+    
+    self.setNeedsStatusBarAppearanceUpdate()
+
+//    let windows = UIApplication.shared.windows
+//    for window in windows {
+//        if NSStringFromClass(window.classForCoder) == "UITextEffectsWindow" {
+//                NSLog("===== Ignore UITextEffectsWindow")
+//
+//                return
+//            }
+//        for view in window.subviews {
+//            view.removeFromSuperview()
+//            window.addSubview(view)
+//        }
+//    }
+    
+}
     
     private func registerReloadDataNotifications(){
 //        NotificationCenter.default.addObserver(self, selector: #selector(userDidChangedStatus), name: Notification.Name(rawValue: ObserverNameConstants.nameStatusChangedNotification), object: nil)

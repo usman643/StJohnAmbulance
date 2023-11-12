@@ -17,8 +17,8 @@ class UserEngagementsVC: ENTALDBaseViewController {
     
     let conId = UserDefaults.standard.contactIdToken ?? ""
     @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblHederTitle: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var btnMessage: UIButton!
     
@@ -35,6 +35,8 @@ class UserEngagementsVC: ENTALDBaseViewController {
     func decorateUI(){
         lblTitle.textColor = UIColor.headerGreen
         lblTitle.font = UIFont.HeaderBoldFont(18)
+        lblHederTitle.textColor = UIColor.headerGreen
+        lblHederTitle.font = UIFont.HeaderBlackFont(18)
         headerView.addBottomShadow()
         let originalImage = UIImage(named: "messages-bubble-square-text")!
         let tintedImage = ProcessUtils.shared.tintImage(originalImage)

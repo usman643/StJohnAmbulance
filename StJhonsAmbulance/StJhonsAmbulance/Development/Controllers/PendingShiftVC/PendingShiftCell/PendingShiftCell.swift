@@ -39,15 +39,16 @@ class PendingShiftCell: UITableViewCell {
     func decorateUI(){
         
         mainView.layer.borderWidth = 0.5
-        mainView.layer.borderColor = UIColor.systemGray3.cgColor
-        mainView.layer.shadowColor = UIColor.systemGray4.cgColor
-        mainView.layer.shadowOpacity = 0.5
+        mainView.layer.borderColor = UIColor.systemGray5.cgColor
+        mainView.layer.shadowColor = UIColor.systemGray2.cgColor
+        mainView.layer.shadowOpacity = 0.4
         mainView.layer.shadowOffset = .zero
-        mainView.layer.shadowRadius = 6
+        mainView.layer.shadowRadius = 8
         
-        mainView.layer.cornerRadius = 16
-        statusView.layer.cornerRadius = 16
+        mainView.layer.cornerRadius = 8
+        statusView.layer.cornerRadius = 8
         statusView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMinYCorner]
+        statusView.backgroundColor = UIColor.themePrimary
         btnStatus.setTitleColor(UIColor.textLightGrayColor, for: .normal)
         lblDate.textColor = UIColor.themeSecondryWhite
         lblDate.font =  UIFont.MediumFont(11)

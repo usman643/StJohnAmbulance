@@ -11,7 +11,7 @@ import GoogleMaps
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    var window: UIWindow?
 
 //
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -43,8 +43,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func enableIQKeyBoard() {
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
-        IQKeyboardManager.shared.shouldShowToolbarPlaceholder = false
-        IQKeyboardManager.shared.enableAutoToolbar = false
+//        IQKeyboardManager.shared.shouldShowToolbarPlaceholder = false
+//        IQKeyboardManager.shared.enableAutoToolbar = false
 
     }
 

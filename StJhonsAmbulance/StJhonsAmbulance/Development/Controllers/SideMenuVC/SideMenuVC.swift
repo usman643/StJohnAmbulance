@@ -25,6 +25,7 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     @IBOutlet weak var lblLastYearHours: UILabel!
     @IBOutlet weak var lblLifetimeHours: UILabel!
     
+    @IBOutlet weak var lblSJAImpact: UILabel!
     
     var navigation:SideMenuVC?
 
@@ -32,7 +33,7 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
 //    var arrMenuIconList = ["ic_profile","ic_availability","ic_skill","ic_Qualification","ic_document","ic_language","ic_passKey","ic_setting","ic_logout"]
 //
     
-    var arrMenuList = ["Qualifications/Certifications", "Documents", "Awards", "Settings","Logout"]
+    var arrMenuList = ["Qualifications", "Documents", "Awards", "Settings","Logout"]
     var arrMenuIconList = ["ic_Qualification","ic_document","ic_skill","ic_setting","ic_logout"]
     
     var leadMenuList = ["Qualifications","Documents","Awards","Shifts","Event","Volunteers","Settings","Logout"]
@@ -50,12 +51,13 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         self.tableView.dataSource =  self
         self.tableView.register(UINib(nibName: "SideMenuTVC", bundle: nil), forCellReuseIdentifier: "SideMenuTVC")
         self.tableView.register(UINib(nibName: "SideMenuShiftTVC", bundle: nil), forCellReuseIdentifier: "SideMenuShiftTVC")
-        decorateUI()
+        
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        decorateUI()
     }
     
     func decorateUI(){
@@ -68,6 +70,7 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         lblEmail.text = UserDefaults.standard.userInfo?.emailaddress1
         imgMainVw.layer.cornerRadius = imgMainVw.frame.size.height/2
         profileImage.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: UserDefaults.standard.userInfo?.entityimage ?? "") ?? UIImage(named: "ic_profile")
+        lblSJAImpact.text = "SJA Impact".localized
     }
 
     @IBAction func ProfileBtnTapped(_ sender: Any) {
@@ -103,7 +106,7 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         if (title == "Shifts"){
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuShiftTVC", for: indexPath) as! SideMenuShiftTVC
-            cell.lblTitle.text = title
+            cell.lblTitle.text = title.localized
             cell.icon.image = UIImage(named:icon)
             cell.icon.image = cell.icon.image?.withRenderingMode(.alwaysTemplate)
             cell.icon.tintColor  = UIColor.textWhiteColor
@@ -112,7 +115,7 @@ class SideMenuVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         }else{
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTVC", for: indexPath) as! SideMenuTVC
-            cell.lblTitle.text = title
+            cell.lblTitle.text = title.localized
             if (title == "Volunteers"){
                 cell.seperatorView.isHidden = false
             }else{

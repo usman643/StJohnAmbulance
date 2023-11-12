@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,13 +22,13 @@
                         <rect key="frame" x="12" y="5" width="352" height="97"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fdT-oe-jNK">
-                                <rect key="frame" x="60" y="0.0" width="284" height="97"/>
+                                <rect key="frame" x="80" y="0.0" width="264" height="97"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xhy-Gi-sh7">
-                                        <rect key="frame" x="0.0" y="0.0" width="276" height="97"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="256" height="97"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sne-kg-oYA">
-                                                <rect key="frame" x="8" y="12" width="260" height="73"/>
+                                                <rect key="frame" x="16" y="16" width="224" height="65"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -36,10 +36,10 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.1764705882352941" green="0.32549019607843138" blue="0.25490196078431371" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="Sne-kg-oYA" secondAttribute="trailing" constant="8" id="cpg-Id-DIx"/>
-                                            <constraint firstAttribute="bottom" secondItem="Sne-kg-oYA" secondAttribute="bottom" constant="12" id="n0P-YP-hWv"/>
-                                            <constraint firstItem="Sne-kg-oYA" firstAttribute="leading" secondItem="xhy-Gi-sh7" secondAttribute="leading" constant="8" id="pRB-Vo-LTm"/>
-                                            <constraint firstItem="Sne-kg-oYA" firstAttribute="top" secondItem="xhy-Gi-sh7" secondAttribute="top" constant="12" id="qeL-vB-Mtw"/>
+                                            <constraint firstAttribute="trailing" secondItem="Sne-kg-oYA" secondAttribute="trailing" constant="16" id="cpg-Id-DIx"/>
+                                            <constraint firstAttribute="bottom" secondItem="Sne-kg-oYA" secondAttribute="bottom" constant="16" id="n0P-YP-hWv"/>
+                                            <constraint firstItem="Sne-kg-oYA" firstAttribute="leading" secondItem="xhy-Gi-sh7" secondAttribute="leading" constant="16" id="pRB-Vo-LTm"/>
+                                            <constraint firstItem="Sne-kg-oYA" firstAttribute="top" secondItem="xhy-Gi-sh7" secondAttribute="top" constant="16" id="qeL-vB-Mtw"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -48,7 +48,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenBublemsg" translatesAutoresizingMaskIntoConstraints="NO" id="DPg-qD-qvP">
-                                        <rect key="frame" x="269" y="87.333333333333329" width="15" height="10"/>
+                                        <rect key="frame" x="249" y="87.333333333333329" width="15" height="10"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="15" id="AYx-gM-YUU"/>
@@ -70,12 +70,12 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="fdT-oe-jNK" secondAttribute="bottom" id="8Xe-kD-IGI"/>
-                            <constraint firstItem="fdT-oe-jNK" firstAttribute="leading" secondItem="HsN-EF-feP" secondAttribute="leading" constant="60" id="Isc-ww-Msw"/>
+                            <constraint firstItem="fdT-oe-jNK" firstAttribute="leading" secondItem="HsN-EF-feP" secondAttribute="leading" constant="80" id="Isc-ww-Msw"/>
                             <constraint firstItem="fdT-oe-jNK" firstAttribute="top" secondItem="HsN-EF-feP" secondAttribute="top" id="P1e-8O-Gau"/>
                             <constraint firstAttribute="trailing" secondItem="fdT-oe-jNK" secondAttribute="trailing" constant="8" id="aAQ-JJ-F1o"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dfv-02-YMi">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:00 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dfv-02-YMi">
                         <rect key="frame" x="24" y="106" width="320" height="20"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>

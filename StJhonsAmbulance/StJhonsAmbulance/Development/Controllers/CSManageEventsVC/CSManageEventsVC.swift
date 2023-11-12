@@ -21,6 +21,7 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
     var filterPendingApprovalData : [PendingApprovalEventsModel]?
     var filterPendingPublishData : [CurrentEventsModel]?
     
+    var allPorgram = ProcessUtils.shared.programsData
     
     var isAvaiableEvent = false
     var isPendingApprovalEvent = false
@@ -35,6 +36,7 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
     
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblSelectedGroup: UILabel!
     @IBOutlet weak var selectGroupView: UIView!
     @IBOutlet weak var btnSelectGroup: UIButton!
     
@@ -64,7 +66,6 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
     @IBOutlet weak var unpublishTableView: UITableView!
     @IBOutlet weak var pastTableView: UITableView!
     
-    
     @IBOutlet weak var availableLoadMoreView: UIView!
     @IBOutlet weak var btnnAvailableLoadMore: UIButton!
     @IBOutlet weak var pendingLoadMoreView: UIView!
@@ -80,35 +81,42 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
         decorateUI()
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         setupTableView()
-        getPendingApproval()
-        getCurrentEvents()
-        getPastEvents()
-        getpendingPublish()
+        self.getAllProgramesfile( completion: {status in
+            
+            self.getPendingApproval()
+            self.getCurrentEvents()
+            self.getPastEvents()
+            self.getpendingPublish()
+        })
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
-        btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
+//        btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
+        lblSelectedGroup.text =  ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? ""
     }
 
     func decorateUI(){
         
         if (ProcessUtils.shared.selectedUserGroup == nil){
             if (ProcessUtils.shared.userGroupsList.count > 0 ){
-                ProcessUtils.shared.selectedUserGroup = ProcessUtils.shared.volunteerGroupsList[0]
-                btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
+                ProcessUtils.shared.selectedUserGroup = ProcessUtils.shared.userGroupsList[0]
+//                btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
+                lblSelectedGroup.text = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? ""
             }
         }
         lblTitle.font = UIFont.HeaderBoldFont(18)
         lblTitle.textColor = UIColor.headerGreen
         headerView.addBottomShadow()
-        btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
-        btnSelectGroup.backgroundColor = UIColor.themeSecondry
+        btnSelectGroup.backgroundColor = UIColor.clear
         btnSelectGroup.layer.cornerRadius = 3
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
         btnSelectGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
+        
+        lblSelectedGroup.font = UIFont.BoldFont(14)
+        lblSelectedGroup.textColor = UIColor.textWhiteColor
         
         btnAvailableView.backgroundColor = UIColor.themePrimaryColor
         btnPendingApprovalView.backgroundColor = UIColor.themePrimaryColor
@@ -121,14 +129,19 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
         btnPendingApprovalView.isHidden = false
         pendingApprovalView.isHidden = false
         
-        btnAvailable.titleLabel?.font = UIFont.BoldFont(14)
-        btnPendingApproval.titleLabel?.font = UIFont.BoldFont(14)
-        btnUnnpublish.titleLabel?.font = UIFont.BoldFont(14)
-        btnPast.titleLabel?.font = UIFont.BoldFont(14)
+        btnAvailable.titleLabel?.font = UIFont.BoldFont(16)
+        btnPendingApproval.titleLabel?.font = UIFont.BoldFont(16)
+        btnUnnpublish.titleLabel?.font = UIFont.BoldFont(16)
+        btnPast.titleLabel?.font = UIFont.BoldFont(16)
         
         let originalImage = UIImage(named: "messages-bubble-square-text")!
         let tintedImage = ProcessUtils.shared.tintImage(originalImage)
         btnMessage.setImage(tintedImage, for: .normal)
+        
+        btnnAvailableLoadMore.titleLabel?.font = UIFont.MediumFont(16)
+        btnnPendingLoadMore.titleLabel?.font = UIFont.MediumFont(16)
+        btnUpublishLoadMore.titleLabel?.font = UIFont.MediumFont(16)
+        btnnPastLoadMore.titleLabel?.font = UIFont.MediumFont(16)
         
     }
     
@@ -252,10 +265,10 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
     
     func resetButtonView(){
         
-        btnAvailable.setTitleColor( UIColor.gray, for: .normal)
-        btnPendingApproval.setTitleColor( UIColor.gray, for: .normal)
-        btnUnnpublish.setTitleColor( UIColor.gray, for: .normal)
-        btnPast.setTitleColor( UIColor.gray, for: .normal)
+        btnAvailable.setTitleColor( UIColor.hexString(hex: "6E6E6E"), for: .normal)
+        btnPendingApproval.setTitleColor( UIColor.hexString(hex: "6E6E6E"), for: .normal)
+        btnUnnpublish.setTitleColor( UIColor.hexString(hex: "6E6E6E"), for: .normal)
+        btnPast.setTitleColor( UIColor.hexString(hex: "6E6E6E"), for: .normal)
         
         btnAvailableView.isHidden = true
         btnPendingApprovalView.isHidden = true
@@ -298,7 +311,11 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
             if let data = params as? LandingGroupsModel {
                 ProcessUtils.shared.selectedUserGroup = data
                 self.getCurrentEvents()
-                self.btnSelectGroup.setTitle("\(data.sjavms_groupid?.getGroupName() ?? "")", for: .normal)
+                self.getPendingApproval()
+                self.getpendingPublish()
+                self.getPastEvents()
+//                self.btnSelectGroup.setTitle("\(data.sjavms_groupid?.getGroupName() ?? "")", for: .normal)
+                self.lblSelectedGroup.text = "\(data.sjavms_groupid?.getGroupName() ?? "")"
                 
             }
         }
@@ -310,14 +327,12 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
             
             ParameterKeys.select : "sjavms_name,sjavms_address1name,sjavms_maxvolunteers,sjavms_eventstartdate,statecode,_sjavms_program_value,sjavms_eventrequestid",
             ParameterKeys.expand : "sjavms_msnfp_group_sjavms_eventrequest($filter=(msnfp_groupid eq \(groupId)))",
-            ParameterKeys.filter : "(statecode eq 0 and (statuscode eq 1 or statuscode eq 802280002)) and (sjavms_msnfp_group_sjavms_eventrequest/any(o1:(o1/msnfp_groupid eq \(groupId))))",
-            ParameterKeys.orderby : "sjavms_eventstartdate asc"
-        ]
         
+            ParameterKeys.filter : "(statecode eq 0 and (statuscode eq 1 or statuscode eq 802280002)) and (sjavms_msnfp_group_sjavms_eventrequest/any(o1:(o1/msnfp_groupid eq \(groupId))))"
+        ]
+
         self.getPendingApprovalsData(params: params)
     }
-    
-  
     
     fileprivate func getPendingApprovalsData(params : [String:Any]){
         DispatchQueue.main.async {
@@ -375,7 +390,9 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
             ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_location,msnfp_minimum,msnfp_startingdate,msnfp_endingdate,msnfp_engagementopportunitystatus,_sjavms_program_value,msnfp_engagementopportunityid,msnfp_maximum,_sjavms_contact_value,sjavms_maxparticipants",
             ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(msnfp_groupid eq \(groupId)))",
             ParameterKeys.filter : "(msnfp_engagementopportunitystatus eq 844060000) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
-            ParameterKeys.orderby : "msnfp_startingdate asc"
+            
+            
+//            ParameterKeys.orderby : "msnfp_startingdate asc"
         ]
         
         self.getPendingPublishData(params: params)
@@ -397,7 +414,7 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
                 if let pendingData = response.value {
                     self.pendingPublishData = pendingData
                     self.filterPendingPublishData = pendingData
-                    self.pendingTimefilter()
+//                    self.pendingTimefilter()
                     
                     self.pendingPublishData = self.pendingPublishData?.sorted(by: { $0.msnfp_endingdate ?? "" < $1.msnfp_endingdate ?? "" })
                     self.filterPendingPublishData = self.pendingPublishData
@@ -761,6 +778,44 @@ class CSManageEventsVC: ENTALDBaseViewController,UITextFieldDelegate {
             }
         }
     }
+    
+    private func getAllProgramesfile( completion: @escaping(_ status:Bool)->Void) {
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestAllProgram(params: [:]){ result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            
+            switch result{
+            case .success(value: let response):
+                
+                if let pastEvent = response.value {
+                    self.allPorgram = pastEvent
+                    ProcessUtils.shared.programsData = self.allPorgram
+                    
+                   
+                }
+                completion(true)
+            case .error(let error, let errorResponse):
+                completion(false)
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
+    }
+    
+    func getProgramName(_ programId:String)->String?{
+        let programModel = self.allPorgram?.filter({$0.sjavms_programid == programId}).first
+        return programModel?.sjavms_name
+    }
 }
 
 
@@ -785,7 +840,7 @@ extension CSManageEventsVC : UITableViewDelegate, UITableViewDataSource{
 
             cell.lblTitle.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
             cell.lblLocation.text = rowModel?.msnfp_location ?? ""
-            cell.lblDateTime.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+            cell.lblDateTime.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_endingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d, hh:mm a")
             cell.lblProgram.text = rowModel?.sjavms_program_value ?? ""
 //            cell.lblparticipants.text = "\(rowModel?.msnfp_minimum ?? 0)"
             if let participant = rowModel?.sjavms_maxparticipants {
@@ -820,7 +875,7 @@ extension CSManageEventsVC : UITableViewDelegate, UITableViewDataSource{
             
             cell.lblTitle.text = rowModel?.msnfp_engagementopportunitytitle ?? ""
             cell.lblLocation.text = rowModel?.msnfp_location ?? ""
-            cell.lblDateTime.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+            cell.lblDateTime.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.msnfp_startingdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d, hh:mm a")
             cell.lblProgram.text = rowModel?.sjavms_program_value ?? ""
             if let participant = rowModel?.sjavms_maxparticipants {
                 cell.lblparticipants.text = "\(participant)"
@@ -852,9 +907,15 @@ extension CSManageEventsVC : UITableViewDelegate, UITableViewDataSource{
             cell.lblTitle.text = rowModel?.sjavms_name ?? ""
             cell.lblLocation.text = rowModel?.sjavms_address1name ?? ""
 //            cell.lblHour.text = "\(rowModel?.time_difference ?? 0 )"
-            cell.lblDateTime.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+            cell.lblDateTime.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d, hh:mm a")
 //            cell.lblparticipants.text = "\(rowModel?.sjavms_maxvolunteers ?? 0)"
-            cell.lblProgram.text = rowModel?.sjavms_program_value ?? ""
+            
+            if let programName = self.getProgramName(rowModel?._sjavms_program_value ?? ""){
+                cell.lblProgram.text = programName
+            }else{
+                cell.lblProgram.text = ""
+            }
+            
             
             if let participant = rowModel?.sjavms_maxvolunteers {
                 cell.lblparticipants.text = "\(participant)"
@@ -890,13 +951,13 @@ extension CSManageEventsVC : UITableViewDelegate, UITableViewDataSource{
             cell.lblLocation.text = rowModel?.msnfp_location ?? ""
 //            cell.lblHour.text = "\(rowModel?.time_difference ?? 0 )"
             if let date = rowModel?.msnfp_startingdate{
-                cell.lblDateTime.text = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
+                cell.lblDateTime.text = DateFormatManager.shared.formatDateStrToStr(date: date, oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d, hh:mm a")
             }else{
                 cell.lblDateTime.text = "...."
             }
             cell.lblProgram.text = rowModel?.sjavms_program_value ?? ""
             
-            if let participant = rowModel?.sjavms_maxparticipants {
+            if let participant = rowModel?.msnfp_minimum {
                 cell.lblparticipants.text = "\(participant)"
             }else{
                 cell.lblparticipants.text = "0"
@@ -915,13 +976,6 @@ extension CSManageEventsVC : UITableViewDelegate, UITableViewDataSource{
             }else{
                 cell.statusImg.isHidden = true
             }
-            
-            
-            
-            
-            
-            
-            
             return cell
         }
         let cells = tableView.dequeueReusableCell(withIdentifier: "ManagerEventPendingCell", for: indexPath) as! ManagerEventPendingCell
@@ -1009,10 +1063,13 @@ extension CSManageEventsVC : UITableViewDelegate, UITableViewDataSource{
                 
             }
         }else if (isPendingApprovalEvent == true){
-            
-            let eventdata = self.filterPendingApprovalData?[index]
-            
-            ENTALDControllers.shared.showEventSummaryScreen(type: .ENTALDPUSH, from: self , dataObj: eventdata) { params, controller in
+            let rowModel = self.filterPendingApprovalData?[index]
+        
+//            let eventdata = self.filterPendingApprovalData?[index]
+//            let pendinngEventData : CurrentEventsModel? = CurrentEventsModel(msnfp_engagementopportunitytitle: rowModel?.sjavms_name , msnfp_startingdate: "" , address1_line1: rowModel?.sjavms_address1name, msnfp_location: rowModel?.sjavms_address1name, msnfp_engagementopportunitystatus: rowModel?.statecode, _sjavms_program_value: rowModel?._sjavms_program_value, msnfp_engagementopportunityid: rowModel?.sjavms_eventrequestid, msnfp_endingdate: "", msnfp_maximum: 0, msnfp_minimum: 0, _sjavms_contact_value: "pendingApproval", sjavms_maxparticipants: 0, sjavms_checkedin: false, sjavms_program_value: rowModel?._sjavms_program_value, time_difference: 0, msnfp_description: "", msnfp_shortdescription: "" )
+//            
+//            
+            ENTALDControllers.shared.showPenndingApprovalSummaryScreen(type: .ENTALDPUSH, from: self , dataObj: rowModel) { params, controller in
                 
             }
         }

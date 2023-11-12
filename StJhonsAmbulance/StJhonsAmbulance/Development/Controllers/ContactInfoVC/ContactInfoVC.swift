@@ -229,13 +229,7 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
         lblCurrentYearHours.text = "\(UserDefaults.standard.userInfo?.sjavms_totalhourscompletedthisyear?.getFormattedNumber() ?? "")"
         lblLastYearHours.text = "\(UserDefaults.standard.userInfo?.sjavms_totalhourscompletedpreviousyear?.getFormattedNumber() ?? "")"
         lblLifetimeHours.text = "\(UserDefaults.standard.userInfo?.msnfp_totalengagementhours?.getFormattedNumber() ?? "")"
-        
-        
-        lblLifeTimeHour.text = "Lifetime Hours".uppercased()
-        lblThisYearHour.text = "Hours This Year".uppercased()
-        lblLServiceYears.text = "Years of Service".uppercased()
-        lblLastYearHour.text = "Hours Last Year".uppercased()
-        
+
         
         txtFirstName.lineColor = UIColor.textLightGrayColor
         txtLastName.lineColor = UIColor.textLightGrayColor
@@ -261,9 +255,50 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
     }
     
     func setupData(){
+        lblTitle.text = "Profile".localized
+        lblLifeTimeHour.text = "LIFETIME HOURS".localized
+        lblThisYearHour.text = "HOURS THIS YEAR".uppercased().localized
+        lblLServiceYears.text = "YEAR OF SERVICE".uppercased().localized
+        lblLastYearHour.text = "HOURS LAST YEAR".uppercased().localized
+        
+        lblFirstName.text = "First Name".localized
+        lblLastName.text = "Last Name".localized
+        lblPreferredPronoun.text = "Preferred Pronouns".localized
+        lblGender.text = "Gender".localized
+        lblBirthday.text = "Birthday".localized
+        lblEmail.text = "Email".localized
+        lblContact.text = "Contact".localized
+        lblPrimaryPhone.text = "Primary Phone".localized
+        lblContactMethod.text = "Method of Conatct".localized
+        lblOptNotification.text = "Opt Out of Notifications".localized
+        lblEmergencyName.text = "Emergency Contact Name".localized
+        lblEmergencyContact.text = "Emergency Contact Phone".localized
+        lblAddress.text = "Address".localized
+        lblStreetThree.text = "Street".localized
+        lblCity.text = "City".localized
+        lblProvince.text = "Province".localized
+        lblPostalCde.text = "Postal Code".localized
+        btnSubmit.setTitle("Update".localized, for: .normal)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         let userDefaultObj = UserDefaults.standard.userInfo
-        profileImg.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: userDefaultObj?.entityimage ?? "") ?? UIImage(named: "ic_profile")
+        DispatchQueue.main.async {
+            self.profileImg.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: userDefaultObj?.entityimage ?? "") ?? UIImage(named: "ic_profile")
+        }
+        
         lblName.text = "\(userDefaultObj?.firstname ?? "") \(userDefaultObj?.lastname ?? "")"
         txtFirstName.text = userDefaultObj?.firstname ?? ""
         txtLastName.text = userDefaultObj?.lastname ?? ""
@@ -280,9 +315,9 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
         txtEmergencyContactPhone.text = userDefaultObj?.sjavms_emergencycontactphone ?? ""
         var gender = ""
         if userDefaultObj?.gendercode == 2 {
-            gender = "Male"
+            gender = "Male".localized
         }else if userDefaultObj?.gendercode ==  1 {
-            gender = "Female"
+            gender = "Female".localized
         }
 
         btnGender.setTitle(gender, for: .normal)
@@ -295,9 +330,9 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
         btnGender.setTitle(gender, for: .normal)
         btnContactMethod.setTitle(contactMethod, for: .normal)
         if (UserDefaults.standard.userInfo?.sjavms_optoutofnotifications == true) {
-            btnOptNotofocation.setTitle("ON", for: .normal)
+            btnOptNotofocation.setTitle("ON".localized, for: .normal)
         }else{
-            btnOptNotofocation.setTitle("OFF", for: .normal)
+            btnOptNotofocation.setTitle("OFF".localized, for: .normal)
         }
     }
     
@@ -411,6 +446,7 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
     
         DispatchQueue.main.async {
             LoadingView.show()
+            self.view.endEditing(true)
         }
         var params:[String:Any] = [
             "firstname" : txtFirstName.text ?? "",
@@ -458,7 +494,10 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
              break
         case .error(let error, let errorResponse):
             if error == .patchSuccess {
-                ENTALDAlertView.shared.showContactAlertWithTitle(title: "Profile Updated Successfully", message: "", actionTitle: .KOK, completion: { status in })
+            
+                self.getUserIdentity(conId: self.contactId)
+
+                
             }else{
                 var message = error.message
                 if let err = errorResponse {
@@ -472,6 +511,42 @@ class ContactInfoVC: ENTALDBaseViewController,UIImagePickerControllerDelegate & 
     }
         
     
+    }
+    
+    func getUserIdentity(conId:String){
+        DispatchQueue.main.async {
+            LoadingView.show()
+        }
+        
+        ENTALDLibraryAPI.shared.requestUserIdentity(conId: conId) { result in
+            DispatchQueue.main.async {
+                LoadingView.hide()
+            }
+            switch result {
+            case .success(let response):
+                UserDefaults.standard.userInfo = response
+//                self.setupData()
+                
+                DispatchQueue.main.async {
+                    self.navigationController?.popViewController(animated: true)
+                }
+                
+//                ENTALDAlertView.shared.showContactAlertWithTitle(title: "Profile Updated Successfully", message: "", actionTitle: .KOK, completion: { status in
+//                    
+//
+//                    
+//                })
+                break
+            case .error(let error, let errorResponse):
+                var message = error.message
+                if let err = errorResponse {
+                    message = err.error
+                }
+                DispatchQueue.main.async {
+                    ENTALDAlertView.shared.showAPIAlertWithTitle(title: "", message: message, actionTitle: .KOK, completion: {status in })
+                }
+            }
+        }
     }
     
     

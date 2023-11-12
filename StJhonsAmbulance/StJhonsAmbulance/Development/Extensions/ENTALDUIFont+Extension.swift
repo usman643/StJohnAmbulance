@@ -32,6 +32,11 @@ extension UIFont {
         return font
     }
     
+    class func HeavyFont(_ size: CGFloat) -> UIFont {
+        let font = UIFont(name: "NunitoSans-Black", size: size) ?? UIFont.systemFont(ofSize: size, weight: .bold)
+        return font
+    }
+    
     
     
     
@@ -56,6 +61,10 @@ extension UIFont {
     
     class func HeaderBoldFont(_ size: CGFloat) -> UIFont {
         let font = UIFont(name: "Avenir-Heavy", size: size) ?? UIFont()
+        return font
+    } 
+    class func HeaderBlackFont(_ size: CGFloat) -> UIFont {
+        let font = UIFont(name: "Avenir-Black", size: size) ?? UIFont()
         return font
     }
     

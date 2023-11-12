@@ -61,7 +61,7 @@ class QualificationCertificationVC: ENTALDBaseViewController,UITextFieldDelegate
             self.getExternalQualification()
         }
         textSearch.delegate = self
-        
+        setupData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,14 +82,26 @@ class QualificationCertificationVC: ENTALDBaseViewController,UITextFieldDelegate
         isSJATableSearch = true
         isExternalTableSearch = false
         
-        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
-        searchView.layer.borderWidth = 1.5
+//        searchView.layer.borderColor = UIColor.themePrimaryWhite.cgColor
+//        searchView.layer.borderWidth = 1.5
         searchView.isHidden = false
         searchView.layer.cornerRadius = 8
+        searchView.backgroundColor = UIColor.viewLightGrayColor
         textSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         let originalImage = UIImage(named: "messages-bubble-square-text")!
         let tintedImage = ProcessUtils.shared.tintImage(originalImage)
         btnMessage.setImage(tintedImage, for: .normal)
+    }
+    
+    func setupData(){
+        lbltitle.text = "Qualification".localized
+        textSearch.placeholder = "Search".localized
+        
+        
+        
+        segment.setTitle("SJA Qualification".localized, forSegmentAt: 0)
+        segment.setTitle("Externnal Qualification".localized, forSegmentAt: 1)
+             
     }
     
     func registerCell(){
@@ -617,23 +629,6 @@ class QualificationCertificationVC: ENTALDBaseViewController,UITextFieldDelegate
             }
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 }
 

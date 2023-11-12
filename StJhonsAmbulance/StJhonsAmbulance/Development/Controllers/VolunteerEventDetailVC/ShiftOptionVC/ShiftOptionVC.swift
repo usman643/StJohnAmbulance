@@ -30,6 +30,7 @@ class ShiftOptionVC: ENTALDBaseViewController {
     var isEndFilterApplied = false
     var isHourFilterApplied = false
     var isNeedFilterApplied = false
+    var isEngagmentEvent : Bool?
     
     
     
@@ -499,15 +500,25 @@ class ShiftOptionVC: ENTALDBaseViewController {
     
     
     func getEventOptions() {
-        
-        let params : [String:Any] = [
-            ParameterKeys.select : "msnfp_engagementopportunityschedule,createdon,msnfp_totalhours,msnfp_startperiod,msnfp_hoursperday,_msnfp_engagementopportunity_value,msnfp_endperiod,msnfp_effectiveto,msnfp_effectivefrom,msnfp_workingdays,msnfp_engagementopportunityscheduleid,msnfp_hours,msnfp_maximum,msnfp_number,msnfp_minimum",
-            ParameterKeys.expand : "msnfp_ParticipationSchedule_engagementOpp($select=msnfp_participationscheduleid,_msnfp_participationid_value,_sjavms_volunteer_value,msnfp_name,msnfp_schedulestatus;$filter=(_sjavms_volunteer_value eq \(self.contactId)))",
-            ParameterKeys.filter : "(statecode eq 0 and _msnfp_engagementopportunity_value eq \(self.eventId ?? ""))",
-            ParameterKeys.orderby : "msnfp_engagementopportunityschedule asc"
-        ]
-        
-        self.getEventOptionData(params: params)
+        if (isEngagmentEvent ?? false){
+            let params : [String:Any] = [
+                ParameterKeys.select : "msnfp_engagementopportunityschedule,msnfp_totalhours,msnfp_hours,_msnfp_engagementopportunity_value,msnfp_effectiveto,msnfp_effectivefrom,msnfp_engagementopportunityscheduleid,msnfp_minimum,msnfp_maximum",
+//                ParameterKeys.expand : "msnfp_ParticipationSchedule_engagementOpp($select=msnfp_participationscheduleid,_msnfp_participationid_value,_sjavms_volunteer_value,msnfp_name,msnfp_schedulestatus;$filter=(_sjavms_volunteer_value eq \(self.contactId)))",
+                ParameterKeys.filter : "(_msnfp_engagementopportunity_value eq \(self.eventId ?? "") and statecode eq 0)"
+            ]
+            
+            self.getEventOptionData(params: params)
+        }else{
+            let params : [String:Any] = [
+                ParameterKeys.select : "msnfp_engagementopportunityschedule,createdon,msnfp_totalhours,msnfp_startperiod,msnfp_hoursperday,_msnfp_engagementopportunity_value,msnfp_endperiod,msnfp_effectiveto,msnfp_effectivefrom,msnfp_workingdays,msnfp_engagementopportunityscheduleid,msnfp_hours,msnfp_maximum,msnfp_number,msnfp_minimum",
+                ParameterKeys.expand : "msnfp_ParticipationSchedule_engagementOpp($select=msnfp_participationscheduleid,_msnfp_participationid_value,_sjavms_volunteer_value,msnfp_name,msnfp_schedulestatus;$filter=(_sjavms_volunteer_value eq \(self.contactId)))",
+                ParameterKeys.filter : "(statecode eq 0 and _msnfp_engagementopportunity_value eq \(self.eventId ?? ""))",
+                ParameterKeys.orderby : "msnfp_engagementopportunityschedule asc"
+            ]
+            
+            self.getEventOptionData(params: params)
+        }
+       
         
     }
     
@@ -567,12 +578,13 @@ class ShiftOptionVC: ENTALDBaseViewController {
 
 extension ShiftOptionVC : UITableViewDelegate, UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return self.eventOptionsData?.count ?? 0
-    }
-    
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return self.eventOptionsData?.count ?? 0
+//    }
+//    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.eventOptionsData?[section].filterdata()?.count ?? 0
+        return self.eventOptionsData?.count ?? 0
+//        return self.eventOptionsData?[section].filterdata()?.count ?? 0
     }
     
     
@@ -580,7 +592,8 @@ extension ShiftOptionVC : UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ShiftOptionTVC", for: indexPath) as! ShiftOptionTVC
         
         
-         let rowModel = self.eventOptionsData?[indexPath.section].filterdata()?[indexPath.row]
+        let rowModel = self.eventOptionsData?[indexPath.row]
+//         let rowModel = self.eventOptionsData?[indexPath.section].filterdata()?[indexPath.row]
             if indexPath.row % 2 == 0{
                 cell.mainView.backgroundColor = UIColor.hexString(hex: "e6f2eb")
                 cell.seperatorView.backgroundColor = UIColor.themePrimary
@@ -589,7 +602,8 @@ extension ShiftOptionVC : UITableViewDelegate, UITableViewDataSource {
                 cell.seperatorView.backgroundColor = UIColor.gray
             }
             
-            cell.setContent(cellModel: self.eventOptionsData?[indexPath.section] , rowModel : rowModel)
+//            cell.setContent(cellModel: self.eventOptionsData?[indexPath.section] , rowModel : rowModel)
+            cell.setContent(cellModel: rowModel)
   
         return cell
     }

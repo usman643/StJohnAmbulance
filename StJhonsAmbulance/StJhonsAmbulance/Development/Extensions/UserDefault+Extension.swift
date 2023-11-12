@@ -27,6 +27,15 @@ extension UserDefaults {
         }
     }
     
+    var isSystemPrefernceTheme: Bool {
+        get {
+            return bool(forKey: keyDarkMode)
+        }
+        set {
+            set(newValue, forKey: keyDarkMode)
+        }
+    }
+    
     var authToken: String? {
         get {
             return string(forKey: keyAuthToken)

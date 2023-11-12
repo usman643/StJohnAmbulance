@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 class ENTALDTabbarViewController: UITabBarController {
     
@@ -20,24 +21,27 @@ class ENTALDTabbarViewController: UITabBarController {
         self.tabBar.tintColor = .themePrimaryColor
         self.tabBar.barTintColor = .themeWhiteText
         UITabBar.appearance().barTintColor = .white
-        UITabBar.appearance().selectionIndicatorImage = Bundle.loadImageFromResourceAFBundlePNG(imageName: "tab_bg")
+//        UITabBar.appearance().selectionIndicatorImage = Bundle.loadImageFromResourceAFBundlePNG(imageName: "tab_bg")
 //        self.navigationController?.navigationBar.isHidden = true
         self.setupTabbarshadow()
         
         self.loadTabbarControllers()
-
+        IQKeyboardManager.shared.enable = false
+        IQKeyboardManager.shared.enableAutoToolbar = false
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true;
         // Do any additional setup after loading the view.
     }
     
     func setupTabbarshadow(){
-        tabBar.layer.shadowColor = UIColor.lightGray.cgColor
+        tabBar.layer.shadowColor = UIColor.gray.cgColor
         tabBar.layer.shadowOpacity = 0.5
         tabBar.layer.shadowOffset = CGSize.zero
         tabBar.layer.shadowRadius = 5
         self.tabBar.layer.borderColor = UIColor.clear.cgColor
         self.tabBar.layer.borderWidth = 0
         self.tabBar.clipsToBounds = false
-        self.tabBar.backgroundColor = UIColor.hexString(hex: "E6F2EB")
+        self.tabBar.clipsToBounds = false
+        self.tabBar.backgroundColor = UIColor.hexString(hex: "F0F0F0")
         UITabBar.appearance().shadowImage = UIImage()
         UITabBar.appearance().backgroundImage = UIImage()
         UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -8)
@@ -89,6 +93,7 @@ class ENTALDTabbarViewController: UITabBarController {
         
         let homeVC = DashboardVC.loadFromNib()
         let homeImg = "tabHome".templatedImage
+        let homeImgUnselected = "tabHomeUnselected".templatedImage
         
         let eventVC = VolunteerEventsVC.loadFromNib()
         let eventImg = "ai-navigation-spark".templatedImage
@@ -106,13 +111,10 @@ class ENTALDTabbarViewController: UITabBarController {
 //        let messageImg = "tabMessage".templatedImage
        
         viewControllers = [
-            self.createNavController(for: homeVC, title: "Home", image: homeImg),
-            
-            self.createNavController(for: eventVC, title: "Events", image: eventImg),
-            
-            self.createNavController(for: hourVC, title: "Hours", image: hourImg),
-            
-            self.createNavController(for: scheduleVC, title: "Schedule", image: scheduleImg),
+            self.createNavController(for: homeVC, title: "Home".localized, image: homeImg),
+            self.createNavController(for: eventVC, title: "Events".localized, image: eventImg),
+            self.createNavController(for: hourVC, title: "Hours".localized, image: hourImg),
+            self.createNavController(for: scheduleVC, title: "Schedule".localized, image: scheduleImg),
             
            
 //            self.createNavController(for: messageVC, title: "", image: messageImg)
@@ -125,7 +127,7 @@ class ENTALDTabbarViewController: UITabBarController {
             guard let selectedViewController = viewControllers?[selectedIndex] else {
                 return
             }
-            selectedViewController.tabBarItem.setTitleTextAttributes([.font: UIFont.BoldFont(12)], for: .normal)
+            selectedViewController.tabBarItem.setTitleTextAttributes([.font: UIFont.HeavyFont(9)], for: .normal)
         }
     }
     
@@ -138,9 +140,9 @@ class ENTALDTabbarViewController: UITabBarController {
             
             for viewController in viewControllers {
                 if viewController == selectedViewController {
-                    viewController.tabBarItem.setTitleTextAttributes([.font: UIFont.BoldFont(12)], for: .normal)
+                    viewController.tabBarItem.setTitleTextAttributes([.font: UIFont.HeavyFont(9)], for: .normal)
                 } else {
-                    viewController.tabBarItem.setTitleTextAttributes([.font: UIFont.BoldFont(12)], for: .normal)
+                    viewController.tabBarItem.setTitleTextAttributes([.font: UIFont.HeavyFont(9)], for: .normal)
                 }
             }
         }

@@ -27,6 +27,8 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     var isDatefilterApplied:Bool = false
     var isEventfilterApplied:Bool = false
     
+    var selectedShiftId : Int?
+    var selectedShift : String?
     var groupId : String = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupId() ?? ""
     var isLoadMoreShow = true
     
@@ -37,6 +39,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     @IBOutlet weak var tableView: UITableView!
     
     
+    @IBOutlet weak var shiftTypeView: UIView!
     @IBOutlet weak var btnApprove: UIButton!
     @IBOutlet weak var btnPending: UIButton!
     @IBOutlet weak var btnCancel: UIButton!
@@ -48,6 +51,9 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     @IBOutlet weak var btnLoadMore: UIButton!
     
     
+    @IBOutlet weak var btnSelectEventType: UIButton!
+    @IBOutlet weak var lblEventType: UILabel!
+    @IBOutlet weak var lblSelectedGroup: UILabel!
     //    @IBOutlet weak var btnSeclectAction: UIButton!
     //    @IBOutlet weak var btnFilter: UIButton!
     //    
@@ -59,6 +65,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         decorateUI()
+        setupData()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "PendingShiftCell", bundle: nil), forCellReuseIdentifier: "PendingShiftCell")
@@ -74,7 +81,8 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
-        self.btnSelectGroup.setTitle("\(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "")", for: .normal)
+//        self.btnSelectGroup.setTitle("\(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "")", for: .normal)
+        self.lblSelectedGroup.text = "\(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "")"
         getPendingShift()
         //        getPendingShiftThree()
     }
@@ -85,7 +93,8 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         if (ProcessUtils.shared.selectedUserGroup == nil){
             if (ProcessUtils.shared.userGroupsList.count > 0 ){
                 ProcessUtils.shared.selectedUserGroup = ProcessUtils.shared.volunteerGroupsList[0]
-                btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
+//                btnSelectGroup.setTitle(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "", for: .normal)
+                self.lblSelectedGroup.text = "\(ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupName() ?? "")"
             }
         }
         groupId = ProcessUtils.shared.selectedUserGroup?.sjavms_groupid?.getGroupId() ?? ""
@@ -93,9 +102,22 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         lblTitle.textColor = UIColor.headerGreen
         headerView.addBottomShadow()
         btnSelectGroup.titleLabel?.font = UIFont.BoldFont(14)
-        btnSelectGroup.backgroundColor = UIColor.themePrimary
+        btnSelectGroup.backgroundColor = UIColor.clear
         btnSelectGroup.setTitleColor(UIColor.textWhiteColor, for: .normal)
+        btnSelectEventType.backgroundColor = UIColor.clear
+
+        lblEventType.font = UIFont.BoldFont(14)
+        lblEventType.textAlignment = .center
+        lblEventType.textColor = UIColor.textWhiteColor
+        lblSelectedGroup.font = UIFont.BoldFont(14)
+        lblSelectedGroup.textAlignment = .center
+        lblSelectedGroup.textColor = UIColor.textWhiteColor
+        
         btnGroupView.layer.cornerRadius = 3
+        shiftTypeView.layer.cornerRadius = 3
+        
+        btnGroupView.backgroundColor = UIColor.themePrimary
+        shiftTypeView.backgroundColor = UIColor.themePrimary
         
         btnApprove.setTitleColor(UIColor.themePrimaryColor, for: .normal)
         btnApprove.titleLabel?.font = UIFont.BoldFont(14)
@@ -118,6 +140,22 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         let tintedImage = ProcessUtils.shared.tintImage(originalImage)
         btnMessage.setImage(tintedImage, for: .normal)
         loadMoreView.isHidden = true
+        
+        self.btnApprove.isHidden = false
+        self.btnPending.isHidden = true
+        self.btnCancel.isHidden = false
+        
+    }
+    
+    func setupData(){
+        lblTitle.text = "Manage Shifts".localized
+        lblEventType.text = "  Pending Shifts  ".localized
+        btnApprove.setTitle("  Approve  ".localized, for: .normal)
+        btnPending.setTitle("  Set to Pending  ".localized, for: .normal)
+        btnCancel.setTitle(" Cancel ".localized, for: .normal)
+        btnLoadMore.setTitle("Load More".localized, for: .normal)
+        
+        
     }
     
     @IBAction func eventLoadMoreTapped(_ sender: Any) {
@@ -129,9 +167,40 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         }
     }
     
-    @IBAction func closeSearch(_ sender: Any) {
+    @IBAction func filterEventsByType(_ sender: Any) {
         
-        
+        ENTALDControllers.shared.showSelectionPicker(type: .ENTALDPRESENT_OVER_CONTEXT, from: self, pickerType:.shiftType, dataObj: ProcessUtils.shared.shiftType) { params, controller in
+            if params != nil{
+                self.selectedShiftId = params as? Int
+                self.selectedShift = ProcessUtils.shared.getShiftType(code : self.selectedShiftId ?? NSNotFound )
+                self.lblEventType.text = self.selectedShift ?? ""
+                DispatchQueue.main.async {
+                    
+                    if (self.selectedShiftId == 335940000){
+                        self.filterPendingShiftData = self.pendingShiftData?.filter({
+                            $0.msnfp_schedulestatus == 335940000  // pending
+                        })
+                        
+                        self.btnApprove.isHidden = false
+                        self.btnPending.isHidden = true
+                        self.btnCancel.isHidden = false
+                        self.tableView.reloadData()
+                        
+                    }else if (self.selectedShiftId == 335940001){
+                        self.filterPendingShiftData = self.pendingShiftData?.filter({
+                            $0.msnfp_schedulestatus == 335940001  // approved
+                        })
+                        
+                        self.tableView.reloadData()
+                        self.btnApprove.isHidden = true
+                        self.btnPending.isHidden = false
+                        self.btnCancel.isHidden = false
+                    }
+
+                }
+            }
+            
+        }
     }
     
     @IBAction func backTapped(_ sender: Any) {
@@ -316,7 +385,8 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                 ProcessUtils.shared.selectedUserGroup = data
                 self.getPendingShift()
                 self.getPendingShiftThree()
-                self.btnSelectGroup.setTitle("\(data.sjavms_groupid?.getGroupName() ?? "")", for: .normal)
+//                self.btnSelectGroup.setTitle("\(data.sjavms_groupid?.getGroupName() ?? "")", for: .normal)
+                self.lblSelectedGroup.text = "\(data.sjavms_groupid?.getGroupName() ?? "")"
                 
             }
         }
@@ -365,7 +435,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
             }
             switch result{
             case .success(value: _):
-                ENTALDAlertView.shared.showContactAlertWithTitle(title: "Somthing Went Wrong", message: "", actionTitle: .KOK, completion: { status in })
+                ENTALDAlertView.shared.showContactAlertWithTitle(title: "Shift is at maximum capacity".localized, message: "", actionTitle: .KOK, completion: { status in })
                 
                 completion(false)
                 break
@@ -401,7 +471,6 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
             ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(msnfp_groupid eq \(groupId)))",
             ParameterKeys.filter : "(sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/msnfp_groupid eq \(groupId))))",
             ParameterKeys.orderby : "msnfp_startingdate asc"
-            
         ]
         
         self.getPendingShiftDataOne(params: params)
@@ -474,7 +543,7 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
         
         let params : [String:Any] = [
             
-            ParameterKeys.select : "msnfp_name,createdon,msnfp_participationscheduleid,msnfp_schedulestatus,sjavms_start,sjavms_hours,_sjavms_volunteerevent_value,_sjavms_volunteer_value,msnfp_participationscheduleid",
+            ParameterKeys.select : "msnfp_name,createdon,msnfp_participationscheduleid,msnfp_schedulestatus,sjavms_start,sjavms_end,sjavms_hours,_sjavms_volunteerevent_value,_sjavms_volunteer_value,msnfp_participationscheduleid",
             
             ParameterKeys.expand : "sjavms_Volunteer($select=fullname,lastname,telephone1,emailaddress1,address1_stateorprovince,address1_postalcode,address1_country,address1_city)",
             ParameterKeys.filter : "(Microsoft.Dynamics.CRM.In(PropertyName='sjavms_volunteerevent',PropertyValues=[\(engagementOppertunityId)]))",
@@ -495,8 +564,10 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                 
                 if let pendingShift = response.value {
                     self.pendingShiftData = pendingShift
+                    self.filterPendingShiftData = pendingShift
                     if (self.pendingShiftData?.count == 0 || self.pendingShiftData?.count == nil){
                         self.showEmptyView(tableVw: self.tableView)
+                        
                     }else{
                         
                         for i in (0 ..< (self.pendingShiftData?.count ?? 0)) {
@@ -510,7 +581,12 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                         }
                         
                         self.pendingShiftData = self.pendingShiftData?.sorted(by: { ($0.sjavms_start ?? "") < ($1.sjavms_start ?? "") })
-                        
+                        if (self.selectedShiftId == nil){
+                            self.filterPendingShiftData = self.pendingShiftData?.filter({ $0.msnfp_schedulestatus == 335940000 })// pending
+                        }else{
+                            self.filterPendingShiftData = self.pendingShiftData?.filter({ $0.msnfp_schedulestatus == self.selectedShiftId })
+                        }
+                       
                         DispatchQueue.main.async {
                             for subview in self.tableView.subviews {
                                 subview.removeFromSuperview()
@@ -519,13 +595,14 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
                         }
                     }
                     DispatchQueue.main.async {
-                        self.pendingShiftData = self.pendingShiftData?.filter({$0.msnfp_schedulestatus == 335940000})
-                        self.filterPendingShiftData = self.pendingShiftData
-                        self.filterByName()
+//                        self.pendingShiftData = self.pendingShiftData?.filter({$0.msnfp_schedulestatus == 335940000})
+                        
+//                        self.filterByName()
                         self.tableView.reloadData()
                     }
                     
                 }else{
+                    self.filterPendingShiftData = self.pendingShiftData
                     self.showEmptyView(tableVw: self.tableView)
                 }
                 
@@ -594,21 +671,6 @@ class PendingShiftVC: ENTALDBaseViewController,updatePendingShiftStatusDelegate 
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -616,6 +678,7 @@ extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
             loadMoreView.isHidden = false
             return 3
         }
+        loadMoreView.isHidden = true
         return self.filterPendingShiftData?.count ?? 0
         
     }
@@ -630,64 +693,12 @@ extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
         cell.eventId = eventId ?? ""
         
         cell.setCellData(rowModel : rowModel)
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        //            cell.lblName.text = rowModel?.sjavms_name ?? ""
-        //            cell.lblLocation.text = rowModel?.sjavms_address1name ?? ""
-        //            cell.lblHour.text = "\(rowModel?.time_difference ?? 0 )"
-        //            cell.lblDate.text = DateFormatManager.shared.formatDateStrToStr(date: rowModel?.sjavms_eventstartdate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
-        ////            cell.btnStatus.setTitle(rowModel?.sjavms_msnfp_group_sjavms_eventrequest?[0].getStatus(), for: .normal)
-        //            
-        ////            cell.btn.setTitle("Approve Event", for: .normal)
-        //            
-        //            cell.lblStatus.text = rowModel?.sjavms_msnfp_group_sjavms_eventrequest?[0].getStatus()
-        //            
-        //            
+    
         cell.btnSelect.tag = indexPath.row
         
         cell.btnSelect.addTarget(self, action: #selector(updateEvent(_ :)), for: .touchUpInside)
-        
-        
-        
-        
         return cell
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        //        
-        //        let cell = tableView.dequeueReusableCell(withIdentifier: "PendingShiftCell", for: indexPath) as! PendingShiftCell
-        //        
-        //        
-        //        cell.delegate = self
-        //        let rowModel = filterPendingShiftData?[indexPath.row]
-        //        let eventId = self.filterPendingShiftData?[indexPath.row].msnfp_participationscheduleid
-        ////        let eventId = self.getPendingShiftThreeModelBy(rowModel?._sjavms_volunteerevent_value ?? "")
-        //        cell.eventId = eventId ?? ""
-        //        
-        //        cell.setCellData(rowModel : rowModel)
-        //        
-        //        return cell
+
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -696,12 +707,30 @@ extension PendingShiftVC: UITableViewDelegate,UITableViewDataSource ,UITextViewD
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        
+        
         if (self.filterPendingShiftData?[indexPath.row].event_selected ?? false){
             
             self.filterPendingShiftData?[indexPath.row].event_selected = false
         }else{
             self.filterPendingShiftData?[indexPath.row].event_selected = true
         }
+//        let selectedEvents = self.filterPendingShiftData?.filter( {$0.event_selected == true})
+//        if (!((selectedEvents?.count ?? 0) > 0)){
+//            self.filterPendingShiftData?[indexPath.row].event_selected = true
+//            
+//            if (self.filterPendingShiftData?[indexPath.row].msnfp_schedulestatus == 335940000) { //pending
+//                
+//                self.btnApprove.isHidden = false
+//                self.btnPending.isHidden = true
+//                self.btnCancel.isHidden = false
+//                
+//            }else if (self.filterPendingShiftData?[indexPath.row].msnfp_schedulestatus == 335940001){ // approved
+//                self.btnApprove.isHidden = true
+//                self.btnPending.isHidden = false
+//                self.btnCancel.isHidden = false
+//            }
+//        }
         
         tableView.reloadRows(at: [indexPath], with: .none)
         

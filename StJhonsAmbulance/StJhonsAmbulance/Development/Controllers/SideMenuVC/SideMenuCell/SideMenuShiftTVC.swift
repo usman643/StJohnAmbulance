@@ -12,9 +12,12 @@ class SideMenuShiftTVC: UITableViewCell {
        @IBOutlet weak var icon: UIImageView!
        @IBOutlet weak var lblTitle: UILabel!
        
-       
+    @IBOutlet weak var lblManage: UILabel!
+    
        override func awakeFromNib() {
            super.awakeFromNib()
+           lblManage.text = "MANAGE".localized
+           
            icon.image = icon.image?.withRenderingMode(.alwaysTemplate)
            icon.tintColor  = UIColor.textWhiteColor
            lblTitle.font = UIFont.BoldFont(14)

@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,22 +21,21 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ig8-0R-DNg">
                         <rect key="frame" x="32" y="8" width="292" height="84"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_document" translatesAutoresizingMaskIntoConstraints="NO" id="N3r-PU-ZVI">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="award-trophy" translatesAutoresizingMaskIntoConstraints="NO" id="N3r-PU-ZVI">
                                 <rect key="frame" x="12" y="12" width="24" height="30"/>
-                                <color key="tintColor" name="headerGreen"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="8Cu-Da-8zv"/>
                                     <constraint firstAttribute="width" constant="24" id="CzE-Kg-xdg"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sOs-VZ-TJH">
-                                <rect key="frame" x="46" y="12" width="238" height="31"/>
+                                <rect key="frame" x="42" y="12" width="242" height="31"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vd9-VL-OXZ">
-                                <rect key="frame" x="36" y="60" width="248" height="12"/>
+                                <rect key="frame" x="38" y="60" width="246" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -50,7 +48,7 @@
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar-3 (2)" translatesAutoresizingMaskIntoConstraints="NO" id="fGA-Ws-cR8">
-                                <rect key="frame" x="16" y="60" width="12" height="12"/>
+                                <rect key="frame" x="18" y="60" width="12" height="12"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="12" id="H4A-0p-sky"/>
                                     <constraint firstAttribute="width" constant="12" id="gU9-1f-nsY"/>
@@ -60,20 +58,20 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="sOs-VZ-TJH" secondAttribute="trailing" constant="8" id="0dP-cs-A0i"/>
+                            <constraint firstItem="N3r-PU-ZVI" firstAttribute="top" secondItem="ig8-0R-DNg" secondAttribute="top" constant="12" id="25y-ep-4fC"/>
                             <constraint firstItem="HdU-6c-QMj" firstAttribute="leading" secondItem="ig8-0R-DNg" secondAttribute="leading" constant="8" id="3nZ-wK-diD"/>
                             <constraint firstItem="fGA-Ws-cR8" firstAttribute="top" secondItem="HdU-6c-QMj" secondAttribute="bottom" constant="8" id="5YH-dK-5HN"/>
                             <constraint firstAttribute="bottom" secondItem="Vd9-VL-OXZ" secondAttribute="bottom" constant="12" id="C5Y-rM-GKT"/>
                             <constraint firstItem="sOs-VZ-TJH" firstAttribute="top" secondItem="ig8-0R-DNg" secondAttribute="top" constant="12" id="E0e-ct-VaL"/>
                             <constraint firstAttribute="bottom" secondItem="fGA-Ws-cR8" secondAttribute="bottom" constant="12" id="KRJ-1F-XaE"/>
-                            <constraint firstItem="N3r-PU-ZVI" firstAttribute="top" secondItem="ig8-0R-DNg" secondAttribute="top" constant="12" id="QnF-cF-5QH"/>
                             <constraint firstItem="HdU-6c-QMj" firstAttribute="top" secondItem="sOs-VZ-TJH" secondAttribute="bottom" constant="8" id="VAm-pr-bVO"/>
                             <constraint firstItem="N3r-PU-ZVI" firstAttribute="leading" secondItem="ig8-0R-DNg" secondAttribute="leading" constant="12" id="d9b-0G-x3n"/>
-                            <constraint firstItem="fGA-Ws-cR8" firstAttribute="leading" secondItem="ig8-0R-DNg" secondAttribute="leading" constant="16" id="el3-xG-cCe"/>
+                            <constraint firstItem="fGA-Ws-cR8" firstAttribute="leading" secondItem="ig8-0R-DNg" secondAttribute="leading" constant="18" id="el3-xG-cCe"/>
                             <constraint firstItem="Vd9-VL-OXZ" firstAttribute="leading" secondItem="fGA-Ws-cR8" secondAttribute="trailing" constant="8" id="lvN-Ak-RtH"/>
-                            <constraint firstItem="sOs-VZ-TJH" firstAttribute="leading" secondItem="N3r-PU-ZVI" secondAttribute="trailing" constant="10" id="mhN-du-ZOb"/>
-                            <constraint firstItem="Vd9-VL-OXZ" firstAttribute="top" secondItem="HdU-6c-QMj" secondAttribute="bottom" constant="8" id="rAO-A2-CeK"/>
+                            <constraint firstItem="sOs-VZ-TJH" firstAttribute="leading" secondItem="N3r-PU-ZVI" secondAttribute="trailing" constant="6" id="mhN-du-ZOb"/>
                             <constraint firstAttribute="trailing" secondItem="Vd9-VL-OXZ" secondAttribute="trailing" constant="8" id="rUZ-pX-3WM"/>
                             <constraint firstAttribute="trailing" secondItem="HdU-6c-QMj" secondAttribute="trailing" constant="8" id="sVj-gO-Bqx"/>
+                            <constraint firstItem="Vd9-VL-OXZ" firstAttribute="top" secondItem="fGA-Ws-cR8" secondAttribute="top" id="xww-ae-Swk"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -110,19 +108,16 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="calendar-3 (2)" width="100" height="100"/>
-        <image name="ic_document" width="24" height="24"/>
-        <namedColor name="headerGreen">
-            <color red="0.093999996781349182" green="0.34099999070167542" blue="0.22699999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
+        <image name="award-trophy" width="200" height="200"/>
+        <image name="calendar-3 (2)" width="15" height="15"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray4Color">
-            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

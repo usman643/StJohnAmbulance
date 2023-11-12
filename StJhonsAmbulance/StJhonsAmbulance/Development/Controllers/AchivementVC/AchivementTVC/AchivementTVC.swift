@@ -28,18 +28,18 @@ class AchivementTVC: UITableViewCell {
     }
     func decorateUI(){
         mainView.layer.borderWidth = 0.5
-        mainView.layer.borderColor = UIColor.systemGray3.cgColor
-        mainView.layer.shadowColor = UIColor.systemGray4.cgColor
-        mainView.layer.shadowOpacity = 0.5
+        mainView.layer.borderColor = UIColor.systemGray5.cgColor
+        mainView.layer.shadowColor = UIColor.systemGray2.cgColor
+        mainView.layer.shadowOpacity = 0.4
         mainView.layer.shadowOffset = .zero
-        mainView.layer.shadowRadius = 6
+        mainView.layer.shadowRadius = 8
         
         mainView.layer.cornerRadius = 8
         
-        lblName.textColor = UIColor.themeBlackText
-        lblName.font = UIFont.BoldFont(16)
-        lblDate.textColor = UIColor.themeBlackText
-        lblDate.font = UIFont.BoldFont(12)
+        lblName.textColor = UIColor.headerGreen
+        lblName.font = UIFont.HeaderBlackFont(16)
+        lblDate.textColor = UIColor.textDarkGreenWhite
+        lblDate.font = UIFont.BoldFont(13)
         
         
     }

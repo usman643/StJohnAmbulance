@@ -33,6 +33,7 @@ class DashboardVC: ENTALDBaseViewController{
     var isLoadMoreShow = true
     var isfirstChuck = true
     var isAvailableAPINeedCall = true;
+    let refreshControl = UIRefreshControl()
     
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -60,10 +61,10 @@ class DashboardVC: ENTALDBaseViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
-        decorateUI()
+        setupData()
+//        decorateUI()
         getGroups()
-        setupContent()
+//        setupContent()
         //        getVolunteerAward()
         setupTableView()
 //        setupCollectionView()
@@ -93,6 +94,8 @@ class DashboardVC: ENTALDBaseViewController{
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false // or true
+        decorateUI()
+        setupData()
         
     }
     
@@ -103,14 +106,16 @@ class DashboardVC: ENTALDBaseViewController{
     
     func decorateUI(){
         lblTitle.font = UIFont.HeaderBoldFont(18)
-        lblTitle.textColor = UIColor.headerGreen
-        lblIncomingTitle.font = UIFont.HeaderBoldFont(14)
-        lblIncomingTitle.textColor = UIColor.themeBlackText
-        lblName.font = UIFont.BoldFont(14)
-        lblName.textColor = UIColor.headerGreen
-        lblDesc.font = UIFont.MediumFont(13)
+        lblTitle.textColor = UIColor.color234135
+        lblIncomingTitle.font = UIFont.HeaderBoldFont(13)
+        lblIncomingTitle.textColor = UIColor.textDarkGreenWhite
+        lblName.font = UIFont.BoldFont(13)
+        lblName.textColor = UIColor.color234135
+        lblDesc.font = UIFont.BoldFont(14)
+        lblDesc.textColor = UIColor.color2D3934
         profileImg.layer.cornerRadius = profileImg.frame.size.height/2
-        headerView.dropShadow(color: UIColor.blue, opacity: 1.0, offSet: .zero, radius: 0, scale: true)
+//        headerView.dropShadow(color: UIColor.blue, opacity: 1.0, offSet: .zero, radius: 0, scale: true)
+        headerView.addBottomShadow()
         emptyView.isHidden = true
         btnMessage.setImage(ProcessUtils.shared.getMessageImage(), for: .normal)
         
@@ -122,12 +127,16 @@ class DashboardVC: ENTALDBaseViewController{
         loadMoreView.isHidden = true
     }
     
-    func setupContent(){
-        
-//        let date = DateFormatManager.shared.formatDateStrToStr(date: UserDefaults.standard.userInfo?.sjavms_activedate ?? "", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy")
-//        let hours = String(format: "%.2f", UserDefaults.standard.userInfo?.msnfp_totalengagementhours ?? 0)
-        lblName.text = "Welcome \(UserDefaults.standard.userInfo?.fullname ?? "")."
+    func setupData(){
+        lblTitle.text = "Home".localized
+        emptyViewMsg.text = "You have no Upcoming Event".localized
+        lblEmptybtn.text = "Events".localized
+        lblIncomingTitle.text = "Upcoming Events".localized
+        lblDesc.text = "Are you ready to make an impact?".localized
+        var welcomeStr = "Welcome".localized
+        lblName.text = "\(welcomeStr) \(UserDefaults.standard.userInfo?.fullname ?? "")."
         profileImg.image = ProcessUtils.shared.convertBase64StringToImage(imageBase64String: UserDefaults.standard.userInfo?.entityimage ?? "") ?? UIImage(named: "ic_profile")
+        
     }
     
 //    private func setupCollectionView(){
@@ -141,11 +150,21 @@ class DashboardVC: ENTALDBaseViewController{
 //    }
     
     private func setupTableView(){
-        
+        tableView.refreshControl = refreshControl
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "VolunteerIncomingCell", bundle: nil), forCellReuseIdentifier: "VolunteerIncomingCell")
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
     }
+    
+    @objc func refreshData() {
+        self.isAvailableAPINeedCall = false
+        self.isfirstChuck = true
+        self.getAvailableInfo()
+        self.refreshControl.endRefreshing()
+//        })
+           
+        }
     
     @IBAction func eventLoadMoreTapped(_ sender: Any) {
      
@@ -261,74 +280,86 @@ class DashboardVC: ENTALDBaseViewController{
     // ==================  API  =====================
     
     func getAvailableInfo(){
-        
-        self.availableData = [AvailableEventModel]()
-        self.filterAvailableData = [AvailableEventModel]()
-
-        var propertyValues = ""
-        
-        let chunkSize = 3 // Set the desired chunk size
-
-        for startIndex in stride(from: 0, to: ProcessUtils.shared.allGroupsList.count, by: chunkSize) {
-            propertyValues = ""
-            self.isfirstChuck = false
-            let endIndex = min(startIndex + chunkSize, ProcessUtils.shared.allGroupsList.count)
-            
-            
-            let chunk = Array(ProcessUtils.shared.allGroupsList[startIndex..<endIndex])
-            
-            for i in (0 ..< (chunk.count )){
-                var str = ""
-                
-                if let groupid_value = chunk[i]._sjavms_groupid_value {
-                    
-                    if ( i == (chunk.count) - 1){
-                        str = "'{\(groupid_value)}'"
-                    }else{
-                        str = "'{\(groupid_value)}',"
-                    }
-                    propertyValues += str
-                }
-            }
-            let params : [String:Any] = [
-                
-                ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_endingdate,msnfp_startingdate,msnfp_engagementopportunityid,_sjavms_program_value,msnfp_location,msnfp_maximum,msnfp_minimum,msnfp_multipledays,msnfp_shortdescription",
-                ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(propertyValues)])))",
-                
-                ParameterKeys.filter : "(Microsoft.Dynamics.CRM.In(PropertyName='statuscode',PropertyValues=['1','802280000']) and sjavms_adhocevent ne true and msnfp_engagementopportunitystatus eq 844060002 and (Microsoft.Dynamics.CRM.Today(PropertyName='msnfp_endingdate') or Microsoft.Dynamics.CRM.NextXYears(PropertyName='msnfp_endingdate',PropertyValue=10))) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(propertyValues)]))))",
-                ParameterKeys.orderby : "msnfp_startingdate asc"
-            ]
-            
-            self.getAvailalbeInfoData(params: params)
-        }
-        
-    }
-    
-    fileprivate func getAvailalbeInfoData(params : [String:Any]){
         DispatchQueue.main.async {
             LoadingView.show()
         }
+        self.availableData = [AvailableEventModel]()
+        self.filterAvailableData = [AvailableEventModel]()
+        
+        var propertyValues = ""
+        
+        let chunkSize = 3 // Set the desired chunk size
+        let dispatchQueue = DispatchQueue(label: "myQueu", qos: .background)
+        //Create a semaphore
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        dispatchQueue.async {
+            for startIndex in stride(from: 0, to: ProcessUtils.shared.allGroupsList.count, by: chunkSize) {
+                propertyValues = ""
+                self.isfirstChuck = false
+                let endIndex = min(startIndex + chunkSize, ProcessUtils.shared.allGroupsList.count)
+                
+                
+                let chunk = Array(ProcessUtils.shared.allGroupsList[startIndex..<endIndex])
+                
+                for i in (0 ..< (chunk.count )){
+                    var str = ""
+                    
+                    if let groupid_value = chunk[i]._sjavms_groupid_value {
+                        
+                        if ( i == (chunk.count) - 1){
+                            str = "'{\(groupid_value)}'"
+                        }else{
+                            str = "'{\(groupid_value)}',"
+                        }
+                        propertyValues += str
+                    }
+                }
+                let params : [String:Any] = [
+                    
+                    ParameterKeys.select : "msnfp_engagementopportunitytitle,msnfp_engagementopportunitystatus,msnfp_endingdate,msnfp_startingdate,msnfp_engagementopportunityid,_sjavms_program_value,msnfp_location,msnfp_maximum,msnfp_minimum,msnfp_multipledays,msnfp_shortdescription",
+                    ParameterKeys.expand : "sjavms_msnfp_engagementopportunity_msnfp_group($filter=(Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(propertyValues)])))",
+                    
+                    ParameterKeys.filter : "(Microsoft.Dynamics.CRM.In(PropertyName='statuscode',PropertyValues=['1','802280000']) and sjavms_adhocevent ne true and msnfp_engagementopportunitystatus eq 844060002 and (Microsoft.Dynamics.CRM.Today(PropertyName='msnfp_endingdate') or Microsoft.Dynamics.CRM.NextXYears(PropertyName='msnfp_endingdate',PropertyValue=10))) and (sjavms_msnfp_engagementopportunity_msnfp_group/any(o1:(o1/Microsoft.Dynamics.CRM.In(PropertyName='msnfp_groupid',PropertyValues=[\(propertyValues)]))))",
+                    ParameterKeys.orderby : "msnfp_startingdate asc"
+                ]
+                
+                self.getAvailalbeInfoData(params: params) { model in
+                    
+                    semaphore.signal()
+                }
+                semaphore.wait()
+            }
+            
+        }
+        DispatchQueue.main.async {
+            LoadingView.hide()
+        }
+    }
+    
+    fileprivate func getAvailalbeInfoData(params : [String:Any], completion:@escaping((_ model : Bool?) -> Void )){
+//        DispatchQueue.main.async {
+//            LoadingView.show()
+//        }
         
         ENTALDLibraryAPI.shared.requestVolunteerAvailableEventTwo(params: params){ result in
-            DispatchQueue.main.async {
-                LoadingView.hide()
-            }
+//            DispatchQueue.main.async {
+//                LoadingView.hide()
+//            }
             
             switch result{
             case .success(value: let response):
                 DispatchQueue.main.async {
                     if let availableEvent = response.value {
                         self.availableData?.append(contentsOf: availableEvent)
-                        self.filterAvailableData?.append(contentsOf: availableEvent)
+//                        self.filterAvailableData?.append(contentsOf: availableEvent)
 //                        self.availableData = availableEvent
 //                        self.filterAvailableData = availableEvent
                         
                         if var unwrappedData = self.availableData {
                             var uniqueArray: [AvailableEventModel] = []
-                            
                             // A set to keep track of seen IDs
                             var seenIDs = Set<String>()
-                            
                             for item in unwrappedData {
                                 if !seenIDs.contains(item.msnfp_engagementopportunityid ?? "") {
                                     uniqueArray.append(item)
@@ -378,8 +409,9 @@ class DashboardVC: ENTALDBaseViewController{
                 }
                
                 
-                
+                completion(true)
             case .error(let error, let errorResponse):
+                completion(false)
                 var message = error.message
                 if let err = errorResponse {
                     message = err.error
@@ -926,7 +958,7 @@ extension DashboardVC : UITableViewDelegate,UITableViewDataSource{
 //                        }
                     }
 //                    self.getLatestIncomingEvent()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
                         self.getAvailableInfo()
                     })
                 }

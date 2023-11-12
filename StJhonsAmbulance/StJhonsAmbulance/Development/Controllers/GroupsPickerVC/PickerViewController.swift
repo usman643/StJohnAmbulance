@@ -25,6 +25,7 @@ enum STPikerType {
     case therapyDogID
     case therapyDogFacility
     case locationType
+    case shiftType
 
 }
 
@@ -98,6 +99,10 @@ class PickerViewController: ENTALDBaseViewController, UIPickerViewDelegate, UIPi
                 return model.map({$0.value })
             }
         case .locationType:
+            if let model = self.dataModel as? [Int:String] {
+                return model.map({$0.value })
+            }
+        case .shiftType:
             if let model = self.dataModel as? [Int:String] {
                 return model.map({$0.value })
             }
@@ -216,6 +221,11 @@ class PickerViewController: ENTALDBaseViewController, UIPickerViewDelegate, UIPi
         case .locationType:
             if let model = self.dataModel as? [Int:String] {
                 let key = model.filter({$0.value == selectedKey}).first?.key ?? NSNotFound
+                return key
+            }
+        case .shiftType:
+            if let model = self.dataModel as? [Int:String] {
+                let key = model.filter({$0.value == selectedKey}).first?.key ?? 335940000
                 return key
             }
         case .adhocHourEvent:
