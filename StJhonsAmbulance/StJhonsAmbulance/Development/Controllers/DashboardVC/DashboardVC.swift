@@ -280,9 +280,7 @@ class DashboardVC: ENTALDBaseViewController{
     // ==================  API  =====================
     
     func getAvailableInfo(){
-        DispatchQueue.main.async {
-            LoadingView.show()
-        }
+        
         self.availableData = [AvailableEventModel]()
         self.filterAvailableData = [AvailableEventModel]()
         
@@ -295,6 +293,9 @@ class DashboardVC: ENTALDBaseViewController{
         
         dispatchQueue.async {
             for startIndex in stride(from: 0, to: ProcessUtils.shared.allGroupsList.count, by: chunkSize) {
+                DispatchQueue.main.async {
+                    LoadingView.show()
+                }
                 propertyValues = ""
                 self.isfirstChuck = false
                 let endIndex = min(startIndex + chunkSize, ProcessUtils.shared.allGroupsList.count)
@@ -329,12 +330,13 @@ class DashboardVC: ENTALDBaseViewController{
                     semaphore.signal()
                 }
                 semaphore.wait()
+                DispatchQueue.main.async {
+                    LoadingView.hide()
+                }
             }
             
         }
-        DispatchQueue.main.async {
-            LoadingView.hide()
-        }
+        
     }
     
     fileprivate func getAvailalbeInfoData(params : [String:Any], completion:@escaping((_ model : Bool?) -> Void )){
