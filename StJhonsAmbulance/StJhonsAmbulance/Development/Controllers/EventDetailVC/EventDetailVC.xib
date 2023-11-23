@@ -42,7 +42,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSq-3G-vxA">
-                    <rect key="frame" x="0.0" y="125" width="393" height="727"/>
+                    <rect key="frame" x="0.0" y="133" width="393" height="719"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wrn-iK-as1">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="731"/>
@@ -365,7 +365,7 @@
                 <constraint firstAttribute="bottom" secondItem="lSq-3G-vxA" secondAttribute="bottom" id="BHJ-yJ-jGs"/>
                 <constraint firstItem="kwC-fg-Ogv" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Jgw-Qd-c5M"/>
                 <constraint firstItem="kwC-fg-Ogv" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="dzv-5i-bSc"/>
-                <constraint firstItem="lSq-3G-vxA" firstAttribute="top" secondItem="kwC-fg-Ogv" secondAttribute="bottom" constant="4" id="i3b-D0-39l"/>
+                <constraint firstItem="lSq-3G-vxA" firstAttribute="top" secondItem="kwC-fg-Ogv" secondAttribute="bottom" constant="12" id="i3b-D0-39l"/>
                 <constraint firstItem="Wrn-iK-as1" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="qPE-ee-mHw"/>
                 <constraint firstItem="lSq-3G-vxA" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="rKV-w6-E7D"/>
             </constraints>
@@ -373,7 +373,7 @@
         </view>
     </objects>
     <resources>
-        <image name="calendar-3 (2)" width="100" height="100"/>
+        <image name="calendar-3 (2)" width="15" height="15"/>
         <image name="chevron.backward" catalog="system" width="97" height="128"/>
         <image name="clock Bold" width="8" height="8"/>
         <image name="icPin" width="50" height="50"/>
@@ -381,16 +381,16 @@
         <image name="messages-bubble-square-text" width="200" height="200"/>
         <image name="presentation-audience" width="200" height="200"/>
         <namedColor name="PrimaryGreen">
-            <color red="0.0078431372549019607" green="0.30980392156862746" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.13725490196078433" green="0.25490196078431371" blue="0.20784313725490197" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="secondryGreen">
-            <color red="0.0" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.11764705882352941" green="0.30196078431372547" blue="0.17254901960784313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray4Color">
-            <color red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

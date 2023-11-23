@@ -72,7 +72,7 @@ class EventDetailVC: ENTALDBaseViewController , UITableViewDelegate, UITableView
 //    @IBOutlet weak var contactbtnView: UIView!
     var availableEvent: CurrentEventsModel?
     var scheduleEvent: ScheduleModelThree?
-    var pastEvent: CurrentEventsModel?
+    var pastEvent: VolunteerEventsModel?
     var latestEvent : LatestEventDataModel?
     var dashbaordEvent : AvailableEventModel?
     
@@ -256,22 +256,22 @@ class EventDetailVC: ENTALDBaseViewController , UITableViewDelegate, UITableView
         }else if ((pastEvent) != nil){
 //            self.checkInbtnView.isHidden = true
 //            self.contactbtnView.isHidden = true
-            let date = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.msnfp_startingdate ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d")
+            let date = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.sjavms_start ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "EEE, MMM d")
             
-            let startTime = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.msnfp_startingdate ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            let startTime = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.sjavms_start ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
-            let endTime = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.msnfp_endingdate ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
+            let endTime = DateFormatManager.shared.formatDateStrToStr(date: pastEvent?.sjavms_end ?? "Not Found", oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "hh:mm a")
             
-            lblEventName.text = pastEvent?.msnfp_engagementopportunitytitle?.uppercased() ?? "Not Found"
+            lblEventName.text = pastEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunitytitle?.uppercased() ?? "Not Found"
             lblDate.text = "Date: \(date)"
             lblShift.text = "Shift: \(startTime) - \(endTime)"
-            lblLocation.text = pastEvent?.msnfp_location ?? "Not Found"
+            lblLocation.text = pastEvent?.sjavms_VolunteerEvent?.msnfp_location ?? "Not Found"
 //            lblStatus.text = "Status: \(ProcessUtils.shared.getStatus(code: pastEvent?.msnfp_schedulestatus ?? 0) ?? "Not Found")"
             self.eventId =  ""
-            self.eventOpprtunityId =  pastEvent?.msnfp_engagementopportunityid ?? ""
+            self.eventOpprtunityId =  pastEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid ?? ""
             
             self.lblPrograme.text =  ""
-            if (pastEvent?.msnfp_engagementopportunityid == nil || pastEvent?.msnfp_engagementopportunityid == ""){
+            if (pastEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid == nil || pastEvent?.sjavms_VolunteerEvent?.msnfp_engagementopportunityid == ""){
 //                self.checkInbtnView.isHidden = true
             }
             
@@ -291,7 +291,7 @@ class EventDetailVC: ENTALDBaseViewController , UITableViewDelegate, UITableView
 //                contactbtnView.isHidden = true
             }
             
-            if(!DateFormatManager.shared.isDatePassed(date: self.pastEvent?.msnfp_startingdate ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")) {
+            if(!DateFormatManager.shared.isDatePassed(date: self.pastEvent?.sjavms_start ?? "", format: "yyyy-MM-dd'T'HH:mm:ss'Z'")) {
                 self.isCancelEvent = true
 //                self.btnCancel.isHidden = false
 //                self.btnCancel.setTitle("Cancel", for: .normal)
@@ -301,8 +301,8 @@ class EventDetailVC: ENTALDBaseViewController , UITableViewDelegate, UITableView
 //                self.btnCancel.setTitle("Close", for: .normal)
 
             }
-            self.lblDetail.text = self.pastEvent?.msnfp_description ?? "Detail"
-            self.lblDetailDesc.text = self.pastEvent?.msnfp_shortdescription ?? "..."
+            self.lblDetail.text =  "Detail"//self.pastEvent?.msnfp_description ?? "Detail"
+            self.lblDetailDesc.text =  "..." // self.pastEvent?.msnfp_shortdescription ?? "..."
             
         }else if((latestEvent) != nil){
             

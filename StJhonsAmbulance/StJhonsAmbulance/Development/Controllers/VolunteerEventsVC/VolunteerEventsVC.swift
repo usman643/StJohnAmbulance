@@ -28,7 +28,11 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     
     var isAvailabilityTableSearch = false
     var isScheduleTableSearch = false
-    var isPastTableSearch = false
+    var isPastTableSearch = false 
+    
+    var isAvailabilityTableShown = false
+    var isScheduleTableShown = false
+    var isPastTableShown = false
     
     
     var isAvailableEventFilterApplied = false
@@ -55,6 +59,7 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     
     var isAvailableAPINeedCall = true;
     var isfirstChuck = true
+    let refreshControl = UIRefreshControl()
     
     @IBOutlet weak var pastLoadMoreView: UIView!
     @IBOutlet weak var btnPastLoadMore: UIButton!    
@@ -156,6 +161,7 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         btnPastLoadMore.titleLabel?.font = UIFont.HeaderMediumFont(16)
         pastLoadMoreView.isHidden = true
         
+        isAvailabilityTableShown = true
         
         let originalImage = UIImage(named: "messages-bubble-square-text")!
         let tintedImage = ProcessUtils.shared.tintImage(originalImage)
@@ -175,15 +181,36 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         availableTable.delegate = self
         availableTable.dataSource = self
         availableTable.register(UINib(nibName: "VolunteersEventsTVC", bundle: nil), forCellReuseIdentifier: "VolunteersEventsTVC")
+        availableTable.refreshControl = refreshControl
         
         scheduleTable.delegate = self
         scheduleTable.dataSource = self
         scheduleTable.register(UINib(nibName: "VolunteersEventsTVC", bundle: nil), forCellReuseIdentifier: "VolunteersEventsTVC")
+        scheduleTable.refreshControl = refreshControl
         
         pastTable.delegate = self
         pastTable.dataSource = self
         pastTable.register(UINib(nibName: "VolunteersEventsTVC", bundle: nil), forCellReuseIdentifier: "VolunteersEventsTVC")
-
+        scheduleTable.refreshControl = refreshControl
+        
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+    }
+    
+    @objc func refreshData() {
+        
+        self.isfirstChuck = true
+        
+        if ( self.isAvailabilityTableSearch == true){
+            self.getAvailableInfo()
+        }else if (self.isScheduleTableSearch == true){
+            getScheduleInfo()
+        }else if (self.isPastTableSearch == true){
+            
+            getVolunteerPastEvent()
+        }
+        
+        self.refreshControl.endRefreshing()
+        
     }
     
     func openScheduleEventDetailScreen(rowModel: ScheduleModelThree?) {
@@ -278,6 +305,7 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
     
     func resetButtonView(){
 
+        
         self.availableView.isHidden = true
         self.scheduleView.isHidden = true
         self.pastView.isHidden = true
@@ -621,15 +649,15 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
         var propertyValues = ""
         
         let chunkSize = 3 // Set the desired chunk size
-        let dispatchQueue = DispatchQueue(label: "myQu", qos: .background)
-        //Create a semaphore
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        dispatchQueue.async {
+//        let dispatchQueue = DispatchQueue(label: "myQu", qos: .background)
+//        //Create a semaphore
+//        let semaphore = DispatchSemaphore(value: 0)
+//        
+//        dispatchQueue.async {
             for startIndex in stride(from: 0, to: ProcessUtils.shared.allGroupsList.count, by: chunkSize) {
-                DispatchQueue.main.async {
-                    LoadingView.show()
-                }
+//                DispatchQueue.main.async {
+//                    LoadingView.show()
+//                }
                 propertyValues = ""
                 self.isfirstChuck = false
                 let endIndex = min(startIndex + chunkSize, ProcessUtils.shared.allGroupsList.count)
@@ -659,19 +687,16 @@ class VolunteerEventsVC: ENTALDBaseViewController,VolunteerEventDetailDelegate {
                     ParameterKeys.orderby : "msnfp_startingdate asc"
                 ]
                 
-                self.getAvailalbeInfoData(params: params) { model in
-                    
-                    semaphore.signal()
-                }
-                semaphore.wait()
-                if startIndex + chunkSize >= ProcessUtils.shared.allGroupsList.count {
-                    DispatchQueue.main.async {
-                        LoadingView.hide()
-                    }
-                   }
+                self.getAvailalbeInfoData(params: params)
+//                semaphore.wait()
+//                if startIndex + chunkSize >= ProcessUtils.shared.allGroupsList.count {
+//                    DispatchQueue.main.async {
+//                        LoadingView.hide()
+//                    }
+//                   }
             }
             
-        }
+//        }
         
     }
     

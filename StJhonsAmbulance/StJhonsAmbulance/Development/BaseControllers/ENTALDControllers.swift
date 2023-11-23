@@ -266,7 +266,7 @@ class ENTALDControllers {
         }else if (eventName == "scheduleEvent"){
             vc.scheduleEvent = data as? ScheduleModelThree
         }else if (eventName == "pastEvent"){
-            vc.pastEvent = data as? CurrentEventsModel
+            vc.pastEvent = data as? VolunteerEventsModel
         }else if (eventName == "latestEvent"){
             vc.latestEvent = data as? LatestEventDataModel
         }else if (eventName == "dashboardEvent"){
